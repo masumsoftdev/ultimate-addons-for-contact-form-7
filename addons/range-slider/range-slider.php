@@ -64,17 +64,26 @@ class UACF7_range_Slider {
         ob_start();
 
         if ( $handle == 1 ) {
+            echo '<div class="'. esc_attr( $tag->name ) .'">';
             if( $show_value == 'on'){
                 ?>
                 <label class="uacf7-slider-label">( Min: <?php echo esc_html( $min ); ?> Max: <?php echo esc_html( $max ) ?>)</label>
             <?php
             }
             ?>
-                <span id="uacf7-value"></span>
+                <span class="<?php echo esc_attr( $tag->name ) . '-value'; ?> uacf7-value"></span>
                 <span class="wpcf7-form-control-wrap uacf7-slidecontainer uacf7-slider-handle" data-handle="<?php echo esc_attr( $handle ); ?>" data-min="<?php echo esc_attr( $min ); ?>" data-max="<?php echo esc_attr( $max ); ?>" data-default="<?php echo esc_attr( $default ); ?>">
-                    <input name="<?php echo esc_attr( $tag->name ); ?>" type="range" min="<?php echo esc_attr( $min ); ?>" max="<?php echo esc_attr( $max ); ?>" value="<?php echo esc_attr( $default ); ?>" class="uacf7-slider" id="uacf7-range">
+                    <input name="<?php echo esc_attr( $tag->name ); ?>" type="range" min="<?php echo esc_attr( $min ); ?>" max="<?php echo esc_attr( $max ); ?>" value="<?php echo esc_attr( $default ); ?>" class="uacf7-slider uacf7-range">
                 </span>  
+                </div>
+                <script>
 
+                    document.querySelector(".<?php echo $tag->name . '-value'; ?>").innerHTML = document.querySelector(".<?php echo $tag->name ; ?> .uacf7-range").value; // Display the default slider value
+                    // Update the current slider value (each time you drag the slider handle)
+                    document.querySelector(".<?php echo $tag->name ; ?> .uacf7-range").oninput = function () {
+                        document.querySelector(".<?php echo $tag->name . '-value'; ?>").innerHTML = this.value;
+                    }  
+                </script>
                 <?php
         } elseif ( $handle == 2 ) {
             if( $show_value == 'on'){

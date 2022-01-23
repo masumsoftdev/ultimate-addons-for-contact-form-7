@@ -28,10 +28,10 @@
   background: #3498db;
   cursor: pointer;
 }
-span#uacf7-value {
+span.uacf7-value {
   float: right;
 }
-div#slider-range {
+div.slider-range {
   margin: 15px 0;
 }
 input[type="range"]{
