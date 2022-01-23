@@ -19,7 +19,8 @@ class UACF7_Redirection {
     public function enqueue_redirect_script() {
         wp_enqueue_script( 'uacf7-redirect-script', UACF7_URL . 'addons/redirection/js/redirect.js', array(), null, true );
 		wp_localize_script( 'uacf7-redirect-script', 'uacf7_redirect_object', $this->get_forms() );
-
+        wp_localize_script( 'uacf7-redirect-script', 'uacf7_redirect_enable', $this->uacf7_redirect_enable() );
+        
 		if ( isset( $this->enqueue_new_tab_script ) && $this->enqueue_new_tab_script ) {
 			wp_add_inline_script( 'wpcf7-redirect-script', 'window.open("' . $this->redirect_url . '");' );
 		}
@@ -120,43 +121,165 @@ class UACF7_Redirection {
           <?php
 			$options = $this->uacf7_get_options($post->id());
 			$uacf7_redirect_to_type = !empty($options['uacf7_redirect_to_type']) ? $options['uacf7_redirect_to_type'] : 'to_page';
+			$uacf7_redirect_enable = get_post_meta( $post->id(), 'uacf7_redirect_enable', true );
 			?>
-           <p>
-           	<label for="uacf7_redirect_to_page">
-           		<input class="uacf7_redirect_to_type" id="uacf7_redirect_to_page" name="uacf7_redirect[uacf7_redirect_to_type]" type="radio" value="to_page" <?php checked( 'to_page', $uacf7_redirect_to_type, true ); ?>> <?php echo esc_html__('Redirect to page'); ?>
+			
+			<p>
+           	<label for="uacf7_redirect_enable">
+           		<input class="uacf7_redirect_enable" id="uacf7_redirect_enable" name="uacf7_redirect_enable" type="checkbox" value="yes" <?php checked( 'yes', $uacf7_redirect_enable, true ); ?>> <?php echo esc_html__('Enable redirection'); ?>
            	</label><br>
-           	<label for="uacf7_redirect_to_url">
-           		<input class="uacf7_redirect_to_type" id="uacf7_redirect_to_url" name="uacf7_redirect[uacf7_redirect_to_type]" type="radio" value="to_url" <?php checked( 'to_url', $uacf7_redirect_to_type, true ); ?>> <?php echo esc_html__('Redirect to external URL'); ?>
-           	</label>
            </p>
-            <p class="uacf7_redirect_to_page">
-                <label for="uacf7-redirect-page">
-					<?php esc_html_e( 'Select a page to redirect', 'ultimate-addons-cf7' ); ?>   
-				</label><br>
-				<?php
-				$pages = get_posts(array(
-                            'post_type'        => 'page',
-                            'posts_per_page'   => -1,
-                            'post_status'      => 'published',
-                        ));
-				?>
-				<select name="uacf7_redirect[page_id]" id="uacf7-redirect-page">
-					<option value="0" <?php selected( 0, $options['page_id'] ); ?> >
-				<?php echo esc_html__( 'Choose Page', 'ultimate-addons-cf7' ); ?>
-					</option>
+           
+		   <div class="uacf7_default_redirect_wraper" style="margin: 20px;">
+               <p>
+               	<label for="uacf7_redirect_to_page">
+               		<input class="uacf7_redirect_to_type" id="uacf7_redirect_to_page" name="uacf7_redirect[uacf7_redirect_to_type]" type="radio" value="to_page" <?php checked( 'to_page', $uacf7_redirect_to_type, true ); ?>> <?php echo esc_html__('Redirect to page'); ?>
+               	</label><br>
+               	<label for="uacf7_redirect_to_url">
+               		<input class="uacf7_redirect_to_type" id="uacf7_redirect_to_url" name="uacf7_redirect[uacf7_redirect_to_type]" type="radio" value="to_url" <?php checked( 'to_url', $uacf7_redirect_to_type, true ); ?>> <?php echo esc_html__('Redirect to external URL'); ?>
+               	</label>
+               </p>
+                <p class="uacf7_redirect_to_page">
+                    <label for="uacf7-redirect-page">
+    					<?php esc_html_e( 'Select a page to redirect', 'ultimate-addons-cf7' ); ?>   
+    				</label><br>
+    				<?php
+    				$pages = get_posts(array(
+                                'post_type'        => 'page',
+                                'posts_per_page'   => -1,
+                                'post_status'      => 'published',
+                            ));
+    				?>
+    				<select name="uacf7_redirect[page_id]" id="uacf7-redirect-page">
+    					<option value="0" <?php selected( 0, $options['page_id'] ); ?> >
+    				<?php echo esc_html__( 'Choose Page', 'ultimate-addons-cf7' ); ?>
+    					</option>
+    
+    					<?php foreach ( $pages as $page ) : ?>
+    
+    						<option value="<?php echo esc_attr($page->ID); ?>" <?php selected( $page->ID, $options['page_id'] ); ?>>
+    							<?php echo esc_html($page->post_title); ?>
+    						</option>
+    
+    					<?php endforeach; ?>
+    				</select>
+                </p>
+                <p class="uacf7_redirect_to_url">
+                    <input type="url" id="uacf7-external-url" name="uacf7_redirect[external_url]" class="large-text" value="<?php echo esc_url($options['external_url']); ?>" placeholder="<?php echo esc_html__( 'Enter an external URL', 'ultimate-addons-cf7' ); ?>">
+                </p>
+            
+            </div>
+            
+            <?php ob_start(); ?>
+            
+            <!--Start Conditional redirect-->
+            <div class="uacf7_conditional_redirect_wraper" style="margin: 20px;">
+            	<div class="uacf7_conditional_redirect_add_btn">
+            		<a href="#" class="button-primary uacf7_cr_btn">+ Add Condition</a> <a style="color:red" target="_blank" href="https://cf7addons.com/">(Pro)</a>
+            		
+            		<!--Start New row-->
+            		<div style="display:none" class="uacf7_cr_copy">
+						<li class="uacf7_conditional_redirect_condition">
+							<span>If</span>
+							<span>
+								<select class="uacf7-field">
+									<?php
+									$all_fields = array();
+									$all_fields = $post->scan_form_tags();
+									?>
+									<option value=""><?php echo esc_html( '-- Select field --', 'ultimate-addons-cf7' ) ?></option>
+									<?php
+									foreach ($all_fields as $tag) {
+										if ($tag['name'] == '') continue;
+									?>
+									<?php 
+									if( $tag['type'] == 'checkbox' ) { 
 
-					<?php foreach ( $pages as $page ) : ?>
+										$tag_name = $tag['name'].'[]';
 
-						<option value="<?php echo esc_attr($page->ID); ?>" <?php selected( $page->ID, $options['page_id'] ); ?>>
-							<?php echo esc_html($page->post_title); ?>
-						</option>
+									}else {
 
-					<?php endforeach; ?>
-				</select>
+										$tag_name = $tag['name'];
+									}
+									?>
+									<option><?php echo esc_html($tag['name']); ?></option>
+
+									<?php
+									}
+									?>
+								</select>
+							</span>
+							<span> Value == </span>
+           					<span> <input type="text" placeholder="Value"> </span>
+							<span> Redirect to </span>
+           					<span><input type="text" placeholder="Redirect URL"></span>
+           					<spna><a href="#" class="uacf7_cr_remove_row">x</a></spna>
+						</li>
+            		</div>
+            		<!--End New row-->
+            		
+            	</div>
+            	
+            	<ul class="uacf7_conditional_redirect_conditions">
+            		<li class="uacf7_conditional_redirect_condition">
+            			<span>If</span>
+            			<span>
+            				<select class="uacf7-field">
+								<?php
+								$all_fields = array();
+								$all_fields = $post->scan_form_tags();
+								?>
+								<option value=""><?php echo esc_html( '-- Select field --', 'ultimate-addons-cf7' ) ?></option>
+								<?php
+								foreach ($all_fields as $tag) {
+									if ($tag['name'] == '') continue;
+								?>
+								<?php 
+								if( $tag['type'] == 'checkbox' ) { 
+
+									$tag_name = $tag['name'].'[]';
+
+								}else {
+
+									$tag_name = $tag['name'];
+								}
+								?>
+								<option><?php echo esc_html($tag['name']); ?></option>
+
+								<?php
+								}
+								?>
+                            </select>
+						</span>
+           				<span> Value == </span>
+           				<span> <input type="text" placeholder="Value"> </span>
+           				<span> Redirect to </span>
+           				<span><input type="text" placeholder="Redirect URL"></span>
+           				<spna><a href="#" class="uacf7_cr_remove_row">x</a></spna>
+            		</li>
+            	</ul>
+            	
+            </div>
+            <!--End Conditional redirect-->
+            
+            <?php 
+            
+            $uacf7_cr_pro_fields = ob_get_clean();
+            
+            echo apply_filters( 'uacf7_cr_pro_fields', $uacf7_cr_pro_fields, $post );
+            ?>
+            
+            <?php ob_start(); ?>
+            <p>
+           	    <label for="uacf7_redirect_type">
+           		    <input class="uacf7_redirect_type" id="uacf7_redirect_type" name="" type="checkbox" value="yes"> <?php echo esc_html__('Conditional Redirect'); ?>
+           	    </label> <a style="color:red" target="_blank" href="https://cf7addons.com/">(Pro)</a><br>
             </p>
-            <p class="uacf7_redirect_to_url">
-                <input type="url" id="uacf7-external-url" name="uacf7_redirect[external_url]" class="large-text" value="<?php echo esc_url($options['external_url']); ?>" placeholder="<?php echo esc_html__( 'Enter an external URL', 'ultimate-addons-cf7' ); ?>">
-            </p>
+            <?php 
+            $uacf7_redirect_type_html = ob_get_clean();
+            echo apply_filters( 'uacf7_redirect_type_field', $uacf7_redirect_type_html, $post );
+            ?>
+            
             <p>
                 <input id="uacf7_tab_target" type="checkbox" name="uacf7_redirect[target]" <?php checked( $options['target'], 'on', true ); ?>>
                 <label for="uacf7_tab_target"><?php echo esc_html__( 'Open page in a new tab', 'ultimate-addons-cf7' ); ?></label>
@@ -203,6 +326,8 @@ class UACF7_Redirection {
             return;
         }
         
+        update_post_meta( $post->id(), 'uacf7_redirect_enable', sanitize_text_field( $_POST['uacf7_redirect_enable'] ) );
+        
         $fields = $this->fields();
         $data = $_POST['uacf7_redirect'];
         
@@ -232,5 +357,41 @@ class UACF7_Redirection {
         }
         
     }
+    
+    /*
+    Enable conditional redirect
+    */
+    public function uacf7_redirect_enable() {
+    	$args  = array(
+    		'post_type'        => 'wpcf7_contact_form',
+    		'posts_per_page'   => -1,
+    	);
+    	$query = new WP_Query( $args );
+    
+    	$forms = array();
+    
+    	if ( $query->have_posts() ) :
+    
+    		while ( $query->have_posts() ) :
+    			$query->the_post();
+    
+                $post_id = get_the_ID();
+                
+                $uacf7_redirect = get_post_meta( get_the_ID(), 'uacf7_redirect_enable', true );
+                
+                if( !empty($uacf7_redirect) && $uacf7_redirect == 'yes' ) {
+                
+                    $forms[ $post_id ] = $uacf7_redirect;
+                
+                }
+        
+    		endwhile;
+    		wp_reset_postdata();
+    	endif;
+    
+    	return $forms;
+    }
 }
 new UACF7_Redirection();
+
+

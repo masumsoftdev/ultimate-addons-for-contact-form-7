@@ -172,7 +172,7 @@ class UACF7_Placeholder {
                 }
             </style>
             <?php
-            echo '<div class="uacf7-form-'.$cfform->id().'">'.$form.'</div>';
+            echo $form;
             $properties['form'] = ob_get_clean();
             
             endif;

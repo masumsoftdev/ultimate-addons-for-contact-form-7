@@ -34,7 +34,7 @@ function uacf7_multistep_pro_features_demo( $all_steps, $form_id ){
     $step_count = 1;
     foreach( $all_steps as $step ) {
         ?>
-        <h3><strong>Step <?php echo $step_count; ?> <a style="color:red" target="_blank" href="https://live.themefic.com/ultimate-cf7/pro">(Pro)</a></strong></h3>
+        <h3><strong>Step <?php echo $step_count; ?> <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a></strong></h3>
         <?php
         if( $step_count == 1 ){
             ?>
@@ -123,4 +123,69 @@ function uacf7_multistep_progressbar_style( $form_id ) {
     }
     </style>
     <?php
+}
+
+
+//Dispal repeater pro feature
+
+if( !function_exists('uacf7_tg_pane_repeater') ) {
+    add_action( 'admin_init', 'uacf7_repeater_pro_tag_generator' );
+}
+
+function uacf7_repeater_pro_tag_generator() {
+    if (! function_exists( 'wpcf7_add_tag_generator'))
+        return;
+
+    wpcf7_add_tag_generator('repeater',
+        __('Ultimate Repeater (pro)', 'ultimate-addons-cf7'),
+        'uacf7-tg-pane-repeater',
+        'uacf7_tg_pane_repeater_pro'
+    );
+
+}
+
+function uacf7_tg_pane_repeater_pro( $contact_form, $args = '' ) {
+    $args = wp_parse_args( $args, array() );
+    $uacf7_field_type = 'repeater';
+    ?>
+    <div class="control-box">
+        <fieldset>
+            <legend>
+                <?php echo esc_html__( "This is a pro feature of Ultimate Addons for contact form 7. You can add repeatable field and repeatable fields group with this addon.", "ultimate-addons-cf7" ); ?>
+                <a href="#">Buy Ultimate Repeater pro plugin</a>
+            </legend>
+            <table class="form-table">
+                <tbody>
+                    <tr>
+                        <th scope="row"><label for="<?php echo esc_attr( $args['content'] . '-name' ); ?>"><?php echo esc_html( __( 'Name', 'ultimate-addons-cf7' ) ); ?></label></th>
+                        <td><input type="text" name="name" class="tg-name oneline" id="<?php echo esc_attr( $args['content'] . '-name' ); ?>" /></td>
+                    </tr>
+                    <tr>
+                    	<th scope="row"><label for="tag-generator-panel-text-values">Add Button Text</label></th>
+                    	<td><input type="text" name="" class="tg-name oneline uarepeater-add" value="Add more" id="tag-generator-panel-uarepeater-nae"></td>
+                	</tr>
+                	<tr>
+                    	<th scope="row"><label for="tag-generator-panel-text-values-remove">Remove Button Text</label></th>
+                    	<td><input type="text" name="" class="tg-name oneline uarepeater-remove" value="Remove" id="tag-generator-panel-uarepeater-n"></td>
+                	</tr>
+                    
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+    <?php
+}
+
+//Add wrapper to contact form 7
+add_filter( 'wpcf7_contact_form_properties', 'uacf7_add_wrapper_to_cf7_form', 10, 2 );
+function uacf7_add_wrapper_to_cf7_form($properties, $cfform) {
+    if (!is_admin() || (defined('DOING_AJAX') && DOING_AJAX)) {
+    
+        $form = $properties['form'];
+        ob_start();
+        echo '<div class="uacf7-form-'.$cfform->id().'">'.$form.'</div>';
+        $properties['form'] = ob_get_clean();
+        
+    }
+	return $properties;
 }

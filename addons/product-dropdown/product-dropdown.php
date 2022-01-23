@@ -200,7 +200,7 @@ class UACF7_PRODUCT_DROPDOWN {
                         <?php ob_start(); ?>
                         <tr>
                             <th scope="row"></th>
-                            <td><label for="tag-generator-panel-select-multiple"><input id="tag-generator-panel-select-multiple" type="checkbox" disabled> Allow multiple selections <a style="color:red" target="_blank" href="https://live.themefic.com/ultimate-cf7/pro">(Pro)</a></label></td>
+                            <td><label for="tag-generator-panel-select-multiple"><input id="tag-generator-panel-select-multiple" type="checkbox" disabled> Allow multiple selections <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a></label></td>
                         </tr>
                         <?php $multiple_attr = ob_get_clean(); ?>
                         
@@ -233,7 +233,7 @@ class UACF7_PRODUCT_DROPDOWN {
                         <tr class="tag-generator-panel-product-id">
                             <th scope="row"><label for="tag-generator-panel-product-id">Product ID</label></th>
                             <td>
-                                <textarea class="values" name="" id="tag-generator-panel-product-id" cols="30" rows="10" disabled></textarea> One ID per line. <a style="color:red" target="_blank" href="https://live.themefic.com/ultimate-cf7/pro">(Pro)</a>
+                                <textarea class="values" name="" id="tag-generator-panel-product-id" cols="30" rows="10" disabled></textarea> One ID per line. <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a>
                             </td>
                         </tr>
                         <?php 
@@ -260,7 +260,7 @@ class UACF7_PRODUCT_DROPDOWN {
                                 foreach( $taxonomies as $category ) {
                                     $output.= '<option value="">'. esc_html( $category->name ) .'</option>';
                                 }
-                                $output.='</select> <a style="color:red" target="_blank" href="https://live.themefic.com/ultimate-cf7/pro">(Pro)</a>';
+                                $output.='</select> <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a>';
 
                                 echo $output;
 

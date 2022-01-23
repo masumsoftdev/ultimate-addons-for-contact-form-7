@@ -10,7 +10,10 @@ class UACF7_CF {
     * Construct function
     */
     public function __construct() {
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_cf_admin_script' ) );
+		global $pagenow;
+		if (( $pagenow == 'admin.php' ) && ($_GET['page'] == 'wpcf7')) {
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_cf_admin_script' ) );
+		}
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_cf_frontend_script' ) );
         add_action('wpcf7_init', array(__CLASS__, 'add_shortcodes'));
         add_action( 'admin_init', array( $this, 'tag_generator' ) );

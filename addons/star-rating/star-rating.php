@@ -194,17 +194,17 @@ class UACF7_STAR_RATING {
 							<br>
 							<label for="star1"><input id="star1" name="icon" class="option" type="radio" value="star1"> <?php echo esc_html('Star 1'); ?></label>
 							<label for="star2"><input id="star2" name="icon" class="option" type="radio" value="star2"> <?php echo esc_html('Star 2'); ?></label>
-							<label for=""><input id="" name="" class="" type="radio" value="" disabled> <?php echo esc_html('Heart'); ?> <a href="https://live.themefic.com/ultimate-cf7/star-rating/pro" style="color:red">(Pro)</a></label>
-							<label for=""><input id="" name="" class="" type="radio" value="" disabled> <?php echo esc_html('Thumbs Up'); ?> <a href="https://live.themefic.com/ultimate-cf7/star-rating/pro" style="color:red">(Pro)</a></label>
-							<label for=""><input id="" name="" class="" type="radio" value="" disabled> <?php echo esc_html('Smile'); ?> <a href="https://live.themefic.com/ultimate-cf7/star-rating/pro" style="color:red">(Pro)</a></label>
-							<label for=""><input id="" name="" class="" type="radio" value="" disabled> <?php echo esc_html('Ok'); ?> <a href="https://live.themefic.com/ultimate-cf7/star-rating/pro" style="color:red">(Pro)</a></label>
+							<label for=""><input id="" name="" class="" type="radio" value="" disabled> <?php echo esc_html('Heart'); ?> <a href="https://cf7addons.com/preview/star-rating/pro" style="color:red">(Pro)</a></label>
+							<label for=""><input id="" name="" class="" type="radio" value="" disabled> <?php echo esc_html('Thumbs Up'); ?> <a href="https://cf7addons.com/preview/star-rating/pro" style="color:red">(Pro)</a></label>
+							<label for=""><input id="" name="" class="" type="radio" value="" disabled> <?php echo esc_html('Smile'); ?> <a href="https://cf7addons.com/preview/star-rating/pro" style="color:red">(Pro)</a></label>
+							<label for=""><input id="" name="" class="" type="radio" value="" disabled> <?php echo esc_html('Ok'); ?> <a href="https://cf7addons.com/preview/star-rating/pro" style="color:red">(Pro)</a></label>
 							<br>
 							<br>
 							</td>
 						</tr>
 						<tr>
 							<th><label for="tag-generator-panel-text-star-class">Icon Class</label></th>
-							<td><input id="tag-generator-panel-text-star-class" type="text" placeholder="e.g: fa fa-star" disabled><a href="https://live.themefic.com/ultimate-cf7/star-rating/pro" style="color:red">(Pro)</a></td>
+							<td><input id="tag-generator-panel-text-star-class" type="text" placeholder="e.g: fa fa-star" disabled><a href="https://cf7addons.com/preview/star-rating/pro" style="color:red">(Pro)</a></td>
 						</tr>
 						<?php
 					    $icon_field = ob_get_clean();

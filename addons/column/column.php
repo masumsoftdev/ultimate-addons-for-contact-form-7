@@ -10,7 +10,10 @@ class UACF7_COLUMN {
     * Construct function
     */
     public function __construct() {
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_column_enqueue_script' ) );
+		global $pagenow;
+		if (( $pagenow == 'admin.php' ) && ($_GET['page'] == 'wpcf7')) {
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_column_enqueue_script' ) );
+		}
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_column_style' ) );
         add_action('wpcf7_init', array(__CLASS__, 'add_shortcodes'));
         add_action( 'admin_init', array( $this, 'tag_generator' ) );        
@@ -135,8 +138,19 @@ class UACF7_COLUMN {
 </pre>
                         	</td>
                         </tr>
+                        <tr style="display:inherit" class="column-pro-feature">
+							<th class="column-1">
+							Custom Column Width <span class="pro-link"><a style="color:red" href="#">(Pro)</a></span>
+							<a class="button uacf7-column-button uacf7-custom-column-insert"><?php echo esc_html__('Insert tag','ultimate-addons-cf7'); ?></a>
+							</th>
+							<td>
+								<span class="uacf7-custom-column"></span>
+								<span style="display:block"><button class="add-custom-column button-primary">+Add Column</button></span>
+							</td>
+						</tr>
                     </tbody>
                 </table>
+
             </fieldset>
         </div>
 
@@ -168,6 +182,7 @@ class UACF7_COLUMN {
                     
                     $tag_html_type = 'div';
                     $ucaf7_column_class = '';
+                    $uacf7_column_custom_width = '';
                     $col = '';
                     
                     foreach ($tag_parts as $i => $tag_part) {
@@ -183,11 +198,17 @@ class UACF7_COLUMN {
                         }
                         elseif($tag_part == 'col:3'){
                             $ucaf7_column_class = 'uacf7-col-3';
-                            
                         }
+						else {
+							$uacf7_column_custom_width = $tag_part;
+						}
+						
                     }
-                    
-                    echo '<div class="'.$ucaf7_column_class.'">';
+					
+                    $html = '<div class="'.$ucaf7_column_class.'">';
+					
+					echo apply_filters( 'uacf7_column_custom_width', $html, $ucaf7_column_class, $uacf7_column_custom_width );
+					
                 } else if ($form_part == '[/uacf7-col]') {
                     echo '</div>';
                 } else {

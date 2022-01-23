@@ -37,11 +37,16 @@ jQuery(document).ready(function () {
     function uacf7_step_validation($this) {
 
         var uacf7_current_step = jQuery($this).closest(uacf7_step);
-
-        var uacf7_current_step_fields = uacf7_current_step.find('.wpcf7-form-control').map(function () {
-            return this.name;
-        }).get();
-
+        
+        if( uacf7_current_step.find('.uacf7-hidden').length > 0 ) {
+            var uacf7_current_step_fields = uacf7_current_step.find('.wpcf7-form-control:not(.uacf7-hidden .wpcf7-form-control)').map(function () {
+                return this.name;
+            }).get();
+        }else {
+            var uacf7_current_step_fields = uacf7_current_step.find('.wpcf7-form-control').map(function () {
+                return this.name;
+            }).get();
+        }
         var uacf7_form_ids = '';
 
         var fields_to_check_serialized = jQuery(uacf7_current_step).find(".wpcf7-form-control").serialize();
@@ -107,6 +112,8 @@ jQuery(document).ready(function () {
                 } catch (e) {
                     console.log("error: " + e);
                 }
+                
+                multistep_scroll_to_top($this.parents('form'));
             },
             error: function () {
                 alert('Error');
@@ -120,6 +127,12 @@ jQuery(document).ready(function () {
         jQuery('.wpcf7-form-control', uacf7_current_step).removeClass('wpcf7-not-valid');
         jQuery('[aria-invalid]', uacf7_current_step).attr('aria-invalid', 'false');
         jQuery('.wpcf7-not-valid-tip', uacf7_current_step).remove();
-    };
+    }
+    
+    function multistep_scroll_to_top(element){
+        jQuery([document.documentElement, document.body]).animate({
+            scrollTop: jQuery(element).offset().top - 120
+        }, 500);
+    }
 
 });

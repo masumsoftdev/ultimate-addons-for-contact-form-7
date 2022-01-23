@@ -164,7 +164,7 @@ class UACF7_MULTISTEP {
                            <input id="uacf7_multistep_is_multistep" type="checkbox" name="uacf7_multistep_is_multistep" <?php checked( 'on', $uacf7_is_multistep ); ?>> Yes
                        </label>
                    </div>
-                   <?php if( empty(array_filter($all_steps)) ) return; ?>
+                   <?php if( !empty(array_filter($all_steps)) ) { ?>
                    
                    <div class="multistep_fields_row">
                        <h3>Multistep Progressbar</h3>
@@ -231,6 +231,7 @@ class UACF7_MULTISTEP {
                    
                    <?php                    
                     echo do_action( 'uacf7_multistep_pro_features', $all_steps, $post->id() );
+	}
                    ?>
                    
                </div>
@@ -295,7 +296,7 @@ class UACF7_MULTISTEP {
 
             $uacf7_multistep_is_multistep = get_post_meta( $cfform->id(), 'uacf7_multistep_is_multistep', true ); 
             
-            if( $uacf7_multistep_is_multistep == 'on' ) :
+            if( $uacf7_multistep_is_multistep == 'on' ) {
 			
 			ob_start();
 			
@@ -305,7 +306,7 @@ class UACF7_MULTISTEP {
 			
 			$uacf7_multistep_use_step_labels = !empty(get_post_meta( $cfform->id(), 'uacf7_multistep_use_step_labels', true )) ? get_post_meta( $cfform->id(), 'uacf7_multistep_use_step_labels', true ) : ''; 
 			
-            if( $uacf7_enable_multistep_progressbar != 'on' ) { 
+            if( $uacf7_enable_multistep_progressbar != 'on' ) {
                 ?>
                 <style>
                     .uacf7-steps.steps-form {
@@ -342,9 +343,15 @@ class UACF7_MULTISTEP {
                 </div>
             </div>
             <?php
-            echo $form;
-            $properties['form'] = ob_get_clean();
-            endif;
+            
+            $progressbar = ob_get_clean();
+            
+            
+            $properties['form'] = $progressbar.$form;
+            }else {
+                
+                $properties['form'] = $form;
+            }
         }
 
         return $properties;
@@ -371,10 +378,15 @@ class UACF7_MULTISTEP {
         );
 
         foreach ( $tags as $tag ) {
-            $type = $tag['type'];
+            $type = $tag->type;
             
-            if ( 'file*' === $type ) {
-				$fdir = $_REQUEST[$tag->name];
+            if ( 'file' != $type && 'file*' != $type ) {
+				
+                $result = apply_filters("wpcf7_validate_{$type}", $result, $tag);
+                
+			}elseif( 'file*' === $type ){
+			    
+			    $fdir = $_REQUEST[$tag->name];
 
 				if ( $fdir ) {
 					$_FILES[ $tag->name ] = array(
@@ -382,10 +394,25 @@ class UACF7_MULTISTEP {
 						'tmp_name' => $fdir,
 					);
 				}
+			    
+			    $file = $_FILES[$tag->name];
+			    //$file = $_REQUEST[$tag->name];
 
+    			$args = array(
+    				'tag' => $tag,
+    				'name' => $tag->name,
+    				'required' => $tag->is_required(),
+    				'filetypes' => $tag->get_option( 'filetypes' ),
+    				'limit' => $tag->get_limit_option(),
+    			);
+    
+    			$new_files = wpcf7_unship_uploaded_file( $file, $args );
+			    
+			    update_option('file_errors', $new_files);
+			    
+			    $result = apply_filters("wpcf7_validate_{$type}", $result, $tag, array( 'uploaded_files' => $new_files, ) );
+			    
 			}
-            
-            $result = apply_filters("wpcf7_validate_{$type}", $result, $tag);
             
         }
         
