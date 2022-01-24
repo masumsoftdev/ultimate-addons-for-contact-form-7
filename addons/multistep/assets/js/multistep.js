@@ -5,22 +5,25 @@ jQuery(document).ready(function () {
     var uacf7_prev = jQuery('.uacf7-prev');
     var total_steps = jQuery(uacf7_step).length;
     
-    $uacf7_sid = 1;
-    jQuery(uacf7_step).each(function () {
-        
-        jQuery(this).attr('id', 'step-' + $uacf7_sid);
-        
-        if( $uacf7_sid == 1 ) {
-            jQuery(this).addClass('step-start');
-        }
-        
-        if( total_steps == $uacf7_sid ) {
-            jQuery(this).addClass('step-end');
-        }
-        
-        $uacf7_sid++;
-        
-    });
+    jQuery('.wpcf7-form').each(function(){
+		var total_steps = jQuery(uacf7_step, this).length;
+		var uacf7_sid = 1;
+		jQuery(uacf7_step, this).each(function () {
+			var $this = jQuery(this);
+			$this.attr('id', 'step-' + uacf7_sid);
+
+			if( uacf7_sid == 1 ) {
+				$this.addClass('step-start');
+			}
+
+			if( total_steps == uacf7_sid ) {
+				$this.addClass('step-end');
+			}
+
+			uacf7_sid++;
+
+		});
+	});
 
     uacf7_prev.on('click', function (e) {
         e.preventDefault();

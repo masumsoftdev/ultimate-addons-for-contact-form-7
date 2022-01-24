@@ -231,7 +231,7 @@ class UACF7_MULTISTEP {
                    
                    <?php                    
                     echo do_action( 'uacf7_multistep_pro_features', $all_steps, $post->id() );
-	}
+	               }
                    ?>
                    
                </div>
