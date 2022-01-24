@@ -4,7 +4,7 @@ Tags: contact form 7, contact form 7 addons, contact form 7 addon, contact form 
 Requires at least: 4.2
 Tested up to: 5.8
 Requires PHP: 5.4
-Stable tag: 1.8.1
+Stable tag: 1.8.2
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -262,6 +262,11 @@ Just install our Plugin. It will only take 5 mins to create such a form.</a>.
 12. Multi-Step Form Backend (Pro)
 
 == Changelog ==
+
+= 1.8.2 - 14/1/2022 =
+
+– Fixed range slider issue
+- Fixed multistep next button issue
 
 = 1.8.1 - 7/1/2022 =
 
