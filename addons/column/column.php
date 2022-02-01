@@ -11,7 +11,7 @@ class UACF7_COLUMN {
     */
     public function __construct() {
 		global $pagenow;
-		if (( $pagenow == 'admin.php' ) && ($_GET['page'] == 'wpcf7')) {
+		if ( ($pagenow == 'admin.php') && ($_GET['page'] == 'wpcf7') || ($_GET['page'] == 'wpcf7-new') ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_column_enqueue_script' ) );
 		}
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_column_style' ) );

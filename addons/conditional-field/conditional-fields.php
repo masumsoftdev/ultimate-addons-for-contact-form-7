@@ -11,7 +11,7 @@ class UACF7_CF {
     */
     public function __construct() {
 		global $pagenow;
-		if (( $pagenow == 'admin.php' ) && ($_GET['page'] == 'wpcf7')) {
+		if ( ($pagenow == 'admin.php') && ($_GET['page'] == 'wpcf7') || ($_GET['page'] == 'wpcf7-new') ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_cf_admin_script' ) );
 		}
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_cf_frontend_script' ) );
