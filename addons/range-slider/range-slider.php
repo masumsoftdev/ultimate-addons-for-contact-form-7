@@ -359,7 +359,6 @@ class UACF7_range_Slider {
      * Admin enqueue scripts
      */
     public function uacf7_admin_enqueue_scripts() {
-        wp_enqueue_style( 'wp-color-picker' );
         wp_enqueue_style( 'range-slider-style', UACF7_URL . 'addons/range-slider/css/style.css' );
         wp_enqueue_script( 'uacf7-admin-slider-color', UACF7_URL . 'addons/range-slider/js/admin.js', array( 'jquery' ) );
     }

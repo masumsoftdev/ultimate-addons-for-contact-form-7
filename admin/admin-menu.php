@@ -203,7 +203,15 @@ class UACF7_Admin_Menu {
 			'ultimate-addons-admin', // page
 			'uacf7_setting_section_fields'
 		);
-                
+		
+		add_settings_field(
+			'uacf7_enable_country_dropdown_field', //id
+			__( 'Country Dropdown Field', 'ultimate-addons-cf7'), //title 
+			array( $this, 'uacf7_country_dropdown_callback'),
+			'ultimate-addons-admin', // page
+			'uacf7_setting_section_fields'
+		);
+        
         do_action( 'uacf7_settings_field' );
 	}
 
@@ -258,6 +266,10 @@ class UACF7_Admin_Menu {
         
         if ( isset( $input['uacf7_enable_repeater_field'] ) ) {
 			$sanitary_values['uacf7_enable_repeater_field'] = $input['uacf7_enable_repeater_field'];
+		}
+        
+        if ( isset( $input['uacf7_enable_country_dropdown_field'] ) ) {
+			$sanitary_values['uacf7_enable_country_dropdown_field'] = $input['uacf7_enable_country_dropdown_field'];
 		}
         
         return apply_filters( 'uacf7_save_admin_menu', $sanitary_values, $input );
@@ -385,7 +397,7 @@ class UACF7_Admin_Menu {
 	 */
 	public function uacf7_range_slider_callback(){
 		printf(
-			'<input type="checkbox" name="uacf7_option_name[uacf7_enable_range_slider]" id="uacf7_enable_range_slider" %s> <span class="uacf7-range-slider"></span>', uacf7_checked('uacf7_enable_range_slider')
+			'<input type="checkbox" name="uacf7_option_name[uacf7_enable_range_slider]" id="uacf7_enable_range_slider" %s>', uacf7_checked('uacf7_enable_range_slider')
 		);
 	}
 	
@@ -395,6 +407,15 @@ class UACF7_Admin_Menu {
 	public function uacf7_repeater_field_callback(){
 		printf(
 			'<input type="checkbox" name="uacf7_option_name[uacf7_enable_repeater_field]" id="uacf7_enable_repeater_field" %s> <span class="uacf7-repeater-field"><a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a></span>', uacf7_checked('uacf7_enable_repeater_field')
+		);
+	}
+	
+	/**
+	 * Field - Country dropdown
+	 */
+	public function uacf7_country_dropdown_callback(){
+		printf(
+			'<input type="checkbox" name="uacf7_option_name[uacf7_enable_country_dropdown_field]" id="uacf7_enable_country_dropdown_field" %s>', uacf7_checked('uacf7_enable_country_dropdown_field')
 		);
 	}
 

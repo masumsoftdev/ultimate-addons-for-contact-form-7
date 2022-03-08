@@ -15,7 +15,12 @@
 .uacf7-step span.uacf7-ajax-loader.is-active {
 	visibility: visible
 }
-
+.uacf7-step.step-content button.uacf7-next {
+	float: right;
+}
+.uacf7-step.step-content.step-start button.uacf7-next {
+    float: none;
+}
 .steps-form .steps-row {
     display: table-row;
 }
@@ -92,3 +97,51 @@
 .btn.btn-circle.uacf7-btn-default:not(.uacf7-btn-active) {
     /*pointer-events: none*/
 }
+
+.progressbar-style-1.steps-form .steps-row {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+}
+.progressbar-style-1.steps-form .steps-row .steps-step {
+	display: table-cell;
+	text-align: center;
+	position: relative;
+	flex-grow: 1;
+	flex-basis: 0;
+	border-right: 1px solid #fff;
+}
+.progressbar-style-1.steps-form .steps-row .steps-step:last-child {
+    border-right: 0
+}
+.progressbar-style-1.steps-form .steps-row .steps-step p {
+	margin-top: 0.5rem;
+	display: none;
+}
+.progressbar-style-1.steps-form .steps-row .steps-step .btn-circle {
+	width: 100%;
+	border-radius: 0px;
+}
+.progressbar-style-1 .uacf7-btn-default {
+	color: #444;
+	background-color: #ddd !important;
+}
+.progressbar-style-1.steps-form .steps-row .steps-step .btn-circle.uacf7-btn-active {
+	transform: inherit;
+	box-shadow: none
+}
+.progressbar-style-1.steps-form .steps-row .steps-step .btn-circle.uacf7-btn-active:hover {
+	box-shadow: none;
+	color: #fff
+}
+.progressbar-style-1.steps-form .steps-row .steps-step .btn-circle:hover, 
+.progressbar-style-1.steps-form .steps-row .steps-step .btn-circle:focus, 
+.progressbar-style-1.steps-form .steps-row .steps-step .btn-circle:active {
+	box-shadow: none;
+	color: #444;
+}
+.progressbar-style-1.steps-form .steps-row .steps-step .btn-circle img {
+	display: none;
+}
+

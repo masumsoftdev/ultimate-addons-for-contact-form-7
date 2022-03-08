@@ -1,4 +1,13 @@
-function uacf7_settings_tab(evt, cityName) {
+(function( $ ) {
+    $(function() {
+         
+        // Add Color Picker to all inputs that have 'color-field' class
+        $( '.uacf7-color-picker' ).wpColorPicker();
+         
+    });
+})( jQuery );
+
+function uacf7_settings_tab(evt, tabName) {
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("uacf7-tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
@@ -8,7 +17,7 @@ function uacf7_settings_tab(evt, cityName) {
   for (i = 0; i < tablinks.length; i++) {
     tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
-  document.getElementById(cityName).style.display = "block";
+  document.getElementById(tabName).style.display = "block";
   evt.currentTarget.className += " active";
 }
 
@@ -26,3 +35,36 @@ jQuery('.thickbox.button').each(function(){
 		jQuery(this).css({"backgroundColor": "#2ecc71", "color": "white"});
 	}
 });
+
+//Multistep script
+jQuery(document).ready(function(){
+    uacf7_progressbar_style();
+});
+jQuery('#uacf7_progressbar_style').on('change',function(){
+    uacf7_progressbar_style();
+});
+function uacf7_progressbar_style(){
+    if( jQuery('#uacf7_progressbar_style').val() == 'default' || jQuery('#uacf7_progressbar_style').val() == 'style-1' ){
+        jQuery('.multistep_field_column.show-if-pro').hide();
+    }else{
+        jQuery('.multistep_field_column.show-if-pro').show();
+    }
+    
+    if( jQuery('#uacf7_progressbar_style').val() == 'style-2' || jQuery('#uacf7_progressbar_style').val() == 'style-3' || jQuery('#uacf7_progressbar_style').val() == 'style-6' ){
+        jQuery('.multistep_field_column.show-if-left-progressbar').show();
+    }else{
+        jQuery('.multistep_field_column.show-if-left-progressbar').hide();
+    }
+    
+    if( jQuery('#uacf7_progressbar_style').val() == 'style-6' ){
+        jQuery('.multistep_field_column.show-if-style-6').show();
+    }else{
+        jQuery('.multistep_field_column.show-if-style-6').hide();
+    }
+    
+    if( jQuery('#uacf7_progressbar_style').val() == 'style-6' ){
+        jQuery('.step-title-description').show();
+    }else{
+        jQuery('.step-title-description').hide();
+    }
+}

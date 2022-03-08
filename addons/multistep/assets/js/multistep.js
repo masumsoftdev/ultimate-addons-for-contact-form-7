@@ -3,7 +3,6 @@ jQuery(document).ready(function () {
     var uacf7_step = '.uacf7-step';
     var uacf7_next = jQuery('.uacf7-next');
     var uacf7_prev = jQuery('.uacf7-prev');
-    var total_steps = jQuery(uacf7_step).length;
     
     jQuery('.wpcf7-form').each(function(){
 		var total_steps = jQuery(uacf7_step, this).length;
