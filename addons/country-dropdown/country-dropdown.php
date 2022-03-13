@@ -79,7 +79,7 @@ class UACF7_COUNTRY_DROPDOWN {
 		?>
 		<span id="uacf7_country_select" class="wpcf7-form-control-wrap <?php echo sanitize_html_class( $tag->name ); ?>">
 		
-			<input id="uacf7_countries_<?php echo esc_attr($tag->name); ?>" type="text" <?php echo $atts; ?> >
+			<input id="uacf7_countries_<?php echo esc_attr($tag->name); ?>" type="text" <?php echo $atts; ?> <?php echo do_action('uacf7_country_dropdown_atts', $tag); ?> >
 			<span><?php echo $validation_error; ?></span>
 		
 			<div style="display:none;">
@@ -153,18 +153,16 @@ class UACF7_COUNTRY_DROPDOWN {
                         </tr>
                         
                         <?php ob_start(); ?>
-                        <tr class="tag-generator-panel-country-id">
-                            <th scope="row"><label for="tag-generator-panel-country-id">country ID</label></th>
-                            <td>
-                                <textarea class="values" name="" id="tag-generator-panel-country-id" cols="30" rows="10" disabled></textarea> One ID per line. <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a>
-                            </td>
+                        <tr>
+                            <th scope="row"><label><?php echo esc_html( __( 'Auto complete', 'ultimate-addons-cf7' ) ); ?> <a style="color:red" target="_blank" href="https://cf7addons.com/">(Pro)</a></label></th>
+                            <td><input disabled type="checkbox" class="option"> Auto complete country using user's network IP.</td>
                         </tr>
                         <?php 
-                        $country_id_html = ob_get_clean(); 
+                        $autocomplete_html = ob_get_clean(); 
                         /*
-                        * Tag generator field after name attribute.
+                        * Tag generator field: auto complete
                         */
-                        //echo apply_filters('uacf7_tag_generator_country_id_field',$country_id_html);
+                        echo apply_filters('uacf7_tag_generator_country_autocomplete_field',$autocomplete_html);
                         ?>
                         
                         <tr>
@@ -174,6 +172,7 @@ class UACF7_COUNTRY_DROPDOWN {
                     </tbody>
                 </table>
             </fieldset>
+            <p class="geo-pro-notice" style="color:green">Use our pro plugin <strong><a href="#">UACF7 Addons - IP Geolocation</a></strong> to make autocomplete country, city, state and zip code field based on user IP address.</p>
         </div>
 
         <div class="insert-box">
