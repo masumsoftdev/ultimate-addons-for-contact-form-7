@@ -81,7 +81,7 @@ class UACF7_Admin_Menu {
 
 		add_settings_section(
 			'uacf7_setting_section', // id
-			__( 'Addons Settings:', 'ultimate-addons-cf7' ), // title
+			__( 'Addons:', 'ultimate-addons-cf7' ), // title
 			array( $this, 'uacf7_section_info' ), // callback
 			'ultimate-addons-admin' // page
 		);
@@ -295,14 +295,14 @@ class UACF7_Admin_Menu {
     * Section- Extra fields
     */
     public function uacf7_setting_section_fields_callback() {
-		echo '<h3>Extra Fields</h3>';
+		echo '<h2>Extra Fields:</h2>';
 	}
     
     /*
     * Section- WooCommerce Integration
     */
     public function uacf7_setting_section_woo_callback() {
-		echo '<h3>WooCommerce Integration</h3>';
+		echo '<h2>WooCommerce Integration:</h2>';
 	}
     
     /*
@@ -436,7 +436,7 @@ class UACF7_Admin_Menu {
 	 */
 	public function uacf7_ip_geo_callback(){
 		printf(
-			'<input type="checkbox" name="uacf7_option_name[uacf7_enable_ip_geo_fields]" id="uacf7_enable_ip_geo_fields" %s>', uacf7_checked('uacf7_enable_ip_geo_fields')
+			'<input type="checkbox" name="uacf7_option_name[uacf7_enable_ip_geo_fields]" id="uacf7_enable_ip_geo_fields" %s> <span class="uacf7-ip-get-field"><a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a></span>', uacf7_checked('uacf7_enable_ip_geo_fields')
 		);
 	}
 
