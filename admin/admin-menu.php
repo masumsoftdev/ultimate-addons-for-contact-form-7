@@ -211,6 +211,14 @@ class UACF7_Admin_Menu {
 			'ultimate-addons-admin', // page
 			'uacf7_setting_section_fields'
 		);
+		
+		add_settings_field(
+			'uacf7_enable_ip_geo_fields', //id
+			__( 'IP Geo Fields(Autocomplete Country, City, State, Zip Fields)', 'ultimate-addons-cf7'), //title 
+			array( $this, 'uacf7_ip_geo_callback'),
+			'ultimate-addons-admin', // page
+			'uacf7_setting_section_fields'
+		);
         
         do_action( 'uacf7_settings_field' );
 	}
@@ -270,6 +278,10 @@ class UACF7_Admin_Menu {
         
         if ( isset( $input['uacf7_enable_country_dropdown_field'] ) ) {
 			$sanitary_values['uacf7_enable_country_dropdown_field'] = $input['uacf7_enable_country_dropdown_field'];
+		}
+        
+        if ( isset( $input['uacf7_enable_ip_geo_fields'] ) ) {
+			$sanitary_values['uacf7_enable_ip_geo_fields'] = $input['uacf7_enable_ip_geo_fields'];
 		}
         
         return apply_filters( 'uacf7_save_admin_menu', $sanitary_values, $input );
@@ -416,6 +428,15 @@ class UACF7_Admin_Menu {
 	public function uacf7_country_dropdown_callback(){
 		printf(
 			'<input type="checkbox" name="uacf7_option_name[uacf7_enable_country_dropdown_field]" id="uacf7_enable_country_dropdown_field" %s>', uacf7_checked('uacf7_enable_country_dropdown_field')
+		);
+	}
+	
+	/**
+	 * Field - IP Geo
+	 */
+	public function uacf7_ip_geo_callback(){
+		printf(
+			'<input type="checkbox" name="uacf7_option_name[uacf7_enable_ip_geo_fields]" id="uacf7_enable_ip_geo_fields" %s>', uacf7_checked('uacf7_enable_ip_geo_fields')
 		);
 	}
 
