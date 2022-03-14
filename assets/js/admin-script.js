@@ -26,13 +26,13 @@ jQuery('.thickbox.button').each(function(){
 	var str = jQuery(this).attr('href');
 
 	if (str.indexOf("uacf7") >= 0){
-		jQuery(this).css({"backgroundColor": "#2ecc71", "color": "white"});
+		jQuery(this).css({"backgroundColor": "#487eb0", "color": "white", "border-color": "#487eb0"});
 	}
 	if (str.indexOf("uarepeater") >= 0){
-		jQuery(this).css({"backgroundColor": "#2ecc71", "color": "white"});
+		jQuery(this).css({"backgroundColor": "#487eb0", "color": "white", "border-color": "#487eb0"});
 	}
 	if (str.indexOf("conditional") >= 0){
-		jQuery(this).css({"backgroundColor": "#2ecc71", "color": "white"});
+		jQuery(this).css({"backgroundColor": "#487eb0", "color": "white", "border-color": "#487eb0"});
 	}
 });
 

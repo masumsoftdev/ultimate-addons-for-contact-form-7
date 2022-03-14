@@ -81,7 +81,7 @@ class UACF7_Admin_Menu {
 
 		add_settings_section(
 			'uacf7_setting_section', // id
-			__( 'Addons Settings:', 'ultimate-addons-cf7' ), // title
+			__( 'Addons:', 'ultimate-addons-cf7' ), // title
 			array( $this, 'uacf7_section_info' ), // callback
 			'ultimate-addons-admin' // page
 		);
@@ -211,6 +211,14 @@ class UACF7_Admin_Menu {
 			'ultimate-addons-admin', // page
 			'uacf7_setting_section_fields'
 		);
+		
+		add_settings_field(
+			'uacf7_enable_ip_geo_fields', //id
+			__( 'IP Geo Fields(Autocomplete Country, City, State, Zip Fields)', 'ultimate-addons-cf7'), //title 
+			array( $this, 'uacf7_ip_geo_callback'),
+			'ultimate-addons-admin', // page
+			'uacf7_setting_section_fields'
+		);
         
         do_action( 'uacf7_settings_field' );
 	}
@@ -272,6 +280,10 @@ class UACF7_Admin_Menu {
 			$sanitary_values['uacf7_enable_country_dropdown_field'] = $input['uacf7_enable_country_dropdown_field'];
 		}
         
+        if ( isset( $input['uacf7_enable_ip_geo_fields'] ) ) {
+			$sanitary_values['uacf7_enable_ip_geo_fields'] = $input['uacf7_enable_ip_geo_fields'];
+		}
+        
         return apply_filters( 'uacf7_save_admin_menu', $sanitary_values, $input );
 	}
     
@@ -283,14 +295,14 @@ class UACF7_Admin_Menu {
     * Section- Extra fields
     */
     public function uacf7_setting_section_fields_callback() {
-		echo '<h3>Extra Fields</h3>';
+		echo '<h2>Extra Fields:</h2>';
 	}
     
     /*
     * Section- WooCommerce Integration
     */
     public function uacf7_setting_section_woo_callback() {
-		echo '<h3>WooCommerce Integration</h3>';
+		echo '<h2>WooCommerce Integration:</h2>';
 	}
     
     /*
@@ -416,6 +428,15 @@ class UACF7_Admin_Menu {
 	public function uacf7_country_dropdown_callback(){
 		printf(
 			'<input type="checkbox" name="uacf7_option_name[uacf7_enable_country_dropdown_field]" id="uacf7_enable_country_dropdown_field" %s>', uacf7_checked('uacf7_enable_country_dropdown_field')
+		);
+	}
+	
+	/**
+	 * Field - IP Geo
+	 */
+	public function uacf7_ip_geo_callback(){
+		printf(
+			'<input type="checkbox" name="uacf7_option_name[uacf7_enable_ip_geo_fields]" id="uacf7_enable_ip_geo_fields" %s> <span class="uacf7-ip-get-field"><a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a></span>', uacf7_checked('uacf7_enable_ip_geo_fields')
 		);
 	}
 
