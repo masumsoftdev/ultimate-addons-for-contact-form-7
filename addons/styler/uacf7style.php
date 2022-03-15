@@ -41,7 +41,7 @@ class UACF7_uacf7style {
     */
     public function uacf7_add_panel( $panels ) {
 		$panels['uacf7-uacf7style-panel'] = array(
-            'title'    => __( 'Ultimate Form Styler', 'ultimate-addons-cf7' ),
+            'title'    => __( 'UACF7 Form Styler', 'ultimate-addons-cf7' ),
 			'callback' => array( $this, 'uacf7_create_uacf7style_panel_fields' ),
 		);
 		return $panels;

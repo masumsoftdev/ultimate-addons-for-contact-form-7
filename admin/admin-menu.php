@@ -29,16 +29,16 @@ class UACF7_Admin_Menu {
     */
 	public function uacf7_create_admin_page() {
         ?>
-		<div class="wrap">
-			<h2><?php echo esc_html__( 'Ultimate Addons for Contact Form 7', 'ultimate-addons-cf7' ); ?></h2>
-			<p><?php echo esc_html__( 'The only Contact form 7 addons plugin you should install to meet all your basic needs. Just tick the addon you need from the below settings Panel and click save. That addon will be activated. Then go to the Contact Form 7 settings Panel and start editing.', 'ultimate-addons-cf7' ); ?></p>
+		<div class="wrap uacf7-admin-cont">
+			<h1><?php echo esc_html__( 'Ultimate Addons for Contact Form 7 (UACF7) Settings', 'ultimate-addons-cf7' ); ?></h1>
+			<p class="sub-head"><?php echo esc_html__( 'Tick the addons you need from the below settings Panel and click Save. Those addons will be activated. Then go to the Contact Form 7 settings Panel and start editing.', 'ultimate-addons-cf7' ); ?></p>
 			<?php settings_errors(); ?>
 
             <!--Settings tab start-->
             
             <!--Tab buttons start-->
 			<div class="uacf7-tab">
-              <a class="tablinks active" onclick="uacf7_settings_tab(event, 'uacf7_addons')">Addons</a>
+              <a class="tablinks active" onclick="uacf7_settings_tab(event, 'uacf7_addons')">Addons Settings</a>
               <a class="tablinks" onclick="uacf7_settings_tab(event, 'uacf7_doc')">Documentation</a>
               
               <?php do_action('uacf7_admin_tab_button'); ?>
@@ -58,7 +58,7 @@ class UACF7_Admin_Menu {
             <!--Tab Addons end-->
             
             <div id="uacf7_doc" class="uacf7-tabcontent">
-                <p>Click <a href="#">here</a> to learn about Ultimate addons for contact form 7.</p>
+                <p>Click <a target="_blank" href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/">here</a> to check all the documentation Ultimate addons for contact form 7.</p>
             </div>
             
             <?php do_action('uacf7_admin_tab_content'); ?>
@@ -81,14 +81,14 @@ class UACF7_Admin_Menu {
 
 		add_settings_section(
 			'uacf7_setting_section', // id
-			__( 'Addons:', 'ultimate-addons-cf7' ), // title
+			__( 'General Addons:', 'ultimate-addons-cf7' ), // title
 			array( $this, 'uacf7_section_info' ), // callback
 			'ultimate-addons-admin' // page
 		);
 
 		add_settings_field(
 			'uacf7_enable_redirection', // id
-			__( 'Enable Redirection', 'ultimate-addons-cf7' ), // title
+			__( 'Redirection', 'ultimate-addons-cf7' ), // title
 			array( $this, 'uacf7_enable_redirection_callback' ), // callback
 			'ultimate-addons-admin', // page
 			'uacf7_setting_section' // section
@@ -96,7 +96,7 @@ class UACF7_Admin_Menu {
         
         add_settings_field(
 			'uacf7_enable_conditional_field', // id
-			__( 'Enable Conditional Field', 'ultimate-addons-cf7' ), // title
+			__( 'Conditional Field', 'ultimate-addons-cf7' ), // title
 			array( $this, 'uacf7_enable_conditional_field_callback' ), // callback
 			'ultimate-addons-admin', // page
 			'uacf7_setting_section' // section
@@ -104,7 +104,7 @@ class UACF7_Admin_Menu {
         
         add_settings_field(
 			'uacf7_enable_field_column', // id
-			__( 'Enable Column or Grid', 'ultimate-addons-cf7' ), // title
+			__( 'Column or Grid', 'ultimate-addons-cf7' ), // title
 			array( $this, 'uacf7_enable_field_column_callback' ), // callback
 			'ultimate-addons-admin', // page
 			'uacf7_setting_section' // section
@@ -112,7 +112,7 @@ class UACF7_Admin_Menu {
         
         add_settings_field(
 			'uacf7_enable_placeholder', // id
-			__( 'Enable Placeholder Styling', 'ultimate-addons-cf7' ), // title
+			__( 'Placeholder Styling', 'ultimate-addons-cf7' ), // title
 			array( $this, 'uacf7_enable_placeholder_callback' ), // callback
 			'ultimate-addons-admin', // page
 			'uacf7_setting_section' // section
@@ -120,7 +120,7 @@ class UACF7_Admin_Menu {
         
         add_settings_field(
 			'uacf7_enable_uacf7style', // id
-			__( 'Enable Form Styling', 'ultimate-addons-cf7' ), // title
+			__( 'Complete Form Styler', 'ultimate-addons-cf7' ), // title
 			array( $this, 'uacf7_enable_uacf7style_callback' ), // callback
 			'ultimate-addons-admin', // page
 			'uacf7_setting_section' // section
@@ -128,7 +128,7 @@ class UACF7_Admin_Menu {
         
         add_settings_field(
 			'uacf7_enable_multistep', // id
-			__( 'Enable Multistep', 'ultimate-addons-cf7' ), // title
+			__( 'Multistep Form', 'ultimate-addons-cf7' ), // title
 			array( $this, 'uacf7_enable_multistep_callback' ), // callback
 			'ultimate-addons-admin', // page
 			'uacf7_setting_section' // section
@@ -136,7 +136,7 @@ class UACF7_Admin_Menu {
 		
 		add_settings_field(
 			'uacf7_enable_booking_form', // id
-			__( 'Enable Booking/Appointment Form', 'ultimate-addons-cf7' ), // title
+			__( 'Booking/Appointment Form', 'ultimate-addons-cf7' ), // title
 			array( $this, 'uacf7_enable_booking_form_callback' ), // callback
 			'ultimate-addons-admin', // page
 			'uacf7_setting_section' // section
@@ -144,7 +144,7 @@ class UACF7_Admin_Menu {
         
         add_settings_field(
 			'uacf7_enable_post_submission', // id
-			__( 'Enable Frontend Post Submission', 'ultimate-addons-cf7' ), // title
+			__( 'Frontend Post Submission', 'ultimate-addons-cf7' ), // title
 			array( $this, 'uacf7_enable_post_submission_callback' ), // callback
 			'ultimate-addons-admin', // page
 			'uacf7_setting_section' // section
@@ -214,7 +214,7 @@ class UACF7_Admin_Menu {
 		
 		add_settings_field(
 			'uacf7_enable_ip_geo_fields', //id
-			__( 'IP Geo Fields(Autocomplete Country, City, State, Zip Fields)', 'ultimate-addons-cf7'), //title 
+			__( 'IP Geo Fields (Autocomplete Country, City, State, Zip Fields)', 'ultimate-addons-cf7'), //title 
 			array( $this, 'uacf7_ip_geo_callback'),
 			'ultimate-addons-admin', // page
 			'uacf7_setting_section_fields'
@@ -295,14 +295,14 @@ class UACF7_Admin_Menu {
     * Section- Extra fields
     */
     public function uacf7_setting_section_fields_callback() {
-		echo '<h2>Extra Fields:</h2>';
+		echo '<h2>Extra Fields Addons:</h2>';
 	}
     
     /*
     * Section- WooCommerce Integration
     */
     public function uacf7_setting_section_woo_callback() {
-		echo '<h2>WooCommerce Integration:</h2>';
+		echo '<h2>WooCommerce Integration Addons:</h2>';
 	}
     
     /*
@@ -310,7 +310,10 @@ class UACF7_Admin_Menu {
     */
 	public function uacf7_enable_redirection_callback() {
 		printf(
-			'<input type="checkbox" name="uacf7_option_name[uacf7_enable_redirection]" id="uacf7_enable_redirection" %s>', uacf7_checked('uacf7_enable_redirection')
+			'<label class="uacf7-admin-toggle" for="uacf7_enable_redirection">
+				<input type="checkbox" class="uacf7-admin-toggle__input" name="uacf7_option_name[uacf7_enable_redirection]" id="uacf7_enable_redirection" %s>
+				<span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
+        	</label>', uacf7_checked('uacf7_enable_redirection')
 		);
 	}
     
@@ -319,7 +322,10 @@ class UACF7_Admin_Menu {
     */
     public function uacf7_enable_conditional_field_callback() {
 		printf(
-			'<input type="checkbox" name="uacf7_option_name[uacf7_enable_conditional_field]" id="uacf7_enable_conditional_field" %s>', uacf7_checked('uacf7_enable_conditional_field')
+			'<label class="uacf7-admin-toggle" for="uacf7_enable_conditional_field">
+				<input type="checkbox" class="uacf7-admin-toggle__input"  name="uacf7_option_name[uacf7_enable_conditional_field]" id="uacf7_enable_conditional_field" %s>
+				<span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
+			</label>', uacf7_checked('uacf7_enable_conditional_field')
 		);
 	}
     
@@ -328,7 +334,10 @@ class UACF7_Admin_Menu {
     */
     public function uacf7_enable_field_column_callback() {
 		printf(
-			'<input type="checkbox" name="uacf7_option_name[uacf7_enable_field_column]" id="uacf7_enable_field_column" %s>', uacf7_checked('uacf7_enable_field_column')
+			'<label class="uacf7-admin-toggle" for="uacf7_enable_field_column">
+				<input type="checkbox" class="uacf7-admin-toggle__input"  name="uacf7_option_name[uacf7_enable_field_column]" id="uacf7_enable_field_column" %s>
+				<span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
+			</label>', uacf7_checked('uacf7_enable_field_column')
 		);
 	}
     
@@ -337,7 +346,10 @@ class UACF7_Admin_Menu {
     */
     public function uacf7_enable_placeholder_callback() {
 		printf(
-			'<input type="checkbox" name="uacf7_option_name[uacf7_enable_placeholder]" id="uacf7_enable_placeholder" %s>', uacf7_checked('uacf7_enable_placeholder')
+			'<label class="uacf7-admin-toggle" for="uacf7_enable_placeholder">
+				<input type="checkbox" class="uacf7-admin-toggle__input"  name="uacf7_option_name[uacf7_enable_placeholder]" id="uacf7_enable_placeholder" %s>
+				<span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
+			</label>', uacf7_checked('uacf7_enable_placeholder')
 		);
 	}
     
@@ -346,7 +358,10 @@ class UACF7_Admin_Menu {
     */
     public function uacf7_enable_uacf7style_callback() {
 		printf(
-			'<input type="checkbox" name="uacf7_option_name[uacf7_enable_uacf7style]" id="uacf7_enable_uacf7style" %s>', uacf7_checked('uacf7_enable_uacf7style')
+			'<label class="uacf7-admin-toggle" for="uacf7_enable_uacf7style">
+				<input type="checkbox" class="uacf7-admin-toggle__input"  name="uacf7_option_name[uacf7_enable_uacf7style]" id="uacf7_enable_uacf7style" %s>
+				<span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
+			</label>', uacf7_checked('uacf7_enable_uacf7style')
 		);
 	}
     
@@ -355,7 +370,10 @@ class UACF7_Admin_Menu {
     */
     public function uacf7_enable_multistep_callback() {
 		printf(
-			'<input type="checkbox" name="uacf7_option_name[uacf7_enable_multistep]" id="uacf7_enable_multistep" %s>', uacf7_checked('uacf7_enable_multistep')
+			'<label class="uacf7-admin-toggle" for="uacf7_enable_multistep">
+				<input type="checkbox" class="uacf7-admin-toggle__input"  name="uacf7_option_name[uacf7_enable_multistep]" id="uacf7_enable_multistep" %s>
+				<span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
+			</label>', uacf7_checked('uacf7_enable_multistep')
 		);
 	}
 	
@@ -364,7 +382,11 @@ class UACF7_Admin_Menu {
     */
     public function uacf7_enable_booking_form_callback() {
 		printf(
-			'<input type="checkbox" name="uacf7_option_name[uacf7_enable_booking_form]" id="uacf7_enable_booking_form" %s> <span class="uacf7-post-sub-pro-link"><a style="color:red" target="_blank" href="https://cf7addons.com/preview/booking-form">(Pro)</a></span>', uacf7_checked('uacf7_enable_booking_form')
+			'<label class="uacf7-admin-toggle" for="uacf7_enable_booking_form">
+				<input type="checkbox" class="uacf7-admin-toggle__input" name="uacf7_option_name[uacf7_enable_booking_form]" id="uacf7_enable_booking_form" %s>
+				<span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
+			</label>
+			<span class="uacf7-post-sub-pro-link"><a style="color:red" target="_blank" href="https://cf7addons.com/preview/booking-form">(Pro Addon)</a></span>', uacf7_checked('uacf7_enable_booking_form')
 		);
 	}
     
@@ -373,7 +395,11 @@ class UACF7_Admin_Menu {
     */
     public function uacf7_enable_post_submission_callback() {
 		printf(
-			'<input type="checkbox" name="uacf7_option_name[uacf7_enable_post_submission]" id="uacf7_enable_post_submission" %s> <span class="uacf7-post-sub-pro-link"><a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a></span>', uacf7_checked('uacf7_enable_post_submission')
+			'<label class="uacf7-admin-toggle" for="uacf7_enable_post_submission">
+				<input type="checkbox" class="uacf7-admin-toggle__input" name="uacf7_option_name[uacf7_enable_post_submission]" id="uacf7_enable_post_submission" %s>
+				<span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
+			</label> 
+			<span class="uacf7-post-sub-pro-link"><a style="color:red" target="_blank" href="https://cf7addons.com/preview/post-submission/">(Pro Addon)</a></span>', uacf7_checked('uacf7_enable_post_submission')
 		);
 	}
     
@@ -382,7 +408,10 @@ class UACF7_Admin_Menu {
     */
     public function uacf7_enable_star_rating_callback(){
         printf(
-			'<input type="checkbox" name="uacf7_option_name[uacf7_enable_star_rating]" id="uacf7_enable_star_rating" %s>', uacf7_checked('uacf7_enable_star_rating')
+			'<label class="uacf7-admin-toggle" for="uacf7_enable_star_rating">
+				<input type="checkbox" class="uacf7-admin-toggle__input" name="uacf7_option_name[uacf7_enable_star_rating]" id="uacf7_enable_star_rating" %s>
+				<span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
+			</label>', uacf7_checked('uacf7_enable_star_rating')
 		);
     }
     
@@ -391,8 +420,11 @@ class UACF7_Admin_Menu {
     */
     public function uacf7_enable_product_dropdown_callback(){
         printf(
-			'<input type="checkbox" name="uacf7_option_name[uacf7_enable_product_dropdown]" id="uacf7_enable_product_dropdown" %s>', uacf7_checked('uacf7_enable_product_dropdown')
-		);
+			'<label class="uacf7-admin-toggle" for="uacf7_enable_product_dropdown">
+				<input type="checkbox" class="uacf7-admin-toggle__input" name="uacf7_option_name[uacf7_enable_product_dropdown]" id="uacf7_enable_product_dropdown" %s>
+				<span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
+			</label>', uacf7_checked('uacf7_enable_product_dropdown')
+			);
     }
     
     /*
@@ -400,16 +432,23 @@ class UACF7_Admin_Menu {
     */
     public function uacf7_enable_product_auto_cart_callback(){
         printf(
-			'<input type="checkbox" name="uacf7_option_name[uacf7_enable_product_auto_cart]" id="uacf7_enable_product_auto_cart" %s> <span class="uacf7-pro-link"><a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a></span>', uacf7_checked('uacf7_enable_product_auto_cart')
+			'<label class="uacf7-admin-toggle" for="uacf7_enable_product_auto_cart">
+				<input type="checkbox" class="uacf7-admin-toggle__input" name="uacf7_option_name[uacf7_enable_product_auto_cart]" id="uacf7_enable_product_auto_cart" %s>
+				<span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
+			</label> 
+			<span class="uacf7-pro-link"><a style="color:red" target="_blank" href="https://cf7addons.com/preview/woocommerce-checkout/">(Pro Addon)</a></span>', uacf7_checked('uacf7_enable_product_auto_cart')
 		);
     }
 
 	/**
-	 * Field - Enable price slider
+	 * Field - Enable Range slider
 	 */
 	public function uacf7_range_slider_callback(){
 		printf(
-			'<input type="checkbox" name="uacf7_option_name[uacf7_enable_range_slider]" id="uacf7_enable_range_slider" %s>', uacf7_checked('uacf7_enable_range_slider')
+			'<label class="uacf7-admin-toggle" for="uacf7_enable_range_slider">
+				<input type="checkbox" class="uacf7-admin-toggle__input" name="uacf7_option_name[uacf7_enable_range_slider]" id="uacf7_enable_range_slider" %s>
+				<span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
+			</label>', uacf7_checked('uacf7_enable_range_slider')
 		);
 	}
 	
@@ -418,7 +457,11 @@ class UACF7_Admin_Menu {
 	 */
 	public function uacf7_repeater_field_callback(){
 		printf(
-			'<input type="checkbox" name="uacf7_option_name[uacf7_enable_repeater_field]" id="uacf7_enable_repeater_field" %s> <span class="uacf7-repeater-field"><a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a></span>', uacf7_checked('uacf7_enable_repeater_field')
+			'<label class="uacf7-admin-toggle" for="uacf7_enable_repeater_field">
+				<input type="checkbox" class="uacf7-admin-toggle__input" name="uacf7_option_name[uacf7_enable_repeater_field]" id="uacf7_enable_repeater_field" %s>
+				<span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
+			</label>
+			<span class="uacf7-repeater-field"><a style="color:red" target="_blank" href="https://cf7addons.com/preview/repeater-field/">(Pro Addon)</a></span>', uacf7_checked('uacf7_enable_repeater_field')
 		);
 	}
 	
@@ -427,7 +470,10 @@ class UACF7_Admin_Menu {
 	 */
 	public function uacf7_country_dropdown_callback(){
 		printf(
-			'<input type="checkbox" name="uacf7_option_name[uacf7_enable_country_dropdown_field]" id="uacf7_enable_country_dropdown_field" %s>', uacf7_checked('uacf7_enable_country_dropdown_field')
+			'<label class="uacf7-admin-toggle" for="uacf7_enable_country_dropdown_field">
+				<input type="checkbox" class="uacf7-admin-toggle__input" name="uacf7_option_name[uacf7_enable_country_dropdown_field]" id="uacf7_enable_country_dropdown_field" %s>
+				<span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
+			</label>', uacf7_checked('uacf7_enable_country_dropdown_field')
 		);
 	}
 	
@@ -436,7 +482,11 @@ class UACF7_Admin_Menu {
 	 */
 	public function uacf7_ip_geo_callback(){
 		printf(
-			'<input type="checkbox" name="uacf7_option_name[uacf7_enable_ip_geo_fields]" id="uacf7_enable_ip_geo_fields" %s> <span class="uacf7-ip-get-field"><a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a></span>', uacf7_checked('uacf7_enable_ip_geo_fields')
+			'<label class="uacf7-admin-toggle" for="uacf7_enable_ip_geo_fields">
+				<input type="checkbox" class="uacf7-admin-toggle__input" name="uacf7_option_name[uacf7_enable_ip_geo_fields]" id="uacf7_enable_ip_geo_fields" %s>
+				<span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
+			</label> 
+			<span class="uacf7-ip-get-field"><a style="color:red" target="_blank" href="https://cf7addons.com/preview/ip-geo/">(Pro Addon)</a></span>', uacf7_checked('uacf7_enable_ip_geo_fields')
 		);
 	}
 
