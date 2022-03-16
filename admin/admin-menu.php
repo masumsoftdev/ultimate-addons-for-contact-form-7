@@ -57,8 +57,10 @@ class UACF7_Admin_Menu {
             </div>
             <!--Tab Addons end-->
             
-            <div id="uacf7_doc" class="uacf7-tabcontent">
-                <p>Click <a target="_blank" href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/">here</a> to check all the documentation Ultimate addons for contact form 7.</p>
+            <div id="uacf7_doc" class="uacf7-tabcontent uacf7-docs">
+			<?php
+				include_once( plugin_dir_path( __FILE__ ) . 'admin-docs.html');
+				?>
             </div>
             
             <?php do_action('uacf7_admin_tab_content'); ?>
