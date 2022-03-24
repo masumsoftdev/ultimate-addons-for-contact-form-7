@@ -53,7 +53,7 @@ class UACF7_CF {
     public function uacf7_cf_add_panel( $panels ) {
 
 		$panels['uacf7-cf-panel'] = array(
-			'title'    => __( 'Ultimate Conditional Fields', 'ultimate-addons-cf7' ),
+			'title'    => __( 'UACF7 Conditional Fields', 'ultimate-addons-cf7' ),
 			'callback' => array( $this, 'uacf7_create_conditional_panel_fields' ),
 		);
 		return $panels;

@@ -4,7 +4,7 @@ Tags: contact form 7, contact form 7 addons, contact form 7 addon, contact form 
 Requires at least: 4.2
 Tested up to: 5.9
 Requires PHP: 5.4
-Stable tag: 1.9.5
+Stable tag: 1.9.7
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -38,6 +38,7 @@ Packed with 20+ essential features, <strong>Ultimate Addons For Contact Form 7</
 * Conditional Redirect (Pro)
 * Booking/Appointment Form (Pro)
 * Custom Column width (Pro)
+* Autocomplete Country, City, State, Zip Fields [IP Geolocation based)] (Pro)
 * More Coming soon
 
 ### How It works:
@@ -98,7 +99,6 @@ This features will help you to add WooCommerce Product Dropdown field on Contact
 = Contact form 7 Styler = 
 
 This features will help you to style the complete form on Contact form 7. You can edit Contact form 7 label color, label Background color, label font style, label font size, label font weight, label  font family, label padding, label margin; Contact Form 7 Input Color, Input Background Color, Input Font Style, Input Font Weight, Input Font Size, Input Font Family, Input Height, Input Padding, Input Margin; Contact form 7 button style, Contact form 7 button color, button background color, button font size, button font weight, button width, button border styles, button padding, button margin, Contact form 7 font size etc. <a href="https://cf7addons.com/preview/form-styling/">Click Here</a> to check live preview.
-
 
 = Contact Form 7 Star Rating Field = 
 
@@ -165,6 +165,10 @@ This features will help you to create a booking form / Appointment Form using Co
 = Custom Column Width for Contact Form 7 = 
 
 This features will help you to set the column of your form at your desired width. You can set any size of column. For example, you can create two columns form with one column width of 12% and other 88% and so on. <a href="https://cf7addons.com/preview/custom-columns-grid-layout/">Click Here</a> to check live preview.
+
+= Contact Form 7 Autocomplete Country, City, State, Zip Fields = 
+
+This features will help you to set IP Geolocation based Country, City, State, Zip Fields on Contact Form 7. The fields will be autocompleted based on User's IP. <a href="https://cf7addons.com/preview/ip-geo">Click Here</a> to check live preview.
 
 = Choose Specific WooCommerce Product =
 
@@ -308,10 +312,20 @@ Just install our Plugin. It will only take 5 mins to create such a form.</a>.
 
 == Changelog ==
 
+= 1.9.7 - 24/03/2022 =
+
+- Fixed an additional issue of Booking form pro addon
+
+= 1.9.6 - 19/03/2022 =
+
+– Upgraded Design of the Settings Panel
+- Added Complete Documentation Tab on the Settings Panel.
+- Fixed Few Bugs of the following Pro addons: Booking form, IP geo location, Repeater, Woo checkout, Post submission
+
 = 1.9.5 - 14/03/2022 =
 
-- Added country dropdown pro options
-- style updated
+– Compatiblity Check: Contact Form 7 - Version 5.5.6
+- Introducing: New Pro Addon - Autocomplete Country, City, State, Zip Fields (IP Geolocation based) 
 
 = 1.9.1 - 08/03/2022 =
 
@@ -358,7 +372,7 @@ Just install our Plugin. It will only take 5 mins to create such a form.</a>.
 = 1.8.0 - 5/1/2022 =
 
 – Fixed: CF7 Addon Dashboard Major Bug (Updated recommend)
-– Introducing: New Pro Addon - Booking/Appointment Form
+– c
 
 = 1.7.4 - 2/1/2022 =
 

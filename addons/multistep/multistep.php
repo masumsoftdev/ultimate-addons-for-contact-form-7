@@ -176,7 +176,7 @@ class UACF7_MULTISTEP {
     */
     public function uacf7_add_panel( $panels ) {
 		$panels['uacf7-multistep-panel'] = array(
-            'title'    => __( 'Ultimate Multistep', 'ultimate-addons-cf7' ),
+            'title'    => __( 'UACF7 Multistep Form', 'ultimate-addons-cf7' ),
 			'callback' => array( $this, 'uacf7_create_multistep_panel_fields' ),
 		);
 		return $panels;

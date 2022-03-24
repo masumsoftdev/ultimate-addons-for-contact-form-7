@@ -193,7 +193,7 @@ class UACF7_range_Slider {
      */
     public function uacf7_add_tab_panel( $panels ) {
         $panels['uacf7-range-slider-panel'] = array(
-            'title'    => __( 'Ultimate Range Slider', 'ultimate-addons-cf7' ),
+            'title'    => __( 'UACF7 Range Slider', 'ultimate-addons-cf7' ),
             'callback' => array( $this, 'uacf7_create_range_slider_panel_fields' ),
         );
         return $panels;
