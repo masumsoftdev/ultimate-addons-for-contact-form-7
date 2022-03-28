@@ -170,8 +170,7 @@ function uacf7_tg_pane_repeater_pro( $contact_form, $args = '' ) {
     <div class="control-box">
         <fieldset>
             <legend>
-                <?php echo esc_html__( "This is a pro feature of Ultimate Addons for contact form 7. You can add repeatable field and repeatable fields group with this addon.", "ultimate-addons-cf7" ); ?>
-                <a href="#">Buy Ultimate Repeater pro plugin</a>
+                <?php echo esc_html__( "This is a Pro feature of Ultimate Addons for contact form 7. You can add repeatable field and repeatable fields group with this addon.", "ultimate-addons-cf7" ); ?> <a href="https://cf7addons.com/preview/repeater-field/" target="_blank">Check Preview</a>
             </legend>
             <table class="form-table">
                 <tbody>

@@ -114,6 +114,7 @@ class UACF7_uacf7style {
         ?>
         <h2><?php echo esc_html__( 'Form Styles', 'ultimate-addons-cf7' ); ?></h2>
         <p><?php echo esc_html__('This feature will help you to edit the Styles of your form. Note that, all below fields are optional. If any field is not needed, leave them blank.','ultimate-addons-cf7'); ?></p>
+        <div class="uacf7-doc-notice">Not sure how to set this? Check our step by step <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/cf7-styler/" target="_blank">documentation</a>.</div>
         <fieldset>
            <div class="ultimate-uacf7style-admin">
                <div class="ultimate-uacf7style-wrapper">

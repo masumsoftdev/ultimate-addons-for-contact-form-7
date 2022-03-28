@@ -49,6 +49,7 @@ class UACF7_Placeholder {
         ?>
         <h2><?php echo esc_html__( 'Placeholder Styles', 'ultimate-addons-cf7' ); ?></h2>
         <p><?php echo esc_html__('This feature will help you to edit the Styles of Placeholder of your form. Note that, all below fields are optional. If any field is not needed, leave them blank.','ultimate-addons-cf7'); ?></p>
+        <div class="uacf7-doc-notice">Not sure how to set this? Check our step by step <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/placeholder-styler-for-contact-form-7/" target="_blank">documentation</a>.</div>
         <fieldset>
            <div class="ultimate-placeholder-admin">
                <div class="ultimate-placeholder-wrapper">

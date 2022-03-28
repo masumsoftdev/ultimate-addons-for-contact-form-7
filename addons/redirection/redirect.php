@@ -284,6 +284,8 @@ class UACF7_Redirection {
                 <input id="uacf7_tab_target" type="checkbox" name="uacf7_redirect[target]" <?php checked( $options['target'], 'on', true ); ?>>
                 <label for="uacf7_tab_target"><?php echo esc_html__( 'Open page in a new tab', 'ultimate-addons-cf7' ); ?></label>
             </p>
+
+			<div class="uacf7-doc-notice">Not sure how to set this? Check our step by step documentation on <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/redirection/">Redirect to a Page or External URL</a> and <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/conditional-redirect/" target="_blank">Conditional Redirect</a>.</div>
         </fieldset>
         
         <?php

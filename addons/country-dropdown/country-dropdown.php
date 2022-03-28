@@ -172,7 +172,8 @@ class UACF7_COUNTRY_DROPDOWN {
                     </tbody>
                 </table>
             </fieldset>
-            <p class="geo-pro-notice" style="color:green">Use our pro plugin <strong><a href="#">UACF7 Addons - IP Geolocation</a></strong> to make autocomplete country, city, state and zip code field based on user IP address.</p>
+            <div class="uacf7-doc-notice">Not sure how to set this? Check our step by step <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/country-dropdown-field-in-contact-form-7/" target="_blank">documentation</a>.</div>
+            <p class="uacf7-doc-notice uacf7-guide">Use Our Pro plugin <strong><a target="_blank" href="https://cf7addons.com/preview/ip-geo/">IP Geolocation</a></strong> to enable autocomplete country, city, state and zip code field based on user IP address.</p>
         </div>
 
         <div class="insert-box">
