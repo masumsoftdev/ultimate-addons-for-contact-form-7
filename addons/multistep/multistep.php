@@ -128,7 +128,6 @@ class UACF7_MULTISTEP {
                                <input type="text" name="values" class="oneline"> 
                             </td>
                         </tr>
-                           
                         <tr>
                             <th scope="row"><label><?php echo esc_html( __( 'Name', 'ultimate-addons-cf7' ) ); ?></label></th>
                             <td>
@@ -137,6 +136,8 @@ class UACF7_MULTISTEP {
                         </tr>
                     </tbody>
                 </table>
+                <div class="uacf7-doc-notice uacf7-guide">You need to enable the form from the "UACF7 Multistep Form" tab. The tab also includes additional necessary settings. Make sure you set those, otherwise the form submission may not work correctly.</div>
+                <div class="uacf7-doc-notice">Not sure how to set this? Check our step by step <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/multi-step-form/" target="_blank">documentation</a>.</div>
             </fieldset>
         </div>
 
@@ -200,6 +201,7 @@ class UACF7_MULTISTEP {
                        <label for="uacf7_multistep_is_multistep">
                            <input id="uacf7_multistep_is_multistep" type="checkbox" name="uacf7_multistep_is_multistep" <?php checked( 'on', $uacf7_is_multistep ); ?>> Yes
                        </label>
+                       <div class="uacf7-doc-notice">Not sure how to set this? Check our step by step <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/multi-step-form/" target="_blank">documentation</a>.</div>
                    </div>
                    <?php if( !empty(array_filter($all_steps)) ) { ?>
                    

@@ -176,7 +176,8 @@ class UACF7_STAR_RATING {
         $uacf7_field_type = 'uacf7_star_rating';
         ?>
         <div class="control-box">
-            <fieldset>                
+            <fieldset> 
+            <div class="uacf7-doc-notice">Not sure how to set this? Check our step by step <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/star-rating-feedback/" target="_blank">documentation</a>.</div>               
                 <table class="form-table">
                    <tbody>
                         
@@ -252,6 +253,7 @@ class UACF7_STAR_RATING {
                         </tr>
                     </tbody>
                 </table>
+                
             </fieldset>
         </div>
 

@@ -108,6 +108,7 @@ class UACF7_CF {
                         </tr>
                     </tbody>
                 </table>
+                <div class="uacf7-doc-notice uacf7-guide">There are additional settings on the "UACF7 Conditional Fields" tab. Make sure you set those, otherwise the conditions may not work correctly.</div>
             </fieldset>
         </div>
 

@@ -78,8 +78,8 @@ class UACF7_COLUMN {
                 <table class="form-table">
                   
                    <h3><?php echo esc_html__('Contact form 7 columns / Grid Layout','ultimate-addons-cf7'); ?></h3>
-                   <p><?php echo esc_html__('You can easily create two columns, three Columns even Four columns form with Contact form 7 using this feature. Just insert tag you need from below list. You can check this','ultimate-addons-cf7'); ?> <a target="_blank" href="<?php echo esc_url('https://youtu.be/mxcC1eQXxEI?t=162'); ?>"><?php echo esc_html__('video','ultimate-addons-cf7'); ?></a> <?php echo esc_html__('to learn more.','ultimate-addons-cf7'); ?></p>
-                   
+                   <p><?php echo esc_html__('You can easily create two columns, three Columns even Four columns form with Contact form 7 using this feature. Just insert tag you need from below list.','ultimate-addons-cf7'); ?></p>
+                   <div class="uacf7-doc-notice">Not sure how to set this? Check our step by step <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/columns-grid/" target="_blank">documentation</a>.</div>
                    <p></p>
                     <tbody>
                         <tr class="column-1 uacf7-column-select example-active" data-column-codes="[uacf7-row][uacf7-col col:12] --your code-- [/uacf7-col][/uacf7-row]">
@@ -152,7 +152,7 @@ class UACF7_COLUMN {
 						</tr>
                     </tbody>
                 </table>
-
+                <div class="uacf7-doc-notice">Not sure how to set this? Check our step by step <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/custom-columns-for-contact-form-7/" target="_blank">documentation</a>.</div>
             </fieldset>
         </div>
 

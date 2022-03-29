@@ -206,66 +206,195 @@
   }
   
   .uacf7-admin-toggle__input {
-	clip: rect(0 0 0 0);
-	clip-path: inset(50%);
-	height: 1px;
-	overflow: hidden;
-	position: absolute;
-	white-space: nowrap;
-	width: 1px;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
   }
  
   .uacf7-admin-toggle-track {
-	background: #fff;
-	border: 2px solid #777f92;
-	border-radius: 100px;
-	cursor: pointer;
-	display: flex;
-	height: 28px;
-	position: relative;
-	width: 60px;
+    background: #fff;
+    border: 2px solid #777f92;
+    border-radius: 100px;
+    cursor: pointer;
+    display: flex;
+    height: 28px;
+    position: relative;
+    width: 60px;
   }
   
   
   .uacf7-admin-toggle-indicator {
-	align-items: center;
-	background: #777f92;
-	border-radius: 24px;
-	bottom: 2px;
-	display: flex;
-	height: 24px;
-	justify-content: center;
-	left: 2px;
-	outline: solid 2px transparent;
-	position: absolute;
-	transition: 0.25s;
-	width: 24px;
+    align-items: center;
+    background: #777f92;
+    border-radius: 24px;
+    bottom: 2px;
+    display: flex;
+    height: 24px;
+    justify-content: center;
+    left: 2px;
+    outline: solid 2px transparent;
+    position: absolute;
+    transition: 0.25s;
+    width: 24px;
   }
   
   .checkMark {
-	fill: #fff;
-	height: 20px;
-	width: 20px;
-	opacity: 0;
-	transition: opacity 0.25s ease-in-out;
+    fill: #fff;
+    height: 20px;
+    width: 20px;
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out;
   }
   
   .uacf7-admin-toggle__input:checked + .uacf7-admin-toggle-track .uacf7-admin-toggle-indicator {
-	background: #06af00;
-	transform: translateX(30px);
+    background: #06af00;
+    transform: translateX(30px);
   }
  
   .uacf7-admin-toggle__input:checked + .uacf7-admin-toggle-track {
-	border: 2px solid #06af00;
+	  border: 2px solid #06af00;
   }
   .uacf7-admin-toggle-track:hover, .uacf7-admin-toggle__input:checked + .uacf7-admin-toggle-track:hover {
-	opacity: 0.75;
+	  opacity: 0.75;
   }
   .uacf7-admin-toggle__input:checked + .uacf7-admin-toggle-track .uacf7-admin-toggle-indicator .checkMark {
-	opacity: 1;
-	transition: opacity 0.25s ease-in-out;
+    opacity: 1;
+    transition: opacity 0.25s ease-in-out;
+  }
+
+  /** Addon Tabs **/
+  #uacf7-redirect-panel-tab, 
+  #uacf7-cf-panel-tab, 
+  #uacf7-placeholder-panel-tab, 
+  #uacf7-multistep-panel-tab, 
+  #uacf7-uacf7style-panel-tab, 
+  #uacf7-range-slider-panel-tab,
+  #uacf7-auto-product-cart-panel-tab,
+  #uacf7-post-submission-panel-tab {
+    border: 2px solid #473080!important;
+    background: #fff!important;
+  }
+
+  #uacf7-redirect-panel-tab a, 
+  #uacf7-cf-panel-tab a, 
+  #uacf7-placeholder-panel-tab a, 
+  #uacf7-multistep-panel-tab a, 
+  #uacf7-uacf7style-panel-tab a, 
+  #uacf7-range-slider-panel-tab a,
+  #uacf7-auto-product-cart-panel-tab a,
+  #uacf7-post-submission-panel-tab a {  
+    font-weight: bold!important;
+    color: #473080!important;
   }
   
+  #uacf7-redirect-panel-tab:hover, 
+  #uacf7-cf-panel-tab:hover, 
+  #uacf7-placeholder-panel-tab:hover, 
+  #uacf7-multistep-panel-tab:hover, 
+  #uacf7-uacf7style-panel-tab:hover, 
+  #uacf7-range-slider-panel-tab:hover,
+  #uacf7-auto-product-cart-panel-tab:hover,
+  #uacf7-post-submission-panel-tab:hover {
+    border: 2px solid #281266!important;
+    background: #281266!important;
+  }
+
+  #uacf7-redirect-panel-tab:hover a,
+  #uacf7-cf-panel-tab:hover a, 
+  #uacf7-placeholder-panel-tab:hover a, 
+  #uacf7-multistep-panel-tab:hover a, 
+  #uacf7-uacf7style-panel-tab:hover a, 
+  #uacf7-range-slider-panel-tab:hover a,
+  #uacf7-auto-product-cart-panel-tab:hover a,
+  #uacf7-post-submission-panel-tab:hover a {
+    color: #fff!important;
+  }
+
+  /** Addon Tab Inner **/
+
+#uacf7-redirect-panel, 
+#uacf7-auto-product-cart-panel, 
+#uacf7-bf-panel, 
+#uacf7-cf-panel, 
+#uacf7-placeholder-panel, 
+#uacf7-multistep-panel, 
+#uacf7-uacf7style-panel, 
+#uacf7-range-slider-panel, 
+#uacf7-post-submission-panel {
+  background: #fff!important;
+  padding: 20px 50px 50px!important;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+#uacf7-redirect-panel h2, 
+#uacf7-auto-product-cart-panel h2, 
+#uacf7-bf-panel h2, 
+#uacf7-cf-panel h2, 
+#uacf7-placeholder-panel h2, 
+#uacf7-multistep-panel h2, 
+#uacf7-uacf7style-panel h2, 
+#uacf7-range-slider-panel h2, 
+#uacf7-post-submission-panel h2 {
+  font-size: 20px!important;
+  font-weight: 600!important;
+  line-height: 1.5!important;
+}
+
+#uacf7-redirect-panel p, 
+#uacf7-auto-product-cart-panel p, 
+#uacf7-bf-panel p, 
+#uacf7-cf-panel p, 
+#uacf7-placeholder-panel p, 
+#uacf7-multistep-panel p, 
+#uacf7-uacf7style-panel p, 
+#uacf7-range-slider-panel p, 
+#uacf7-post-submission-panel p {
+  font-size: 16px!important;
+  line-height: 1.5!important;
+}
+
+.uacf7-doc-notice {
+  background: #e3f3ff;
+  margin-top: 25px;
+  font-size: 14px;
+  padding: 10px 20px 15px;
+  border-radius: 3px;
+  margin-bottom: 25px;
+}
+
+.uacf7-guide {
+  background: #ffd7c287;
+}
+
+.uacf7-doc-notice a {
+  text-decoration: none;
+  color: #473080;
+  font-weight: bold;
+}
+
+.uacf7-doc-notice a:hover {
+  color: #000;
+}
+
+.uacf7-doc-notice:before {
+  content: "\f14c";
+  font-family: dashicons;
+  font-size: 18px;
+  padding-right: 8px;
+}
+
+.uacf7-guide:before {
+  content: "\f130";
+  font-family: dashicons;
+  font-size: 18px;
+  padding-right: 8px;
+}
+
   @media screen and (-ms-high-contrast: active) {
 	.uacf7-admin-toggle-track {
 	  border-radius: 0;
