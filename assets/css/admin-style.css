@@ -310,9 +310,31 @@
   #uacf7-uacf7style-panel-tab:hover a, 
   #uacf7-range-slider-panel-tab:hover a,
   #uacf7-auto-product-cart-panel-tab:hover a,
-  #uacf7-post-submission-panel-tab:hover a {
+  #uacf7-post-submission-panel-tab:hover a,
+  #uacf7-redirect-panel-tab.ui-tabs-active a, 
+ #uacf7-cf-panel-tab.ui-tabs-active a, 
+ #uacf7-placeholder-panel-tab.ui-tabs-active a, 
+ #uacf7-multistep-panel-tab.ui-tabs-active a, 
+ #uacf7-uacf7style-panel-tab.ui-tabs-active a, 
+ #uacf7-range-slider-panel-tab.ui-tabs-active a,
+ #uacf7-auto-product-cart-panel-tab.ui-tabs-active a,
+ #uacf7-post-submission-panel-tab.ui-tabs-active a {
     color: #fff!important;
   }
+
+ /** Addon Tabs **/
+ #uacf7-redirect-panel-tab.ui-tabs-active, 
+ #uacf7-cf-panel-tab.ui-tabs-active, 
+ #uacf7-placeholder-panel-tab.ui-tabs-active, 
+ #uacf7-multistep-panel-tab.ui-tabs-active, 
+ #uacf7-uacf7style-panel-tab.ui-tabs-active, 
+ #uacf7-range-slider-panel-tab.ui-tabs-active,
+ #uacf7-auto-product-cart-panel-tab.ui-tabs-active,
+ #uacf7-post-submission-panel-tab.ui-tabs-active {
+   border: 2px solid #473080!important;
+   background: #473080!important;
+ }
+
 
   /** Addon Tab Inner **/
 

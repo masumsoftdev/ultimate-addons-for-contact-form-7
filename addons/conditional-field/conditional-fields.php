@@ -63,8 +63,9 @@ class UACF7_CF {
     * Form tag
     */
     public static function add_shortcodes() {
-        
-        wpcf7_add_form_tag( 'conditional', array( __CLASS__, 'custom_conditional_form_tag_handler' ), true );
+        if( function_exists('wpcf7_add_form_tag') ){
+            wpcf7_add_form_tag( 'conditional', array( __CLASS__, 'custom_conditional_form_tag_handler' ), true );
+        }
     }
     
     public static function custom_conditional_form_tag_handler( $tag ) {
