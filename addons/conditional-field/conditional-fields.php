@@ -505,7 +505,7 @@ class UACF7_CF {
         } else {
             foreach ($invalid_fields as $invalid_field_key => $invalid_field_data) {
                 if (!in_array($invalid_field_key, $this->hidden_fields)) {
-                    $return_result->invalidate($invalid_field_key, $invalid_field_data['tip']);
+                    $return_result->invalidate($invalid_field_key, $invalid_field_data['reason']);
                 }
             }
         }
