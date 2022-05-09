@@ -4,7 +4,7 @@ Tags: contact form 7, contact form 7 addons, contact form 7 addon, contact form 
 Requires at least: 4.2
 Tested up to: 5.9
 Requires PHP: 5.4
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -38,6 +38,9 @@ Packed with 20+ essential features, <strong>Ultimate Addons For Contact Form 7</
 * Conditional Redirect (Pro)
 * Booking/Appointment Form (Pro)
 * Custom Column width (Pro)
+* Global Form Styler (Pro)
+* Conditional Field (Pro)
+* Form Tag Support & Whatsapp Integration (Pro)
 * Autocomplete Country, City, State, Zip Fields [IP Geolocation based)] (Pro)
 * More Coming soon
 
@@ -182,6 +185,18 @@ Want the ability to let your customer choose Multiple WooCommerce Product on you
 
 With Pro, you can also show product based on WooCommerce Category. <a href="https://cf7addons.com/preview/categorized-product/">Click Here</a> to check live preview.
 
+= Contact form 7 Global Form Styler =
+
+With Pro, you can style all your form from one place. Completely style all the form without a single line of css code. 
+
+= Contact form 7 Conditional Field Pro  =
+
+Advanced Conditional Logic for Range Slider, Star Rating Field, Country Dropdown, IP Geolocation etc. 
+
+= Contact form 7 Whatsapp Integration + CF7 Tag Support  =
+
+Tag support for CF7 fields to be used on redirect URL to pass data. You can also pass submission data to Whatsapp. For example, you can add tag support like this https://yourdomain.com/?name=[your-name] and the name field will be passed to Whatsapp or wherever you want to pass.
+
 = More Pro Addons Coming Soon =
 
 Each month we have targets to introduce atleast 1 new Pro Addons.
@@ -311,6 +326,12 @@ Just install our Plugin. It will only take 5 mins to create such a form.</a>.
 18. Multistep Editor Panel
 
 == Changelog ==
+
+= 2.0.1- 28/04/2022 =
+
+- 3 New Pro Addon Released (Form tag Support, Global Form Styler, Conditional Logic for Range Slider)
+- Option Panel Updates.
+- Minor Bug Fixed.
 
 = 2.0.0 - 06/04/2022 =
 

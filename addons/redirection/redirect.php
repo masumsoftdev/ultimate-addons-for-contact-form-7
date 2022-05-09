@@ -165,7 +165,7 @@ class UACF7_Redirection {
     				</select>
                 </p>
                 <p class="uacf7_redirect_to_url">
-                    <input type="url" id="uacf7-external-url" name="uacf7_redirect[external_url]" class="large-text" value="<?php echo esc_url($options['external_url']); ?>" placeholder="<?php echo esc_html__( 'Enter an external URL', 'ultimate-addons-cf7' ); ?>">
+                    <input type="url" id="uacf7-external-url" name="uacf7_redirect[external_url]" class="large-text" value="<?php echo esc_html($options['external_url']); ?>" placeholder="<?php echo esc_html__( 'Enter an external URL', 'ultimate-addons-cf7' ); ?>">
                 </p>
             
             </div>
@@ -285,6 +285,17 @@ class UACF7_Redirection {
                 <label for="uacf7_tab_target"><?php echo esc_html__( 'Open page in a new tab', 'ultimate-addons-cf7' ); ?></label>
             </p>
 
+			<?php ob_start(); ?>
+            <p>
+                <input id="uacf7_redirect_tag_support" type="checkbox" name="">
+                <label for="uacf7_redirect_tag_support"><?php echo esc_html__( 'Tags support to redirect URL', 'ultimate-addons-cf7' ); ?></label> <a style="color:red" target="_blank" href="https://cf7addons.com/">(Pro)</a>
+				<span style="display:block;font-size:13px;color:#666">Enable support contact form 7 fields tags to use on custom redirect URL. Such as - www.yourdomain.com/?name=[your-name]</span>
+			</p>
+			<?php 
+            $uacf7_redirect_tag_support = ob_get_clean();
+            echo apply_filters( 'uacf7_redirect_tag_support', $uacf7_redirect_tag_support, $post );
+            ?>
+
 			<div class="uacf7-doc-notice">Not sure how to set this? Check our step by step documentation on <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/redirection/">Redirect to a Page or External URL</a> and <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/conditional-redirect/" target="_blank">Conditional Redirect</a>.</div>
         </fieldset>
         
@@ -351,7 +362,7 @@ class UACF7_Redirection {
                     break;
 
                 case 'url':
-                    $value = esc_url_raw( $value );
+                    $value = sanitize_text_field( $value );
                     break;
             }
             

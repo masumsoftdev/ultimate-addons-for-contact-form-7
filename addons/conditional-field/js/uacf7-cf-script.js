@@ -5,11 +5,11 @@
 
         uacf7_cf_handler();
 
-        jQuery('.wpcf7-form input, .wpcf7-form textarea').on('keyup', function () {
+        jQuery('.wpcf7-form input:not(.wpcf7-uacf7_country_dropdown, .wpcf7-uacf7_city, .wpcf7-uacf7_state, .wpcf7-uacf7_zip), .wpcf7-form textarea').on('keyup', function () {
             uacf7_cf_handler();
         });
 
-        jQuery('.wpcf7-form select, .wpcf7-form input[type="radio"]').on('change', function () {
+        jQuery('.wpcf7-form select:not(.wpcf7-uacf7_product_dropdown), .wpcf7-form input[type="radio"]:not(.uacf7-rating input[type="radio"])').on('change', function () {
             uacf7_cf_handler();
         });
         
