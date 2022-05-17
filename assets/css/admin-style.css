@@ -274,7 +274,8 @@
   #uacf7-uacf7style-panel-tab, 
   #uacf7-range-slider-panel-tab,
   #uacf7-auto-product-cart-panel-tab,
-  #uacf7-post-submission-panel-tab {
+  #uacf7-post-submission-panel-tab,
+  #uacf7-repeater-panel-tab {
     border: 2px solid #473080!important;
     background: #fff!important;
   }
@@ -286,7 +287,8 @@
   #uacf7-uacf7style-panel-tab a, 
   #uacf7-range-slider-panel-tab a,
   #uacf7-auto-product-cart-panel-tab a,
-  #uacf7-post-submission-panel-tab a {  
+  #uacf7-post-submission-panel-tab a,
+  #uacf7-repeater-panel-tab a {  
     font-weight: bold!important;
     color: #473080!important;
   }
@@ -298,7 +300,8 @@
   #uacf7-uacf7style-panel-tab:hover, 
   #uacf7-range-slider-panel-tab:hover,
   #uacf7-auto-product-cart-panel-tab:hover,
-  #uacf7-post-submission-panel-tab:hover {
+  #uacf7-post-submission-panel-tab:hover,
+  #uacf7-repeater-panel-tab:hover {
     border: 2px solid #281266!important;
     background: #281266!important;
   }
@@ -311,6 +314,7 @@
   #uacf7-range-slider-panel-tab:hover a,
   #uacf7-auto-product-cart-panel-tab:hover a,
   #uacf7-post-submission-panel-tab:hover a,
+  #uacf7-repeater-panel-tab:hover a,
   #uacf7-redirect-panel-tab.ui-tabs-active a, 
  #uacf7-cf-panel-tab.ui-tabs-active a, 
  #uacf7-placeholder-panel-tab.ui-tabs-active a, 
@@ -318,9 +322,10 @@
  #uacf7-uacf7style-panel-tab.ui-tabs-active a, 
  #uacf7-range-slider-panel-tab.ui-tabs-active a,
  #uacf7-auto-product-cart-panel-tab.ui-tabs-active a,
+ #uacf7-repeater-panel-tab.ui-tabs-active a,
  #uacf7-post-submission-panel-tab.ui-tabs-active a {
     color: #fff!important;
-  }
+}
 
  /** Addon Tabs **/
  #uacf7-redirect-panel-tab.ui-tabs-active, 
@@ -330,14 +335,13 @@
  #uacf7-uacf7style-panel-tab.ui-tabs-active, 
  #uacf7-range-slider-panel-tab.ui-tabs-active,
  #uacf7-auto-product-cart-panel-tab.ui-tabs-active,
+ #uacf7-repeater-panel-tab.ui-tabs-active,
  #uacf7-post-submission-panel-tab.ui-tabs-active {
    border: 2px solid #473080!important;
    background: #473080!important;
  }
 
-
-  /** Addon Tab Inner **/
-
+/** Addon Tab Inner **/
 #uacf7-redirect-panel, 
 #uacf7-auto-product-cart-panel, 
 #uacf7-bf-panel, 
@@ -346,6 +350,7 @@
 #uacf7-multistep-panel, 
 #uacf7-uacf7style-panel, 
 #uacf7-range-slider-panel, 
+#uacf7-repeater-panel-panel, 
 #uacf7-post-submission-panel {
   background: #fff!important;
   padding: 20px 50px 50px!important;
