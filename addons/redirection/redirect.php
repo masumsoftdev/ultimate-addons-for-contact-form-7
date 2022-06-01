@@ -296,7 +296,7 @@ class UACF7_Redirection {
             echo apply_filters( 'uacf7_redirect_tag_support', $uacf7_redirect_tag_support, $post );
             ?>
 
-			<div class="uacf7-doc-notice">Not sure how to set this? Check our step by step documentation on <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/redirection/">Redirect to a Page or External URL</a> and <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/conditional-redirect/" target="_blank">Conditional Redirect</a>.</div>
+			<div class="uacf7-doc-notice">Not sure how to set this? Check our step by step documentation on <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/redirection/" target="_blank">Redirect to a Page or External URL</a>, <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/conditional-redirect/" target="_blank">Conditional Redirect</a> and <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/tag-support-whatsapp/" target="_blank">Tag Support</a>.</div>
         </fieldset>
         
         <?php

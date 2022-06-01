@@ -215,7 +215,7 @@ class UACF7_MULTISTEP {
                    <!--Pro style-->
                    <?php $uacf7_progressbar_style = get_post_meta( $post->id(), 'uacf7_progressbar_style', true ); ?>
                    <div class="multistep_fields_row">
-                       <h3>Progressbar Layout</h3>
+                       <h3>Progressbar Layout (Multistep Skins)</h3>
                        <select name="uacf7_progressbar_style" id="uacf7_progressbar_style">
                        		<option value="default" <?php selected( $uacf7_progressbar_style, 'default', true ); ?>>Default</option>
                        		<option value="style-1" <?php selected( $uacf7_progressbar_style, 'style-1', true ); ?>>Style 1</option>
@@ -228,7 +228,7 @@ class UACF7_MULTISTEP {
                        		?>
                        		<?php echo apply_filters( 'uacf7_multistep_progressbar_style', $option, $uacf7_progressbar_style ); ?>
                        </select>
-                       <p><strong>See live demo examples here:</strong> <a target="_blank" href="https://cf7addons.com/preview/multi-step-form/pro/">Live demo</a></p>
+                       <p><strong>See live demo examples here:</strong> <a target="_blank" href="https://cf7addons.com/preview/multi-step-form/pro/">Live demo.</a> Check our step by step <a target="_blank" href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/premium-skins/">documentation.</a></p>
                    </div>
                    
                    <?php
