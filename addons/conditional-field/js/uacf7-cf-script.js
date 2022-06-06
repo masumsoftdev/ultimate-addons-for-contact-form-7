@@ -13,9 +13,14 @@
             uacf7_cf_handler();
         });
         
-        jQuery("input[type='checkbox']").on('change', function () {
+        jQuery(document).on('change', 'input[type="checkbox"]', function () {
             uacf7_cf_handler();
         });
+
+		// if( jQuery('.wpcf7-form-control-wrap').hasClass($uacf7_cf_conditions['uacf7_cf_tn'][x]) ){
+		// 	alert('aasdf');
+		// 	var currentValue = jQuery('.wpcf7-form-control-wrap '+$uacf7_cf_conditions['uacf7_cf_tn'][x]+' .wpcf7-form-control'+maybeChecked+'').val();
+		// }
 
     });
 
@@ -89,9 +94,37 @@
                             var checkedItem = checked_values[index];
                             
                         }
+
+						//Repeater support
+						var tagName = $uacf7_cf_conditions['uacf7_cf_tn'][x].replace('[]', '');
+						
+						if( jQuery('.wpcf7-form [uacf-original-name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]').is("input[type='checkbox']") ) {
+                            
+                            var maybeChecked = ':checked';
+                            var maybeMultiple = '[]';
+                            
+                            var checked_values = [];
+							//Repeater support
+                            jQuery('.wpcf7-form-control-wrap.'+tagName+' input:checked').each(function(){
+                                
+                                checked_values.push( jQuery(this).val() );
+                            });
+                            
+                            var index = checked_values.indexOf($uacf7_cf_conditions['uacf7_cf_val'][x]);
+                            
+                            var checkedItem = checked_values[index];
+                            
+                        }
                         
+
                         var currentValue = jQuery('.wpcf7-form [name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]'+maybeChecked+'').val();
+                        var currentValue = jQuery('.wpcf7-form [uacf-original-name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]'+maybeChecked+'').val();
                         
+						if( jQuery('.wpcf7-form-control-wrap').hasClass($uacf7_cf_conditions['uacf7_cf_tn'][x]) ){
+							
+							var currentValue = jQuery('.wpcf7-form-control-wrap.'+$uacf7_cf_conditions['uacf7_cf_tn'][x]+' .wpcf7-form-control'+maybeChecked+'').val();
+						}
+
                         if( jQuery('.wpcf7-form [name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]').is("input[type='checkbox']") ) {
                             
                             if(typeof checkedItem === 'undefined') {
