@@ -5,22 +5,17 @@
 
         uacf7_cf_handler();
 
-        jQuery('.wpcf7-form input:not(.wpcf7-uacf7_country_dropdown, .wpcf7-uacf7_city, .wpcf7-uacf7_state, .wpcf7-uacf7_zip), .wpcf7-form textarea').on('keyup', function () {
+        jQuery(document).on('keyup', '.wpcf7-form input:not(.wpcf7-uacf7_country_dropdown, .wpcf7-uacf7_city, .wpcf7-uacf7_state, .wpcf7-uacf7_zip), .wpcf7-form textarea', function () {
             uacf7_cf_handler();
         });
 
-        jQuery('.wpcf7-form select:not(.wpcf7-uacf7_product_dropdown), .wpcf7-form input[type="radio"]:not(.uacf7-rating input[type="radio"])').on('change', function () {
+        jQuery(document).on('change', '.wpcf7-form select:not(.wpcf7-uacf7_product_dropdown), .wpcf7-form input[type="radio"]:not(.uacf7-rating input[type="radio"])', function () {
             uacf7_cf_handler();
         });
         
         jQuery(document).on('change', 'input[type="checkbox"]', function () {
             uacf7_cf_handler();
         });
-
-		// if( jQuery('.wpcf7-form-control-wrap').hasClass($uacf7_cf_conditions['uacf7_cf_tn'][x]) ){
-		// 	alert('aasdf');
-		// 	var currentValue = jQuery('.wpcf7-form-control-wrap '+$uacf7_cf_conditions['uacf7_cf_tn'][x]+' .wpcf7-form-control'+maybeChecked+'').val();
-		// }
 
     });
 
@@ -98,7 +93,7 @@
 						//Repeater support
 						var tagName = $uacf7_cf_conditions['uacf7_cf_tn'][x].replace('[]', '');
 						
-						if( jQuery('.wpcf7-form [uacf-original-name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]').is("input[type='checkbox']") ) {
+						if( jQuery('.wpcf7-form [uacf-original-name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]').is("input[type='checkbox']") || jQuery('.wpcf7-form [uacf-original-name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]').is("input[type='radio']") ) {
                             
                             var maybeChecked = ':checked';
                             var maybeMultiple = '[]';
@@ -115,14 +110,12 @@
                             var checkedItem = checked_values[index];
                             
                         }
-                        
-
+						
                         var currentValue = jQuery('.wpcf7-form [name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]'+maybeChecked+'').val();
-                        var currentValue = jQuery('.wpcf7-form [uacf-original-name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]'+maybeChecked+'').val();
-                        
-						if( jQuery('.wpcf7-form-control-wrap').hasClass($uacf7_cf_conditions['uacf7_cf_tn'][x]) ){
-							
-							var currentValue = jQuery('.wpcf7-form-control-wrap.'+$uacf7_cf_conditions['uacf7_cf_tn'][x]+' .wpcf7-form-control'+maybeChecked+'').val();
+						
+						if( typeof currentValue === 'undefined' ){
+							var currentValue = jQuery('.wpcf7-form [uacf-original-name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]'+maybeChecked+'').val();
+							var currentValue = jQuery('.uacf7_repeater .wpcf7-form-control-wrap.'+tagName+' input'+maybeChecked+'').val();
 						}
 
                         if( jQuery('.wpcf7-form [name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]').is("input[type='checkbox']") ) {
