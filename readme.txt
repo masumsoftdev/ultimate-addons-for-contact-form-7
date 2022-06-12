@@ -4,7 +4,7 @@ Tags: contact form 7, contact form 7 addons, contact form 7 addon, contact form 
 Requires at least: 4.2
 Tested up to: 6.0
 Requires PHP: 5.4
-Stable tag: 2.0.7
+Stable tag: 2.0.8
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -326,6 +326,10 @@ Just install our Plugin. It will only take 5 mins to create such a form.</a>.
 18. Multistep Editor Panel
 
 == Changelog ==
+
+= 2.0.8 - 12/06/2022 =
+
+- Fixed radio button issue with conditional fields
 
 = 2.0.7 - 06/06/2022 =
 
