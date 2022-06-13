@@ -115,6 +115,9 @@
 						
 						if( typeof currentValue === 'undefined' ){
 							var currentValue = jQuery('.wpcf7-form [uacf-original-name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]'+maybeChecked+'').val();
+						}
+						
+						if( typeof currentValue === 'undefined' ){
 							var currentValue = jQuery('.uacf7_repeater .wpcf7-form-control-wrap.'+tagName+' input'+maybeChecked+'').val();
 						}
 
