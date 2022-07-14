@@ -53,6 +53,11 @@ if( !function_exists( 'uacf7_addons_included' ) ) {
         if( uacf7_checked( 'uacf7_enable_country_dropdown_field') != ''){
             require_once( 'country-dropdown/country-dropdown.php');
         }
+
+        //Addon - Mailchimp
+        if( uacf7_checked( 'uacf7_enable_mailchimp') != ''){
+            require_once( 'mailchimp/mailchimp.php');
+        }
 		
     }
 }

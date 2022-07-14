@@ -39,9 +39,11 @@ class UACF7_Admin_Menu {
             <!--Tab buttons start-->
 			<div class="uacf7-tab">
               <a class="tablinks active" onclick="uacf7_settings_tab(event, 'uacf7_addons')">Addons Settings</a>
-              <a class="tablinks" onclick="uacf7_settings_tab(event, 'uacf7_doc')">Documentation</a>
               
-              <?php do_action('uacf7_admin_tab_button'); ?>
+			  <?php do_action('uacf7_admin_tab_button'); ?>
+			 
+			  <a class="tablinks" onclick="uacf7_settings_tab(event, 'uacf7_doc')">Documentation</a>
+              
             </div>
             <!--Tab buttons end-->
 
@@ -57,13 +59,13 @@ class UACF7_Admin_Menu {
             </div>
             <!--Tab Addons end-->
             
+			<?php do_action('uacf7_admin_tab_content'); ?>
+
             <div id="uacf7_doc" class="uacf7-tabcontent uacf7-docs">
 			<?php
 				include_once( plugin_dir_path( __FILE__ ) . 'admin-docs.html');
 				?>
             </div>
-            
-            <?php do_action('uacf7_admin_tab_content'); ?>
             
             <!--Settings tab end-->
 			
@@ -75,17 +77,34 @@ class UACF7_Admin_Menu {
     * Admin settings fields
     */
 	public function uacf7_page_init() {
+		//Addons Settings
 		register_setting(
 			'uacf7_option_group', // option_group
 			'uacf7_option_name', // option_name
 			array( $this, 'uacf7_sanitize' ) // sanitize_callback
 		);
+		
+		//Mailchimp Settings
+		register_setting(
+			'uacf7_mailchimp_option', // option_group
+			'uacf7_mailchimp_option_name', // option_name
+			array( $this, 'uacf7_mailchimp_sanitize' ) // sanitize_callback
+		);
 
+		//Addons settings section
 		add_settings_section(
 			'uacf7_setting_section', // id
 			__( 'General Addons:', 'ultimate-addons-cf7' ), // title
 			array( $this, 'uacf7_section_info' ), // callback
 			'ultimate-addons-admin' // page
+		);
+
+		//Mailchimp settings section
+		add_settings_section(
+			'uacf7_mailchimp_setting_section', // id
+			__( 'Mailchimp settings:', 'ultimate-addons-cf7' ), // title
+			array( $this, 'uacf7_mailchimp_section_info' ), // callback
+			'ultimate-mailchimp-admin' // page
 		);
 
 		add_settings_field(
@@ -148,6 +167,14 @@ class UACF7_Admin_Menu {
 			'uacf7_enable_post_submission', // id
 			__( 'Frontend Post Submission', 'ultimate-addons-cf7' ), // title
 			array( $this, 'uacf7_enable_post_submission_callback' ), // callback
+			'ultimate-addons-admin', // page
+			'uacf7_setting_section' // section
+		);
+        
+        add_settings_field(
+			'uacf7_enable_mailchimp', // id
+			__( 'Mailchimp', 'ultimate-addons-cf7' ), // title
+			array( $this, 'uacf7_enable_mailchimp_callback' ), // callback
 			'ultimate-addons-admin', // page
 			'uacf7_setting_section' // section
 		);
@@ -221,6 +248,14 @@ class UACF7_Admin_Menu {
 			'ultimate-addons-admin', // page
 			'uacf7_setting_section_fields'
 		);
+		
+		add_settings_field(
+			'uacf7_mailchimp_api_key', //id
+			__( 'Mailchimp API', 'ultimate-addons-cf7'), //title 
+			array( $this, 'uacf7_mailchimp_api_key_callback'),
+			'ultimate-mailchimp-admin', // page
+			'uacf7_mailchimp_setting_section'
+		);
         
         do_action( 'uacf7_settings_field' );
 	}
@@ -270,10 +305,31 @@ class UACF7_Admin_Menu {
 			$sanitary_values['uacf7_enable_country_dropdown_field'] = $input['uacf7_enable_country_dropdown_field'];
 		}
 
+        if ( isset( $input['uacf7_enable_mailchimp'] ) ) {
+			$sanitary_values['uacf7_enable_mailchimp'] = $input['uacf7_enable_mailchimp'];
+		}
+
+		if ( isset( $input['uacf7_mailchimp_api_key'] ) ) {
+			$sanitary_values['uacf7_mailchimp_api_key'] = sanitize_text_field($input['uacf7_mailchimp_api_key']);
+		}
+
         return apply_filters( 'uacf7_save_admin_menu', $sanitary_values, $input );
 	}
     
+	//Mailchimp sanitize
+    public function uacf7_mailchimp_sanitize($input) {
+		$sanitary_values = array();
+		if ( isset( $input['uacf7_mailchimp_api_key'] ) ) {
+			$sanitary_values['uacf7_mailchimp_api_key'] = $input['uacf7_mailchimp_api_key'];
+		}
+		return apply_filters( 'uacf7_save_mailchimp_menu', $sanitary_values, $input );
+	}
+
     public function uacf7_section_info() {
+		//Nothing to say
+	}
+
+    public function uacf7_mailchimp_section_info() {
 		//Nothing to say
 	}
     
@@ -395,6 +451,18 @@ class UACF7_Admin_Menu {
 	}
     
     /*
+    * Field - Enable mailchimp
+    */
+    public function uacf7_enable_mailchimp_callback() {
+		printf(
+			'<label class="uacf7-admin-toggle" for="uacf7_enable_mailchimp">
+				<input type="checkbox" class="uacf7-admin-toggle__input" name="uacf7_option_name[uacf7_enable_mailchimp]" id="uacf7_enable_mailchimp" %s>
+				<span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
+			</label>', uacf7_checked('uacf7_enable_mailchimp')
+		);
+	}
+    
+    /*
     * Field - Enable star rating
     */
     public function uacf7_enable_star_rating_callback(){
@@ -479,6 +547,26 @@ class UACF7_Admin_Menu {
 			</label>
 			<span class="uacf7-ip-get-field"><a style="color:red" target="_blank" href="https://cf7addons.com/preview/ip-geo/">(Pro Addon)</a></span>', apply_filters('uacf7_enable_ip_geo_fields','')
 		);
+	}
+	
+	/**
+	 * Field - Mailchimp
+	 */
+	public function uacf7_mailchimp_api_key_callback(){
+		$val = get_option('uacf7_mailchimp_option_name');
+		
+		if( is_array($val) && !empty(array_filter($val)) ){
+			$val = $val['uacf7_mailchimp_api_key'];
+		}else {
+			$val = '';
+		}
+
+		$mailchimp = new UACF7_MAILCHIMP();
+
+		echo '<label class="" for="uacf7_mailchimp_api_key">
+				<input type="text" class="" name="uacf7_mailchimp_option_name[uacf7_mailchimp_api_key]" id="uacf7_mailchimp_api_key" value="'. $val.'">
+				'.$mailchimp->connection_status().'
+			</label>';
 	}
 
 }

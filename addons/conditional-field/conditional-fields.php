@@ -31,6 +31,9 @@ class UACF7_CF {
         add_filter( 'wpcf7_posted_data', array($this, 'remove_hidden_post_data') );
         add_filter( 'wpcf7_validate', array($this, 'skip_validation_for_hidden_fields'), 2, 2 );
         
+        add_filter( 'wpcf7_validate_file*', array($this, 'skip_validation_for_hidden_file_field'), 30, 3);
+        add_filter( 'wpcf7_validate_multifile*', array($this, 'skip_validation_for_hidden_file_field'), 30, 3);
+
         add_action('wpcf7_config_validator_validate', array($this,'uacf7_config_validator_validate'));
     }
     
@@ -550,6 +553,28 @@ class UACF7_CF {
             }
         }
         
+    }
+
+    /* Skip validation for hidden file field */
+    function skip_validation_for_hidden_file_field($result, $tag, $args=[]) {
+
+        if (!count($result->get_invalid_fields())) {
+            return $result;
+        }
+        if(isset($_POST)) {
+            $this->set_hidden_fields_arrays($_POST);
+        }
+
+        $invalid_field_keys = array_keys($result->get_invalid_fields());
+
+        // if the current file is the only invalid tag in the result AND if the file is hidden: return a valid (blank) object
+        if (isset($this->hidden_fields) && is_array($this->hidden_fields) && in_array($tag->name, $this->hidden_fields) && count($invalid_field_keys) == 1) {
+            return new WPCF7_Validation();
+        }
+
+        // if the current file is not hidden, we'll just return the result (keep it invalid).
+        // (Note that this might also return the hidden files as invalid, but that shouldn't matter because the form is invalid, and the notification will be inside a hidden group)
+        return $result;
     }
     
     public function uacf7_config_validator_validate(WPCF7_ConfigValidator $wpcf7_config_validator) {
