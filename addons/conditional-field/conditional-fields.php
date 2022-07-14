@@ -567,13 +567,10 @@ class UACF7_CF {
 
         $invalid_field_keys = array_keys($result->get_invalid_fields());
 
-        // if the current file is the only invalid tag in the result AND if the file is hidden: return a valid (blank) object
         if (isset($this->hidden_fields) && is_array($this->hidden_fields) && in_array($tag->name, $this->hidden_fields) && count($invalid_field_keys) == 1) {
             return new WPCF7_Validation();
         }
 
-        // if the current file is not hidden, we'll just return the result (keep it invalid).
-        // (Note that this might also return the hidden files as invalid, but that shouldn't matter because the form is invalid, and the notification will be inside a hidden group)
         return $result;
     }
     
