@@ -23,4 +23,23 @@
 
     }
   })
+
+  $( document ).ready(function() {
+ 
+//     var range_parent = (parseFloat(90) / parseInt(90))*100;
+// alert(range_parent)
+
+    $(document).on('input', '.range_slider', function() {
+        var range_value = $(this).val();
+        var max = $(this).attr("max");
+        var min = $(this).attr("min"); 
+        var range_parent_max = (parseFloat(range_value) / parseInt(max) )*100;
+        var range_parent_min = (parseFloat(min) / parseInt(max) )*100;
+        var range_parent = range_parent_max-range_parent_min;
+        // alert(range_parent );
+        
+        $(this).parent().parent().find('#range_value').html( range_value );
+        $(this).css( 'background', 'linear-gradient(to right, #3C7EE1 0%, #3C7EE1 '+range_parent_max +'%, #d3d3d3 ' + range_parent_max + '%, #d3d3d3 100%)' );
+    });
+}); 
 })(jQuery);

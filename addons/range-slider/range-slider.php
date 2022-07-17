@@ -94,13 +94,16 @@ class UACF7_range_Slider {
                     <?php
             }elseif($values[0] == 'style-one'){
                 ?>
-                <div class="range_slider_wrap">
+                 <label class="uacf7-slider-label">( Min: <?php echo esc_html( $min ); ?> Max: <?php echo esc_html( $max ) ?>)</label>
+                <div class="range_slider_wrap"> 
                     <div class="range_slider_inner">
-                        <input type="range" min="1" max="100" value="50" class="range_slider" id="range_slider"> 
-                        <span class="proggress_bar" id="proggress_bar"></span>
+                        <input type="range" style="background: linear-gradient(to right, #3C7EE1 0%, #3C7EE1 <?php echo esc_attr( $default ); ?>%, #d3d3d3 <?php echo esc_attr( $default ); ?>%, #d3d3d3 100%);" min="<?php echo esc_attr( $min ); ?>" max="<?php echo esc_attr( $max ); ?>" value="<?php echo esc_attr( $default ); ?>" class="range_slider" id="range_slider"> 
+                        
                     </div>
-                    <span class="range_absulate" id="range_value">50</span> 
+                    <span class="range_absulate" id="range_value"><?php echo esc_attr( $default ); ?></span> 
                 </div>
+
+                
                 <?php
             }
         } elseif ( $handle == 2 ) {
