@@ -24,7 +24,7 @@ if( !function_exists( 'uacf7_addons_included' ) ) {
             require_once( 'placeholder/placeholder.php' );
         }
 
-        //Addon - Ultimate Placeholder
+        //Addon - Ultimate Mutlistep
         if( uacf7_checked('uacf7_enable_multistep') != '' ){
             require_once( 'multistep/multistep.php' );
         }

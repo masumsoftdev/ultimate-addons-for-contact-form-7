@@ -28,9 +28,11 @@ class UACF7_MULTISTEP {
         wp_enqueue_script( 'uacf7-multistep', UACF7_ADDONS . '/multistep/assets/js/multistep.js', array('jquery'), null, true );
         wp_enqueue_script( 'uacf7-progressbar', UACF7_ADDONS . '/multistep/assets/js/progressbar.js', array('jquery'), null, true );
         wp_enqueue_style( 'uacf7-multistep-style', UACF7_ADDONS . '/multistep/assets/css/multistep.css' );
+
         
         wp_localize_script('uacf7-multistep', 'uacf7_multistep_obj', array(
         'ajax_url' => admin_url('admin-ajax.php'),
+        'scroll_top' => 'on',
         'nonce' => wp_create_nonce('uacf7-multistep') ));
     }
     
@@ -195,6 +197,8 @@ class UACF7_MULTISTEP {
                     $uacf7_is_multistep = get_post_meta( $post->id(), 'uacf7_multistep_is_multistep', true );
         
                     $uacf7_enable_multistep_progressbar = get_post_meta( $post->id(), 'uacf7_enable_multistep_progressbar', true );
+                    
+                    $uacf7_enable_multistep_scroll = get_post_meta( $post->id(), 'uacf7_enable_multistep_scroll', true );
                    ?>
                    <div class="multistep_fields_row">
                        <h3>Is It Multistep Form?</h3>
@@ -210,6 +214,15 @@ class UACF7_MULTISTEP {
                        <label for="uacf7_enable_multistep_progressbar">
                            <input id="uacf7_enable_multistep_progressbar" type="checkbox" name="uacf7_enable_multistep_progressbar" <?php checked( 'on', $uacf7_enable_multistep_progressbar ); ?>> Enable
                        </label>
+                   </div>
+                   
+                   <div class="multistep_fields_row">
+                       <h3>Scroll To Top</h3>
+                       <label for="uacf7_enable_multistep_scroll">
+                           <input id="uacf7_enable_multistep_scroll" type="checkbox" name="uacf7_enable_multistep_scroll" <?php checked( 'on', $uacf7_enable_multistep_scroll ); ?>> Enable
+                       </label>
+                       <p>Scroll to top after <strong>Clicking on the next button</strong></p>
+                   
                    </div>
                    
                    <!--Pro style-->
@@ -324,6 +337,28 @@ class UACF7_MULTISTEP {
 							</select>
 						</div>
 					</div>
+
+                    <?php 
+                        $uacf7_multistep_button_padding_tb = get_post_meta( $post->id(), 'uacf7_multistep_button_padding_tb', true ); 
+                        $uacf7_multistep_button_padding_lr = get_post_meta( $post->id(), 'uacf7_multistep_button_padding_lr', true ); 
+                    ?>
+                    <div class="multistep_fields_row col-25">
+						<h3>Button Style</h3>
+						<div class="multistep_field_column">
+							<label for="uacf7_multistep_button_padding_tb">
+								<p>Padding Top - Bottom (px)</p>
+								<input id="uacf7_multistep_button_padding_tb" type="number" name="uacf7_multistep_button_padding_tb" min="0" max="300" value="<?php echo esc_attr($uacf7_multistep_button_padding_tb); ?>">
+							</label>
+						</div>
+						<div class="multistep_field_column">
+							<label for="uacf7_multistep_circle_height">
+								<p>Padding Left - Right (px)</p>
+								<input id="uacf7_multistep_button_padding_lr" type="number" name="uacf7_multistep_button_padding_lr" min="0" max="300" value="<?php echo esc_attr($uacf7_multistep_button_padding_lr); ?>">
+							</label>
+						</div>
+ 
+						
+					</div>
                    
                    <?php                    
                     echo do_action( 'uacf7_multistep_pro_features', $all_steps, $post->id() );
@@ -355,6 +390,9 @@ class UACF7_MULTISTEP {
         apply_filters( 'uacf7_multistep_save_pro_feature', '', $form, $all_steps );
         
         update_post_meta( $form->id(), 'uacf7_enable_multistep_progressbar', sanitize_text_field($_POST['uacf7_enable_multistep_progressbar']) );
+
+
+        update_post_meta( $form->id(), 'uacf7_enable_multistep_scroll', sanitize_text_field($_POST['uacf7_enable_multistep_scroll']) );
 		
 		if( $_POST['uacf7_progressbar_style'] == 'default' || $_POST['uacf7_progressbar_style'] == 'style-1' ) {
 			update_post_meta( $form->id(), 'uacf7_progressbar_style', sanitize_text_field($_POST['uacf7_progressbar_style']) );
@@ -395,7 +433,12 @@ class UACF7_MULTISTEP {
 		
 		update_post_meta( $form->id(), 'uacf7_multistep_progressbar_title_color', sanitize_text_field($_POST['uacf7_multistep_progressbar_title_color']) );
 		
-		update_post_meta( $form->id(), 'uacf7_multistep_step_height', sanitize_text_field($_POST['uacf7_multistep_step_height']) );
+		update_post_meta( $form->id(), 'uacf7_multistep_step_height', sanitize_text_field($_POST['uacf7_multistep_step_height']) ); 
+
+        // Next Previous Button
+		update_post_meta( $form->id(), 'uacf7_multistep_button_padding_tb', sanitize_text_field($_POST['uacf7_multistep_button_padding_tb']) ); 
+
+		update_post_meta( $form->id(), 'uacf7_multistep_button_padding_lr', sanitize_text_field($_POST['uacf7_multistep_button_padding_lr']) ); 
 		
     }
     
@@ -411,6 +454,20 @@ class UACF7_MULTISTEP {
             $uacf7_multistep_is_multistep = get_post_meta( $cfform->id(), 'uacf7_multistep_is_multistep', true ); 
             
 			$uacf7_enable_multistep_progressbar = get_post_meta( $cfform->id(), 'uacf7_enable_multistep_progressbar', true );
+
+
+
+			$uacf7_enable_multistep_scroll = get_post_meta( $cfform->id(), 'uacf7_enable_multistep_scroll', true );
+
+            if($uacf7_enable_multistep_scroll == 'on'){
+                wp_localize_script('uacf7-multistep', 'uacf7_multistep_scroll', array( 
+                    'scroll_top' => $uacf7_enable_multistep_scroll, 
+                ));
+            }else{
+                wp_localize_script('uacf7-multistep', 'uacf7_multistep_scroll', array( 
+                    'scroll_top' => 'off', 
+                ));
+            }
 			
             if( $uacf7_multistep_is_multistep == 'on' ) {
 			
@@ -420,7 +477,26 @@ class UACF7_MULTISTEP {
 			
 			$uacf7_multistep_use_step_labels = !empty(get_post_meta( $cfform->id(), 'uacf7_multistep_use_step_labels', true )) ? get_post_meta( $cfform->id(), 'uacf7_multistep_use_step_labels', true ) : ''; 
 			
-			?>
+            $uacf7_multistep_button_padding_tb = get_post_meta( $cfform->id(), 'uacf7_multistep_button_padding_tb', true ); 
+            $uacf7_multistep_button_padding_lr = get_post_meta( $cfform->id(), 'uacf7_multistep_button_padding_lr', true ); 
+            if($uacf7_multistep_button_padding_tb !='' || $uacf7_multistep_button_padding_tb != 0){
+                $padding_top = 'padding-top:'.$uacf7_multistep_button_padding_tb.'px !important;'; 
+                $padding_bottom = 'padding-bottom:'.$uacf7_multistep_button_padding_tb.'px !important;'; 
+            }else{
+                $padding_top = ''; 
+                $padding_bottom = '';
+            }
+            if($uacf7_multistep_button_padding_lr !='' || $uacf7_multistep_button_padding_lr != 0){ 
+                $padding_left = 'padding-left:'.$uacf7_multistep_button_padding_lr.'px !important;'; 
+                $padding_right = ' padding-right:'.$uacf7_multistep_button_padding_lr.'px !important;'; 
+            }else{
+                $padding_left = ''; 
+                $padding_right = ''; 
+            }
+            
+             $next_prev_style = '<style>.uacf7-next, .uacf7-next, .wpcf7-submit{'.$padding_top.' '.$padding_bottom.' '.$padding_left.' '.$padding_right.'}  </style>';
+             echo $next_prev_style;
+			?> 
 			<div class="uacf7-steps steps-form" style="display:none">
                 <div class="steps-row setup-panel">
                     <?php
@@ -450,14 +526,21 @@ class UACF7_MULTISTEP {
             ?>
             <?php 
             $uacf7_multistep_progressbar_title_color = get_post_meta( $cfform->id(), 'uacf7_multistep_progressbar_title_color', true );
+            
             if($uacf7_progressbar_style == 'default' && !empty($uacf7_multistep_progressbar_title_color)):
+
             ?>
             <style>
                 .steps-form .steps-row .steps-step p {
                     color: <?php echo esc_attr($uacf7_multistep_progressbar_title_color); ?>;
                 }
+                .uacf7-steps  .uacf7-next, .uacf7-steps .uacf7-next{
+                    padding: <?php echo esc_attr($uacf7_multistep_button_padding_tb); ?> <?php echo esc_attr($uacf7_multistep_button_padding_lr); ?> ;
+                } 
+ 
             </style>
             <?php endif; ?>
+ 
             <div class="uacf7-steps steps-form <?php if($uacf7_progressbar_style == 'style-1'){echo 'progressbar-style-1';} ?>">
                 <div class="steps-row setup-panel">
                 <?php

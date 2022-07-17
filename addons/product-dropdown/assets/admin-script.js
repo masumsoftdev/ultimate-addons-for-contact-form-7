@@ -2,6 +2,7 @@ jQuery( document ).ready( function(){
     
     jQuery('.tag-generator-panel-product-category').hide();
     jQuery('.tag-generator-panel-product-category #tag-generator-panel-product-category').attr('name','');
+    jQuery('.tag-generator-panel-select-layout-style #tag-generator-panel-select-layout-style').attr('style','');
     
     jQuery( 'input[name="product_by"]' ).on('change', function(){
         var product_by = jQuery( this ).val();
