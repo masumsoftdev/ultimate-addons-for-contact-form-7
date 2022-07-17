@@ -61,30 +61,48 @@ class UACF7_range_Slider {
         $max = !empty( $tag->get_option( 'max', '', true ) ) ? $tag->get_option( 'max', '', true ) : 100;
         $default = !empty( $tag->get_option( 'default', '', true ) ) ? $tag->get_option( 'default', '', true ) : 100;
 
+        // return array for range style as $values[0]
+        if ( $data = (array) $tag->get_data_option() ) {
+            $tag->values = array_merge( $tag->values, array_values( $data ) );
+        } 
+        $values = $tag->values;
+
         ob_start();
 
         if ( $handle == 1 ) {
-            echo '<div class="'. esc_attr( $tag->name ) .'">';
-            if( $show_value == 'on'){
-                ?>
-                <label class="uacf7-slider-label">( Min: <?php echo esc_html( $min ); ?> Max: <?php echo esc_html( $max ) ?>)</label>
-            <?php
-            }
-            ?>
-                <span class="<?php echo esc_attr( $tag->name ) . '-value'; ?> uacf7-value"></span>
-                <span class="wpcf7-form-control-wrap uacf7-slidecontainer uacf7-slider-handle" data-handle="<?php echo esc_attr( $handle ); ?>" data-min="<?php echo esc_attr( $min ); ?>" data-max="<?php echo esc_attr( $max ); ?>" data-default="<?php echo esc_attr( $default ); ?>">
-                    <input name="<?php echo esc_attr( $tag->name ); ?>" type="range" min="<?php echo esc_attr( $min ); ?>" max="<?php echo esc_attr( $max ); ?>" value="<?php echo esc_attr( $default ); ?>" class="uacf7-slider uacf7-range">
-                </span>  
-                </div>
-                <script>
-
-                    document.querySelector(".<?php echo $tag->name . '-value'; ?>").innerHTML = document.querySelector(".<?php echo $tag->name ; ?> .uacf7-range").value; // Display the default slider value
-                    // Update the current slider value (each time you drag the slider handle)
-                    document.querySelector(".<?php echo $tag->name ; ?> .uacf7-range").oninput = function () {
-                        document.querySelector(".<?php echo $tag->name . '-value'; ?>").innerHTML = this.value;
-                    }  
-                </script>
+            if($values[0] == 'default'){
+                echo '<div class="'. esc_attr( $tag->name ) .'">';
+                if( $show_value == 'on'){
+                    ?>
+                    <label class="uacf7-slider-label">( Min: <?php echo esc_html( $min ); ?> Max: <?php echo esc_html( $max ) ?>)</label>
                 <?php
+                }
+                ?>
+                    <span class="<?php echo esc_attr( $tag->name ) . '-value'; ?> uacf7-value"></span>
+                    <span class="wpcf7-form-control-wrap uacf7-slidecontainer uacf7-slider-handle" data-handle="<?php echo esc_attr( $handle ); ?>" data-min="<?php echo esc_attr( $min ); ?>" data-max="<?php echo esc_attr( $max ); ?>" data-default="<?php echo esc_attr( $default ); ?>">
+                        <input name="<?php echo esc_attr( $tag->name ); ?>" type="range" min="<?php echo esc_attr( $min ); ?>" max="<?php echo esc_attr( $max ); ?>" value="<?php echo esc_attr( $default ); ?>" class="uacf7-slider uacf7-range">
+                    </span>  
+                    </div>
+                    <script>
+
+                        document.querySelector(".<?php echo $tag->name . '-value'; ?>").innerHTML = document.querySelector(".<?php echo $tag->name ; ?> .uacf7-range").value; // Display the default slider value
+                        // Update the current slider value (each time you drag the slider handle)
+                        document.querySelector(".<?php echo $tag->name ; ?> .uacf7-range").oninput = function () {
+                            document.querySelector(".<?php echo $tag->name . '-value'; ?>").innerHTML = this.value;
+                        }  
+                    </script>
+                    <?php
+            }elseif($values[0] == 'style-one'){
+                ?>
+                <div class="range_slider_wrap">
+                    <div class="range_slider_inner">
+                        <input type="range" min="1" max="100" value="50" class="range_slider" id="range_slider"> 
+                        <span class="proggress_bar" id="proggress_bar"></span>
+                    </div>
+                    <span class="range_absulate" id="range_value">50</span> 
+                </div>
+                <?php
+            }
         } elseif ( $handle == 2 ) {
             if( $show_value == 'on'){
                 ?>
@@ -163,6 +181,16 @@ class UACF7_range_Slider {
                             <label for="double_handle"><input type="radio" name="handle" class="option" id="double_handle" value="2"/> <?php echo esc_html( 'Double Handle' ); ?></label>
                         </td>
                     </tr>
+                    <tr class="">   
+                        <th><label for="tag-generator-panel-range-style">Range Slider Style</label></th>                     
+                        <td>
+                            <select name="values" class="values" id="tag-generator-panel-range-style">
+                                <option value="default" selected>Default</option>
+                                <option value="style-one" >Style One</option>
+                            </select>
+                        </td>
+                    </tr>
+
                     <tr>
                         <th scope="row"><label for="tag-generator-panel-text-min"><?php echo esc_html__( 'Minimum range', 'ultimate-addons-cf7' ); ?></label></th>
                         <td><input type="text" name="min" class="tg-min oneline option" id="tag-generator-panel-text-min" placeholder="15"  /></td>

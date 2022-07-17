@@ -1,5 +1,5 @@
 jQuery(document).ready(function () {
-
+    var scroll_top = uacf7_multistep_scroll.scroll_top;  
     var uacf7_step = '.uacf7-step';
     var uacf7_next = jQuery('.uacf7-next');
     var uacf7_prev = jQuery('.uacf7-prev');
@@ -102,7 +102,7 @@ jQuery(document).ready(function () {
             '&' + 'form_id=' + jQuery('input[name="_wpcf7"]').val() +
             '&' + 'current_fields_to_check=' + uacf7_current_step_fields +
             '&' + 'ajax_nonce=' + uacf7_multistep_obj.nonce;
-
+        
         jQuery.ajax({
             url: uacf7_multistep_obj.ajax_url,
             type: 'post',
@@ -151,8 +151,9 @@ jQuery(document).ready(function () {
                 } catch (e) {
                     console.log("error: " + e);
                 }
-                
-                multistep_scroll_to_top($this.parents('form'));
+                if(scroll_top == 'on'){
+                    multistep_scroll_to_top($this.parents('form'));
+                }
             },
             error: function () {
                 alert('Error');
