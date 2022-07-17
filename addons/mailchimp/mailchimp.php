@@ -95,8 +95,10 @@ class UACF7_MAILCHIMP
   /* Mailchimp config set */
   private function set_config($api_key = '', $path = '')
   {
+    $server_prefix = explode("-",$api_key);
+    $server_prefix = $server_prefix[1];
 
-    $url = "https://us20.api.mailchimp.com/3.0/$path";
+    $url = "https://$server_prefix.api.mailchimp.com/3.0/$path";
 
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_URL, $url);
@@ -219,7 +221,9 @@ class UACF7_MAILCHIMP
     $subscriber_email = !empty($subscriber_email) ? $posted_data[$subscriber_email] : '';
 
     if( $this->$mailchimlConnection == true && $api_key != '' && $subscriber_email != '' ) {
-
+      
+      $server_prefix = explode("-",$api_key);
+      $server_prefix = $server_prefix[1];
       $subscriber_fname = get_post_meta( $id, 'uacf7_mailchimp_subscriber_fname', true );
       $subscriber_fname = !empty($subscriber_fname) ? $posted_data[$subscriber_fname] : '';
 
@@ -238,7 +242,7 @@ class UACF7_MAILCHIMP
         $extra_merge_fields = ','.$extra_merge_fields;
       }
 
-      $url = "https://us20.api.mailchimp.com/3.0/lists/".$audience."/members";
+      $url = "https://$server_prefix.api.mailchimp.com/3.0/lists/".$audience."/members";
 
       $curl = curl_init($url);
       curl_setopt($curl, CURLOPT_URL, $url);
