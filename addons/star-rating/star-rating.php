@@ -20,7 +20,7 @@ class UACF7_STAR_RATING {
         wp_enqueue_style( 'uacf7-star-rating-style', UACF7_ADDONS . '/star-rating/assets/css/star-rating.css' );
         wp_enqueue_style( 'uacf7-fontawesome', UACF7_ADDONS . '/star-rating/assets/css/all.css' );
     }
-    
+     
     /*
     * Create form tag: uacf7_star_rating
     */
