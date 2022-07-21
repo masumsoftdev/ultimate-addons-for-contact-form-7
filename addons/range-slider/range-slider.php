@@ -441,10 +441,10 @@ class UACF7_range_Slider {
                 :root {
                     --uacf7-slider-Selection-Color: <?php echo esc_attr( $selection_color ); ?>;
                     --uacf7-slider-handle-color: <?php echo esc_attr( $handle_color ); ?>;
-                    --uacf7-slider-handle-width: <?php echo esc_attr( $handle_width ) . "px";; ?>;
-                    --uacf7-slider-handle-height: <?php echo esc_attr( $handle_height ) . "px";; ?>;
-                    --uacf7-slider-handle-border-radius: <?php echo esc_attr( $handle_border_radius ) . "px";; ?>;
-                    --uacf7-slider-range-slider-height: <?php echo esc_attr( $range_slider_height ) . "px";; ?>;
+                    --uacf7-slider-handle-width: <?php echo esc_attr( $handle_width ) . "px"; ?>;
+                    --uacf7-slider-handle-height: <?php echo esc_attr( $handle_height ) . "px"; ?>;
+                    --uacf7-slider-handle-border-radius: <?php echo esc_attr( $handle_border_radius ) . "px"; ?>;
+                    --uacf7-slider-range-slider-height: <?php echo esc_attr( $range_slider_height ) . "px"; ?>;
                 }
                 .uacf7-form-<?php echo esc_attr( $cf->id() ); ?> .ui-slider-horizontal .ui-slider-range {
                     background-color: <?php echo esc_attr( $selection_color ); ?>;

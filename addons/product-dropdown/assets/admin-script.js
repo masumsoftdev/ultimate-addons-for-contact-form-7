@@ -22,7 +22,7 @@ jQuery( document ).ready( function(){
 
             jQuery('.tag-generator-panel-product-id').hide();
             jQuery('.tag-generator-panel-product-id #tag-generator-panel-product-id').attr('name','');
- 
+
         }
     });
     

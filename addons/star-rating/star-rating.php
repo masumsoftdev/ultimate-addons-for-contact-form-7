@@ -53,6 +53,11 @@ class UACF7_STAR_RATING {
         if ( $tag->is_required() ) {
             $atts['aria-required'] = 'true';
         }
+        // return array for Rating style as $values[0]
+        if ( $data = (array) $tag->get_data_option() ) {
+            $tag->values = array_merge( $tag->values, array_values( $data ) );
+        } 
+        $values = $tag->values; 
 
         $atts['aria-invalid'] = $validation_error ? 'true' : 'false';
 
@@ -87,45 +92,50 @@ class UACF7_STAR_RATING {
 				$rating_icon = '✪';
 				break;
 			}
-		}
-        
-        ?>
-        
-        <span class="wpcf7-form-control-wrap <?php echo esc_attr($tag->name); ?>">
-        <span <?php echo $atts; ?>>
-          <label>
-            <input type="radio" name="<?php echo esc_attr($tag->name); ?>" value="<?php echo esc_attr($star1); ?>" <?php checked( $selected, '1', true ); ?> />
-            <span class="icon"><?php echo $rating_icon; ?></span>
-          </label>
-          <label>
-            <input type="radio" name="<?php echo esc_attr($tag->name); ?>" value="<?php echo esc_attr($star2); ?>" <?php checked( $selected, '2', true ); ?> />
-            <span class="icon"><?php echo $rating_icon; ?></span>
-            <span class="icon"><?php echo $rating_icon; ?></span>
-          </label>
-          <label>
-            <input type="radio" name="<?php echo esc_attr($tag->name); ?>" value="<?php echo esc_attr($star3); ?>" <?php checked( $selected, '3', true ); ?> />
-            <span class="icon"><?php echo $rating_icon; ?></span>
-            <span class="icon"><?php echo $rating_icon; ?></span>
-            <span class="icon"><?php echo $rating_icon; ?></span>   
-          </label>
-          <label>
-            <input type="radio" name="<?php echo esc_attr($tag->name); ?>" value="<?php echo esc_attr($star4); ?>" <?php checked( $selected, '4', true ); ?> />
-            <span class="icon"><?php echo $rating_icon; ?></span>
-            <span class="icon"><?php echo $rating_icon; ?></span>
-            <span class="icon"><?php echo $rating_icon; ?></span>
-            <span class="icon"><?php echo $rating_icon; ?></span>
-          </label>
-          <label>
-            <input type="radio" name="<?php echo esc_attr($tag->name); ?>" value="<?php echo esc_attr($star5); ?>" <?php checked( $selected, '5', true ); ?> />
-            <span class="icon"><?php echo $rating_icon; ?></span>
-            <span class="icon"><?php echo $rating_icon; ?></span>
-            <span class="icon"><?php echo $rating_icon; ?></span>
-            <span class="icon"><?php echo $rating_icon; ?></span>
-            <span class="icon"><?php echo $rating_icon; ?></span>
-          </label>
-          
-          </span>
+		}   
+        if(empty($values) || $values[0] == 'default'  ){
+        ?> 
+            <span class="wpcf7-form-control-wrap <?php echo esc_attr($tag->name); ?>">
+            <span <?php echo $atts; ?>>
+            <label>
+                <input type="radio" name="<?php echo esc_attr($tag->name); ?>" value="<?php echo esc_attr($star1); ?>" <?php checked( $selected, '1', true ); ?> />
+                <span class="icon"><?php echo $rating_icon; ?></span>
+            </label>
+            <label>
+                <input type="radio" name="<?php echo esc_attr($tag->name); ?>" value="<?php echo esc_attr($star2); ?>" <?php checked( $selected, '2', true ); ?> />
+                <span class="icon"><?php echo $rating_icon; ?></span>
+                <span class="icon"><?php echo $rating_icon; ?></span>
+            </label>
+            <label>
+                <input type="radio" name="<?php echo esc_attr($tag->name); ?>" value="<?php echo esc_attr($star3); ?>" <?php checked( $selected, '3', true ); ?> />
+                <span class="icon"><?php echo $rating_icon; ?></span>
+                <span class="icon"><?php echo $rating_icon; ?></span>
+                <span class="icon"><?php echo $rating_icon; ?></span>   
+            </label>
+            <label>
+                <input type="radio" name="<?php echo esc_attr($tag->name); ?>" value="<?php echo esc_attr($star4); ?>" <?php checked( $selected, '4', true ); ?> />
+                <span class="icon"><?php echo $rating_icon; ?></span>
+                <span class="icon"><?php echo $rating_icon; ?></span>
+                <span class="icon"><?php echo $rating_icon; ?></span>
+                <span class="icon"><?php echo $rating_icon; ?></span>
+            </label>
+            <label>
+                <input type="radio" name="<?php echo esc_attr($tag->name); ?>" value="<?php echo esc_attr($star5); ?>" <?php checked( $selected, '5', true ); ?> />
+                <span class="icon"><?php echo $rating_icon; ?></span>
+                <span class="icon"><?php echo $rating_icon; ?></span>
+                <span class="icon"><?php echo $rating_icon; ?></span>
+                <span class="icon"><?php echo $rating_icon; ?></span>
+                <span class="icon"><?php echo $rating_icon; ?></span>
+            </label>
+            
+            </span>
         <?php
+        }else{
+            $rating_style = $values[0];
+            $tag_name = $tag->name;
+            echo apply_filters( 'uacf7_star_rating_style_pro_feature', $rating_style, $tag_name, $selected, $atts, $star1, $star2, $star3, $star4, $star5 );
+        }
+
         echo $validation_error;
 		?>
         </span>
@@ -211,6 +221,20 @@ class UACF7_STAR_RATING {
 					    $icon_field = ob_get_clean();
 						echo apply_filters( 'uacf7_star_rating_tg_field', $icon_field );
 					    ?>
+                        <?php ob_start() ?>
+                        <tr class="">   
+                            <th><label for="tag-generator-panel-range-style">Star Rating Style</label></th>                     
+                            <td>
+                                <select  name="values" disabled class="values" id="tag-generator-panel-range-style">
+                                    <option value="0">Default</option>
+                                </select>
+                                 <a href="https://cf7addons.com/preview/star-rating/pro" style="color:red">(Pro)</a>
+                            </td>
+                        </tr> 
+                        <?php
+                            $rating_style = ob_get_clean();
+                            echo apply_filters( 'uacf7_star_rating_style_field', $rating_style );
+                        ?>
                        
                         <tr>
                             <th scope="row"><label for="tag-generator-panel-text-selected">Default Selected Star</label></th>

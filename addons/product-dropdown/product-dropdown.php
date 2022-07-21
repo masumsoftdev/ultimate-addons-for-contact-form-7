@@ -140,12 +140,7 @@ class UACF7_PRODUCT_DROPDOWN {
             );
         if($tag->has_option( 'layout:grid' )){ // Grid Layout
             $tag_name = $tag->name;
-            $grid = apply_filters('uacf7_dorpdown_grid', $multiple, $products, $hangover, $default_choice, $tag_name, $validation_error);  
-            if($grid === true){
-                $html = $dropdown;
-            }else{
-                $html = $grid;
-            }
+            $html = apply_filters('uacf7_dorpdown_grid', $dropdown, $multiple, $products, $hangover, $default_choice, $tag_name, $validation_error);   
         }else{
             $html = $dropdown;
         }
@@ -299,7 +294,7 @@ class UACF7_PRODUCT_DROPDOWN {
 
                                 <label for="layoutGrid"><input id="layoutGrid" name="layout" class="option" type="radio" disabled value="grid"> Grid</label>
                                 <br>
-                                Allow multiple Layout Style <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a>
+                               ( Product grid view with thumbnail ) <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a>
                             </td> 
                             
                         </tr>
