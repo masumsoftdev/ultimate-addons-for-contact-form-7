@@ -222,7 +222,7 @@ span.uacf7-amount {
   color: #B4B4BB;
 }
 .range-value {
-  margin-top: 15px;
+  margin-top: 25px;
   margin-bottom: 10px;
 }
 .mutli-range .ui-state-default, .ui-widget-content .ui-state-default{
@@ -440,10 +440,7 @@ border-radius: 10px;
   font-size: 17px;
 }
 .mutli-range.style-two .range-value {
-	height: 52px;
-}
-.mutli-range.style-two .range-value {
-  height: 52px;
+	height: 54px;
 }
  
 .mutli-range.style-one .ui-slider-handle.ui-corner-all.ui-state-default {

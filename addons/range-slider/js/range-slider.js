@@ -82,7 +82,7 @@
           $(this).jRange({
             from: 0,
             to: max,
-            step: 1,
+            step: step,
             scale: scale,
             format: '%s',
             width: 700,

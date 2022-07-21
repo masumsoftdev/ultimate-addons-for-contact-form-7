@@ -29,8 +29,7 @@ class UACF7_range_Slider {
         wpcf7_add_form_tag( array( 'uacf7_range_slider', 'uacf7_range_slider*' ),
             array( $this, 'slider_tag_handler_callback' ), array( 'name-attr' => true )
         );
-    }
-
+    } 
     /**
      * Slider tag callback
      */
@@ -65,9 +64,7 @@ class UACF7_range_Slider {
         $steps = '0';
         for ($x = $step; $x <= $max; $x+=$step) {
             $steps .= ','.$x.''; 
-          } 
-          
-      
+          }  
         // return array for range style as $values[0]
         if ( $data = (array) $tag->get_data_option() ) {
             $tag->values = array_merge( $tag->values, array_values( $data ) );
@@ -164,11 +161,9 @@ class UACF7_range_Slider {
                             <div id="uacf7-slider-range" class="multistep_slide"></div>
                         </span>
                     </span>
-                </div>
-                    
+                </div> 
                 <?php
-            }elseif($values[0]  == 'style-one'){
-                 
+            }elseif($values[0]  == 'style-one'){ 
                 ?>
                 <div class="mutli-range style-one">
                         <span class="uacf7-slider-handle" data-style="<?php echo esc_attr( $values[0] ); ?>"  data-handle="<?php echo esc_attr( $handle ); ?>" data-min="<?php echo esc_attr( $min ); ?>" data-max="<?php echo esc_attr( $max ); ?>" data-default="<?php echo esc_attr( $default ); ?>">
@@ -191,12 +186,9 @@ class UACF7_range_Slider {
                         <?php
                         } 
                     ?>
-                </div>
-                
-
+                </div> 
             <?php
-            }elseif($values[0]  == 'style-two'){
-                
+            }elseif($values[0]  == 'style-two'){ 
                 ?>
                 <div class="mutli-range style-two">
                         <span class="uacf7-slider-handle" data-style="<?php echo esc_attr( $values[0] ); ?>"  data-handle="<?php echo esc_attr( $handle ); ?>" data-min="<?php echo esc_attr( $min ); ?>" data-max="<?php echo esc_attr( $max ); ?>" data-default="<?php echo esc_attr( $default ); ?>">
@@ -224,9 +216,7 @@ class UACF7_range_Slider {
                     <?php
                         } 
                     ?>
-                </div>
-                
-
+                </div> 
             <?php
             }elseif($values[0]  == 'style-three'){ 
                 ?>  
@@ -463,6 +453,7 @@ class UACF7_range_Slider {
                 .uacf7-form-<?php echo esc_attr( $cf->id() ); ?> .ui-widget.ui-widget-content {
                     height: <?php echo esc_attr( $range_slider_height ) . "px"; ?>;
                     border: 1px solid <?php echo esc_attr( $selection_color ); ?>;
+                    background-color: #EEE;
                 }
                 .uacf7-form-<?php echo esc_attr( $cf->id() ); ?> .ui-state-default, .ui-widget-content .ui-state-default{
                     background-color: <?php echo esc_attr( $handle_color ); ?>;
