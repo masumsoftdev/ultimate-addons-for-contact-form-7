@@ -54,6 +54,7 @@ margin-left: -.6em;
 }
 span.uacf7-amount {
 float: right;
+margin-top: 14px;
 }
 .ui-state-focus,.ui-widget-content .ui-state-focus{
 color: unset !important;
