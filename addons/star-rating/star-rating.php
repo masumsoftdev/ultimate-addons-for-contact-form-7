@@ -75,8 +75,7 @@ class UACF7_STAR_RATING {
         
         if( function_exists('uacf7_rating_icon') ) {
 			
-			if( !empty(uacf7_rating_icon($tag)) ) {
-
+			if( !empty(uacf7_rating_icon($tag)) ) { 
 				$rating_icon = uacf7_rating_icon($tag);
 			}
 			
