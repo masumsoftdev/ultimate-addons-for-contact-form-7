@@ -91,6 +91,10 @@ class UACF7_PRODUCT_DROPDOWN {
             
             $product_by = 'category';
             
+        }elseif( $tag->has_option( 'product_by:tag' ) ){
+            
+            $product_by = 'tag';
+            
         }else {
             $product_by = '';
         }
@@ -229,6 +233,8 @@ class UACF7_PRODUCT_DROPDOWN {
                                 <label for="byID"><input id="byID" name="product_by" class="" type="radio" value="id" checked> Product ID</label>
                                 
                                 <label for="byCategory"><input id="byCategory" name="product_by" class="" type="radio" value="category"> Category</label>
+                                
+                                <label for="byTag"><input id="byTag" name="product_by" class="" type="radio" value="tag"> Tag</label>
                             </td>
                         </tr>
                         <?php 
@@ -284,6 +290,39 @@ class UACF7_PRODUCT_DROPDOWN {
                         * Tag generator field after name attribute.
                         */
                         echo apply_filters('uacf7_tag_generator_product_category_field',$product_dropdown_html);
+                       ?>
+
+                        <?php ob_start(); ?>
+                        <tr class="tag-generator-panel-product-tag">   
+                           <th><label for="tag-generator-panel-product-category">Product tag</label></th>                     
+                            <td>
+                            <?php
+                            $taxonomies = get_terms( array(
+                                'taxonomy' => 'product_tag',
+                                'hide_empty' => false
+                            ) );
+
+                            if ( !empty(array_filter($taxonomies)) ) :
+                                $output = '<select id="tag-generator-panel-product-tag">';
+                                $output .= '<option value="">All</option>';
+                                foreach( $taxonomies as $tag ) {
+                                    $output.= '<option value="">'. esc_html( $tag->name ) .'</option>';
+                                }
+                                $output.='</select> <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a>';
+
+                                echo $output;
+
+                            endif;
+                            ?>
+                            </td>
+                        </tr>
+                        <?php 
+                        $product_dropdown_html = ob_get_clean();
+
+                        /*
+                        * Tag generator field after name attribute.
+                        */
+                        echo apply_filters('uacf7_tag_generator_product_tag_field',$product_dropdown_html);
                        ?>
 
                         <?php ob_start(); ?>
