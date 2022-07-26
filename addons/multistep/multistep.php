@@ -31,8 +31,7 @@ class UACF7_MULTISTEP {
 
         
         wp_localize_script('uacf7-multistep', 'uacf7_multistep_obj', array(
-        'ajax_url' => admin_url('admin-ajax.php'),
-        'scroll_top' => 'on',
+        'ajax_url' => admin_url('admin-ajax.php'), 
         'nonce' => wp_create_nonce('uacf7-multistep') ));
     }
     
@@ -197,7 +196,6 @@ class UACF7_MULTISTEP {
                     $uacf7_is_multistep = get_post_meta( $post->id(), 'uacf7_multistep_is_multistep', true );
         
                     $uacf7_enable_multistep_progressbar = get_post_meta( $post->id(), 'uacf7_enable_multistep_progressbar', true );
-                    
                     $uacf7_enable_multistep_scroll = get_post_meta( $post->id(), 'uacf7_enable_multistep_scroll', true );
                    ?>
                    <div class="multistep_fields_row">
@@ -215,16 +213,21 @@ class UACF7_MULTISTEP {
                            <input id="uacf7_enable_multistep_progressbar" type="checkbox" name="uacf7_enable_multistep_progressbar" <?php checked( 'on', $uacf7_enable_multistep_progressbar ); ?>> Enable
                        </label>
                    </div>
-                   
+                   <!-- Pro Scroll To Top Feature -->
+                   <?php ob_start(); ?>
                    <div class="multistep_fields_row">
-                       <h3>Form Auto Scrooling</h3>
+                       <h3>Form Auto Scrolling <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a></h3>
                        <label for="uacf7_enable_multistep_scroll">
-                           <input id="uacf7_enable_multistep_scroll" type="checkbox" name="uacf7_enable_multistep_scroll" <?php checked( 'on', $uacf7_enable_multistep_scroll ); ?>> Enable
+                           <input id="uacf7_enable_multistep_scroll" type="checkbox"> Enable 
                        </label>
                        <p>Auto scroll to top after clicking on the next button</p>
                    
                    </div>
-                   
+                   <?php 
+                    $scroll_to_top = ob_get_clean();
+                    echo apply_filters( 'uacf7_range_slider_style_field', $scroll_to_top, $uacf7_enable_multistep_scroll);
+                   ?>
+                   <!-- Pro Scroll To Top Feature -->
                    <!--Pro style-->
                    <?php $uacf7_progressbar_style = get_post_meta( $post->id(), 'uacf7_progressbar_style', true ); ?>
                    <div class="multistep_fields_row">
@@ -390,10 +393,7 @@ class UACF7_MULTISTEP {
         apply_filters( 'uacf7_multistep_save_pro_feature', '', $form, $all_steps );
         
         update_post_meta( $form->id(), 'uacf7_enable_multistep_progressbar', sanitize_text_field($_POST['uacf7_enable_multistep_progressbar']) );
-
-
-        update_post_meta( $form->id(), 'uacf7_enable_multistep_scroll', sanitize_text_field($_POST['uacf7_enable_multistep_scroll']) );
-		
+ 
 		if( $_POST['uacf7_progressbar_style'] == 'default' || $_POST['uacf7_progressbar_style'] == 'style-1' ) {
 			update_post_meta( $form->id(), 'uacf7_progressbar_style', sanitize_text_field($_POST['uacf7_progressbar_style']) );
 		}
