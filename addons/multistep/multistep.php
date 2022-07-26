@@ -217,11 +217,11 @@ class UACF7_MULTISTEP {
                    </div>
                    
                    <div class="multistep_fields_row">
-                       <h3>Scroll To Top</h3>
+                       <h3>Form Auto Scrooling</h3>
                        <label for="uacf7_enable_multistep_scroll">
                            <input id="uacf7_enable_multistep_scroll" type="checkbox" name="uacf7_enable_multistep_scroll" <?php checked( 'on', $uacf7_enable_multistep_scroll ); ?>> Enable
                        </label>
-                       <p>Scroll to top after <strong>Clicking on the next button</strong></p>
+                       <p>Auto scroll to top after clicking on the next button</p>
                    
                    </div>
                    
