@@ -225,7 +225,7 @@ class UACF7_MULTISTEP {
                    </div>
                    <?php 
                     $scroll_to_top = ob_get_clean();
-                    echo apply_filters( 'uacf7_range_slider_style_field', $scroll_to_top, $uacf7_enable_multistep_scroll);
+                    echo apply_filters( 'uacf7_multistep_scroll_to_top_field', $scroll_to_top, $uacf7_enable_multistep_scroll);
                    ?>
                    <!-- Pro Scroll To Top Feature -->
                    <!--Pro style-->
@@ -456,19 +456,6 @@ class UACF7_MULTISTEP {
 			$uacf7_enable_multistep_progressbar = get_post_meta( $cfform->id(), 'uacf7_enable_multistep_progressbar', true );
 
 
-
-			$uacf7_enable_multistep_scroll = get_post_meta( $cfform->id(), 'uacf7_enable_multistep_scroll', true );
-
-            if($uacf7_enable_multistep_scroll == 'on'){
-                wp_localize_script('uacf7-multistep', 'uacf7_multistep_scroll', array( 
-                    'scroll_top' => $uacf7_enable_multistep_scroll, 
-                ));
-            }else{
-                wp_localize_script('uacf7-multistep', 'uacf7_multistep_scroll', array( 
-                    'scroll_top' => 'off', 
-                ));
-            }
-			
             if( $uacf7_multistep_is_multistep == 'on' ) {
 			
 			ob_start();

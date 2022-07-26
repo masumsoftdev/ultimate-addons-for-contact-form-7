@@ -1,5 +1,5 @@
 jQuery(document).ready(function () {
-    var scroll_top = uacf7_multistep_scroll.scroll_top;  
+   
     var uacf7_step = '.uacf7-step';
     var uacf7_next = jQuery('.uacf7-next');
     var uacf7_prev = jQuery('.uacf7-prev');
@@ -151,7 +151,7 @@ jQuery(document).ready(function () {
                 } catch (e) {
                     console.log("error: " + e);
                 }
-                if(scroll_top == 'on'){
+                if(typeof  uacf7_multistep_scroll !== 'undefined' &&  uacf7_multistep_scroll.scroll_top == 'on'){
                     multistep_scroll_to_top($this.parents('form'));
                 }
             },
@@ -160,7 +160,7 @@ jQuery(document).ready(function () {
             }
         });
     }
-
+   
     function clear_error_messages($form, uacf7_current_step) {
         $form.removeClass('invalid');
         jQuery('.wpcf7-response-output', $form).removeClass('wpcf7-validation-errors');
