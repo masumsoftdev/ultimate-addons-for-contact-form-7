@@ -317,12 +317,12 @@ class UACF7_PRODUCT_DROPDOWN {
                             </td>
                         </tr>
                         <?php 
-                        $product_dropdown_html = ob_get_clean();
+                        $product_tag_html = ob_get_clean();
 
                         /*
                         * Tag generator field after name attribute.
                         */
-                        echo apply_filters('uacf7_tag_generator_product_tag_field',$product_dropdown_html);
+                        echo apply_filters('uacf7_tag_generator_product_tag_field',$product_tag_html);
                        ?>
 
                         <?php ob_start(); ?>
