@@ -4,7 +4,7 @@ Tags: contact form 7, contact form 7 addons, contact form 7 addon, contact form 
 Requires at least: 4.2
 Tested up to: 6.0
 Requires PHP: 5.4
-Stable tag: 3.0.3
+Stable tag: 3.0.4
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -332,9 +332,13 @@ Just install our Plugin. It will only take 5 mins to create such a form.</a>.
 
 == Changelog ==
 
+= 3.0.4 - 26/07/2022 =
+
+- Multistep: Added auto scrolling On/Off option
+
 = 3.0.3 - 25/07/2022 =
 
-- New feature: Product Dropdown to grid view (pro)
+- New feature: Added product grid view layout for product dropdown addon(pro)
 - New feature: Range Slider style (pro)
 - New feature: Star Rating style (pro)
 - New feature: Display product by tag for product dropdown
