@@ -267,6 +267,7 @@
   }
 
   /** Addon Tabs **/
+  #uacf7-repeater-panel-tab,
   #uacf7-redirect-panel-tab, 
   #uacf7-cf-panel-tab, 
   #uacf7-placeholder-panel-tab, 
@@ -280,6 +281,7 @@
     background: #fff!important;
   }
 
+  #uacf7-repeater-panel-tab a, 
   #uacf7-redirect-panel-tab a, 
   #uacf7-cf-panel-tab a, 
   #uacf7-placeholder-panel-tab a, 
@@ -292,6 +294,7 @@
     color: #473080!important;
   }
   
+  #uacf7-repeater-panel-tab:hover, 
   #uacf7-redirect-panel-tab:hover, 
   #uacf7-cf-panel-tab:hover, 
   #uacf7-placeholder-panel-tab:hover, 
@@ -305,6 +308,7 @@
     background: #281266!important;
   }
 
+  #uacf7-repeater-panel-tab:hover a,
   #uacf7-redirect-panel-tab:hover a,
   #uacf7-cf-panel-tab:hover a, 
   #uacf7-placeholder-panel-tab:hover a, 
@@ -321,11 +325,13 @@
  #uacf7-range-slider-panel-tab.ui-tabs-active a,
  #uacf7-auto-product-cart-panel-tab.ui-tabs-active a,
  #uacf7-mailchimp-panel-tab.ui-tabs-active a,
+ #uacf7-repeater-panel-tab.ui-tabs-active a,
  #uacf7-post-submission-panel-tab.ui-tabs-active a {
     color: #fff!important;
   }
 
  /** Addon Tabs **/
+ #uacf7-repeater-panel-tab.ui-tabs-active, 
  #uacf7-redirect-panel-tab.ui-tabs-active, 
  #uacf7-cf-panel-tab.ui-tabs-active, 
  #uacf7-placeholder-panel-tab.ui-tabs-active, 
@@ -342,6 +348,7 @@
 
 /** Addon Tab Inner **/
 #uacf7-redirect-panel, 
+#uacf7-repeater-panel, 
 #uacf7-auto-product-cart-panel, 
 #uacf7-bf-panel, 
 #uacf7-cf-panel, 
@@ -356,6 +363,7 @@
   line-height: 1.5;
 }
 
+#uacf7-repeater-panel h2, 
 #uacf7-redirect-panel h2, 
 #uacf7-auto-product-cart-panel h2, 
 #uacf7-bf-panel h2, 
@@ -371,6 +379,7 @@
   line-height: 1.5!important;
 }
 
+#uacf7-repeater-panel p, 
 #uacf7-redirect-panel p, 
 #uacf7-auto-product-cart-panel p, 
 #uacf7-bf-panel p, 
