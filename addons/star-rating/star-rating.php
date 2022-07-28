@@ -53,11 +53,9 @@ class UACF7_STAR_RATING {
         if ( $tag->is_required() ) {
             $atts['aria-required'] = 'true';
         }
-        // return array for Rating style as $values[0]
-        if ( $data = (array) $tag->get_data_option() ) {
-            $tag->values = array_merge( $tag->values, array_values( $data ) );
-        } 
+        
         $values = $tag->values; 
+        
 
         $atts['aria-invalid'] = $validation_error ? 'true' : 'false';
 
@@ -91,8 +89,7 @@ class UACF7_STAR_RATING {
 				$rating_icon = '✪';
 				break;
 			}
-		}   
-        if(empty($values) || $values[0] == 'default'  ){
+		}    
         ?> 
             <span class="wpcf7-form-control-wrap <?php echo esc_attr($tag->name); ?>">
             <span <?php echo $atts; ?>>
@@ -128,18 +125,15 @@ class UACF7_STAR_RATING {
             </label>
             
             </span>
-        <?php
-        }else{
-            $rating_style = $values[0];
-            $tag_name = $tag->name;
-            echo apply_filters( 'uacf7_star_rating_style_pro_feature', $rating_style, $tag_name, $selected, $atts, $star1, $star2, $star3, $star4, $star5 );
-        }
-
-        echo $validation_error;
+        <?php 
+             echo $validation_error;
 		?>
         </span>
+        
         <?php
-        return ob_get_clean();
+         $default_star_style =  ob_get_clean();
+         return apply_filters( 'uacf7_star_rating_style_pro_feature',  $default_star_style, $tag );
+       
     }
     
     /*
@@ -225,7 +219,7 @@ class UACF7_STAR_RATING {
                             <th><label for="tag-generator-panel-range-style">Star Rating Style</label></th>                     
                             <td>
                                 <select  name="values" disabled class="values" id="tag-generator-panel-range-style">
-                                    <option value="0">Default</option>
+                                    <option value="default">Default</option>
                                 </select>
                                  <a href="https://cf7addons.com/preview/star-rating/pro" style="color:red">(Pro)</a>
                             </td>
