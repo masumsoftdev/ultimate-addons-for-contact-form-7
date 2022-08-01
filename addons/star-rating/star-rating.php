@@ -10,6 +10,7 @@ class UACF7_STAR_RATING {
     public function __construct() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_frontend_script' ) );
         add_action('wpcf7_init', array($this, 'add_shortcodes'));
+        add_action( 'wpcf7_swv_create_schema', array( $this, 'uacf7_swv_add_checkbox_rules' ), 10, 2 );
         add_action( 'admin_init', array( $this, 'tag_generator' ) );
     }
 	
@@ -21,6 +22,27 @@ class UACF7_STAR_RATING {
         wp_enqueue_style( 'uacf7-fontawesome', UACF7_ADDONS . '/star-rating/assets/css/all.css' );
     }
      
+
+    /*
+    * Star rating alidation
+    */ 
+	public function uacf7_swv_add_checkbox_rules( $schema, $contact_form ) {
+		$tags = $contact_form->scan_form_tags( array(
+			'type' => array( 'uacf7_star_rating*', ),
+		) );
+	
+		foreach ( $tags as $tag ) {
+			$schema->add_rule(
+				wpcf7_swv_create_rule( 'required', array(
+					'field' => $tag->name,
+					'error' => wpcf7_get_message( 'invalid_required' ),
+				) )
+			);
+		}
+	}
+	
+
+
     /*
     * Create form tag: uacf7_star_rating
     */
@@ -53,16 +75,22 @@ class UACF7_STAR_RATING {
         if ( $tag->is_required() ) {
             $atts['aria-required'] = 'true';
         }
+        if ( $validation_error ) {
+            $atts['aria-describedby'] = wpcf7_get_validation_error_reference(
+                $tag->name
+            );
+        }
         
-        $values = $tag->values; 
+        $rating_style = $tag->values; 
         
 
         $atts['aria-invalid'] = $validation_error ? 'true' : 'false';
 
         $atts = wpcf7_format_atts( $atts );
         
-        $selected = !empty($tag->get_option('selected', '', true)) ? $tag->get_option('selected', '', true) : '5';
-        
+        $selected = !empty($tag->get_option('selected', '', true)) ? $tag->get_option('selected', '', true) : '5'; 
+        $selected = $tag->get_option('selected', '', true);
+
         $star1 = !empty($tag->get_option('star1', '', true)) ? $tag->get_option('star1', '', true) : '1';
         $star2 = !empty($tag->get_option('star2', '', true)) ? $tag->get_option('star2', '', true) : '2';
         $star3 = !empty($tag->get_option('star3', '', true)) ? $tag->get_option('star3', '', true) : '3';
@@ -91,43 +119,46 @@ class UACF7_STAR_RATING {
 			}
 		}    
         ?> 
-            <span class="wpcf7-form-control-wrap <?php echo esc_attr($tag->name); ?>">
-            <span <?php echo $atts; ?>>
-            <label>
-                <input type="radio" name="<?php echo esc_attr($tag->name); ?>" value="<?php echo esc_attr($star1); ?>" <?php checked( $selected, '1', true ); ?> />
-                <span class="icon"><?php echo $rating_icon; ?></span>
-            </label>
-            <label>
-                <input type="radio" name="<?php echo esc_attr($tag->name); ?>" value="<?php echo esc_attr($star2); ?>" <?php checked( $selected, '2', true ); ?> />
-                <span class="icon"><?php echo $rating_icon; ?></span>
-                <span class="icon"><?php echo $rating_icon; ?></span>
-            </label>
-            <label>
-                <input type="radio" name="<?php echo esc_attr($tag->name); ?>" value="<?php echo esc_attr($star3); ?>" <?php checked( $selected, '3', true ); ?> />
-                <span class="icon"><?php echo $rating_icon; ?></span>
-                <span class="icon"><?php echo $rating_icon; ?></span>
-                <span class="icon"><?php echo $rating_icon; ?></span>   
-            </label>
-            <label>
-                <input type="radio" name="<?php echo esc_attr($tag->name); ?>" value="<?php echo esc_attr($star4); ?>" <?php checked( $selected, '4', true ); ?> />
-                <span class="icon"><?php echo $rating_icon; ?></span>
-                <span class="icon"><?php echo $rating_icon; ?></span>
-                <span class="icon"><?php echo $rating_icon; ?></span>
-                <span class="icon"><?php echo $rating_icon; ?></span>
-            </label>
-            <label>
-                <input type="radio" name="<?php echo esc_attr($tag->name); ?>" value="<?php echo esc_attr($star5); ?>" <?php checked( $selected, '5', true ); ?> />
-                <span class="icon"><?php echo $rating_icon; ?></span>
-                <span class="icon"><?php echo $rating_icon; ?></span>
-                <span class="icon"><?php echo $rating_icon; ?></span>
-                <span class="icon"><?php echo $rating_icon; ?></span>
-                <span class="icon"><?php echo $rating_icon; ?></span>
-            </label>
-            
+        <span data-name="<?php echo esc_attr($tag->name); ?>" class="wpcf7-form-control-wrap <?php echo esc_attr($tag->name); ?>">
+             <span <?php echo $atts; ?> > 
+                <label>
+                    <input type="radio"  name="<?php echo esc_attr($tag->name); ?>" value="<?php echo esc_attr($star1); ?>" <?php checked( $selected, '1', true ); ?> />
+                    <span class="icon"><?php echo $rating_icon; ?></span>
+                </label>
+                <label>
+                    <input type="radio" name="<?php echo esc_attr($tag->name); ?>" value="<?php echo esc_attr($star2); ?>" <?php checked( $selected, '2', true ); ?> />
+                    <span class="icon"><?php echo $rating_icon; ?></span>
+                    <span class="icon"><?php echo $rating_icon; ?></span>
+                </label>
+                <label>
+                    <input type="radio" name="<?php echo esc_attr($tag->name); ?>" value="<?php echo esc_attr($star3); ?>" <?php checked( $selected, '3', true ); ?> />
+                    <span class="icon"><?php echo $rating_icon; ?></span>
+                    <span class="icon"><?php echo $rating_icon; ?></span>
+                    <span class="icon"><?php echo $rating_icon; ?></span>   
+                </label>
+                <label>
+                    <input type="radio" name="<?php echo esc_attr($tag->name); ?>" value="<?php echo esc_attr($star4); ?>" <?php checked( $selected, '4', true ); ?> />
+                    <span class="icon"><?php echo $rating_icon; ?></span>
+                    <span class="icon"><?php echo $rating_icon; ?></span>
+                    <span class="icon"><?php echo $rating_icon; ?></span>
+                    <span class="icon"><?php echo $rating_icon; ?></span>
+                </label>
+                <label>
+                    <input type="radio" name="<?php echo esc_attr($tag->name); ?>" value="<?php echo esc_attr($star5); ?>" <?php checked( $selected, '5', true ); ?> />
+                    <span class="icon"><?php echo $rating_icon; ?></span>
+                    <span class="icon"><?php echo $rating_icon; ?></span>
+                    <span class="icon"><?php echo $rating_icon; ?></span>
+                    <span class="icon"><?php echo $rating_icon; ?></span>
+                    <span class="icon"><?php echo $rating_icon; ?></span>
+                </label>
+             
+                
             </span>
-        <?php 
-             echo $validation_error;
-		?>
+        </span> 
+        <span>
+            <?php 
+                echo $validation_error;
+            ?>
         </span>
         
         <?php
@@ -135,38 +166,12 @@ class UACF7_STAR_RATING {
          return apply_filters( 'uacf7_star_rating_style_pro_feature',  $default_star_style, $tag );
        
     }
-    
-    /*
-    * Check validation for custom form fields
-    */
-    public function uacf7_star_rating_fields_validation_filter( $result, $tag ) {
-        $name = $tag->name;
-
-        if ( isset( $_POST[$name] )
-        and is_array( $_POST[$name] ) ) {
-            foreach ( $_POST[$name] as $key => $value ) {
-                if ( '' === $value ) {
-                    unset( $_POST[$name][$key] );
-                }
-            }
-        }
-
-        $empty = ! isset( $_POST[$name] ) || empty( $_POST[$name] ) && '0' !== $_POST[$name];
-
-        if ( $tag->is_required() and $empty ) {
-            $result->invalidate( $tag, wpcf7_get_message( 'invalid_required' ) );
-        }
-
-        return $result;
-    }
-    
     /*
     * Generate tag
     */
     public function tag_generator() {
         if (! function_exists('wpcf7_add_tag_generator'))
             return;
-
         wpcf7_add_tag_generator('uacf7_star_rating',
             __('Star Rating', 'ultimate-star-rating'),
             'uacf7-tg-pane-star-rating',
@@ -183,7 +188,15 @@ class UACF7_STAR_RATING {
             <div class="uacf7-doc-notice">Not sure how to set this? Check our step by step <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/star-rating-feedback/" target="_blank">documentation</a>.</div>               
                 <table class="form-table">
                    <tbody>
-                        
+                        <tr>
+                            <th scope="row"><?php _e( 'Field Type', 'ultimate-addons-cf7' );?></th>
+                            <td>
+                                <fieldset>
+                                    <legend class="screen-reader-text"><?php _e( 'Field Type', 'ultimate-addons-cf7' );?></legend>
+                                    <label><input type="checkbox" name="required" value="on"><?php _e( 'Required Field', 'ultimate-addons-cf7' );?></label>
+                                </fieldset>
+                            </td>
+                        </tr> 
                         <tr>
                             <th scope="row"><label for="tag-generator-panel-text-name">Name</label></th>
                             <td><input type="text" name="name" class="tg-name oneline" value="rating" id="tag-generator-panel-text-name"></td>
