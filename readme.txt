@@ -332,6 +332,10 @@ Just install our Plugin. It will only take 5 mins to create such a form.</a>.
 
 == Changelog ==
 
+= 3.0.6 - 02/08/2022 =
+
+- Star Rating: CSS and JS issue fixed and required field feature added
+
 = 3.0.5 - 28/07/2022 =
 
 - Repeater: Added an option to set maximum limit of repeatable groups
