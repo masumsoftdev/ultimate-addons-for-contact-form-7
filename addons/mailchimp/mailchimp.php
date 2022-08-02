@@ -66,7 +66,7 @@ class UACF7_MAILCHIMP
     $mailchimp_options = get_option('uacf7_mailchimp_option_name');
 
     if( is_array($mailchimp_options) && !empty($mailchimp_options) ) {
-      return $this->$mailchimp_api = $mailchimp_options['uacf7_mailchimp_api_key'];
+      return $this->mailchimp_api = $mailchimp_options['uacf7_mailchimp_api_key'];
     }
 
     $this->mailchimp_connection();
@@ -77,7 +77,7 @@ class UACF7_MAILCHIMP
   public function mailchimp_connection()
   {
 
-    $api_key = $this->$mailchimp_api;
+    $api_key = $this->mailchimp_api;
 
     if ($api_key != '') {
 
@@ -121,14 +121,14 @@ class UACF7_MAILCHIMP
   /* Mailchimp connection status */
   public function connection_status()
   {
-    $api_key = $this->$mailchimp_api;
-
+    $api_key = $this->mailchimp_api;
+    $status = '';
     if ($api_key != '') {
 
       $response = $this->set_config($api_key, 'ping');
       $response = json_decode($response);
 
-      $status = '';
+      
       $status .= '<span class="status-title"><strong>' . esc_html__('Status: ', 'ultimate-addons-cf7') . '</strong>';
 
       if ($this->is_internet_connected() == false) { //Checking internet connection
@@ -215,7 +215,7 @@ class UACF7_MAILCHIMP
   /* Add members to mailchimp */
   public function add_members( $id, $audience, $posted_data ) {
 
-    $api_key = $this->$mailchimp_api;
+    $api_key = $this->mailchimp_api;
 
     $subscriber_email = get_post_meta( $id, 'uacf7_mailchimp_subscriber_email', true );
     $subscriber_email = !empty($subscriber_email) ? $posted_data[$subscriber_email] : '';
