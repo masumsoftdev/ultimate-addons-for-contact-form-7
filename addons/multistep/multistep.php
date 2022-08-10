@@ -611,7 +611,15 @@ class UACF7_MULTISTEP {
                 return in_array($v->name, $current_step_fields);
             }, ARRAY_FILTER_USE_BOTH
         );
-
+        $form->validate_schema(
+            array(
+                'text'  => true,
+                'file'  => false,
+                'field' =>  $current_step_fields,
+            ),
+            $result
+        );
+        
         foreach ( $tags as $tag ) {
             $type = $tag->type;
             
@@ -661,7 +669,7 @@ class UACF7_MULTISTEP {
 
         echo(json_encode( array(
                     'is_valid' => $is_valid,
-                    'invalid_fields' => $invalid_fields
+                    'invalid_fields' => $invalid_fields,
                 )
             )
         );
@@ -673,8 +681,7 @@ class UACF7_MULTISTEP {
 
         foreach ((array)$result->get_invalid_fields() as $name => $field) {
             $invalid_fields[] = array(
-                'into' => 'span.wpcf7-form-control-wrap.'
-                    . sanitize_html_class($name),
+                'into' => 'span.wpcf7-form-control-wrap[data-name = '.$name.']',
                 'message' => $field['reason'],
                 'idref' => $field['idref'],
             );
