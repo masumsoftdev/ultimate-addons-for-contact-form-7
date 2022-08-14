@@ -1,13 +1,15 @@
 <?php 
-// Blog Info Shortcode
+
+
+// Current url Shortcode
 if(!function_exists('UACF7_URL')){
     function UACF7_URL($val){ 
         $data = get_permalink();
         return $data;
     }
-    add_shortcode('UACF7_URL', 'UACF7_URL');
-
+    add_shortcode('UACF7_URL', 'UACF7_URL'); 
 }
+
 // Blog Info Shortcode
 if(!function_exists('UACF7_BLOGINFO')){
     function UACF7_BLOGINFO($val){ 
@@ -21,17 +23,17 @@ if(!function_exists('UACF7_BLOGINFO')){
     add_shortcode('UACF7_BLOGINFO', 'UACF7_BLOGINFO');
 
 }
-// pOST iNFO Info Shortcode
+
+// POST iNFO Info Shortcode
 if(!function_exists('UACF7_POSTINFO')){
     function UACF7_POSTINFO($val){ 
-        global $post;
-        // $custom_fields = get_post_meta($post->ID, $val['attr'], true);
+        global $post; 
+        $data = '';
         if($val['attr'] == 'post_permalink'){
             $data = get_permalink($post->ID);
-        }
-        elseif(!empty($val['attr'])){ 
+        }elseif(!empty($val['attr'])){ 
             $post_attr = $val['attr'];
-           $data =  $post->$post_attr;
+            $data =  $post->$post_attr;
         }else{
             $data = $post->post_title;
         }
@@ -56,10 +58,10 @@ if(!function_exists('UACF7_USERINFO')){
 
 }
 
-// User Custom Fields Shortcode
+// Post Custom Fields Shortcode
 if(!function_exists('UACF7_CUSTOM_FIELDS')){
-    function UACF7_CUSTOM_FIELDS($val){   
-
+    function UACF7_CUSTOM_FIELDS($val){    
+        $data ='';
         $value = explode("/",$val['attr']); 
         $id = $value[0];
         $custom_fields = $value[1];
@@ -70,7 +72,6 @@ if(!function_exists('UACF7_CUSTOM_FIELDS')){
         return $data;
     }
     add_shortcode('UACF7_CUSTOM_FIELDS', 'UACF7_CUSTOM_FIELDS');
-
 }
 
 

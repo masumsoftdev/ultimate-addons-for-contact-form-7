@@ -17,17 +17,12 @@ class UACF7_DYNAMIC_TEXT {
         
 		add_filter( 'wpcf7_validate_uacf7_dynamic_text*', array($this,'uacf7_dynamic_text_validation_filter'), 10, 2 );
 
-        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_dynamic_text_style' ) ); 
 
         //Require Shortcode
         require_once( 'inc/shortcode.php' );
         
     } 
 
-    public function enqueue_dynamic_text_style() {
-        wp_enqueue_style( 'uacf7-dynamic-text', UACF7_ADDONS . '/placeholder/css/dynamic-text-style.css' ); 
-    }
-    
     /*
     * Form tag
     */
@@ -44,7 +39,7 @@ class UACF7_DYNAMIC_TEXT {
         if ( empty( $tag->name ) ) {
             return '';
         }
-        
+     
         $validation_error = wpcf7_get_validation_error( $tag->name );
 
         $class = wpcf7_form_controls_class( $tag->type );
@@ -65,10 +60,17 @@ class UACF7_DYNAMIC_TEXT {
 
         $atts['aria-invalid'] = $validation_error ? 'true' : 'false';
 
-        $atts['name'] = $tag->name;
-        $atts['name'] = $tag->name;
+        $atts['name'] = $tag->name; 
 		
+        // input size
 		$size = $tag->get_option( 'size', 'int', true );
+        if ( $size ) {
+			$atts['size'] = $size;
+		} else {
+			$atts['size'] = 40;
+		}
+
+        // Visibility
 		$visibility = $tag->get_option( 'visibility', '', true );
         if($visibility == 'show'){
             $atts['type'] = 'text';
@@ -79,19 +81,15 @@ class UACF7_DYNAMIC_TEXT {
             $atts['type'] = 'hidden';
         }
 
-		if ( $size ) {
-			$atts['size'] = $size;
-		} else {
-			$atts['size'] = 40;
-		}
+		
         $values = $tag->values;
         $key = $tag->get_option( 'key', '', true );
 
-        $current_user = wp_get_current_user();
-        
-
-        $shortcode =  do_shortcode('['.$values[0].' attr="'.$key.'"]'); 
-
+        // Short Code
+        $shortcode = '';
+        if(!empty($values)){ 
+             $shortcode =  do_shortcode('['.$values[0].' attr="'.$key.'"]'); 
+        } 
 		$atts['value'] = esc_attr($shortcode);
 
         $atts = wpcf7_format_atts( $atts );
@@ -112,7 +110,7 @@ class UACF7_DYNAMIC_TEXT {
 
 
     /*
-    * Form tag shortcode
+    * Form tag Validation 
     */
     public function uacf7_dynamic_text_validation_filter($result, $tag ){
         $name = $tag->name;
@@ -171,7 +169,6 @@ class UACF7_DYNAMIC_TEXT {
                                 </fieldset>
                             </td>
                         </tr>
-                        
                         <tr>
                             <th scope="row"><label for="<?php echo esc_attr( $args['content'] . '-name' ); ?>"><?php echo esc_html( __( 'Name', 'ultimate-addons-cf7' ) ); ?></label></th>
                             <td><input type="text" name="name" class="tg-name oneline" id="<?php echo esc_attr( $args['content'] . '-name' ); ?>" /></td>
@@ -191,10 +188,10 @@ class UACF7_DYNAMIC_TEXT {
                             <td>
                                 <select  name="values" class="values" id="tag-generator-panel-dynamic-value">
                                     <option value="">Select</option> 
-                                    <option value="UACF7_URL">Current Url</option> 
+                                    <option value="UACF7_URL">Current URL</option> 
                                     <option value="UACF7_BLOGINFO">Blog Info</option> 
-                                    <option value="UACF7_POSTINFO">Post info</option> 
-                                    <option value="UACF7_USERINFO">User info</option> 
+                                    <option value="UACF7_POSTINFO">Current post info</option> 
+                                    <option value="UACF7_USERINFO">Current User info</option> 
                                     <option value="UACF7_CUSTOM_FIELDS">Custom fields</option> 
                                 </select> 
                             </td>
