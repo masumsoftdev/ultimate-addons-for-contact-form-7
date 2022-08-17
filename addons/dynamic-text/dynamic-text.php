@@ -198,7 +198,7 @@ class UACF7_DYNAMIC_TEXT {
                         </tr>
                         <tr>
                             <th scope="row"><label for="tag-generator-panel-text-class">Dynamic key</label></th>
-                            <td><input type="text" name="key" class="key oneline option" id="tag-generator-panel-text-key"></td>
+                            <td><input type="text" placeholder="Dynamic key" name="key" class="key oneline option" id="tag-generator-panel-text-key"></td>
                         </tr>
                         <tr>
                             <th scope="row"><label for="tag-generator-panel-text-class">Class attribute</label></th>

@@ -48,9 +48,13 @@ if(!function_exists('UACF7_USERINFO')){
     function UACF7_USERINFO($val){  
         $data = '';
         if( is_user_logged_in() ) {
-            $user_attr = $val['attr'];
             $current_user = wp_get_current_user();
-            $data = $current_user->$user_attr;
+            if(!empty($val['attr'])){
+                $user_attr = $val['attr'];
+                $data = $current_user->$user_attr;
+            }else{
+                $data = $current_user->user_nicename;
+            } 
         }
         return $data;
     }
