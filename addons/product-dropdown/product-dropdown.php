@@ -109,7 +109,7 @@ class UACF7_PRODUCT_DROPDOWN {
         if ( $multiple ) {
             $atts['multiple'] = apply_filters('uacf7_multiple_attribute','');
         }
-        $dropdown = '<option>-Select-</option>';
+        $dropdown = '<option value="">-Select-</option>';
             while ( $products->have_posts() ) {
                 $products->the_post();
                 
@@ -133,13 +133,13 @@ class UACF7_PRODUCT_DROPDOWN {
                     $item_atts, esc_html( $label ) );
             }
             wp_reset_postdata(); 
-            
+            $atts['aria-invalid'] = $validation_error ? 'true' : 'false';
             $atts['name'] = $tag->name . ( $multiple ? '[]' : '' );
 
             $atts = wpcf7_format_atts( $atts );
 
             $dropdown = sprintf(
-                '<span class="wpcf7-form-control-wrap %1$s"><select %2$s>%3$s</select>%4$s</span>',
+                '<span class="wpcf7-form-control-wrap %1$s"  data-name="%1$s"><select %2$s>%3$s</select></span><span>%4$s</span>',
                 sanitize_html_class( $tag->name ), $atts, $dropdown, $validation_error
             );
         if($tag->has_option( 'layout:grid' )){ // Grid Layout

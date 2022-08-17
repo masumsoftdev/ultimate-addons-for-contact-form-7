@@ -24,7 +24,7 @@ class UACF7_STAR_RATING {
      
 
     /*
-    * Star rating alidation
+    * Star rating Validation
     */ 
 	public function uacf7_swv_add_checkbox_rules( $schema, $contact_form ) {
 		$tags = $contact_form->scan_form_tags( array(
@@ -150,8 +150,7 @@ class UACF7_STAR_RATING {
                     <span class="icon"><?php echo $rating_icon; ?></span>
                     <span class="icon"><?php echo $rating_icon; ?></span>
                     <span class="icon"><?php echo $rating_icon; ?></span>
-                </label>
-             
+                </label> 
                 
             </span>
         </span> 
