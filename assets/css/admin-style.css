@@ -276,6 +276,7 @@
   #uacf7-range-slider-panel-tab,
   #uacf7-auto-product-cart-panel-tab,
   #uacf7-post-submission-panel-tab,
+  #uacf7-data-shifting-panel-tab,
   #uacf7-mailchimp-panel-tab {
     border: 2px solid #473080!important;
     background: #fff!important;
@@ -289,6 +290,7 @@
   #uacf7-uacf7style-panel-tab a, 
   #uacf7-range-slider-panel-tab a,
   #uacf7-auto-product-cart-panel-tab a,
+  #uacf7-data-shifting-panel-tab a,
   #uacf7-post-submission-panel-tab a {  
     font-weight: bold!important;
     color: #473080!important;
@@ -302,7 +304,7 @@
   #uacf7-uacf7style-panel-tab:hover, 
   #uacf7-range-slider-panel-tab:hover,
   #uacf7-auto-product-cart-panel-tab:hover,
-  #uacf7-post-submission-panel-tab:hover,
+  #uacf7-post-submission-panel-tab:hover, 
   #uacf7-mailchimp-panel-tab:hover {
     border: 2px solid #281266!important;
     background: #281266!important;
@@ -325,7 +327,7 @@
  #uacf7-range-slider-panel-tab.ui-tabs-active a,
  #uacf7-auto-product-cart-panel-tab.ui-tabs-active a,
  #uacf7-mailchimp-panel-tab.ui-tabs-active a,
- #uacf7-repeater-panel-tab.ui-tabs-active a,
+ #uacf7-data-shifting-panel-tab.ui-tabs-active a,
  #uacf7-post-submission-panel-tab.ui-tabs-active a {
     color: #fff!important;
   }
@@ -340,6 +342,7 @@
  #uacf7-range-slider-panel-tab.ui-tabs-active,
  #uacf7-auto-product-cart-panel-tab.ui-tabs-active,
  #uacf7-post-submission-panel-tab.ui-tabs-active,
+ #uacf7-data-shifting-panel-tab.ui-tabs-active,
  #uacf7-mailchimp-panel-tab.ui-tabs-active {
    border: 2px solid #473080!important;
    background: #473080!important;
@@ -356,6 +359,7 @@
 #uacf7-multistep-panel, 
 #uacf7-uacf7style-panel, 
 #uacf7-range-slider-panel, 
+#uacf7-data-shifting-panel, 
 #uacf7-post-submission-panel {
   background: #fff!important;
   padding: 20px 50px 50px!important;
@@ -373,6 +377,7 @@
 #uacf7-uacf7style-panel h2, 
 #uacf7-range-slider-panel h2, 
 #uacf7-post-submission-panel h2,
+#uacf7-data-shifting-panel h2,
 #uacf7-mailchimp-panel-tab h2 {
   font-size: 20px!important;
   font-weight: 600!important;
@@ -389,6 +394,7 @@
 #uacf7-uacf7style-panel p, 
 #uacf7-range-slider-panel p, 
 #uacf7-post-submission-panel p,
+#uacf7-data-shifting-panel p,
 #uacf7-mailchimp-panel-tab p {
   font-size: 16px!important;
   line-height: 1.5!important;
