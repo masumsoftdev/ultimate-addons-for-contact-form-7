@@ -52,7 +52,7 @@ class UACF7_PRE_POPULATE {
     
     public function uacf7_add_panel($panels){
         $panels['uacf7-pre-populate-panel'] = array(
-            'title'    => __( 'UACF7 Form Shipting Form', 'ultimate-addons-cf7' ),
+            'title'    => __( 'UACF7 pre-populate Fields', 'ultimate-addons-cf7' ),
 			'callback' => array( $this, 'uacf7_create_pre_populate_panel_fields' ),
 		);
 		return $panels;
@@ -79,7 +79,6 @@ class UACF7_PRE_POPULATE {
             'posts_per_page'   => -1
         )); 
         ?>  
-        
         <fieldset>
            <div class="ultimate-pre-populate-admin"> 
                <div class="main-block">
