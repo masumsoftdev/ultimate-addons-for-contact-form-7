@@ -66,8 +66,8 @@ if( !function_exists( 'uacf7_addons_included' ) ) {
 
 
         //Addon - Dynamic Text
-        if( uacf7_checked( 'uacf7_enable_data_shifting') != ''){
-            require_once( 'data-shifting/data-shifting.php');
+        if( uacf7_checked( 'uacf7_enable_pre_populate_field') != ''){
+            require_once( 'pre-populate-field/pre-populate-field.php');
         }
 		
     }
