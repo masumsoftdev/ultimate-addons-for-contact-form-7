@@ -4,7 +4,7 @@ Tags: contact form 7, contact form 7 addons, contact form 7 addon, contact form 
 Requires at least: 4.2
 Tested up to: 6.0.1
 Requires PHP: 5.4
-Stable tag: 3.0.8
+Stable tag: 3.0.9
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -32,6 +32,8 @@ Packed with 20+ essential features, <strong>Ultimate Addons For Contact Form 7</
 * Star Rating Field
 * Country List with Flag
 * Mailchimp Integration
+* Dynamic text field
+* Pre-populate fields
 * WooCommerce Checkout (Pro)
 * Repeater Field (Pro)
 * Multi Step Form Skins/Templates (Pro)
@@ -331,6 +333,10 @@ Just install our Plugin. It will only take 5 mins to create such a form.</a>.
 18. Multistep Editor Panel
 
 == Changelog ==
+
+= 3.0.9 - 29/08/2022 =
+
+- Added new addon: Pre-populate fields ( Pre-populate field data one form to another form based on form fields on contact form 7 ) 
 
 = 3.0.8 - 17/08/2022 =
 
