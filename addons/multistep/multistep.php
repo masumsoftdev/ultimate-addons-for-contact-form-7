@@ -37,8 +37,9 @@ class UACF7_MULTISTEP {
     
     function step_start_tag_handler($tag){
         ob_start();
+        $form_current = \WPCF7_ContactForm::get_current();
         ?>
-        <div class="uacf7-step step-content" next-btn-text="<?php echo esc_html( get_option('next_btn_'.$tag->name) ); ?>" prev-btn-text="<?php echo esc_html( get_option('prev_btn_'.$tag->name) ); ?>">
+        <div class="uacf7-step uacf7-step-<?php echo $form_current->id(); ?> step-content" next-btn-text="<?php echo esc_html( get_option('next_btn_'.$tag->name) ); ?>" prev-btn-text="<?php echo esc_html( get_option('prev_btn_'.$tag->name) ); ?>">
         <?php
         return ob_get_clean();
     }
@@ -48,8 +49,8 @@ class UACF7_MULTISTEP {
         $form_current = \WPCF7_ContactForm::get_current();
         ?>
         <p>
-        	<button class="uacf7-prev"><?php echo esc_html__('Previous', 'ultimate-addons-cf7'); ?></button>
-			<button class="uacf7-next"><?php echo esc_html__('Next', 'ultimate-addons-cf7'); ?></button>
+        	<button class="uacf7-prev" data-form-id="<?php echo $form_current->id(); ?>" ><?php echo esc_html__('Previous', 'ultimate-addons-cf7'); ?></button>
+			<button class="uacf7-next" data-form-id="<?php echo $form_current->id(); ?>"><?php echo esc_html__('Next', 'ultimate-addons-cf7'); ?></button>
 			<span class="wpcf7-spinner uacf7-ajax-loader"></span>
         </p>
         </div>
@@ -495,7 +496,7 @@ class UACF7_MULTISTEP {
                         foreach ($all_steps as $step) {
                             $content = $step;
                             ?>
-                            <div class="steps-step"><a title-id=".step-<?php echo esc_attr($step_id); ?>" href="#step-<?php echo esc_attr($step_id); ?>" type="button"></a></div>
+                            <div class="steps-step"><a title-id=".step-<?php echo esc_attr($step_id); ?>" data-form-id="<?php echo esc_attr($cfform->id()); ?>" href="#<?php echo esc_attr($cfform->id()); ?>step-<?php echo esc_attr($step_id); ?>" type="button"></a></div>
                             <?php
                             $step_id++;
                             $step_count++;
@@ -539,7 +540,7 @@ class UACF7_MULTISTEP {
                     foreach ($all_steps as $step) {
                         $content = $step;
                         ?>
-                        <div class="steps-step"><a title-id=".step-<?php echo esc_attr($step_id); ?>" href="#step-<?php echo esc_attr($step_id); ?>" type="button" class="btn <?php if( $step_id == 1 ) { echo esc_attr('uacf7-btn-active'); }else{ echo esc_attr('uacf7-btn-default'); } ?> btn-circle"><?php 
+                        <div class="steps-step"><a title-id=".step-<?php echo esc_attr($step_id); ?>" data-form-id="<?php echo esc_attr($cfform->id()); ?>"   href="#<?php echo esc_attr($cfform->id()); ?>step-<?php echo esc_attr($step_id); ?>" type="button" class="btn <?php if( $step_id == 1 ) { echo esc_attr('uacf7-btn-active'); }else{ echo esc_attr('uacf7-btn-default'); } ?> btn-circle"><?php 
 						if(is_array($step_name)) {
 							do_action( 'uacf7_progressbar_image', $step_name[$step_count] );
 						}
