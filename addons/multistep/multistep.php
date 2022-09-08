@@ -599,7 +599,8 @@ class UACF7_MULTISTEP {
         }
 
         $current_step_fields = explode(',', $_REQUEST['current_fields_to_check']);
-        
+        $repeater_fields = $_REQUEST['form_id'];
+       
         $form = wpcf7_contact_form( $_REQUEST['form_id'] );
         $all_form_tags = $form->scan_form_tags();
         $invalid_fields = false;
@@ -609,9 +610,11 @@ class UACF7_MULTISTEP {
         
         $tags = array_filter(
             $all_form_tags, function($v, $k) use ($current_step_fields) {
+                
                 return in_array($v->name, $current_step_fields);
             }, ARRAY_FILTER_USE_BOTH
         );
+        $tags = $all_form_tags;
         $form->validate_schema(
             array(
                 'text'  => true,
@@ -620,7 +623,10 @@ class UACF7_MULTISTEP {
             ),
             $result
         );
-        
+        echo "</pre>";
+            echo $repeater_fields;
+        echo "<pre>";
+    
         foreach ( $tags as $tag ) {
             $type = $tag->type;
             
@@ -655,7 +661,6 @@ class UACF7_MULTISTEP {
 			    update_option('file_errors', $new_files);
 			    
 			    $result = apply_filters("wpcf7_validate_{$type}", $result, $tag, array( 'uploaded_files' => $new_files, ) );
-			    
 			}
             
         }
@@ -668,12 +673,12 @@ class UACF7_MULTISTEP {
             $invalid_fields = $this->prepare_invalid_form_fields($result);
         }
 
-        echo(json_encode( array(
-                    'is_valid' => $is_valid,
-                    'invalid_fields' => $invalid_fields,
-                )
-            )
-        );
+        // echo(json_encode( array(
+        //             'is_valid' => $is_valid,
+        //             'invalid_fields' => $invalid_fields,
+        //         )
+        //     )
+        // );
         wp_die();
     }
     

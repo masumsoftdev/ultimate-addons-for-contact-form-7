@@ -52,7 +52,7 @@ jQuery(document).ready(function () {
             }
             return fieldName; 
         }).get();
-
+        
         /*
         * Cheeck current step fields. Only Checkbox and Radio button
         */
@@ -75,6 +75,7 @@ jQuery(document).ready(function () {
                         uacf7_current_step_fields.push(checkboxName);
                     }
                 }
+                 
 
             });
         }
@@ -94,14 +95,26 @@ jQuery(document).ready(function () {
             jQuery(uacf7_current_step).find(".wpcf7-form-control[type='file']").each(function (i, n) {
                 fields_to_check_serialized += "&" + jQuery(this).attr('name') + "=" + jQuery(this).val();
             });
-        }
+        } 
+        var uacf7_current_repeater_fields = [];
+        for (let i = 0; i < uacf7_current_step_fields.length; i++) {
+            var type = jQuery("input[name="+uacf7_current_step_fields[i]+"]").attr('type'); 
 
+            uacf7_current_repeater_fields.push({
+                'type' : type, 
+                'name' : uacf7_current_step_fields[i]
+            });
+            
+        }  
+        
         var data = fields_to_check_serialized +
             '&' + 'action=' + 'check_fields_validation' +
             //'&' + 'form_id=' + wpcf7.getId(jQuery('form')) +
             '&' + 'form_id=' +form_id+
+            '&' + 'repeater_fields=' +JSON.stringify(uacf7_current_repeater_fields);+
             '&' + 'current_fields_to_check=' + uacf7_current_step_fields +
             '&' + 'ajax_nonce=' + uacf7_multistep_obj.nonce; 
+            console.log(data);
         jQuery.ajax({
             url: uacf7_multistep_obj.ajax_url,
             type: 'post',
