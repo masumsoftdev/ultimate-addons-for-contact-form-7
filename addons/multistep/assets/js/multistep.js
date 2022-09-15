@@ -1,6 +1,9 @@
 jQuery(document).ready(function () {
    
     jQuery('.wpcf7-form').each(function(){
+        // Is Repeater Use in form
+        var repeater_count = jQuery(this).find('.uacf7-repeater-count').val(); 
+         
 		var total_steps = jQuery(uacf7_step, this).length;
 		var uacf7_sid = 1;
         var form_id =jQuery(this).find("input[name=_wpcf7]").val();
@@ -31,15 +34,15 @@ jQuery(document).ready(function () {
     
             var $this = jQuery(this);
     
-            uacf7_step_validation($this, uacf7_step, form_id);
+            uacf7_step_validation($this, uacf7_step, form_id, repeater_count);
         });
 	});
 
     
 
-    function uacf7_step_validation($this, uacf7_step, form_id) {
-
+    function uacf7_step_validation($this, uacf7_step, form_id, repeater_count) { 
         var uacf7_current_step = jQuery($this).closest(uacf7_step); 
+      
         /*
         * Cheeck current step fields. Expect Checkbox, Radio button and hidden fields
         */
@@ -96,25 +99,27 @@ jQuery(document).ready(function () {
                 fields_to_check_serialized += "&" + jQuery(this).attr('name') + "=" + jQuery(this).val();
             });
         } 
-        var uacf7_current_repeater_fields = [];
-        for (let i = 0; i < uacf7_current_step_fields.length; i++) {
-            var type = jQuery("input[name="+uacf7_current_step_fields[i]+"]").attr('type'); 
-
-            uacf7_current_repeater_fields.push({
-                'type' : type, 
-                'name' : uacf7_current_step_fields[i]
-            });
-            
-        }  
         
+        var validation_fields = [];
+        for (let i = 0; i < uacf7_current_step_fields.length; i++) {
+            var type = jQuery("input[name="+uacf7_current_step_fields[i]+"]").attr('type');  
+            // Repeater Validation issue 
+            if( typeof repeater_count != 'undefined' ){
+                var value = jQuery("input[name="+uacf7_current_step_fields[i]+"]").val();   
+                if(value == ''){ 
+                    validation_fields.push( ''+type+':'+uacf7_current_step_fields[i]+'' ); 
+                }
+            }else{
+                validation_fields.push( ''+type+':'+uacf7_current_step_fields[i]+'' ); 
+            }
+           
+        }     
         var data = fields_to_check_serialized +
-            '&' + 'action=' + 'check_fields_validation' +
-            //'&' + 'form_id=' + wpcf7.getId(jQuery('form')) +
+            '&' + 'action=' + 'check_fields_validation' + 
             '&' + 'form_id=' +form_id+
-            '&' + 'repeater_fields=' +JSON.stringify(uacf7_current_repeater_fields);+
+            '&' + 'validation_fields=' +validation_fields+
             '&' + 'current_fields_to_check=' + uacf7_current_step_fields +
-            '&' + 'ajax_nonce=' + uacf7_multistep_obj.nonce; 
-            console.log(data);
+            '&' + 'ajax_nonce=' + uacf7_multistep_obj.nonce;  
         jQuery.ajax({
             url: uacf7_multistep_obj.ajax_url,
             type: 'post',
@@ -134,8 +139,7 @@ jQuery(document).ready(function () {
                 var $form = jQuery('form');
                 clear_error_messages($form, uacf7_current_step);
 
-                try {
-
+                try { 
                     if (json_result.is_valid) {
 
                         var curStep = jQuery($this).closest(".uacf7-step"),

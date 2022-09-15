@@ -1,13 +1,13 @@
 ;(function ($) {
     'use strict';
 
-    jQuery(document).ready(function () {
+    jQuery(document).ready(function () { 
 
         uacf7_cf_handler();
 
         jQuery(document).on('keyup', '.wpcf7-form input:not(.wpcf7-uacf7_country_dropdown, .wpcf7-uacf7_city, .wpcf7-uacf7_state, .wpcf7-uacf7_zip), .wpcf7-form textarea', function () {
-            uacf7_cf_handler();
-        });
+			uacf7_cf_handler();
+		});
 
         jQuery(document).on('change', '.wpcf7-form select:not(.wpcf7-uacf7_product_dropdown), .wpcf7-form input[type="radio"]:not(.uacf7-rating input[type="radio"])', function () {
             uacf7_cf_handler();
@@ -33,7 +33,7 @@
             var $i = 0;
             
 			jQuery(form).each(function(){
-				var $uacf7_cf_conditions = form[$i]['uacf7_cf_conditions'];
+				var $uacf7_cf_conditions = form[$i]['uacf7_cf_conditions']; 
 				
 				var $conditionsLength = $uacf7_cf_conditions['uacf7_cf_tn'].length;
 				
@@ -109,8 +109,8 @@
                             
                             var checkedItem = checked_values[index];
                             
-                        }
-						
+                        } 
+
                         var currentValue = jQuery('.wpcf7-form [name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]'+maybeChecked+'').val();
 						
 						if( typeof currentValue === 'undefined' ){
@@ -238,7 +238,7 @@
 
 						if ( form[$i]['uacf7_cf_hs'] == 'show' ) {
 
-							if(orResult != -1){ //IF true or false
+							if(orResult != -1){ //IF true or false 
 
 								jQuery( '.uacf7_conditional.' + form[$i]['uacf7_cf_group'] +'').show().removeClass('uacf7-hidden');
 

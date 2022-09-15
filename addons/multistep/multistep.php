@@ -599,8 +599,23 @@ class UACF7_MULTISTEP {
         }
 
         $current_step_fields = explode(',', $_REQUEST['current_fields_to_check']);
-        $repeater_fields = $_REQUEST['form_id'];
-       
+
+        // Validation with Repeater 
+        $validation_fields = explode(',', $_REQUEST['validation_fields']);  
+        $tag_name = [];
+        $tag_validation = [];
+        $tag_type = []; 
+        $count = '1';
+        for ($x = 0; $x < count($validation_fields); $x++) {
+            $field = explode(':', $validation_fields[$x]); 
+            
+            $name = $field[1];
+            $replace = '__'.$count.''; 
+            $tag_name[] =  str_replace('__1','', $name);
+            $tag_validation[] =  $name;
+            $tag_type[]=$field[0];  
+            $count++; 
+        }  
         $form = wpcf7_contact_form( $_REQUEST['form_id'] );
         $all_form_tags = $form->scan_form_tags();
         $invalid_fields = false;
@@ -609,24 +624,19 @@ class UACF7_MULTISTEP {
         $result = new \WPCF7_Validation();
         
         $tags = array_filter(
-            $all_form_tags, function($v, $k) use ($current_step_fields) {
-                
-                return in_array($v->name, $current_step_fields);
+            $all_form_tags, function($v, $k) use ($tag_name) { 
+                return in_array($v->name, $tag_name);
             }, ARRAY_FILTER_USE_BOTH
-        );
-        $tags = $all_form_tags;
+        ); 
         $form->validate_schema(
             array(
                 'text'  => true,
                 'file'  => false,
-                'field' =>  $current_step_fields,
+                'field' =>  $tag_name,
             ),
             $result
-        );
-        echo "</pre>";
-            echo $repeater_fields;
-        echo "<pre>";
-    
+        );  
+
         foreach ( $tags as $tag ) {
             $type = $tag->type;
             
@@ -670,22 +680,30 @@ class UACF7_MULTISTEP {
         $is_valid = $result->is_valid();
 
         if (!$is_valid) {
-            $invalid_fields = $this->prepare_invalid_form_fields($result);
+            $invalid_fields = $this->prepare_invalid_form_fields($result, $tag_validation);
         }
 
-        // echo(json_encode( array(
-        //             'is_valid' => $is_valid,
-        //             'invalid_fields' => $invalid_fields,
-        //         )
-        //     )
-        // );
+        echo(json_encode( array(
+                    'is_valid' => $is_valid,
+                    'invalid_fields' => $invalid_fields,
+                )
+            )
+        );
         wp_die();
     }
     
-    private function prepare_invalid_form_fields ($result){
+    private function prepare_invalid_form_fields ($result, $tag_validation){
         $invalid_fields = array();
-
+     
+    // Validation with Repeater 
         foreach ((array)$result->get_invalid_fields() as $name => $field) {
+            $count = 1;
+            for ($x = 0; $x < count($tag_validation); $x++) {
+                if( in_array($name.'__'.$x, $tag_validation)){
+                    
+                    $name = $name.'__'.$x;
+                }
+            }  
             $invalid_fields[] = array(
                 'into' => 'span.wpcf7-form-control-wrap[data-name = '.$name.']',
                 'message' => $field['reason'],
