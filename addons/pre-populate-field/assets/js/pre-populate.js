@@ -2,8 +2,7 @@
     'use strict'; 
       $("#button1").click(function(){
         e.preventDefault();
-        var clone_field = $(this).parent.find('.single_data_shifting_field').html();
-        console.log(clone_field);
+        var clone_field = $(this).parent.find('.single_data_shifting_field').html(); 
       });
       $ ( document ).ready(function() { 
         $(".wpcf7-submit").click(function(e){ 
@@ -22,25 +21,28 @@
                       var shifting_field = data.pre_populate_passing_field;
                       // Redirect form parameter
                       var redirect_data = '?form='+data.pre_populate_form+''; 
-                      
-                      for (var i = 0; i < count_field; i++) {
-                          var type = $("form [name='"+shifting_field[i]+"']").attr('type'); 
-                          var multiple= $("form [name='"+shifting_field[i]+"[]']").attr('type')
-                          if(type == 'radio' || type == 'checkbox'){ 
-                              var value = $("form [name='"+shifting_field[i]+"']:checked").val() 
-                          }else if( multiple == 'checkbox' ){
-                              var value = $("form [name='"+shifting_field[i]+"[]']:checked").val() 
-                              alert(value);
-                          }else{
-                              var value = $("form [name='"+shifting_field[i]+"']").val()  
-                          } 
-                          redirect_data += '&'+shifting_field[i]+'='+value+''; 
-                      }   
-                    document.addEventListener('wpcf7mailsent', function (event) {
-                      if (event.detail.status == 'mail_sent') {
-                        location = data.data_redirect_url+redirect_data; // Redirect final location
+                      var pre_populate_enable = data.pre_populate_enable;
+                      if(pre_populate_enable == 1){
+                          for (var i = 0; i < count_field; i++) {
+                              var type = $("form [name='"+shifting_field[i]+"']").attr('type'); 
+                              var multiple= $("form [name='"+shifting_field[i]+"[]']").attr('type')
+                              if(type == 'radio' || type == 'checkbox'){ 
+                                  var value = $("form [name='"+shifting_field[i]+"']:checked").val() 
+                              }else if( multiple == 'checkbox' ){
+                                  var value = $("form [name='"+shifting_field[i]+"[]']:checked").val() 
+                                  alert(value);
+                              }else{
+                                  var value = $("form [name='"+shifting_field[i]+"']").val()  
+                              } 
+                              redirect_data += '&'+shifting_field[i]+'='+value+''; 
+                          }   
+                        document.addEventListener('wpcf7mailsent', function (event) {
+                          if (event.detail.status == 'mail_sent') {
+                            location = data.data_redirect_url+redirect_data; // Redirect final location
+                          }
+                        }, false); 
                       }
-                    }, false); 
+                      
                   } 
                 }
             }); 
