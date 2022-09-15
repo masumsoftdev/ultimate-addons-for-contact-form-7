@@ -1,15 +1,18 @@
 jQuery(document).ready(function () {
    
-    var uacf7_step = '.uacf7-step';
-    var uacf7_next = jQuery('.uacf7-next');
-    var uacf7_prev = jQuery('.uacf7-prev');
-    
     jQuery('.wpcf7-form').each(function(){
+        // Is Repeater Use in form
+        var repeater_count = jQuery(this).find('.uacf7-repeater-count').val(); 
+         
 		var total_steps = jQuery(uacf7_step, this).length;
 		var uacf7_sid = 1;
+        var form_id =jQuery(this).find("input[name=_wpcf7]").val();
+        var uacf7_next = jQuery(this).find('.uacf7-next[data-form-id="' + form_id + '"]');
+        var uacf7_prev = jQuery(this).find('.uacf7-prev[data-form-id="' + form_id + '"]');
+        var uacf7_step = '.uacf7-step-'+form_id; 
 		jQuery(uacf7_step, this).each(function () {
-			var $this = jQuery(this);
-			$this.attr('id', 'step-' + uacf7_sid);
+			var $this = jQuery(this); 
+			$this.attr('id', form_id+'step-' + uacf7_sid);
 
 			if( uacf7_sid == 1 ) {
 				$this.addClass('step-start');
@@ -22,24 +25,24 @@ jQuery(document).ready(function () {
 			uacf7_sid++;
 
 		});
+        uacf7_prev.on('click', function (e) {
+            e.preventDefault();
+        });
+    
+        uacf7_next.on('click', function (e) {
+            e.preventDefault();
+    
+            var $this = jQuery(this);
+    
+            uacf7_step_validation($this, uacf7_step, form_id, repeater_count);
+        });
 	});
 
-    uacf7_prev.on('click', function (e) {
-        e.preventDefault();
-    });
+    
 
-    uacf7_next.on('click', function (e) {
-        e.preventDefault();
-
-        var $this = jQuery(this);
-
-        uacf7_step_validation($this);
-    });
-
-    function uacf7_step_validation($this) {
-
-        var uacf7_current_step = jQuery($this).closest(uacf7_step);
-        
+    function uacf7_step_validation($this, uacf7_step, form_id, repeater_count) { 
+        var uacf7_current_step = jQuery($this).closest(uacf7_step); 
+      
         /*
         * Cheeck current step fields. Expect Checkbox, Radio button and hidden fields
         */
@@ -50,9 +53,9 @@ jQuery(document).ready(function () {
             }else {
                 var fieldName = this.name;
             }
-            return fieldName;
+            return fieldName; 
         }).get();
-
+        
         /*
         * Cheeck current step fields. Only Checkbox and Radio button
         */
@@ -75,6 +78,7 @@ jQuery(document).ready(function () {
                         uacf7_current_step_fields.push(checkboxName);
                     }
                 }
+                 
 
             });
         }
@@ -94,15 +98,28 @@ jQuery(document).ready(function () {
             jQuery(uacf7_current_step).find(".wpcf7-form-control[type='file']").each(function (i, n) {
                 fields_to_check_serialized += "&" + jQuery(this).attr('name') + "=" + jQuery(this).val();
             });
-        }
-
-        var data = fields_to_check_serialized +
-            '&' + 'action=' + 'check_fields_validation' +
-            //'&' + 'form_id=' + wpcf7.getId(jQuery('form')) +
-            '&' + 'form_id=' + jQuery('input[name="_wpcf7"]').val() +
-            '&' + 'current_fields_to_check=' + uacf7_current_step_fields +
-            '&' + 'ajax_nonce=' + uacf7_multistep_obj.nonce;
+        } 
         
+        var validation_fields = [];
+        for (let i = 0; i < uacf7_current_step_fields.length; i++) {
+            var type = jQuery("input[name="+uacf7_current_step_fields[i]+"]").attr('type');  
+            // Repeater Validation issue 
+            if( typeof repeater_count != 'undefined' ){
+                var value = jQuery("input[name="+uacf7_current_step_fields[i]+"]").val();   
+                if(value == ''){ 
+                    validation_fields.push( ''+type+':'+uacf7_current_step_fields[i]+'' ); 
+                }
+            }else{
+                validation_fields.push( ''+type+':'+uacf7_current_step_fields[i]+'' ); 
+            }
+           
+        }     
+        var data = fields_to_check_serialized +
+            '&' + 'action=' + 'check_fields_validation' + 
+            '&' + 'form_id=' +form_id+
+            '&' + 'validation_fields=' +validation_fields+
+            '&' + 'current_fields_to_check=' + uacf7_current_step_fields +
+            '&' + 'ajax_nonce=' + uacf7_multistep_obj.nonce;  
         jQuery.ajax({
             url: uacf7_multistep_obj.ajax_url,
             type: 'post',
@@ -122,8 +139,7 @@ jQuery(document).ready(function () {
                 var $form = jQuery('form');
                 clear_error_messages($form, uacf7_current_step);
 
-                try {
-
+                try { 
                     if (json_result.is_valid) {
 
                         var curStep = jQuery($this).closest(".uacf7-step"),

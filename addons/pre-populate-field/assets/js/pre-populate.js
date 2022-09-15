@@ -1,9 +1,5 @@
 ;(function ($) {
-    'use strict';
-    // document.addEventListener( 'wpcf7mailsent', function( event ) {
-    //     location = 'http://example.com/';
-    //   }, false );
-
+    'use strict'; 
       $("#button1").click(function(){
         e.preventDefault();
         var clone_field = $(this).parent.find('.single_data_shifting_field').html();
@@ -71,7 +67,7 @@
                 }else if( multiple == 'checkbox' ){  
                     $("form [name='"+value[i][0]+"[]'][value="+decodeURIComponent(value[i][1])+"]").attr("checked", true); 
                 }else{
-                    $("form [name='"+value[i][0]+"']").val(decodeURIComponent(value[i][1])); 
+                  $("form [name='"+value[i][0]+"']").attr('value', decodeURIComponent(value[i][1]));  
                 }
                 
             } 
