@@ -2,14 +2,14 @@ jQuery(document).ready(function () {
    
     jQuery('.wpcf7-form').each(function(){
         // Is Repeater Use in form
-        var repeater_count = jQuery(this).find('.uacf7-repeater-count').val(); 
-         
-		var total_steps = jQuery(uacf7_step, this).length;
+        var repeater_count = jQuery(this).find('.uacf7-repeater-count').val();  
+        
 		var uacf7_sid = 1;
         var form_id =jQuery(this).find("input[name=_wpcf7]").val();
         var uacf7_next = jQuery(this).find('.uacf7-next[data-form-id="' + form_id + '"]');
         var uacf7_prev = jQuery(this).find('.uacf7-prev[data-form-id="' + form_id + '"]');
         var uacf7_step = '.uacf7-step-'+form_id; 
+        var total_steps = jQuery(uacf7_step, this).length;
 		jQuery(uacf7_step, this).each(function () {
 			var $this = jQuery(this); 
 			$this.attr('id', form_id+'step-' + uacf7_sid);
@@ -100,18 +100,22 @@ jQuery(document).ready(function () {
             });
         } 
         
-        var validation_fields = [];
+        var validation_fields = []; 
         for (let i = 0; i < uacf7_current_step_fields.length; i++) {
-            var type = jQuery("input[name="+uacf7_current_step_fields[i]+"]").attr('type');  
-            // Repeater Validation issue 
-            if( typeof repeater_count != 'undefined' ){
-                var value = jQuery("input[name="+uacf7_current_step_fields[i]+"]").val();   
-                if(value == ''){ 
+            if(uacf7_current_step_fields[i] != ''){
+                var type = jQuery(".wpcf7-form-control[name="+uacf7_current_step_fields[i]+"]");  
+                type = type[0].localName; 
+                // Repeater Validation issue 
+                if( typeof repeater_count != 'undefined' ){
+                    var value = jQuery("[name="+uacf7_current_step_fields[i]+"]").val();   
+                    if(value == ''){ 
+                        validation_fields.push( ''+type+':'+uacf7_current_step_fields[i]+'' ); 
+                    }
+                }else{
                     validation_fields.push( ''+type+':'+uacf7_current_step_fields[i]+'' ); 
-                }
-            }else{
-                validation_fields.push( ''+type+':'+uacf7_current_step_fields[i]+'' ); 
+                } 
             }
+            
            
         }     
         var data = fields_to_check_serialized +

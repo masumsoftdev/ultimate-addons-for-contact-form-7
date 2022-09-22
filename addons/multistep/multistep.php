@@ -610,14 +610,15 @@ class UACF7_MULTISTEP {
             $field = explode(':', $validation_fields[$x]); 
             
             $name = $field[1];
+            $name_array =  explode("__",$field[1]); 
             $replace = '__'.$count.''; 
-            $tag_name[] =  str_replace('__1','', $name);
-            $tag_validation[] =  $name;
+            $tag_name[] =  $name_array[0];
+            $tag_validation[$field[0].$x] =  $name;
             $tag_type[]=$field[0];  
             $count++; 
         }  
         $form = wpcf7_contact_form( $_REQUEST['form_id'] );
-        $all_form_tags = $form->scan_form_tags();
+        $all_form_tags = $form->scan_form_tags(); 
         $invalid_fields = false;
         
         require_once WPCF7_PLUGIN_DIR . '/includes/validation.php';
@@ -636,7 +637,6 @@ class UACF7_MULTISTEP {
             ),
             $result
         );  
-
         foreach ( $tags as $tag ) {
             $type = $tag->type;
             
@@ -663,25 +663,28 @@ class UACF7_MULTISTEP {
     				'name' => $tag->name,
     				'required' => $tag->is_required(),
     				'filetypes' => $tag->get_option( 'filetypes' ),
-    				'limit' => $tag->get_limit_option(),
+    				'limit' => $tag->get_limit_option(), 
     			);
     
-    			$new_files = wpcf7_unship_uploaded_file( $file, $args );
-			    
-			    update_option('file_errors', $new_files);
-			    
+                $args['schema'] = $form->get_schema();
+
+    			$new_files = wpcf7_unship_uploaded_file( $file, $args ); 
+                if ( is_wp_error( $new_files ) ) {
+                    $result->invalidate( $tag, $new_files );
+                }
+
 			    $result = apply_filters("wpcf7_validate_{$type}", $result, $tag, array( 'uploaded_files' => $new_files, ) );
 			}
             
         }
         
-        $result = apply_filters('wpcf7_validate', $result, $tags);
-        
+        $result = apply_filters('wpcf7_validate', $result, $tags); 
+
         $is_valid = $result->is_valid();
 
         if (!$is_valid) {
             $invalid_fields = $this->prepare_invalid_form_fields($result, $tag_validation);
-        }
+        } 
 
         echo(json_encode( array(
                     'is_valid' => $is_valid,
@@ -695,22 +698,28 @@ class UACF7_MULTISTEP {
     private function prepare_invalid_form_fields ($result, $tag_validation){
         $invalid_fields = array();
      
-    // Validation with Repeater 
-        foreach ((array)$result->get_invalid_fields() as $name => $field) {
-            $count = 1;
-            for ($x = 0; $x < count($tag_validation); $x++) {
-                if( in_array($name.'__'.$x, $tag_validation)){
-                    
-                    $name = $name.'__'.$x;
-                }
-            }  
-            $invalid_fields[] = array(
-                'into' => 'span.wpcf7-form-control-wrap[data-name = '.$name.']',
+        // Validation with Repeater 
+        $count = 1;
+        $invalid_data = [];
+        foreach ((array)$result->get_invalid_fields() as $name => $field) { 
+            $invalid_data[$name] = array(
+                'name' => $name,
                 'message' => $field['reason'],
                 'idref' => $field['idref'],
-            );
+            );      
         }
-
+        foreach ($tag_validation as $key => $value){
+            $name =  explode("__",$value); 
+            $name = $name[0];  
+            if(!empty($invalid_data[$name])){
+                $field = $invalid_data[$name]; 
+                $invalid_fields[] = array(
+                    'into' => 'span.wpcf7-form-control-wrap[data-name = '.$value.']',
+                    'message' => $field['message'],
+                    'idref' => $field['idref'],
+                ); 
+            } 
+        } 
         return $invalid_fields;
     }
     
