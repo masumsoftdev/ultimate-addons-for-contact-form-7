@@ -116,7 +116,7 @@ class UACF7_DATABASE {
                                 </select>
                             </td>
                             <td>  
-                                <button type="submit" id="database_submit"> Submit</button>
+                                <button type="submit" class="button-primary" id="database_submit"> Submit</button>
                             </td>
                         </tr>
                     </table> 
@@ -319,7 +319,7 @@ class uacf7_form_List_Table extends WP_List_Table{
         $upload_dir    = wp_upload_dir();
         $dir = $upload_dir['baseurl'];
         $replace_dir = '/uacf7-uploads/';
-
+        $data = [];
         if(isset($search) && !empty($search)){
             
             $form_data = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."uacf7_form  WHERE form_value LIKE '%$search%' AND form_id = $form_id");  
