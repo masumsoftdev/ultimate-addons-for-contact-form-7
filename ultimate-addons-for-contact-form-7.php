@@ -101,7 +101,7 @@ class Ultimate_Addons_CF7 {
  
         $charset_collate = $wpdb->get_charset_collate();
 
-        $sql = "CREATE TABLE $table_name (
+        $sql = "CREATE TABLE IF NOT EXISTS $table_name (
             id bigint(20) NOT NULL AUTO_INCREMENT,
             form_id bigint(20) NOT NULL,
             form_value longtext NOT NULL,
