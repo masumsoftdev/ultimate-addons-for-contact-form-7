@@ -208,7 +208,7 @@ class UACF7_DATABASE {
                 } 
                 if (strstr($value, $replace_dir)) { 
                     $value = str_replace($replace_dir,"",$value);
-                    $html .= '<tr> <td><strong>'.$key.'</strong></td> <td><a href="'.$dir.$replace_dir.$value.'" target="_blank">'.$value.'</td> </tr>';
+                    $html .= '<tr> <td><strong>'.$key.'</strong></td> <td><a href="'.$dir.$replace_dir.$value.'" target="_blank">'.$value.'</a></td> </tr>';
                 }else{ 
                     $html .= '<tr> <td><strong>'.$key.'</strong></td> <td>'.$value.'</td> </tr>';
                 }
@@ -316,6 +316,10 @@ class uacf7_form_List_Table extends WP_List_Table{
         global $wpdb; 
         $form_id  = empty($_GET['form_id']) ? 0 : (int) $_GET['form_id']; 
         $search       = empty( $_REQUEST['s'] ) ? false :  esc_sql( $_REQUEST['s'] ); 
+        $upload_dir    = wp_upload_dir();
+        $dir = $upload_dir['baseurl'];
+        $replace_dir = '/uacf7-uploads/';
+
         if(isset($search) && !empty($search)){
             
             $form_data = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."uacf7_form  WHERE form_value LIKE '%$search%' AND form_id = $form_id");  
@@ -328,9 +332,15 @@ class uacf7_form_List_Table extends WP_List_Table{
           
            foreach($field_data as $key => $value){
                 if(is_array($value)){ 
-                   $value = implode(", ",$value);
+                    $value = implode(", ",$value);
                 } 
-             $f_data[$key] =$value;
+                if (strstr($value, $replace_dir)) { 
+                    $value = str_replace($replace_dir,"",$value);
+                    $f_data[$key] = '<a href="'.$dir.$replace_dir.$value.'" target="_blank">'.$value.'</a>';
+                }else{
+                    $f_data[$key] =$value;
+                }
+             
            }
            $f_data['id']      = $fdata->id; 
            $f_data['action'] = "<button data-id='".$fdata->id."' data-value='".$fdata->form_value."' class='button-primary uacf7-db-view'>View</button>";
