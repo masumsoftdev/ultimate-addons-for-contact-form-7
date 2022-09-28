@@ -154,6 +154,10 @@ class UACF7_DATABASE {
         $uploaded_files = [];
         $time_now      = time();
         $data_file      = []; 
+        $uacf7_dirname = $upload_dir['basedir'].'/uacf7-uploads';
+        if ( ! file_exists( $uacf7_dirname ) ) {
+            wp_mkdir_p( $uacf7_dirname ); 
+        }
 
         foreach ($_FILES as $file_key => $file) {
             array_push($uploaded_files, $file_key);
@@ -171,10 +175,13 @@ class UACF7_DATABASE {
             }
             
         } 
+        
         foreach($contact_form_data as $key => $value){
-            
+          
             if(in_array($key, $uploaded_files)){
-                $contact_form_data[$key] = $data_file[0][$file_key];
+
+                if(empty($data_file)){$data_file = ''; }else{ $data_file = $data_file[0][$file_key] ; }; 
+                $contact_form_data[$key] = $data_file;
             }
         }
         $data = [
