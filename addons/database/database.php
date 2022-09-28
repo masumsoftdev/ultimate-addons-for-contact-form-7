@@ -17,7 +17,8 @@ class UACF7_DATABASE {
         add_action( 'admin_enqueue_scripts', array($this, 'wp_enqueue_admin_script' ) );       
         add_action( 'wpcf7_before_send_mail', array($this, 'uacf7_save_to_database' ) );     
         add_action( 'admin_menu', array( $this, 'uacf7_add_db_menu' ) );   
-        add_action( 'wp_ajax_uacf7_ajax_database_popup', array( $this, 'uacf7_ajax_database_popup' ) ); 
+        add_action( 'wp_ajax_uacf7_ajax_database_popup', array( $this, 'uacf7_ajax_database_popup' ) );  
+        add_action( 'init', array( $this, 'uacf7_database_export_csv' ) );  
        
     } 
      
@@ -57,8 +58,13 @@ class UACF7_DATABASE {
     */
 
     public function uacf7_create_database_page(){
-        ob_start();
+      
         $form_id  = empty($_GET['form_id']) ? 0 : (int) $_GET['form_id']; 
+        $csv  = empty($_GET['csv']) ? 0 :  $_GET['csv']; 
+        if(!empty($form_id) && $csv == true){
+            $this->uacf7_database_export_csv($form_id, $csv);
+        } 
+        // ob_start();
         if( !empty($form_id)){
             $uacf7_ListTable = new uacf7_form_List_Table();
             $uacf7_ListTable->prepare_items(); 
@@ -126,7 +132,7 @@ class UACF7_DATABASE {
             <?php
             
         }
-        echo ob_get_clean();
+        // echo ob_get_clean();
     } 
 
     /*
@@ -227,6 +233,78 @@ class UACF7_DATABASE {
         
         wp_die();
     }
+
+   /*
+    * Export CSV 
+    */
+
+    public function uacf7_database_export_csv(){
+        if( isset($_REQUEST['csv']) && ( $_REQUEST['csv'] == true && $_REQUEST['form_id'] !='' ) ) {
+
+            
+            global $wpdb; 
+            $upload_dir    = wp_upload_dir();
+            $dir = $upload_dir['baseurl'];
+            $replace_dir = '/uacf7-uploads/';
+           
+            $form_id = $_REQUEST['form_id'];
+            $file_name = get_the_title( $_REQUEST['form_id']);
+            $file_name = str_replace(" ","-", $file_name); 
+           
+
+            $form_data = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."uacf7_form WHERE form_id = $form_id"); 
+            $now = gmdate("D, d M Y H:i:s");
+
+           // disable caching
+            header("Expires: Tue, 03 Jul 2001 06:00:00 GMT");
+            header("Cache-Control: max-age=0, no-cache, must-revalidate, proxy-revalidate");
+            header("Last-Modified: {$now} GMT");
+
+            // force download  
+            header("Content-Type: application/force-download");
+            header("Content-Type: application/octet-stream");
+            header("Content-Type: application/download");
+
+            // disposition / encoding on response body
+            header("Content-Disposition: attachment;filename=".$file_name."-".$now.".csv");
+            header("Content-Transfer-Encoding: binary");
+            ob_start();
+             
+            $list = []; 
+            $count = 0;
+            foreach($form_data as $fkey => $fdata){ 
+                $data = json_decode($fdata->form_value);
+                $list_head = [];
+                $list_data = [];
+                foreach($data as $key => $value){
+                    if($fkey == 0){
+                        $list_head[] = $key;
+                    }
+                    if(is_array($value)){ 
+                        $value = implode(", ",$value);
+                    } 
+                    $list_data[] = $value;
+                }
+                if($fkey == 0){
+                    $list_head[] = 'Date';
+                    $list[] = $list_head;
+                }
+                $list_data[] = $fdata->form_date;
+                $list[] = $list_data;
+                
+                
+            } 
+            $fp = fopen('php://output', 'w');
+            
+            foreach ($list as $fields) {
+                fputcsv($fp, $fields);
+            }
+            // print_r($fp);
+            echo ob_get_clean();
+            fclose($fp);
+            die();
+        }
+    }
 }
 
     /*
@@ -312,7 +390,7 @@ class uacf7_form_List_Table extends WP_List_Table{
      */
 
     private function table_data()
-    {
+    { 
         global $wpdb; 
         $form_id  = empty($_GET['form_id']) ? 0 : (int) $_GET['form_id']; 
         $search       = empty( $_REQUEST['s'] ) ? false :  esc_sql( $_REQUEST['s'] ); 
@@ -321,7 +399,6 @@ class uacf7_form_List_Table extends WP_List_Table{
         $replace_dir = '/uacf7-uploads/';
         $data = [];
         if(isset($search) && !empty($search)){
-            
             $form_data = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."uacf7_form  WHERE form_value LIKE '%$search%' AND form_id = $form_id");  
         }else{  
             $form_data = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."uacf7_form WHERE form_id = $form_id");  
@@ -394,6 +471,62 @@ class uacf7_form_List_Table extends WP_List_Table{
         return $actions;
     }
     
+    
+    protected function bulk_actions( $which = '' ) {
+		if ( is_null( $this->_actions ) ) {
+			$this->_actions = $this->get_bulk_actions();
+
+			/**
+			 * Filters the items in the bulk actions menu of the list table.
+			 *
+			 * The dynamic portion of the hook name, `$this->screen->id`, refers
+			 * to the ID of the current screen.
+			 *
+			 * @since 3.1.0
+			 * @since 5.6.0 A bulk action can now contain an array of options in order to create an optgroup.
+			 *
+			 * @param array $actions An array of the available bulk actions.
+			 */
+			$this->_actions = apply_filters( "bulk_actions-{$this->screen->id}", $this->_actions ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+
+			$two = '';
+		} else {
+			$two = '2';
+		}
+
+		if ( empty( $this->_actions ) ) {
+			return;
+		}
+
+		echo '<label for="bulk-action-selector-' . esc_attr( $which ) . '" class="screen-reader-text">' . __( 'Select bulk action' ) . '</label>';
+		echo '<select name="action' . $two . '" id="bulk-action-selector-' . esc_attr( $which ) . "\">\n";
+		echo '<option value="-1">' . __( 'Bulk actions' ) . "</option>\n";
+
+		foreach ( $this->_actions as $key => $value ) {
+			if ( is_array( $value ) ) {
+				echo "\t" . '<optgroup label="' . esc_attr( $key ) . '">' . "\n";
+
+				foreach ( $value as $name => $title ) {
+					$class = ( 'edit' === $name ) ? ' class="hide-if-no-js"' : '';
+
+					echo "\t\t" . '<option value="' . esc_attr( $name ) . '"' . $class . '>' . $title . "</option>\n";
+				}
+				echo "\t" . "</optgroup>\n";
+			} else {
+				$class = ( 'edit' === $key ) ? ' class="hide-if-no-js"' : '';
+
+				echo "\t" . '<option value="' . esc_attr( $key ) . '"' . $class . '>' . $value . "</option>\n";
+			}
+		}
+
+		echo "</select>\n";
+
+		submit_button( __( 'Apply' ), 'action', '', false, array( 'id' => "doaction $two" ) );
+        echo "<a href='".esc_html($_SERVER['REQUEST_URI'])."&csv=true' style=' margin-left:5px;' class='button'> Export CSV</a>"; 
+		echo "\n";
+	}
+
+
     /**
      * Bulk action Filter
      * 
