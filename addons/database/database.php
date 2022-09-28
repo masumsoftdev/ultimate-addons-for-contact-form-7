@@ -282,6 +282,10 @@ class UACF7_DATABASE {
                     }
                     if(is_array($value)){ 
                         $value = implode(", ",$value);
+                    }
+                    if (strstr($value, $replace_dir)) { 
+                        $value = str_replace($replace_dir,"",$value);
+                        $value = $dir.$replace_dir.$value;
                     } 
                     $list_data[] = $value;
                 }
