@@ -102,8 +102,11 @@ jQuery(document).ready(function () {
         
         var validation_fields = []; 
         for (let i = 0; i < uacf7_current_step_fields.length; i++) {
-            if(uacf7_current_step_fields[i] != ''){
-                var type = jQuery(".wpcf7-form-control[name="+uacf7_current_step_fields[i]+"]");  
+            if(uacf7_current_step_fields[i] != ''){ 
+                var type = jQuery("[name="+uacf7_current_step_fields[i]+"]"); 
+                if(typeof type[0] === 'undefined' ){
+                    type = jQuery('[name="'+uacf7_current_step_fields[i]+'[]"]'); 
+                } 
                 type = type[0].localName; 
                 // Repeater Validation issue 
                 if( typeof repeater_count != 'undefined' ){
@@ -116,7 +119,6 @@ jQuery(document).ready(function () {
                 } 
             }
             
-           
         }     
         var data = fields_to_check_serialized +
             '&' + 'action=' + 'check_fields_validation' + 
