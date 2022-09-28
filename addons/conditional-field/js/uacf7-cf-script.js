@@ -2,19 +2,23 @@
     'use strict';
 
     jQuery(document).ready(function () { 
-
-        uacf7_cf_handler();
+		
+		var $this = false;
+        uacf7_cf_handler_this($this);
 
         jQuery(document).on('keyup', '.wpcf7-form input:not(.wpcf7-uacf7_country_dropdown, .wpcf7-uacf7_city, .wpcf7-uacf7_state, .wpcf7-uacf7_zip), .wpcf7-form textarea', function () {
-			uacf7_cf_handler();
+			var $this = $(this); 
+			uacf7_cf_handler_this($this);
 		});
 
         jQuery(document).on('change', '.wpcf7-form select:not(.wpcf7-uacf7_product_dropdown), .wpcf7-form input[type="radio"]:not(.uacf7-rating input[type="radio"])', function () {
-            uacf7_cf_handler();
+			var $this = $(this); 
+			uacf7_cf_handler_this($this);
         });
         
         jQuery(document).on('change', 'input[type="checkbox"]', function () {
-            uacf7_cf_handler();
+			var $this = $(this); 
+            uacf7_cf_handler_this($this);
         });
 
     });
@@ -22,17 +26,17 @@
     /*
      * Conditional script
      */
-    function uacf7_cf_handler() {
-
-        jQuery('form.wpcf7-form').each(function () {
-
+    function uacf7_cf_handler_this($this) { 
+        jQuery('form.wpcf7-form').each(function () { 
             var contactFormId = jQuery('input[name="_wpcf7"]', this).val();
+            var repeater_count = jQuery('.uacf7-repeater-count', this).val();
 
             var form = uacf7_cf_object[contactFormId];
 
             var $i = 0;
-            
+			
 			jQuery(form).each(function(){
+				
 				var $uacf7_cf_conditions = form[$i]['uacf7_cf_conditions']; 
 				
 				var $conditionsLength = $uacf7_cf_conditions['uacf7_cf_tn'].length;
@@ -40,8 +44,7 @@
 				/*
 				* Checking validation.
 				*/
-                if ( $conditionsLength > 0 && form[$i]['uacf7_cf_group'] != '' ) { /* If tag name not empty */
-
+                if ( $conditionsLength > 0 && form[$i]['uacf7_cf_group'] != '' ) { /* If tag name not empty */ 
 					/* Fileds value */
                     var vaL = jQuery('.wpcf7-form [name="' + $uacf7_cf_conditions['uacf7_cf_tn'] + '"]').val();
 
@@ -53,33 +56,52 @@
 					/* 
 					* Conditions
 					*/
-                    if ( form[$i]['uacf7_cf_hs'] == 'show' ) { /*-If show*/
-						/* Hide by default, if 'show' */
-                        jQuery('.uacf7_conditional.' + form[$i]['uacf7_cf_group'] + '').hide().addClass('uacf7-hidden');
+                    if ( form[$i]['uacf7_cf_hs'] == 'show' ) { /*-If show*/ 
+						if(typeof repeater_count === 'undefined'){
+							jQuery('.uacf7_conditional.' + form[$i]['uacf7_cf_group'] + '').hide().addClass('uacf7-hidden');
+						}else{
+							if( $this == false){
+								jQuery('.uacf7_conditional.' + form[$i]['uacf7_cf_group'] + '').hide().addClass('uacf7-hidden');
+							}else{ 
+								$this.closest('.uacf7_repeater_sub_field').find('.uacf7_conditional.' + form[$i]['uacf7_cf_group'] + '').hide().addClass('uacf7-hidden');
+							}	
+						} 
 					}
 					
 					var $conditionRule = '';
 					var x;
 					var $conditions = [];
 					for (x = 0; x < $conditionsLength; x++) {
-					  
-                        var maybeChecked = '';
+						
+						if(typeof repeater_count === 'undefined'){
+							var $tag_name = $uacf7_cf_conditions['uacf7_cf_tn'][x];
+						}else{
+							if( $this == false){
+								var $tag_name = $uacf7_cf_conditions['uacf7_cf_tn'][x];
+							}else{
+								var $tag_name = $this.attr('uacf-original-name');
+							}
+						}
+						
+				
+					  if($tag_name == $uacf7_cf_conditions['uacf7_cf_tn'][x] ){
+						var maybeChecked = ''; 
                         var maybeMultiple = '';
                         
-                        if (jQuery('.wpcf7-form [name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]').is("input[type='radio']")) {
+                        if (jQuery('.wpcf7-form [name="' + $tag_name + '"]').is("input[type='radio']")) {
 
                             var maybeChecked = ':checked';
                         }
                         
                         var checkedItem = '';
                         
-                        if( jQuery('.wpcf7-form [name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]').is("input[type='checkbox']") ) {
+                        if( jQuery('.wpcf7-form [name="' + $tag_name + '"]').is("input[type='checkbox']") ) {
                             
                             var maybeChecked = ':checked';
                             var maybeMultiple = '[]';
                             
                             var checked_values = [];
-                            jQuery('.wpcf7-form [name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]:checked').each(function(){
+                            jQuery('.wpcf7-form [name="' + $tag_name + '"]:checked').each(function(){
                                 
                                 checked_values.push( jQuery(this).val() );
                             });
@@ -89,11 +111,11 @@
                             var checkedItem = checked_values[index];
                             
                         }
-
-						//Repeater support
-						var tagName = $uacf7_cf_conditions['uacf7_cf_tn'][x].replace('[]', '');
 						
-						if( jQuery('.wpcf7-form [uacf-original-name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]').is("input[type='checkbox']") || jQuery('.wpcf7-form [uacf-original-name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]').is("input[type='radio']") ) {
+						// //Repeater support
+						var tagName = $tag_name.replace('[]', '');
+						
+						if( jQuery('.wpcf7-form [uacf-original-name="' + $tag_name + '"]').is("input[type='checkbox']") || jQuery('.wpcf7-form [uacf-original-name="' + $tag_name + '"]').is("input[type='radio']") ) {
                             
                             var maybeChecked = ':checked';
                             var maybeMultiple = '[]';
@@ -110,16 +132,16 @@
                             var checkedItem = checked_values[index];
                             
                         } 
-
-                        var currentValue = jQuery('.wpcf7-form [name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]'+maybeChecked+'').val();
-						
-						if( typeof currentValue === 'undefined' ){
-							var currentValue = jQuery('.wpcf7-form [uacf-original-name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]'+maybeChecked+'').val();
+						if(typeof repeater_count === 'undefined'){
+							var currentValue = jQuery('.wpcf7-form [name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]'+maybeChecked+'').val();
+						}else{
+							if( $this == false){
+								var currentValue = jQuery('.wpcf7-form [name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]'+maybeChecked+'').val();
+							}else{
+								var currentValue = $this.val();
+							}
 						}
 						
-						if( typeof currentValue === 'undefined' ){
-							var currentValue = jQuery('.uacf7_repeater .wpcf7-form-control-wrap.'+tagName+' input'+maybeChecked+'').val();
-						}
 
                         if( jQuery('.wpcf7-form [name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]').is("input[type='checkbox']") ) {
                             
@@ -190,7 +212,6 @@
 
 							}
 						}
-
 						if( $uacf7_cf_conditions['uacf7_cf_operator'][x] == 'less_than_or_equal_to' ) {
 
 							if ( parseInt(currentValue) <= parseInt($uacf7_cf_conditions['uacf7_cf_val'][x]) ) {
@@ -202,9 +223,23 @@
 
 							}
 						}
+					  }
+                       
 
 					}
-
+					
+					if(typeof repeater_count === 'undefined'){
+						var $this_condition = jQuery( '.uacf7_conditional.' + form[$i]['uacf7_cf_group'] +'');  
+					}else{
+						if( $this == false){
+							var $this_condition = jQuery( '.uacf7_conditional.' + form[$i]['uacf7_cf_group'] +'');  
+						}else{
+							var $this_condition =  $this.closest('.uacf7_repeater_sub_field').find( '.uacf7_conditional.' + form[$i]['uacf7_cf_group'] +'');
+							
+						}
+					}
+					
+					
 					if( form[$i]['uacf_cf_condition_for'] === 'all' ) {
 
 						var equalResult = $conditions.indexOf("false");
@@ -213,22 +248,22 @@
 
 							if(equalResult == -1){ //IF not false and all true
 
-								jQuery( '.uacf7_conditional.' + form[$i]['uacf7_cf_group'] +'').show().removeClass('uacf7-hidden');
+								$this_condition.show().removeClass('uacf7-hidden');
 
 							}else{
 
-								jQuery( '.uacf7_conditional.' + form[$i]['uacf7_cf_group'] + '').hide().addClass('uacf7-hidden');
+								$this_condition.hide().addClass('uacf7-hidden');
 							}
 
 						}else {
 
 							if(equalResult == -1){ //IF not false and all true
 
-								jQuery('.uacf7_conditional.' + form[$i]['uacf7_cf_group'] + '').hide().addClass('uacf7-hidden');
+								$this_condition.hide().addClass('uacf7-hidden');
 
 							}else{
 
-								jQuery('.uacf7_conditional.' + form[$i]['uacf7_cf_group'] + '').show().removeClass('uacf7-hidden');
+								$this_condition.show().removeClass('uacf7-hidden');
 							}
 
 						}
@@ -240,22 +275,22 @@
 
 							if(orResult != -1){ //IF true or false 
 
-								jQuery( '.uacf7_conditional.' + form[$i]['uacf7_cf_group'] +'').show().removeClass('uacf7-hidden');
+								$this_condition.show().removeClass('uacf7-hidden');
 
 							}else{
 
-								jQuery( '.uacf7_conditional.' + form[$i]['uacf7_cf_group'] + '').hide().addClass('uacf7-hidden');
+								$this_condition.hide().addClass('uacf7-hidden');
 							}
 
 						}else {
 
 							if(orResult == -1){ //IF true or false
 
-								jQuery('.uacf7_conditional.' + form[$i]['uacf7_cf_group'] + '').hide().addClass('uacf7-hidden');
+								$this_condition.hide().addClass('uacf7-hidden');
 
 							}else{
 
-								jQuery('.uacf7_conditional.' + form[$i]['uacf7_cf_group'] + '').show().removeClass('uacf7-hidden');
+								$this_condition.show().removeClass('uacf7-hidden');
 							}
 
 						}
@@ -271,7 +306,10 @@
 
         uacf7_skip_validation();
     }
-
+    /*
+     * Conditional script
+     */
+ 
     /*
      * Skip validation
      */
