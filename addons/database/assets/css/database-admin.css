@@ -40,10 +40,11 @@
 	display: block;
 	padding: 25px;
 	line-height: 0;
-	color: #fff;
+	color: red;
 	cursor: pointer;
 	transition: 0.5s;
 	z-index: 2;
+	font-weight: 700;
 }
 
 .uacf7_popup_preview .close:hover {
@@ -64,6 +65,8 @@
 	padding: 20px;
 	background-color: #fff;
 	border-radius: 5px;
+	max-height: 500px;
+	overflow: auto;
 }
 
 .db-view-wrap table td {
@@ -103,7 +106,7 @@
 }
 
 .db_popup_view {
-	
+
 	width: 600px;
 	margin: 0 auto;
 	position: relative;
