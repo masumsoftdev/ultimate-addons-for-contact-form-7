@@ -30,7 +30,7 @@
 	justify-content: center;
 	width: 100%;
 	height: 100%;
-    
+
 }
 
 .uacf7_popup_preview .close {
@@ -53,41 +53,58 @@
 #uacf7_popup_wrap .uacf7-twentytwenty-container {
 	margin: 0 auto;
 }
-#uacf7_popup_wrap table   {
+
+#uacf7_popup_wrap table {
 	background-color: #fff;
 }
+
 .db-view-wrap {
-    max-width: 620px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-  }
+	max-width: 620px;
+	margin: 0 auto;
+	padding: 20px;
+	background-color: #fff;
+	border-radius: 5px;
+}
 
 .db-view-wrap table td {
-    text-align: left;
+	text-align: left;
 }
+
 .db-view-wrap table th {
-    background-color: #dddddd;
-    font-weight: 7000 !important;
+	background-color: #dddddd;
+	font-weight: 7000 !important;
 }
-.db-view-wrap table th, .db-view-wrap table td {
-    border: 1px solid #ececec;
+
+.db-view-wrap table th,
+.db-view-wrap table td {
+	border: 1px solid #ececec;
 }
+
 .db-view-wrap span {
-	display: block; 
+	display: block;
 	margin-bottom: 10px;
-  }
-  .db-view-wrap h3 {
+}
+
+.db-view-wrap h3 {
 	margin: 5px;
 	text-align: le;
-  }
-  .button-primary.uacf7-db-view {
+}
+
+.button-primary.uacf7-db-view {
 	line-height: 1.1;
-  }
-  .button-primary.uacf7-db-view img {
+}
+
+.button-primary.uacf7-db-view img {
 	height: 20px;
-  }
-  .unread {
+}
+
+.unread {
 	font-weight: 700;
+}
+
+.db_popup_view {
+	
+	width: 600px;
+	margin: 0 auto;
+	position: relative;
 }

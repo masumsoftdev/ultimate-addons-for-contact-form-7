@@ -24,7 +24,7 @@
                 id: id,
             },
             success: function (data) {  
-              $("#uacf7_popup_wrap").html(data);  
+              $("#db_view_wrap").html(data);  
               $(".uacf7_popup_preview").fadeIn(0);
               $this.html('View');
               $this.closest('tr').removeClass('unread');
@@ -34,7 +34,7 @@
       });
       $(".close").click(function() { 
         $(".uacf7_popup_preview").fadeOut(10);
-        $("#uacf7_popup_wrap").html(''); 
+        $("#db_view_wrap").html(''); 
       }); 
     });
 })(jQuery);

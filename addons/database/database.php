@@ -80,8 +80,15 @@ class UACF7_DATABASE {
             </div>
             <section class="uacf7_popup_preview">
                 <div class="uacf7_popup_preview_content">
-                     <div class="close" title="Exit Full Screen">╳</div> 
-                    <div id="uacf7_popup_wrap"></div>
+                     
+                    <div id="uacf7_popup_wrap"> 
+                        <div class="db_popup_view">
+                        <div class="close" title="Exit Full Screen">╳</div> 
+                            <div id="db_view_wrap">
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
         <?php 
