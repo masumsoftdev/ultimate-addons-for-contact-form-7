@@ -144,9 +144,19 @@ class UACF7_DATABASE {
         global $wpdb; 
         $table_name = $wpdb->prefix.'uacf7_form'; 
 
-        $submission   = WPCF7_Submission::get_instance();
-
-        $contact_form = $submission->get_contact_form();
+        $submission   = WPCF7_Submission::get_instance(); 
+        $ContactForm = WPCF7_ContactForm::get_instance($form->id());
+        $tags = $ContactForm->scan_form_tags();
+        $skip_tag_insert = []; 
+        foreach ($tags as $tag){
+            if( $tag->type == 'uacf7_step_start' || $tag->type == 'uacf7_step_end' || $tag->type == 'uarepeater' ){
+                if($tag->name != ''){
+                    $skip_tag_insert[] = $tag->name;
+                }
+                
+            }
+        }
+      
         $contact_form_data = $submission->get_posted_data();
         $files            = $submission->uploaded_files();
         $upload_dir    = wp_upload_dir();
@@ -176,10 +186,8 @@ class UACF7_DATABASE {
             
         } 
         
-        foreach($contact_form_data as $key => $value){
-          
-            if(in_array($key, $uploaded_files)){
-
+        foreach($contact_form_data as $key => $value){ 
+            if(in_array($key, $uploaded_files)){ 
                 if(empty($data_file)){$data_file = ''; }else{ $data_file = $data_file[0][$file_key] ; }; 
                 $contact_form_data[$key] = $data_file;
             }
@@ -187,12 +195,19 @@ class UACF7_DATABASE {
         $data = [
             'status' => 'unread', 
         ];
+        $data = array_merge($data, $contact_form_data); 
+        $insert_data = [];
+        foreach ($data as $key => $value){
+            if(!in_array($key, $skip_tag_insert)){
+                $insert_data[$key] = $value;
+            }
+        }
         
-        $data = json_encode(array_merge($data, $contact_form_data)) ; 
+        $insert_data = json_encode($insert_data) ; 
  
         $wpdb->insert($table_name, array(
             'form_id' => $form->id(),
-            'form_value' =>  $data, 
+            'form_value' =>  $insert_data, 
             'form_date' => current_time('Y-m-d H:i:s'), 
         )); 
     } 
@@ -372,11 +387,15 @@ class uacf7_form_List_Table extends WP_List_Table{
       
         $ContactForm = WPCF7_ContactForm::get_instance( $form_id );
         $form_fields = $ContactForm->scan_form_tags();
+        
         $columns = [];
-        $columns['cb']      = '<input type="checkbox" />'; 
+        $columns['cb']      = '<input type="checkbox" />';  
+        $count = 1; 
         for ($x = 0; $x <= 4; $x++) { 
-          if($form_fields[$x]['type'] != 'submit'){
-            $columns[$form_fields[$x]['name']] = $form_fields[$x]['name'];
+            
+          if($form_fields[$x]['type'] != 'submit' && $form_fields[$x]['type'] !='uacf7_step_start' && $form_fields[$x]['type'] !='uacf7_step_end' && $form_fields[$x]['type'] !='uarepeater' ){
+            
+            $columns[$form_fields[$x]['name']] = $form_fields[$x]['name']; 
           }
         }  
         $columns['action'] = 'Action';
@@ -417,18 +436,24 @@ class uacf7_form_List_Table extends WP_List_Table{
         
         foreach($form_data as $fdata){ 
            $field_data =  json_decode($fdata->form_value); 
-          
+           $repetar_value = '';
+           $repetar_key = '';
            foreach($field_data as $key => $value){
                 if(is_array($value)){ 
                     $value = implode(", ",$value);
                 } 
+               
                 if (strstr($value, $replace_dir)) { 
                     $value = str_replace($replace_dir,"",$value);
                     $f_data[$key] = '<a href="'.$dir.$replace_dir.$value.'" target="_blank">'.$value.'</a>';
                 }else{
                     $f_data[$key] =$value;
                 }
-             
+                if (strpos($key, '__') !== false) {
+                    $repetar_key = explode('__', $key);
+                    $repetar_key = $repetar_key[0]; 
+                    $f_data[$repetar_key] =$value;
+                }  
            }
            $f_data['id']      = $fdata->id; 
            $f_data['action'] = "<button data-id='".$fdata->id."' data-value='".$fdata->form_value."' class='button-primary uacf7-db-view'>View</button>";
@@ -441,7 +466,9 @@ class uacf7_form_List_Table extends WP_List_Table{
     * Define what data to show on each column of the table 
     */
 
-    public function column_default( $item, $column_name ){
+    public function column_default( $item, $column_name ){ 
+        // echo "<pre>";
+        // print_r($item);
         return $item[ $column_name ];
     }
 

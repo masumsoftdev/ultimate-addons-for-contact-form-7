@@ -31,7 +31,7 @@ class Ultimate_Addons_CF7 {
         
         //Plugin loaded
         add_action( 'plugins_loaded', array( $this, 'uacf7_plugin_loaded' ) );
-        register_activation_hook( __FILE__, array( $this, 'uacf7_create_database_table' ) );
+        add_action( 'plugins_loaded', array( $this, 'uacf7_create_database_table' ) );
     }
 	
     /*
