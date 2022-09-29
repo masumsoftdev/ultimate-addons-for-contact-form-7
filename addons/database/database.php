@@ -71,7 +71,8 @@ class UACF7_DATABASE {
         ?> 
             <div class="wrap">
                 <div id="icon-users" class="icon32"></div> 
-                <h2>Ultimate Database</h2> 
+                <h2><?php echo esc_html__( 'Ultimate Database', 'ultimate-addons-cf7' ); ?></h2> 
+                <?php settings_errors(); ?>
                 <form method="post" action="">
                     <input type="hidden" name="page" value="<?php echo $_REQUEST['page']; ?>" /> 
                     <?php $uacf7_ListTable->search_box('Search', 'search'); ?>
@@ -102,13 +103,13 @@ class UACF7_DATABASE {
             ?>
             
             <div class="wrap uacf7-admin-cont">
-                <h1><?php echo esc_html__( 'Ultimate Addons Database', 'ultimate-addons-cf7' ); ?></h1> 
+                <h1><?php echo esc_html__( 'Ultimate Database Addon', 'ultimate-addons-cf7' ); ?></h1> 
                 <br>
                 <?php settings_errors(); ?>
  
                 <!--Tab buttons start-->
                 <div class="uacf7-tab">
-                <a class="tablinks active" onclick="uacf7_settings_tab(event, 'uacf7_addons')">Ultimate Database</a>  
+                <a class="tablinks active" onclick="uacf7_settings_tab(event, 'uacf7_addons')"><?php echo esc_html__( 'Ultimate Database', 'ultimate-addons-cf7' ); ?> </a>  
                 </div>
                 <!--Tab buttons end-->
     
