@@ -270,7 +270,8 @@ class UACF7_DATABASE {
 
     public function uacf7_database_export_csv(){
         if( isset($_REQUEST['csv']) && ( $_REQUEST['csv'] == true && $_REQUEST['form_id'] !='' ) ) {
-
+            $today = date("Y-m-d");
+        
             
             global $wpdb; 
             $upload_dir    = wp_upload_dir();
@@ -282,21 +283,22 @@ class UACF7_DATABASE {
             $file_name = str_replace(" ","-", $file_name); 
            
 
-            $form_data = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."uacf7_form WHERE form_id = $form_id"); 
+            $form_data = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."uacf7_form WHERE form_id = $form_id");  
             $now = gmdate("D, d M Y H:i:s");
-
-           // disable caching
             header("Expires: Tue, 03 Jul 2001 06:00:00 GMT");
             header("Cache-Control: max-age=0, no-cache, must-revalidate, proxy-revalidate");
             header("Last-Modified: {$now} GMT");
-
-            // force download  
+            
+            // force download
+            header("Content-Description: File Transfer");
+            header("Content-Encoding: UTF-8");
+            header("Content-Type: text/csv; charset=UTF-8");
             header("Content-Type: application/force-download");
             header("Content-Type: application/octet-stream");
             header("Content-Type: application/download");
 
             // disposition / encoding on response body
-            header("Content-Disposition: attachment;filename=".$file_name."-".$now.".csv");
+            header("Content-Disposition: attachment;filename=".$file_name."-".$today.".csv");
             header("Content-Transfer-Encoding: binary");
             ob_start();
              
