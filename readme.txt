@@ -343,6 +343,11 @@ Just install our Plugin. It will only take 5 mins to create such a form.</a>.
 
 == Changelog ==
 
+= 3.1.3 - 10/10/2022 =
+
+- Fixed: CSS issue fixed in multistep
+- Update: Compatibility check for WordPress version 6.0.2
+
 = 3.1.2 - 29/09/2022 =
 
 - Added new addon: Ultimate Database ( Store Form data in to database, View data in admin backend, Export data as CSV format )
