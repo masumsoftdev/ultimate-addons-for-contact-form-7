@@ -19,7 +19,27 @@ class UACF7_DATABASE {
         add_action( 'admin_menu', array( $this, 'uacf7_add_db_menu' ) );   
         add_action( 'wp_ajax_uacf7_ajax_database_popup', array( $this, 'uacf7_ajax_database_popup' ) );  
         add_action( 'init', array( $this, 'uacf7_database_export_csv' ) );  
+        add_action( 'admin_init', array( $this, 'uacf7_create_database_table' ) );  
        
+    } 
+
+    //Create Ulimate Database   
+    function uacf7_create_database_table() { 
+        global $wpdb; 
+        $table_name = $wpdb->prefix.'uacf7_form';
+    
+        $charset_collate = $wpdb->get_charset_collate();
+    
+        $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+            id bigint(20) NOT NULL AUTO_INCREMENT,
+            form_id bigint(20) NOT NULL,
+            form_value longtext NOT NULL,
+            form_date datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+            PRIMARY KEY  (id)
+        ) $charset_collate;";
+    
+        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+        dbDelta( $sql ); 
     } 
      
     /*

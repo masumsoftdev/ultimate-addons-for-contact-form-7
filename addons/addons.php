@@ -64,12 +64,12 @@ if( !function_exists( 'uacf7_addons_included' ) ) {
             require_once( 'dynamic-text/dynamic-text.php');
         } 
 
-        //Addon - Dynamic Text
+        //Addon - Pre Populate 
         if( uacf7_checked( 'uacf7_enable_pre_populate_field') != ''){
             require_once( 'pre-populate-field/pre-populate-field.php');
         }
 
-        //Addon - Dynamic Text
+        //Addon - Database 
         if( uacf7_checked( 'uacf7_enable_database_field') != ''){
             require_once( 'database/database.php');
         }

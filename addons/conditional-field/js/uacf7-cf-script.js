@@ -7,17 +7,17 @@
         uacf7_cf_handler_this($this);
 
         jQuery(document).on('keyup', '.wpcf7-form input:not(.wpcf7-uacf7_country_dropdown, .wpcf7-uacf7_city, .wpcf7-uacf7_state, .wpcf7-uacf7_zip), .wpcf7-form textarea', function () {
-			var $this = $(this); 
-			uacf7_cf_handler_this($this);
+			var $this = $(this);  
+			uacf7_cf_handler_this($this); 
 		});
 
         jQuery(document).on('change', '.wpcf7-form select:not(.wpcf7-uacf7_product_dropdown), .wpcf7-form input[type="radio"]:not(.uacf7-rating input[type="radio"])', function () {
-			var $this = $(this); 
+			var $this = $(this);   
 			uacf7_cf_handler_this($this);
         });
         
         jQuery(document).on('change', 'input[type="checkbox"]', function () {
-			var $this = $(this); 
+			var $this = $(this);  
             uacf7_cf_handler_this($this);
         });
 
@@ -28,12 +28,44 @@
      */
     function uacf7_cf_handler_this($this) { 
         jQuery('form.wpcf7-form').each(function () { 
-            var contactFormId = jQuery('input[name="_wpcf7"]', this).val();
-            var repeater_count = jQuery('.uacf7-repeater-count', this).val();
+			var contactFormId = jQuery('input[name="_wpcf7"]', this).val();
+			var repeater_count = jQuery('.uacf7-repeater-count', this).val();
 
-            var form = uacf7_cf_object[contactFormId];
+			var form = uacf7_cf_object[contactFormId];
 
-            var $i = 0;
+			var $i = 0;
+
+			// Condition  repeater Checked 
+			var tag_name_array = [];
+			var count = 0;
+			var count_2 = 0; 
+			jQuery(form).each(function(){ 
+				var $uacf7_cf_conditions = form[count_2]['uacf7_cf_conditions'];  
+				var $conditionsLength = $uacf7_cf_conditions['uacf7_cf_tn'].length; 
+				var x; 
+				if(typeof repeater_count !== 'undefined'){ 
+					if( $this != false){ 
+						for (x = 0; x < $conditionsLength; x++) {   
+							tag_name_array.push($uacf7_cf_conditions['uacf7_cf_tn'][x]);
+							count++;
+						} 
+					} 
+				} 
+				count_2++
+			});
+
+			if(typeof repeater_count !== 'undefined'){ 
+				if($this != false){  
+					if(typeof $this.attr('uacf-original-name') !== 'undefined' ){
+						if(jQuery.inArray($this.attr('uacf-original-name'), tag_name_array) == -1){  
+							return false; 
+						}
+					}
+					
+				}
+			} 
+			
+			// Condition  repeater Checked End
 			
 			jQuery(form).each(function(){
 				
@@ -63,7 +95,11 @@
 							if( $this == false){
 								jQuery('.uacf7_conditional.' + form[$i]['uacf7_cf_group'] + '').hide().addClass('uacf7-hidden');
 							}else{ 
-								$this.closest('.uacf7_repeater_sub_field').find('.uacf7_conditional.' + form[$i]['uacf7_cf_group'] + '').hide().addClass('uacf7-hidden');
+								if(typeof $this.attr('uacf-original-name') === 'undefined'){
+									jQuery('.uacf7_conditional.' + form[$i]['uacf7_cf_group'] + '').hide().addClass('uacf7-hidden');
+								}else{
+								 	$this.closest('.uacf7_repeater_sub_field').find('.uacf7_conditional.' + form[$i]['uacf7_cf_group'] + '').hide().addClass('uacf7-hidden');
+								}
 							}	
 						} 
 					}
@@ -83,7 +119,10 @@
 							}
 						}
 						
-				
+						if(typeof $tag_name === 'undefined'){
+							var $tag_name = $uacf7_cf_conditions['uacf7_cf_tn'][x];
+						}
+						
 					  if($tag_name == $uacf7_cf_conditions['uacf7_cf_tn'][x] ){
 						var maybeChecked = ''; 
                         var maybeMultiple = '';
@@ -111,7 +150,6 @@
                             var checkedItem = checked_values[index];
                             
                         }
-						
 						// //Repeater support
 						var tagName = $tag_name.replace('[]', '');
 						
@@ -138,11 +176,18 @@
 							if( $this == false){
 								var currentValue = jQuery('.wpcf7-form [name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]'+maybeChecked+'').val();
 							}else{
-								var currentValue = $this.val();
+								if(typeof $this.attr('uacf-original-name') === 'undefined'){
+									var currentValue = jQuery('.wpcf7-form [name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]'+maybeChecked+'').val();
+								 }else{ 
+									if(typeof $this.attr('uacf-original-name') === 'undefined'){
+										var currentValue = jQuery('.wpcf7-form [name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]'+maybeChecked+'').val();
+									}else{
+										var currentValue = $this.val();
+									}
+								 }
 							}
-						}
-						
-
+						} 
+					
                         if( jQuery('.wpcf7-form [name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]').is("input[type='checkbox']") ) {
                             
                             if(typeof checkedItem === 'undefined') {
@@ -152,7 +197,6 @@
                             }
 
                         }
-                        
 						if( $uacf7_cf_conditions['uacf7_cf_operator'][x] == 'equal' ) {
                             
 							if ( currentValue == $uacf7_cf_conditions['uacf7_cf_val'][x] ) {
@@ -233,9 +277,12 @@
 					}else{
 						if( $this == false){
 							var $this_condition = jQuery( '.uacf7_conditional.' + form[$i]['uacf7_cf_group'] +'');  
-						}else{
-							var $this_condition =  $this.closest('.uacf7_repeater_sub_field').find( '.uacf7_conditional.' + form[$i]['uacf7_cf_group'] +'');
-							
+						}else{ 
+							if(typeof $this.attr('uacf-original-name') === 'undefined'){
+								var $this_condition = jQuery( '.uacf7_conditional.' + form[$i]['uacf7_cf_group'] +'');  
+							}else{
+								var $this_condition =  $this.closest('.uacf7_repeater_sub_field').find( '.uacf7_conditional.' + form[$i]['uacf7_cf_group'] +'');
+							} 
 						}
 					}
 					

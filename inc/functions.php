@@ -208,25 +208,3 @@ function uacf7_add_wrapper_to_cf7_form($properties, $cfform) {
 	return $properties;
 }
 
-
-//Create Ulimate Database 
-if(!function_exists('uacf7_create_database_table')){
-    add_action( 'plugins_loaded', 'uacf7_create_database_table' );
-    function uacf7_create_database_table() { 
-        global $wpdb; 
-        $table_name = $wpdb->prefix.'uacf7_form';
-    
-        $charset_collate = $wpdb->get_charset_collate();
-    
-        $sql = "CREATE TABLE IF NOT EXISTS $table_name (
-            id bigint(20) NOT NULL AUTO_INCREMENT,
-            form_id bigint(20) NOT NULL,
-            form_value longtext NOT NULL,
-            form_date datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-            PRIMARY KEY  (id)
-        ) $charset_collate;";
-    
-        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-        dbDelta( $sql ); 
-    }
-}
