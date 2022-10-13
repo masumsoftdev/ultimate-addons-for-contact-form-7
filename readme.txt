@@ -351,6 +351,7 @@ Just install our Plugin. It will only take 5 mins to create such a form.</a>.
 
 - Conditional Fields: Fixed condition fields repeater addon issue
 - Save to Database: Database export csv chrome browser issue 
+- Update: Compatibility check for WordPress version 6.0.2
 
 = 3.1.2 - 29/09/2022 =
 
