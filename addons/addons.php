@@ -73,6 +73,11 @@ if( !function_exists( 'uacf7_addons_included' ) ) {
         if( uacf7_checked( 'uacf7_enable_database_field') != ''){
             require_once( 'database/database.php');
         }
+
+        //Addon - Database 
+        if( uacf7_checked( 'uacf7_enable_pdf_generator_field') != ''){
+            require_once( 'pdf-generator/pdf-generator.php');
+        }
 		
     }
 }
