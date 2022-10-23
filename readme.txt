@@ -347,6 +347,12 @@ Just install our Plugin. It will only take 5 mins to create such a form.</a>.
 
 == Changelog ==
 
+=  3.1.4 – 20/10/2022  = 
+
+- Update: Compatibility check for WordPress version 6.0.3
+- Fixed: Css issue
+- Improved: CSS/Js Code
+
 = 3.1.3 - 13/10/2022 = 
 
 - Conditional Fields: Fixed condition fields repeater addon issue
