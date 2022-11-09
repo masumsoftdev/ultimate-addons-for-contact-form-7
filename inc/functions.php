@@ -208,3 +208,105 @@ function uacf7_add_wrapper_to_cf7_form($properties, $cfform) {
 	return $properties;
 }
 
+/**
+ * Black Friday Deals 2022
+ */
+
+
+if(!function_exists('uacf7_black_friday_20222_admin_notice')){
+	function uacf7_black_friday_20222_admin_notice(){
+		$deal_link =sanitize_url('https://themefic.com/go/uacf7-bf-deal');
+		$get_current_screen = get_current_screen();  
+		if(!isset($_COOKIE['uacf7_dismiss_admin_notice']) && $get_current_screen->id !='contact_page_wpcf7-new'){ 
+            ?>
+            <style> 
+                .tf_black_friday_20222_admin_notice a:focus {
+                    box-shadow: none;
+                } 
+                .tf_black_friday_20222_admin_notice {
+                    padding: 7px;
+                    position: relative;
+                    z-index: 10;
+                }
+                .tf_black_friday_20222_admin_notice { 
+                    max-width: 566px;
+                }
+            </style>
+            <div class="notice notice-success tf_black_friday_20222_admin_notice"> 
+                <a href="<?php echo $deal_link; ?>" target="_blank" >
+                    <img  style="width: auto; height: 145px;" src="<?php echo UACF7_URL ?>/assets/img/BLACK_FRIDAY_BACKGROUND_GRUNGE_notice.png" alt="">
+                </a> 
+                <button type="button" class="notice-dismiss tf_black_friday_notice_dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button>
+            </div>
+            <script>
+                jQuery(document).ready(function($) {
+                    $(document).on('click', '.tf_black_friday_notice_dismiss', function( event ) {
+                        jQuery('.tf_black_friday_20222_admin_notice').css('display', 'none')
+                        data = {
+                            action : 'uacf7_black_friday_notice_dismiss_callback',
+                        };
+
+                        $.ajax({
+                            url: ajaxurl,
+                            type: 'post',
+                            data: data,
+                            success: function (data) { ;
+                            },
+                            error: function (data) { 
+                            }
+                        });
+                    });
+                });
+            </script>
+        
+        <?php 
+		}
+		
+	} 
+	if (strtotime('2022-12-01') > time()) {
+		add_action( 'admin_notices', 'uacf7_black_friday_20222_admin_notice' );  
+	}   
+}
+
+function uacf7_black_friday_notice_dismiss_callback() { 
+	$cookie_name = "uacf7_dismiss_admin_notice";
+	$cookie_value = "1";
+	setcookie($cookie_name, $cookie_value, time() + (86400 * 3), "/"); 
+	wp_die();
+}
+add_action( 'wp_ajax_uacf7_black_friday_notice_dismiss_callback', 'uacf7_black_friday_notice_dismiss_callback' );
+ 
+if(!function_exists('uacf7_black_friday_2022_callback')){
+	 
+	if (strtotime('2022-12-01') > time()) { 
+		add_action( 'wpcf7_admin_misc_pub_section', 'uacf7_black_friday_2022_callback' );
+	}    
+	function uacf7_black_friday_2022_callback(){
+		$deal_link =sanitize_url('https://themefic.com/go/uacf7-bf-deal');
+	?> 
+		<style> 
+			.back_friday_2022_preview a:focus {
+				box-shadow: none;
+			} 
+			.back_friday_2022_preview a {
+				display: inline-block;
+			}
+			#uacf7_black_friday_docs .inside {
+				padding: 0;
+				margin-top: 0;
+			}
+            #uacf7_black_friday_docs .postbox-header {
+				display: none;
+				visibility: hidden;
+			}
+		 
+		</style>
+		<div class="back_friday_2022_preview" style="text-align: center; overflow: hidden;">
+			<a href="<?php echo $deal_link; ?>" target="_blank" >
+				<img  style="width: 100%; transform: scale(1.3);" src="<?php echo UACF7_URL ?>/assets/img/BLACK_FRIDAY_BACKGROUND_GRUNGE.jpg" alt="">
+			</a> 
+		</div>
+	<?php
+	}  
+}
+

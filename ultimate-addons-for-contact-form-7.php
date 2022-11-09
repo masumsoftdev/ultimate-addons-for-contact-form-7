@@ -3,7 +3,7 @@
  * Plugin Name: Ultimate Addons for Contact Form 7
  * Plugin URI: https://cf7addons.com/
  * Description: 20+ Essential Addons for Contact form 7 including Conditional Fields, Multi Step Form, Thank you page Redirection, Columns Layout, WooCommerce Integration, Star Rating Fields, Range Slider and many more stunning Addons, all in one.
- * Version: 3.1.5
+ * Version: 3.1.6
  * Author: Themefic
  * Author URI: https://themefic.com/
  * License: GPL-2.0+
@@ -31,6 +31,9 @@ class Ultimate_Addons_CF7 {
         
         //Plugin loaded
         add_action( 'plugins_loaded', array( $this, 'uacf7_plugin_loaded' ) );
+        
+        // Initialize the appsero
+        $this->appsero_init_tracker_ultimate_addons_for_contact_form_7();
     }
 	
     /*
@@ -92,6 +95,27 @@ class Ultimate_Addons_CF7 {
         wp_enqueue_script( 'wp-color-picker' );
         wp_enqueue_script( 'uacf7-admin-script', UACF7_URL . 'assets/js/admin-script.js', array('jquery'), null, true );
     }
+
+    
+    /**
+     * Initialize the plugin tracker
+     *
+     * @return void
+     */
+    public function appsero_init_tracker_ultimate_addons_for_contact_form_7() {
+
+        if ( ! class_exists( 'Appsero\Client' ) ) {
+            require_once ( __DIR__ . '/inc/app/src/Client.php');
+        }
+
+        $client = new Appsero\Client( '7d0e21bd-f697-4c80-8235-07b65893e0dd', 'ultimate-addons-for-contact-form-7', __FILE__ );
+
+        // Active insights
+        $client->insights()->init();
+
+    }
+
+   
     
     
 }
