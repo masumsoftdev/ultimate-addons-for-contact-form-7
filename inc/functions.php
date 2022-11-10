@@ -217,7 +217,7 @@ if(!function_exists('uacf7_black_friday_20222_admin_notice')){
 	function uacf7_black_friday_20222_admin_notice(){
 		$deal_link =sanitize_url('https://themefic.com/go/uacf7-bf-deal');
 		$get_current_screen = get_current_screen();  
-		if(!isset($_COOKIE['uacf7_dismiss_admin_notice']) && $get_current_screen->id !='contact_page_wpcf7-new'){ 
+		if(!isset($_COOKIE['uacf7_dismiss_admin_notice']) && $get_current_screen->base == 'dashboard'){ 
             ?>
             <style> 
                 .tf_black_friday_20222_admin_notice a:focus {
@@ -229,12 +229,18 @@ if(!function_exists('uacf7_black_friday_20222_admin_notice')){
                     z-index: 10;
                 }
                 .tf_black_friday_20222_admin_notice { 
-                    max-width: 566px;
+						max-width: 585px;
+                }
+                .tf_black_friday_20222_admin_notice button:before {
+                    color: #fff !important;
+                }
+                .tf_black_friday_20222_admin_notice button:hover::before {
+                    color: #d63638 !important;
                 }
             </style>
             <div class="notice notice-success tf_black_friday_20222_admin_notice"> 
                 <a href="<?php echo $deal_link; ?>" target="_blank" >
-                    <img  style="width: auto; height: 145px;" src="<?php echo UACF7_URL ?>/assets/img/BLACK_FRIDAY_BACKGROUND_GRUNGE_notice.png" alt="">
+                    <img  style="width: 100%; height: 150px;" src="<?php echo UACF7_URL ?>/assets/img/BLACK_FRIDAY_BACKGROUND_GRUNGE_notice.png" alt="">
                 </a> 
                 <button type="button" class="notice-dismiss tf_black_friday_notice_dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button>
             </div>
