@@ -85,11 +85,11 @@ class UACF7_MAILCHIMP
       $response = json_decode($response);
 
       if (isset($response->health_status)) { //Display success message
-        $this->$mailchimlConnection = true;
+        $this->mailchimlConnection = true;
       } else {
-        $this->$mailchimlConnection = false;
+        $this->mailchimlConnection = false;
       }
-    }
+    } 
   }
 
   /* Mailchimp config set */
@@ -214,14 +214,14 @@ class UACF7_MAILCHIMP
 
   /* Add members to mailchimp */
   public function add_members( $id, $audience, $posted_data ) {
+    $this->mailchimp_connection();
 
     $api_key = $this->mailchimp_api;
 
     $subscriber_email = get_post_meta( $id, 'uacf7_mailchimp_subscriber_email', true );
     $subscriber_email = !empty($subscriber_email) ? $posted_data[$subscriber_email] : '';
 
-    if( $this->$mailchimlConnection == true && $api_key != '' && $subscriber_email != '' ) {
-      
+    if( $this->mailchimlConnection == true && $api_key != '' && $subscriber_email != '' ) {
       $server_prefix = explode("-",$api_key);
       $server_prefix = $server_prefix[1];
       $subscriber_fname = get_post_meta( $id, 'uacf7_mailchimp_subscriber_fname', true );
@@ -257,17 +257,16 @@ class UACF7_MAILCHIMP
 
       //Mailchimp data
       $data = '{"email_address":"'.sanitize_email($subscriber_email).'","status":"subscribed","merge_fields":{"FNAME": "'.sanitize_text_field($subscriber_fname).'", "LNAME": "'.sanitize_text_field($subscriber_lname).'"'.$extra_merge_fields.'},"vip":false,"location":{"latitude":0,"longitude":0}}';
-      
+    
       curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 
       //for debug only!
       curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
       curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
-      $resp = curl_exec($curl);
-      curl_close($curl);
-
-      return $resp;
+      $resp = curl_exec($curl); 
+      curl_close($curl);  
+      // return $url; 
     }
     
   }
@@ -289,9 +288,8 @@ class UACF7_MAILCHIMP
     if( $form_enable == 'enable' && $form_type == 'subscribe' && $audience != '' ){
 
       //$wpcf->skip_mail = true;
-      $response = $this->add_members( $id, $audience, $posted_data );
-      
-    }
+      $response = $this->add_members( $id, $audience, $posted_data );   
+    } 
   }
 
   /* Enqueue admin scripts */

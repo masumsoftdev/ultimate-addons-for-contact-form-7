@@ -8,11 +8,11 @@
             <p><a href="<?php echo esc_url(admin_url('/admin.php?page=ultimate-addons')); ?>">Mailchimp Api Settings Panel</a></p>
             <?php
             $form_enable = get_post_meta($post->id(), 'uacf7_mailchimp_form_enable', true);
-            $form_type = get_post_meta($post->id(), 'uacf7_mailchimp_form_type', true);
-            $audience = get_post_meta($post->id(), 'uacf7_mailchimp_audience', true);
-            $subscriber_email = get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_email', true);
-            $subscriber_fname = get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_fname', true);
-            $subscriber_lname = get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_lname', true);
+            $form_type = ! empty( get_post_meta($post->id(), 'uacf7_mailchimp_form_type', true)) ? get_post_meta($post->id(), 'uacf7_mailchimp_form_type', true) : ""; 
+            $audience = ! empty( get_post_meta($post->id(), 'uacf7_mailchimp_audience', true)) ? get_post_meta($post->id(), 'uacf7_mailchimp_audience', true) : ""; 
+            $subscriber_email = ! empty( get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_email', true)) ? get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_email', true) : "";
+            $subscriber_fname =  ! empty( get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_fname', true)) ? get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_fname', true) : "";
+            $subscriber_lname = ! empty( get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_lname', true)) ? get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_lname', true) : "";
             $uacf7_mailchimp_merge_fields = empty(get_post_meta($post->id(), 'uacf7_mailchimp_merge_fields', true)) ? array() : get_post_meta($post->id(), 'uacf7_mailchimp_merge_fields', true);
 
             ?>
@@ -40,7 +40,7 @@
                     <strong>Select Audience</strong><br>
                     <select name="uacf7_mailchimp_audience" id="uacf7_mailchimp_audience">
                         <?php
-                        $api_key = $this->$mailchimp_api;
+                        $api_key = $this->mailchimp_api;
 
                         if ($api_key != '') {
 
@@ -114,11 +114,18 @@
 
                     <?php
                     $all_fields = $post->scan_form_tags();
-                    $x = 1;
+                    $x = 1; 
                     foreach ($all_fields as $field) {
                         if ($field['type'] != 'submit') {
-                            $cf7_tag = $uacf7_mailchimp_merge_fields[$x]['mailtag'];
-                            $mergefield = $uacf7_mailchimp_merge_fields[$x]['mergefield'];
+                            
+                            if(is_array($uacf7_mailchimp_merge_fields) && !empty($uacf7_mailchimp_merge_fields)){
+                                $cf7_tag = $uacf7_mailchimp_merge_fields[$x]['mailtag'];
+                                $mergefield = $uacf7_mailchimp_merge_fields[$x]['mergefield'];
+                            }else{
+                                $cf7_tag = '';
+                                $mergefield = '';
+                            }
+                             
                     ?>
                             <tr>
                                 <td>
