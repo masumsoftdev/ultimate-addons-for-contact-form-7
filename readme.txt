@@ -4,7 +4,7 @@ Tags: contact form 7, contact form 7 addons, contact form 7 addon, contact form 
 Requires at least: 4.2
 Tested up to: 6.1
 Requires PHP: 5.4
-Stable tag: 3.1.6
+Stable tag: 3.1.7
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -347,10 +347,19 @@ Just install our Plugin. It will only take 5 mins to create such a form.</a>.
 
 == Changelog ==
 
+
+=  3.1.7 – 12/11/2022  = 
+
+- Improved: Compatibility check for WordPress version 6.1
+- Fixed: Minor Bug Fixed
+- Fixed: Mailchimp integration issue fixed
+- Added: Apsero integration added
+
+
 =  3.1.6 – 03/11/2022  = 
 
 - Fixed: Compatibility check for WordPress version 6.1
-- Minor Bug Fixed
+- Fixed: Minor Bug Fixed
 
 =  3.1.5 – 27/10/2022  = 
 
