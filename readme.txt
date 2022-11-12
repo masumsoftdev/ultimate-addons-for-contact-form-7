@@ -1,10 +1,10 @@
-﻿=== Ultimate Addons for Contact Form 7 ===
+=== Ultimate Addons for Contact Form 7 ===
 Contributors: themefic, raihan143, hasanet, mdrejon
 Tags: contact form 7, contact form 7 addons, contact form 7 addon, contact form 7 booking form, contact form 7 appointment form, contact form 7 placeholder, contact form 7 conditional fields, redirection for contact form 7, contact form 7 thank you page, contact form 7 columns, contact form 7 style, contact form 7 woocommerce, contact form 7 woocommerce product, multi step contact form 7, multi-step contact form, multi step form, post submission contact form 7, form to post contact form 7, contact form 7 to post, custom post contact form 7, contact form 7 custom post type, contact form 7 post submit, caldera forms, Star Rating, Star Rating contact form 7, range slider, range slider contact form 7, contact form 7 conditional redirect, contact form 7 column width, contact form 7 repeater, contact form 7 repeatable fields,  contact form 7 country dropdown, contact form 7 country flags, contact form, contact form 7 mailchimp, contact form 7 dynamic text, contact form 7 pre-populate fields, contact form 7 database
 Requires at least: 4.2
 Tested up to: 6.1
 Requires PHP: 5.4
-Stable tag: 3.1.7
+Stable tag: 3.1.6
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -347,19 +347,18 @@ Just install our Plugin. It will only take 5 mins to create such a form.</a>.
 
 == Changelog ==
 
-
 =  3.1.7 – 12/11/2022  = 
 
-- Improved: Compatibility check for WordPress version 6.1
-- Fixed: Minor Bug Fixed
-- Fixed: Mailchimp integration issue fixed
-- Added: Apsero integration added
+Improved: Compatibility check for WordPress version 6.1
+Fixed: Minor Bug Fixed
+Fixed: Mailchimp integration issue fixed
+Added: Apsero integration added
 
 
 =  3.1.6 – 03/11/2022  = 
 
 - Fixed: Compatibility check for WordPress version 6.1
-- Fixed: Minor Bug Fixed
+- Minor Bug Fixed
 
 =  3.1.5 – 27/10/2022  = 
 
