@@ -9,7 +9,8 @@ jQuery(document).ready(function () {
         var uacf7_next = jQuery(this).find('.uacf7-next[data-form-id="' + form_id + '"]');
         var uacf7_prev = jQuery(this).find('.uacf7-prev[data-form-id="' + form_id + '"]');
         var uacf7_step = '.uacf7-step-'+form_id; 
-        var total_steps = jQuery(uacf7_step, this).length;
+        var total_steps = jQuery(uacf7_step, this).length;  
+
 		jQuery(uacf7_step, this).each(function () {
 			var $this = jQuery(this); 
 			$this.attr('id', form_id+'step-' + uacf7_sid);
@@ -23,7 +24,7 @@ jQuery(document).ready(function () {
 			}
 
 			uacf7_sid++;
-
+            
 		});
         uacf7_prev.on('click', function (e) {
             e.preventDefault();
@@ -31,14 +32,13 @@ jQuery(document).ready(function () {
     
         uacf7_next.on('click', function (e) {
             e.preventDefault();
-    
+        
             var $this = jQuery(this);
-    
             uacf7_step_validation($this, uacf7_step, form_id, repeater_count);
         });
 	});
 
-    
+
 
     function uacf7_step_validation($this, uacf7_step, form_id, repeater_count) { 
         var uacf7_current_step = jQuery($this).closest(uacf7_step); 
@@ -65,9 +65,7 @@ jQuery(document).ready(function () {
                 var Value = jQuery('.wpcf7-form-control input[name="'+this.name+'"]:checked').val();
 
                 if( jQuery(this).is("input[type='checkbox']") ){
-
                     if( typeof Value == 'undefined' ){
-                        
                         var checkboxName = this.name.replace('[]','');
                         uacf7_current_step_fields.push(checkboxName);
                     }
@@ -78,11 +76,9 @@ jQuery(document).ready(function () {
                         uacf7_current_step_fields.push(checkboxName);
                     }
                 }
-                 
-
             });
         }
-        
+
         function uacf7_onlyUnique(value, index, self) {
             return self.indexOf(value) === index;
         }
@@ -109,9 +105,10 @@ jQuery(document).ready(function () {
                 } 
                 type = type[0].localName; 
                 // Repeater Validation issue 
-                if( typeof repeater_count != 'undefined' ){
-                    var value = jQuery("[name="+uacf7_current_step_fields[i]+"]").val();   
-                    if(value == ''){ 
+                if( typeof repeater_count != 'undefined' ){ 
+                    var value = jQuery("[name="+uacf7_current_step_fields[i]+"]").val();    
+                    var valuecheckbox = jQuery("[name="+uacf7_current_step_fields[i]+"][type='checkbox']");
+                    if(value == '' || valuecheckbox.length > 0){  
                         validation_fields.push( ''+type+':'+uacf7_current_step_fields[i]+'' ); 
                     }
                 }else{
@@ -195,6 +192,50 @@ jQuery(document).ready(function () {
         jQuery([document.documentElement, document.body]).animate({
             scrollTop: jQuery(element).offset().top - 120
         }, 500);
+    }
+
+    function acceptance_validation($this, uacf7_next, uacf7_step){
+        var $this = $this.closest(uacf7_step);
+        var acceptance =  $this.find('.wpcf7-acceptance'); 
+        if(acceptance.length == 0){
+            return false;
+        }
+        acceptance.each(function (){  
+            if(jQuery(this).hasClass('invert')){
+                var invert = true;
+            }else{
+                var invert = false;
+            } 
+            if(jQuery(this).hasClass('optional')){
+                var optional = true;
+            }else{
+                var optional = false;
+            } 
+            acceptance_validation_disabled_button($this, invert, optional, uacf7_next, this.checked );
+            
+            jQuery(this).find('input[type="checkbox"]').change(function(){ 
+                acceptance_validation_disabled_button($this, invert, optional, uacf7_next, this.checked );
+            });
+           
+           
+        }); 
+    } 
+    function acceptance_validation_disabled_button($this, invert, optional, uacf7_next, checked){
+        if(invert == true && checked == false){
+            var next_disable = false
+         } else if(invert == false && checked == true){
+             var next_disable = false 
+         }else{
+             var next_disable = true
+         }   
+         if(next_disable == true ){
+            $this.find(uacf7_next).prop("disabled",true)
+         }else{
+            $this.find(uacf7_next).prop("disabled",false)
+         }
+         if(optional == true){ 
+            $this.find(uacf7_next).prop("disabled",false)
+         }
     }
 
 });
