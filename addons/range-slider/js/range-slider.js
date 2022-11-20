@@ -5,6 +5,8 @@
       var handle = $(this).parent().parent().find(".uacf7-slider-handle").data("handle"); 
       var min = $(this).parent().parent().find(".uacf7-slider-handle").data("min");
       var max = $(this).parent().parent().find(".uacf7-slider-handle").data("max");
+      var separator = $(this).parent().parent().find(".uacf7-slider-handle").data("separator");
+      var label = $(this).parent().parent().find(".uacf7-slider-handle").data("label");
       var def = $(this).parent().parent().find(".uacf7-slider-handle").data("default");
       if (handle == 2) { 
           $(this).slider({
@@ -13,8 +15,8 @@
             max: max,
             values: [min, def],
             slide: function (event, ui) {
-              $(this).parent().parent().find("#uacf7-amount").val(ui.values[0] + " - " + ui.values[1]);
-              $(this).parent().parent().find(".uacf7-amount").html(ui.values[0] + " - " + ui.values[1]);
+              $(this).parent().parent().find("#uacf7-amount").val(ui.values[0] +  " "+label+" " + " "+separator+" " + ui.values[1] +  " "+label+" ");
+              $(this).parent().parent().find(".uacf7-amount").html(ui.values[0] +  " "+label+" " + " "+separator+" " + ui.values[1] +  " "+label+" " );
             }
           });
           $(this).parent().parent().find("#uacf7-amount").val($(this).slider("values", 0) + " - " + $(this).slider("values", 1));

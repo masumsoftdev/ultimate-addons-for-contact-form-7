@@ -59,6 +59,18 @@ class UACF7_range_Slider {
 
         $show_value = !empty( $tag->get_option( 'show_value', '', true ) ) ? $tag->get_option( 'show_value', '', true ) : 'on';
         $handle = !empty( $tag->get_option( 'handle', '', true ) ) ? $tag->get_option( 'handle', '', true ) : '1';
+        if(class_exists('UACF7_RANGE_SLIDER_PRO')){ 
+            $label = !empty( $tag->get_option( 'label', '', true ) ) ? $tag->get_option( 'label', '', true ) : '';
+            $separator = !empty( $tag->get_option( 'separator', '', true ) ) ? $tag->get_option( 'separator', '', true ) : '-'; 
+            $min_label = !empty( $tag->get_option( 'min_label', '', true ) ) ? $tag->get_option( 'min_label', '', true ) : 'Min : ';
+            $max_label = !empty( $tag->get_option( 'max_label', '', true ) ) ? $tag->get_option( 'max_label', '', true ) : 'Max : ';
+        }else{
+            $label = '';
+            $separator = '-'; 
+            $min_label = 'Min : ';
+            $max_label = 'Max : ';
+        }
+        
         $min = !empty( $tag->get_option( 'min', '', true ) ) ? $tag->get_option( 'min', '', true ) : 0;
         $max = !empty( $tag->get_option( 'max', '', true ) ) ? $tag->get_option( 'max', '', true ) : 100;
         $default = !empty( $tag->get_option( 'default', '', true ) ) ? $tag->get_option( 'default', '', true ) : 100;
@@ -81,38 +93,50 @@ class UACF7_range_Slider {
             echo '<div class="'. esc_attr( $tag->name ) .'">';
             if( $show_value == 'on'){
                 ?>
-                <label class="uacf7-slider-label">( Min: <?php echo esc_html( $min ); ?> Max: <?php echo esc_html( $max ) ?>)</label>
+               <label class="uacf7-slider-label"> ( 
+                    <span class="min-max-label"><?php echo esc_html( $min_label ); ?> </span> <span class="range-min"> <?php echo esc_html( $min ); ?></span> 
+                    <span class="range-label"><?php echo esc_html( $label ); ?> </span> 
+                    <span class="range-separator"><?php echo esc_html( $separator ); ?> </span> 
+                    <span class="min-max-label"><?php echo esc_html( $max_label ); ?> </span> <span class="range-min"> <?php echo esc_html( $max ) ?></span> 
+                    <span class="range-label"> <?php echo esc_html( $label ); ?></span> 
+                )</label>
             <?php
             }
             ?>
             <span class="<?php echo esc_attr( $tag->name ) . '-value'; ?> uacf7-value"></span>
-            <span class="wpcf7-form-control-wrap uacf7-slidecontainer uacf7-slider-handle" data-handle="<?php echo esc_attr( $handle ); ?>" data-min="<?php echo esc_attr( $min ); ?>" data-max="<?php echo esc_attr( $max ); ?>" data-default="<?php echo esc_attr( $default ); ?>">
+            <span class="wpcf7-form-control-wrap uacf7-slidecontainer uacf7-slider-handle" data-separator="<?php echo esc_attr( $separator ); ?>" data-handle="<?php echo esc_attr( $handle ); ?>" data-min="<?php echo esc_attr( $min ); ?>" data-max="<?php echo esc_attr( $max ); ?>" data-default="<?php echo esc_attr( $default ); ?>">
                 <input name="<?php echo esc_attr( $tag->name ); ?>" type="range" min="<?php echo esc_attr( $min ); ?>" max="<?php echo esc_attr( $max ); ?>" value="<?php echo esc_attr( $default ); ?>" class="uacf7-slider uacf7-range">
             </span>  
             </div>
             <script>
 
-                document.querySelector(".<?php echo $tag->name . '-value'; ?>").innerHTML = document.querySelector(".<?php echo $tag->name ; ?> .uacf7-range").value; // Display the default slider value
+                document.querySelector(".<?php echo $tag->name . '-value'; ?>").innerHTML = document.querySelector(".<?php echo $tag->name ; ?> .uacf7-range").value + ' <?php echo esc_html( $label ); ?>'; // Display the default slider value
                 // Update the current slider value (each time you drag the slider handle)
                 document.querySelector(".<?php echo $tag->name ; ?> .uacf7-range").oninput = function () {
-                    document.querySelector(".<?php echo $tag->name . '-value'; ?>").innerHTML = this.value;
+                    document.querySelector(".<?php echo $tag->name . '-value'; ?>").innerHTML = this.value + ' <?php echo esc_html( $label ); ?>';
                 }  
             </script>
             <?php 
         } elseif ( $handle == 2 ) {
             if( $show_value == 'on'){
                 ?>
-                <label class="uacf7-slider-label">( Min: <?php echo esc_html( $min ); ?> Max: <?php echo esc_html( $max ) ?>)</label>
+                <label class="uacf7-slider-label"> ( 
+                    <span class="min-max-label"><?php echo esc_html( $min_label ); ?> </span> <span class="range-min"> <?php echo esc_html( $min ); ?></span> 
+                    <span class="range-label"><?php echo esc_html( $label ); ?> </span> 
+                    <span class="range-separator"><?php echo esc_html( $separator ); ?> </span> 
+                    <span class="min-max-label"><?php echo esc_html( $max_label ); ?> </span> <span class="range-min"> <?php echo esc_html( $max ) ?></span> 
+                    <span class="range-label"> <?php echo esc_html( $label ); ?></span> 
+                )</label>
             <?php
             }
             ?>
             <div class="multistep">
-                <span class="wpcf7-form-control-wrap"><span class="uacf7-amount"><?php echo esc_attr( $min . "-" . $max ); ?></span>
-                    <span class="uacf7-slider-handle"  data-handle="<?php echo esc_attr( $handle ); ?>" data-min="<?php echo esc_attr( $min ); ?>" data-max="<?php echo esc_attr( $max ); ?>" data-default="<?php echo esc_attr( $default ); ?>">
+                <span class="wpcf7-form-control-wrap"><span class="uacf7-amount"><?php echo esc_attr( $min . " $label " . " $separator " .  $max ." $label " ); ?></span>
+                    <span class="uacf7-slider-handle" data-separator="<?php echo esc_attr( $separator ); ?>" data-label="<?php echo esc_attr( $label ); ?>"  data-handle="<?php echo esc_attr( $handle ); ?>" data-min="<?php echo esc_attr( $min ); ?>" data-max="<?php echo esc_attr( $max ); ?>" data-default="<?php echo esc_attr( $default ); ?>">
                         <input name="<?php echo esc_attr( $tag->name ) ?>" type="hidden" id="uacf7-amount" class="uacf7-slide_amount" readonly>                       
                         <div id="uacf7-slider-range" class="multistep_slide"></div>
                     </span>
-                </span>
+                <!-- </span> -->
             </div> 
             <?php
         } 
@@ -189,7 +213,36 @@ class UACF7_range_Slider {
                                 </select>
                                 <a href="https://cf7addons.com/preview/range-slider/pro" style="color:red">(Pro)</a>
                             </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="tag-generator-panel-text-min"><?php echo esc_html__( 'Range Label', 'ultimate-addons-cf7' ); ?></label></th>
+                            <td>
+                                <input type="text" name="label" class="tg-range_label oneline option" id="tag-generator-panel-text-min" placeholder="" disabled  />
+                                <a href="https://cf7addons.com/preview/range-slider/pro" style="color:red">(Pro)</a>
+                            </td>
                         </tr> 
+                        <tr>
+                            <th scope="row"><label for="tag-generator-panel-text-min"><?php echo esc_html__( 'Range Separator', 'ultimate-addons-cf7' ); ?></label></th>
+                            <td>
+                                <input type="text" name="separator" class="tg-range_separator oneline option" id="tag-generator-panel-text-min" placeholder="-"  disabled/>
+                                <a href="https://cf7addons.com/preview/range-slider/pro" style="color:red">(Pro)</a>
+                            </td>
+                        </tr> 
+                        <tr>
+                            <th scope="row"><label for="tag-generator-panel-text-min"><?php echo esc_html__( 'Minimum Label', 'ultimate-addons-cf7' ); ?></label></th>
+                            <td>
+                                <input type="text" name="min_label" class="tg-min_label oneline option" id="tag-generator-panel-text-min" placeholder="Min" disabled  />
+                                <a href="https://cf7addons.com/preview/range-slider/pro" style="color:red">(Pro)</a>
+                            </td>
+                        </tr> 
+                        <tr>
+                            <th scope="row"><label for="tag-generator-panel-text-min"><?php echo esc_html__( 'Maximum Label', 'ultimate-addons-cf7' ); ?></label></th>
+                            <td>
+                                <input type="text" name="max_label" class="tg-max_label oneline option" id="tag-generator-panel-text-min" placeholder="Max"  disabled/>
+                                <a href="https://cf7addons.com/preview/range-slider/pro" style="color:red">(Pro)</a>
+                            </td>
+                        </tr> 
+                       
                     <?php 
                         $range_style = ob_get_clean();
                         echo apply_filters( 'uacf7_range_slider_style_field', $range_style );

@@ -2,9 +2,9 @@
 Contributors: themefic, raihan143, hasanet, mdrejon
 Tags: contact form 7, contact form 7 addons, contact form 7 addon, contact form 7 booking form, contact form 7 appointment form, contact form 7 placeholder, contact form 7 conditional fields, redirection for contact form 7, contact form 7 thank you page, contact form 7 columns, contact form 7 style, contact form 7 woocommerce, contact form 7 woocommerce product, multi step contact form 7, multi-step contact form, multi step form, post submission contact form 7, form to post contact form 7, contact form 7 to post, custom post contact form 7, contact form 7 custom post type, contact form 7 post submit, caldera forms, Star Rating, Star Rating contact form 7, range slider, range slider contact form 7, contact form 7 conditional redirect, contact form 7 column width, contact form 7 repeater, contact form 7 repeatable fields,  contact form 7 country dropdown, contact form 7 country flags, contact form, contact form 7 mailchimp, contact form 7 dynamic text, contact form 7 pre-populate fields, contact form 7 database
 Requires at least: 4.2
-Tested up to: 6.1
+Tested up to: 6.1.1
 Requires PHP: 5.4
-Stable tag: 3.1.6
+Stable tag: 3.1.8
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -32,13 +32,13 @@ Packed with 20+ essential features, <strong>Ultimate Addons For Contact Form 7</
 * Star Rating Field
 * Country List with Flag
 * Mailchimp Integration
-* Dynamic text field
+* Dynamic Text Extension
 * Pre-populate fields
 * Save to Database
 * WooCommerce Checkout (Pro)
 * Repeater Field (Pro)
 * Multi Step Form Skins/Templates (Pro)
-* Frontend Post Submission (Pro)
+* Contact Form 7 to Post Type / Blog Submission (Pro)
 * Conditional Redirect (Pro)
 * Booking/Appointment Form (Pro)
 * Custom Column width (Pro)
@@ -97,11 +97,11 @@ With our Contact Form 7 Multi-Step Forms addon, you can easily create Multi Step
 
 = 🎉  Contact Form 7 Placeholder = 
 
-With this feature, you can edit contact form 7 placeholder text color, placeholder text background color, placeholder text font size, font family, font style and font weight. In short, you can edit the style of your form's placeholder without writing any css code. <a href="https://cf7addons.com/preview/placeholder-styling/">Click Here</a> to check live preview.
+With this feature, you can edit contact form 7 placeholder text color, placeholder text background color, placeholder text font size, font family, font style and font weight. In short, you can edit the style of your form's placeholder without writing any css code. <a href="https://cf7addons.com/preview/contact-form-7-placeholder-styling/">Click Here</a> to check live preview.
 
 = 🎉  Contact form 7 WooCommerce Integration = 
 
-This features will help you to add WooCommerce Product Dropdown field on Contact Form 7. You can add all your product as a dropdown on your form, when user submits, you will get the data on your email. With this, your customer can easily do WooCommerce Product Enquiry with contact form 7. Note that, with free version you can add all products. If you need to add specific products and other options, check the features on Pro. <a href="https://cf7addons.com/preview/woocommerce/">Click Here</a> to check live preview.
+This features will help you to add WooCommerce Product Dropdown field on Contact Form 7. You can add all your product as a dropdown on your form, when user submits, you will get the data on your email. With this, your customer can easily do WooCommerce Product Enquiry with contact form 7. Note that, with free version you can add all products. If you need to add specific products and other options, check the features on Pro. <a href="https://cf7addons.com/preview/contact-form-7-woocommerce//">Click Here</a> to check live preview.
 
 = 🎉  Contact form 7 Style = 
 
@@ -109,7 +109,7 @@ This features will help you to style the complete form on Contact form 7. You ca
 
 = 🎉  Contact Form 7 Star Rating Field = 
 
-Add Star Rating fields to Contact Form 7. Star rating is the easiest and efficient way to get feedback from your customers on how good your product or service is. Good news! Now you can easily add a star rating to your Contact form 7, using Ultimate Addons for Contact form 7, within minutes. <a href="https://cf7addons.com/preview/star-rating/">Click Here</a> to check live preview.
+Add Star Rating fields to Contact Form 7. Star rating is the easiest and efficient way to get feedback from your customers on how good your product or service is. Good news! Now you can easily add a star rating to your Contact form 7, using Ultimate Addons for Contact form 7, within minutes. <a href="https://cf7addons.com/preview/contact-form-7-star-rating/">Click Here</a> to check live preview.
 
 = 🎉  Contact Form 7 Country Dropdown with Flag  = 
 
@@ -121,11 +121,11 @@ Connect your Mailchimp account with Contact Form 7. With this addon, you can add
 
 = 🎉  Contact Form 7 Dynamic Text Extension  = 
 
-Dynamic text field for contact form 7 Addon helps you to Get dynamic value from current URL, blog info, current post info, current user info, and custom fields and add it automatically on Contact Form 7 Text Field. This can also be used in hidden field values. Some examples might include: Dynamicly populate Contact form 7 input fields with current user info when logged in Wordpress website, Auto-filling a URL, Auto-filling a Post ID, title, or slug, Pre-populating a Product Number, post info, user info, custom fields and Any value you can write a shortcode for.  <a href="https://cf7addons.com/preview/dynamic-text">Click Here</a> to check live preview of Contact Form 7 Dynamic Fields.
+Dynamic text field for contact form 7 Addon helps you to Get dynamic value from current URL, blog info, current post info, current user info, and custom fields and add it automatically on Contact Form 7 Text Field. This can also be used in hidden field values. Some examples might include: Dynamicly populate Contact form 7 input fields with current user info when logged in Wordpress website, Auto-filling a URL, Auto-filling a Post ID, title, or slug, Pre-populating a Product Number, post info, user info, custom fields and Any value you can write a shortcode for.  <a href="https://cf7addons.com/preview/contact-form-7-dynamic-text-extension/">Click Here</a> to check live preview of Contact Form 7 Dynamic Fields.
 
 = 🎉  Contact Form 7 Pre Populate Fields  = 
 
-Get Value From URL & Autofill Fields Dynamically on Contact Form 7 with our Pre-populate Field Addon. This addon will help you to Auto Populate Contact Form 7 Input Fields with URL Parameter. <a href="https://cf7addons.com/preview/pre-populate-field/">Click Here</a> to check live preview of Pre-Populate Field for Contact Form 7.
+Get Value From URL & Autofill Fields Dynamically on Contact Form 7 with our Pre-populate Field Addon. This addon will help you to Auto Populate Contact Form 7 Input Fields with URL Parameter. <a href="https://cf7addons.com/preview/contact-form-7-pre-populate-fields/">Click Here</a> to check live preview of Pre-Populate Field for Contact Form 7.
 
 = 🎉  Contact Form 7 Database  = 
 
@@ -151,7 +151,7 @@ The Pro version includes all the free features.
 
 = 🎉  Contact form 7 WooCommerce Checkout / Auto Add to Cart =
 
-Ultimate Addons for Contact form 7 Pro version gives you the power to add WooCommerce Checkout to your Contact form 7 forms. Once customer choose your product and submits the form, they will be redirected to the cart page with the product added to the cart. They can then proceed to checkout and complete WooCommerce Payment. However, note that, this option is not applicable to variable and grouped product (We are looking for a solution to add this in future versions). <a href="https://cf7addons.com/preview/woocommerce-checkout/">Click Here</a> to check live preview.
+Ultimate Addons for Contact form 7 Pro version gives you the power to add WooCommerce Checkout to your Contact form 7 forms. Once customer choose your product and submits the form, they will be redirected to the cart page with the product added to the cart. They can then proceed to checkout and complete WooCommerce Payment. However, note that, this option is not applicable to variable and grouped product (We are looking for a solution to add this in future versions). <a href="https://cf7addons.com/preview/contact-form-7-woocommerce-checkout/">Click Here</a> to check live preview.
 
 = 🎉  Contact form 7 Repeatable Fields = 
 
@@ -171,11 +171,11 @@ This features will help you edit the button text and add image on background on 
 
 = 🎉  Contact Form 7 Frontend Post Submission =
 
-Create a post submission form with Contact Form 7. Each forms submitted from your website will be published as a new post which you can manage in your dashboard and display on the front end. You can add title, description, category, featured image by default. With the power of "Custom Field", you can connect with any custom field with this form. <a href="https://cf7addons.com/preview/post-submission/">Click Here</a> to check live preview.
+Create a post submission form with Contact Form 7. Each forms submitted from your website will be published as a new post which you can manage in your dashboard and display on the front end. You can add title, description, category, featured image by default. With the power of "Custom Field", you can connect with any custom field with this form. <a href="https://cf7addons.com/preview/contact-form-7-to-post-type/">Click Here</a> to check live preview.
 
 = 🎉  Contact Form 7 to Custom Post Type =
 
-Easily process a contact form from contact form 7 into a custom post type. <a href="https://cf7addons.com/preview/post-submission/">Click Here</a> to check live preview.
+Easily process a contact form from contact form 7 into a custom post type. <a href="https://cf7addons.com/preview/contact-form-7-to-post-type/">Click Here</a> to check live preview.
 
 = 🎉  Contact Form 7 Conditional Redirect = 
 
@@ -215,7 +215,7 @@ Advanced Conditional Logic for Range Slider, Star Rating Field, Country Dropdown
 
 = 🎉  Contact form 7 Whatsapp Integration + CF7 Tag Support  =
 
-Tag support for CF7 fields to be used on redirect URL to pass data. You can also pass submission data to Whatsapp. For example, you can add tag support like this https://yourdomain.com/?name=[your-name] and the name field will be passed to Whatsapp or wherever you want to pass. <a href="https://cf7addons.com/preview/whatsapp-integration-and-tag-support/">Click Here</a> to check live preview.
+Tag support for CF7 fields to be used on redirect URL to pass data. You can also pass submission data to Whatsapp. For example, you can add tag support like this https://yourdomain.com/?name=[your-name] and the name field will be passed to Whatsapp or wherever you want to pass. <a href="https://cf7addons.com/preview/contact-form-7-whatsapp-integration/">Click Here</a> to check live preview.
 
 = More Pro Addons Coming Soon =
 
@@ -231,7 +231,13 @@ We provide full support on the WordPress.org forums. You can also post questions
 
 <strong>Privacy Policy : </strong>
 
-This plugin doesn’t collect/store any user related information.
+Ultimate Addons for Contact Form 7 uses [Appsero](https://appsero.com) SDK to collect some telemetry data upon user's confirmation. This helps us to troubleshoot problems faster & make product improvements.
+
+Appsero SDK **does not gather any data by default.** The SDK only starts gathering basic telemetry data **when a user allows it via the admin notice**. We collect the data to ensure a great user experience for all our users.
+
+Integrating Appsero SDK **DOES NOT IMMEDIATELY** start gathering data, **without confirmation from users in any case.**
+
+Learn more about how [Appsero collects and uses this data](https://appsero.com/privacy-policy/).
 
 <strong>Our Other Plugins</strong>
 
@@ -346,6 +352,14 @@ Just install our Plugin. It will only take 5 mins to create such a form.</a>.
 18. Multistep Editor Panel
 
 == Changelog ==
+
+=  3.1.8 – 20/11/2022  = 
+
+Improved: Compatibility check for WordPress version 6.1.1
+Added: New Addon Pdf Generator added
+Fixed: Multistep acceptance validation issue fixed
+Fixed: Range Slider Label feature added (Pro)
+
 
 =  3.1.7 – 12/11/2022  = 
 

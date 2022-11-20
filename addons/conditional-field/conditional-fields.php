@@ -544,8 +544,11 @@ class UACF7_CF {
         if (!$posted_data) {
             $posted_data = WPCF7_Submission::get_instance()->get_posted_data();
         }
-        
-        $hidden_fields = json_decode(stripslashes($posted_data['_uacf7_hidden_conditional_fields']));
+        if(isset($posted_data['_uacf7_hidden_conditional_fields'])){ 
+            $hidden_fields = json_decode(stripslashes($posted_data['_uacf7_hidden_conditional_fields']));
+        }else{
+            $hidden_fields = [];
+        }
         if (is_array($hidden_fields) && count($hidden_fields) > 0) {
             foreach ($hidden_fields as $field) {
                 
