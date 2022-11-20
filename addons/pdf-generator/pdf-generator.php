@@ -92,8 +92,13 @@ class UACF7_PDF_GENERATOR {
             $pdf_footer_bg_color = !empty(get_post_meta( $wpcf7->id(), 'pdf_footer_bg_color', true )) ? get_post_meta( $wpcf7->id(), 'pdf_footer_bg_color', true ) : '';  
 
             $mpdf = new \Mpdf\Mpdf([ 
+                'fontdata' => [ // lowercase letters only in font key
+                    'dejavuserifcond' => [
+                        'R' => 'DejaVuSansCondensed.ttf',
+                    ]
+                ],
                 'mode' => 'utf-8',
-                'default_font' => 'dejavuserifcond',
+                'default_font' => 'dejavusanscond',
                 'margin_header' => 0,
                 'margin_footer' => 0,
                 'format' => 'A4', 
@@ -142,7 +147,7 @@ class UACF7_PDF_GENERATOR {
             $mpdf->SetHTMLHeader('
             <div class="pdf-header"  >
                     <div class="header-logo"  >
-                        <img src="'.$pdf_header_upload_image.'" style="height: 60; max-width: 100%; " alt="">
+                        <img src="'.$pdf_header_upload_image.'" style="height: 60; max-width: 100%; ">
                     </div>    
                     <div class="header-content">
                     '.$customize_pdf_header.'
@@ -180,13 +185,11 @@ class UACF7_PDF_GENERATOR {
             $mpdf->SetTitle($uacf7_pdf_name);
 
              // PDF Footer Content
-            $mpdf->WriteHTML($pdf_style.'<div class="pdf-content">'.$pdf_content.'   <img src="D:\laragon-sydur\laragon\www\theme-plugins/wp-content/uploads/wpcf7_uploads/0264748512/logo-small-220x46-1.png" style="height: 60; max-width: 100%; " alt=""></div>');
+            $mpdf->WriteHTML($pdf_style.'<div class="pdf-content">'.$pdf_content.'   </div>');
 
             $pdf_url = $dir.'/uacf7-uploads/'.$uacf7_pdf_name.'.pdf';
             $mpdf->Output($pdf_url, 'F'); // save to databaes
-            echo '<pre>';
-            print_r($customize_pdf);
-            exit;
+           
             $components['attachments'][] = $pdf_url;
             
         }
@@ -348,7 +351,6 @@ class UACF7_PDF_GENERATOR {
                    
                   
                </div>
-                <p>Need more placeholder or other options? Let us know <a href="https://themefic.com/contact/" target="_blank">here</a>.</p>
            </div>
         </fieldset>
         <?php
