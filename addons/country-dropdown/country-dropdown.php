@@ -138,11 +138,11 @@ class UACF7_COUNTRY_DROPDOWN {
                 <table class="form-table">
                    <tbody>
                         <tr>
-                            <th scope="row">Field type</th>
+                            <th scope="row"><?php echo esc_html( __( 'Field type', 'ultimate-addons-cf7' ) ); ?></th>
                             <td>
                                 <fieldset>
-                                <legend class="screen-reader-text">Field type</legend>
-                                <label><input type="checkbox" name="required" value="on"> Required field</label>
+                                <legend class="screen-reader-text"><?php echo esc_html( __( 'Field type', 'ultimate-addons-cf7' ) ); ?></legend>
+                                <label><input type="checkbox" name="required" value="on"> <?php echo esc_html( __( 'Required field', 'ultimate-addons-cf7' ) ); ?> </label>
                                 </fieldset>
                             </td>
                         </tr>
@@ -155,7 +155,7 @@ class UACF7_COUNTRY_DROPDOWN {
                         <?php ob_start(); ?>
                         <tr>
                             <th scope="row"><label><?php echo esc_html( __( 'Auto complete', 'ultimate-addons-cf7' ) ); ?> <a style="color:red" target="_blank" href="https://cf7addons.com/">(Pro)</a></label></th>
-                            <td><input disabled type="checkbox" class="option"> Auto complete country using user's network IP.</td>
+                            <td><input disabled type="checkbox" class="option"><?php echo esc_html( __( " Auto complete country using user's network IP.", "ultimate-addons-cf7" ) ); ?> </td>
                         </tr>
                         <?php 
                         $autocomplete_html = ob_get_clean(); 
@@ -166,14 +166,26 @@ class UACF7_COUNTRY_DROPDOWN {
                         ?>
                         
                         <tr>
-                            <th scope="row"><label for="tag-generator-panel-text-class">Class attribute</label></th>
+                            <th scope="row"><label for="tag-generator-panel-text-class"><?php echo esc_html( __( 'Class attribute', 'ultimate-addons-cf7' ) ); ?> </label></th>
                             <td><input type="text" name="class" class="classvalue oneline option" id="tag-generator-panel-text-class"></td>
                         </tr>
                     </tbody>
                 </table>
             </fieldset>
-            <div class="uacf7-doc-notice">Not sure how to set this? Check our step by step <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/country-dropdown-field-in-contact-form-7/" target="_blank">documentation</a>.</div>
-            <p class="uacf7-doc-notice uacf7-guide">Use Our Pro plugin <strong><a target="_blank" href="https://cf7addons.com/preview/ip-geo/">IP Geolocation</a></strong> to enable autocomplete country, city, state and zip code field based on user IP address.</p>
+            <div class="uacf7-doc-notice"> 
+                <?php echo sprintf( 
+                    __( 'Not sure how to set this? Check our step by step  %1s .', 'ultimate-addons-cf7' ),
+                    '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/country-dropdown-field-in-contact-form-7/" target="_blank">documentation</a>'
+                ); ?> 
+            </div>
+         
+            <p class="uacf7-doc-notice uacf7-guide">
+                <?php echo sprintf( 
+                        __( 'Use Our Pro plugin %1s to enable autocomplete country, city, state and zip code field based on user IP address.', 'ultimate-addons-cf7' ),
+                        '<strong><a target="_blank" href="https://cf7addons.com/preview/ip-geo/">IP Geolocation</a></strong>'
+                    ); ?> 
+            
+            </p>
         </div>
 
         <div class="insert-box">

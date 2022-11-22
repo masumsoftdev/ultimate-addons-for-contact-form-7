@@ -112,7 +112,7 @@ class UACF7_CF {
                         </tr>
                     </tbody>
                 </table>
-                <div class="uacf7-doc-notice uacf7-guide">There are additional settings on the "UACF7 Conditional Fields" tab. Make sure you set those, otherwise the conditions may not work correctly.</div>
+                <div class="uacf7-doc-notice uacf7-guide"><?php echo esc_html__( "There are additional settings on the 'UACF7 Conditional Fields' tab. Make sure you set those, otherwise the conditions may not work correctly.", "ultimate-addons-cf7" ); ?></div>
             </fieldset>
         </div>
 

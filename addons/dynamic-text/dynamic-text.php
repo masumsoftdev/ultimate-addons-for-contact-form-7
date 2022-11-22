@@ -155,17 +155,22 @@ class UACF7_DYNAMIC_TEXT {
         $uacf7_field_type = 'uacf7_dynamic_text';
         ?>
         <div class="control-box">
-        <div class="uacf7-doc-notice">Not sure how to set this? Check our step by step <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/country-dropdown-field-in-contact-form-7/" target="_blank">documentation</a>.</div>
+        <div class="uacf7-doc-notice">
+            <?php echo sprintf( 
+                __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/country-dropdown-field-in-contact-form-7/" target="_blank">documentation</a>'
+            ); ?>  
+        </div>
          
             <fieldset>                
                 <table class="form-table">
                    <tbody>
                         <tr>
-                            <th scope="row">Field type</th>
+                            <th scope="row"><?php echo esc_html__( 'Field type', 'ultimate-addons-cf7' ); ?> </th>
                             <td>
                                 <fieldset>
-                                <legend class="screen-reader-text">Field type</legend>
-                                <label><input type="checkbox" name="required" value="on"> Required field</label>
+                                <legend class="screen-reader-text"><?php echo esc_html__( 'Field type', 'ultimate-addons-cf7' ); ?> </legend>
+                                <label><input type="checkbox" name="required" value="on"> <?php echo esc_html__( 'Required field', 'ultimate-addons-cf7' ); ?></label>
                                 </fieldset>
                             </td>
                         </tr>
@@ -174,17 +179,17 @@ class UACF7_DYNAMIC_TEXT {
                             <td><input type="text" name="name" class="tg-name oneline" id="<?php echo esc_attr( $args['content'] . '-name' ); ?>" /></td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="visibility"> Field Visibility </label></th>
+                            <th scope="row"><label for="visibility"><?php echo esc_html__( 'Field Visibility', 'ultimate-addons-cf7' ); ?>  </label></th>
                             <td>
-                                <label for="show"><input id="show" name="visibility" class="option" type="radio" value="show" checked> Show</label>
+                                <label for="show"><input id="show" name="visibility" class="option" type="radio" value="show" checked> <?php echo esc_html__( 'Show', 'ultimate-addons-cf7' ); ?></label>
                                 
-                                <label for="disabled"><input id="disabled" name="visibility" class="option" type="radio" value="disabled"> Disabled</label>
+                                <label for="disabled"><input id="disabled" name="visibility" class="option" type="radio" value="disabled"> <?php echo esc_html__( 'Disabled', 'ultimate-addons-cf7' ); ?></label>
                                 
-                                <label for="hidden"><input id="hidden" name="visibility" class="option" type="radio" value="hidden"> Hidden</label>
+                                <label for="hidden"><input id="hidden" name="visibility" class="option" type="radio" value="hidden"> <?php echo esc_html__( 'Hidden', 'ultimate-addons-cf7' ); ?></label>
                             </td>
                         </tr>  
                         <tr class="">   
-                            <th><label for="tag-generator-panel-star-style">Dynamic value</label></th>                     
+                            <th><label for="tag-generator-panel-star-style"><?php echo esc_html__( 'Dynamic value', 'ultimate-addons-cf7' ); ?></label></th>                     
                             <td>
                                 <select  name="values" class="values" id="tag-generator-panel-dynamic-value">
                                     <option value="">Select</option> 
@@ -197,11 +202,11 @@ class UACF7_DYNAMIC_TEXT {
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="tag-generator-panel-text-class">Dynamic key</label></th>
+                            <th scope="row"><label for="tag-generator-panel-text-class"><?php echo esc_html__( 'Dynamic key', 'ultimate-addons-cf7' ); ?></label></th>
                             <td><input type="text" placeholder="Dynamic key" name="key" class="key oneline option" id="tag-generator-panel-text-key"></td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="tag-generator-panel-text-class">Class attribute</label></th>
+                            <th scope="row"><label for="tag-generator-panel-text-class"><?php echo esc_html__( 'Class attribute', 'ultimate-addons-cf7' ); ?></label></th>
                             <td><input type="text" name="class" class="classvalue oneline option" id="tag-generator-panel-text-class"></td>
                         </tr>
                     </tbody>

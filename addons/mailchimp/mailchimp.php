@@ -26,7 +26,7 @@ class UACF7_MAILCHIMP
   public function add_mailchimp_tab()
   {
   ?>
-    <a class="tablinks" onclick="uacf7_settings_tab(event, 'uacf7_mailchimp')">Mailchimp</a>
+    <a class="tablinks" onclick="uacf7_settings_tab(event, 'uacf7_mailchimp')"><?php echo esc_html__( 'Mailchimp', 'ultimate-addons-cf7' ); ?></a>
   <?php
   }
 

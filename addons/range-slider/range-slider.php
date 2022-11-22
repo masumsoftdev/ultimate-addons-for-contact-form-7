@@ -265,8 +265,13 @@ class UACF7_range_Slider {
                     </tr>
                 </tbody>
                 </table>
-                <div class="uacf7-doc-notice uacf7-guide">You can set the styles of the slider from "UACF7 Range Slider" tab.</div>
-                <div class="uacf7-doc-notice">Not sure how to set this? Check our step by step <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/range-slider-on-contact-form-7/" target="_blank">documentation</a>.</div>
+                <div class="uacf7-doc-notice uacf7-guide"><?php echo esc_attr( __( 'You can set the styles of the slider from "UACF7 Range Slider" tab.', 'ultimate-addons-cf7' ) ); ?></div>
+                <div class="uacf7-doc-notice"> 
+                    <?php echo sprintf( 
+                        __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                        '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/range-slider-on-contact-form-7/" target="_blank">documentation</a>'
+                    ); ?> 
+                </div>
             </fieldset>
         </div>
         <div class="insert-box">
@@ -306,7 +311,12 @@ class UACF7_range_Slider {
 
         <h2><?php echo esc_html__( 'Range Slider Styles', 'ultimate-addons-cf7' ); ?></h2>
         <p><?php echo esc_html__( 'This feature will help you to edit the Styles of Range Slider of your form. Note that, all below fields are optional. If any field is not needed, leave them blank.', 'ultimate-addons-cf7' ); ?></p>
-        <div class="uacf7-doc-notice">Not sure how to set this? Check our step by step <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/range-slider-on-contact-form-7/" target="_blank">documentation</a>.</div>
+        <div class="uacf7-doc-notice"> 
+            <?php echo sprintf( 
+                __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/range-slider-on-contact-form-7/" target="_blank">documentation</a>'
+            ); ?> 
+        </div>
         <fieldset>
             <div class="uacf7-range-slider-style-wrapper">
                 <div class="uacf7-range-slider-color col">

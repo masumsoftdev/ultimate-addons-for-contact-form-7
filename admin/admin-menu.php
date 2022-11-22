@@ -38,11 +38,11 @@ class UACF7_Admin_Menu {
             
             <!--Tab buttons start-->
 			<div class="uacf7-tab">
-              <a class="tablinks active" onclick="uacf7_settings_tab(event, 'uacf7_addons')">Addons Settings</a>
+              <a class="tablinks active" onclick="uacf7_settings_tab(event, 'uacf7_addons')"><?php echo esc_html__( 'Addons Settings', 'ultimate-addons-cf7' ); ?></a>
               
 			  <?php do_action('uacf7_admin_tab_button'); ?>
 			 
-			  <a class="tablinks" onclick="uacf7_settings_tab(event, 'uacf7_doc')">Documentation</a>
+			  <a class="tablinks" onclick="uacf7_settings_tab(event, 'uacf7_doc')"><?php echo esc_html__( 'Documentation', 'ultimate-addons-cf7' ); ?></a>
               
             </div>
             <!--Tab buttons end-->

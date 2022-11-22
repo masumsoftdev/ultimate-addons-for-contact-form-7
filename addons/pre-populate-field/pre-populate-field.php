@@ -90,7 +90,12 @@ class UACF7_PRE_POPULATE {
                         <label for="pre_populate_enable">
                             <input class="pre-populate" id="pre_populate_enable" name="pre_populate_enable" type="checkbox" value="1" <?php checked( '1', $pre_populate_enable, true ); ?>> <?php _e( 'Enable Pre-populate fields', 'ultimate-addons-cf7' ); ?>
                         </label> 
-                        <div class="uacf7-doc-notice">Not sure how to set this? Check our step by step <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/pre-populate-field/" target="_blank">documentation</a>.</div>
+                        <div class="uacf7-doc-notice"> 
+                            <?php echo sprintf( 
+                                __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                                '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/pre-populate-field/" target="_blank">documentation</a>'
+                            ); ?>  
+                        </div>
                         <?php if($pre_populate_enable != '' || $pre_populate_enable != 0): ?>
                        
                          
@@ -161,7 +166,7 @@ class UACF7_PRE_POPULATE {
                                 
                             </div>  
                             <br>
-                            <a class="uacf7-add-data-shift button-primary" href="#" title="Add">Add Field</a>
+                            <a class="uacf7-add-data-shift button-primary" href="#" title="Add"><?php echo esc_attr( __( 'Add Field', 'ultimate-addons-cf7' ) ); ?></a>
                         </div> 
                         <?php endif; ?>
                     </div>

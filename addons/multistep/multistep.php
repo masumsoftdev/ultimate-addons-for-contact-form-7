@@ -138,8 +138,17 @@ class UACF7_MULTISTEP {
                         </tr>
                     </tbody>
                 </table>
-                <div class="uacf7-doc-notice uacf7-guide">You need to enable the form from the "UACF7 Multistep Form" tab. The tab also includes additional necessary settings. Make sure you set those, otherwise the form submission may not work correctly.</div>
-                <div class="uacf7-doc-notice">Not sure how to set this? Check our step by step <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/multi-step-form/" target="_blank">documentation</a>.</div>
+                <div class="uacf7-doc-notice uacf7-guide">
+                <?php echo esc_html( __( 'You need to enable the form from the "UACF7 Multistep Form" tab. The tab also includes additional necessary settings. Make sure you set those, otherwise the form submission may not work correctly.', 'ultimate-addons-cf7' ) ); ?>
+                  
+                    
+                </div>
+                <div class="uacf7-doc-notice">
+                     <?php echo sprintf( 
+                        __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                        '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/multi-step-form/" target="_blank">documentation</a>'
+                    ); ?> 
+                </div>
             </fieldset>
         </div>
 
@@ -200,16 +209,21 @@ class UACF7_MULTISTEP {
                     $uacf7_enable_multistep_scroll = get_post_meta( $post->id(), 'uacf7_enable_multistep_scroll', true );
                    ?>
                    <div class="multistep_fields_row">
-                       <h3>Is It Multistep Form?</h3>
+                       <h3><?php echo esc_attr( __( 'Is It Multistep Form?', 'ultimate-addons-cf7' ) ); ?></h3>
                        <label for="uacf7_multistep_is_multistep">
                            <input id="uacf7_multistep_is_multistep" type="checkbox" name="uacf7_multistep_is_multistep" <?php checked( 'on', $uacf7_is_multistep ); ?>> Yes
                        </label>
-                       <div class="uacf7-doc-notice">Not sure how to set this? Check our step by step <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/multi-step-form/" target="_blank">documentation</a>.</div>
+                       <div class="uacf7-doc-notice">
+                            <?php echo sprintf( 
+                                __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                                '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/multi-step-form/" target="_blank">documentation</a>'
+                            ); ?>  
+                        </div>
                    </div>
                    <?php if( !empty(array_filter($all_steps)) ) { ?>
                    
                    <div class="multistep_fields_row">
-                       <h3>Multistep Progressbar</h3>
+                       <h3><?php echo esc_attr( __( 'Multistep Progressbar', 'ultimate-addons-cf7' ) ); ?> </h3>
                        <label for="uacf7_enable_multistep_progressbar">
                            <input id="uacf7_enable_multistep_progressbar" type="checkbox" name="uacf7_enable_multistep_progressbar" <?php checked( 'on', $uacf7_enable_multistep_progressbar ); ?>> Enable
                        </label>
@@ -217,11 +231,11 @@ class UACF7_MULTISTEP {
                    <!-- Pro Scroll To Top Feature -->
                    <?php ob_start(); ?>
                    <div class="multistep_fields_row">
-                       <h3>Form Auto Scrolling <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a></h3>
+                       <h3><?php echo esc_attr( __( 'Form Auto Scrolling ', 'ultimate-addons-cf7' ) ); ?> <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a></h3>
                        <label for="uacf7_enable_multistep_scroll">
                            <input id="uacf7_enable_multistep_scroll" type="checkbox"> Enable 
                        </label>
-                       <p>Auto scroll to top after clicking on the next button</p>
+                       <p><?php echo esc_attr( __( ' Auto scroll to top after clicking on the next button', 'ultimate-addons-cf7' ) ); ?></p>
                    
                    </div>
                    <?php 
@@ -232,7 +246,7 @@ class UACF7_MULTISTEP {
                    <!--Pro style-->
                    <?php $uacf7_progressbar_style = get_post_meta( $post->id(), 'uacf7_progressbar_style', true ); ?>
                    <div class="multistep_fields_row">
-                       <h3>Progressbar Layout (Multistep Skins)</h3>
+                       <h3><?php echo esc_attr( __( 'Progressbar Layout (Multistep Skins)', 'ultimate-addons-cf7' ) ); ?> </h3>
                        <select name="uacf7_progressbar_style" id="uacf7_progressbar_style">
                        		<option value="default" <?php selected( $uacf7_progressbar_style, 'default', true ); ?>>Default</option>
                        		<option value="style-1" <?php selected( $uacf7_progressbar_style, 'style-1', true ); ?>>Style 1</option>
@@ -245,7 +259,13 @@ class UACF7_MULTISTEP {
                        		?>
                        		<?php echo apply_filters( 'uacf7_multistep_progressbar_style', $option, $uacf7_progressbar_style ); ?>
                        </select>
-                       <p><strong>See live demo examples here:</strong> <a target="_blank" href="https://cf7addons.com/preview/multi-step-form/pro/">Live demo.</a> Check our step by step <a target="_blank" href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/premium-skins/">documentation.</a></p>
+                       <p>
+                       <?php echo sprintf( 
+                            __( '%1s %2s Check our step by step %3s .', 'ultimate-addons-cf7' ),
+                            '<strong>See live demo examples here:</strong>', 
+                            '<a target="_blank" href="https://cf7addons.com/preview/multi-step-form/pro/">Live demo.</a>',
+                            '<a target="_blank" href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/premium-skins/">documentation.</a>'
+                        ); ?>
                    </div>
                    
                    <?php
@@ -253,7 +273,7 @@ class UACF7_MULTISTEP {
 				   ?>
                    
                    <div class="multistep_fields_row">
-						<h3>Hide Progressbar labels</h3>
+						<h3><?php echo esc_attr( __( 'Hide Progressbar labels', 'ultimate-addons-cf7' ) ); ?> </h3>
 						<label for="uacf7_multistep_use_step_labels">  
 						   <input id="uacf7_multistep_use_step_labels" type="checkbox" name="uacf7_multistep_use_step_labels" <?php checked( 'on', $uacf7_multistep_use_step_labels ); ?> > Yes
 				   		</label>
@@ -275,7 +295,7 @@ class UACF7_MULTISTEP {
 					$uacf7_multistep_step_height = get_post_meta( $post->id(), 'uacf7_multistep_step_height', true );
 					?>
 					<div class="multistep_fields_row col-25">
-						<h3>Progressbar Style</h3>
+						<h3><?php echo esc_attr( __( 'Progressbar Style', 'ultimate-addons-cf7' ) ); ?> </h3>
 						<div class="multistep_field_column">
 							<label for="uacf7_multistep_circle_width">
 								<p>Circle Width (px)</p>
@@ -290,51 +310,51 @@ class UACF7_MULTISTEP {
 							</label>
 						</div>
 						<div class="multistep_field_column">
-							<label for="uacf7_multistep_circle_bg_color"><p>Circle Background Color</p></label>
+							<label for="uacf7_multistep_circle_bg_color"><p><?php echo esc_attr( __( 'Circle Background Color', 'ultimate-addons-cf7' ) ); ?> </p></label>
 							<input id="uacf7_multistep_circle_bg_color" class="uacf7-color-picker" type="text" name="uacf7_multistep_circle_bg_color" value="<?php echo esc_attr($uacf7_multistep_circle_bg_color); ?>">
 						</div>
 						<div class="multistep_field_column">
-							<label for="uacf7_multistep_circle_active_color"><p>Circle Active Color</p></label>
+							<label for="uacf7_multistep_circle_active_color"><p><?php echo esc_attr( __( 'Circle Active Color', 'ultimate-addons-cf7' ) ); ?> </p></label>
 							<input id="uacf7_multistep_circle_active_color" class="uacf7-color-picker" type="text" name="uacf7_multistep_circle_active_color" value="<?php echo esc_attr($uacf7_multistep_circle_active_color); ?>">
 						</div>
 						<div class="multistep_field_column">
-							<label for="uacf7_multistep_circle_font_color"><p>Circle Font Color</p></label>
+							<label for="uacf7_multistep_circle_font_color"><p><?php echo esc_attr( __( ' Circle Font Color', 'ultimate-addons-cf7' ) ); ?></p></label>
 							<input id="uacf7_multistep_circle_font_color" class="uacf7-color-picker" type="text" name="uacf7_multistep_circle_font_color" value="<?php echo esc_attr($uacf7_multistep_circle_font_color); ?>">
 						</div>
 						<div class="multistep_field_column">
 							<label for="uacf7_multistep_circle_border_radious">
-								<p>Circle Border Radious (px)</p>
+								<p><?php echo esc_attr( __( 'Circle Border Radious (px)', 'ultimate-addons-cf7' ) ); ?> </p>
 								<input id="uacf7_multistep_circle_border_radious" type="number" name="uacf7_multistep_circle_border_radious" min="0" max="50" value="<?php echo esc_attr($uacf7_multistep_circle_border_radious); ?>">
 							</label>
 						</div>
 						<div class="multistep_field_column">
 							<label for="uacf7_multistep_font_size">
-								<p>Font Size (px)</p>
+								<p><?php echo esc_attr( __( 'Font Size (px)', 'ultimate-addons-cf7' ) ); ?> </p>
 								<input id="uacf7_multistep_font_size" type="number" name="uacf7_multistep_font_size" min="0" value="<?php echo esc_attr($uacf7_multistep_font_size); ?>">
 							</label>
 						</div>
 						<div class="multistep_field_column show-if-left-progressbar">
-							<label for="uacf7_multistep_progress_bg_color"><p>Progressbar Background Color</p></label>
+							<label for="uacf7_multistep_progress_bg_color"><p><?php echo esc_attr( __( 'Progressbar Background Color', 'ultimate-addons-cf7' ) ); ?></p></label>
 							<input id="uacf7_multistep_progress_bg_color" class="uacf7-color-picker" type="text" name="uacf7_multistep_progress_bg_color" value="<?php echo esc_attr($uacf7_multistep_progress_bg_color); ?>">
 						</div>
 						<div class="multistep_field_column">
-							<label for="uacf7_multistep_progress_line_color"><p>Progressbar Line Color</p></label>
+							<label for="uacf7_multistep_progress_line_color"><p><?php echo esc_attr( __( 'Progressbar Line Color', 'ultimate-addons-cf7' ) ); ?> </p></label>
 							<input id="uacf7_multistep_progress_line_color" class="uacf7-color-picker" type="text" name="uacf7_multistep_progress_line_color" value="<?php echo esc_attr($uacf7_multistep_progress_line_color); ?>">
 						</div>
 						<div class="multistep_field_column show-if-pro">
-							<label for="uacf7_multistep_step_title_color"><p>Step Title Color</p></label>
+							<label for="uacf7_multistep_step_title_color"><p><?php echo esc_attr( __( 'Step Title Color', 'ultimate-addons-cf7' ) ); ?></p></label>
 							<input id="uacf7_multistep_step_title_color" class="uacf7-color-picker" type="text" name="uacf7_multistep_step_title_color" value="<?php echo esc_attr($uacf7_multistep_step_title_color); ?>">
 						</div>
 						<div class="multistep_field_column">
-							<label for="uacf7_multistep_progressbar_title_color"><p>Progressbar Title Color</p></label>
+							<label for="uacf7_multistep_progressbar_title_color"><p><?php echo esc_attr( __( 'Progressbar Title Color', 'ultimate-addons-cf7' ) ); ?></p></label>
 							<input id="uacf7_multistep_progressbar_title_color" class="uacf7-color-picker" type="text" name="uacf7_multistep_progressbar_title_color" value="<?php echo esc_attr($uacf7_multistep_progressbar_title_color); ?>">
 						</div>
 						<div class="multistep_field_column show-if-style-6">
-							<label for="uacf7_multistep_step_description_color"><p>Progressbar Description Color</p></label>
+							<label for="uacf7_multistep_step_description_color"><p><?php echo esc_attr( __( 'Progressbar Description Color', 'ultimate-addons-cf7' ) ); ?></p></label>
 							<input id="uacf7_multistep_step_description_color" class="uacf7-color-picker" type="text" name="uacf7_multistep_step_description_color" value="<?php echo esc_attr($uacf7_multistep_step_description_color); ?>">
 						</div>
 						<div class="multistep_field_column show-if-left-progressbar">
-							<label for="uacf7_multistep_step_height"><p>Progressbar Height</p></label>
+							<label for="uacf7_multistep_step_height"><p><?php echo esc_attr( __( 'Progressbar Height', 'ultimate-addons-cf7' ) ); ?></p></label>
 							<select id="uacf7_multistep_step_height" name="uacf7_multistep_step_height">
 							    <option value="default" <?php selected( $uacf7_multistep_step_height, 'default', true ); ?>>Default</option>
 							    <option value="equal-height" <?php selected( $uacf7_multistep_step_height, 'equal-height', true ); ?>>Equal height</option>
@@ -347,16 +367,16 @@ class UACF7_MULTISTEP {
                         $uacf7_multistep_button_padding_lr = get_post_meta( $post->id(), 'uacf7_multistep_button_padding_lr', true ); 
                     ?>
                     <div class="multistep_fields_row col-25">
-						<h3>Button Style</h3>
+						<h3><?php echo esc_attr( __( 'Button Style', 'ultimate-addons-cf7' ) ); ?></h3>
 						<div class="multistep_field_column">
 							<label for="uacf7_multistep_button_padding_tb">
-								<p>Padding Top - Bottom (px)</p>
+								<p><?php echo esc_attr( __( 'Padding Top - Bottom (px)', 'ultimate-addons-cf7' ) ); ?></p>
 								<input id="uacf7_multistep_button_padding_tb" type="number" name="uacf7_multistep_button_padding_tb" min="0" max="300" value="<?php echo esc_attr($uacf7_multistep_button_padding_tb); ?>">
 							</label>
 						</div>
 						<div class="multistep_field_column">
 							<label for="uacf7_multistep_circle_height">
-								<p>Padding Left - Right (px)</p>
+								<p><?php echo esc_attr( __( 'Padding Left - Right (px)', 'ultimate-addons-cf7' ) ); ?></p>
 								<input id="uacf7_multistep_button_padding_lr" type="number" name="uacf7_multistep_button_padding_lr" min="0" max="300" value="<?php echo esc_attr($uacf7_multistep_button_padding_lr); ?>">
 							</label>
 						</div>
