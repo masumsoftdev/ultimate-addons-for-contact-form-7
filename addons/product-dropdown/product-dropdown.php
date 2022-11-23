@@ -59,6 +59,7 @@ class UACF7_PRODUCT_DROPDOWN {
         $atts['aria-invalid'] = $validation_error ? 'true' : 'false';
 
         $multiple = $tag->has_option( 'multiple' );
+        $display_price = $tag->has_option( 'display_price' ); 
 
         if ( $tag->has_option( 'size' ) ) {
             $size = $tag->get_option( 'size', 'int', true ); 
@@ -144,7 +145,7 @@ class UACF7_PRODUCT_DROPDOWN {
             );
         if($tag->has_option( 'layout:grid' )){ // Grid Layout
             $tag_name = $tag->name;
-            $html = apply_filters('uacf7_dorpdown_grid', $dropdown, $multiple, $products, $hangover, $default_choice, $tag_name, $validation_error);   
+            $html = apply_filters('uacf7_dorpdown_grid', $dropdown, $multiple, $products, $hangover, $default_choice, $tag_name, $validation_error, $display_price);   
         }else{
             $html = $dropdown;
         }
@@ -219,6 +220,20 @@ class UACF7_PRODUCT_DROPDOWN {
                         * Tag generator field after field type
                         */
                         echo apply_filters('uacf7_tag_generator_multiple_select_field', $multiple_attr);
+                        ?>
+                        
+                        <?php ob_start(); ?>
+                        <tr>
+                            <th scope="row"></th>
+                            <td><label for="tag-generator-panel-select-multiple"><input id="tag-generator-panel-select-display-price" type="checkbox" disabled> <?php echo esc_attr( __( 'Allow to display total selected product price', 'ultimate-addons-cf7' ) ); ?> <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a></label></td>
+                        </tr>
+                        <?php $display_price = ob_get_clean(); ?>
+                        
+                        <?php 
+                        /*
+                        * Tag generator field after field type
+                        */
+                        echo apply_filters('uacf7_tag_generator_display_price_field', $display_price);
                         ?>
                         
                         <tr>
