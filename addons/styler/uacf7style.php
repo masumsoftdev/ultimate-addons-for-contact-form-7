@@ -123,6 +123,12 @@ class UACF7_uacf7style {
         <fieldset>
            <div class="ultimate-uacf7style-admin">
                <div class="ultimate-uacf7style-wrapper">
+                    <?php $form_styles = get_post_meta( $post->id(), 'uacf7_enable_form_styles', true ); ?>
+                    <h3><?php echo esc_html__( "Form Styles", "ultimate-addons-cf7" ); ?> </h3>
+                    <label for="uacf7_enable_form_styles">  
+                        <input id="uacf7_enable_form_styles" type="checkbox" name="uacf7_enable_form_styles" <?php checked( 'on', $form_styles ); ?> > Enable
+                    </label><br><br>
+                    <hr>
                    <h3><?php echo esc_html__( 'Label Options', 'ultimate-addons-cf7' ); ?></h3>
                    <div class="uacf7style-fourcolumns">
                        <h4><?php echo esc_html__( 'Color', 'ultimate-addons-cf7' ); ?></h4>
@@ -393,6 +399,7 @@ class UACF7_uacf7style {
         if ( ! wp_verify_nonce( $_POST['uacf7_uacf7style_nonce'], 'uacf7_uacf7style_nonce_action' ) ) {
             return;
         }
+        update_post_meta( $form->id(), 'uacf7_enable_form_styles', $_POST['uacf7_enable_form_styles'] );
 
         update_post_meta( $form->id(), 'uacf7_uacf7style_label_color', $_POST['uacf7_uacf7style_label_color'] );
         update_post_meta( $form->id(), 'uacf7_uacf7style_label_background_color', $_POST['uacf7_uacf7style_label_background_color'] );
@@ -460,161 +467,166 @@ class UACF7_uacf7style {
         if (!is_admin() || (defined('DOING_AJAX') && DOING_AJAX)) { 
 
             $form = $properties['form'];
+            $form_styles =  get_post_meta( $cfform->id(), 'uacf7_enable_form_styles', true );
 
-            ob_start();
+            if( $form_styles == 'on' ) :
 
-            $label_color = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_color', true );
-            $label_background_color = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_background_color', true );
-            $label_font_size = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_font_size', true );
-            $label_font_family = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_font_family', true );
-            $label_font_style = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_font_style', true );
-            $label_font_weight = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_font_weight', true );
-            $label_padding_top = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_padding_top', true );
-            $label_padding_right = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_padding_right', true );
-            $label_padding_bottom = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_padding_bottom', true );
-            $label_padding_left = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_padding_left', true );
-            $label_margin_top = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_margin_top', true );
-            $label_margin_right = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_margin_right', true );
-            $label_margin_bottom = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_margin_bottom', true );
-            $label_margin_left = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_margin_left', true );
+                ob_start();
+
             
-            $input_color = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_color', true );
-            $input_background_color = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_background_color', true );
-            $input_font_size = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_font_size', true );
-            $input_font_family = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_font_family', true );
-            $input_font_style = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_font_style', true );
-            $input_font_weight = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_font_weight', true );
-            $input_height = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_height', true );
-            $input_border_width = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_border_width', true );
-            $input_border_color = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_border_color', true );
-            $input_border_style = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_border_style', true );
-            $input_border_radius = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_border_radius', true );
-            $textarea_input_height = get_post_meta( $cfform->id(), 'uacf7_uacf7style_textarea_input_height', true );
-            $input_padding_top = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_padding_top', true );
-            $input_padding_right = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_padding_right', true );
-            $input_padding_bottom = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_padding_bottom', true );
-            $input_padding_left = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_padding_left', true );
-            $input_margin_top = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_margin_top', true );
-            $input_margin_right = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_margin_right', true );
-            $input_margin_bottom = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_margin_bottom', true );
-            $input_margin_left = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_margin_left', true );
-            
-            $btn_color = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_color', true );
-            $btn_background_color = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_background_color', true );
-            $btn_font_size = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_font_size', true );
-            $btn_font_style = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_font_style', true );
-            $btn_font_weight = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_font_weight', true );
-            $btn_width = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_width', true );
-            $btn_border_color = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_border_color', true );
-            $btn_border_style = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_border_style', true );
-            $btn_border_radius = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_border_radius', true );
-            $btn_border_width = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_border_width', true );
-            $btn_color_hover = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_color_hover', true );
-            $btn_background_color_hover = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_background_color_hover', true );
-            $btn_border_color_hover = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_border_color_hover', true );
-            $btn_padding_top = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_padding_top', true );
-            $btn_padding_right = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_padding_right', true );
-            $btn_padding_bottom = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_padding_bottom', true );
-            $btn_padding_left = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_padding_left', true );
-            $btn_margin_top = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_margin_top', true );
-            $btn_margin_right = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_margin_right', true );
-            $btn_margin_bottom = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_margin_bottom', true );
-            $btn_margin_left = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_margin_left', true );
-            
-            $ua_custom_css = get_post_meta( $cfform->id(), 'uacf7_uacf7style_ua_custom_css', true );
-            ?>
-            <style>
-                .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> label {
-                    color: <?php echo esc_attr_e($label_color); ?>;
-                    background-color: <?php echo esc_attr_e($label_background_color); ?>;
-                    font-size: <?php echo esc_attr_e($label_font_size).'px'; ?>;
-                    font-family: <?php echo esc_attr_e($label_font_family); ?>;
-                    font-style: <?php echo esc_attr_e($label_font_style); ?>;
-                    font-weight: <?php echo esc_attr_e($label_font_weight); ?>;
-                    padding-top: <?php echo esc_attr_e($label_padding_top).'px'; ?>;
-                    padding-right: <?php echo esc_attr_e($label_padding_right).'px'; ?>;
-                    padding-bottom: <?php echo esc_attr_e($label_padding_bottom).'px'; ?>;
-                    padding-left: <?php echo esc_attr_e($label_padding_left).'px'; ?>;
-                    margin-top: <?php echo esc_attr_e($label_margin_top).'px'; ?>;
-                    margin-right: <?php echo esc_attr_e($label_margin_right).'px'; ?>;
-                    margin-bottom: <?php echo esc_attr_e($label_margin_bottom).'px'; ?>;
-                    margin-left: <?php echo esc_attr_e($label_margin_left).'px'; ?>;
-                }
-                .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="email"],
-                .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="number"],
-                .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="password"],
-                .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="search"],
-                .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="tel"],
-                .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="text"],
-                .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="url"],
-                .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="date"],
-                .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> select,
-                .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> textarea {
-                    color: <?php echo esc_attr_e($input_color); ?>;
-                    background-color: <?php echo esc_attr_e($input_background_color); ?>;
-                    font-size: <?php echo esc_attr_e($input_font_size).'px'; ?>;
-                    font-family: <?php echo esc_attr_e($input_font_family); ?>;
-                    font-style: <?php echo esc_attr_e($input_font_style); ?>;
-                    font-weight: <?php echo esc_attr_e($input_font_weight); ?>;
-                    height: <?php echo esc_attr_e($input_height).'px'; ?>;
-                    border-width: <?php echo esc_attr_e($input_border_width).'px'; ?>;
-                    border-color: <?php echo esc_attr_e($input_border_color); ?>;
-                    border-style: <?php echo esc_attr_e($input_border_style); ?>;
-                    border-radius: <?php echo esc_attr_e($input_border_radius).'px'; ?>;
-                    padding-top: <?php echo esc_attr_e($input_padding_top).'px'; ?>;
-                    padding-right: <?php echo esc_attr_e($input_padding_right).'px'; ?>;
-                    padding-bottom: <?php echo esc_attr_e($input_padding_bottom).'px'; ?>;
-                    padding-left: <?php echo esc_attr_e($input_padding_left).'px'; ?>;
-                    margin-top: <?php echo esc_attr_e($input_margin_top).'px'; ?>;
-                    margin-right: <?php echo esc_attr_e($input_margin_right).'px'; ?>;
-                    margin-bottom: <?php echo esc_attr_e($input_margin_bottom).'px'; ?>;
-                    margin-left: <?php echo esc_attr_e($input_margin_left).'px'; ?>;
-                }
-                .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> .wpcf7-radio span,
-                .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> .wpcf7-checkbox span {
-                    color: <?php echo esc_attr_e($input_color); ?>;
-                    font-size: <?php echo esc_attr_e($input_font_size).'px'; ?>;
-                    font-family: <?php echo esc_attr_e($input_font_family); ?>;
-                    font-style: <?php echo esc_attr_e($input_font_style); ?>;
-                    font-weight: <?php echo esc_attr_e($input_font_weight); ?>;
-                }
-                .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> textarea {
-                    height: <?php echo esc_attr_e($textarea_input_height).'px'; ?>;
-                }
-                .wpcf7-form-control-wrap select {
-                    width: 100%;
-                }
-                .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="submit"] {
-                    color: <?php echo esc_attr_e($btn_color); ?>;
-                    background-color: <?php echo esc_attr_e($btn_background_color); ?>;
-                    font-size: <?php echo esc_attr_e($btn_font_size).'px'; ?>;
-                    font-family: <?php echo esc_attr_e($input_font_family); ?>;
-                    font-style: <?php echo esc_attr_e($btn_font_style); ?>;
-                    font-weight: <?php echo esc_attr_e($btn_font_weight); ?>;
-                    border-width: <?php echo esc_attr_e($btn_border_width).'px'; ?>;
-                    border-color: <?php echo esc_attr_e($btn_border_color); ?>;
-                    border-style: <?php echo esc_attr_e($btn_border_style); ?>;
-                    border-radius: <?php echo esc_attr_e($btn_border_radius).'px'; ?>;
-                    width: <?php echo esc_attr_e($btn_width); ?>;
-                    padding-top: <?php echo esc_attr_e($btn_padding_top).'px'; ?>;
-                    padding-right: <?php echo esc_attr_e($btn_padding_right).'px'; ?>;
-                    padding-bottom: <?php echo esc_attr_e($btn_padding_bottom).'px'; ?>;
-                    padding-left: <?php echo esc_attr_e($btn_padding_left).'px'; ?>;
-                    margin-top: <?php echo esc_attr_e($btn_margin_top).'px'; ?>;
-                    margin-right: <?php echo esc_attr_e($btn_margin_right).'px'; ?>;
-                    margin-bottom: <?php echo esc_attr_e($btn_margin_bottom).'px'; ?>;
-                    margin-left: <?php echo esc_attr_e($btn_margin_left).'px'; ?>;
-                }
-                .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="submit"]:hover {
-                    color: <?php echo esc_attr_e($btn_color_hover); ?>;
-                    background-color: <?php echo esc_attr_e($btn_background_color_hover); ?>;
-                    border-color: <?php echo esc_attr_e($btn_border_color_hover); ?>;
-                }
-                <?php echo esc_attr_e($ua_custom_css); ?>
-            </style>
-            <?php
-            echo '<div class="uacf7-uacf7style-'.$cfform->id().'">'.$form.'</div>';
-            $properties['form'] = ob_get_clean();
+                $label_color = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_color', true );
+                $label_background_color = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_background_color', true );
+                $label_font_size = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_font_size', true );
+                $label_font_family = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_font_family', true );
+                $label_font_style = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_font_style', true );
+                $label_font_weight = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_font_weight', true );
+                $label_padding_top = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_padding_top', true );
+                $label_padding_right = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_padding_right', true );
+                $label_padding_bottom = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_padding_bottom', true );
+                $label_padding_left = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_padding_left', true );
+                $label_margin_top = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_margin_top', true );
+                $label_margin_right = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_margin_right', true );
+                $label_margin_bottom = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_margin_bottom', true );
+                $label_margin_left = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_margin_left', true );
+                
+                $input_color = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_color', true );
+                $input_background_color = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_background_color', true );
+                $input_font_size = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_font_size', true );
+                $input_font_family = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_font_family', true );
+                $input_font_style = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_font_style', true );
+                $input_font_weight = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_font_weight', true );
+                $input_height = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_height', true );
+                $input_border_width = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_border_width', true );
+                $input_border_color = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_border_color', true );
+                $input_border_style = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_border_style', true );
+                $input_border_radius = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_border_radius', true );
+                $textarea_input_height = get_post_meta( $cfform->id(), 'uacf7_uacf7style_textarea_input_height', true );
+                $input_padding_top = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_padding_top', true );
+                $input_padding_right = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_padding_right', true );
+                $input_padding_bottom = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_padding_bottom', true );
+                $input_padding_left = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_padding_left', true );
+                $input_margin_top = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_margin_top', true );
+                $input_margin_right = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_margin_right', true );
+                $input_margin_bottom = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_margin_bottom', true );
+                $input_margin_left = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_margin_left', true );
+                
+                $btn_color = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_color', true );
+                $btn_background_color = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_background_color', true );
+                $btn_font_size = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_font_size', true );
+                $btn_font_style = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_font_style', true );
+                $btn_font_weight = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_font_weight', true );
+                $btn_width = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_width', true );
+                $btn_border_color = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_border_color', true );
+                $btn_border_style = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_border_style', true );
+                $btn_border_radius = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_border_radius', true );
+                $btn_border_width = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_border_width', true );
+                $btn_color_hover = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_color_hover', true );
+                $btn_background_color_hover = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_background_color_hover', true );
+                $btn_border_color_hover = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_border_color_hover', true );
+                $btn_padding_top = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_padding_top', true );
+                $btn_padding_right = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_padding_right', true );
+                $btn_padding_bottom = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_padding_bottom', true );
+                $btn_padding_left = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_padding_left', true );
+                $btn_margin_top = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_margin_top', true );
+                $btn_margin_right = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_margin_right', true );
+                $btn_margin_bottom = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_margin_bottom', true );
+                $btn_margin_left = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_margin_left', true );
+                
+                $ua_custom_css = get_post_meta( $cfform->id(), 'uacf7_uacf7style_ua_custom_css', true );
+                ?>
+                <style>
+                    .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> label {
+                        color: <?php echo esc_attr_e($label_color); ?>;
+                        background-color: <?php echo esc_attr_e($label_background_color); ?>;
+                        font-size: <?php echo esc_attr_e($label_font_size).'px'; ?>;
+                        font-family: <?php echo esc_attr_e($label_font_family); ?>;
+                        font-style: <?php echo esc_attr_e($label_font_style); ?>;
+                        font-weight: <?php echo esc_attr_e($label_font_weight); ?>;
+                        padding-top: <?php echo esc_attr_e($label_padding_top).'px'; ?>;
+                        padding-right: <?php echo esc_attr_e($label_padding_right).'px'; ?>;
+                        padding-bottom: <?php echo esc_attr_e($label_padding_bottom).'px'; ?>;
+                        padding-left: <?php echo esc_attr_e($label_padding_left).'px'; ?>;
+                        margin-top: <?php echo esc_attr_e($label_margin_top).'px'; ?>;
+                        margin-right: <?php echo esc_attr_e($label_margin_right).'px'; ?>;
+                        margin-bottom: <?php echo esc_attr_e($label_margin_bottom).'px'; ?>;
+                        margin-left: <?php echo esc_attr_e($label_margin_left).'px'; ?>;
+                    }
+                    .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="email"],
+                    .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="number"],
+                    .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="password"],
+                    .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="search"],
+                    .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="tel"],
+                    .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="text"],
+                    .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="url"],
+                    .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="date"],
+                    .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> select,
+                    .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> textarea {
+                        color: <?php echo esc_attr_e($input_color); ?>;
+                        background-color: <?php echo esc_attr_e($input_background_color); ?>;
+                        font-size: <?php echo esc_attr_e($input_font_size).'px'; ?>;
+                        font-family: <?php echo esc_attr_e($input_font_family); ?>;
+                        font-style: <?php echo esc_attr_e($input_font_style); ?>;
+                        font-weight: <?php echo esc_attr_e($input_font_weight); ?>;
+                        height: <?php echo esc_attr_e($input_height).'px'; ?>;
+                        border-width: <?php echo esc_attr_e($input_border_width).'px'; ?>;
+                        border-color: <?php echo esc_attr_e($input_border_color); ?>;
+                        border-style: <?php echo esc_attr_e($input_border_style); ?>;
+                        border-radius: <?php echo esc_attr_e($input_border_radius).'px'; ?>;
+                        padding-top: <?php echo esc_attr_e($input_padding_top).'px'; ?>;
+                        padding-right: <?php echo esc_attr_e($input_padding_right).'px'; ?>;
+                        padding-bottom: <?php echo esc_attr_e($input_padding_bottom).'px'; ?>;
+                        padding-left: <?php echo esc_attr_e($input_padding_left).'px'; ?>;
+                        margin-top: <?php echo esc_attr_e($input_margin_top).'px'; ?>;
+                        margin-right: <?php echo esc_attr_e($input_margin_right).'px'; ?>;
+                        margin-bottom: <?php echo esc_attr_e($input_margin_bottom).'px'; ?>;
+                        margin-left: <?php echo esc_attr_e($input_margin_left).'px'; ?>;
+                    }
+                    .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> .wpcf7-radio span,
+                    .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> .wpcf7-checkbox span {
+                        color: <?php echo esc_attr_e($input_color); ?>;
+                        font-size: <?php echo esc_attr_e($input_font_size).'px'; ?>;
+                        font-family: <?php echo esc_attr_e($input_font_family); ?>;
+                        font-style: <?php echo esc_attr_e($input_font_style); ?>;
+                        font-weight: <?php echo esc_attr_e($input_font_weight); ?>;
+                    }
+                    .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> textarea {
+                        height: <?php echo esc_attr_e($textarea_input_height).'px'; ?>;
+                    }
+                    .wpcf7-form-control-wrap select {
+                        width: 100%;
+                    }
+                    .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="submit"] {
+                        color: <?php echo esc_attr_e($btn_color); ?>;
+                        background-color: <?php echo esc_attr_e($btn_background_color); ?>;
+                        font-size: <?php echo esc_attr_e($btn_font_size).'px'; ?>;
+                        font-family: <?php echo esc_attr_e($input_font_family); ?>;
+                        font-style: <?php echo esc_attr_e($btn_font_style); ?>;
+                        font-weight: <?php echo esc_attr_e($btn_font_weight); ?>;
+                        border-width: <?php echo esc_attr_e($btn_border_width).'px'; ?>;
+                        border-color: <?php echo esc_attr_e($btn_border_color); ?>;
+                        border-style: <?php echo esc_attr_e($btn_border_style); ?>;
+                        border-radius: <?php echo esc_attr_e($btn_border_radius).'px'; ?>;
+                        width: <?php echo esc_attr_e($btn_width); ?>;
+                        padding-top: <?php echo esc_attr_e($btn_padding_top).'px'; ?>;
+                        padding-right: <?php echo esc_attr_e($btn_padding_right).'px'; ?>;
+                        padding-bottom: <?php echo esc_attr_e($btn_padding_bottom).'px'; ?>;
+                        padding-left: <?php echo esc_attr_e($btn_padding_left).'px'; ?>;
+                        margin-top: <?php echo esc_attr_e($btn_margin_top).'px'; ?>;
+                        margin-right: <?php echo esc_attr_e($btn_margin_right).'px'; ?>;
+                        margin-bottom: <?php echo esc_attr_e($btn_margin_bottom).'px'; ?>;
+                        margin-left: <?php echo esc_attr_e($btn_margin_left).'px'; ?>;
+                    }
+                    .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="submit"]:hover {
+                        color: <?php echo esc_attr_e($btn_color_hover); ?>;
+                        background-color: <?php echo esc_attr_e($btn_background_color_hover); ?>;
+                        border-color: <?php echo esc_attr_e($btn_border_color_hover); ?>;
+                    }
+                    <?php echo esc_attr_e($ua_custom_css); ?>
+                </style>
+                <?php
+                echo '<div class="uacf7-uacf7style-'.$cfform->id().'">'.$form.'</div>';
+                $properties['form'] = ob_get_clean();
+            endif;
         }
 
         return $properties;

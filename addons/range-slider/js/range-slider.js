@@ -4,14 +4,18 @@
     $( ".multistep_slide" ).each(function() {
       var handle = $(this).parent().parent().find(".uacf7-slider-handle").data("handle"); 
       var min = $(this).parent().parent().find(".uacf7-slider-handle").data("min");
+      
+      var step = $(this).parent().parent().find(".uacf7-slider-handle").data("step");
       var max = $(this).parent().parent().find(".uacf7-slider-handle").data("max");
       var separator = $(this).parent().parent().find(".uacf7-slider-handle").data("separator");
       var label = $(this).parent().parent().find(".uacf7-slider-handle").data("label");
       var def = $(this).parent().parent().find(".uacf7-slider-handle").data("default");
+      alert(step);
       if (handle == 2) { 
           $(this).slider({
             range: true,
             min: min,
+            step: step,
             max: max,
             values: [min, def],
             slide: function (event, ui) {
@@ -26,6 +30,7 @@
     $( ".mutli_range_slide" ).each(function() {
       var handle = $(this).parent().parent().find(".uacf7-slider-handle").data("handle");
       var min = $(this).parent().parent().find(".uacf7-slider-handle").data("min");
+      var step = $(this).parent().parent().find(".uacf7-slider-handle").data("step");
       var style = $(this).parent().parent().find(".uacf7-slider-handle").data("style");
       var max = $(this).parent().parent().find(".uacf7-slider-handle").data("max");
       var def = $(this).parent().parent().find(".uacf7-slider-handle").data("default");
@@ -33,6 +38,7 @@
            $(this).slider({
             range: true,
             min: min,
+            step: step,
             max: max,
             values: [min, def],
             slide: function (event, ui) {

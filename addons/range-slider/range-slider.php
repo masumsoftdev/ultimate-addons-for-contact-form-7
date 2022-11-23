@@ -105,7 +105,7 @@ class UACF7_range_Slider {
             ?>
             <span class="<?php echo esc_attr( $tag->name ) . '-value'; ?> uacf7-value"></span>
             <span class="wpcf7-form-control-wrap uacf7-slidecontainer uacf7-slider-handle" data-separator="<?php echo esc_attr( $separator ); ?>" data-handle="<?php echo esc_attr( $handle ); ?>" data-min="<?php echo esc_attr( $min ); ?>" data-max="<?php echo esc_attr( $max ); ?>" data-default="<?php echo esc_attr( $default ); ?>">
-                <input name="<?php echo esc_attr( $tag->name ); ?>" type="range" min="<?php echo esc_attr( $min ); ?>" max="<?php echo esc_attr( $max ); ?>" value="<?php echo esc_attr( $default ); ?>" class="uacf7-slider uacf7-range">
+                <input name="<?php echo esc_attr( $tag->name ); ?>" type="range" min="<?php echo esc_attr( $min ); ?>" max="<?php echo esc_attr( $max ); ?>"  step="<?php echo esc_attr( $step ); ?>" value="<?php echo esc_attr( $default ); ?>" class="uacf7-slider uacf7-range">
             </span>  
             </div>
             <script>
@@ -132,8 +132,8 @@ class UACF7_range_Slider {
             ?>
             <div class="multistep">
                 <span class="wpcf7-form-control-wrap"><span class="uacf7-amount"><?php echo esc_attr( $min . " $label " . " $separator " .  $max ." $label " ); ?></span>
-                    <span class="uacf7-slider-handle" data-separator="<?php echo esc_attr( $separator ); ?>" data-label="<?php echo esc_attr( $label ); ?>"  data-handle="<?php echo esc_attr( $handle ); ?>" data-min="<?php echo esc_attr( $min ); ?>" data-max="<?php echo esc_attr( $max ); ?>" data-default="<?php echo esc_attr( $default ); ?>">
-                        <input name="<?php echo esc_attr( $tag->name ) ?>" type="hidden" id="uacf7-amount" class="uacf7-slide_amount" readonly>                       
+                    <span class="uacf7-slider-handle" data-step="<?php echo esc_attr( $step ); ?>" data-separator="<?php echo esc_attr( $separator ); ?>" data-label="<?php echo esc_attr( $label ); ?>"  data-handle="<?php echo esc_attr( $handle ); ?>" data-min="<?php echo esc_attr( $min ); ?>" data-max="<?php echo esc_attr( $max ); ?>" data-default="<?php echo esc_attr( $default ); ?>">
+                        <input step="<?php echo esc_attr( $step ); ?>" name="<?php echo esc_attr( $tag->name ) ?>" type="hidden" id="uacf7-amount" class="uacf7-slide_amount" readonly>                       
                         <div id="uacf7-slider-range" class="multistep_slide"></div>
                     </span>
                 <!-- </span> -->
