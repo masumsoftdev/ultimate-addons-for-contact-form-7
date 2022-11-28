@@ -90,7 +90,8 @@ class UACF7_PDF_GENERATOR {
             $pdf_header_bg_color = !empty(get_post_meta( $wpcf7->id(), 'pdf_header_bg_color', true )) ? get_post_meta( $wpcf7->id(), 'pdf_header_bg_color', true ) : '';  
             $pdf_footer_color = !empty(get_post_meta( $wpcf7->id(), 'pdf_footer_color', true )) ? get_post_meta( $wpcf7->id(), 'pdf_footer_color', true ) : ''; 
             $pdf_footer_bg_color = !empty(get_post_meta( $wpcf7->id(), 'pdf_footer_bg_color', true )) ? get_post_meta( $wpcf7->id(), 'pdf_footer_bg_color', true ) : '';  
-
+            $pdf_bg_upload_image =  !empty($pdf_bg_upload_image) ? 'background-image: url("'.$pdf_bg_upload_image.'");' : '';
+            $pdf_header_upload_image =  !empty($pdf_header_upload_image) ? '<img src="'.$pdf_header_upload_image.'" style="height: 60; max-width: 100%; ">' : '';
             $mpdf = new \Mpdf\Mpdf([ 
                 'fontdata' => [ // lowercase letters only in font key
                     'dejavuserifcond' => [
@@ -110,7 +111,7 @@ class UACF7_PDF_GENERATOR {
             // PDF Style
             $pdf_style = ' <style>
                 body {
-                    background-image: url("'.$pdf_bg_upload_image.'"); 
+                     '.$pdf_bg_upload_image.'
                     background-repeat:no-repeat;
                     background-image-resize: 6; 
                 }
@@ -147,7 +148,7 @@ class UACF7_PDF_GENERATOR {
             $mpdf->SetHTMLHeader('
             <div class="pdf-header"  >
                     <div class="header-logo"  >
-                        <img src="'.$pdf_header_upload_image.'" style="height: 60; max-width: 100%; ">
+                        '.$pdf_header_upload_image.'
                     </div>    
                     <div class="header-content">
                     '.$customize_pdf_header.'
@@ -188,7 +189,7 @@ class UACF7_PDF_GENERATOR {
             $mpdf->WriteHTML($pdf_style.'<div class="pdf-content">'.$pdf_content.'   </div>');
 
             $pdf_url = $dir.'/uacf7-uploads/'.$uacf7_pdf_name.'.pdf';
-            $mpdf->Output($pdf_url, 'F'); // save to databaes
+            $mpdf->Output($pdf_url, 'F'); // save to databaes 
            
             $components['attachments'][] = $pdf_url;
             

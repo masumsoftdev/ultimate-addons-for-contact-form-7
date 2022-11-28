@@ -137,10 +137,10 @@ class UACF7_DATABASE {
                 <div id="uacf7_addons" class="uacf7-tabcontent" style="display:block"> 
                     <table>
                         <tr>
-                            <td><h3>Select Form : </h4></td>
+                            <td><h3><?php echo esc_html__( 'Select Form :', 'ultimate-addons-cf7' ); ?> </h4></td>
                             <td>
                                 <select name="form-id" id="form-id">
-                                    <option value="0">Select Form</option>
+                                    <option value="0"><?php echo esc_html__( 'Select Form', 'ultimate-addons-cf7' ); ?> </option>
                                     <?php 
                                         foreach ($list_forms as $form) { 
                                             $count = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."uacf7_form WHERE form_id = $form->ID");  // count number of data
@@ -150,7 +150,7 @@ class UACF7_DATABASE {
                                 </select>
                             </td>
                             <td>  
-                                <button type="submit" class="button-primary" id="database_submit"> Submit</button>
+                                <button type="submit" class="button-primary" id="database_submit"> <?php echo esc_html__( 'Submit', 'ultimate-addons-cf7' ); ?> </button>
                             </td>
                         </tr>
                     </table> 

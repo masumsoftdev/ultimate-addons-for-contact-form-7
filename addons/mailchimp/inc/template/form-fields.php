@@ -5,7 +5,7 @@
             <?php
             echo $this->connection_status();
             ?>
-            <p><a href="<?php echo esc_url(admin_url('/admin.php?page=ultimate-addons')); ?>">Mailchimp Api Settings Panel</a></p>
+            <p><a href="<?php echo esc_url(admin_url('/admin.php?page=ultimate-addons')); ?>"><?php echo esc_html__( ' Mailchimp Api Settings Panel', 'ultimate-addons-cf7' ); ?></a></p>
             <?php
             $form_enable = get_post_meta($post->id(), 'uacf7_mailchimp_form_enable', true);
             $form_type = ! empty( get_post_meta($post->id(), 'uacf7_mailchimp_form_type', true)) ? get_post_meta($post->id(), 'uacf7_mailchimp_form_type', true) : ""; 
@@ -17,19 +17,19 @@
 
             ?>
             <div class="mailchimp_fields_row">
-                <h3>Mailchimp form settings</h3>
+                <h3><?php echo esc_html__( 'Mailchimp form settings ', 'ultimate-addons-cf7' ); ?></h3>
                 <label for="uacf7_mailchimp_form_enable">
-                    <input id="uacf7_mailchimp_form_enable" type="checkbox" value="enable" name="uacf7_mailchimp_form_enable" <?php checked($form_enable, 'enable', true); ?>> <strong>Enable mailchimp form</strong>
+                    <input id="uacf7_mailchimp_form_enable" type="checkbox" value="enable" name="uacf7_mailchimp_form_enable" <?php checked($form_enable, 'enable', true); ?>> <strong><?php echo esc_html__( 'Enable mailchimp form', 'ultimate-addons-cf7' ); ?></strong>
                 </label>
             </div>
             <br>
             <br>
             <div class="mailchimp_fields_row">
                 <label>
-                    <input type="radio" name="uacf7_mailchimp_form_type" checked="checked" value="subscribe" <?php checked($form_type, 'subscribe', true); ?>> <strong>Create Subscribe Form</strong>
+                    <input type="radio" name="uacf7_mailchimp_form_type" checked="checked" value="subscribe" <?php checked($form_type, 'subscribe', true); ?>> <strong><?php echo esc_html__( 'Create Subscribe Form', 'ultimate-addons-cf7' ); ?></strong>
                 </label><br>
                 <label>
-                    <input type="radio" name="uacf7_mailchimp_form_type" value="unsubscribe" disabled <?php //checked($form_type, 'unsubscribe', true); ?>> <strong>Create Unsubscribe Form</strong>
+                    <input type="radio" name="uacf7_mailchimp_form_type" value="unsubscribe" disabled <?php //checked($form_type, 'unsubscribe', true); ?>> <strong><?php echo esc_html__( 'Create Unsubscribe Form', 'ultimate-addons-cf7' ); ?></strong>
                 </label>
             </div>
             <br>
@@ -37,7 +37,7 @@
             <div class="mailchimp_fields_row">
 
                 <label for="uacf7_mailchimp_audience">
-                    <strong>Select Audience</strong><br>
+                    <strong><?php echo esc_html__( 'Select Audience', 'ultimate-addons-cf7' ); ?></strong><br>
                     <select name="uacf7_mailchimp_audience" id="uacf7_mailchimp_audience">
                         <?php
                         $api_key = $this->mailchimp_api;
@@ -68,7 +68,7 @@
                     <tr>
                         <td>
                             <label for="uacf7_mailchimp_subscriber_email">
-                                <strong>Subscriber Email</strong><br>
+                                <strong><?php echo esc_html__( 'Subscriber Email', 'ultimate-addons-cf7' ); ?></strong><br>
                                 <select name="uacf7_mailchimp_subscriber_email" id="uacf7_mailchimp_subscriber_email">
                                     <?php
                                     $all_tags = $post->scan_form_tags(array('type' => 'email', 'type' => 'email*'));
@@ -81,7 +81,7 @@
                         </td>
                         <td>
                             <label for="uacf7_mailchimp_subscriber_fname">
-                                <strong>Subscriber First Name</strong><br>
+                                <strong><?php echo esc_html__( 'Subscriber First Name', 'ultimate-addons-cf7' ); ?></strong><br>
                                 <select name="uacf7_mailchimp_subscriber_fname" id="uacf7_mailchimp_subscriber_fname">
                                     <?php
                                     $fname_tags = $post->scan_form_tags(array('type' => 'text', 'type' => 'text*'));
@@ -94,7 +94,7 @@
                         </td>
                         <td>
                             <label for="uacf7_mailchimp_subscriber_lname">
-                                <strong>Subscriber Last Name</strong><br>
+                                <strong><?php echo esc_html__( 'Subscriber Last Name', 'ultimate-addons-cf7' ); ?></strong><br>
                                 <select name="uacf7_mailchimp_subscriber_lname" id="uacf7_mailchimp_subscriber_lname">
                                     <?php
                                     $lname_tags = $post->scan_form_tags(array('type' => 'text', 'type' => 'text*'));
@@ -108,7 +108,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <h3>Custom fields</h3>
+                            <h3><?php echo esc_html__( 'Custom fields', 'ultimate-addons-cf7' ); ?></h3>
                         </td>
                     </tr>
 
@@ -129,7 +129,7 @@
                     ?>
                             <tr>
                                 <td>
-                                    <label><strong>Contact form tag</strong><br>
+                                    <label><strong><?php echo esc_html__( 'Contact form tag', 'ultimate-addons-cf7' ); ?></strong><br>
                                         <select name="uacf7_mailchimp_extra_field_mailtag_<?php echo esc_attr($x); ?>">
                                             <?php
                                             foreach ($all_fields as $tag) {
@@ -142,7 +142,7 @@
                                     </label>
                                 </td>
                                 <td>
-                                    <label> <strong>Mailchimp field</strong><br>
+                                    <label> <strong><?php echo esc_html__( 'Mailchimp field', 'ultimate-addons-cf7' ); ?></strong><br>
                                         <input type="text" placeholder="Please enter mailchimp custom field name" name="uacf7_mailchimp_extra_field_mergefield_<?php echo esc_attr($x); ?>" value="<?php echo esc_attr($mergefield); ?>">
                                     </label>
                                 </td>

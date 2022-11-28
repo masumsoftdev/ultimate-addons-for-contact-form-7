@@ -10,7 +10,8 @@
 
 .uacf7-row {
 	margin-left: -15px;
-	margin-right: -15px
+	margin-right: -15px;
+	display: flex;
 }
 
 .uacf7-col-3 {

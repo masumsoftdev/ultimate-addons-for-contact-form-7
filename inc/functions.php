@@ -39,7 +39,7 @@ function uacf7_multistep_pro_features_demo( $all_steps, $form_id ){
         if( $step_count == 1 ){
             ?>
             <div>
-               <p><label for="<?php echo 'next_btn_'.$step->name; ?>">Change next button text for this Step</label></p>
+               <p><label for="<?php echo 'next_btn_'.$step->name; ?>"><?php echo __('Change next button text for this Step', 'ultimate-addons-cf7' ) ?></label></p>
                <input id="<?php echo 'next_btn_'.$step->name; ?>" type="text" name="" value="" placeholder="<?php echo esc_html__('Next','ultimate-addons-cf7-pro') ?>">
             </div>
             <?php
@@ -48,7 +48,7 @@ function uacf7_multistep_pro_features_demo( $all_steps, $form_id ){
             if( count($all_steps) == $step_count ) {
                 ?>
                 <div>
-                   <p><label for="<?php echo 'prev_btn_'.$step->name; ?>">Change previous button text for this Step</label></p>
+                   <p><label for="<?php echo 'prev_btn_'.$step->name; ?>"><?php echo __('Change previous button text for this Step', 'ultimate-addons-cf7' ) ?></label></p>
                    <input id="<?php echo 'prev_btn_'.$step->name; ?>" type="text" name="" value="" placeholder="<?php echo esc_html__('Previous','ultimate-addons-cf7-pro') ?>">
                 </div>
                 <?php
@@ -57,12 +57,12 @@ function uacf7_multistep_pro_features_demo( $all_steps, $form_id ){
                 ?>
                 <div class="multistep_fields_row-">
                     <div class="multistep_field_column">
-                       <p><label for="<?php echo 'prev_btn_'.$step->name; ?>">Change previous button text for this Step</label></p>
+                       <p><label for="<?php echo 'prev_btn_'.$step->name; ?>"><?php echo __('Change previous button text for this Step', 'ultimate-addons-cf7' ) ?></label></p>
                        <input id="<?php echo 'prev_btn_'.$step->name; ?>" type="text" name="" value="" placeholder="<?php echo esc_html__('Previous','ultimate-addons-cf7-pro') ?>">
                     </div>
 
                     <div class="multistep_field_column">
-                       <p><label for="<?php echo 'next_btn_'.$step->name; ?>">Change next button text for this Step</label></p>
+                       <p><label for="<?php echo 'next_btn_'.$step->name; ?>"><?php echo __('Change next button text for this Step', 'ultimate-addons-cf7' ) ?></label></p>
                        <input id="<?php echo 'next_btn_'.$step->name; ?>" type="text" name="" value="" placeholder="<?php echo esc_html__('Next','ultimate-addons-cf7-pro') ?>">
                     </div>
                 </div>
@@ -72,17 +72,17 @@ function uacf7_multistep_pro_features_demo( $all_steps, $form_id ){
         }
         ?>
         <div class="uacf7_multistep_progressbar_image_row">
-           <p><label for="<?php echo esc_attr('uacf7_progressbar_image_'.$step->name); ?>">Add progressbar image for this step</label></p>
-           <input class="uacf7_multistep_progressbar_image" id="<?php echo esc_attr('uacf7_progressbar_image_'.$step->name); ?>" type="url" name="" value=""> <a class="button-primary" href="#">Add or Upload Image</a>
+           <p><label for="<?php echo esc_attr('uacf7_progressbar_image_'.$step->name); ?>"><?php echo __('Add progressbar image for this step', 'ultimate-addons-cf7' ) ?></label></p>
+           <input class="uacf7_multistep_progressbar_image" id="<?php echo esc_attr('uacf7_progressbar_image_'.$step->name); ?>" type="url" name="" value=""> <a class="button-primary" href="#"><?php echo __('Add or Upload Image', 'ultimate-addons-cf7' ) ?></a>
            
            <div class="multistep_fields_row step-title-description col-50">
                 <div class="multistep_field_column">
-                   <p><label for="<?php echo 'step_desc_'.$step->name; ?>">Step description</label></p>
+                   <p><label for="<?php echo 'step_desc_'.$step->name; ?>"><?php echo __('Step description', 'ultimate-addons-cf7' ) ?></label></p>
                    <textarea id="<?php echo 'step_desc_'.$step->name; ?>" type="text" name="" cols="40" rows="3" placeholder="<?php echo esc_html__('Step description','ultimate-addons-cf7-pro') ?>"></textarea>
                 </div>
     
                 <div class="multistep_field_column">
-                   <p><label for="<?php echo 'desc_title_'.$step->name; ?>">Description title</label></p>
+                   <p><label for="<?php echo 'desc_title_'.$step->name; ?>"><?php echo __('Description title', 'ultimate-addons-cf7' ) ?></label></p>
                    <input id="<?php echo 'desc_title_'.$step->name; ?>" type="text" name="" value="" placeholder="<?php echo esc_html__('Description title','ultimate-addons-cf7-pro') ?>">
                 </div>
             </div>
@@ -179,11 +179,11 @@ function uacf7_tg_pane_repeater_pro( $contact_form, $args = '' ) {
                         <td><input type="text" name="name" class="tg-name oneline" id="<?php echo esc_attr( $args['content'] . '-name' ); ?>" /></td>
                     </tr>
                     <tr>
-                    	<th scope="row"><label for="tag-generator-panel-text-values">Add Button Text</label></th>
+                    	<th scope="row"><label for="tag-generator-panel-text-values"><?php echo __('Add Button Text', 'ultimate-addons-cf7' ) ?></label></th>
                     	<td><input type="text" name="" class="tg-name oneline uarepeater-add" value="Add more" id="tag-generator-panel-uarepeater-nae"></td>
                 	</tr>
                 	<tr>
-                    	<th scope="row"><label for="tag-generator-panel-text-values-remove">Remove Button Text</label></th>
+                    	<th scope="row"><label for="tag-generator-panel-text-values-remove"><?php echo __('Remove Button Text', 'ultimate-addons-cf7' ) ?></label></th>
                     	<td><input type="text" name="" class="tg-name oneline uarepeater-remove" value="Remove" id="tag-generator-panel-uarepeater-n"></td>
                 	</tr>
                     
@@ -242,7 +242,7 @@ if(!function_exists('uacf7_black_friday_20222_admin_notice')){
                 <a href="<?php echo $deal_link; ?>" target="_blank" >
                     <img  style="width: 100%; height: 150px;" src="<?php echo UACF7_URL ?>/assets/img/BLACK_FRIDAY_BACKGROUND_GRUNGE_notice.png" alt="">
                 </a> 
-                <button type="button" class="notice-dismiss tf_black_friday_notice_dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button>
+                <button type="button" class="notice-dismiss tf_black_friday_notice_dismiss"><span class="screen-reader-text"><?php echo __('Dismiss this notice.', 'ultimate-addons-cf7' ) ?></span></button>
             </div>
             <script>
                 jQuery(document).ready(function($) {

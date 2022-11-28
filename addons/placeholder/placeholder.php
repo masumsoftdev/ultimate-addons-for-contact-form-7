@@ -49,24 +49,29 @@ class UACF7_Placeholder {
         ?>
         <h2><?php echo esc_html__( 'Placeholder Styles', 'ultimate-addons-cf7' ); ?></h2>
         <p><?php echo esc_html__('This feature will help you to edit the Styles of Placeholder of your form. Note that, all below fields are optional. If any field is not needed, leave them blank.','ultimate-addons-cf7'); ?></p>
-        <div class="uacf7-doc-notice">Not sure how to set this? Check our step by step <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/placeholder-styler-for-contact-form-7/" target="_blank">documentation</a>.</div>
+        <div class="uacf7-doc-notice">
+            <?php echo sprintf( 
+                __( 'Not sure how to set this? Check our step by step %1s .', 'ultimate-addons-cf7' ),
+                '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/placeholder-styler-for-contact-form-7/" target="_blank">documentation</a>',   
+            ); ?>
+            </div>
         <fieldset>
            <div class="ultimate-placeholder-admin">
                <div class="ultimate-placeholder-wrapper">
                  
                   <?php $placeholder_styles = get_post_meta( $post->id(), 'uacf7_enable_placeholder_styles', true ); ?>
-                  <h3>Placeholder Styles</h3>
+                  <h3><?php echo esc_html__( "Placeholder Styles", "ultimate-addons-cf7" ); ?> </h3>
                   <label for="uacf7_enable_placeholder_styles">  
                        <input id="uacf7_enable_placeholder_styles" type="checkbox" name="uacf7_enable_placeholder_styles" <?php checked( 'on', $placeholder_styles ); ?> > Enable
                    </label><br><br>
                   <hr>
-                   <h3>Color and Font Options</h3>
+                   <h3><?php echo esc_html__( "Color and Font Options", "ultimate-addons-cf7" ); ?> </h3>
                     <div class="placeholder-fourcolumns">
                         <h4>Color</h4>
                         <input type="text" id="uacf7-placeholder-color" name="uacf7_placeholder_color" class="uacf7-color-picker" value="<?php echo esc_attr_e($color); ?>" placeholder="<?php echo esc_html__( 'Enter Placeholder Color', 'ultimate-addons-cf7' ); ?>"><br><br>
                     </div>
                     <div class="placeholder-fourcolumns">
-                        <h4>Background Color</h4>
+                        <h4> <?php echo esc_html__( "Background Color", "ultimate-addons-cf7" ); ?> </h4>
                         <input type="text" id="uacf7-placeholder-background-color" name="uacf7_placeholder_background_color" class="uacf7-color-picker" value="<?php echo esc_attr_e($background_color); ?>" placeholder="<?php echo esc_html__( 'Enter Placeholder Background Color', 'ultimate-addons-cf7' ); ?>"><br><br>
                     </div>
                     <div class="placeholder-fourcolumns">
@@ -77,7 +82,7 @@ class UACF7_Placeholder {
                         </select>
                     </div>
                     <div class="placeholder-fourcolumns">
-                        <h4>Font Weight</h4>
+                        <h4><?php echo esc_html__( "Font Weight", "ultimate-addons-cf7" ); ?> </h4>
                         <select name="uacf7_placeholder_fontweight" id="uacf7-placeholder-fontweight">
                             <option value="<?php esc_attr_e('normal'); ?>" <?php selected( 'normal', esc_attr($fontweight), true ); ?>><?php echo esc_html('Normal / 400'); ?></option>
                             <option value="<?php esc_attr_e('300'); ?>" <?php selected( '300', esc_attr($fontweight), true ); ?>><?php echo esc_html('300'); ?></option>
@@ -90,16 +95,21 @@ class UACF7_Placeholder {
                     <div class="clear"></div>
                     <hr>
                     <div class="placeholder-columns">
-                        <h4>Font Size (in px)</h4>
+                        <h4><?php echo esc_html__( " Font Size (in px)", "ultimate-addons-cf7" ); ?></h4>
                         <input type="number" id="uacf7-placeholder-fontsize" name="uacf7_placeholder_fontsize" class="large-text" value="<?php echo esc_attr_e($fontsize); ?>" placeholder="<?php echo esc_html__( 'Enter Placeholder Font Size (in px)', 'ultimate-addons-cf7' ); ?>"><small>E.g. <span>16</span> (Do not add px or em ).</small><br><br>
                     </div>
                     <div class="placeholder-columns">
-                        <h4>Font Name</h4>
-                        <input type="text" id="uacf7-placeholder-fontfamily" name="uacf7_placeholder_fontfamily" class="large-text" value="<?php echo esc_attr_e($fontfamily); ?>" placeholder="<?php echo esc_html__( 'Enter Placeholder Font Name', 'ultimate-addons-cf7' ); ?>"><small>E.g. <span>Roboto, sans-serif</span> (Do not add special characters like '' or ; )</small><br><br>
+                        <h4><?php echo esc_html__( "Font Name", "ultimate-addons-cf7" ); ?> </h4>
+                        <input type="text" id="uacf7-placeholder-fontfamily" name="uacf7_placeholder_fontfamily" class="large-text" value="<?php echo esc_attr_e($fontfamily); ?>" placeholder="<?php echo esc_html__( 'Enter Placeholder Font Name', 'ultimate-addons-cf7' ); ?>"><small>E.g. <span>Roboto, sans-serif</span> <?php echo esc_html__( "(Do not add special characters like '' or ; )", "ultimate-addons-cf7" ); ?> </small><br><br>
                     </div>
                     <div class="clear"></div>
                </div>
-                <p>Need more placeholder or other options? Let us know <a href="https://themefic.com/contact/" target="_blank">here</a>.</p>
+                <p>
+                    <?php echo sprintf( 
+                        __( 'NNeed more placeholder or other options? Let us know %1s .', 'ultimate-addons-cf7' ),
+                        '<a href="https://themefic.com/contact/" target="_blank">here</a>',   
+                    ); ?>
+                </p>
            </div>
         </fieldset>
         <?php

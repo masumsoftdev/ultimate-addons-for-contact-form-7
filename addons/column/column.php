@@ -79,7 +79,12 @@ class UACF7_COLUMN {
                   
                    <h3><?php echo esc_html__('Contact form 7 columns / Grid Layout','ultimate-addons-cf7'); ?></h3>
                    <p><?php echo esc_html__('You can easily create two columns, three Columns even Four columns form with Contact form 7 using this feature. Just insert tag you need from below list.','ultimate-addons-cf7'); ?></p>
-                   <div class="uacf7-doc-notice">Not sure how to set this? Check our step by step <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/columns-grid/" target="_blank">documentation</a>.</div>
+                   <div class="uacf7-doc-notice"> 
+                        <?php echo sprintf( 
+                            __( 'Not sure how to set this? Check our step by step  %1s .', 'ultimate-addons-cf7' ),
+                            '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/columns-grid/" target="_blank">documentation</a>'
+                        ); ?> 
+                    </div>
                    <p></p>
                     <tbody>
                         <tr class="column-1 uacf7-column-select example-active" data-column-codes="[uacf7-row][uacf7-col col:12] --your code-- [/uacf7-col][/uacf7-row]">
@@ -142,17 +147,22 @@ class UACF7_COLUMN {
                         </tr>
                         <tr style="display:inherit" class="column-pro-feature">
 							<th class="column-1">
-							Custom Column Width <span class="pro-link"><a style="color:red" href="#">(Pro)</a></span>
+							<?php echo esc_html__('Custom Column Width','ultimate-addons-cf7'); ?> <span class="pro-link"><a style="color:red" href="#">(Pro)</a></span>
 							<a class="button uacf7-column-button uacf7-custom-column-insert"><?php echo esc_html__('Insert tag','ultimate-addons-cf7'); ?></a>
 							</th>
 							<td>
 								<span class="uacf7-custom-column"></span>
-								<span style="display:block"><button class="add-custom-column button-primary">+Add Column</button></span>
+								<span style="display:block"><button class="add-custom-column button-primary"><?php echo esc_html__('+Add Column','ultimate-addons-cf7'); ?></button></span>
 							</td>
 						</tr>
                     </tbody>
                 </table>
-                <div class="uacf7-doc-notice">Not sure how to set this? Check our step by step <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/custom-columns-for-contact-form-7/" target="_blank">documentation</a>.</div>
+                <div class="uacf7-doc-notice">
+                <?php echo sprintf( 
+                        __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                        '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/custom-columns-for-contact-form-7/" target="_blank">documentation</a>'
+                    ); ?>  
+                </div>
             </fieldset>
         </div>
 

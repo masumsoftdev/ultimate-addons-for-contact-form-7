@@ -184,7 +184,12 @@ class UACF7_STAR_RATING {
         ?>
         <div class="control-box">
             <fieldset> 
-            <div class="uacf7-doc-notice">Not sure how to set this? Check our step by step <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/star-rating-feedback/" target="_blank">documentation</a>.</div>               
+            <div class="uacf7-doc-notice">
+                <?php echo sprintf( 
+                    __( 'Not sure how to set this? Check our step by step %1s.', 'ultimate-addons-cf7' ),
+                    '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/star-rating-feedback/" target="_blank">documentation</a>'
+                ); ?>  
+            </div>               
                 <table class="form-table">
                    <tbody>
                         <tr>
@@ -197,7 +202,7 @@ class UACF7_STAR_RATING {
                             </td>
                         </tr> 
                         <tr>
-                            <th scope="row"><label for="tag-generator-panel-text-name">Name</label></th>
+                            <th scope="row"><label for="tag-generator-panel-text-name"><?php _e( 'Name', 'ultimate-addons-cf7' );?></label></th>
                             <td><input type="text" name="name" class="tg-name oneline" value="rating" id="tag-generator-panel-text-name"></td>
                         </tr>
                         
@@ -219,7 +224,7 @@ class UACF7_STAR_RATING {
 							</td>
 						</tr>
 						<tr>
-							<th><label for="tag-generator-panel-text-star-class">Icon Class</label></th>
+							<th><label for="tag-generator-panel-text-star-class"><?php _e( 'Icon Class', 'ultimate-addons-cf7' );?></label></th>
 							<td><input id="tag-generator-panel-text-star-class" type="text" placeholder="e.g: fa fa-star" disabled><a href="https://cf7addons.com/preview/star-rating/pro" style="color:red">(Pro)</a></td>
 						</tr>
 						<?php
@@ -228,7 +233,7 @@ class UACF7_STAR_RATING {
 					    ?>
                         <?php ob_start() ?>
                         <tr class="">   
-                            <th><label for="tag-generator-panel-range-style">Star Rating Style</label></th>                     
+                            <th><label for="tag-generator-panel-range-style"><?php _e( 'Star Rating Style', 'ultimate-addons-cf7' );?></label></th>                     
                             <td>
                                 <select  name="values" disabled class="values" id="tag-generator-panel-range-style">
                                     <option value="default">Default</option>
@@ -242,42 +247,42 @@ class UACF7_STAR_RATING {
                         ?>
                        
                         <tr>
-                            <th scope="row"><label for="tag-generator-panel-text-selected">Default Selected Star</label></th>
+                            <th scope="row"><label for="tag-generator-panel-text-selected"><?php _e( 'Default Selected Star', 'ultimate-addons-cf7' );?></label></th>
                             <td>
                             <input name="selected" id="tag-generator-panel-text-selected" class="tg-name oneline option" placeholder="5" />
                             <br>
                             <br>
-                            <p>Change the values of star. Default value: 1,2,3,4,5</p>
+                            <p><?php _e( 'Change the values of star. Default value: 1,2,3,4,5', 'ultimate-addons-cf7' );?></p>
                             </td>
                         </tr>
                         
                         <tr>
-                            <th scope="row"><label for="tag-generator-panel-text-star1">Star 1</label></th>
+                            <th scope="row"><label for="tag-generator-panel-text-star1"><?php _e( 'Star 1', 'ultimate-addons-cf7' );?></label></th>
                             <td><input type="text" name="star1" class="tg-name oneline option" value="" id="tag-generator-panel-text-star1"></td>
                         </tr>
                         
                         <tr>
-                            <th scope="row"><label for="tag-generator-panel-text-star2">Star 2</label></th>
+                            <th scope="row"><label for="tag-generator-panel-text-star2"><?php _e( 'Star 2', 'ultimate-addons-cf7' );?></label></th>
                             <td><input type="text" name="star2" class="tg-name oneline option" value="" id="tag-generator-panel-text-star2"></td>
                         </tr>
                         
                         <tr>
-                            <th scope="row"><label for="tag-generator-panel-text-star3">Star 3</label></th>
+                            <th scope="row"><label for="tag-generator-panel-text-star3"><?php _e( 'Star 3', 'ultimate-addons-cf7' );?></label></th>
                             <td><input type="text" name="star3" class="tg-name oneline option" value="" id="tag-generator-panel-text-star3"></td>
                         </tr>
                         
                         <tr>
-                            <th scope="row"><label for="tag-generator-panel-text-star4">Star 4</label></th>
+                            <th scope="row"><label for="tag-generator-panel-text-star4"><?php _e( 'Star 4', 'ultimate-addons-cf7' );?></label></th>
                             <td><input type="text" name="star4" class="tg-name oneline option" value="" id="tag-generator-panel-text-star3"></td>
                         </tr>
                         
                         <tr>
-                            <th scope="row"><label for="tag-generator-panel-text-star5">Star 5</label></th>
+                            <th scope="row"><label for="tag-generator-panel-text-star5"><?php _e( 'Star 5', 'ultimate-addons-cf7' );?></label></th>
                             <td><input type="text" name="star5" class="tg-name oneline option" value="" id="tag-generator-panel-text-star4"></td>
                         </tr>
                         
                         <tr>
-                            <th scope="row"><label for="tag-generator-panel-text-class">Class attribute</label></th>
+                            <th scope="row"><label for="tag-generator-panel-text-class"><?php _e( 'Class attribute', 'ultimate-addons-cf7' );?></label></th>
                             <td><input type="text" name="class" class="classvalue oneline option" id="tag-generator-panel-text-class"></td>
                         </tr>
                     </tbody>

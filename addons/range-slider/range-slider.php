@@ -105,7 +105,7 @@ class UACF7_range_Slider {
             ?>
             <span class="<?php echo esc_attr( $tag->name ) . '-value'; ?> uacf7-value"></span>
             <span class="wpcf7-form-control-wrap uacf7-slidecontainer uacf7-slider-handle" data-separator="<?php echo esc_attr( $separator ); ?>" data-handle="<?php echo esc_attr( $handle ); ?>" data-min="<?php echo esc_attr( $min ); ?>" data-max="<?php echo esc_attr( $max ); ?>" data-default="<?php echo esc_attr( $default ); ?>">
-                <input name="<?php echo esc_attr( $tag->name ); ?>" type="range" min="<?php echo esc_attr( $min ); ?>" max="<?php echo esc_attr( $max ); ?>" value="<?php echo esc_attr( $default ); ?>" class="uacf7-slider uacf7-range">
+                <input name="<?php echo esc_attr( $tag->name ); ?>" type="range" min="<?php echo esc_attr( $min ); ?>" max="<?php echo esc_attr( $max ); ?>"  step="<?php echo esc_attr( $step ); ?>" value="<?php echo esc_attr( $default ); ?>" class="uacf7-slider uacf7-range">
             </span>  
             </div>
             <script>
@@ -132,8 +132,8 @@ class UACF7_range_Slider {
             ?>
             <div class="multistep">
                 <span class="wpcf7-form-control-wrap"><span class="uacf7-amount"><?php echo esc_attr( $min . " $label " . " $separator " .  $max ." $label " ); ?></span>
-                    <span class="uacf7-slider-handle" data-separator="<?php echo esc_attr( $separator ); ?>" data-label="<?php echo esc_attr( $label ); ?>"  data-handle="<?php echo esc_attr( $handle ); ?>" data-min="<?php echo esc_attr( $min ); ?>" data-max="<?php echo esc_attr( $max ); ?>" data-default="<?php echo esc_attr( $default ); ?>">
-                        <input name="<?php echo esc_attr( $tag->name ) ?>" type="hidden" id="uacf7-amount" class="uacf7-slide_amount" readonly>                       
+                    <span class="uacf7-slider-handle" data-step="<?php echo esc_attr( $step ); ?>" data-separator="<?php echo esc_attr( $separator ); ?>" data-label="<?php echo esc_attr( $label ); ?>"  data-handle="<?php echo esc_attr( $handle ); ?>" data-min="<?php echo esc_attr( $min ); ?>" data-max="<?php echo esc_attr( $max ); ?>" data-default="<?php echo esc_attr( $default ); ?>">
+                        <input step="<?php echo esc_attr( $step ); ?>" name="<?php echo esc_attr( $tag->name ) ?>" type="hidden" id="uacf7-amount" class="uacf7-slide_amount" readonly>                       
                         <div id="uacf7-slider-range" class="multistep_slide"></div>
                     </span>
                 <!-- </span> -->
@@ -265,8 +265,13 @@ class UACF7_range_Slider {
                     </tr>
                 </tbody>
                 </table>
-                <div class="uacf7-doc-notice uacf7-guide">You can set the styles of the slider from "UACF7 Range Slider" tab.</div>
-                <div class="uacf7-doc-notice">Not sure how to set this? Check our step by step <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/range-slider-on-contact-form-7/" target="_blank">documentation</a>.</div>
+                <div class="uacf7-doc-notice uacf7-guide"><?php echo esc_attr( __( 'You can set the styles of the slider from "UACF7 Range Slider" tab.', 'ultimate-addons-cf7' ) ); ?></div>
+                <div class="uacf7-doc-notice"> 
+                    <?php echo sprintf( 
+                        __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                        '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/range-slider-on-contact-form-7/" target="_blank">documentation</a>'
+                    ); ?> 
+                </div>
             </fieldset>
         </div>
         <div class="insert-box">
@@ -306,7 +311,12 @@ class UACF7_range_Slider {
 
         <h2><?php echo esc_html__( 'Range Slider Styles', 'ultimate-addons-cf7' ); ?></h2>
         <p><?php echo esc_html__( 'This feature will help you to edit the Styles of Range Slider of your form. Note that, all below fields are optional. If any field is not needed, leave them blank.', 'ultimate-addons-cf7' ); ?></p>
-        <div class="uacf7-doc-notice">Not sure how to set this? Check our step by step <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/range-slider-on-contact-form-7/" target="_blank">documentation</a>.</div>
+        <div class="uacf7-doc-notice"> 
+            <?php echo sprintf( 
+                __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/range-slider-on-contact-form-7/" target="_blank">documentation</a>'
+            ); ?> 
+        </div>
         <fieldset>
             <div class="uacf7-range-slider-style-wrapper">
                 <div class="uacf7-range-slider-color col">
