@@ -4,7 +4,7 @@ Tags: contact form 7, contact form 7 addons, contact form 7 addon, contact form 
 Requires at least: 4.2
 Tested up to: 6.1.1
 Requires PHP: 5.4
-Stable tag: 3.1.8
+Stable tag: 3.1.9
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -352,6 +352,17 @@ Just install our Plugin. It will only take 5 mins to create such a form.</a>.
 18. Multistep Editor Panel
 
 == Changelog ==
+
+=  3.1.9 – 28/11/2022  = 
+
+- Added: Product dropdown total price amount display before form submission (Pro)
+- Updated: All addon Documentation link
+- Fixed: Internationalization Issue
+- Fixed: Styler addon Conditional issue issue fixed
+- Fixed: Range slider step issue fixed
+- Fixed: Columns / Grid: layout css issue fixed
+- Fixed: Multistep logical and button css issue fixed
+
 
 =  3.1.8 – 20/11/2022  = 
 
