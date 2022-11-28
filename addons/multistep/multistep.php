@@ -42,8 +42,7 @@ class UACF7_MULTISTEP {
         <div class="uacf7-step uacf7-step-<?php echo $form_current->id(); ?> step-content" next-btn-text="<?php echo esc_html( get_option('next_btn_'.$tag->name) ); ?>" prev-btn-text="<?php echo esc_html( get_option('prev_btn_'.$tag->name) ); ?>">
         <?php
         return ob_get_clean();
-    }
-    
+    } 
     function step_end_tag_handler($tag){
         ob_start();
         $form_current = \WPCF7_ContactForm::get_current();
@@ -56,24 +55,19 @@ class UACF7_MULTISTEP {
         </div>
         <?php
         return ob_get_clean();
-    }
-	
+    } 
     function uacf7_multistep_progressbar($tag){
         ob_start();
-		$form_current = \WPCF7_ContactForm::get_current();
-		
+		$form_current = \WPCF7_ContactForm::get_current(); 
 		$all_steps = get_post_meta( $form_current->id(), 'uacf7_multistep_steps_title', true );
         ?>
         <div class="uacf7-steps steps-form">
 			<div class="steps-row setup-panel">
 			<?php
 				$step_id = 1;
-				$step_count = 0;
-
-				$step_name = get_post_meta( $form_current->id(), 'uacf7_multistep_steps_names', true );
-				
-				$uacf7_multistep_use_step_labels = !empty(get_post_meta( $form_current->id(), 'uacf7_multistep_use_step_labels', true )) ? get_post_meta( $form_current->id(), 'uacf7_multistep_use_step_labels', true ) : ''; 
-		        
+				$step_count = 0; 
+				$step_name = get_post_meta( $form_current->id(), 'uacf7_multistep_steps_names', true ); 
+				$uacf7_multistep_use_step_labels = !empty(get_post_meta( $form_current->id(), 'uacf7_multistep_use_step_labels', true )) ? get_post_meta( $form_current->id(), 'uacf7_multistep_use_step_labels', true ) : '';  
 				foreach ($all_steps as $step) {
 					$content = $step;
 					?>
@@ -85,8 +79,7 @@ class UACF7_MULTISTEP {
 					<?php
 					$step_id++;
 					$step_count++;
-				}
-
+				} 
 				?>
 			</div>
 		</div>
@@ -114,7 +107,6 @@ class UACF7_MULTISTEP {
         );
 
     }
-    
     static function tg_pane_step_start( $contact_form, $args = '' ) {
         $args = wp_parse_args( $args, array() );
         $uacf7_field_type = 'uacf7_step_start';
@@ -467,24 +459,14 @@ class UACF7_MULTISTEP {
     * Change form properties for multistep
     */
     public function uacf7_properties($properties, $cfform) {
-	    
         if (!is_admin() || (defined('DOING_AJAX') && DOING_AJAX)) { 
-
             $form = $properties['form'];
-
             $uacf7_multistep_is_multistep = get_post_meta( $cfform->id(), 'uacf7_multistep_is_multistep', true ); 
-            
 			$uacf7_enable_multistep_progressbar = get_post_meta( $cfform->id(), 'uacf7_enable_multistep_progressbar', true );
-
-
             if( $uacf7_multistep_is_multistep == 'on' ) {
-			
 			ob_start();
-            
             $all_steps = get_post_meta( $cfform->id(), 'uacf7_multistep_steps_title', true );
-			
 			$uacf7_multistep_use_step_labels = !empty(get_post_meta( $cfform->id(), 'uacf7_multistep_use_step_labels', true )) ? get_post_meta( $cfform->id(), 'uacf7_multistep_use_step_labels', true ) : ''; 
-			
             $uacf7_multistep_button_padding_tb = get_post_meta( $cfform->id(), 'uacf7_multistep_button_padding_tb', true ); 
             $uacf7_multistep_button_padding_lr = get_post_meta( $cfform->id(), 'uacf7_multistep_button_padding_lr', true ); 
             if($uacf7_multistep_button_padding_tb !='' || $uacf7_multistep_button_padding_tb != 0){
@@ -501,8 +483,7 @@ class UACF7_MULTISTEP {
                 $padding_left = ''; 
                 $padding_right = ''; 
             }
-            
-             $next_prev_style = '<style>.uacf7-next, .uacf7-next, .wpcf7-submit{'.$padding_top.' '.$padding_bottom.' '.$padding_left.' '.$padding_right.'}  </style>';
+             $next_prev_style = '<style>.uacf7-prev, .uacf7-next, .wpcf7-submit{'.$padding_top.' '.$padding_bottom.' '.$padding_left.' '.$padding_right.'}  </style>';
              echo $next_prev_style;
 			?> 
 			<div class="uacf7-steps steps-form" style="display:none">
@@ -512,7 +493,6 @@ class UACF7_MULTISTEP {
                         $step_count = 0;
                 
                         $step_name = get_post_meta( $cfform->id(), 'uacf7_multistep_steps_names', true );
-                		
                         foreach ($all_steps as $step) {
                             $content = $step;
                             ?>
@@ -524,19 +504,14 @@ class UACF7_MULTISTEP {
                     ?>
                 </div>
             </div>
-            <?php
-			
+            <?php 
             if( $uacf7_enable_multistep_progressbar == 'on' ) {
-				
-			$uacf7_progressbar_style = get_post_meta( $cfform->id(), 'uacf7_progressbar_style', true );
-				
-            do_action( 'uacf7_multistep_before_form', $cfform->id() );
+                $uacf7_progressbar_style = get_post_meta( $cfform->id(), 'uacf7_progressbar_style', true );
+                do_action( 'uacf7_multistep_before_form', $cfform->id() );
             ?>
             <?php 
             $uacf7_multistep_progressbar_title_color = get_post_meta( $cfform->id(), 'uacf7_multistep_progressbar_title_color', true );
-            
             if($uacf7_progressbar_style == 'default' && !empty($uacf7_multistep_progressbar_title_color)):
-
             ?>
             <style>
                 .steps-form .steps-row .steps-step p {
@@ -545,40 +520,40 @@ class UACF7_MULTISTEP {
                 .uacf7-steps  .uacf7-next, .uacf7-steps .uacf7-next{
                     padding: <?php echo esc_attr($uacf7_multistep_button_padding_tb); ?> <?php echo esc_attr($uacf7_multistep_button_padding_lr); ?> ;
                 } 
- 
             </style>
             <?php endif; ?>
- 
             <div class="uacf7-steps steps-form <?php if($uacf7_progressbar_style == 'style-1'){echo 'progressbar-style-1';} ?>">
                 <div class="steps-row setup-panel">
                 <?php
                     $step_id = 1;
                     $step_count = 0;
-            
                     $step_name = get_post_meta( $cfform->id(), 'uacf7_multistep_steps_names', true );
-            		
                     foreach ($all_steps as $step) {
                         $content = $step;
                         ?>
-                        <div class="steps-step"><a title-id=".step-<?php echo esc_attr($step_id); ?>" data-form-id="<?php echo esc_attr($cfform->id()); ?>"   href="#<?php echo esc_attr($cfform->id()); ?>step-<?php echo esc_attr($step_id); ?>" type="button" class="btn <?php if( $step_id == 1 ) { echo esc_attr('uacf7-btn-active'); }else{ echo esc_attr('uacf7-btn-default'); } ?> btn-circle"><?php 
-						if(is_array($step_name)) {
-							do_action( 'uacf7_progressbar_image', $step_name[$step_count] );
-						}
-						
-						if( $uacf7_progressbar_style == 'style-1' ){
-							if( $uacf7_multistep_use_step_labels != 'on' ) {
-								echo $content;
-							}else {
-								return esc_attr($step_id);
-							}
-						}else {
-							echo esc_attr($step_id);
-						} ?></a><?php if( $uacf7_multistep_use_step_labels != 'on' && $uacf7_progressbar_style != 'style-1' && $uacf7_progressbar_style != 'style-4' ) { echo '<p>'.$content.'</p>'; } ?></div>
+                        <div class="steps-step">
+                            <a title-id=".step-<?php echo esc_attr($step_id); ?>" data-form-id="<?php echo esc_attr($cfform->id()); ?>"   href="#<?php echo esc_attr($cfform->id()); ?>step-<?php echo esc_attr($step_id); ?>" type="button" class="btn <?php if( $step_id == 1 ) { echo esc_attr('uacf7-btn-active'); }else{ echo esc_attr('uacf7-btn-default'); } ?> btn-circle"><?php 
+                                if(is_array($step_name)) {
+                                    do_action( 'uacf7_progressbar_image', $step_name[$step_count] );
+                                }
+                                if( $uacf7_progressbar_style == 'style-1' ){
+                                    if( $uacf7_multistep_use_step_labels != 'on' ) {
+                                        echo $content;
+                                    }else { 
+                                        echo esc_attr($step_id);
+                                    }
+                                }else {
+                                    echo esc_attr($step_id);
+                                } ?>
+                            </a>
+                            <?php if( $uacf7_multistep_use_step_labels != 'on' && $uacf7_progressbar_style != 'style-1' && $uacf7_progressbar_style != 'style-4' ) { 
+                                echo '<p>'.$content.'</p>'; 
+                            } ?>
+                        </div>
                         <?php
                         $step_id++;
                         $step_count++;
                     }
-
                     ?>
                 </div>
             </div>
@@ -587,9 +562,7 @@ class UACF7_MULTISTEP {
             
             $progressbar = ob_get_clean();
 			ob_start();
-			
 			echo apply_filters( 'uacf7_progressbar_html', $progressbar, $form, $cfform->id() );
-            
 			ob_start();
 			?>
 			<div class="uacf7-multisetp-form">
@@ -597,15 +570,10 @@ class UACF7_MULTISTEP {
 			</div>
 			<?php
 			$form_html = ob_get_clean();
-			
 			echo apply_filters( 'uacf7_form_html', $form_html );
-				
 			$multistep_form = ob_get_clean();
-
             $properties['form'] = $multistep_form;
-				
             }else {
-                
                 $properties['form'] = $form;
             }
         }
@@ -628,7 +596,6 @@ class UACF7_MULTISTEP {
         $count = '1';
         for ($x = 0; $x < count($validation_fields); $x++) {
             $field = explode(':', $validation_fields[$x]); 
-            
             $name = $field[1];
             $name_array =  explode("__",$field[1]); 
             $replace = '__'.$count.''; 
@@ -640,10 +607,8 @@ class UACF7_MULTISTEP {
         $form = wpcf7_contact_form( $_REQUEST['form_id'] );
         $all_form_tags = $form->scan_form_tags(); 
         $invalid_fields = false;
-        
         require_once WPCF7_PLUGIN_DIR . '/includes/validation.php';
         $result = new \WPCF7_Validation();
-        
         $tags = array_filter(
             $all_form_tags, function($v, $k) use ($tag_name) { 
                 return in_array($v->name, $tag_name);
@@ -659,25 +624,19 @@ class UACF7_MULTISTEP {
         );  
         foreach ( $tags as $tag ) {
             $type = $tag->type;
-            
             if ( 'file' != $type && 'file*' != $type ) {
-				
                 $result = apply_filters("wpcf7_validate_{$type}", $result, $tag);
                 
 			}elseif( 'file*' === $type ){
-			    
 			    $fdir = $_REQUEST[$tag->name];
-
 				if ( $fdir ) {
 					$_FILES[ $tag->name ] = array(
 						'name' => wp_basename( $fdir ),
 						'tmp_name' => $fdir,
 					);
 				}
-			    
 			    $file = $_FILES[$tag->name];
 			    //$file = $_REQUEST[$tag->name];
-
     			$args = array(
     				'tag' => $tag,
     				'name' => $tag->name,
@@ -685,27 +644,20 @@ class UACF7_MULTISTEP {
     				'filetypes' => $tag->get_option( 'filetypes' ),
     				'limit' => $tag->get_limit_option(), 
     			);
-    
                 $args['schema'] = $form->get_schema();
-
     			$new_files = wpcf7_unship_uploaded_file( $file, $args ); 
                 if ( is_wp_error( $new_files ) ) {
                     $result->invalidate( $tag, $new_files );
                 }
-
 			    $result = apply_filters("wpcf7_validate_{$type}", $result, $tag, array( 'uploaded_files' => $new_files, ) );
 			}
             
         }
-        
         $result = apply_filters('wpcf7_validate', $result, $tags); 
-
         $is_valid = $result->is_valid();
-
         if (!$is_valid) {
             $invalid_fields = $this->prepare_invalid_form_fields($result, $tag_validation);
         } 
-
         echo(json_encode( array(
                     'is_valid' => $is_valid,
                     'invalid_fields' => $invalid_fields,
