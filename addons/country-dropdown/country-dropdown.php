@@ -72,8 +72,8 @@ class UACF7_COUNTRY_DROPDOWN {
 		} else {
 			//$atts['size'] = 40;
 		}
-		
-        $atts = wpcf7_format_atts( $atts );
+        $country_atts =  apply_filters('uacf7_get_country_attr', $atts, $tag);  
+        $atts = wpcf7_format_atts( $country_atts );
 		
 		ob_start();
 		?>
@@ -155,14 +155,34 @@ class UACF7_COUNTRY_DROPDOWN {
                         <?php ob_start(); ?>
                         <tr>
                             <th scope="row"><label><?php echo esc_html( __( 'Auto complete', 'ultimate-addons-cf7' ) ); ?> <a style="color:red" target="_blank" href="https://cf7addons.com/">(Pro)</a></label></th>
-                            <td><input disabled type="checkbox" class="option"><?php echo esc_html( __( " Auto complete country using user's network IP.", "ultimate-addons-cf7" ) ); ?> </td>
+                            <td><input disabled type="checkbox" class="option"><?php echo esc_html( __( "Auto complete country using user's network IP.", "ultimate-addons-cf7" ) ); ?> </td>
                         </tr>
                         <?php 
                         $autocomplete_html = ob_get_clean(); 
+                        
                         /*
                         * Tag generator field: auto complete
                         */
+
                         echo apply_filters('uacf7_tag_generator_country_autocomplete_field',$autocomplete_html);
+                        ?>
+
+                        <?php ob_start(); ?>
+                        <tr>
+                            <th scope="row"><label><?php echo esc_html( __( 'Only Countries', 'ultimate-addons-cf7' ) ); ?> <a style="color:red" target="_blank" href="https://cf7addons.com/">(Pro)</a></label></th>
+                            <td><textarea class="values" name="" id="tag-generator-panel-product-id" cols="30" rows="10" disabled></textarea> One ID per line. </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="tag-defaul-panel-text-class"><?php echo esc_html( __( 'Default Country', 'ultimate-addons-cf7' ) ); ?> <a style="color:red" target="_blank" href="https://cf7addons.com/">(Pro)</a></label></th>
+                            <td><input type="text" name="" class="defaultvalue oneline " disabled id="tag-defaul-panel-text-class"></td>
+                        </tr>
+                        <?php 
+                        $default_country = ob_get_clean(); 
+                        /*
+                        * Tag generator field: auto complete
+                        */
+                        echo apply_filters('uacf7_tag_generator_default_country_field', $default_country);
                         ?>
                         
                         <tr>
