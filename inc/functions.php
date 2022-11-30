@@ -305,14 +305,52 @@ if(!function_exists('uacf7_black_friday_2022_callback')){
 				display: none;
 				visibility: hidden;
 			}
+            .back_friday_2022_preview {
+                position: relative;
+            }
+            .tf_black_friday_cf7_notice_dismiss {
+                position: ;
+                z-index: 1;
+            }
 		 
 		</style>
+        <?php if(!isset($_COOKIE['uacf7_dismiss_post_notice'])): ?>
 		<div class="back_friday_2022_preview" style="text-align: center; overflow: hidden;">
 			<a href="<?php echo $deal_link; ?>" target="_blank" >
 				<img  style="width: 100%; transform: scale(1.3);" src="<?php echo UACF7_URL ?>/assets/img/BLACK_FRIDAY_BACKGROUND_GRUNGE.jpg" alt="">
-			</a> 
+			</a>  
+            <button type="button" class="notice-dismiss tf_black_friday_cf7_notice_dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button>
 		</div>
+        <script>
+            jQuery(document).ready(function($) {
+                $(document).on('click', '.tf_black_friday_cf7_notice_dismiss', function( event ) { 
+                    jQuery('.back_friday_2022_preview').css('display', 'none')
+                    data = {
+                        action : 'uacf7_black_friday_notice_cf7_dismiss_callback', 
+                    };
+
+                    $.ajax({
+                        url: ajaxurl,
+                        type: 'post',
+                        data: data,
+                        success: function (data) { ;
+                        },
+                        error: function (data) { 
+                        }
+                    });
+                });
+            });
+        </script>
+        <?php endif; ?>
 	<?php
 	}  
+    function uacf7_black_friday_notice_cf7_dismiss_callback() { 
+        $cookie_name = "uacf7_dismiss_post_notice";
+        $cookie_value = "1";
+        setcookie($cookie_name, $cookie_value, time() + (86400 * 3), "/"); 
+        wp_die();
+    }
+    add_action( 'wp_ajax_uacf7_black_friday_notice_cf7_dismiss_callback', 'uacf7_black_friday_notice_cf7_dismiss_callback' );
+     
 }
 
