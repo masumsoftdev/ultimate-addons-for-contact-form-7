@@ -81,8 +81,16 @@ class UACF7_DATABASE {
       
         $form_id  = empty($_GET['form_id']) ? 0 : (int) $_GET['form_id']; 
         $csv  = empty($_GET['csv']) ? 0 :  $_GET['csv']; 
-        if(!empty($form_id) && $csv == true){
-            $this->uacf7_database_export_csv($form_id, $csv);
+        $pdf  = empty($_GET['pdf']) ? 0 :  $_GET['pdf']; 
+        $data_id  = empty($_GET['data_id']) ? 0 :  $_GET['data_id']; 
+
+        if(!empty($form_id) && $pdf == true && !empty($data_id)){ 
+
+            return apply_filters( 'uacf7_get_generated_pdf', $form_id, $data_id); // export as pdf
+        }
+        
+        if(!empty($form_id) && $csv == true ){
+            $this->uacf7_database_export_csv($form_id,  $csv); 
         } 
         // ob_start();
         if( !empty($form_id)){
@@ -251,13 +259,25 @@ class UACF7_DATABASE {
         $dir = $upload_dir['baseurl'];
         $replace_dir = '/uacf7-uploads/';
         $form_data = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."uacf7_form WHERE id = $id"); 
+        $ContactForm = WPCF7_ContactForm::get_instance( $form_data->form_id );
+        $form_fields = $ContactForm->scan_form_tags();
         $data = json_decode($form_data->form_value);
+        $fields = [];
+        foreach($form_fields as $field){
+            
+            if($field['type'] != 'submit' && $field['type'] !='uacf7_step_start' && $field['type'] !='uacf7_step_end' && $field['type'] !='uarepeater' ){
+                $fields[$field['name']] = '';
+            }
+        }
+        foreach($data as $key => $value){  
+            $fields[$key] = $value; 
+        } 
         $html = '<div class="db-view-wrap"> 
                     <h3>'.get_the_title( $form_data->form_id ).'</h3>
                     <span>'.$form_data->form_date.'</span>
                     <table class="wp-list-table widefat fixed striped table-view-list">';
         $html .= '<tr> <th><strong>Fields</strong></th><th><strong>Values</strong> </th> </tr>';   
-        foreach($data as $key => $value){  
+        foreach($fields as $key => $value){  
             if($key !='status'){
                 if(is_array($value)){ 
                     $value = implode(", ",$value);
@@ -304,6 +324,8 @@ class UACF7_DATABASE {
            
 
             $form_data = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."uacf7_form WHERE form_id = $form_id");  
+
+           
             $now = gmdate("D, d M Y H:i:s");
             header("Expires: Tue, 03 Jul 2001 06:00:00 GMT");
             header("Cache-Control: max-age=0, no-cache, must-revalidate, proxy-revalidate");
@@ -324,11 +346,24 @@ class UACF7_DATABASE {
              
             $list = []; 
             $count = 0;
+           
             foreach($form_data as $fkey => $fdata){ 
+                $ContactForm = WPCF7_ContactForm::get_instance( $fdata->form_id );
+                $form_fields = $ContactForm->scan_form_tags();
+                $fields = []; 
                 $data = json_decode($fdata->form_value);
+                foreach($form_fields as $field){
+                
+                    if($field['type'] != 'submit' && $field['type'] !='uacf7_step_start' && $field['type'] !='uacf7_step_end' && $field['type'] !='uarepeater' ){
+                        $fields[$field['name']] = '';
+                    }
+                }
+                foreach($data as $key => $value){  
+                    $fields[$key] = $value; 
+                } 
                 $list_head = [];
                 $list_data = [];
-                foreach($data as $key => $value){
+                foreach($fields as $key => $value){
                     if($fkey == 0){
                         $list_head[] = $key;
                     }
@@ -468,6 +503,10 @@ class uacf7_form_List_Table extends WP_List_Table{
            $field_data =  json_decode($fdata->form_value); 
            $repetar_value = '';
            $repetar_key = '';
+           $enable_pdf = !empty(get_post_meta( $fdata->form_id, 'uacf7_enable_pdf_generator', true )) ? get_post_meta( $fdata->form_id, 'uacf7_enable_pdf_generator', true ) : '';
+
+            if($enable_pdf == 'on' && uacf7_checked( 'uacf7_enable_pdf_generator_field') != ''){ $pdf_btn =  "<a href='".esc_html($_SERVER['REQUEST_URI'])."&pdf=true&data_id=".$fdata->id."' data-id='".$fdata->id."' data-value='".$fdata->form_value."' class='button-primary uacf7-db-pdf'> Export as PDF</button>";}else{ $pdf_btn = '';}
+
            foreach($field_data as $key => $value){
                 if(is_array($value)){ 
                     $value = implode(", ",$value);
@@ -486,7 +525,7 @@ class uacf7_form_List_Table extends WP_List_Table{
                 }  
            }
            $f_data['id']      = $fdata->id; 
-           $f_data['action'] = "<button data-id='".$fdata->id."' data-value='".$fdata->form_value."' class='button-primary uacf7-db-view'>View</button>";
+           $f_data['action'] = "<button data-id='".$fdata->id."' data-value='".$fdata->form_value."' class='button-primary uacf7-db-view'>View</button>". $pdf_btn;
            $data[] = $f_data;    
         }  
         return $data;
