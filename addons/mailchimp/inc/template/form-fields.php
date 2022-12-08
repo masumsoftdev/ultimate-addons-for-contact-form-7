@@ -13,8 +13,8 @@
             $subscriber_email = ! empty( get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_email', true)) ? get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_email', true) : "";
             $subscriber_fname =  ! empty( get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_fname', true)) ? get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_fname', true) : "";
             $subscriber_lname = ! empty( get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_lname', true)) ? get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_lname', true) : "";
-            $uacf7_mailchimp_merge_fields = empty(get_post_meta($post->id(), 'uacf7_mailchimp_merge_fields', true)) ? array() : get_post_meta($post->id(), 'uacf7_mailchimp_merge_fields', true);
-
+            $uacf7_mailchimp_merge_fields = empty(get_post_meta($post->id(), 'uacf7_mailchimp_merge_fields', true)) ? array() : get_post_meta($post->id(), 'uacf7_mailchimp_merge_fields', true); 
+    
             ?>
             <div class="mailchimp_fields_row">
                 <h3><?php echo esc_html__( 'Mailchimp form settings ', 'ultimate-addons-cf7' ); ?></h3>
@@ -45,8 +45,7 @@
                         if ($api_key != '') {
 
                             $response = $this->set_config($api_key, 'lists');
-
-                            //$response = json_encode($response);
+ 
                             $response = json_decode($response, true);
                             $x = 0;
                             foreach ($response['lists'] as $list) {
@@ -115,16 +114,20 @@
                     <?php
                     $all_fields = $post->scan_form_tags();
                     $x = 1; 
+                   
                     foreach ($all_fields as $field) {
                         if ($field['type'] != 'submit') {
-                            
+                            $cf7_tag = '';
+                            $mergefield = '';
                             if(is_array($uacf7_mailchimp_merge_fields) && !empty($uacf7_mailchimp_merge_fields)){
-                                $cf7_tag = $uacf7_mailchimp_merge_fields[$x]['mailtag'];
-                                $mergefield = $uacf7_mailchimp_merge_fields[$x]['mergefield'];
-                            }else{
-                                $cf7_tag = '';
-                                $mergefield = '';
-                            }
+                                $count = count($uacf7_mailchimp_merge_fields); 
+                                for ($i = 0; $i <= $count; $i++) { 
+                                    if($i== $x){ 
+                                        $cf7_tag = $uacf7_mailchimp_merge_fields[$x]['mailtag'];
+                                        $mergefield = $uacf7_mailchimp_merge_fields[$x]['mergefield'];
+                                    }
+                                } 
+                            } 
                              
                     ?>
                             <tr>
@@ -132,6 +135,7 @@
                                     <label><strong><?php echo esc_html__( 'Contact form tag', 'ultimate-addons-cf7' ); ?></strong><br>
                                         <select name="uacf7_mailchimp_extra_field_mailtag_<?php echo esc_attr($x); ?>">
                                             <?php
+                                            echo '<option value="">Select Field</option>';
                                             foreach ($all_fields as $tag) {
                                                 if ($tag['type'] != 'submit') {
                                                     echo '<option value="' . esc_attr($tag['name']) . '" ' . selected($cf7_tag, $tag['name']) . '>' . esc_attr($tag['name']) . '</option>';
