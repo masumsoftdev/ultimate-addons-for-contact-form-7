@@ -32,6 +32,8 @@ class Ultimate_Addons_CF7 {
         //Plugin loaded
         add_action( 'plugins_loaded', array( $this, 'uacf7_plugin_loaded' ) );
         
+        add_filter( 'wpcf7_autop_or_not', '__return_false' );
+        
         // Initialize the appsero
         $this->appsero_init_tracker_ultimate_addons_for_contact_form_7();
     }
