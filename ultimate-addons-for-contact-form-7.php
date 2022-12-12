@@ -32,7 +32,9 @@ class Ultimate_Addons_CF7 {
         //Plugin loaded
         add_action( 'plugins_loaded', array( $this, 'uacf7_plugin_loaded' ) );
         
-        add_filter( 'wpcf7_autop_or_not', '__return_false' );
+        if(defined('WPCF7_VERSION') && WPCF7_VERSION >= 5.7){ 
+            add_filter( 'wpcf7_autop_or_not', '__return_false' );
+        }
         
         // Initialize the appsero
         $this->appsero_init_tracker_ultimate_addons_for_contact_form_7();
@@ -79,6 +81,7 @@ class Ultimate_Addons_CF7 {
         
         //Enqueue admin scripts
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
+        add_action( 'wp_enqueue_scripts', array( $this, 'uacf7_frontend_scripts' ) );
         
         //Require admin menu
         require_once( 'admin/admin-menu.php' );
@@ -96,6 +99,11 @@ class Ultimate_Addons_CF7 {
         wp_enqueue_style( 'wp-color-picker' );
         wp_enqueue_script( 'wp-color-picker' );
         wp_enqueue_script( 'uacf7-admin-script', UACF7_URL . 'assets/js/admin-script.js', array('jquery'), null, true );
+    }
+
+    //Enquene admin scripts
+    public function uacf7_frontend_scripts(){ 
+        wp_enqueue_style( 'uacf7-frontend-style', UACF7_URL . 'assets/css/uacf7-frontend.css', '' ); 
     }
 
     
