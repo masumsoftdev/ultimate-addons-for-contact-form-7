@@ -344,7 +344,7 @@ class UACF7_Admin_Menu {
 			$sanitary_values['uacf7_enable_pre_populate_field'] = $input['uacf7_enable_pre_populate_field'];
 		}
         if ( isset( $input['uacf7_enable_database_field'] ) ) {
-			$sanitary_values['uacf7_enable_database_field'] = $input['uacf7_enable_pdf_generator_field'];
+			$sanitary_values['uacf7_enable_database_field'] = $input['uacf7_enable_database_field'];
 		}
         if ( isset( $input['uacf7_enable_pdf_generator_field'] ) ) {
 			$sanitary_values['uacf7_enable_pdf_generator_field'] = $input['uacf7_enable_pdf_generator_field'];

@@ -111,3 +111,6 @@
 	margin: 0 auto;
 	position: relative;
 }
+.uacf7-db-view, .uacf7-db-pdf {
+	margin-right: 10px !important;
+}
