@@ -82,7 +82,7 @@ class UACF7_DATABASE {
         $form_id  = empty($_GET['form_id']) ? 0 : (int) $_GET['form_id']; 
         $csv  = empty($_GET['csv']) ? 0 :  $_GET['csv']; 
         $pdf  = empty($_GET['pdf']) ? 0 :  $_GET['pdf']; 
-        $data_id  = empty($_GET['data_id']) ? 0 :  $_GET['data_id']; 
+        $data_id  = empty($_GET['data_id']) ? 0 :  $_GET['data_id'];
 
         if(!empty($form_id) && $pdf == true && !empty($data_id)){ 
 
@@ -91,8 +91,7 @@ class UACF7_DATABASE {
         
         if(!empty($form_id) && $csv == true ){
             $this->uacf7_database_export_csv($form_id,  $csv); 
-        } 
-        // ob_start();
+        }  
         if( !empty($form_id)){
             $uacf7_ListTable = new uacf7_form_List_Table();
             $uacf7_ListTable->prepare_items(); 
@@ -463,6 +462,10 @@ class uacf7_form_List_Table extends WP_List_Table{
             $columns[$form_fields[$x]['name']] = $form_fields[$x]['name']; 
           }
         }  
+
+        // Checked Star Review Status
+        if($this->uacf7_star_review_status($form_id) == true){ $columns['is_review'] = 'Is Review'; }
+
         $columns['action'] = 'Action';
         return $columns;
     }
@@ -525,6 +528,17 @@ class uacf7_form_List_Table extends WP_List_Table{
                 }  
            }
            $f_data['id']      = $fdata->id; 
+
+           // Checked Star Review Status
+           if($this->uacf7_star_review_status($form_id) == true){
+            $checked = $fdata->is_review == 1 ? 'checked' : '';
+            $f_data['is_review'] = '<label class="uacf7-admin-toggle1 uacf7_star_label" for="uacf7_review_status_'.$fdata->id.'">
+                <input type="checkbox" class="uacf7-admin-toggle__input star_is_review" value="'.$fdata->id.'"  name="uacf7_review_status_'.$fdata->id.'" id="uacf7_review_status_'.$fdata->id.'" '.$checked.'>
+                <span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
+            </label>';
+        
+            }
+
            $f_data['action'] = "<button data-id='".$fdata->id."' data-value='".$fdata->form_value."' class='button-primary uacf7-db-view'>View</button>". $pdf_btn;
            $data[] = $f_data;    
         }  
@@ -650,6 +664,15 @@ class uacf7_form_List_Table extends WP_List_Table{
             }
         }
     } 
+
+    // Checked Star Review Status Function
+    public function uacf7_star_review_status($id){
+        if(class_exists('UACF7_STAR_RATING_PRO') && class_exists('UACF7_STAR_RATING')){
+           return apply_filters( 'uacf7_star_review_status', false, $id); // checked star review status
+        }else{
+           return false;
+        }
+    }
 
 }
 new UACF7_DATABASE();
