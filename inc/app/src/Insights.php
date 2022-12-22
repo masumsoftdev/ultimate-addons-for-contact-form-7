@@ -105,7 +105,9 @@ class Insights {
      * @return \self
      */
     public function notice($text='' ) {
-        $this->notice = $text;
+        $this->notice = sprintf( 
+            __( 'I agree to get Important Product Updates & Discount related information on my email from Themefic (I can unsubscribe anytime).', 'ultimate-addons-cf7' )
+        );
 
         return $this;
     }
@@ -783,6 +785,10 @@ class Insights {
 
         if ( ! wp_verify_nonce( $_POST['nonce'], 'appsero-security-nonce' ) ) {
             wp_send_json_error( 'Nonce verification failed' );
+        }
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( 'You are not allowed for this task' );
         }
 
         $data                = $this->get_tracking_data();
