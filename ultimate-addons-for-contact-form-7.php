@@ -3,7 +3,7 @@
  * Plugin Name: Ultimate Addons for Contact Form 7
  * Plugin URI: https://cf7addons.com/
  * Description: 20+ Essential Addons for Contact form 7 including Conditional Fields, Multi Step Form, Thank you page Redirection, Columns Layout, WooCommerce Integration, Star Rating Fields, Range Slider and many more stunning Addons, all in one.
- * Version: 3.1.11
+ * Version: 3.1.12
  * Author: Themefic
  * Author URI: https://themefic.com/
  * License: GPL-2.0+
@@ -28,6 +28,11 @@ class Ultimate_Addons_CF7 {
         define( 'UACF7_URL', plugin_dir_url( __FILE__ ) );
         define( 'UACF7_ADDONS', UACF7_URL.'addons' );
         define( 'UACF7_PATH', plugin_dir_path( __FILE__ ) );
+
+        
+        if ( ! class_exists( 'Appsero\Client' ) ) {
+            require_once ( __DIR__ . '/inc/app/src/Client.php');
+        }
         
         //Plugin loaded
         add_action( 'plugins_loaded', array( $this, 'uacf7_plugin_loaded' ) );
@@ -113,21 +118,18 @@ class Ultimate_Addons_CF7 {
      * @return void
      */
     public function appsero_init_tracker_ultimate_addons_for_contact_form_7() {
-
-        if ( ! class_exists( 'Appsero\Client' ) ) {
-            require_once ( __DIR__ . '/inc/app/src/Client.php');
-        }
-
+ 
         $client = new Appsero\Client( '7d0e21bd-f697-4c80-8235-07b65893e0dd', 'ultimate-addons-for-contact-form-7', __FILE__ );
+
+        // Change Admin notice text
+
+        $notice = sprintf( $client->__trans( 'I agree to get Important Product Updates & Discount related information on my email from  %1$s (I can unsubscribe anytime).' ), $client->name ); 
+        $client->insights()->notice($notice); 
 
         // Active insights
         $client->insights()->init();
 
-    }
-
-   
-    
-    
+    } 
 }
 
 /*
