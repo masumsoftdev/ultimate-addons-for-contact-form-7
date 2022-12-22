@@ -464,7 +464,7 @@ class uacf7_form_List_Table extends WP_List_Table{
         }  
 
         // Checked Star Review Status
-        if($this->uacf7_star_review_status($form_id) == true){ $columns['is_review'] = 'Is Review'; }
+        if($this->uacf7_star_review_status($form_id) == true){ $columns['review_publish'] = 'Review Publish'; }
 
         $columns['action'] = 'Action';
         return $columns;
@@ -532,7 +532,7 @@ class uacf7_form_List_Table extends WP_List_Table{
            // Checked Star Review Status
            if($this->uacf7_star_review_status($form_id) == true){
             $checked = $fdata->is_review == 1 ? 'checked' : '';
-            $f_data['is_review'] = '<label class="uacf7-admin-toggle1 uacf7_star_label" for="uacf7_review_status_'.$fdata->id.'">
+            $f_data['review_publish'] = '<label class="uacf7-admin-toggle1 uacf7_star_label" for="uacf7_review_status_'.$fdata->id.'">
                 <input type="checkbox" class="uacf7-admin-toggle__input star_is_review" value="'.$fdata->id.'"  name="uacf7_review_status_'.$fdata->id.'" id="uacf7_review_status_'.$fdata->id.'" '.$checked.'>
                 <span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
             </label>';
