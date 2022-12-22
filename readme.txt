@@ -355,7 +355,7 @@ Just install our Plugin. It will only take 5 mins to create such a form.</a>.
 
 =  3.1.12 – 22/12/2022  = 
 
-- Fixed: Star rating review Database feature added
+- Added: Star rating review page(pro)
 - Fixed: Star review issue 
 - Fixed: PDF generator Checkbox and Radio issue
 
