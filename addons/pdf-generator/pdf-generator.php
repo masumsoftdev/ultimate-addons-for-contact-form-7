@@ -153,6 +153,14 @@ class UACF7_PDF_GENERATOR {
        $form_value =  json_decode($data->form_value); 
         foreach($form_value as $key => $value){
             $replace_key[] = '['.$key.']';
+            if( is_array($value)){
+                $data = '';
+                $count_value = count($value);
+                for ($x = 0; $x < $count_value ; $x++) {
+                    $data .= $value[$x].', '; 
+                } 
+                $value = $data;
+            }
             $replace_value[] = $value;
         }  
 
@@ -280,6 +288,16 @@ class UACF7_PDF_GENERATOR {
             foreach($contact_form_data as $key => $value){
                 if(!in_array($key, $uploaded_files)){ 
                     $replace_key[] = '['.$key.']';
+
+                    if( is_array($value)){
+                        $data = '';
+                        $count_value = count($value);
+                        for ($x = 0; $x < $count_value ; $x++) {
+                            $data .= $value[$x].', '; 
+                        } 
+                        $value = $data;
+                    }
+
                     $replace_value[] = $value;
                 }
                 
