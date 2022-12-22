@@ -454,8 +454,12 @@ class uacf7_form_List_Table extends WP_List_Table{
         
         $columns = [];
         $columns['cb']      = '<input type="checkbox" />';  
-        $count = 1; 
-        for ($x = 0; $x <= 4; $x++) { 
+        if(count($form_fields) > 4){
+            $count = 4;
+        }else{
+            $count = count($form_fields);
+        }  
+        for ($x = 0; $x < $count; $x++) { 
             
           if($form_fields[$x]['type'] != 'submit' && $form_fields[$x]['type'] !='uacf7_step_start' && $form_fields[$x]['type'] !='uacf7_step_end' && $form_fields[$x]['type'] !='uarepeater' ){
             
