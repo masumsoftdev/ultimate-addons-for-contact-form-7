@@ -119,12 +119,12 @@ class Ultimate_Addons_CF7 {
      */
     public function appsero_init_tracker_ultimate_addons_for_contact_form_7() {
  
-        $client = new Appsero\Client( '7d0e21bd-f697-4c80-8235-07b65893e0dd', 'ultimate-addons-for-contact-form-7', __FILE__ );
+        $client = new Appsero\Client( '7d0e21bd-f697-4c80-8235-07b65893e0dd', 'Ultimate Addons for Contact Form 7', __FILE__ );
 
         // Change Admin notice text
 
-        $notice = sprintf( $client->__trans( 'I agree to get Important Product Updates & Discount related information on my email from  %1$s (I can unsubscribe anytime).' ), $client->name ); 
-        $client->insights()->notice($notice); 
+        $notice = sprintf( $client->__trans( 'Want to help make <strong>%1$s</strong> even more awesome? Allow %1$s to collect non-sensitive diagnostic data and usage information. I agree to get Important Product Updates & Discount related information on my email from  %1$s (I can unsubscribe anytime).' ), $client->name ); 
+	$client->insights()->notice($notice); 
 
         // Active insights
         $client->insights()->init();
