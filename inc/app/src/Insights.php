@@ -105,9 +105,7 @@ class Insights {
      * @return \self
      */
     public function notice($text='' ) {
-        $this->notice = sprintf( 
-            __( 'I agree to get Important Product Updates & Discount related information on my email from Themefic (I can unsubscribe anytime).', 'ultimate-addons-cf7' )
-        );
+        $this->notice = $text;
 
         return $this;
     }
