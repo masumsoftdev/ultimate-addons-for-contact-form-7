@@ -52,7 +52,7 @@ class UACF7_Placeholder {
         <div class="uacf7-doc-notice">
             <?php echo sprintf( 
                 __( 'Not sure how to set this? Check our step by step %1s .', 'ultimate-addons-cf7' ),
-                '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/placeholder-styler-for-contact-form-7/" target="_blank">documentation</a>',   
+                '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/placeholder-styler-for-contact-form-7/" target="_blank">documentation</a>'   
             ); ?>
             </div>
         <fieldset>
@@ -107,7 +107,7 @@ class UACF7_Placeholder {
                 <p>
                     <?php echo sprintf( 
                         __( 'NNeed more placeholder or other options? Let us know %1s .', 'ultimate-addons-cf7' ),
-                        '<a href="https://themefic.com/contact/" target="_blank">here</a>',   
+                        '<a href="https://themefic.com/contact/" target="_blank">here</a>'  
                     ); ?>
                 </p>
            </div>
