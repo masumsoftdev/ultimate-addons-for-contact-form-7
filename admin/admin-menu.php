@@ -183,7 +183,7 @@ class UACF7_Admin_Menu {
 			__( 'Dynamic Text', 'ultimate-addons-cf7' ), // title
 			array( $this, 'uacf7_enable_dynamic_text_callback' ), // callback
 			'ultimate-addons-admin', // page
-			'uacf7_setting_section' // section
+			'uacf7_setting_section_fields' // section
 		);
 
         add_settings_field(
@@ -191,7 +191,7 @@ class UACF7_Admin_Menu {
 			__( 'Pre-populate Field', 'ultimate-addons-cf7' ), // title
 			array( $this, 'uacf7_enable_pre_populate_field_callback' ), // callback
 			'ultimate-addons-admin', // page
-			'uacf7_setting_section' // section
+			'uacf7_setting_section_fields' // section
 		);
         add_settings_field(
 			'uacf7_enable_database_field', // id
@@ -207,6 +207,14 @@ class UACF7_Admin_Menu {
 			'ultimate-addons-admin', // page
 			'uacf7_setting_section' // section
 		);
+		 add_settings_field(
+			'uacf7_enable_conventional_form', // id
+			__( 'Conventional Form', 'ultimate-addons-cf7' ), // title
+			array( $this, 'uacf7_enable_conventional_form_callback' ), // callback
+			'ultimate-addons-admin', // page
+			'uacf7_setting_section' // section
+		);
+        
 
         add_settings_section(
 			'uacf7_setting_section_fields', // id
@@ -554,6 +562,19 @@ class UACF7_Admin_Menu {
 		);
 	}
     
+	/*
+    * Field - Enable post submission
+    */
+    public function uacf7_enable_conventional_form_callback() {
+		printf(
+			'<label class="uacf7-admin-toggle" for="uacf7_enable_conventional_form">
+				<input type="checkbox" class="uacf7-admin-toggle__input" name="uacf7_option_name[uacf7_enable_conventional_form]" id="uacf7_enable_conventional_form" %s>
+				<span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
+			</label> 
+			<span class="uacf7-post-sub-pro-link"><a style="color:red" target="_blank" href="https://cf7addons.com/preview/post-submission/">(Pro Addon)</a></span>', uacf7_checked('uacf7_enable_conventional_form')
+		);
+	}
+
     /*
     * Field - Enable star rating
     */
