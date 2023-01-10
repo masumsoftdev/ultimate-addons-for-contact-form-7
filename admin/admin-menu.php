@@ -357,6 +357,9 @@ class UACF7_Admin_Menu {
         if ( isset( $input['uacf7_enable_pdf_generator_field'] ) ) {
 			$sanitary_values['uacf7_enable_pdf_generator_field'] = $input['uacf7_enable_pdf_generator_field'];
 		}
+		if ( isset( $input['uacf7_enable_conventional_form'] ) && class_exists('UACF7_CONVERSATIONAL_FORM_PRO') ) {
+			$sanitary_values['uacf7_enable_conventional_form'] = $input['uacf7_enable_conventional_form'];
+		}
 		if ( isset( $input['uacf7_enable_booking_form'] ) ) {
 			$sanitary_values['uacf7_enable_booking_form'] = $input['uacf7_enable_booking_form'];
 		}
@@ -566,12 +569,20 @@ class UACF7_Admin_Menu {
     * Field - Enable post submission
     */
     public function uacf7_enable_conventional_form_callback() {
+		if(class_exists('UACF7_CONVERSATIONAL_FORM_PRO')){
+			$uacf7_enable_conventional_checked = uacf7_checked('uacf7_enable_conventional_form');
+			$pro = '';
+		}else{
+			$uacf7_enable_conventional_checked = '';
+			$pro = '<span class="uacf7-bf-pro-link"><a style="color:red" target="_blank" href="https://cf7addons.com/preview/booking-form">(Pro Addon)</a></span>';
+		}
+		
 		printf(
 			'<label class="uacf7-admin-toggle" for="uacf7_enable_conventional_form">
 				<input type="checkbox" class="uacf7-admin-toggle__input" name="uacf7_option_name[uacf7_enable_conventional_form]" id="uacf7_enable_conventional_form" %s>
 				<span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
 			</label> 
-			<span class="uacf7-post-sub-pro-link"><a style="color:red" target="_blank" href="https://cf7addons.com/preview/post-submission/">(Pro Addon)</a></span>', uacf7_checked('uacf7_enable_conventional_form')
+			'.$pro, $uacf7_enable_conventional_checked
 		);
 	}
 

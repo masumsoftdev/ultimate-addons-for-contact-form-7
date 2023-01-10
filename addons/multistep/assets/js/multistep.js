@@ -117,6 +117,7 @@ jQuery(document).ready(function () {
             }
             
         }     
+        console.log(uacf7_current_step_fields);
         var data = fields_to_check_serialized +
             '&' + 'action=' + 'check_fields_validation' + 
             '&' + 'form_id=' +form_id+
