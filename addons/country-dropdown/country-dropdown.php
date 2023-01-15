@@ -79,7 +79,7 @@ class UACF7_COUNTRY_DROPDOWN {
 		?>
 		<span id="uacf7_country_select" class="wpcf7-form-control-wrap <?php echo sanitize_html_class( $tag->name ); ?>">
 		
-			<input id="uacf7_countries_<?php echo esc_attr($tag->name); ?>" type="text" <?php echo $atts; ?> <?php echo do_action('uacf7_country_dropdown_atts', $tag); ?> >
+			<input id="uacf7_countries_<?php echo esc_attr($tag->name); ?>" type="text" <?php echo $atts; ?> >
 			<span><?php echo $validation_error; ?></span>
 		
 			<div style="display:none;">

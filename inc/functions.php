@@ -211,12 +211,10 @@ function uacf7_add_wrapper_to_cf7_form($properties, $cfform) {
 /**
  * Black Friday Deals 2022
  */
-
-
 if(!function_exists('uacf7_black_friday_20222_admin_notice')){
 	function uacf7_black_friday_20222_admin_notice(){
 		$deal_link =sanitize_url('https://themefic.com/go/uacf7-bf-deal');
-		$get_current_screen = get_current_screen();  
+		// $get_current_screen = get_current_screen();  
 		if(!isset($_COOKIE['uacf7_dismiss_admin_notice']) && $get_current_screen->base == 'dashboard'){ 
             ?>
             <style> 
@@ -352,5 +350,97 @@ if(!function_exists('uacf7_black_friday_2022_callback')){
     }
     add_action( 'wp_ajax_uacf7_black_friday_notice_cf7_dismiss_callback', 'uacf7_black_friday_notice_cf7_dismiss_callback' );
      
+}
+
+if(!function_exists('uacf7_review_activation_status')){
+    function uacf7_review_activation_status(){ 
+        $uacf7_installation_date = get_option('uacf7_installation_date'); 
+        if( !isset($_COOKIE['uacf7_installation_date']) && empty($uacf7_installation_date) && $uacf7_installation_date == 0){
+            setcookie('uacf7_installation_date', 1, time() + (86400 * 3), "/"); 
+        }else{
+            update_option( 'uacf7_installation_date', '1' );
+        }
+    }
+    add_action('admin_init', 'uacf7_review_activation_status');
+}
+
+// dashicons dashicons-dismiss 00718A
+if(!function_exists('uacf7_review_notice')){
+    
+     function uacf7_review_notice(){ 
+        $get_current_screen = get_current_screen();  
+        if($get_current_screen->base == 'dashboard'){
+            $current_user = wp_get_current_user();
+        ?>
+            <div class="notice notice-info themefic_review_notice"> 
+               
+                <?php echo sprintf( 
+                        __( ' <p>Howdy %s,  👋 If you are enjoying using %s 🎉, feel free to leave a 5* Review on the WordPress Forum.</p>', 'ultimate-addons-cf7' ),
+                        $current_user->user_login,
+                        'Ultimate Addons for Contact Form 7'
+                    ); ?> 
+                <ul>
+                    <li><a target="_blank" href="<?php echo esc_url('https://wordpress.org/plugins/ultimate-addons-for-contact-form-7/#reviews') ?>" class=""><span class="dashicons dashicons-external"></span><?php _e(' Ok, you deserve it!', 'ultimate-addons-cf7' ) ?></a></li>
+                    <li><a href="#" class="already_done" data-status="already"><span class="dashicons dashicons-smiley"></span> <?php _e('I already did', 'ultimate-addons-cf7') ?></a></li>
+                    <li><a href="#" class="later" data-status="later"><span class="dashicons dashicons-calendar-alt"></span> <?php _e('Maybe Later', 'ultimate-addons-cf7') ?></a></li>
+                    <li><a target="_blank"  href="<?php echo esc_url('https://themefic.com/docs/ultimate-addons-for-contact-form-7/') ?>" class=""><span class="dashicons dashicons-sos"></span> <?php _e('I need help', 'ultimate-addons-cf7') ?></a></li>
+                    <li><a href="#" class="never" data-status="never"><span class="dashicons dashicons-dismiss"></span><?php _e('Never show again', 'ultimate-addons-cf7') ?> </a></li> 
+                </ul>
+            </div>
+
+            <script>
+                jQuery(document).ready(function($) {
+                    $(document).on('click', '.already_done, .later, .never', function( event ) {
+                        event.preventDefault();
+                        var $this = jQuery(this);
+                        var status = $this.attr('data-status'); 
+                        $this.closest('.themefic_review_notice').css('display', 'none')
+                        data = {
+                            action : 'uacf7_review_notice_callback',
+                            status : status,
+                        };
+
+                        $.ajax({
+                            url: ajaxurl,
+                            type: 'post',
+                            data: data,
+                            success: function (data) { ;
+                            },
+                            error: function (data) { 
+                            }
+                        });
+                    });
+                });
+            </script>
+        <?php  
+        }
+     }
+     $uacf7_review_notice_status = get_option('uacf7_review_notice_status'); 
+     $uacf7_installation_date = get_option('uacf7_installation_date'); 
+     if(isset($uacf7_review_notice_status) && $uacf7_review_notice_status <= 0 && $uacf7_installation_date == 1 && !isset($_COOKIE['uacf7_review_notice_status']) && !isset($_COOKIE['uacf7_installation_date'])){
+       
+        add_action( 'admin_notices', 'uacf7_review_notice' );  
+     }
+     
+}
+
+
+
+if(!function_exists('uacf7_review_notice_callback')){
+    function uacf7_review_notice_callback(){
+        $status = $_POST['status'];
+        if( $status == 'already'){ 
+            update_option( 'uacf7_review_notice_status', '1' );
+        }else if($status == 'never'){ 
+            update_option( 'uacf7_review_notice_status', '2' );
+        }else if($status == 'later'){
+            $cookie_name = "uacf7_review_notice_status";
+            $cookie_value = "1";
+            setcookie($cookie_name, $cookie_value, time() + (86400 * 7), "/"); 
+            update_option( 'uacf7_review_notice_status', '0' ); 
+        }  
+        wp_die();
+    }
+    add_action( 'wp_ajax_uacf7_review_notice_callback', 'uacf7_review_notice_callback' );
 }
 
