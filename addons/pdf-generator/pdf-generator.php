@@ -47,10 +47,7 @@ class UACF7_PDF_GENERATOR {
         // require UACF7_PATH . 'third-party/vendor/autoload.php';
 
     } 
- 
-    // public function wpcf7_before_send_mail($post){
-    //     exit;
-    // }
+  
     public function uacf7_get_generated_pdf($form_id, $data_id){ 
         require UACF7_PATH . 'third-party/vendor/autoload.php';
         $enable_pdf = !empty(get_post_meta( $form_id, 'uacf7_enable_pdf_generator', true )) ? get_post_meta( $form_id, 'uacf7_enable_pdf_generator', true ) : '';
@@ -375,8 +372,7 @@ class UACF7_PDF_GENERATOR {
         <div class="uacf7-doc-notice">Not sure how to set this? Check our step by step <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/pdf-generator/" target="_blank">documentation</a>.</div>
         <fieldset>
            <div class="ultimate-placeholder-admin pdf-generator-admin">
-               <div class="ultimate-placeholder-wrapper pdf-generator-wrap">
-                  <img src="" alt="">
+               <div class="ultimate-placeholder-wrapper pdf-generator-wrap"> 
                   <h3> Option</h3>
                   <div class="uacf7pdf-twocolumns">
                        <h4><?php _e('Enable PDF Generator', 'ultimate-addons-cf7'); ?></h4>
