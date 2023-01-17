@@ -352,11 +352,14 @@ if(!function_exists('uacf7_black_friday_2022_callback')){
      
 }
 
+
+// Themefic Plugin Set Admin Notice Status
 if(!function_exists('uacf7_review_activation_status')){
+
     function uacf7_review_activation_status(){ 
         $uacf7_installation_date = get_option('uacf7_installation_date'); 
         if( !isset($_COOKIE['uacf7_installation_date']) && empty($uacf7_installation_date) && $uacf7_installation_date == 0){
-            setcookie('uacf7_installation_date', 1, time() + (86400 * 3), "/"); 
+            setcookie('uacf7_installation_date', 1, time() + (86400 * 7), "/"); 
         }else{
             update_option( 'uacf7_installation_date', '1' );
         }
@@ -364,7 +367,7 @@ if(!function_exists('uacf7_review_activation_status')){
     add_action('admin_init', 'uacf7_review_activation_status');
 }
 
-// dashicons dashicons-dismiss 00718A
+// Themefic Plugin Review Admin Notice
 if(!function_exists('uacf7_review_notice')){
     
      function uacf7_review_notice(){ 
@@ -375,10 +378,11 @@ if(!function_exists('uacf7_review_notice')){
             <div class="notice notice-info themefic_review_notice"> 
                
                 <?php echo sprintf( 
-                        __( ' <p>Howdy %s,  👋 If you are enjoying using %s 🎉, feel free to leave a 5* Review on the WordPress Forum.</p>', 'ultimate-addons-cf7' ),
+                        __( ' <p>Hey %1$s 👋, You have been using %2$s for quite a while. If you feel %2$s is helping your business to grow in any way, would you please help %2$s to grow by simply leaving a 5* review on the WordPress Forum?', 'ultimate-addons-cf7' ),
                         $current_user->user_login,
                         'Ultimate Addons for Contact Form 7'
                     ); ?> 
+                
                 <ul>
                     <li><a target="_blank" href="<?php echo esc_url('https://wordpress.org/plugins/ultimate-addons-for-contact-form-7/#reviews') ?>" class=""><span class="dashicons dashicons-external"></span><?php _e(' Ok, you deserve it!', 'ultimate-addons-cf7' ) ?></a></li>
                     <li><a href="#" class="already_done" data-status="already"><span class="dashicons dashicons-smiley"></span> <?php _e('I already did', 'ultimate-addons-cf7') ?></a></li>
@@ -388,6 +392,7 @@ if(!function_exists('uacf7_review_notice')){
                 </ul>
             </div>
 
+            <!--   Themefic Plugin Review Admin Notice Script -->
             <script>
                 jQuery(document).ready(function($) {
                     $(document).on('click', '.already_done, .later, .never', function( event ) {
@@ -417,16 +422,16 @@ if(!function_exists('uacf7_review_notice')){
      }
      $uacf7_review_notice_status = get_option('uacf7_review_notice_status'); 
      $uacf7_installation_date = get_option('uacf7_installation_date'); 
-     if(isset($uacf7_review_notice_status) && $uacf7_review_notice_status <= 0 && $uacf7_installation_date == 1 && !isset($_COOKIE['uacf7_review_notice_status']) && !isset($_COOKIE['uacf7_installation_date'])){
-       
+     if(isset($uacf7_review_notice_status) && $uacf7_review_notice_status <= 0 && $uacf7_installation_date == 1 && !isset($_COOKIE['uacf7_review_notice_status']) && !isset($_COOKIE['uacf7_installation_date'])){ 
         add_action( 'admin_notices', 'uacf7_review_notice' );  
      }
      
 }
 
-
-
+ 
+// Themefic Plugin Review Admin Notice Ajax Callback 
 if(!function_exists('uacf7_review_notice_callback')){
+
     function uacf7_review_notice_callback(){
         $status = $_POST['status'];
         if( $status == 'already'){ 
@@ -442,5 +447,6 @@ if(!function_exists('uacf7_review_notice_callback')){
         wp_die();
     }
     add_action( 'wp_ajax_uacf7_review_notice_callback', 'uacf7_review_notice_callback' );
+
 }
 
