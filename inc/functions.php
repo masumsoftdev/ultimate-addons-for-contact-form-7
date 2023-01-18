@@ -378,7 +378,7 @@ if(!function_exists('uacf7_review_notice')){
             <div class="notice notice-info themefic_review_notice"> 
                
                 <?php echo sprintf( 
-                        __( ' <p>Hey %1$s 👋, You have been using %2$s for quite a while. If you feel %2$s is helping your business to grow in any way, would you please help %2$s to grow by simply leaving a 5* review on the WordPress Forum?', 'ultimate-addons-cf7' ),
+                        __( ' <p>Hey %1$s 👋, You have been using <b>%2$s</b> for quite a while. If you feel %2$s is helping your business to grow in any way, would you please help %2$s to grow by simply leaving a 5* review on the WordPress Forum?', 'ultimate-addons-cf7' ),
                         $current_user->display_name,
                         'Ultimate Addons for Contact Form 7'
                     ); ?> 
@@ -390,7 +390,7 @@ if(!function_exists('uacf7_review_notice')){
                     <li><a target="_blank"  href="<?php echo esc_url('https://themefic.com/docs/ultimate-addons-for-contact-form-7/') ?>" class=""><span class="dashicons dashicons-sos"></span> <?php _e('I need help', 'ultimate-addons-cf7') ?></a></li>
                     <li><a href="#" class="never" data-status="never"><span class="dashicons dashicons-dismiss"></span><?php _e('Never show again', 'ultimate-addons-cf7') ?> </a></li> 
                 </ul>
-                <button type="button" class="notice-dismiss review_notice_dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button>
+                <button type="button" class="notice-dismiss review_notice_dismiss"><span class="screen-reader-text"><?php _e('Dismiss this notice.', 'ultimate-addons-cf7') ?></span></button>
             </div>
 
             <!--   Themefic Plugin Review Admin Notice Script -->
