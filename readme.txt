@@ -357,6 +357,7 @@ Just install our Plugin. It will only take 5 mins to create such a form.</a>.
 
 - Added: Review Admin Notice
 - Improved: CSS Code
+- Fixed: Country Dropdown Autocomplete Issue(Pro)
 
 =  3.1.14 – 10/01/2023  = 
 
