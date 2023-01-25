@@ -318,6 +318,9 @@ class UACF7_PDF_GENERATOR {
             } 
 
             $pdf_content = str_replace($replace_key, $replace_value, $customize_pdf);
+            
+            // Replace PDF Name
+            $uacf7_pdf_name = str_replace($replace_key, $replace_value, $uacf7_pdf_name);
 
             $mpdf->SetTitle($uacf7_pdf_name);
 
@@ -325,8 +328,8 @@ class UACF7_PDF_GENERATOR {
             $mpdf->WriteHTML($pdf_style.'<div class="pdf-content">'.$pdf_content.'   </div>');
 
             $pdf_url = $dir.'/uacf7-uploads/'.$uacf7_pdf_name.'.pdf';
-            $mpdf->Output($pdf_url, 'F'); // save to databaes 
-           
+            $mpdf->Output($pdf_url, 'D'); // save to databaes 
+           exit;
             $components['attachments'][] = $pdf_url;
             
         }
