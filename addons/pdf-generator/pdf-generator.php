@@ -20,7 +20,9 @@ class UACF7_PDF_GENERATOR {
         // add_action( 'wpcf7_before_send_mail', array( $this, 'wpcf7_before_send_mail' ) );   
         
         add_filter( 'wpcf7_mail_components', array( $this, 'mycustom_wpcf7_mail_components' ) );   
-        add_filter( 'uacf7_get_generated_pdf', array( $this, 'uacf7_get_generated_pdf' ), 10, 2 );   
+        add_filter( 'uacf7_get_generated_pdf', array( $this, 'uacf7_get_generated_pdf' ), 10, 2 ); 
+
+        add_filter( 'wpcf7_load_js', '__return_false' );
         
     } 
 
@@ -288,8 +290,16 @@ class UACF7_PDF_GENERATOR {
             foreach($contact_form_data as $key => $value){
                 if(!in_array($key, $uploaded_files)){ 
                     $replace_key[] = '['.$key.']';
-
+                    if (strpos($key, '__') !== false) {
+                        $name_parts = explode('__', $key);
+                        // echo "<pre>"; print_r($name_parts); echo "</pre>";exit;
+                        if(is_array($name_parts)){
+                            $repeater_value[$name_parts[0]][$name_parts[1]] = $name_parts[0];  
+                        }
+                    }
+                    
                     if( is_array($value)){
+                        
                         $data = '';
                         $count_value = count($value);
                         for ($x = 0; $x < $count_value ; $x++) {
@@ -300,7 +310,6 @@ class UACF7_PDF_GENERATOR {
 
                     $replace_value[] = $value;
                 }
-                
                 
             }
             
@@ -317,8 +326,62 @@ class UACF7_PDF_GENERATOR {
                 
             } 
 
+// echo '<pre>';
+            // print_r($repeaters);
+            // echo '</pre>';
+            // exit;
+            $repeaters = json_decode(stripslashes($_POST['_uacf7_repeaters']));
+            if(isset($repeaters) || is_array($repeaters)){
+                foreach ($repeaters as $key => $value) { 
+                    $starting_word = '['.$value.']';
+                    $ending_word = '[/'.$value.']';
+                    $str = $customize_pdf;
+
+                    $subtring_start = strpos($str, $starting_word);
+                    $subtring_start += strlen($starting_word); 
+                    $size = strpos($str, $ending_word, $subtring_start) - $subtring_start; 
+
+                    $content = substr($str, $subtring_start, $size);
+                    
+
+                    $repeater_data[$value]['start'] = '['.$value.']';
+                    $repeater_data[$value]['end'] = '[/'.$value.']';
+                    $repeater_data[$value]['title'] = '['.$value.':title]';
+                    $repeater_data[$value]['content'] =  $content;
+                    
+                    $replace_keys= [];
+                    
+                }
+                $repeater = '';
+                foreach($repeater_data as $key => $value){ 
+                  
+                    $customize_pdf = str_replace($value['start'], '<div>', $customize_pdf);
+                    $customize_pdf = str_replace($value['end'], '</div>', $customize_pdf);
+                    $repeater_data[$key]['count'] = '';
+                    #empty field before loop start 
+                    foreach($repeater_value as $r_key => $r_value){  
+                        if (strpos($value['content'], '['.$r_key.']') !== false) { 
+                            $repeater_data[$key]['count'] = count($r_value);  
+                            $repeater_data[$key]['field'][$r_key] = $r_key; 
+                        }     
+                    }
+                    for ($x = 1; $x <= $repeater_data[$key]['count'] ; $x++) { 
+                        
+                        $str = str_replace($value['title'], $x, $value['content']);
+                        $repeater .= str_replace(']', '__'.$x .']', $str);
+                    }
+                    $customize_pdf = str_replace($value['content'], $repeater, $customize_pdf);
+                }
+                 
+            }
+           
+          
+            echo '<pre>';
+            print_r($repeater_data);
+            echo '</pre>';
+            exit;
             $pdf_content = str_replace($replace_key, $replace_value, $customize_pdf);
-            
+
             // Replace PDF Name
             $uacf7_pdf_name = str_replace($replace_key, $replace_value, $uacf7_pdf_name);
 
