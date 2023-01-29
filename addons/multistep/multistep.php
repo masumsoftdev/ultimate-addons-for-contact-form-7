@@ -63,9 +63,6 @@ class UACF7_MULTISTEP {
        
     } 
     function uacf7_multistep_progressbar($tag){
-        echo "<pre>";
-        print_r($tag);
-        echo "</pre>";
         ob_start();
 		$form_current = \WPCF7_ContactForm::get_current(); 
 		$all_steps = get_post_meta( $form_current->id(), 'uacf7_multistep_steps_title', true );
