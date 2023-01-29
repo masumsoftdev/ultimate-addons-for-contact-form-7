@@ -44,17 +44,18 @@ class UACF7_MULTISTEP {
         return ob_get_clean();
     } 
     function step_end_tag_handler($tag){
-        ob_start();
+        ob_start();  
         $form_current = \WPCF7_ContactForm::get_current();
         ?>
         <p>
-        	<button class="uacf7-prev" data-form-id="<?php echo $form_current->id(); ?>" ><?php echo esc_html__('Previous', 'ultimate-addons-cf7'); ?></button>
-			<button class="uacf7-next" data-form-id="<?php echo $form_current->id(); ?>"><?php echo esc_html__('Next', 'ultimate-addons-cf7'); ?></button>
-			<span class="wpcf7-spinner uacf7-ajax-loader"></span>
+            <button class="uacf7-prev" data-form-id="<?php echo $form_current->id(); ?>" ><?php echo esc_html__('Previous', 'ultimate-addons-cf7'); ?></button>
+            <button class="uacf7-next" data-form-id="<?php echo $form_current->id(); ?>"><?php echo esc_html__('Next', 'ultimate-addons-cf7'); ?></button>
+            <span class="wpcf7-spinner uacf7-ajax-loader"></span>
         </p>
         </div>
         <?php
         return ob_get_clean();
+       
     } 
     function uacf7_multistep_progressbar($tag){
         ob_start();
@@ -146,7 +147,7 @@ class UACF7_MULTISTEP {
 
         <div class="insert-box">
             <input type="text" name="<?php echo esc_attr($uacf7_field_type); ?>" class="tag code" readonly="readonly" onfocus="this.select()" />
-
+      
             <div class="submitbox">
                 <input type="button" class="button button-primary insert-tag" value="<?php echo esc_attr( __( 'Insert Tag', 'ultimate-addons-cf7' ) ); ?>" />
             </div>
@@ -162,6 +163,16 @@ class UACF7_MULTISTEP {
         <div class="control-box">
             <fieldset>
                 <legend><?php echo esc_html__( "Multistep end", "ultimate-addons-cf7" ); ?></legend>
+                <table class="form-table">
+                    <tbody> 
+                        <tr>
+                            <th scope="row"><label><?php echo esc_html( __( 'Name', 'ultimate-addons-cf7' ) ); ?></label></th>
+                            <td>
+                               <input type="text" name="name" readonly="readonly" class="tg-name oneline" value="end"> 
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </fieldset>
         </div>
 
