@@ -21,8 +21,7 @@ class UACF7_PDF_GENERATOR {
         
         add_filter( 'wpcf7_mail_components', array( $this, 'mycustom_wpcf7_mail_components' ) );   
         add_filter( 'uacf7_get_generated_pdf', array( $this, 'uacf7_get_generated_pdf' ), 10, 2 ); 
-
-        add_filter( 'wpcf7_load_js', '__return_false' );
+ 
         
     } 
 
@@ -327,8 +326,8 @@ class UACF7_PDF_GENERATOR {
                 
             } 
  
-            $repeaters = json_decode(stripslashes($_POST['_uacf7_repeaters']));
-            
+            // Repeater value
+            $repeaters = json_decode(stripslashes($_POST['_uacf7_repeaters'])); 
             if(isset($repeaters) || is_array($repeaters)){
                 $repeater_data = apply_filters('uacf7_pdf_generator_replace_data', $repeater_value, $repeaters, $customize_pdf);
                 $customize_pdf = str_replace($repeater_data['replace_re_key'], $repeater_data['replace_re_value'], $customize_pdf);
@@ -346,8 +345,7 @@ class UACF7_PDF_GENERATOR {
             $mpdf->WriteHTML($pdf_style.'<div class="pdf-content">'.$pdf_content.'   </div>');
 
             $pdf_url = $dir.'/uacf7-uploads/'.$uacf7_pdf_name.'.pdf';
-            $mpdf->Output($pdf_url, 'D'); // save to databaes 
-           exit;
+            $mpdf->Output($pdf_url, 'F'); // save to databaes 
             $components['attachments'][] = $pdf_url;
             
         }
