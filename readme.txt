@@ -355,7 +355,7 @@ Just install our Plugin. It will only take 5 mins to create such a form.</a>.
 
 =  3.1.16 – 29/01/2023  = 
 
-- Fixed:  CF7 - 5.7.3 Multistep Closing tag issue fixed
+- Fixed:  CF7 - 5.7.3 Multistep Closing tag issue fixed( replace end tag with [uacf7_step_end end] )
 - Added:  PDF Generator with repeater  addon Feature added (pro)
 
 =  3.1.15 – 18/01/2023  = 
