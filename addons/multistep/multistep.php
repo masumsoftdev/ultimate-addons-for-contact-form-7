@@ -44,19 +44,28 @@ class UACF7_MULTISTEP {
         return ob_get_clean();
     } 
     function step_end_tag_handler($tag){
-        ob_start();
-        $form_current = \WPCF7_ContactForm::get_current();
-        ?>
-        <p>
-        	<button class="uacf7-prev" data-form-id="<?php echo $form_current->id(); ?>" ><?php echo esc_html__('Previous', 'ultimate-addons-cf7'); ?></button>
-			<button class="uacf7-next" data-form-id="<?php echo $form_current->id(); ?>"><?php echo esc_html__('Next', 'ultimate-addons-cf7'); ?></button>
-			<span class="wpcf7-spinner uacf7-ajax-loader"></span>
-        </p>
-        </div>
-        <?php
-        return ob_get_clean();
+        # Cancels form-tag conversion if the tag is not in the valid format.
+        $tag = new WPCF7_FormTag( $tag );
+        if ( empty( $tag->name ) ) {
+            ob_start(); 
+
+            $form_current = \WPCF7_ContactForm::get_current();
+            ?>
+            <p>
+                <button class="uacf7-prev" data-form-id="<?php echo $form_current->id(); ?>" ><?php echo esc_html__('Previous', 'ultimate-addons-cf7'); ?></button>
+                <button class="uacf7-next" data-form-id="<?php echo $form_current->id(); ?>"><?php echo esc_html__('Next', 'ultimate-addons-cf7'); ?></button>
+                <span class="wpcf7-spinner uacf7-ajax-loader"></span>
+            </p>
+            </div>
+            <?php
+            return ob_get_clean();
+        }
+       
     } 
     function uacf7_multistep_progressbar($tag){
+        echo "<pre>";
+        print_r($tag);
+        echo "</pre>";
         ob_start();
 		$form_current = \WPCF7_ContactForm::get_current(); 
 		$all_steps = get_post_meta( $form_current->id(), 'uacf7_multistep_steps_title', true );

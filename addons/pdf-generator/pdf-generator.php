@@ -290,9 +290,10 @@ class UACF7_PDF_GENERATOR {
             foreach($contact_form_data as $key => $value){
                 if(!in_array($key, $uploaded_files)){ 
                     $replace_key[] = '['.$key.']';
+                    
+                    // Repeater value gate
                     if (strpos($key, '__') !== false) {
-                        $name_parts = explode('__', $key);
-                        // echo "<pre>"; print_r($name_parts); echo "</pre>";exit;
+                        $name_parts = explode('__', $key); 
                         if(is_array($name_parts)){
                             $repeater_value[$name_parts[0]][$name_parts[1]] = $name_parts[0];  
                         }
@@ -325,61 +326,15 @@ class UACF7_PDF_GENERATOR {
                 }
                 
             } 
-
-// echo '<pre>';
-            // print_r($repeaters);
-            // echo '</pre>';
-            // exit;
+ 
             $repeaters = json_decode(stripslashes($_POST['_uacf7_repeaters']));
+            
             if(isset($repeaters) || is_array($repeaters)){
-                foreach ($repeaters as $key => $value) { 
-                    $starting_word = '['.$value.']';
-                    $ending_word = '[/'.$value.']';
-                    $str = $customize_pdf;
-
-                    $subtring_start = strpos($str, $starting_word);
-                    $subtring_start += strlen($starting_word); 
-                    $size = strpos($str, $ending_word, $subtring_start) - $subtring_start; 
-
-                    $content = substr($str, $subtring_start, $size);
-                    
-
-                    $repeater_data[$value]['start'] = '['.$value.']';
-                    $repeater_data[$value]['end'] = '[/'.$value.']';
-                    $repeater_data[$value]['title'] = '['.$value.':title]';
-                    $repeater_data[$value]['content'] =  $content;
-                    
-                    $replace_keys= [];
-                    
-                }
-                $repeater = '';
-                foreach($repeater_data as $key => $value){ 
-                  
-                    $customize_pdf = str_replace($value['start'], '<div>', $customize_pdf);
-                    $customize_pdf = str_replace($value['end'], '</div>', $customize_pdf);
-                    $repeater_data[$key]['count'] = '';
-                    #empty field before loop start 
-                    foreach($repeater_value as $r_key => $r_value){  
-                        if (strpos($value['content'], '['.$r_key.']') !== false) { 
-                            $repeater_data[$key]['count'] = count($r_value);  
-                            $repeater_data[$key]['field'][$r_key] = $r_key; 
-                        }     
-                    }
-                    for ($x = 1; $x <= $repeater_data[$key]['count'] ; $x++) { 
-                        
-                        $str = str_replace($value['title'], $x, $value['content']);
-                        $repeater .= str_replace(']', '__'.$x .']', $str);
-                    }
-                    $customize_pdf = str_replace($value['content'], $repeater, $customize_pdf);
-                }
-                 
-            }
-           
-          
-            echo '<pre>';
-            print_r($repeater_data);
-            echo '</pre>';
-            exit;
+                $repeater_data = apply_filters('uacf7_pdf_generator_replace_data', $repeater_value, $repeaters, $customize_pdf);
+                $customize_pdf = str_replace($repeater_data['replace_re_key'], $repeater_data['replace_re_value'], $customize_pdf);
+            } 
+       
+       
             $pdf_content = str_replace($replace_key, $replace_value, $customize_pdf);
 
             // Replace PDF Name
