@@ -47,7 +47,7 @@
                             if (!form.target) {
                                 location.href = redirect_url;
                             } else {
-                                window.open(redirect_url);
+                                window.open(redirect_url , '_blank');
                             }
                         }
                     }
