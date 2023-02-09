@@ -174,8 +174,6 @@ class UACF7_PDF_GENERATOR {
         $pdf_url = $dir.'/uacf7-uploads/'.$uacf7_pdf_name.'.pdf';
         $mpdf->Output($pdf_url, 'D'); // Dwonload
         die();
-
-
     }
     function uacf7_wpcf7_mail_components( $components, $form = null, $mail = null  ) { 
        
@@ -398,7 +396,7 @@ class UACF7_PDF_GENERATOR {
         ?>
         <h2><?php echo esc_html__( 'PDF Generator', 'ultimate-addons-cf7' ); ?></h2>
         <p><?php echo esc_html__('This feature will help you to create pdf after form submission, send to mail, stored pdf into the server and export pdf form the admin.','ultimate-addons-cf7'); ?></p>
-        <div class="uacf7-doc-notice">Not sure how to set this? Check our step by step <a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/pdf-generator/" target="_blank">documentation</a>.</div>
+        <div class="uacf7-doc-notice">Not sure how to set this? Check our step by step <a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-pdf-generator/" target="_blank">documentation</a>.</div>
         <fieldset>
            <div class="ultimate-placeholder-admin pdf-generator-admin">
                <div class="ultimate-placeholder-wrapper pdf-generator-wrap">
