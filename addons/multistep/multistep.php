@@ -421,49 +421,73 @@ class UACF7_MULTISTEP {
 		if( $_POST['uacf7_progressbar_style'] == 'default' || $_POST['uacf7_progressbar_style'] == 'style-1' ) {
 			update_post_meta( $form->id(), 'uacf7_progressbar_style', sanitize_text_field($_POST['uacf7_progressbar_style']) );
 		}
-        
-        update_post_meta( $form->id(), 'uacf7_multistep_is_multistep', sanitize_text_field($_POST['uacf7_multistep_is_multistep']) );
+        if(isset($_POST['uacf7_multistep_step_height'])) {
+            update_post_meta( $form->id(), 'uacf7_multistep_is_multistep', sanitize_text_field($_POST['uacf7_multistep_is_multistep']) );
+        }
         
         $step_titles = array();
         foreach ($all_steps as $step) {
             $step_titles[] = (is_array($step->values) && !empty($step->values)) ? $step->values[0] : '';
         }
-        
-        update_post_meta( $form->id(), 'uacf7_multistep_steps_title', $step_titles );
-		
-        update_post_meta( $form->id(), 'uacf7_multistep_use_step_labels', sanitize_text_field($_POST['uacf7_multistep_use_step_labels']) );
-		
-		update_post_meta( $form->id(), 'uacf7_multistep_circle_width', sanitize_text_field($_POST['uacf7_multistep_circle_width']) );
-    
-		update_post_meta( $form->id(), 'uacf7_multistep_circle_height', sanitize_text_field($_POST['uacf7_multistep_circle_height']) );
-
-		update_post_meta( $form->id(), 'uacf7_multistep_circle_bg_color', sanitize_text_field($_POST['uacf7_multistep_circle_bg_color']) );
-
-		update_post_meta( $form->id(), 'uacf7_multistep_circle_font_color', sanitize_text_field($_POST['uacf7_multistep_circle_font_color']) );
-
-		update_post_meta( $form->id(), 'uacf7_multistep_circle_border_radious', sanitize_text_field($_POST['uacf7_multistep_circle_border_radious']) );
-
-		update_post_meta( $form->id(), 'uacf7_multistep_font_size', sanitize_text_field($_POST['uacf7_multistep_font_size']) );
-		
-		update_post_meta( $form->id(), 'uacf7_multistep_progress_bg_color', sanitize_text_field($_POST['uacf7_multistep_progress_bg_color']) );
-		
-		update_post_meta( $form->id(), 'uacf7_multistep_progress_line_color', sanitize_text_field($_POST['uacf7_multistep_progress_line_color']) );
-		
-		update_post_meta( $form->id(), 'uacf7_multistep_step_title_color', sanitize_text_field($_POST['uacf7_multistep_step_title_color']) );
-		
-		update_post_meta( $form->id(), 'uacf7_multistep_step_description_color', sanitize_text_field($_POST['uacf7_multistep_step_description_color']) );
-		
-		update_post_meta( $form->id(), 'uacf7_multistep_circle_active_color', sanitize_text_field($_POST['uacf7_multistep_circle_active_color']) );
-		
-		update_post_meta( $form->id(), 'uacf7_multistep_progressbar_title_color', sanitize_text_field($_POST['uacf7_multistep_progressbar_title_color']) );
-		
-		update_post_meta( $form->id(), 'uacf7_multistep_step_height', sanitize_text_field($_POST['uacf7_multistep_step_height']) ); 
-
+        if(!empty($step_titles)) {
+            update_post_meta( $form->id(), 'uacf7_multistep_steps_title', $step_titles );
+        } 
+		if(isset($_POST['uacf7_multistep_use_step_labels'])) { 
+            update_post_meta( $form->id(), 'uacf7_multistep_use_step_labels', sanitize_text_field($_POST['uacf7_multistep_use_step_labels']) );
+        }
+        if(isset($_POST['uacf7_multistep_circle_width'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_circle_width', sanitize_text_field($_POST['uacf7_multistep_circle_width']) );
+        }
+     
+        if(isset($_POST['uacf7_multistep_circle_height'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_circle_height', sanitize_text_field($_POST['uacf7_multistep_circle_height']) );
+        } 
+         if(isset($_POST['uacf7_multistep_circle_bg_color'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_circle_bg_color', sanitize_text_field($_POST['uacf7_multistep_circle_bg_color']) );
+        }
+        if(isset($_POST['uacf7_multistep_circle_font_color'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_circle_font_color', sanitize_text_field($_POST['uacf7_multistep_circle_font_color']) );
+        } 
+        if(isset($_POST['uacf7_multistep_circle_border_radious'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_circle_border_radious', sanitize_text_field($_POST['uacf7_multistep_circle_border_radious']) );
+        }
+        if(isset($_POST['uacf7_multistep_circle_border_radious'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_circle_border_radious', sanitize_text_field($_POST['uacf7_multistep_circle_border_radious']) );
+        } 
+        if(isset($_POST['uacf7_multistep_font_size'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_font_size', sanitize_text_field($_POST['uacf7_multistep_font_size']) );
+        }
+        if(isset($_POST['uacf7_multistep_font_size'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_font_size', sanitize_text_field($_POST['uacf7_multistep_font_size']) );
+        } 
+        if(isset($_POST['uacf7_multistep_progress_bg_color'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_progress_bg_color', sanitize_text_field($_POST['uacf7_multistep_progress_bg_color']) );
+        } 
+        if(isset($_POST['uacf7_multistep_progress_line_color'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_progress_line_color', sanitize_text_field($_POST['uacf7_multistep_progress_line_color']) );
+        }
+        if(isset($_POST['uacf7_multistep_step_title_color'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_step_title_color', sanitize_text_field($_POST['uacf7_multistep_step_title_color']) );
+        }
+		if(isset($_POST['uacf7_multistep_step_description_color'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_step_description_color', sanitize_text_field($_POST['uacf7_multistep_step_description_color']) );
+        } 
+        if(isset($_POST['uacf7_multistep_circle_active_color'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_circle_active_color', sanitize_text_field($_POST['uacf7_multistep_circle_active_color']) );
+        } 
+        if(isset($_POST['uacf7_multistep_progressbar_title_color'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_progressbar_title_color', sanitize_text_field($_POST['uacf7_multistep_progressbar_title_color']) );
+        } 
+        if(isset($_POST['uacf7_multistep_step_height'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_step_height', sanitize_text_field($_POST['uacf7_multistep_step_height']) );
+        } 
         // Next Previous Button
-		update_post_meta( $form->id(), 'uacf7_multistep_button_padding_tb', sanitize_text_field($_POST['uacf7_multistep_button_padding_tb']) ); 
-
-		update_post_meta( $form->id(), 'uacf7_multistep_button_padding_lr', sanitize_text_field($_POST['uacf7_multistep_button_padding_lr']) ); 
-		
+        if(isset($_POST['uacf7_multistep_button_padding_tb'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_button_padding_tb', sanitize_text_field($_POST['uacf7_multistep_button_padding_tb']) );
+        } 
+        if(isset($_POST['uacf7_multistep_button_padding_lr'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_button_padding_lr', sanitize_text_field($_POST['uacf7_multistep_button_padding_lr']) );
+        } 
     }
     
     /*
@@ -664,7 +688,7 @@ class UACF7_MULTISTEP {
 			}
             
         }
-        $result = apply_filters('wpcf7_validate', $result, $tags); 
+        // $result = apply_filters('wpcf7_validate', $result, $tags); 
         $is_valid = $result->is_valid();
         if (!$is_valid) {
             $invalid_fields = $this->prepare_invalid_form_fields($result, $tag_validation);

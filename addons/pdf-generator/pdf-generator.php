@@ -13,14 +13,13 @@ class UACF7_PDF_GENERATOR {
     */
     public function __construct() {
         
-        // add_action( 'wp_enqueue_scripts', array($this, 'wp_enqueue_script' ) );  
         add_action( 'admin_enqueue_scripts', array($this, 'wp_enqueue_admin_script' ) );    
         add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_panel' ) );     
-        add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_contact_form' ) );   
-        // add_action( 'wpcf7_before_send_mail', array( $this, 'wpcf7_before_send_mail' ) );   
+        add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_contact_form' ) );     
         
-        add_filter( 'wpcf7_mail_components', array( $this, 'mycustom_wpcf7_mail_components' ) );   
+        add_filter( 'wpcf7_mail_components', array( $this, 'uacf7_wpcf7_mail_components' ), 10, 3 );   
         add_filter( 'uacf7_get_generated_pdf', array( $this, 'uacf7_get_generated_pdf' ), 10, 2 ); 
+        // add_filter( 'wpcf7_load_js', '__return_false' );
  
         
     } 
@@ -169,19 +168,22 @@ class UACF7_PDF_GENERATOR {
 
         $mpdf->SetTitle($uacf7_pdf_name);
 
-         // PDF Footer Content
+        // PDF Footer Content
         $mpdf->WriteHTML($pdf_style.'<div class="pdf-content">'.$pdf_content.'   </div>');
 
         $pdf_url = $dir.'/uacf7-uploads/'.$uacf7_pdf_name.'.pdf';
         $mpdf->Output($pdf_url, 'D'); // Dwonload
         die();
-
-
     }
-    function mycustom_wpcf7_mail_components( $components  ) { 
+    function uacf7_wpcf7_mail_components( $components, $form = null, $mail = null  ) { 
+       
 
-        $wpcf7 = WPCF7_ContactForm::get_current();
+        $wpcf7 = WPCF7_ContactForm::get_current(); 
         $enable_pdf = !empty(get_post_meta( $wpcf7->id(), 'uacf7_enable_pdf_generator', true )) ? get_post_meta( $wpcf7->id(), 'uacf7_enable_pdf_generator', true ) : '';
+        $pdf_send_to = !empty(get_post_meta( $wpcf7->id(), 'pdf_send_to', true )) ? get_post_meta( $wpcf7->id(), 'pdf_send_to', true ) : '';
+        if(($pdf_send_to == 'mail-1' && $mail->name() == 'mail_2') || ($pdf_send_to == 'mail-2' && $mail->name() == 'mail') ){
+            return $components;
+        }
         if($enable_pdf == 'on'){ 
             $submission = WPCF7_Submission::get_instance();
             $contact_form_data = $submission->get_posted_data();
@@ -296,6 +298,8 @@ class UACF7_PDF_GENERATOR {
                         if(is_array($name_parts)){
                             $repeater_value[$name_parts[0]][$name_parts[1]] = $name_parts[0];  
                         }
+                    }else{
+                        $repeater_value = []; 
                     }
                     
                     if( is_array($value)){
@@ -375,6 +379,7 @@ class UACF7_PDF_GENERATOR {
          $all_fields = $post->scan_form_tags();
          
          $uacf7_enable_pdf_generator = get_post_meta( $post->id(), 'uacf7_enable_pdf_generator', true ); 
+         $pdf_send_to = get_post_meta( $post->id(), 'pdf_send_to', true ); 
          $uacf7_pdf_name = get_post_meta( $post->id(), 'uacf7_pdf_name', true ); 
          $customize_pdf = get_post_meta( $post->id(), 'customize_pdf', true ); 
          $pdf_bg_upload_image = get_post_meta( $post->id(), 'pdf_bg_upload_image', true );  
@@ -397,17 +402,26 @@ class UACF7_PDF_GENERATOR {
                <div class="ultimate-placeholder-wrapper pdf-generator-wrap">
                   <img src="" alt="">
                   <h3> Option</h3>
-                  <div class="uacf7pdf-twocolumns">
+                    <div class="uacf7pdf-threecolumns">
                        <h4><?php _e('Enable PDF Generator', 'ultimate-addons-cf7'); ?></h4>
                        <label for="uacf7_enable_pdf_generator">  
                             <input id="uacf7_enable_pdf_generator" type="checkbox" name="uacf7_enable_pdf_generator" <?php checked( 'on', $uacf7_enable_pdf_generator ); ?> > Enable
                         </label><br><br>
                     </div>
-                  <div class="uacf7pdf-twocolumns">
+                    <div class="uacf7pdf-threecolumns">
                        <h4><?php _e('PDF Title', 'ultimate-addons-cf7'); ?></h4>
                        <label for="uacf7_pdf_name">  
                             <input id="uacf7_pdf_name" type="text" ize="100%" name="uacf7_pdf_name"  value="<?php  echo esc_attr_e($uacf7_pdf_name); ?>" >.pdf
                         </label><br><br>
+                    </div>
+                 
+                    <div class="uacf7pdf-threecolumns">
+                       <h4><?php _e('PDF Send To', 'ultimate-addons-cf7'); ?></h4>
+                       <select name="pdf_send_to" id="event_summary">
+                            <option <?php if($pdf_send_to == 'default') echo "selected"; ?> value="default" selected="selected">Default</option>
+                            <option <?php if($pdf_send_to == 'mail-1') echo "selected"; ?> value="mail-1">Mail-1</option> 
+                            <option <?php if($pdf_send_to == 'mail-2') echo "selected"; ?> value="mail-2">Mail-2</option>   
+                        </select><br><br>
                     </div>
                  
                     <hr>
@@ -523,6 +537,7 @@ class UACF7_PDF_GENERATOR {
 
         update_post_meta( $form->id(), 'uacf7_enable_pdf_generator', $_POST['uacf7_enable_pdf_generator'] );
         update_post_meta( $form->id(), 'uacf7_pdf_name', $_POST['uacf7_pdf_name'] );
+        update_post_meta( $form->id(), 'pdf_send_to', $_POST['pdf_send_to'] );
         update_post_meta( $form->id(), 'customize_pdf', $_POST['customize_pdf'] );
         update_post_meta( $form->id(), 'pdf_bg_upload_image', $_POST['pdf_bg_upload_image'] );
         update_post_meta( $form->id(), 'customize_pdf_header', $_POST['customize_pdf_header'] );
