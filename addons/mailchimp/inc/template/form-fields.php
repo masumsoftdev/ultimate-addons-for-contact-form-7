@@ -1,19 +1,14 @@
 <fieldset>
     <div class="ultimate-mailchimp-admin">
         <div class="ultimate-mailchimp-wrapper">
-
             <?php
-            echo $this->connection_status();
-            ?>
-            <p><a href="<?php echo esc_url(admin_url('/admin.php?page=ultimate-addons')); ?>"><?php echo esc_html__( ' Mailchimp Api Settings Panel', 'ultimate-addons-cf7' ); ?></a></p>
-            <?php
-            $form_enable = get_post_meta($post->id(), 'uacf7_mailchimp_form_enable', true);
-            $form_type = ! empty( get_post_meta($post->id(), 'uacf7_mailchimp_form_type', true)) ? get_post_meta($post->id(), 'uacf7_mailchimp_form_type', true) : ""; 
-            $audience = ! empty( get_post_meta($post->id(), 'uacf7_mailchimp_audience', true)) ? get_post_meta($post->id(), 'uacf7_mailchimp_audience', true) : ""; 
-            $subscriber_email = ! empty( get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_email', true)) ? get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_email', true) : "";
-            $subscriber_fname =  ! empty( get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_fname', true)) ? get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_fname', true) : "";
-            $subscriber_lname = ! empty( get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_lname', true)) ? get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_lname', true) : "";
-            $uacf7_mailchimp_merge_fields = empty(get_post_meta($post->id(), 'uacf7_mailchimp_merge_fields', true)) ? array() : get_post_meta($post->id(), 'uacf7_mailchimp_merge_fields', true); 
+                $form_enable = get_post_meta($post->id(), 'uacf7_mailchimp_form_enable', true);
+                $form_type = ! empty( get_post_meta($post->id(), 'uacf7_mailchimp_form_type', true)) ? get_post_meta($post->id(), 'uacf7_mailchimp_form_type', true) : ""; 
+                $audience = ! empty( get_post_meta($post->id(), 'uacf7_mailchimp_audience', true)) ? get_post_meta($post->id(), 'uacf7_mailchimp_audience', true) : ""; 
+                $subscriber_email = ! empty( get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_email', true)) ? get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_email', true) : "";
+                $subscriber_fname =  ! empty( get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_fname', true)) ? get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_fname', true) : "";
+                $subscriber_lname = ! empty( get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_lname', true)) ? get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_lname', true) : "";
+                $uacf7_mailchimp_merge_fields = empty(get_post_meta($post->id(), 'uacf7_mailchimp_merge_fields', true)) ? array() : get_post_meta($post->id(), 'uacf7_mailchimp_merge_fields', true); 
     
             ?>
             <div class="mailchimp_fields_row">
@@ -23,6 +18,12 @@
                 </label>
             </div>
             <br>
+            <?php
+            echo $this->connection_status();
+            ?>
+            <p><a href="<?php echo esc_url(admin_url('/admin.php?page=ultimate-addons')); ?>"><?php echo esc_html__( ' Mailchimp Api Settings Panel', 'ultimate-addons-cf7' ); ?></a></p>
+           
+           
             <br>
             <div class="mailchimp_fields_row">
                 <label>
