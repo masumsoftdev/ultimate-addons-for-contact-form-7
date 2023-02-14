@@ -195,14 +195,14 @@ class UACF7_COUNTRY_DROPDOWN {
             <div class="uacf7-doc-notice"> 
                 <?php echo sprintf( 
                     __( 'Not sure how to set this? Check our step by step  %1s .', 'ultimate-addons-cf7' ),
-                    '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/country-dropdown-field-in-contact-form-7/" target="_blank">documentation</a>'
+                    '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-country-dropdown-with-flag/" target="_blank">documentation</a>'
                 ); ?> 
             </div>
          
             <p class="uacf7-doc-notice uacf7-guide">
                 <?php echo sprintf( 
                         __( 'Use Our Pro plugin %1s to enable autocomplete country, city, state and zip code field based on user IP address.', 'ultimate-addons-cf7' ),
-                        '<strong><a target="_blank" href="https://cf7addons.com/preview/ip-geo/">IP Geolocation</a></strong>'
+                        '<strong><a target="_blank" href="https://cf7addons.com/preview/contact-form-7-autocomplete/">IP Geolocation</a></strong>'
                     ); ?> 
             
             </p>

@@ -16,7 +16,7 @@ class UACF7_MULTISTEP {
         add_action( 'wp_ajax_check_fields_validation', array( $this, 'check_fields_validation' ) );
         add_action( 'wp_ajax_nopriv_check_fields_validation', array( $this, 'check_fields_validation' ) );
         wpcf7_add_form_tag( 'uacf7_step_start', array( $this, 'step_start_tag_handler' ), true );
-        wpcf7_add_form_tag( 'uacf7_step_end', array( $this, 'step_end_tag_handler' ), true );
+        wpcf7_add_form_tag( 'uacf7_step_end', array( $this, 'step_end_tag_handler' ), false );
         wpcf7_add_form_tag( 'uacf7_multistep_progressbar', array( $this, 'uacf7_multistep_progressbar' ), true );
         add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_panel' ) );
         add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_contact_form' ) );
@@ -139,7 +139,7 @@ class UACF7_MULTISTEP {
                 <div class="uacf7-doc-notice">
                      <?php echo sprintf( 
                         __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
-                        '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/multi-step-form/" target="_blank">documentation</a>'
+                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-multi-step-forms/" target="_blank">documentation</a>'
                     ); ?> 
                 </div>
             </fieldset>
@@ -219,7 +219,7 @@ class UACF7_MULTISTEP {
                        <div class="uacf7-doc-notice">
                             <?php echo sprintf( 
                                 __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
-                                '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/multi-step-form/" target="_blank">documentation</a>'
+                                '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-multi-step-forms/" target="_blank">documentation</a>'
                             ); ?>  
                         </div>
                    </div>

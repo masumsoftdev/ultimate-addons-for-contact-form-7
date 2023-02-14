@@ -182,17 +182,22 @@ class UACF7_PRODUCT_DROPDOWN {
         if (! function_exists( 'wpcf7_add_tag_generator'))
             return;
 
-        wpcf7_add_tag_generator('uacf7_product_dropdown',
+            wpcf7_add_tag_generator('uacf7_product_dropdown',
             __('Product Dropdown', 'ultimate-addons-cf7'),
             'uacf7-tg-pane-product-dropdown',
-            array($this, 'tg_pane_product_dropdown')
+            array($this, 'tg_pane_product_dropdown'),
         );
 
     }
-    
+
     static function tg_pane_product_dropdown( $contact_form, $args = '' ) {
         $args = wp_parse_args( $args, array() );
-        $uacf7_field_type = 'uacf7_product_dropdown';
+        $uacf7_field_type = 'uacf7_product_dropdown'; 
+        if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) || version_compare( get_option( 'woocommerce_db_version' ), '2.5', '<' ) ) {
+            $woo_activation = false;
+        } else{
+            $woo_activation = true;
+        }
         ?>
         <div class="control-box">
             <fieldset>                
@@ -230,6 +235,7 @@ class UACF7_PRODUCT_DROPDOWN {
                         <?php $display_price = ob_get_clean(); ?>
                         
                         <?php 
+
                         /*
                         * Tag generator field after field type
                         */
@@ -282,19 +288,25 @@ class UACF7_PRODUCT_DROPDOWN {
                             $taxonomies = get_terms( array(
                                 'taxonomy' => 'product_cat',
                                 'hide_empty' => false
-                            ) );
+                            ) ); 
+                                if($woo_activation == true): 
+                                    if ( !empty(array_filter($taxonomies)) ):
+                                        $output = '<select id="tag-generator-panel-product-category">';
+                                        $output .= '<option value="">All</option>';
+                                        foreach( $taxonomies as $category ) {
+                                            $output.= '<option value="">'. esc_html( $category->name ) .'</option>';
+                                        }
+                                        $output.='</select> <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a>';
 
-                            if ( !empty(array_filter($taxonomies)) ) :
-                                $output = '<select id="tag-generator-panel-product-category">';
-                                $output .= '<option value="">All</option>';
-                                foreach( $taxonomies as $category ) {
-                                    $output.= '<option value="">'. esc_html( $category->name ) .'</option>';
-                                }
-                                $output.='</select> <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a>';
-
-                                echo $output;
-
-                            endif;
+                                        echo $output;
+                                    endif;
+                                else:
+                                    $output = '<select id="tag-generator-panel-product-category">';
+                                    $output .= '<option value="">All</option>';
+                                    $output.='</select> <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a>';
+                                    echo $output;
+                                    echo '<p style="color:red">Please install and activate WooCommerce plugin.</p>';
+                                endif;
                             ?>
                             </td>
                         </tr>
@@ -316,17 +328,23 @@ class UACF7_PRODUCT_DROPDOWN {
                                 'taxonomy' => 'product_tag',
                                 'hide_empty' => false
                             ) );
+                            if($woo_activation == true): 
+                                if ( !empty(array_filter($taxonomies))) :
+                                    $output = '<select id="tag-generator-panel-product-tag">';
+                                    $output .= '<option value="">All</option>';
+                                    foreach( $taxonomies as $tag ) {
+                                        $output.= '<option value="">'. esc_html( $tag->name ) .'</option>';
+                                    }
+                                    $output.='</select> <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a>';
 
-                            if ( !empty(array_filter($taxonomies)) ) :
+                                    echo $output; 
+                                endif;
+                            else:
                                 $output = '<select id="tag-generator-panel-product-tag">';
                                 $output .= '<option value="">All</option>';
-                                foreach( $taxonomies as $tag ) {
-                                    $output.= '<option value="">'. esc_html( $tag->name ) .'</option>';
-                                }
                                 $output.='</select> <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a>';
-
                                 echo $output;
-
+                                echo '<p style="color:red">Please install and activate WooCommerce plugin.</p>';
                             endif;
                             ?>
                             </td>
