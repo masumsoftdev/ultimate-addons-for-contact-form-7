@@ -621,7 +621,7 @@ class UACF7_uacf7style {
                         background-color: <?php echo esc_attr_e($btn_background_color_hover); ?>;
                         border-color: <?php echo esc_attr_e($btn_border_color_hover); ?>;
                     }
-                    <?php echo esc_attr_e($ua_custom_css); ?>
+                    <?php echo $ua_custom_css ?>
                 </style>
                 <?php
                 echo '<div class="uacf7-uacf7style-'.$cfform->id().'">'.$form.'</div>';
