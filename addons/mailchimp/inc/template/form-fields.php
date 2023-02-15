@@ -13,9 +13,19 @@
             ?>
             <div class="mailchimp_fields_row">
                 <h3><?php echo esc_html__( 'Mailchimp form settings ', 'ultimate-addons-cf7' ); ?></h3>
+                
+                <div class="uacf7-doc-notice">
+                    <?php echo sprintf( 
+                        __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-mailchimp/" target="_blank">documentation</a>'
+                    ); ?>  
+                </div>
+
+                
                 <label for="uacf7_mailchimp_form_enable">
                     <input id="uacf7_mailchimp_form_enable" type="checkbox" value="enable" name="uacf7_mailchimp_form_enable" <?php checked($form_enable, 'enable', true); ?>> <strong><?php echo esc_html__( 'Enable mailchimp form', 'ultimate-addons-cf7' ); ?></strong>
                 </label>
+
             </div>
             <br>
             <?php

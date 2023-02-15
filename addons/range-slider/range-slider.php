@@ -269,7 +269,7 @@ class UACF7_range_Slider {
                 <div class="uacf7-doc-notice"> 
                     <?php echo sprintf( 
                         __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
-                        '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/range-slider-on-contact-form-7/" target="_blank">documentation</a>'
+                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-range-slider/" target="_blank">documentation</a>'
                     ); ?> 
                 </div>
             </fieldset>

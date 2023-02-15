@@ -155,12 +155,12 @@ class UACF7_DYNAMIC_TEXT {
         $uacf7_field_type = 'uacf7_dynamic_text';
         ?>
         <div class="control-box">
-        <div class="uacf7-doc-notice">
-            <?php echo sprintf( 
-                __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
-                '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/country-dropdown-field-in-contact-form-7/" target="_blank">documentation</a>'
-            ); ?>  
-        </div>
+            <div class="uacf7-doc-notice">
+                <?php echo sprintf( 
+                    __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                    '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-dynamic-text-extension/" target="_blank">documentation</a>'
+                ); ?>  
+            </div>
          
             <fieldset>                
                 <table class="form-table">
