@@ -179,13 +179,13 @@ class UACF7_PRODUCT_DROPDOWN {
     * Generate tag - conditional
     */
     public function tag_generator() {
-        if (! function_exists( 'wpcf7_add_tag_generator'))
+        if (! function_exists( 'wpcf7_add_tag_generator')){
             return;
-
+        }
             wpcf7_add_tag_generator('uacf7_product_dropdown',
             __('Product Dropdown', 'ultimate-addons-cf7'),
             'uacf7-tg-pane-product-dropdown',
-            array($this, 'tg_pane_product_dropdown'),
+            array($this, 'tg_pane_product_dropdown')
         );
 
     }
