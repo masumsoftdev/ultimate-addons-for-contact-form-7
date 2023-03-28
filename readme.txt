@@ -430,6 +430,7 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 =  3.1.20 – 28/03/2023  = 
 
 - Updated: readme.txt
+- Updated: New Screenshots
 - Removed: Unused CSS 
 
 =  3.1.19 – 15/03/2023  = 
