@@ -373,7 +373,7 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 
 1. Settings Panel
 2. Redirection (Settings)
-3. Redirection (Form Example)
+3. Redirect To Thank You Page
 4. Conditional Field (Settings)
 5. Conditional Field (Form Example)
 6. Columns / Grid Layout (Settings)
@@ -398,15 +398,15 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 25. Dynamic Text (Form Example)
 26. Pre-populate Field (Settings)
 27. Pre-populate Field (Form Example)
-28. Save to Database (Settings)
-29. Save to Database (Form Example)
+28. Save to Database Data List With View and Export
+29. Save to Database for Multiple Forms 
 30. Send PDF Using Contact form 7 (Settings)
-31. Send PDF Using Contact form 7 (Form Example)
-32. WooCommerce Checkout (Settings)
-33. WooCommerce Checkout (Form Example)
+31. Generated PDF View Using Contact form 7
+32. WooCommerce Checkout (Form Example)
+33. WooCommerce Checkout Page
 34. Repeater Field (Settings)
 35. Repeater Field (Form Example)
-36. Post Type / Blog Submission (Settings)
+36. Post Type / Blog Submission (Input Fields)
 37. Post Type / Blog Submission (Form Example)
 38. Booking/Appointment Form (Settings)
 39. Booking/Appointment Form (Form Example)
@@ -415,7 +415,7 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 42. Custom Column Width (Settings)
 43. Custom Column Width (Form Example)
 44. Whatsapp Integration + CF7 Tag Support (Settings)
-45. Whatsapp Integration + CF7 Tag Support (Form Example)
+45. Whatsapp Integration + CF7 Tag Support (Preview Example)
 46. Global Form Styler (Settings)
 47. Global Form Styler (Form Example)
 48. Autocomplete Country, City, State, Zip Fields (IP Geolocation) (Settings)
