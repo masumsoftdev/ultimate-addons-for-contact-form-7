@@ -4,7 +4,7 @@ Tags: contact form 7, contact form 7 addons, contact form 7 addon, contact form 
 Requires at least: 4.2
 Tested up to: 6.1.1
 Requires PHP: 5.4
-Stable tag: 3.1.20
+Stable tag: 3.1.21
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -426,6 +426,11 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 53. Range Slider Pro (Form Example)
 
 == Changelog ==
+
+=  3.1.21 – 29/03/2023  = 
+
+- Updated: Appsero update
+- Improved: CSS/Js Code
 
 =  3.1.20 – 28/03/2023  = 
 
