@@ -289,7 +289,7 @@
 							var $this_condition = jQuery( '.uacf7_conditional.' + form[$i]['uacf7_cf_group'] +'');  
 						}else{ 
 							if(typeof $this.attr('uacf-original-name') === 'undefined' || $this.attr('uacf-original-name').length == 0){
-								var $this_condition =  jQuery( repeater_weapper+'.' + form[$i]['uacf7_cf_group'] +'');   
+								var $this_condition =  jQuery( repeater_weapper+'.' + form[$i]['uacf7_cf_group'] +'');    
 							}else{
 								var $this_condition =  repeater_weapper.find( '.uacf7_conditional.' + form[$i]['uacf7_cf_group'] +'');
 							} 
