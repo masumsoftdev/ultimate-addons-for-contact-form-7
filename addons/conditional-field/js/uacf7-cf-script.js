@@ -31,8 +31,7 @@
 			var contactFormId = jQuery('input[name="_wpcf7"]', this).val();
 			var repeater_count = jQuery('.uacf7-repeater-count', this).val();
 
-			var form = uacf7_cf_object[contactFormId];
-			console.log(form);
+			var form = uacf7_cf_object[contactFormId]; 
 			if(typeof repeater_count === 'undefined'){
 				 var repeater_weapper = '.uacf7_conditional';
 			}else{ 
