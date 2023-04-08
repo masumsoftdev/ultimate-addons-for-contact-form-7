@@ -90,11 +90,16 @@ jQuery(document).ready(function () {
 
         var fields_to_check_serialized = jQuery(uacf7_current_step).find(".wpcf7-form-control").serialize();
 
-        if (jQuery(uacf7_current_step).find(".wpcf7-form-control[type='file']").length > 0) {
+        if (jQuery(uacf7_current_step).find(".wpcf7-form-control[type='file']").length > 0 ) { 
             jQuery(uacf7_current_step).find(".wpcf7-form-control[type='file']").each(function (i, n) {
                 fields_to_check_serialized += "&" + jQuery(this).attr('name') + "=" + jQuery(this).val();
+                if(jQuery(this)[0].files.length > 0){
+                    var file_size = jQuery(this)[0].files[0].size;
+                    fields_to_check_serialized += "&" + jQuery(this).attr('name') + "_size=" + file_size; 
+                }
             });
-        } 
+        }
+        console.log( console.log(fields_to_check_serialized))
         
         var validation_fields = []; 
         for (let i = 0; i < uacf7_current_step_fields.length; i++) {

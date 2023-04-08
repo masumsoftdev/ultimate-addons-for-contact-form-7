@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Ultimate Addons for Contact Form 7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-21 09:52+0000\n"
-"PO-Revision-Date: 2023-04-07 18:01+0000\n"
+"PO-Revision-Date: 2023-04-07 17:51+0000\n"
 "Last-Translator: \n"
 "Language-Team: Bengali (Bangladesh)\n"
 "Language: bn_BD\n"
@@ -661,7 +661,7 @@ msgstr ""
 
 #: addons/multistep/multistep.php:212
 msgid "Is It Multistep Form?"
-msgstr "এটা কি মাল্টি স্টেপ ফর্ম?"
+msgstr ""
 
 #: addons/multistep/multistep.php:128
 msgid "Label"
