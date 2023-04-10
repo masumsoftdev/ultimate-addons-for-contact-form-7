@@ -686,15 +686,18 @@ class UACF7_MULTISTEP {
                 }
 			    $result = apply_filters("wpcf7_validate_{$type}", $result, $tag, array( 'uploaded_files' => $new_files, ) );
               
-                $file_size = $_REQUEST[$tag->name.'_size'];   
-                // echo $file_size;
-                if ($file_size > $tag->get_limit_option()) { 
-                    $file_error = array(
-                        'into' => 'span.wpcf7-form-control-wrap[data-name = '.$tag->name.']',
-                        'message' => 'The uploaded file is too large.',
-                        'idref' => null,
-                    ); 
+                if(isset($_REQUEST[$tag->name.'_size'])){
+                    $file_size = $_REQUEST[$tag->name.'_size'];   
+                    // echo $file_size;
+                    if ($file_size > $tag->get_limit_option()) { 
+                        $file_error = array(
+                            'into' => 'span.wpcf7-form-control-wrap[data-name = '.$tag->name.']',
+                            'message' => 'The uploaded file is too large.',
+                            'idref' => null,
+                        ); 
+                    }
                 }
+                
                  
                
 			}
