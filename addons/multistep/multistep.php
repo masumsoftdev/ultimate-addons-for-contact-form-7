@@ -21,7 +21,6 @@ class UACF7_MULTISTEP {
         add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_panel' ) );
         add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_contact_form' ) );
         add_filter( 'wpcf7_contact_form_properties', array( $this, 'uacf7_properties' ), 10, 2 );
-        
     }
     
     public function enqueue_script() {
@@ -663,30 +662,32 @@ class UACF7_MULTISTEP {
             if ( 'file' != $type && 'file*' != $type ) {
                 $result = apply_filters("wpcf7_validate_{$type}", $result, $tag);
                 
-			}elseif( 'file*' === $type && 'file' === $type ){
-			    // $fdir = $_REQUEST[$tag->name];
-				// if ( $fdir ) {
-				// 	$_FILES[ $tag->name ] = array(
-				// 		'name' => wp_basename( $fdir ),
-				// 		'tmp_name' => $fdir,
-				// 	);
-				// }
-			    // $file = $_FILES[$tag->name];
-			    // //$file = $_REQUEST[$tag->name];
-    			// $args = array(
-    			// 	'tag' => $tag,
-    			// 	'name' => $tag->name,
-    			// 	'required' => $tag->is_required(),
-    			// 	'filetypes' => $tag->get_option( 'filetypes' ),
-    			// 	'limit' => $tag->get_limit_option(), 
-    			// );
-                // $args['schema'] = $form->get_schema();
-    			// $new_files = wpcf7_unship_uploaded_file( $file, $args ); 
-                // if ( is_wp_error( $new_files ) ) {
-                //     $result->invalidate( $tag, $new_files );
-                // }
-			    // $result = apply_filters("wpcf7_validate_{$type}", $result, $tag, array( 'uploaded_files' => $new_files, ) );
+			}elseif( 'file*' === $type || 'file' === $type ){ 
+			    $fdir = $_REQUEST[$tag->name];
+				if ( $fdir ) {
+					$_FILES[ $tag->name ] = array(
+						'name' => wp_basename( $fdir ),
+						'tmp_name' => $fdir,
+					);
+				}
+			    $file = $_FILES[$tag->name];
+			    //$file = $_REQUEST[$tag->name];
+    			$args = array(
+    				'tag' => $tag,
+    				'name' => $tag->name,
+    				'required' => $tag->is_required(),
+    				'filetypes' => $tag->get_option( 'filetypes' ),
+    				'limit' => $tag->get_limit_option(), 
+    			);
+                $args['schema'] = $form->get_schema();
+    			$new_files = wpcf7_unship_uploaded_file( $file, $args ); 
+                if ( is_wp_error( $new_files ) ) {
+                    $result->invalidate( $tag, $new_files );
+                }
+			    $result = apply_filters("wpcf7_validate_{$type}", $result, $tag, array( 'uploaded_files' => $new_files, ) );
+              
                 $file_size = $_REQUEST[$tag->name.'_size'];   
+                // echo $file_size;
                 if ($file_size > $tag->get_limit_option()) { 
                     $file_error = array(
                         'into' => 'span.wpcf7-form-control-wrap[data-name = '.$tag->name.']',
@@ -694,6 +695,7 @@ class UACF7_MULTISTEP {
                         'idref' => null,
                     ); 
                 }
+                 
                
 			}
             
@@ -703,7 +705,9 @@ class UACF7_MULTISTEP {
         if (!$is_valid) {
             $invalid_fields = $this->prepare_invalid_form_fields($result, $tag_validation);
         } 
-        $invalid_fields [] = $file_error;
+        if(!empty($file_error)) {
+            $invalid_fields [] = $file_error;
+        } 
         if(!empty($invalid_fields)){
             $is_valid = false;
         }
