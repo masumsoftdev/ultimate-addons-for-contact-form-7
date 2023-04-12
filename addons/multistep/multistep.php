@@ -21,7 +21,6 @@ class UACF7_MULTISTEP {
         add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_panel' ) );
         add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_contact_form' ) );
         add_filter( 'wpcf7_contact_form_properties', array( $this, 'uacf7_properties' ), 10, 2 );
-        
     }
     
     public function enqueue_script() {
@@ -628,6 +627,7 @@ class UACF7_MULTISTEP {
         $tag_name = [];
         $tag_validation = [];
         $tag_type = []; 
+        $file_error=[];
         $count = '1';
         for ($x = 0; $x < count($validation_fields); $x++) {
             $field = explode(':', $validation_fields[$x]); 
@@ -662,7 +662,7 @@ class UACF7_MULTISTEP {
             if ( 'file' != $type && 'file*' != $type ) {
                 $result = apply_filters("wpcf7_validate_{$type}", $result, $tag);
                 
-			}elseif( 'file*' === $type ){
+			}elseif( 'file*' === $type || 'file' === $type ){ 
 			    $fdir = $_REQUEST[$tag->name];
 				if ( $fdir ) {
 					$_FILES[ $tag->name ] = array(
@@ -685,6 +685,21 @@ class UACF7_MULTISTEP {
                     $result->invalidate( $tag, $new_files );
                 }
 			    $result = apply_filters("wpcf7_validate_{$type}", $result, $tag, array( 'uploaded_files' => $new_files, ) );
+              
+                if(isset($_REQUEST[$tag->name.'_size'])){
+                    $file_size = $_REQUEST[$tag->name.'_size'];   
+                    // echo $file_size;
+                    if ($file_size > $tag->get_limit_option()) { 
+                        $file_error = array(
+                            'into' => 'span.wpcf7-form-control-wrap[data-name = '.$tag->name.']',
+                            'message' => 'The uploaded file is too large.',
+                            'idref' => null,
+                        ); 
+                    }
+                }
+                
+                 
+               
 			}
             
         }
@@ -693,6 +708,12 @@ class UACF7_MULTISTEP {
         if (!$is_valid) {
             $invalid_fields = $this->prepare_invalid_form_fields($result, $tag_validation);
         } 
+        if(!empty($file_error)) {
+            $invalid_fields [] = $file_error;
+        } 
+        if(!empty($invalid_fields)){
+            $is_valid = false;
+        }
         echo(json_encode( array(
                     'is_valid' => $is_valid,
                     'invalid_fields' => $invalid_fields,

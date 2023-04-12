@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Ultimate Addons for Contact Form 7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-21 09:52+0000\n"
-"PO-Revision-Date: 2023-04-07 18:01+0000\n"
+"PO-Revision-Date: 2022-11-22 09:30+0000\n"
 "Last-Translator: \n"
 "Language-Team: Bengali (Bangladesh)\n"
 "Language: bn_BD\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.6.4; wp-6.2\n"
+"X-Loco-Version: 2.6.3; wp-6.1.1\n"
 "X-Domain: ultimate-addons-cf7"
 
 #: addons/styler/uacf7style.php:170
@@ -661,7 +661,7 @@ msgstr ""
 
 #: addons/multistep/multistep.php:212
 msgid "Is It Multistep Form?"
-msgstr "এটা কি মাল্টি স্টেপ ফর্ম?"
+msgstr ""
 
 #: addons/multistep/multistep.php:128
 msgid "Label"
@@ -753,7 +753,7 @@ msgstr ""
 
 #: addons/multistep/multistep.php:53
 msgid "Next"
-msgstr "পরবর্তী"
+msgstr ""
 
 #: addons/placeholder/placeholder.php:109
 #, php-format
@@ -833,7 +833,7 @@ msgstr ""
 
 #: addons/multistep/multistep.php:52
 msgid "Previous"
-msgstr "আগে"
+msgstr ""
 
 #: addons/product-dropdown/product-dropdown.php:264
 msgid "Product category"
