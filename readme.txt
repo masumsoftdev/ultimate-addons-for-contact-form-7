@@ -429,12 +429,12 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 
 =  3.1.23 – 12/04/2023  = 
 
-- Fixed: DB Warning issue
-- Fixed: DB list order 
-- Fixed: Conditional Filed issue fixed in multistep
+- Fixed: Ultimate Database warning issue
+- Fixed: Ultimate Database list order 
+- Fixed: Conditional filed issue fixed in multistep
 - Fixed: File Size validation in multistep
 - Fixed: IP geolocation conditional issue (Pro)
-- Fixed: Range Slider Conditional issue (Por)
+- Fixed: Range slider conditional issue (Por)
 
 =  3.1.22 – 31/03/2023  = 
 
