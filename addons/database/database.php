@@ -19,7 +19,8 @@ class UACF7_DATABASE {
         add_action( 'admin_menu', array( $this, 'uacf7_add_db_menu' ) );   
         add_action( 'wp_ajax_uacf7_ajax_database_popup', array( $this, 'uacf7_ajax_database_popup' ) );  
         add_action( 'init', array( $this, 'uacf7_database_export_csv' ) );  
-        add_action( 'admin_init', array( $this, 'uacf7_create_database_table' ) );  
+        add_action( 'admin_init', array( $this, 'uacf7_create_database_table' ) ); 
+        // add_filter( 'wpcf7_load_js', '__return_false' ); 
        
     } 
 
@@ -184,7 +185,7 @@ class UACF7_DATABASE {
         $tags = $ContactForm->scan_form_tags();
         $skip_tag_insert = []; 
         foreach ($tags as $tag){
-            if( $tag->type == 'uacf7_step_start' || $tag->type == 'uacf7_step_end' || $tag->type == 'uarepeater' ){
+            if( $tag->type == 'uacf7_step_start' || $tag->type == 'uacf7_step_end' || $tag->type == 'uarepeater' || $tag->type == 'conditional' ){
                 if($tag->name != ''){
                     $skip_tag_insert[] = $tag->name;
                 }
@@ -469,7 +470,7 @@ class uacf7_form_List_Table extends WP_List_Table{
         }  
         for ($x = 0; $x < $count; $x++) { 
             
-          if($form_fields[$x]['type'] != 'submit' && $form_fields[$x]['type'] !='uacf7_step_start' && $form_fields[$x]['type'] !='uacf7_step_end' && $form_fields[$x]['type'] !='uarepeater' ){
+          if($form_fields[$x]['type'] != 'submit' && $form_fields[$x]['type'] !='uacf7_step_start' && $form_fields[$x]['type'] !='uacf7_step_end' && $form_fields[$x]['type'] !='uarepeater' && $form_fields[$x]['type'] !='conditional' ){
             
             $columns[$form_fields[$x]['name']] = $form_fields[$x]['name']; 
           }
@@ -666,8 +667,7 @@ class uacf7_form_List_Table extends WP_List_Table{
      */
 
     function process_bulk_action() {       
-        global $wpdb;   
-
+        global $wpdb;    
         if ( 'delete' === $this->current_action() ) { 
             $ids = isset( $_POST['uacf7_db_id'] ) ? $_POST['uacf7_db_id'] : array();
             foreach ( $ids as $id ) {
