@@ -91,8 +91,9 @@ class UACF7_DATABASE {
         }
         
         if(!empty($form_id) && $csv == true ){
-            $this->uacf7_database_export_csv($form_id,  $csv); 
+            $this->uacf7_database_export_csv($form_id,  $csv); // export as CSV
         }  
+        
         if( !empty($form_id)){
             $uacf7_ListTable = new uacf7_form_List_Table();
             $uacf7_ListTable->prepare_items(); 
@@ -151,7 +152,7 @@ class UACF7_DATABASE {
                                     <option value="0"><?php echo esc_html__( 'Select Form', 'ultimate-addons-cf7' ); ?> </option>
                                     <?php 
                                         foreach ($list_forms as $form) { 
-                                            $count = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."uacf7_form WHERE form_id = $form->ID");  // count number of data
+                                            $count = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM ".$wpdb->prefix."uacf7_form WHERE form_id = %d", $form->ID));  // count number of data
                                             echo '<option value="' . esc_attr($form->ID) . '">' . esc_attr($form->post_title) . ' ( '.$count.' )</option>'; 
                                         }
                                     ?>
@@ -254,11 +255,11 @@ class UACF7_DATABASE {
 
     public function uacf7_ajax_database_popup(){ 
         global $wpdb; 
-        $id = $_POST['id']; // data id
+        $id = intval($_POST['id']); // data id
         $upload_dir    = wp_upload_dir();
         $dir = $upload_dir['baseurl'];
         $replace_dir = '/uacf7-uploads/';
-        $form_data = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."uacf7_form WHERE id = $id"); 
+        $form_data = $wpdb->get_row($wpdb->prepare("SELECT * FROM ".$wpdb->prefix."uacf7_form WHERE id = %d", $id)); 
         $ContactForm = WPCF7_ContactForm::get_instance( $form_data->form_id );
         $form_fields = $ContactForm->scan_form_tags();
         $data = json_decode($form_data->form_value);
@@ -326,12 +327,12 @@ class UACF7_DATABASE {
             $dir = $upload_dir['baseurl'];
             $replace_dir = '/uacf7-uploads/';
            
-            $form_id = $_REQUEST['form_id'];
+            $form_id = intval($_REQUEST['form_id']);
             $file_name = get_the_title( $_REQUEST['form_id']);
             $file_name = str_replace(" ","-", $file_name); 
            
 
-            $form_data = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."uacf7_form WHERE form_id = $form_id");  
+            $form_data = $wpdb->get_results($wpdb->prepare("SELECT * FROM ".$wpdb->prefix."uacf7_form WHERE form_id = %d ", $form_id ));
 
            
             $now = gmdate("D, d M Y H:i:s");
@@ -398,7 +399,6 @@ class UACF7_DATABASE {
             foreach ($list as $fields) {
                 fputcsv($fp, $fields);
             }
-            // print_r($fp);
             echo ob_get_clean();
             fclose($fp);
             die();
@@ -505,16 +505,21 @@ class uacf7_form_List_Table extends WP_List_Table{
         global $wpdb; 
         $form_id  = empty($_GET['form_id']) ? 0 : (int) $_GET['form_id']; 
         $search       = empty( $_REQUEST['s'] ) ? false :  esc_sql( $_REQUEST['s'] ); 
+        echo $search;
         $upload_dir    = wp_upload_dir();
         $dir = $upload_dir['baseurl'];
         $replace_dir = '/uacf7-uploads/';
         $data = [];
         if(isset($search) && !empty($search)){
-            $form_data = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."uacf7_form  WHERE form_value LIKE '%$search%' AND form_id = $form_id ORDER BY id DESC");  
+           
+            $form_data = $wpdb->get_results(
+                $wpdb->prepare("SELECT * FROM ".$wpdb->prefix."uacf7_form WHERE form_id = %d AND form_value LIKE '%$search%' ORDER BY id DESC", $form_id)
+            ); 
         }else{  
-            $form_data = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."uacf7_form WHERE form_id = $form_id ORDER BY id DESC" );  
+            $form_data = $wpdb->get_results(
+                $wpdb->prepare("SELECT * FROM ".$wpdb->prefix."uacf7_form WHERE form_id = %d ORDER BY id DESC",  $form_id) 
+            );  
         }
-        
         foreach($form_data as $fdata){ 
            $field_data =  json_decode($fdata->form_value); 
            $repetar_value = '';
@@ -672,7 +677,7 @@ class uacf7_form_List_Table extends WP_List_Table{
             $ids = isset( $_POST['uacf7_db_id'] ) ? $_POST['uacf7_db_id'] : array();
             foreach ( $ids as $id ) {
                 $id = absint( $id ); 
-                $wpdb->query( "DELETE FROM ".$wpdb->prefix."uacf7_form WHERE id = $id" );
+                $wpdb->query( $wpdb->prepare("DELETE FROM ".$wpdb->prefix."uacf7_form WHERE id = %d", $id) );
             }
         }
     } 
