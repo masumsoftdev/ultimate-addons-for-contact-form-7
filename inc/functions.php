@@ -25,9 +25,9 @@ if( !function_exists('uacf7_checked') ){
 * Multistep pro features demo
 */
 add_action( 'uacf7_multistep_pro_features', 'uacf7_multistep_pro_features_demo', 5, 2 );
-function uacf7_multistep_pro_features_demo( $all_steps, $form_id ){
-    
-    if( empty(array_filter($all_steps)) ) return;
+function uacf7_multistep_pro_features_demo( $all_steps, $form_id ){ 
+    if(!isset($all_steps[0])) return;
+    if( empty(array_filter($all_steps))) return;
     ?>
     <div class="multistep_fields_row" style="display: flex; flex-direction: column;">
     <?php
