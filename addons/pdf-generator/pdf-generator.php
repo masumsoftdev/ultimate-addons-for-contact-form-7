@@ -19,7 +19,7 @@ class UACF7_PDF_GENERATOR {
         
         add_filter( 'wpcf7_mail_components', array( $this, 'uacf7_wpcf7_mail_components' ), 10, 3 );   
         add_filter( 'uacf7_get_generated_pdf', array( $this, 'uacf7_get_generated_pdf' ), 10, 2 ); 
-        // add_filter( 'wpcf7_load_js', '__return_false' );
+        add_filter( 'wpcf7_load_js', '__return_false' );
  
         
     } 
@@ -287,7 +287,7 @@ class UACF7_PDF_GENERATOR {
 
             // PDF Footer
             $mpdf->SetHTMLFooter('<div class="pdf-footer">'.$customize_pdf_footer.'</div>');
-
+            $repeater_value = []; 
             foreach($contact_form_data as $key => $value){
                 if(!in_array($key, $uploaded_files)){ 
                     $replace_key[] = '['.$key.']';
@@ -298,8 +298,6 @@ class UACF7_PDF_GENERATOR {
                         if(is_array($name_parts)){
                             $repeater_value[$name_parts[0]][$name_parts[1]] = $name_parts[0];  
                         }
-                    }else{
-                        $repeater_value = []; 
                     }
                     
                     if( is_array($value)){
@@ -315,8 +313,7 @@ class UACF7_PDF_GENERATOR {
                     $replace_value[] = $value;
                 }
                 
-            }
-            
+            } 
             foreach ($files as $file_key => $file) {
                 if(!empty($file)){
                     if(in_array($file_key, $uploaded_files)){ 
@@ -332,8 +329,10 @@ class UACF7_PDF_GENERATOR {
  
             // Repeater value
             $repeaters = json_decode(stripslashes($_POST['_uacf7_repeaters'])); 
+            
             if(isset($repeaters) || is_array($repeaters)){
                 $repeater_data = apply_filters('uacf7_pdf_generator_replace_data', $repeater_value, $repeaters, $customize_pdf);
+                
                 $customize_pdf = str_replace($repeater_data['replace_re_key'], $repeater_data['replace_re_value'], $customize_pdf);
             } 
        
@@ -350,7 +349,7 @@ class UACF7_PDF_GENERATOR {
 
             $pdf_url = $dir.'/uacf7-uploads/'.$uacf7_pdf_name.'.pdf';
             $mpdf->Output($pdf_url, 'F'); // save to databaes 
-            $components['attachments'][] = $pdf_url;
+            $components['attachments'][] = $pdf_url; 
             
         }
         return $components;

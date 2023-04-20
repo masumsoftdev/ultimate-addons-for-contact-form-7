@@ -316,7 +316,8 @@
     background: #281266!important;
   }
 
-  #uacf7-repeater-panel-tab:hover a,
+  #uacf7-repeater-panel-tab:hover a, 
+  #uacf7-repeater-panel-tab.ui-tabs-active a, 
   #uacf7-redirect-panel-tab:hover a,
   #uacf7-mailchimp-panel-tab:hover a,
   #uacf7-cf-panel-tab:hover a, 
