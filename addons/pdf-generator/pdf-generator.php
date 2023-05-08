@@ -19,7 +19,7 @@ class UACF7_PDF_GENERATOR {
         
         add_filter( 'wpcf7_mail_components', array( $this, 'uacf7_wpcf7_mail_components' ), 10, 3 );   
         add_filter( 'uacf7_get_generated_pdf', array( $this, 'uacf7_get_generated_pdf' ), 10, 2 ); 
-        add_filter( 'wpcf7_load_js', '__return_false' );
+        // add_filter( 'wpcf7_load_js', '__return_false' );
  
         
     } 
