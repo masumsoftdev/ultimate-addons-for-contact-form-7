@@ -99,7 +99,7 @@ jQuery(document).ready(function () {
                 }
             });
         }
-        console.log( console.log(fields_to_check_serialized))
+        // console.log( console.log(fields_to_check_serialized))
         
         var validation_fields = []; 
         for (let i = 0; i < uacf7_current_step_fields.length; i++) {
