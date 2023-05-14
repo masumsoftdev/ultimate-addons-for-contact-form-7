@@ -431,9 +431,9 @@ class UACF7_MULTISTEP {
         if(!empty($step_titles)) {
             update_post_meta( $form->id(), 'uacf7_multistep_steps_title', $step_titles );
         } 
-		if(isset($_POST['uacf7_multistep_use_step_labels'])) { 
-            update_post_meta( $form->id(), 'uacf7_multistep_use_step_labels', sanitize_text_field($_POST['uacf7_multistep_use_step_labels']) );
-        }
+
+		update_post_meta( $form->id(), 'uacf7_multistep_use_step_labels', sanitize_text_field($_POST['uacf7_multistep_use_step_labels']) );
+        
         if(isset($_POST['uacf7_multistep_circle_width'])){ 
             update_post_meta( $form->id(), 'uacf7_multistep_circle_width', sanitize_text_field($_POST['uacf7_multistep_circle_width']) );
         }
