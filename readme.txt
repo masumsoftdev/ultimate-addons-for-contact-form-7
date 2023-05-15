@@ -429,7 +429,8 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 
 =  3.1.26 – 15/05/2023  = 
 
-- Fixed: Progressbar labels settings issue
+- Added: PDF generator Disable Header and Footer
+- Fixed: Multistep Progressbar labels settings issue  
 
 =  3.1.25 – 09/05/2023  = 
 
