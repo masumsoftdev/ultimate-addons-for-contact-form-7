@@ -62,6 +62,8 @@ class UACF7_PDF_GENERATOR {
         $data = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM ".$wpdb->prefix."uacf7_form WHERE id = %s AND form_id = %s", $data_id, $form_id ) ); 
 
         $uacf7_pdf_name = !empty(get_post_meta( $form_id, 'uacf7_pdf_name', true )) ? get_post_meta( $form_id, 'uacf7_pdf_name', true ) : get_the_title( $form_id );
+        $disable_header = !empty(get_post_meta( $form_id, 'uacf7_pdf_disable_header', true )) ? get_post_meta( $form_id, 'uacf7_pdf_disable_header', true ) : '';
+        $disable_footer = !empty(get_post_meta( $form_id, 'uacf7_pdf_disable_footer', true )) ? get_post_meta( $form_id, 'uacf7_pdf_disable_footer', true ) : '';
         $customize_pdf = !empty(get_post_meta( $form_id, 'customize_pdf', true )) ? get_post_meta( $form_id, 'customize_pdf', true ) : '';
         $pdf_bg_upload_image = !empty(get_post_meta( $form_id, 'pdf_bg_upload_image', true )) ? get_post_meta( $form_id, 'pdf_bg_upload_image', true ) : '';
         $customize_pdf_header = !empty(get_post_meta( $form_id, 'customize_pdf_header', true )) ? get_post_meta( $form_id, 'customize_pdf_header', true ) : '';
@@ -132,20 +134,26 @@ class UACF7_PDF_GENERATOR {
         </style>';
      
 
-        // PDF Header
-        $mpdf->SetHTMLHeader('
-        <div class="pdf-header"  >
-                <div class="header-logo"  >
-                    '.$pdf_header_upload_image.'
-                </div>    
-                <div class="header-content">
-                '.$customize_pdf_header.'
-                </div>
-        </div>
-        ');
+        // PDF Header checked( 'on', $disable_header );
+        if( $disable_header != 'on' ){
+            $mpdf->SetHTMLHeader('
+            <div class="pdf-header"  >
+                    <div class="header-logo"  >
+                        '.$pdf_header_upload_image.'
+                    </div>    
+                    <div class="header-content">
+                    '.$customize_pdf_header.'
+                    </div>
+            </div>
+            ');
+        }
+        
 
         // PDF Footer
-        $mpdf->SetHTMLFooter('<div class="pdf-footer">'.$customize_pdf_footer.'</div>');
+        if( $disable_footer != 'on' ){
+            $mpdf->SetHTMLFooter('<div class="pdf-footer">'.$customize_pdf_footer.'</div>');
+        }
+        
         $replace_key = [];
         $replace_value = []; 
         $uploaded_files = [];
@@ -204,6 +212,8 @@ class UACF7_PDF_GENERATOR {
 
             //  
             $uacf7_pdf_name = !empty(get_post_meta( $wpcf7->id(), 'uacf7_pdf_name', true )) ? get_post_meta( $wpcf7->id(), 'uacf7_pdf_name', true ) : get_the_title( $wpcf7->id() );
+            $disable_header = !empty(get_post_meta( $wpcf7->id(), 'uacf7_pdf_disable_header', true )) ? get_post_meta( $wpcf7->id(), 'uacf7_pdf_disable_header', true ) : '';
+            $disable_footer = !empty(get_post_meta( $wpcf7->id(), 'uacf7_pdf_disable_footer', true )) ? get_post_meta( $wpcf7->id(), 'uacf7_pdf_disable_footer', true ) : '';
             $customize_pdf = !empty(get_post_meta( $wpcf7->id(), 'customize_pdf', true )) ? get_post_meta( $wpcf7->id(), 'customize_pdf', true ) : '';
             $pdf_bg_upload_image = !empty(get_post_meta( $wpcf7->id(), 'pdf_bg_upload_image', true )) ? get_post_meta( $wpcf7->id(), 'pdf_bg_upload_image', true ) : '';
             $customize_pdf_header = !empty(get_post_meta( $wpcf7->id(), 'customize_pdf_header', true )) ? get_post_meta( $wpcf7->id(), 'customize_pdf_header', true ) : '';
@@ -274,19 +284,24 @@ class UACF7_PDF_GENERATOR {
             $replace_value = []; 
 
             // PDF Header
-            $mpdf->SetHTMLHeader('
-            <div class="pdf-header"  >
-                    <div class="header-logo"  >
-                        '.$pdf_header_upload_image.'
-                    </div>    
-                    <div class="header-content">
-                    '.$customize_pdf_header.'
-                    </div>
-            </div>
-            ');
-
+            if($disable_header != 'on'){
+                $mpdf->SetHTMLHeader('
+                <div class="pdf-header"  >
+                        <div class="header-logo"  >
+                            '.$pdf_header_upload_image.'
+                        </div>    
+                        <div class="header-content">
+                        '.$customize_pdf_header.'
+                        </div>
+                </div>
+                ');
+            }
+             
             // PDF Footer
-            $mpdf->SetHTMLFooter('<div class="pdf-footer">'.$customize_pdf_footer.'</div>');
+            if($disable_footer != 'on'){ 
+                $mpdf->SetHTMLFooter('<div class="pdf-footer">'.$customize_pdf_footer.'</div>');
+            }
+
             $repeater_value = []; 
             foreach($contact_form_data as $key => $value){
                 if(!in_array($key, $uploaded_files)){ 
@@ -380,6 +395,8 @@ class UACF7_PDF_GENERATOR {
          $uacf7_enable_pdf_generator = get_post_meta( $post->id(), 'uacf7_enable_pdf_generator', true ); 
          $pdf_send_to = get_post_meta( $post->id(), 'pdf_send_to', true ); 
          $uacf7_pdf_name = get_post_meta( $post->id(), 'uacf7_pdf_name', true ); 
+         $disable_header = get_post_meta( $post->id(), 'uacf7_pdf_disable_header', true ); 
+         $disable_footer = get_post_meta( $post->id(), 'uacf7_pdf_disable_footer', true ); 
          $customize_pdf = get_post_meta( $post->id(), 'customize_pdf', true ); 
          $pdf_bg_upload_image = get_post_meta( $post->id(), 'pdf_bg_upload_image', true );  
          $customize_pdf_header = get_post_meta( $post->id(), 'customize_pdf_header', true ); 
@@ -406,21 +423,21 @@ class UACF7_PDF_GENERATOR {
                <div class="ultimate-placeholder-wrapper pdf-generator-wrap">
                   <img src="" alt="">
                   <h3> Option</h3>
-                    <div class="uacf7pdf-threecolumns">
+                    <div class="uacf7pdf-fourcolumns">
                        <h4><?php _e('Enable PDF Generator', 'ultimate-addons-cf7'); ?></h4>
                        <label for="uacf7_enable_pdf_generator">  
                             <input id="uacf7_enable_pdf_generator" type="checkbox" name="uacf7_enable_pdf_generator" <?php checked( 'on', $uacf7_enable_pdf_generator ); ?> > Enable
                         </label><br><br>
                     </div>
-                    <div class="uacf7pdf-threecolumns">
+                    <div class="uacf7pdf-fourcolumns">
                        <h4><?php _e('PDF Title', 'ultimate-addons-cf7'); ?></h4>
                        <label for="uacf7_pdf_name">  
                             <input id="uacf7_pdf_name" type="text" ize="100%" name="uacf7_pdf_name"  value="<?php  echo esc_attr_e($uacf7_pdf_name); ?>" >.pdf
                         </label><br><br>
                     </div>
                  
-                    <div class="uacf7pdf-threecolumns">
-                       <h4><?php _e('PDF Send To', 'ultimate-addons-cf7'); ?></h4>
+                    <div class="uacf7pdf-fourcolumns">
+                       <h4 ><?php _e('PDF Send To', 'ultimate-addons-cf7'); ?></h4>
                        <select name="pdf_send_to" id="event_summary">
                             <option <?php if($pdf_send_to == 'default') echo "selected"; ?> value="default" selected="selected">Default</option>
                             <option <?php if($pdf_send_to == 'mail-1') echo "selected"; ?> value="mail-1">Mail-1</option> 
@@ -428,9 +445,23 @@ class UACF7_PDF_GENERATOR {
                         </select><br><br>
                     </div>
                  
+                    <div class="uacf7pdf-fourcolumns">
+                       <h4 ><?php _e('Disable Header and Footer', 'ultimate-addons-cf7'); ?></h4> 
+                       <label for="uacf7_pdf_disable_header">  
+                            <input id="uacf7_pdf_disable_header" type="checkbox" name="uacf7_pdf_disable_header" <?php checked( 'on', $disable_header ); ?> > Disable Header 
+                        </label> 
+                        <br>
+                       <label for="uacf7_pdf_disable_footer">  
+                            <input id="uacf7_pdf_disable_footer" type="checkbox" name="uacf7_pdf_disable_footer" <?php checked( 'on', $disable_footer ); ?> > Disable Footer
+                        </label>
+                    </div>
+                 
                     <hr>
-                   <h3>Customize PDF</h3> 
-                   <hr>
+                    <div class="uacf7pdf-onecolumns">
+                        <h3><?php _e('Customize PDF', 'ultimate-addons-cf7'); ?></h3> 
+                        
+                         <hr>
+                    </div> 
                    <div class="uacf7pdf-twocolumns">
                        <h4><?php _e('Background Image', 'ultimate-addons-cf7'); ?></h4>
                        <input id="pdf_bg_upload_image" size="60%" class="wpcf7-form-field" name="pdf_bg_upload_image" value="<?php echo esc_attr_e($pdf_bg_upload_image); ?>" type="text" /> 
@@ -466,16 +497,18 @@ class UACF7_PDF_GENERATOR {
                    </div>
                   
                     <hr>
-                   <h3>Customize PDF header</h3> 
-                   <hr> 
-                   <p> <strong>header and footer page numbers & date Tags : 
-                        <span>{PAGENO}</span>, 
-                        <span>{DATE j-m-Y}</span>, 
-                        <span>{nb}</span>, 
-                        <span>{nbpg}</span>
-                        </strong>
-                        
-                    </p>
+                    <div class="uacf7pdf-onecolumns">
+                        <h3>Customize PDF header</h3> 
+                        <hr> 
+                        <p> <strong>header and footer page numbers & date Tags : 
+                                <span>{PAGENO}</span>, 
+                                <span>{DATE j-m-Y}</span>, 
+                                <span>{nb}</span>, 
+                                <span>{nbpg}</span>
+                            </strong>
+                            
+                        </p>
+                    </div>  
                    <div class="uacf7pdf-twocolumns">
                        <h4><?php _e('Header Image', 'ultimate-addons-cf7'); ?></h4>
                        <input id="upload_image" size="60%" class="wpcf7-form-field" name="pdf_header_upload_image" value="<?php echo esc_attr_e($pdf_header_upload_image); ?>" type="text" /> 
@@ -541,6 +574,8 @@ class UACF7_PDF_GENERATOR {
 
         update_post_meta( $form->id(), 'uacf7_enable_pdf_generator', $_POST['uacf7_enable_pdf_generator'] );
         update_post_meta( $form->id(), 'uacf7_pdf_name', $_POST['uacf7_pdf_name'] );
+        update_post_meta( $form->id(), 'uacf7_pdf_disable_header', $_POST['uacf7_pdf_disable_header'] );
+        update_post_meta( $form->id(), 'uacf7_pdf_disable_footer', $_POST['uacf7_pdf_disable_footer'] );
         update_post_meta( $form->id(), 'pdf_send_to', $_POST['pdf_send_to'] );
         update_post_meta( $form->id(), 'customize_pdf', $_POST['customize_pdf'] );
         update_post_meta( $form->id(), 'pdf_bg_upload_image', $_POST['pdf_bg_upload_image'] );
