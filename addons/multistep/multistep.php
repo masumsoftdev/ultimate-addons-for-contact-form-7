@@ -38,7 +38,7 @@ class UACF7_MULTISTEP {
         ob_start();
         $form_current = \WPCF7_ContactForm::get_current();
         ?>
-        <div class="uacf7-step uacf7-step-<?php echo $form_current->id(); ?> step-content" next-btn-text="<?php echo esc_html( get_option('next_btn_'.$tag->name) ); ?>" prev-btn-text="<?php echo esc_html( get_option('prev_btn_'.$tag->name) ); ?>">
+        <div class="uacf7-step uacf7-step-<?php echo $form_current->id(); ?> step-content" next-btn-text="<?php echo  esc_html( get_post_meta( $form_current->id(), 'next_btn_'.$tag->name, true ) ); ?>" prev-btn-text="<?php echo  esc_html( get_post_meta( $form_current->id(), 'prev_btn_'.$tag->name, true ) ); ?>">
         <?php
         return ob_get_clean();
     } 
