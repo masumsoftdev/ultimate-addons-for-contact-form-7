@@ -247,6 +247,12 @@ class UACF7_DATABASE {
             'form_value' =>  $insert_data, 
             'form_date' => current_time('Y-m-d H:i:s'), 
         )); 
+        $uacf7_db_insert_id = $wpdb->insert_id;  
+       
+        //  print_r($uacf7_enable_track_order);
+
+        do_action( 'uacf7_checkout_order_traking', $uacf7_db_insert_id, $form->id());
+
     } 
    
     /*
@@ -505,7 +511,6 @@ class uacf7_form_List_Table extends WP_List_Table{
         global $wpdb; 
         $form_id  = empty($_GET['form_id']) ? 0 : (int) $_GET['form_id']; 
         $search       = empty( $_REQUEST['s'] ) ? false :  esc_sql( $_REQUEST['s'] ); 
-        echo $search;
         $upload_dir    = wp_upload_dir();
         $dir = $upload_dir['baseurl'];
         $replace_dir = '/uacf7-uploads/';
@@ -526,8 +531,9 @@ class uacf7_form_List_Table extends WP_List_Table{
            $repetar_key = '';
            $enable_pdf = !empty(get_post_meta( $fdata->form_id, 'uacf7_enable_pdf_generator', true )) ? get_post_meta( $fdata->form_id, 'uacf7_enable_pdf_generator', true ) : '';
 
-            if($enable_pdf == 'on' && uacf7_checked( 'uacf7_enable_pdf_generator_field') != ''){ $pdf_btn =  "<a href='".esc_html($_SERVER['REQUEST_URI'])."&pdf=true&data_id=".$fdata->id."' data-id='".$fdata->id."' data-value='".$fdata->form_value."' class='button-primary uacf7-db-pdf'> Export as PDF</button>";}else{ $pdf_btn = '';}
+            if($enable_pdf == 'on' && uacf7_checked( 'uacf7_enable_pdf_generator_field') != ''){ $pdf_btn =  "<a href='".esc_html($_SERVER['REQUEST_URI'])."&pdf=true&data_id=".$fdata->id."' data-id='".$fdata->id."' data-value='".$fdata->form_value."' class='button-primary uacf7-db-pdf'> Export as PDF</a>";}else{ $pdf_btn = '';}
 
+            $order_btn = isset($field_data->order_id) && $field_data->order_id != 0 ? "<a target='_blank' href='".admin_url('post.php?post=' . $field_data->order_id . '&action=edit')."' class='button-primary uacf7-db-pdf'> View Order</a>" : '';
            foreach($field_data as $key => $value){
                 if(is_array($value)){ 
                     $value = implode(", ",$value);
@@ -557,7 +563,7 @@ class uacf7_form_List_Table extends WP_List_Table{
         
             }
 
-           $f_data['action'] = "<button data-id='".$fdata->id."' data-value='".$fdata->form_value."' class='button-primary uacf7-db-view'>View</button>". $pdf_btn;
+           $f_data['action'] = "<button data-id='".$fdata->id."' data-value='".$fdata->form_value."' class='button-primary uacf7-db-view'>View</button>". $pdf_btn . $order_btn;
            $data[] = $f_data;    
         }  
         return $data;
