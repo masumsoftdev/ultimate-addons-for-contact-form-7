@@ -47,13 +47,15 @@ jQuery(document).ready(function () {
         * Cheeck current step fields. Expect Checkbox, Radio button and hidden fields
         */
         var uacf7_current_step_fields = uacf7_current_step.find('.wpcf7-form-control:not(.uacf7-hidden .wpcf7-form-control, span.wpcf7-form-control)').map(function () {
-            var nameIndex = this.name.indexOf('[]');
-            if(nameIndex !== -1){
-                var fieldName = this.name.replace('[]','');
-            }else {
-                var fieldName = this.name;
+            if( typeof this.name !== 'undefined' ){
+                var nameIndex = this.name.indexOf('[]');
+                if(nameIndex !== -1){
+                    var fieldName = this.name.replace('[]','');
+                }else {
+                    var fieldName = this.name;
+                }
+                return fieldName; 
             }
-            return fieldName; 
         }).get();
         
         /*
