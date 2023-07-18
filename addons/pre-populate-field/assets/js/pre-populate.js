@@ -16,7 +16,6 @@
                 },
                 success: function (data) {
                   if(data != false){
-                      var data = JSON.parse(data);
                       var count_field = data.pre_populate_passing_field.length; 
                       var shifting_field = data.pre_populate_passing_field;
                       // Redirect form parameter
