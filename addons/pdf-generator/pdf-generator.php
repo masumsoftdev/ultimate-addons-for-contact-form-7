@@ -47,10 +47,7 @@ class UACF7_PDF_GENERATOR {
         // require UACF7_PATH . 'third-party/vendor/autoload.php';
 
     } 
- 
-    // public function wpcf7_before_send_mail($post){
-    //     exit;
-    // }
+  
     public function uacf7_get_generated_pdf($form_id, $data_id){ 
         require UACF7_PATH . 'third-party/vendor/autoload.php';
         $enable_pdf = !empty(get_post_meta( $form_id, 'uacf7_enable_pdf_generator', true )) ? get_post_meta( $form_id, 'uacf7_enable_pdf_generator', true ) : '';
@@ -165,13 +162,18 @@ class UACF7_PDF_GENERATOR {
                 $data = '';
                 $count_value = count($value);
                 for ($x = 0; $x < $count_value ; $x++) {
-                    $data .= $value[$x].', '; 
+                    if($x == 0){ 
+                        $data .= $value[$x];
+                    }else{
+                        $data .= ', '.$value[$x]; 
+                    }
+                    
                 } 
                 $value = $data;
             }
             $replace_value[] = $value;
-        }  
-
+        }   
+        
         $pdf_content = str_replace($replace_key, $replace_value, $customize_pdf);
 
         $mpdf->SetTitle($uacf7_pdf_name);
@@ -196,7 +198,7 @@ class UACF7_PDF_GENERATOR {
             $submission = WPCF7_Submission::get_instance();
             $contact_form_data = $submission->get_posted_data();
             $files            = $submission->uploaded_files();
-          
+           
             require UACF7_PATH . 'third-party/vendor/autoload.php';
             $upload_dir    = wp_upload_dir(); 
             $time_now      = time();
@@ -320,11 +322,15 @@ class UACF7_PDF_GENERATOR {
                         $data = '';
                         $count_value = count($value);
                         for ($x = 0; $x < $count_value ; $x++) {
-                            $data .= $value[$x].', '; 
+                            if($x == 0){ 
+                                $data .= $value[$x];
+                            }else{
+                                $data .= ', '.$value[$x]; 
+                            }
+                            
                         } 
                         $value = $data;
-                    }
-
+                    } 
                     $replace_value[] = $value;
                 }
                 
@@ -343,15 +349,16 @@ class UACF7_PDF_GENERATOR {
             } 
  
             // Repeater value
-            $repeaters = json_decode(stripslashes($_POST['_uacf7_repeaters'])); 
-            
-            if(isset($repeaters) || is_array($repeaters)){
-                $repeater_data = apply_filters('uacf7_pdf_generator_replace_data', $repeater_value, $repeaters, $customize_pdf);
+            if(isset($_POST['_uacf7_repeaters'])){
+                $repeaters = json_decode(stripslashes($_POST['_uacf7_repeaters'])); 
                 
-                $customize_pdf = str_replace($repeater_data['replace_re_key'], $repeater_data['replace_re_value'], $customize_pdf);
+                if(isset($repeaters) || is_array($repeaters)){
+                    $repeater_data = apply_filters('uacf7_pdf_generator_replace_data', $repeater_value, $repeaters, $customize_pdf);
+                    
+                    $customize_pdf = str_replace($repeater_data['replace_re_key'], $repeater_data['replace_re_value'], $customize_pdf);
+                } 
             } 
-       
-       
+
             $pdf_content = str_replace($replace_key, $replace_value, $customize_pdf);
 
             // Replace PDF Name

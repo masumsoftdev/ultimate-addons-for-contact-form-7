@@ -16,6 +16,7 @@ class UACF7_CF {
 				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_cf_admin_script' ) );
 			}
 		}
+
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_cf_frontend_script' ) );
         add_action('wpcf7_init', array(__CLASS__, 'add_shortcodes'));
         add_action( 'admin_init', array( $this, 'tag_generator' ) );
@@ -190,7 +191,7 @@ class UACF7_CF {
                                         if ($tag['type'] == 'conditional' || $tag['name'] == '') continue;
                                     ?>
                                     <?php 
-                                    if( $tag['type'] == 'checkbox' ) { 
+                                    if( $tag['type'] == 'checkbox' || $tag['type'] == 'checkbox*' ) { 
                                         
                                         $tag_name = $tag['name'].'[]';
                                         
@@ -314,7 +315,7 @@ class UACF7_CF {
                                         if ($tag['type'] == 'conditional' || $tag['name'] == '') continue;
                                     ?>
                                     <?php 
-                                    if( $tag['type'] == 'checkbox' ) { 
+                                    if( $tag['type'] == 'checkbox' || $tag['type'] == 'checkbox*' ) { 
                                         
                                         $tag_name = $tag['name'].'[]';
                                         

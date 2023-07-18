@@ -66,10 +66,13 @@
                 
                 if(type == 'radio' || type == 'checkbox'){   
                     $("form [name='"+value[i][0]+"'][value="+decodeURIComponent(value[i][1])+"]").attr("checked", true); 
+                    $("form [name='"+value[i][0]+"'][value="+decodeURIComponent(value[i][1])+"]").trigger('keyup'); 
                 }else if( multiple == 'checkbox' ){  
-                    $("form [name='"+value[i][0]+"[]'][value="+decodeURIComponent(value[i][1])+"]").attr("checked", true); 
+                    $("form [name='"+value[i][0]+"[]'][value="+decodeURIComponent(value[i][1])+"]").attr("checked", true);
+                    $("form [name='"+value[i][0]+"[]'][value="+decodeURIComponent(value[i][1])+"]").trigger('keyup');  
                 }else{
-                  $("form [name='"+value[i][0]+"']").attr('value', decodeURIComponent(value[i][1]));  
+                  $("form [name='"+value[i][0]+"']").attr('value', decodeURIComponent(value[i][1])); 
+                  $("form [name='"+value[i][0]+"']").trigger('keyup');  
                 }
                 
             } 

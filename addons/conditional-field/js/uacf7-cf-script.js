@@ -118,8 +118,7 @@
 					var $conditionRule = '';
 					var x;
 					var $conditions = [];
-					for (x = 0; x < $conditionsLength; x++) {
-						
+					for (x = 0; x < $conditionsLength; x++) { 
 						var $tag_name = $uacf7_cf_conditions['uacf7_cf_tn'][x];
 						
 						if(typeof $tag_name === 'undefined'){
@@ -151,7 +150,7 @@
                             var index = checked_values.indexOf($uacf7_cf_conditions['uacf7_cf_val'][x]);
                             
                             var checkedItem = checked_values[index];
-                            
+                           
                         }
 						// //Repeater support
 						var tagName = $tag_name.replace('[]', '');
@@ -200,11 +199,14 @@
                             
                             if(typeof checkedItem === 'undefined') {
                                 var currentValue = '';
+								
                             }else {
                                 var currentValue = checkedItem;
                             }
+							
 
                         }
+						
 						if( $uacf7_cf_conditions['uacf7_cf_operator'][x] == 'equal' ) {
                             
 							if ( currentValue == $uacf7_cf_conditions['uacf7_cf_val'][x] ) {
@@ -323,8 +325,7 @@
 						}
 					}else {
 
-						var orResult = $conditions.indexOf("true");
-
+						var orResult = $conditions.indexOf("true"); 
 						if ( form[$i]['uacf7_cf_hs'] == 'show' ) {
 
 							if(orResult != -1){ //IF true or false 
@@ -339,12 +340,12 @@
 						}else {
 
 							if(orResult == -1){ //IF true or false
-
-								$this_condition.hide().addClass('uacf7-hidden');
+								
+								$this_condition.show().removeClass('uacf7-hidden');
+								
 
 							}else{
-
-								$this_condition.show().removeClass('uacf7-hidden');
+								$this_condition.hide().addClass('uacf7-hidden');
 							}
 
 						}

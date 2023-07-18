@@ -19,8 +19,6 @@ class UACF7_PRE_POPULATE {
         add_action( 'wpcf7_after_save', array( $this, 'uacf7_bf_save_contact_form' ) ); 
         add_action( 'wp_ajax_uacf7_ajax_pre_populate_redirect', array( $this, 'uacf7_ajax_pre_populate_redirect' ) ); 
         add_action( 'wp_ajax_nopriv_uacf7_ajax_pre_populate_redirect', array( $this, 'uacf7_ajax_pre_populate_redirect' ) ); 
-
-    
         
     } 
 
@@ -226,7 +224,7 @@ class UACF7_PRE_POPULATE {
                 'pre_populate_form' => $pre_populate_form,
             ];
             
-            echo json_encode($data);
+            echo wp_send_json($data);
         }else{
             echo false;
         }  

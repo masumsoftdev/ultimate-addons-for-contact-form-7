@@ -116,7 +116,7 @@ class UACF7_Redirection {
         ?>
         <h2><?php echo esc_html__( 'UACF7 Redirection Settings', 'ultimate-addons-cf7' ); ?></h2>
                 
-        <p><?php echo esc_html__('This feature will help you to redirect contact form 7 after submission. You can Redirect users to a Thank you page or External page after user fills up the form. You can check this','ultimate-addons-cf7'); ?> <a target="_blank" href="<?php echo esc_url('https://youtu.be/mxcC1eQXxEI'); ?>"><?php echo esc_html__('video','ultimate-addons-cf7'); ?></a> <?php echo esc_html__('to learn more.','ultimate-addons-cf7'); ?></p>
+        <p><?php echo esc_html__('This feature will help you to redirect contact form 7 after submission. You can Redirect users to a Thank you page or External page after user fills up the form.','ultimate-addons-cf7'); ?>  </p>
         
         <fieldset>
           <?php
