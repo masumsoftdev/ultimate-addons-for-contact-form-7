@@ -64,16 +64,22 @@
                 var multiple = $("form [name='"+value[i][0]+"[]']").attr('type'); // input type checked
                 
                 if(type == 'radio' || type == 'checkbox'){   
-                    $("form [name='"+value[i][0]+"'][value="+decodeURIComponent(value[i][1])+"]").attr("checked", true); 
-                    $("form [name='"+value[i][0]+"'][value="+decodeURIComponent(value[i][1])+"]").trigger('keyup'); 
-                }else if( multiple == 'checkbox' ){  
-                    $("form [name='"+value[i][0]+"[]'][value="+decodeURIComponent(value[i][1])+"]").attr("checked", true);
-                    $("form [name='"+value[i][0]+"[]'][value="+decodeURIComponent(value[i][1])+"]").trigger('keyup');  
-                }else{
-                  $("form [name='"+value[i][0]+"']").attr('value', decodeURIComponent(value[i][1])); 
-                  $("form [name='"+value[i][0]+"']").trigger('keyup');  
-                }
-                
+                  $("form [name='"+value[i][0]+"'][value="+decodeURIComponent(value[i][1])+"]").attr("checked", true); 
+                  $("form [name='"+value[i][0]+"'][value="+decodeURIComponent(value[i][1])+"]").trigger('keyup'); 
+              }else if( multiple == 'checkbox' ){  
+                  $("form [name='"+value[i][0]+"[]'][value="+decodeURIComponent(value[i][1])+"]").attr("checked", true);
+                  $("form [name='"+value[i][0]+"[]'][value="+decodeURIComponent(value[i][1])+"]").trigger('keyup');  
+              }else{
+                $("form [name='"+value[i][0]+"']").attr('value', decodeURIComponent(value[i][1])); 
+                $("form [name='"+value[i][0]+"']").trigger('keyup');  
+              }
+
+              //Pre populated data with repeater addon
+
+              if($("form [uacf-original-name='"+value[i][0]+"']")){
+                $("form [uacf-original-name='"+value[i][0]+"']").attr('value', decodeURIComponent(value[i][1])); 
+                $("form [uacf-original-name='"+value[i][0]+"']").trigger('keyup'); 
+              }
             } 
         }  
     });
