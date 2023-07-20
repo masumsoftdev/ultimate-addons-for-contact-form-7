@@ -1,6 +1,14 @@
 ; (function ($) {
   'use strict';
   $(document).ready(function () {
+    $('.uacf7-slider.uacf7-range').each(function () {
+      
+      
+      $(document).on('input', '.uacf7-slider.uacf7-range', function(){ 
+          $(this).parent().parent().find('.uacf7-value').html($(this).val());
+          
+        }); 
+    });
     $( ".multistep_slide" ).each(function() {
       var handle = $(this).parent().parent().find(".uacf7-slider-handle").data("handle"); 
       var min = $(this).parent().parent().find(".uacf7-slider-handle").data("min");
