@@ -78,6 +78,7 @@
 
               if($("form [uacf-original-name='"+value[i][0]+"']")){
                 $("form [uacf-original-name='"+value[i][0]+"']").attr('value', decodeURIComponent(value[i][1])); 
+                $("form [uacf-original-name='"+value[i][0]+"']").attr('uacf-field-type','pre-populate'); 
                 $("form [uacf-original-name='"+value[i][0]+"']").trigger('keyup'); 
               }
             } 
