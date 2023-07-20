@@ -35,9 +35,6 @@ class UACF7_PDF_GENERATOR {
         // This will enqueue the Media Uploader script
         wp_enqueue_media();
 
-        update_option('upload_path',WP_CONTENT_DIR.'/uploads');
-        update_option('upload_url_path',content_url().'/uploads');
-        update_option('uploads_use_yearmonth_folders', false); 
         wp_enqueue_script('media-upload');
         
         wp_enqueue_style( 'pdf-generator-admin-style', UACF7_ADDONS . '/pdf-generator/assets/css/pdf-generator-admin.css' );
