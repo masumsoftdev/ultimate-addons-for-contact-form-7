@@ -187,7 +187,7 @@ class UACF7_STAR_RATING {
             <div class="uacf7-doc-notice">
                 <?php echo sprintf( 
                     __( 'Not sure how to set this? Check our step by step %1s.', 'ultimate-addons-cf7' ),
-                    '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/star-rating-feedback/" target="_blank">documentation</a>'
+                    '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-star-rating-field/" target="_blank">documentation</a>'
                 ); ?>  
             </div>               
                 <table class="form-table">

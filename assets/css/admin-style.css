@@ -268,6 +268,7 @@
 
   /** Addon Tabs **/
   #uacf7-repeater-panel-tab,
+  #uacf7-mailchimp-panel-tab,
   #uacf7-redirect-panel-tab, 
   #uacf7-cf-panel-tab, 
   #uacf7-placeholder-panel-tab, 
@@ -285,6 +286,7 @@
   }
 
   #uacf7-repeater-panel-tab a, 
+  #uacf7-mailchimp-panel-tab a, 
   #uacf7-redirect-panel-tab a, 
   #uacf7-cf-panel-tab a, 
   #uacf7-placeholder-panel-tab a, 
@@ -302,6 +304,7 @@
   
   #uacf7-repeater-panel-tab:hover, 
   #uacf7-redirect-panel-tab:hover, 
+  #uacf7-mailchimp-panel-tab:hover, 
   #uacf7-cf-panel-tab:hover, 
   #uacf7-placeholder-panel-tab:hover, 
   #uacf7-pdf-generator-panel-tab:hover, 
@@ -316,8 +319,10 @@
     background: #281266!important;
   }
 
-  #uacf7-repeater-panel-tab:hover a,
+  #uacf7-repeater-panel-tab:hover a, 
+  #uacf7-repeater-panel-tab.ui-tabs-active a, 
   #uacf7-redirect-panel-tab:hover a,
+  #uacf7-mailchimp-panel-tab:hover a,
   #uacf7-cf-panel-tab:hover a, 
   #uacf7-placeholder-panel-tab:hover a, 
   #uacf7-pdf-generator-panel-tab:hover a, 
@@ -345,6 +350,7 @@
  /** Addon Tabs **/
  #uacf7-repeater-panel-tab.ui-tabs-active, 
  #uacf7-redirect-panel-tab.ui-tabs-active, 
+ #uacf7-mailchimp-panel-tab.ui-tabs-active, 
  #uacf7-cf-panel-tab.ui-tabs-active, 
  #uacf7-placeholder-panel-tab.ui-tabs-active, 
  #uacf7-pdf-generator-panel-tab.ui-tabs-active, 
@@ -364,6 +370,7 @@
 /** Addon Tab Inner **/
 #uacf7-redirect-panel, 
 #uacf7-repeater-panel, 
+#uacf7-mailchimp-panel, 
 #uacf7-auto-product-cart-panel, 
 #uacf7-bf-panel, 
 #uacf7-cf-panel, 
@@ -384,6 +391,7 @@
 #uacf7-repeater-panel h2, 
 #uacf7-redirect-panel h2, 
 #uacf7-auto-product-cart-panel h2, 
+#uacf7-mailchimp-panel h2, 
 #uacf7-bf-panel h2, 
 #uacf7-cf-panel h2, 
 #uacf7-placeholder-panel h2, 
@@ -404,6 +412,7 @@
 #uacf7-redirect-panel p, 
 #uacf7-auto-product-cart-panel p, 
 #uacf7-bf-panel p, 
+#uacf7-mailchimp-panel p, 
 #uacf7-cf-panel p, 
 #uacf7-placeholder-panel p, 
 #uacf7-pdf-generator-panel p, 
@@ -460,3 +469,38 @@
 	  border-radius: 0;
 	}
   }
+
+/* Review admin notice CSS */
+.themefic_review_notice ul li {
+  display: inline-block;
+}
+.themefic_review_notice ul {
+    margin: 0;
+    margin-bottom: 5px;
+}
+.themefic_review_notice ul li a {
+  text-decoration: none;
+  padding: 7px;
+  color: #00718A;
+  font-weight: 600;
+  transition: 0.4s;
+}
+
+.themefic_review_notice ul li:nth-child(1) a {
+  padding-left: 0 !important;
+}
+
+.themefic_review_notice ul li a span {
+  padding-right: 3px;
+  display: inline-block;
+}
+
+.themefic_review_notice ul li a:hover {
+  color: #218ea6;
+}
+.themefic_review_notice {
+	position: relative;
+}
+.themefic_review_notice .review_notice_dismiss {
+	padding: 2px;
+}

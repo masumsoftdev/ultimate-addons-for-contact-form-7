@@ -19,7 +19,8 @@ class UACF7_DATABASE {
         add_action( 'admin_menu', array( $this, 'uacf7_add_db_menu' ) );   
         add_action( 'wp_ajax_uacf7_ajax_database_popup', array( $this, 'uacf7_ajax_database_popup' ) );  
         add_action( 'init', array( $this, 'uacf7_database_export_csv' ) );  
-        add_action( 'admin_init', array( $this, 'uacf7_create_database_table' ) );  
+        add_action( 'admin_init', array( $this, 'uacf7_create_database_table' ) ); 
+        // add_filter( 'wpcf7_load_js', '__return_false' ); 
        
     } 
 
@@ -90,8 +91,9 @@ class UACF7_DATABASE {
         }
         
         if(!empty($form_id) && $csv == true ){
-            $this->uacf7_database_export_csv($form_id,  $csv); 
+            $this->uacf7_database_export_csv($form_id,  $csv); // export as CSV
         }  
+        
         if( !empty($form_id)){
             $uacf7_ListTable = new uacf7_form_List_Table();
             $uacf7_ListTable->prepare_items(); 
@@ -150,7 +152,7 @@ class UACF7_DATABASE {
                                     <option value="0"><?php echo esc_html__( 'Select Form', 'ultimate-addons-cf7' ); ?> </option>
                                     <?php 
                                         foreach ($list_forms as $form) { 
-                                            $count = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."uacf7_form WHERE form_id = $form->ID");  // count number of data
+                                            $count = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM ".$wpdb->prefix."uacf7_form WHERE form_id = %d", $form->ID));  // count number of data
                                             echo '<option value="' . esc_attr($form->ID) . '">' . esc_attr($form->post_title) . ' ( '.$count.' )</option>'; 
                                         }
                                     ?>
@@ -184,7 +186,7 @@ class UACF7_DATABASE {
         $tags = $ContactForm->scan_form_tags();
         $skip_tag_insert = []; 
         foreach ($tags as $tag){
-            if( $tag->type == 'uacf7_step_start' || $tag->type == 'uacf7_step_end' || $tag->type == 'uarepeater' ){
+            if( $tag->type == 'uacf7_step_start' || $tag->type == 'uacf7_step_end' || $tag->type == 'uarepeater' || $tag->type == 'conditional' ){
                 if($tag->name != ''){
                     $skip_tag_insert[] = $tag->name;
                 }
@@ -245,6 +247,12 @@ class UACF7_DATABASE {
             'form_value' =>  $insert_data, 
             'form_date' => current_time('Y-m-d H:i:s'), 
         )); 
+        $uacf7_db_insert_id = $wpdb->insert_id;  
+       
+        //  print_r($uacf7_enable_track_order);
+
+        do_action( 'uacf7_checkout_order_traking', $uacf7_db_insert_id, $form->id());
+
     } 
    
     /*
@@ -253,14 +261,15 @@ class UACF7_DATABASE {
 
     public function uacf7_ajax_database_popup(){ 
         global $wpdb; 
-        $id = $_POST['id']; // data id
+        $id = intval($_POST['id']); // data id
         $upload_dir    = wp_upload_dir();
         $dir = $upload_dir['baseurl'];
         $replace_dir = '/uacf7-uploads/';
-        $form_data = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."uacf7_form WHERE id = $id"); 
+        $form_data = $wpdb->get_row($wpdb->prepare("SELECT * FROM ".$wpdb->prefix."uacf7_form WHERE id = %d", $id)); 
         $ContactForm = WPCF7_ContactForm::get_instance( $form_data->form_id );
         $form_fields = $ContactForm->scan_form_tags();
         $data = json_decode($form_data->form_value);
+        
         $fields = [];
         foreach($form_fields as $field){
             
@@ -294,8 +303,15 @@ class UACF7_DATABASE {
         // Update data as read
         if($data->status == 'unread'){
             $data->status = 'read'; 
-            $data = json_encode($data);
-            $update = $wpdb->query("UPDATE ".$wpdb->prefix."uacf7_form SET form_value='".$data."' WHERE id=$id"); 
+            $data = json_encode($data); 
+            $table_name = $wpdb->prefix.'uacf7_form';  
+            $data = array(
+                'form_value' =>  $data, 
+            );
+            $where = array(
+                'id' => $id
+            );
+            $wpdb->update( $table_name, $data, $where );
         } 
 
         echo $html; // return all data
@@ -317,12 +333,12 @@ class UACF7_DATABASE {
             $dir = $upload_dir['baseurl'];
             $replace_dir = '/uacf7-uploads/';
            
-            $form_id = $_REQUEST['form_id'];
+            $form_id = intval($_REQUEST['form_id']);
             $file_name = get_the_title( $_REQUEST['form_id']);
             $file_name = str_replace(" ","-", $file_name); 
            
 
-            $form_data = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."uacf7_form WHERE form_id = $form_id");  
+            $form_data = $wpdb->get_results($wpdb->prepare("SELECT * FROM ".$wpdb->prefix."uacf7_form WHERE form_id = %d ", $form_id ));
 
            
             $now = gmdate("D, d M Y H:i:s");
@@ -389,7 +405,6 @@ class UACF7_DATABASE {
             foreach ($list as $fields) {
                 fputcsv($fp, $fields);
             }
-            // print_r($fp);
             echo ob_get_clean();
             fclose($fp);
             die();
@@ -454,9 +469,15 @@ class uacf7_form_List_Table extends WP_List_Table{
         
         $columns = [];
         $columns['cb']      = '<input type="checkbox" />';  
-        $count = count($form_fields);    
-        for ($x = 0; $x < $count; $x++) {  
-          if($form_fields[$x]['type'] != 'submit' && $form_fields[$x]['type'] !='uacf7_step_start' && $form_fields[$x]['type'] !='uacf7_step_end' && $form_fields[$x]['type'] !='uarepeater' ){
+        if(count($form_fields) > 4){
+            $count = 4;
+        }else{
+            $count = count($form_fields);
+        }  
+        for ($x = 0; $x < $count; $x++) { 
+            
+          if($form_fields[$x]['type'] != 'submit' && $form_fields[$x]['type'] !='uacf7_step_start' && $form_fields[$x]['type'] !='uacf7_step_end' && $form_fields[$x]['type'] !='uarepeater' && $form_fields[$x]['type'] !='conditional' ){
+            
             $columns[$form_fields[$x]['name']] = $form_fields[$x]['name']; 
           }
         }  
@@ -495,19 +516,24 @@ class uacf7_form_List_Table extends WP_List_Table{
         $replace_dir = '/uacf7-uploads/';
         $data = [];
         if(isset($search) && !empty($search)){
-            $form_data = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."uacf7_form  WHERE form_value LIKE '%$search%' AND form_id = $form_id");  
+           
+            $form_data = $wpdb->get_results(
+                $wpdb->prepare("SELECT * FROM ".$wpdb->prefix."uacf7_form WHERE form_id = %d AND form_value LIKE '%$search%' ORDER BY id DESC", $form_id)
+            ); 
         }else{  
-            $form_data = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."uacf7_form WHERE form_id = $form_id");  
+            $form_data = $wpdb->get_results(
+                $wpdb->prepare("SELECT * FROM ".$wpdb->prefix."uacf7_form WHERE form_id = %d ORDER BY id DESC",  $form_id) 
+            );  
         }
-        
         foreach($form_data as $fdata){ 
            $field_data =  json_decode($fdata->form_value); 
            $repetar_value = '';
            $repetar_key = '';
            $enable_pdf = !empty(get_post_meta( $fdata->form_id, 'uacf7_enable_pdf_generator', true )) ? get_post_meta( $fdata->form_id, 'uacf7_enable_pdf_generator', true ) : '';
 
-            if($enable_pdf == 'on' && uacf7_checked( 'uacf7_enable_pdf_generator_field') != ''){ $pdf_btn =  "<a href='".esc_html($_SERVER['REQUEST_URI'])."&pdf=true&data_id=".$fdata->id."' data-id='".$fdata->id."' data-value='".$fdata->form_value."' class='button-primary uacf7-db-pdf'> Export as PDF</button>";}else{ $pdf_btn = '';}
+            if($enable_pdf == 'on' && uacf7_checked( 'uacf7_enable_pdf_generator_field') != ''){ $pdf_btn =  "<a href='".esc_html($_SERVER['REQUEST_URI'])."&pdf=true&data_id=".$fdata->id."' data-id='".$fdata->id."' data-value='".$fdata->form_value."' class='button-primary uacf7-db-pdf'> Export as PDF</a>";}else{ $pdf_btn = '';}
 
+            $order_btn = isset($field_data->order_id) && $field_data->order_id != 0 ? "<a target='_blank' href='".admin_url('post.php?post=' . $field_data->order_id . '&action=edit')."' class='button-primary uacf7-db-pdf'> View Order</a>" : '';
            foreach($field_data as $key => $value){
                 if(is_array($value)){ 
                     $value = implode(", ",$value);
@@ -537,7 +563,7 @@ class uacf7_form_List_Table extends WP_List_Table{
         
             }
 
-           $f_data['action'] = "<button data-id='".$fdata->id."' data-value='".$fdata->form_value."' class='button-primary uacf7-db-view'>View</button>". $pdf_btn;
+           $f_data['action'] = "<button data-id='".$fdata->id."' data-value='".$fdata->form_value."' class='button-primary uacf7-db-view'>View</button>". $pdf_btn . $order_btn;
            $data[] = $f_data;    
         }  
         return $data;
@@ -652,13 +678,12 @@ class uacf7_form_List_Table extends WP_List_Table{
      */
 
     function process_bulk_action() {       
-        global $wpdb;   
-
+        global $wpdb;    
         if ( 'delete' === $this->current_action() ) { 
             $ids = isset( $_POST['uacf7_db_id'] ) ? $_POST['uacf7_db_id'] : array();
             foreach ( $ids as $id ) {
                 $id = absint( $id ); 
-                $wpdb->query( "DELETE FROM ".$wpdb->prefix."uacf7_form WHERE id = $id" );
+                $wpdb->query( $wpdb->prepare("DELETE FROM ".$wpdb->prefix."uacf7_form WHERE id = %d", $id) );
             }
         }
     } 

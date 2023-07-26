@@ -16,6 +16,7 @@ class UACF7_CF {
 				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_cf_admin_script' ) );
 			}
 		}
+
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_cf_frontend_script' ) );
         add_action('wpcf7_init', array(__CLASS__, 'add_shortcodes'));
         add_action( 'admin_init', array( $this, 'tag_generator' ) );
@@ -103,6 +104,12 @@ class UACF7_CF {
         ?>
         <div class="control-box">
             <fieldset>
+                <div class="uacf7-doc-notice">
+                    <?php echo sprintf( 
+                        __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-conditional-fields/" target="_blank">documentation</a>'
+                    ); ?>  
+                </div>
                 <legend><?php echo esc_html__( "Generate a conditional tag to wrap the elements that can be shown conditionally.", "ultimate-addons-cf7" ); ?></legend>
                 <table class="form-table">
                     <tbody>
@@ -132,10 +139,11 @@ class UACF7_CF {
     public function uacf7_create_conditional_panel_fields( $post ) {
         ?>
         <h2><?php echo esc_html( 'Conditional Fields Settings', 'ultimate-addons-cf7' ) ?></h2>
-
+        
         <p><?php echo esc_html__('With this feature, you can show or hide form fields depending on Contact form 7 Conditional Logic. You can check this','ultimate-addons-cf7'); ?> <a target="_blank" href="<?php echo esc_url('https://youtu.be/mxcC1eQXxEI?t=253'); ?>"><?php echo esc_html__('video','ultimate-addons-cf7'); ?></a> <?php echo esc_html__('to learn more.','ultimate-addons-cf7'); ?></p>
         
         <fieldset>
+            
             <div class="uacf7-conditional-fields">
                <!--New entry-->
                <div id="uacf7-new-entry">
@@ -183,7 +191,7 @@ class UACF7_CF {
                                         if ($tag['type'] == 'conditional' || $tag['name'] == '') continue;
                                     ?>
                                     <?php 
-                                    if( $tag['type'] == 'checkbox' ) { 
+                                    if( $tag['type'] == 'checkbox' || $tag['type'] == 'checkbox*' ) { 
                                         
                                         $tag_name = $tag['name'].'[]';
                                         
@@ -219,6 +227,13 @@ class UACF7_CF {
                         <input id="uacf7_conditions_count_ruleid" type="hidden" name="uacf7_conditions_count_ruleid_uacf7id" value="1">
                     </div>
                     <br>
+                    
+                </div>
+                <div class="uacf7-doc-notice">
+                    <?php echo sprintf( 
+                        __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-conditional-fields/" target="_blank">documentation</a>'
+                    ); ?>  
                 </div>
                <!--New entry-->
                <?php        
@@ -300,7 +315,7 @@ class UACF7_CF {
                                         if ($tag['type'] == 'conditional' || $tag['name'] == '') continue;
                                     ?>
                                     <?php 
-                                    if( $tag['type'] == 'checkbox' ) { 
+                                    if( $tag['type'] == 'checkbox' || $tag['type'] == 'checkbox*' ) { 
                                         
                                         $tag_name = $tag['name'].'[]';
                                         

@@ -103,18 +103,18 @@ class UACF7_range_Slider {
             <?php
             }
             ?>
-            <span class="<?php echo esc_attr( $tag->name ) . '-value'; ?> uacf7-value"></span>
+            <span class="<?php echo esc_attr( $tag->name ) . '-value'; ?> uacf7-value"><?php echo esc_html($default) ?></span>
             <span class="wpcf7-form-control-wrap uacf7-slidecontainer uacf7-slider-handle" data-separator="<?php echo esc_attr( $separator ); ?>" data-handle="<?php echo esc_attr( $handle ); ?>" data-min="<?php echo esc_attr( $min ); ?>" data-max="<?php echo esc_attr( $max ); ?>" data-default="<?php echo esc_attr( $default ); ?>">
                 <input name="<?php echo esc_attr( $tag->name ); ?>" type="range" min="<?php echo esc_attr( $min ); ?>" max="<?php echo esc_attr( $max ); ?>"  step="<?php echo esc_attr( $step ); ?>" value="<?php echo esc_attr( $default ); ?>" class="uacf7-slider uacf7-range">
             </span>  
             </div>
             <script>
 
-                document.querySelector(".<?php echo $tag->name . '-value'; ?>").innerHTML = document.querySelector(".<?php echo $tag->name ; ?> .uacf7-range").value + ' <?php echo esc_html( $label ); ?>'; // Display the default slider value
-                // Update the current slider value (each time you drag the slider handle)
-                document.querySelector(".<?php echo $tag->name ; ?> .uacf7-range").oninput = function () {
-                    document.querySelector(".<?php echo $tag->name . '-value'; ?>").innerHTML = this.value + ' <?php echo esc_html( $label ); ?>';
-                }  
+                // document.querySelector(".<?php echo $tag->name . '-value'; ?>").innerHTML = document.querySelector(".<?php echo $tag->name ; ?> .uacf7-range").value + ' <?php echo esc_html( $label ); ?>'; // Display the default slider value
+                // // Update the current slider value (each time you drag the slider handle)
+                // document.querySelector(".<?php echo $tag->name ; ?> .uacf7-range").oninput = function () {
+                //     document.querySelector(".<?php echo $tag->name . '-value'; ?>").innerHTML = this.value + ' <?php echo esc_html( $label ); ?>';
+                // }  
             </script>
             <?php 
         } elseif ( $handle == 2 ) {
@@ -269,7 +269,7 @@ class UACF7_range_Slider {
                 <div class="uacf7-doc-notice"> 
                     <?php echo sprintf( 
                         __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
-                        '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/range-slider-on-contact-form-7/" target="_blank">documentation</a>'
+                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-range-slider/" target="_blank">documentation</a>'
                     ); ?> 
                 </div>
             </fieldset>

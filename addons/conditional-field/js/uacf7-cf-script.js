@@ -7,7 +7,7 @@
         uacf7_cf_handler_this($this);
 
         jQuery(document).on('keyup', '.wpcf7-form input:not(.wpcf7-uacf7_country_dropdown, .wpcf7-uacf7_city, .wpcf7-uacf7_state, .wpcf7-uacf7_zip), .wpcf7-form textarea', function () {
-			var $this = $(this);  
+			var $this = $(this);   
 			uacf7_cf_handler_this($this); 
 		});
 
@@ -31,8 +31,21 @@
 			var contactFormId = jQuery('input[name="_wpcf7"]', this).val();
 			var repeater_count = jQuery('.uacf7-repeater-count', this).val();
 
-			var form = uacf7_cf_object[contactFormId];
-
+			var form = uacf7_cf_object[contactFormId]; 
+			if(typeof repeater_count === 'undefined'){
+				 var repeater_weapper = '.uacf7_conditional';
+			}else{ 
+				if( $this == false){
+					var repeater_weapper = '.uacf7_conditional'; 
+				}else{
+					if(typeof $this.attr('uacf-original-name') === 'undefined'  || $this.attr('uacf-original-name').length == 0){ 
+						var repeater_weapper = '.uacf7_conditional'; 
+					}else{
+						var repeater_weapper = $this.closest('.uacf7_repeater_sub_field');
+					}
+					
+				}
+			} 
 			var $i = 0;
 
 			// Condition  repeater Checked 
@@ -44,11 +57,9 @@
 				var $conditionsLength = $uacf7_cf_conditions['uacf7_cf_tn'].length; 
 				var x; 
 				if(typeof repeater_count !== 'undefined'){ 
-					if( $this != false){ 
-						for (x = 0; x < $conditionsLength; x++) {   
-							tag_name_array.push($uacf7_cf_conditions['uacf7_cf_tn'][x]);
-							count++;
-						} 
+					for (x = 0; x < $conditionsLength; x++) {   
+						tag_name_array.push($uacf7_cf_conditions['uacf7_cf_tn'][x]);
+						count++;
 					} 
 				} 
 				count_2++
@@ -95,7 +106,7 @@
 							if( $this == false){
 								jQuery('.uacf7_conditional.' + form[$i]['uacf7_cf_group'] + '').hide().addClass('uacf7-hidden');
 							}else{ 
-								if(typeof $this.attr('uacf-original-name') === 'undefined'){
+								if(typeof $this.attr('uacf-original-name') === 'undefined'  || $this.attr('uacf-original-name').length == 0){
 									jQuery('.uacf7_conditional.' + form[$i]['uacf7_cf_group'] + '').hide().addClass('uacf7-hidden');
 								}else{
 								 	$this.closest('.uacf7_repeater_sub_field').find('.uacf7_conditional.' + form[$i]['uacf7_cf_group'] + '').hide().addClass('uacf7-hidden');
@@ -107,17 +118,8 @@
 					var $conditionRule = '';
 					var x;
 					var $conditions = [];
-					for (x = 0; x < $conditionsLength; x++) {
-						
-						if(typeof repeater_count === 'undefined'){
-							var $tag_name = $uacf7_cf_conditions['uacf7_cf_tn'][x];
-						}else{
-							if( $this == false){
-								var $tag_name = $uacf7_cf_conditions['uacf7_cf_tn'][x];
-							}else{
-								var $tag_name = $this.attr('uacf-original-name');
-							}
-						}
+					for (x = 0; x < $conditionsLength; x++) { 
+						var $tag_name = $uacf7_cf_conditions['uacf7_cf_tn'][x];
 						
 						if(typeof $tag_name === 'undefined'){
 							var $tag_name = $uacf7_cf_conditions['uacf7_cf_tn'][x];
@@ -148,7 +150,7 @@
                             var index = checked_values.indexOf($uacf7_cf_conditions['uacf7_cf_val'][x]);
                             
                             var checkedItem = checked_values[index];
-                            
+                           
                         }
 						// //Repeater support
 						var tagName = $tag_name.replace('[]', '');
@@ -173,30 +175,38 @@
 						if(typeof repeater_count === 'undefined'){
 							var currentValue = jQuery('.wpcf7-form [name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]'+maybeChecked+'').val();
 						}else{
-							if( $this == false){
-								var currentValue = jQuery('.wpcf7-form [name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]'+maybeChecked+'').val();
-							}else{
-								if(typeof $this.attr('uacf-original-name') === 'undefined'){
+							var current_field = jQuery('.wpcf7-form [uacf-original-name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]');
+							if($this == false){
+								
+								if(typeof current_field === 'undefined'){
+									var current_field = jQuery('.wpcf7-form [name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]');
+									
+								}else{
+									var currentValue = jQuery('.wpcf7-form [uacf-original-name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]'+maybeChecked+'').val(); 
+								}
+
+							}else{ 
+								// console.log(current_field);
+								if(typeof current_field === 'undefined' || current_field.length == 0){ 
 									var currentValue = jQuery('.wpcf7-form [name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]'+maybeChecked+'').val();
-								 }else{ 
-									if(typeof $this.attr('uacf-original-name') === 'undefined'){
-										var currentValue = jQuery('.wpcf7-form [name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]'+maybeChecked+'').val();
-									}else{
-										var currentValue = $this.val();
-									}
-								 }
+								}else{
+									var currentValue = repeater_weapper.find('[uacf-original-name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]'+maybeChecked+'').val(); 
+								}
 							}
-						} 
-					
+
+						}   
                         if( jQuery('.wpcf7-form [name="' + $uacf7_cf_conditions['uacf7_cf_tn'][x] + '"]').is("input[type='checkbox']") ) {
                             
                             if(typeof checkedItem === 'undefined') {
                                 var currentValue = '';
+								
                             }else {
                                 var currentValue = checkedItem;
                             }
+							
 
                         }
+						
 						if( $uacf7_cf_conditions['uacf7_cf_operator'][x] == 'equal' ) {
                             
 							if ( currentValue == $uacf7_cf_conditions['uacf7_cf_val'][x] ) {
@@ -272,21 +282,20 @@
 
 					}
 					
+					
 					if(typeof repeater_count === 'undefined'){
-						var $this_condition = jQuery( '.uacf7_conditional.' + form[$i]['uacf7_cf_group'] +'');  
+						var $this_condition = jQuery( repeater_weapper+'.' + form[$i]['uacf7_cf_group'] +'');  
 					}else{
 						if( $this == false){
 							var $this_condition = jQuery( '.uacf7_conditional.' + form[$i]['uacf7_cf_group'] +'');  
 						}else{ 
-							if(typeof $this.attr('uacf-original-name') === 'undefined'){
-								var $this_condition = jQuery( '.uacf7_conditional.' + form[$i]['uacf7_cf_group'] +'');  
+							if(typeof $this.attr('uacf-original-name') === 'undefined' || $this.attr('uacf-original-name').length == 0){
+								var $this_condition =  jQuery( repeater_weapper+'.' + form[$i]['uacf7_cf_group'] +'');    
 							}else{
-								var $this_condition =  $this.closest('.uacf7_repeater_sub_field').find( '.uacf7_conditional.' + form[$i]['uacf7_cf_group'] +'');
+								var $this_condition =  repeater_weapper.find( '.uacf7_conditional.' + form[$i]['uacf7_cf_group'] +'');
 							} 
 						}
-					}
-					
-					
+					}					
 					if( form[$i]['uacf_cf_condition_for'] === 'all' ) {
 
 						var equalResult = $conditions.indexOf("false");
@@ -316,8 +325,7 @@
 						}
 					}else {
 
-						var orResult = $conditions.indexOf("true");
-
+						var orResult = $conditions.indexOf("true"); 
 						if ( form[$i]['uacf7_cf_hs'] == 'show' ) {
 
 							if(orResult != -1){ //IF true or false 
@@ -332,12 +340,12 @@
 						}else {
 
 							if(orResult == -1){ //IF true or false
-
-								$this_condition.hide().addClass('uacf7-hidden');
+								
+								$this_condition.show().removeClass('uacf7-hidden');
+								
 
 							}else{
-
-								$this_condition.show().removeClass('uacf7-hidden');
+								$this_condition.hide().addClass('uacf7-hidden');
 							}
 
 						}

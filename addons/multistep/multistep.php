@@ -16,12 +16,11 @@ class UACF7_MULTISTEP {
         add_action( 'wp_ajax_check_fields_validation', array( $this, 'check_fields_validation' ) );
         add_action( 'wp_ajax_nopriv_check_fields_validation', array( $this, 'check_fields_validation' ) );
         wpcf7_add_form_tag( 'uacf7_step_start', array( $this, 'step_start_tag_handler' ), true );
-        wpcf7_add_form_tag( 'uacf7_step_end', array( $this, 'step_end_tag_handler' ), true );
+        wpcf7_add_form_tag( 'uacf7_step_end', array( $this, 'step_end_tag_handler' ), false );
         wpcf7_add_form_tag( 'uacf7_multistep_progressbar', array( $this, 'uacf7_multistep_progressbar' ), true );
         add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_panel' ) );
         add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_contact_form' ) );
         add_filter( 'wpcf7_contact_form_properties', array( $this, 'uacf7_properties' ), 10, 2 );
-        
     }
     
     public function enqueue_script() {
@@ -39,22 +38,23 @@ class UACF7_MULTISTEP {
         ob_start();
         $form_current = \WPCF7_ContactForm::get_current();
         ?>
-        <div class="uacf7-step uacf7-step-<?php echo $form_current->id(); ?> step-content" next-btn-text="<?php echo esc_html( get_option('next_btn_'.$tag->name) ); ?>" prev-btn-text="<?php echo esc_html( get_option('prev_btn_'.$tag->name) ); ?>">
+        <div class="uacf7-step uacf7-step-<?php echo $form_current->id(); ?> step-content" next-btn-text="<?php echo  esc_html( get_post_meta( $form_current->id(), 'next_btn_'.$tag->name, true ) ); ?>" prev-btn-text="<?php echo  esc_html( get_post_meta( $form_current->id(), 'prev_btn_'.$tag->name, true ) ); ?>">
         <?php
         return ob_get_clean();
     } 
     function step_end_tag_handler($tag){
-        ob_start();
+        ob_start();  
         $form_current = \WPCF7_ContactForm::get_current();
         ?>
         <p>
-        	<button class="uacf7-prev" data-form-id="<?php echo $form_current->id(); ?>" ><?php echo esc_html__('Previous', 'ultimate-addons-cf7'); ?></button>
-			<button class="uacf7-next" data-form-id="<?php echo $form_current->id(); ?>"><?php echo esc_html__('Next', 'ultimate-addons-cf7'); ?></button>
-			<span class="wpcf7-spinner uacf7-ajax-loader"></span>
+            <button class="uacf7-prev" data-form-id="<?php echo $form_current->id(); ?>" ><?php echo esc_html__('Previous', 'ultimate-addons-cf7'); ?></button>
+            <button class="uacf7-next" data-form-id="<?php echo $form_current->id(); ?>"><?php echo esc_html__('Next', 'ultimate-addons-cf7'); ?></button>
+            <span class="wpcf7-spinner uacf7-ajax-loader"></span>
         </p>
         </div>
         <?php
         return ob_get_clean();
+       
     } 
     function uacf7_multistep_progressbar($tag){
         ob_start();
@@ -138,7 +138,7 @@ class UACF7_MULTISTEP {
                 <div class="uacf7-doc-notice">
                      <?php echo sprintf( 
                         __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
-                        '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/multi-step-form/" target="_blank">documentation</a>'
+                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-multi-step-forms/" target="_blank">documentation</a>'
                     ); ?> 
                 </div>
             </fieldset>
@@ -146,7 +146,7 @@ class UACF7_MULTISTEP {
 
         <div class="insert-box">
             <input type="text" name="<?php echo esc_attr($uacf7_field_type); ?>" class="tag code" readonly="readonly" onfocus="this.select()" />
-
+      
             <div class="submitbox">
                 <input type="button" class="button button-primary insert-tag" value="<?php echo esc_attr( __( 'Insert Tag', 'ultimate-addons-cf7' ) ); ?>" />
             </div>
@@ -162,6 +162,16 @@ class UACF7_MULTISTEP {
         <div class="control-box">
             <fieldset>
                 <legend><?php echo esc_html__( "Multistep end", "ultimate-addons-cf7" ); ?></legend>
+                <table class="form-table">
+                    <tbody> 
+                        <tr>
+                            <th scope="row"><label><?php echo esc_html( __( 'Name', 'ultimate-addons-cf7' ) ); ?></label></th>
+                            <td>
+                               <input type="text" name="name" readonly="readonly" class="tg-name oneline" value="end"> 
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </fieldset>
         </div>
 
@@ -208,7 +218,7 @@ class UACF7_MULTISTEP {
                        <div class="uacf7-doc-notice">
                             <?php echo sprintf( 
                                 __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
-                                '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/multi-step-form/" target="_blank">documentation</a>'
+                                '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-multi-step-forms/" target="_blank">documentation</a>'
                             ); ?>  
                         </div>
                    </div>
@@ -410,49 +420,73 @@ class UACF7_MULTISTEP {
 		if( $_POST['uacf7_progressbar_style'] == 'default' || $_POST['uacf7_progressbar_style'] == 'style-1' ) {
 			update_post_meta( $form->id(), 'uacf7_progressbar_style', sanitize_text_field($_POST['uacf7_progressbar_style']) );
 		}
-        
-        update_post_meta( $form->id(), 'uacf7_multistep_is_multistep', sanitize_text_field($_POST['uacf7_multistep_is_multistep']) );
+        if(isset($_POST['uacf7_multistep_step_height'])) {
+            update_post_meta( $form->id(), 'uacf7_multistep_is_multistep', sanitize_text_field($_POST['uacf7_multistep_is_multistep']) );
+        }
         
         $step_titles = array();
         foreach ($all_steps as $step) {
             $step_titles[] = (is_array($step->values) && !empty($step->values)) ? $step->values[0] : '';
         }
+        if(!empty($step_titles)) {
+            update_post_meta( $form->id(), 'uacf7_multistep_steps_title', $step_titles );
+        } 
+
+		update_post_meta( $form->id(), 'uacf7_multistep_use_step_labels', sanitize_text_field($_POST['uacf7_multistep_use_step_labels']) );
         
-        update_post_meta( $form->id(), 'uacf7_multistep_steps_title', $step_titles );
-		
-        update_post_meta( $form->id(), 'uacf7_multistep_use_step_labels', sanitize_text_field($_POST['uacf7_multistep_use_step_labels']) );
-		
-		update_post_meta( $form->id(), 'uacf7_multistep_circle_width', sanitize_text_field($_POST['uacf7_multistep_circle_width']) );
-    
-		update_post_meta( $form->id(), 'uacf7_multistep_circle_height', sanitize_text_field($_POST['uacf7_multistep_circle_height']) );
-
-		update_post_meta( $form->id(), 'uacf7_multistep_circle_bg_color', sanitize_text_field($_POST['uacf7_multistep_circle_bg_color']) );
-
-		update_post_meta( $form->id(), 'uacf7_multistep_circle_font_color', sanitize_text_field($_POST['uacf7_multistep_circle_font_color']) );
-
-		update_post_meta( $form->id(), 'uacf7_multistep_circle_border_radious', sanitize_text_field($_POST['uacf7_multistep_circle_border_radious']) );
-
-		update_post_meta( $form->id(), 'uacf7_multistep_font_size', sanitize_text_field($_POST['uacf7_multistep_font_size']) );
-		
-		update_post_meta( $form->id(), 'uacf7_multistep_progress_bg_color', sanitize_text_field($_POST['uacf7_multistep_progress_bg_color']) );
-		
-		update_post_meta( $form->id(), 'uacf7_multistep_progress_line_color', sanitize_text_field($_POST['uacf7_multistep_progress_line_color']) );
-		
-		update_post_meta( $form->id(), 'uacf7_multistep_step_title_color', sanitize_text_field($_POST['uacf7_multistep_step_title_color']) );
-		
-		update_post_meta( $form->id(), 'uacf7_multistep_step_description_color', sanitize_text_field($_POST['uacf7_multistep_step_description_color']) );
-		
-		update_post_meta( $form->id(), 'uacf7_multistep_circle_active_color', sanitize_text_field($_POST['uacf7_multistep_circle_active_color']) );
-		
-		update_post_meta( $form->id(), 'uacf7_multistep_progressbar_title_color', sanitize_text_field($_POST['uacf7_multistep_progressbar_title_color']) );
-		
-		update_post_meta( $form->id(), 'uacf7_multistep_step_height', sanitize_text_field($_POST['uacf7_multistep_step_height']) ); 
-
+        if(isset($_POST['uacf7_multistep_circle_width'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_circle_width', sanitize_text_field($_POST['uacf7_multistep_circle_width']) );
+        }
+     
+        if(isset($_POST['uacf7_multistep_circle_height'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_circle_height', sanitize_text_field($_POST['uacf7_multistep_circle_height']) );
+        } 
+         if(isset($_POST['uacf7_multistep_circle_bg_color'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_circle_bg_color', sanitize_text_field($_POST['uacf7_multistep_circle_bg_color']) );
+        }
+        if(isset($_POST['uacf7_multistep_circle_font_color'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_circle_font_color', sanitize_text_field($_POST['uacf7_multistep_circle_font_color']) );
+        } 
+        if(isset($_POST['uacf7_multistep_circle_border_radious'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_circle_border_radious', sanitize_text_field($_POST['uacf7_multistep_circle_border_radious']) );
+        }
+        if(isset($_POST['uacf7_multistep_circle_border_radious'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_circle_border_radious', sanitize_text_field($_POST['uacf7_multistep_circle_border_radious']) );
+        } 
+        if(isset($_POST['uacf7_multistep_font_size'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_font_size', sanitize_text_field($_POST['uacf7_multistep_font_size']) );
+        }
+        if(isset($_POST['uacf7_multistep_font_size'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_font_size', sanitize_text_field($_POST['uacf7_multistep_font_size']) );
+        } 
+        if(isset($_POST['uacf7_multistep_progress_bg_color'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_progress_bg_color', sanitize_text_field($_POST['uacf7_multistep_progress_bg_color']) );
+        } 
+        if(isset($_POST['uacf7_multistep_progress_line_color'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_progress_line_color', sanitize_text_field($_POST['uacf7_multistep_progress_line_color']) );
+        }
+        if(isset($_POST['uacf7_multistep_step_title_color'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_step_title_color', sanitize_text_field($_POST['uacf7_multistep_step_title_color']) );
+        }
+		if(isset($_POST['uacf7_multistep_step_description_color'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_step_description_color', sanitize_text_field($_POST['uacf7_multistep_step_description_color']) );
+        } 
+        if(isset($_POST['uacf7_multistep_circle_active_color'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_circle_active_color', sanitize_text_field($_POST['uacf7_multistep_circle_active_color']) );
+        } 
+        if(isset($_POST['uacf7_multistep_progressbar_title_color'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_progressbar_title_color', sanitize_text_field($_POST['uacf7_multistep_progressbar_title_color']) );
+        } 
+        if(isset($_POST['uacf7_multistep_step_height'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_step_height', sanitize_text_field($_POST['uacf7_multistep_step_height']) );
+        } 
         // Next Previous Button
-		update_post_meta( $form->id(), 'uacf7_multistep_button_padding_tb', sanitize_text_field($_POST['uacf7_multistep_button_padding_tb']) ); 
-
-		update_post_meta( $form->id(), 'uacf7_multistep_button_padding_lr', sanitize_text_field($_POST['uacf7_multistep_button_padding_lr']) ); 
-		
+        if(isset($_POST['uacf7_multistep_button_padding_tb'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_button_padding_tb', sanitize_text_field($_POST['uacf7_multistep_button_padding_tb']) );
+        } 
+        if(isset($_POST['uacf7_multistep_button_padding_lr'])){ 
+            update_post_meta( $form->id(), 'uacf7_multistep_button_padding_lr', sanitize_text_field($_POST['uacf7_multistep_button_padding_lr']) );
+        } 
     }
     
     /*
@@ -593,6 +627,7 @@ class UACF7_MULTISTEP {
         $tag_name = [];
         $tag_validation = [];
         $tag_type = []; 
+        $file_error=[];
         $count = '1';
         for ($x = 0; $x < count($validation_fields); $x++) {
             $field = explode(':', $validation_fields[$x]); 
@@ -627,7 +662,7 @@ class UACF7_MULTISTEP {
             if ( 'file' != $type && 'file*' != $type ) {
                 $result = apply_filters("wpcf7_validate_{$type}", $result, $tag);
                 
-			}elseif( 'file*' === $type ){
+			}elseif( 'file*' === $type || 'file' === $type ){ 
 			    $fdir = $_REQUEST[$tag->name];
 				if ( $fdir ) {
 					$_FILES[ $tag->name ] = array(
@@ -650,14 +685,35 @@ class UACF7_MULTISTEP {
                     $result->invalidate( $tag, $new_files );
                 }
 			    $result = apply_filters("wpcf7_validate_{$type}", $result, $tag, array( 'uploaded_files' => $new_files, ) );
+              
+                if(isset($_REQUEST[$tag->name.'_size'])){
+                    $file_size = $_REQUEST[$tag->name.'_size'];   
+                    // echo $file_size;
+                    if ($file_size > $tag->get_limit_option()) { 
+                        $file_error = array(
+                            'into' => 'span.wpcf7-form-control-wrap[data-name = '.$tag->name.']',
+                            'message' => 'The uploaded file is too large.',
+                            'idref' => null,
+                        ); 
+                    }
+                }
+                
+                 
+               
 			}
             
         }
-        $result = apply_filters('wpcf7_validate', $result, $tags); 
+        // $result = apply_filters('wpcf7_validate', $result, $tags); 
         $is_valid = $result->is_valid();
         if (!$is_valid) {
             $invalid_fields = $this->prepare_invalid_form_fields($result, $tag_validation);
         } 
+        if(!empty($file_error)) {
+            $invalid_fields [] = $file_error;
+        } 
+        if(!empty($invalid_fields)){
+            $is_valid = false;
+        }
         echo(json_encode( array(
                     'is_valid' => $is_valid,
                     'invalid_fields' => $invalid_fields,

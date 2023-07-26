@@ -19,8 +19,6 @@ class UACF7_PRE_POPULATE {
         add_action( 'wpcf7_after_save', array( $this, 'uacf7_bf_save_contact_form' ) ); 
         add_action( 'wp_ajax_uacf7_ajax_pre_populate_redirect', array( $this, 'uacf7_ajax_pre_populate_redirect' ) ); 
         add_action( 'wp_ajax_nopriv_uacf7_ajax_pre_populate_redirect', array( $this, 'uacf7_ajax_pre_populate_redirect' ) ); 
-
-    
         
     } 
 
@@ -93,7 +91,7 @@ class UACF7_PRE_POPULATE {
                         <div class="uacf7-doc-notice"> 
                             <?php echo sprintf( 
                                 __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
-                                '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/pre-populate-field/" target="_blank">documentation</a>'
+                                '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-pre-populate-fields/" target="_blank">documentation</a>'
                             ); ?>  
                         </div>
                         <?php if($pre_populate_enable != '' || $pre_populate_enable != 0): ?>
@@ -226,7 +224,7 @@ class UACF7_PRE_POPULATE {
                 'pre_populate_form' => $pre_populate_form,
             ];
             
-            echo json_encode($data);
+            echo wp_send_json($data);
         }else{
             echo false;
         }  
