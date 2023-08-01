@@ -111,7 +111,6 @@ class Ultimate_Addons_CF7 {
         wp_enqueue_style( 'uacf7-frontend-style', UACF7_URL . 'assets/css/uacf7-frontend.css', '' ); 
     }
 
-    
     /**
      * Initialize the plugin tracker
      *
