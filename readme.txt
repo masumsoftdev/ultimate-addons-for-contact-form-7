@@ -427,7 +427,7 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 
 == Changelog ==
 
-=  3.1.31 – 18/07/2023  = 
+=  3.1.31 – 01/08/2023  = 
 
 - Compatible: Pre-populated data Compatible with repeater addon
 - Compatible: Country Dropdown compatible with repeater addon
