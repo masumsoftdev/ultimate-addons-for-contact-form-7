@@ -9,7 +9,7 @@
                 $subscriber_fname =  ! empty( get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_fname', true)) ? get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_fname', true) : "";
                 $subscriber_lname = ! empty( get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_lname', true)) ? get_post_meta($post->id(), 'uacf7_mailchimp_subscriber_lname', true) : "";
                 $uacf7_mailchimp_merge_fields = empty(get_post_meta($post->id(), 'uacf7_mailchimp_merge_fields', true)) ? array() : get_post_meta($post->id(), 'uacf7_mailchimp_merge_fields', true); 
-    
+
             ?>
             <div class="mailchimp_fields_row">
                 <h3><?php echo esc_html__( 'Mailchimp form settings ', 'ultimate-addons-cf7' ); ?></h3>
@@ -31,9 +31,7 @@
             <?php
             echo $this->connection_status();
             ?>
-            <p><a href="<?php echo esc_url(admin_url('/admin.php?page=ultimate-addons')); ?>"><?php echo esc_html__( ' Mailchimp Api Settings Panel', 'ultimate-addons-cf7' ); ?></a></p>
-           
-           
+            <p><a href="<?php echo esc_url(admin_url('/admin.php?page=ultimate-addons')); ?>"><?php echo esc_html__( ' Mailchimp Api Settings Panel', 'ultimate-addons-cf7' ); ?></a></p> 
             <br>
             <div class="mailchimp_fields_row">
                 <label>
@@ -72,16 +70,15 @@
             </div>
             <br>
             <br>
-            <div class="mailchimp_fields_row">
-
+            <div class="mailchimp_fields_row"> 
                 <table>
                     <tr>
                         <td>
                             <label for="uacf7_mailchimp_subscriber_email">
-                                <strong><?php echo esc_html__( 'Subscriber Email', 'ultimate-addons-cf7' ); ?></strong><br>
+                                <strong><?php echo esc_html__( 'Subscriber Email', 'ultimate-addons-cf7' ); ?></strong><br> 
                                 <select name="uacf7_mailchimp_subscriber_email" id="uacf7_mailchimp_subscriber_email">
                                     <?php
-                                    $all_tags = $post->scan_form_tags(array('type' => 'email', 'type' => 'email*'));
+                                    $all_tags = $post->scan_form_tags(array('basetype' => 'email'));
                                     foreach ($all_tags as $tag) {
                                         echo '<option value="' . esc_attr($tag['name']) . '" ' . selected($subscriber_email, $tag['name']) . '>' . esc_attr($tag['name']) . '</option>';
                                     }
@@ -94,7 +91,7 @@
                                 <strong><?php echo esc_html__( 'Subscriber First Name', 'ultimate-addons-cf7' ); ?></strong><br>
                                 <select name="uacf7_mailchimp_subscriber_fname" id="uacf7_mailchimp_subscriber_fname">
                                     <?php
-                                    $fname_tags = $post->scan_form_tags(array('type' => 'text', 'type' => 'text*'));
+                                    $fname_tags = $post->scan_form_tags(array('type' => 'text'));
                                     foreach ($fname_tags as $tag) {
                                         echo '<option value="' . esc_attr($tag['name']) . '" ' . selected($subscriber_fname, $tag['name']) . '>' . esc_attr($tag['name']) . '</option>';
                                     }
@@ -107,7 +104,7 @@
                                 <strong><?php echo esc_html__( 'Subscriber Last Name', 'ultimate-addons-cf7' ); ?></strong><br>
                                 <select name="uacf7_mailchimp_subscriber_lname" id="uacf7_mailchimp_subscriber_lname">
                                     <?php
-                                    $lname_tags = $post->scan_form_tags(array('type' => 'text', 'type' => 'text*'));
+                                    $lname_tags = $post->scan_form_tags(array('basetype' => 'text'));
                                     foreach ($lname_tags as $tag) {
                                         echo '<option value="' . esc_attr($tag['name']) . '" ' . selected($subscriber_lname, $tag['name']) . '>' . esc_attr($tag['name']) . '</option>';
                                     }
