@@ -436,7 +436,7 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 - Compatible: Dynamic text compatible with repeater addon
 - Compatible: Product Dropdown compatible with repeater addon
 - Fixed: Media Upload file directory on PDF Generator Addon
-- Fixed: Mailchimp tag base-type issue
+- Fixed: Mailchimp tag base-type issue 
 
 =  3.1.30 – 18/07/2023  = 
 - Fixed: pre-populate json parse issue
