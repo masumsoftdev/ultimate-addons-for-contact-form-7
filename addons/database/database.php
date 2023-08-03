@@ -245,14 +245,17 @@ class UACF7_DATABASE {
         $wpdb->insert($table_name, array(
             'form_id' => $form->id(),
             'form_value' =>  $insert_data, 
-            'form_date' => current_time('Y-m-d H:i:s'), 
-            'submission_id' => $insert_data
+            'form_date' => current_time('Y-m-d H:i:s'),  
         )); 
         $uacf7_db_insert_id = $wpdb->insert_id;  
        
         //  print_r($uacf7_enable_track_order);
 
+        // Order tracking Action
         do_action( 'uacf7_checkout_order_traking', $uacf7_db_insert_id, $form->id());
+
+        // submission id Action
+        do_action( 'uacf7_submission_id_insert', $uacf7_db_insert_id, $form->id(), $contact_form_data, $tags);
 
     } 
    

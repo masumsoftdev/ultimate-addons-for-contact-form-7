@@ -2,7 +2,7 @@
  
   document.addEventListener('wpcf7mailsent', function () {
 
-    location.reload();
+    // location.reload();
 
   }, false );
 
