@@ -246,6 +246,7 @@ class UACF7_DATABASE {
             'form_id' => $form->id(),
             'form_value' =>  $insert_data, 
             'form_date' => current_time('Y-m-d H:i:s'), 
+            'submission_id' => $insert_data
         )); 
         $uacf7_db_insert_id = $wpdb->insert_id;  
        

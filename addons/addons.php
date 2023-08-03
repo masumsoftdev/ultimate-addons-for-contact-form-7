@@ -74,9 +74,14 @@ if( !function_exists( 'uacf7_addons_included' ) ) {
             require_once( 'database/database.php');
         }
 
-        //Addon - Database 
+        //Addon - PDF Generator 
         if( uacf7_checked( 'uacf7_enable_pdf_generator_field') != ''){
             require_once( 'pdf-generator/pdf-generator.php');
+        }
+
+        //Addon - Submission ID
+        if( uacf7_checked( 'uacf7_enable_submission_id_field') != ''){
+            require_once( 'submission-id/ultimate-submission-id.php');
         }
 		
     }
