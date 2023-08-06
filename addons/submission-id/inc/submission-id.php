@@ -31,16 +31,36 @@ class UACF7_SUBMISSION_ID_PANEL{
 
    public function uacf7_create_uacf7submission_id_panel_fields($post){   
 
-    $uacf7_submission_id = get_post_meta( $post->id(), 'uacf7_submission_id', true );
-
-    ?> <h2><?php echo esc_html__( 'Submission ID Settings', 'ultimate-addons-cf7' ); ?></h2>
+    $uacf7_submission_id = get_post_meta( $post->id(), 'uacf7_submission_id', true ); 
+    $uacf7_submission_id_step = get_post_meta( $post->id(), 'uacf7_submission_id_step', true ); 
+    $uacf7_submission_id_enable = get_post_meta( $post->id(), 'uacf7_submission_id_enable', true ); 
+    
+    ?> 
+                
       
-      <p><?php echo esc_html__('This feature will help you to pass a custom range of Submission ID','ultimate-addons-cf7'); ?>  </p>
 
-      <fieldset>
-            <h3><?php echo esc_html__( 'Submission ID Starts from', 'ultimate-addons-cf7' ); ?></h3>
-            <input type="number" min="1" name="uacf7_submission_id" id="uacf7_submission_id" value="<?php  esc_attr_e($uacf7_submission_id) ?>" >
-      </fieldset> 
+      <h2><?php echo esc_html__( 'Submission ID Settings', 'ultimate-addons-cf7' ); ?></h2>  
+      <p><?php echo esc_html__('This feature will help you to pass a custom range of Submission ID','ultimate-addons-cf7'); ?>  </p>
+      <div class="uacf7-doc-notice"> 
+            <?php echo sprintf( 
+                __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/" target="_blank">documentation</a>'
+            ); ?> 
+        </div>
+
+      <label for="uacf7_submission_id_enable">
+      <input class="pre-populate" id="pre_populate_enable" name="uacf7_submission_id_enable" type="checkbox" value="1" <?php checked( '1', $uacf7_submission_id_enable, true ); ?>> <?php _e( 'Enable Submission ID fields', 'ultimate-addons-cf7' ); ?>
+      </label>
+
+      <div class="ultimate-submission-id-wrapper">
+        <fieldset>
+                <h3><?php echo esc_html__( 'Submission ID Starts from', 'ultimate-addons-cf7' ); ?></h3>
+                <input type="number" min="1" name="uacf7_submission_id" id="uacf7_submission_id" value="<?php  esc_attr_e($uacf7_submission_id) ?>" >
+
+                <h3><?php echo esc_html__( 'Submission ID Step Counter', 'ultimate-addons-cf7' ); ?></h3>
+                <input type="number" min="0" name="uacf7_submission_id_step" id="uacf7_submission_id_step" value="<?php  esc_attr_e($uacf7_submission_id_step) ?>" >
+        </fieldset> 
+      </div>
      
    <?php 
 
@@ -61,8 +81,10 @@ class UACF7_SUBMISSION_ID_PANEL{
   if ( !wp_verify_nonce( $_POST['uacf7_submission_id_nonce'], 'uacf7_submission_id_nonce_action' ) ) {
       return;
   }
-  
+
   update_post_meta( $form->id(), 'uacf7_submission_id', $_POST['uacf7_submission_id'] );
+  update_post_meta( $form->id(), 'uacf7_submission_id_step', $_POST['uacf7_submission_id_step']);
+  update_post_meta( $form->id(), 'uacf7_submission_id_enable', $_POST['uacf7_submission_id_enable']); 
  }
 
 

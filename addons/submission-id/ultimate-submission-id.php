@@ -17,10 +17,10 @@ class UACF7_SUBMISSION_ID
         add_action('admin_init', [$this, 'submission_tag_generator']);
         add_action('wpcf7_init', [$this, 'submission_id_add_shortcodes']);
 
-        // add_filter('wpcf7_mail_sent', [$this, 'submission_id_update']);
+        add_filter('wpcf7_mail_sent', [$this, 'submission_id_update']);
 
       // Submission id database insert
-      add_action('uacf7_submission_id_insert', [$this, 'uacf7_submission_id_insert_callback'], 10, 4);
+        add_action('uacf7_submission_id_insert', [$this, 'uacf7_submission_id_insert_callback'], 10, 4);
 
         require_once 'inc/submission-id.php';
 
@@ -33,6 +33,7 @@ class UACF7_SUBMISSION_ID
 
         wp_enqueue_script('submission_id_public_js', UACF7_URL . '/addons/submission-id/assets/public/js/public-submission-id.js', ['jquery'], 'WPCF7_VERSION', true);
         wp_enqueue_style('submission_id_public_css', UACF7_URL . '/addons/submission-id/assets/public/css/public-submission-id.css', [], 'UAFC7_VERSION', true, 'all');
+
     }
 
     public function submission_id_admin_assets_loading()
@@ -52,13 +53,8 @@ class UACF7_SUBMISSION_ID
 
       
       $submission_value = get_post_meta($form_id, 'uacf7_submission_id', true);
-      // foreach ($tags as $tag){
-      //   if( $tag->type == 'uacf7_submission_id'){
-      //       $submission_value = $insert_data[$tag->name];
-      //       continue;
-      //   }
-      // }
-  
+    
+
    
       if( $submission_value != '' || $submission_value != null || $submission_value != 0){
       
@@ -73,34 +69,48 @@ class UACF7_SUBMISSION_ID
 
         // if submission id exist in database
         if($get_db_data > 0){
+            
           $last_item = $wpdb->get_row(
               $wpdb->prepare("SELECT * FROM $table_name WHERE form_id= %d  ORDER BY submission_id DESC ", $form_id )
-          );   
+          ); 
+        
           $submission_value = $last_item->submission_id + 1;
         }
-        
+
+    
+      
         // update submission id existing database
         $sql = $wpdb->prepare("UPDATE $table_name SET submission_id= %s WHERE id= %s", $submission_value, $id );   
         $wpdb->query( $sql );  
       } 
 
+
+  
       // $valueIncreasing = $getCurrentData + 1;
 
-      update_post_meta($form_id, 'uacf7_submission_id', $submission_value);
+      // update_post_meta($form_id, 'uacf7_submission_id', $submission_value);
       // die('ok');
     
     }
+
+
     public function submission_id_update($form)
     {
         // $wpcf7 = WPCF7_ContactForm::get_current();
         //   // $formid = $wpcf7->id();
 
         $getCurrentData = get_post_meta($_POST['_wpcf7'], 'uacf7_submission_id', true);
+        $step_counter = get_post_meta( $_POST['_wpcf7'], 'uacf7_submission_id_step', true );
 
-        $valueIncreasing = $getCurrentData + 1;
+        $valueIncreasing = '';
 
+
+        if($step_counter > 0){
+            $valueIncreasing .= $getCurrentData + $step_counter;
+        }else{
+            $valueIncreasing .= $getCurrentData + 1;
+        }
         update_post_meta($form->id(), 'uacf7_submission_id', $valueIncreasing);
-
     }
 
     /**
@@ -174,13 +184,22 @@ class UACF7_SUBMISSION_ID
 
         ob_start();
 
-        ?>
-    <span  class="wpcf7-form-control-wrap <?php echo sanitize_html_class($tag->name); ?>" data-name="<?php echo sanitize_html_class($tag->name); ?>">
+        /** Enable / Disable Submission ID */
 
-    <input id="uacf7_<?php echo esc_attr($tag->name); ?>" <?php echo $atts; ?> >
-    <span><?php echo $validation_error; ?></span>
-    </span>
-    <?php
+        $uacf7_submission_id_enable = get_post_meta( $formid, 'uacf7_submission_id_enable', true ); 
+
+        if($uacf7_submission_id_enable){ ?>
+
+            <span  class="wpcf7-form-control-wrap <?php echo sanitize_html_class($tag->name); ?>" data-name="<?php echo sanitize_html_class($tag->name); ?>">
+
+            <input id="uacf7_<?php echo esc_attr($tag->name); ?>" <?php echo $atts; ?> >
+            <span><?php echo $validation_error; ?></span>
+            </span>
+
+       <?php }else{
+        return;
+       }
+   
 
         $submission_buffer = ob_get_clean();
 
