@@ -47,7 +47,7 @@ class UACF7_SUBMISSION_ID_PANEL{
         </div>
 
       <label for="uacf7_submission_id_enable">
-      <input class="pre-populate" id="pre_populate_enable" name="uacf7_submission_id_enable" type="checkbox" value="1" <?php checked( '1', $uacf7_submission_id_enable, true ); ?>> <?php _e( 'Enable Submission ID fields', 'ultimate-addons-cf7' ); ?>
+      <input class="uacf7_submission_id_enable" id="uacf7_submission_id_enable" name="uacf7_submission_id_enable" type="checkbox" value="1" <?php checked( '1', $uacf7_submission_id_enable, true ); ?>> <?php _e( 'Enable Submission ID fields', 'ultimate-addons-cf7' ); ?>
       </label>
 
       <div class="ultimate-submission-id-wrapper">
@@ -55,7 +55,7 @@ class UACF7_SUBMISSION_ID_PANEL{
                 <h3><?php echo esc_html__( 'Submission ID Starts from', 'ultimate-addons-cf7' ); ?></h3>
                 <input type="number" min="1" name="uacf7_submission_id" id="uacf7_submission_id" placeholder="1" value="<?php  esc_attr_e($uacf7_submission_id) ?>" >
                 <br><small> <?php esc_html_e( 'E.g. default 1', 'ultimate-addons-cf7' ) ?> </small> 
-                <h3><?php echo esc_html__( 'Submission ID Step Counter', 'ultimate-addons-cf7' ); ?></h3>
+                <h3><?php echo esc_html__( 'Submission ID Step Increament', 'ultimate-addons-cf7' ); ?></h3>
                 <input type="number" min="0" name="uacf7_submission_id_step" id="uacf7_submission_id_step" placeholder="1" value="<?php  esc_attr_e($uacf7_submission_id_step) ?>" >
                 <br><small> <?php esc_html_e( 'E.g. default 1', 'ultimate-addons-cf7' ) ?> </small> 
               </fieldset> 
@@ -71,7 +71,7 @@ class UACF7_SUBMISSION_ID_PANEL{
  */
 
  public function uacf7_submission_id_save_form($form){
-  
+
     if ( ! isset( $_POST ) || empty( $_POST ) ) {
       return;
   }
