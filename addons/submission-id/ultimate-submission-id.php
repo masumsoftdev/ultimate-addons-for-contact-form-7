@@ -2,24 +2,24 @@
 
 /** Prevent direct access */
 if (!defined('ABSPATH')) {
-    echo "You are  not allow to access directly";
+    echo "You are not allowed to access directly";
     exit();
 }
 
-class UACF7_SUBMISSION_ID
-{
+class UACF7_SUBMISSION_ID{
 
-    public function __construct()
-    {
+    public function __construct(){
         add_action('wp_enqueue_scripts', [$this, 'submission_id_public_assets_loading']);
         add_action('admin_enqueue_scripts', [$this, 'submission_id_admin_assets_loading']);
 
         add_action('admin_init', [$this, 'submission_tag_generator']);
         add_action('wpcf7_init', [$this, 'submission_id_add_shortcodes']);
 
+        add_action( 'wp_ajax_uacf7_update_submission_id', [$this, 'uacf7_update_submission_id'] );
+        add_action( 'wp_ajax_nopriv_uacf7_update_submission_id', [$this, 'uacf7_update_submission_id'] );
+        
         add_filter('wpcf7_mail_sent', [$this, 'submission_id_update']);
 
-      // Submission id database insert
         add_action('uacf7_submission_id_insert', [$this, 'uacf7_submission_id_insert_callback'], 10, 4);
 
         require_once 'inc/submission-id.php';
@@ -28,16 +28,17 @@ class UACF7_SUBMISSION_ID
 
 /** Starts Loading Essential JS & CSS */
 
-    public function submission_id_public_assets_loading()
-    {
+    public function submission_id_public_assets_loading(){
 
         wp_enqueue_script('submission_id_public_js', UACF7_URL . '/addons/submission-id/assets/public/js/public-submission-id.js', ['jquery'], 'WPCF7_VERSION', true);
         wp_enqueue_style('submission_id_public_css', UACF7_URL . '/addons/submission-id/assets/public/css/public-submission-id.css', [], 'UAFC7_VERSION', true, 'all');
+        wp_localize_script( 'submission_id_public_js', 'submission_id_obj', [
+            "ajaxurl" => admin_url( 'admin-ajax.php' ),
 
+        ] );
     }
 
-    public function submission_id_admin_assets_loading()
-    {
+    public function submission_id_admin_assets_loading(){
 
         wp_enqueue_script('submission_id_admin_js', UACF7_URL . '/addons/submission-id/assets/admin/js/admin-submission-id.js', ['jquery'], 'UAFC7_VERSION', true);
         wp_enqueue_style('submission_id_admin_css', UACF7_URL . '/addons/submission-id/assets/admin/css/admin-submission-id.css', [], 'UAFC7_VERSION', true, 'all');
@@ -46,16 +47,29 @@ class UACF7_SUBMISSION_ID
 
     /** Ends Loading Essential JS & CSS */
 
+
+    /**
+     * Submission ID Realtime update in the Frontend
+     */
+
+     public function uacf7_update_submission_id(){
+        $form_id = $_POST['form_id'];
+        $meta_data = get_post_meta($form_id, 'uacf7_submission_id', true);
+       echo wp_send_json( [
+        'form_id' => $form_id,
+        'meta_data' => $meta_data
+       ] );
+        
+     }
+
+
     /**
      * Submission ID Update
      */
     public function uacf7_submission_id_insert_callback( $uacf7_db_id, $form_id, $insert_data, $tags){
-
-      
+ 
       $submission_value = get_post_meta($form_id, 'uacf7_submission_id', true);
-    
 
-   
       if( $submission_value != '' || $submission_value != null || $submission_value != 0){
       
         global $wpdb;  
@@ -76,26 +90,16 @@ class UACF7_SUBMISSION_ID
         
           $submission_value = $last_item->submission_id + 1;
         }
-
-    
       
         // update submission id existing database
         $sql = $wpdb->prepare("UPDATE $table_name SET submission_id= %s WHERE id= %s", $submission_value, $id );   
         $wpdb->query( $sql );  
       } 
 
-
-  
-      // $valueIncreasing = $getCurrentData + 1;
-
-      // update_post_meta($form_id, 'uacf7_submission_id', $submission_value);
-      // die('ok');
-    
     }
 
 
-    public function submission_id_update($form)
-    {
+    public function submission_id_update($form){
         // $wpcf7 = WPCF7_ContactForm::get_current();
         //   // $formid = $wpcf7->id();
 
@@ -116,15 +120,13 @@ class UACF7_SUBMISSION_ID
     /**
      * Submission TAG Generator
      */
-    public function submission_id_add_shortcodes()
-    {
+    public function submission_id_add_shortcodes(){
 
         wpcf7_add_form_tag(array('uacf7_submission_id', 'uacf7_submission_id*'),
             array($this, 'uacf7_submission_id_tag_handler_callback'), array('name-attr' => true));
     }
 
-    public function uacf7_submission_id_tag_handler_callback($tag)
-    {
+    public function uacf7_submission_id_tag_handler_callback($tag){
         if (empty($tag->name)) {
             return '';
         }
@@ -133,8 +135,9 @@ class UACF7_SUBMISSION_ID
 
         $class = wpcf7_form_controls_class($tag->type);
 
+
         if ($validation_error) {
-            $class .= ' wpcf7-not-valid';
+            $class .= 'wpcf7-not-valid';
         }
 
         $atts = array();
@@ -192,7 +195,7 @@ class UACF7_SUBMISSION_ID
 
             <span  class="wpcf7-form-control-wrap <?php echo sanitize_html_class($tag->name); ?>" data-name="<?php echo sanitize_html_class($tag->name); ?>">
 
-            <input id="uacf7_<?php echo esc_attr($tag->name); ?>" <?php echo $atts; ?> >
+            <input id="uacf7_<?php echo esc_attr($tag->name); ?>" <?php echo $atts;?> >
             <span><?php echo $validation_error; ?></span>
             </span>
 
@@ -200,7 +203,6 @@ class UACF7_SUBMISSION_ID
         return;
        }
    
-
         $submission_buffer = ob_get_clean();
 
         return $submission_buffer;
@@ -209,8 +211,7 @@ class UACF7_SUBMISSION_ID
     /*
      * Generate tag - Submission ID
      */
-    public function submission_tag_generator()
-    {
+    public function submission_tag_generator(){
         if (!function_exists('wpcf7_add_tag_generator')) {
             return;
         }
@@ -220,11 +221,9 @@ class UACF7_SUBMISSION_ID
             'uacf7-tg-pane-submission-id',
             array($this, 'tg_pane_submission_id')
         );
-
     }
 
-    public static function tg_pane_submission_id($contact_form, $args = '')
-    {
+    public static function tg_pane_submission_id($contact_form, $args = ''){
         $args = wp_parse_args($args, array());
         $uacf7_field_type = 'uacf7_submission_id';
         ?>
@@ -244,6 +243,10 @@ class UACF7_SUBMISSION_ID
                         <tr>
                             <th scope="row"><label for="<?php echo esc_attr($args['content'] . '-name'); ?>"><?php echo esc_html(__('Name', 'ultimate-addons-cf7')); ?></label></th>
                             <td><input type="text" name="name" class="tg-name oneline" id="<?php echo esc_attr($args['content'] . '-name'); ?>" /></td>
+                        </tr>
+                        <tr>
+                            <th><?php echo esc_html( 'Please Note:', 'ultimate-addons-cf7' ) ?></th>
+                            <td><label for=""><?php echo esc_html( 'The Submission ID will be Visible on User End for enabling Visible, and Hidden for Hidden', 'ultimate-addons-cf7' ); ?> </label></td>
                         </tr>
                         <tr>
                             <th scope="row"><label for="visibility"><?php echo esc_html__('Field Visibility', 'ultimate-addons-cf7'); ?>  </label></th>
@@ -269,7 +272,7 @@ class UACF7_SUBMISSION_ID
           <input type="text" name="<?php echo esc_attr($uacf7_field_type); ?>" class="tag code" readonly="readonly" onfocus="this.select()" />
 
           <div class="submitbox">
-              <input type="button" class="button button-primary insert-tag" value="<?php echo esc_attr(__('Insert Tag', 'ultimate-addons-cf7')); ?>" />
+              <input type="button" class="button button-primary insert-tag" id="prevent_multiple" value="<?php echo esc_attr(__('Insert Tag', 'ultimate-addons-cf7')); ?>" />
           </div>
       </div>
       <?php

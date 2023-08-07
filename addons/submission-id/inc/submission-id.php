@@ -36,8 +36,6 @@ class UACF7_SUBMISSION_ID_PANEL{
     $uacf7_submission_id_enable = get_post_meta( $post->id(), 'uacf7_submission_id_enable', true ); 
     
     ?> 
-                
-      
 
       <h2><?php echo esc_html__( 'Submission ID Settings', 'ultimate-addons-cf7' ); ?></h2>  
       <p><?php echo esc_html__('This feature will help you to pass a custom range of Submission ID','ultimate-addons-cf7'); ?>  </p>
@@ -55,11 +53,12 @@ class UACF7_SUBMISSION_ID_PANEL{
       <div class="ultimate-submission-id-wrapper">
         <fieldset>
                 <h3><?php echo esc_html__( 'Submission ID Starts from', 'ultimate-addons-cf7' ); ?></h3>
-                <input type="number" min="1" name="uacf7_submission_id" id="uacf7_submission_id" value="<?php  esc_attr_e($uacf7_submission_id) ?>" >
-
+                <input type="number" min="1" name="uacf7_submission_id" id="uacf7_submission_id" placeholder="1" value="<?php  esc_attr_e($uacf7_submission_id) ?>" >
+                <br><small> <?php esc_html_e( 'E.g. default 1', 'ultimate-addons-cf7' ) ?> </small> 
                 <h3><?php echo esc_html__( 'Submission ID Step Counter', 'ultimate-addons-cf7' ); ?></h3>
-                <input type="number" min="0" name="uacf7_submission_id_step" id="uacf7_submission_id_step" value="<?php  esc_attr_e($uacf7_submission_id_step) ?>" >
-        </fieldset> 
+                <input type="number" min="0" name="uacf7_submission_id_step" id="uacf7_submission_id_step" placeholder="1" value="<?php  esc_attr_e($uacf7_submission_id_step) ?>" >
+                <br><small> <?php esc_html_e( 'E.g. default 1', 'ultimate-addons-cf7' ) ?> </small> 
+              </fieldset> 
       </div>
      
    <?php 
@@ -67,24 +66,30 @@ class UACF7_SUBMISSION_ID_PANEL{
     wp_nonce_field( 'uacf7_submission_id_nonce_action', 'uacf7_submission_id_nonce' );
   }
 
-
-
 /**
  * Save Form
  */
 
  public function uacf7_submission_id_save_form($form){
-  if ( ! isset( $_POST ) || empty( $_POST ) ) {
-    return;
-}
-
-  if ( !wp_verify_nonce( $_POST['uacf7_submission_id_nonce'], 'uacf7_submission_id_nonce_action' ) ) {
+  
+    if ( ! isset( $_POST ) || empty( $_POST ) ) {
       return;
   }
 
-  update_post_meta( $form->id(), 'uacf7_submission_id', $_POST['uacf7_submission_id'] );
-  update_post_meta( $form->id(), 'uacf7_submission_id_step', $_POST['uacf7_submission_id_step']);
-  update_post_meta( $form->id(), 'uacf7_submission_id_enable', $_POST['uacf7_submission_id_enable']); 
+    if ( !wp_verify_nonce( $_POST['uacf7_submission_id_nonce'], 'uacf7_submission_id_nonce_action' ) ) {
+        return;
+    }
+
+    if ( $_POST['uacf7_submission_id'] < 0 || $_POST['uacf7_submission_id'] === null || $_POST['uacf7_submission_id'] === '' ) {
+      $initial_value =  1;
+      update_post_meta( $form->id(), 'uacf7_submission_id', $initial_value );
+    }else{
+      update_post_meta( $form->id(), 'uacf7_submission_id', $_POST['uacf7_submission_id']);
+    }
+
+    update_post_meta( $form->id(), 'uacf7_submission_id_step', $_POST['uacf7_submission_id_step']);
+    update_post_meta( $form->id(), 'uacf7_submission_id_enable', $_POST['uacf7_submission_id_enable']); 
+
  }
 
 
@@ -113,7 +118,6 @@ class UACF7_SUBMISSION_ID_PANEL{
       $wpdb->query( $sql );
     }
 } 
-
 
 }
 
