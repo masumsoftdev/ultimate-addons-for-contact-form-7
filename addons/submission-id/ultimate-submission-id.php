@@ -163,13 +163,13 @@ class UACF7_SUBMISSION_ID{
         }
 
         // Visibility
-        $visibility = $tag->get_option('visibility', '', true);
-        if ($visibility == 'show') {
-            $atts['type'] = 'text';
-            $atts['readonly'] = 'readonly';
-        }if ($visibility == 'hidden') {
-            $atts['type'] = 'hidden';
-        }
+        // $visibility = $tag->get_option('visibility', '', true);
+        // if ($visibility == 'show') {
+        //     $atts['type'] = 'text';
+        //     $atts['readonly'] = 'readonly';
+        // }if ($visibility == 'hidden') {
+        //     $atts['type'] = 'hidden';
+        // }
 
         $value = $tag->values;
         $default_value = $tag->get_default_option($value);
@@ -195,7 +195,7 @@ class UACF7_SUBMISSION_ID{
 
             <span  class="wpcf7-form-control-wrap <?php echo sanitize_html_class($tag->name); ?>" data-name="<?php echo sanitize_html_class($tag->name); ?>">
 
-            <input id="uacf7_<?php echo esc_attr($tag->name); ?>" <?php echo $atts;?> >
+            <input hidden id="uacf7_<?php echo esc_attr($tag->name); ?>" <?php echo $atts;?> >
             <span><?php echo $validation_error; ?></span>
             </span>
 
@@ -244,17 +244,17 @@ class UACF7_SUBMISSION_ID{
                             <th scope="row"><label for="<?php echo esc_attr($args['content'] . '-name'); ?>"><?php echo esc_html(__('Name', 'ultimate-addons-cf7')); ?></label></th>
                             <td><input type="text" name="name" class="tg-name oneline" id="<?php echo esc_attr($args['content'] . '-name'); ?>" /></td>
                         </tr>
-                        <tr>
-                            <th><?php echo esc_html( 'Please Note:', 'ultimate-addons-cf7' ) ?></th>
-                            <td><label for=""><?php echo esc_html( 'The Submission ID will be Visible on User End for enabling "Show", and Hidden for "Hidden"', 'ultimate-addons-cf7' ); ?> </label></td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><label for="visibility"><?php echo esc_html__('Field Visibility', 'ultimate-addons-cf7'); ?>  </label></th>
+                        <!-- <tr>
+                            <th><?php //echo esc_html( 'Please Note:', 'ultimate-addons-cf7' ) ?></th>
+                            <td><label for=""><?php //echo esc_html( 'The Submission ID will be Visible on User End for enabling "Show", and Hidden for "Hidden"', 'ultimate-addons-cf7' ); ?> </label></td>
+                        </tr> -->
+                        <!-- <tr>
+                            <th scope="row"><label for="visibility"><?php //echo esc_html__('Field Visibility', 'ultimate-addons-cf7'); ?>  </label></th>
                             <td>
-                                <label for="show"><input id="show" name="visibility" class="option" type="radio" value="show" checked> <?php echo esc_html__('Show', 'ultimate-addons-cf7'); ?></label>
-                                <label for="hidden"><input id="hidden" name="visibility" class="option" type="radio" value="hidden"> <?php echo esc_html__('Hidden', 'ultimate-addons-cf7'); ?></label>
+                                <label for="show"><input id="show" name="visibility" class="option" type="radio" value="show" checked> <?php //echo esc_html__('Show', 'ultimate-addons-cf7'); ?></label>
+                                <label for="hidden"><input id="hidden" name="visibility" class="option" type="radio" value="hidden"> <?php //echo esc_html__('Hidden', 'ultimate-addons-cf7'); ?></label>
                             </td>
-                        </tr>
+                        </tr> -->
                         <tr class="">
                             <th><label for="tag-generator-panel-star-style"><?php echo esc_html__('Submission ID from', 'ultimate-addons-cf7'); ?></label></th>
                             <td><input type="text" name="uacf7_submission_id" id="uacf7_submission_id_res" value="" readonly="readonly" ></td>
