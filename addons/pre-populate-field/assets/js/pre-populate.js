@@ -26,12 +26,11 @@
                               var type = $("form [name='"+shifting_field[i]+"']").attr('type'); 
                               var multiple= $("form [name='"+shifting_field[i]+"[]']").attr('type')
                               if(type == 'radio' || type == 'checkbox'){ 
-                                  var value = $("form [name='"+shifting_field[i]+"']:checked").val() 
+                                  var value = $("form [name='"+shifting_field[i]+"']:checked").val();
                               }else if( multiple == 'checkbox' ){
-                                  var value = $("form [name='"+shifting_field[i]+"[]']:checked").val() 
-                                  alert(value);
+                                  var value = $("form [name='"+shifting_field[i]+"[]']:checked").val();
                               }else{
-                                  var value = $("form [name='"+shifting_field[i]+"']").val()  
+                                  var value = $("form [name='"+shifting_field[i]+"']").val();
                               } 
                               redirect_data += '&'+shifting_field[i]+'='+value+''; 
                           }   
