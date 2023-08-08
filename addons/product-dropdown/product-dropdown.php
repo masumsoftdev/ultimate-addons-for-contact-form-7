@@ -72,6 +72,9 @@ class UACF7_PRODUCT_DROPDOWN {
             }
         }
 
+      
+        
+
         if ( $data = (array) $tag->get_data_option() ) {
             $tag->values = array_merge( $tag->values, array_values( $data ) );
         }
@@ -99,12 +102,60 @@ class UACF7_PRODUCT_DROPDOWN {
         }else {
             $product_by = '';
         }
+
+
+    
         
-        $args = apply_filters( 'uacf7_product_dropdown_query', array(
-             'post_type'      => 'product',
+
+    /** Product Sorting By Feature */
+
+        $query_array = [
+            'post_type'      => 'product',
              'posts_per_page' => -1,
              'post_status'    => 'publish',
-        ), $values, $product_by );
+        ];
+
+
+        $new_args = [
+         
+        ];
+
+
+        /** If Date Selected  */
+
+        // Default Sorting by Date from Woocommerce
+
+
+        /** If ASC Selected */
+        if($tag->has_option( 'order_by:asc' ) ){
+            $asc_args = [
+                'orderby'       => 'title',
+                 'order'          => 'ASC'
+            ];
+
+            $new_args = array_merge($new_args, $asc_args);
+        }
+
+        /** If DSC Selected */
+
+        if($tag->has_option( 'order_by:dsc' ) ){
+            $asc_args = [
+                'orderby'       => 'title',
+                 'order'          => 'DSC'
+            ];
+
+            $new_args = array_merge($new_args, $asc_args);
+        }
+
+
+        $very_last_array = array_merge($query_array, $new_args);
+
+
+
+        $args = apply_filters( 'uacf7_product_dropdown_query', $very_last_array
+        , $values, $product_by );
+
+        
                 
         $products = new WP_Query($args);
         if ( $multiple ) {
@@ -124,6 +175,7 @@ class UACF7_PRODUCT_DROPDOWN {
                     'value' => get_the_title(),
                     'selected' => $selected ? 'selected' : '',
                     'product-id' => get_the_id(),
+               
                 );
 
                 $item_atts = wpcf7_format_atts( $item_atts );
@@ -152,6 +204,7 @@ class UACF7_PRODUCT_DROPDOWN {
         
         return $html;
     }
+
     
     
     public function wpcf7_product_dropdown_validation_filter( $result, $tag ) {
@@ -251,19 +304,34 @@ class UACF7_PRODUCT_DROPDOWN {
                         <tr>
                             <th scope="row"><label for="product_by"><?php echo esc_attr( __( 'Show Product By', 'ultimate-addons-cf7' ) ); ?></label></th>
                             <td>
-                                <label for="byID"><input id="byID" name="product_by" class="" type="radio" value="id" checked> Product ID</label>
+                                <label for="byID"><input id="byID" name="product_by" class="" disabled type="radio" value="id" checked> Product ID</label>
                                 
-                                <label for="byCategory"><input id="byCategory" name="product_by" class="" type="radio" value="category"> Category</label>
+                                <label for="byCategory"><input id="byCategory" name="product_by" class="" disabled type="radio" value="category"> Category</label>
                                 
-                                <label for="byTag"><input id="byTag" name="product_by" class="" type="radio" value="tag"> Tag</label>
+                                <label for="byTag"><input id="byTag" name="product_by" class="" disabled type="radio" value="tag"> Tag</label> <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a>
                             </td>
                         </tr>
+                        
                         <?php 
                         $product_by = ob_get_clean();
                         echo apply_filters('uacf7_tag_generator_product_by_field',$product_by);
                         ?>
-                        
-                       
+
+                        <?php ob_start(); ?>
+                        <tr>
+                            <th scope="row"><label for="order_by"><?php echo esc_attr( __( 'Product Order By', 'ultimate-addons-cf7' ) ); ?></label></th>
+                            <td>
+                                <label for="byDate"><input id="byDate" name="order_by" class="" disabled type="radio" value="" checked> Date (by Default)</label>
+                                
+                                <label for="byASC"><input id="byASC" name="order_by" class="" disabled type="radio" value="asc"> ASC </label>
+                                
+                                <label for="byDSC"><input id="byDSC" name="order_by" class="" disabled type="radio" value="dsc"> DSC </label> <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a>
+                            </td>
+                        </tr>
+                        <?php
+                        $order_by = ob_get_clean();
+                       echo apply_filters('uacf7_tag_generator_order_by_field', $order_by);
+                        ?>
                        
                         <?php ob_start(); ?>
                         <tr class="tag-generator-panel-product-id">
