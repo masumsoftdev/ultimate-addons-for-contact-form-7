@@ -431,6 +431,7 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 
 - Compatibility check with WordPress 6.3
 - Compatibility check with WooCommerce 8.0.1
+- Fixed: alert issue
 
 =  3.1.31 – 01/08/2023  = 
 

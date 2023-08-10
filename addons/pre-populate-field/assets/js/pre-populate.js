@@ -29,7 +29,6 @@
                                   var value = $("form [name='"+shifting_field[i]+"']:checked").val() 
                               }else if( multiple == 'checkbox' ){
                                   var value = $("form [name='"+shifting_field[i]+"[]']:checked").val() 
-                                  alert(value);
                               }else{
                                   var value = $("form [name='"+shifting_field[i]+"']").val()  
                               } 
