@@ -207,6 +207,13 @@ class UACF7_Admin_Menu {
 			'ultimate-addons-admin', // page
 			'uacf7_setting_section' // section
 		);
+		add_settings_field(
+			'uacf7_enable_form_generator_ai_field', // id
+			__( 'Form Generator AI', 'ultimate-addons-cf7' ), // title
+			array( $this, 'uacf7_enable_form_generator_ai_callback' ), // callback
+			'ultimate-addons-admin', // page
+			'uacf7_setting_section' // section
+		);
 
         add_settings_section(
 			'uacf7_setting_section_fields', // id
@@ -348,6 +355,9 @@ class UACF7_Admin_Menu {
 		}
         if ( isset( $input['uacf7_enable_pdf_generator_field'] ) ) {
 			$sanitary_values['uacf7_enable_pdf_generator_field'] = $input['uacf7_enable_pdf_generator_field'];
+		}
+        if ( isset( $input['uacf7_enable_form_generator_ai_field'] ) ) {
+			$sanitary_values['uacf7_enable_form_generator_ai_field'] = $input['uacf7_enable_form_generator_ai_field'];
 		}
 		if ( isset( $input['uacf7_enable_booking_form'] ) ) {
 			$sanitary_values['uacf7_enable_booking_form'] = $input['uacf7_enable_booking_form'];
@@ -553,6 +563,20 @@ class UACF7_Admin_Menu {
 			</label>', uacf7_checked('uacf7_enable_pdf_generator_field')
 		);
 	}
+	
+    
+    /*
+    * Field - Enable PDF Generator
+    */
+    public function uacf7_enable_form_generator_ai_callback() {
+		printf(
+			'<label class="uacf7-admin-toggle" for="uacf7_enable_form_generator_ai_field">
+				<input type="checkbox" class="uacf7-admin-toggle__input" name="uacf7_option_name[uacf7_enable_form_generator_ai_field]" id="uacf7_enable_form_generator_ai_field" %s>
+				<span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
+			</label>', uacf7_checked('uacf7_enable_form_generator_ai_field')
+		);
+	}
+
     
     /*
     * Field - Enable star rating
