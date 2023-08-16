@@ -186,7 +186,7 @@ class UACF7_DATABASE {
         $tags = $ContactForm->scan_form_tags();
         $skip_tag_insert = []; 
         foreach ($tags as $tag){
-            if( $tag->type == 'uacf7_step_start' || $tag->type == 'uacf7_step_end' || $tag->type == 'uarepeater' || $tag->type == 'conditional' ){
+            if( $tag->type == 'uacf7_step_start' || $tag->type == 'uacf7_step_end' || $tag->type == 'uarepeater' || $tag->type == 'conditional' || $tag->type == 'uacf7_conversational_start' || $tag->type == 'uacf7_conversational_end' ){
                 if($tag->name != ''){
                     $skip_tag_insert[] = $tag->name;
                 }
