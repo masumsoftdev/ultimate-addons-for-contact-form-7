@@ -31,13 +31,13 @@ class UACF7_DATABASE {
     
         $charset_collate = $wpdb->get_charset_collate();
     
-        $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+        $sql = "CREATE TABLE $table_name (
             id bigint(20) NOT NULL AUTO_INCREMENT,
             form_id bigint(20) NOT NULL,
             form_value longtext NOT NULL,
-            form_date datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+            form_date datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
             PRIMARY KEY  (id)
-        ) $charset_collate;";
+        ) $charset_collate";
     
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
         dbDelta( $sql ); 
