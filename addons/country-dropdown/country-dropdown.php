@@ -65,7 +65,7 @@ class UACF7_COUNTRY_DROPDOWN {
 
         $atts['name'] = $tag->name;
 
-        $dynamic_selection = $tag->get_option('dynamic-selection', '', true);
+        $dynamic_selection = $tag->get_option('dynamic-selection', true);
 		
 		$size = $tag->get_option( 'size', 'int', true );
 
@@ -81,22 +81,17 @@ class UACF7_COUNTRY_DROPDOWN {
 		?>
 		<span id="uacf7_country_select" class="wpcf7-form-control-wrap <?php echo sanitize_html_class( $tag->name ); ?>">
 		
+	
+           <?php if( $dynamic_selection === true){ ?>
 
-
-        <?php if( $dynamic_selection === true) { ?>
-			
             <label for="uacf7_country">Country</label>
             <select name="uacf7_country" id="uacf7_country">
-            <option value="">Select a Countr=</option>
+            <option value="">Select a Country</option>
             </select>
 
-        <?php }else { ?>
-
-            
+            <?php }else { ?>
 
             <input id="uacf7_countries_<?php  echo esc_attr($tag->name); ?>" type="text" <?php  echo $atts; ?> >
-
-            <h1><?php echo $dynamic_selection ?> </h1>
             
 			<span><?php echo $validation_error; ?> </span>
 		
@@ -104,7 +99,8 @@ class UACF7_COUNTRY_DROPDOWN {
 				<input type="hidden" id="uacf7_countries_<?php echo esc_attr($tag->name); ?>_code" data-countrycodeinput="1" readonly="readonly" placeholder="Selected country code will appear here" />
 			</div>
 
-        <?php } ?>
+            <?php } ?>
+       
 
             <!-- <label for="uacf7_state">State</label>
             <select name="uacf7_state" id="uacf7_state">
