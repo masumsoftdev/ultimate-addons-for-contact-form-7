@@ -64,6 +64,8 @@ class UACF7_COUNTRY_DROPDOWN {
         $atts['aria-invalid'] = $validation_error ? 'true' : 'false';
 
         $atts['name'] = $tag->name;
+
+        $dynamic_selection = $tag->get_option('dynamic-selection', '', true);
 		
 		$size = $tag->get_option( 'size', 'int', true );
 
@@ -79,12 +81,42 @@ class UACF7_COUNTRY_DROPDOWN {
 		?>
 		<span id="uacf7_country_select" class="wpcf7-form-control-wrap <?php echo sanitize_html_class( $tag->name ); ?>">
 		
-			<input id="uacf7_countries_<?php echo esc_attr($tag->name); ?>" type="text" <?php echo $atts; ?> >
-			<span><?php echo $validation_error; ?></span>
+
+
+        <?php if( $dynamic_selection === true) { ?>
+			
+            <label for="uacf7_country">Country</label>
+            <select name="uacf7_country" id="uacf7_country">
+            <option value="">Select a Countr=</option>
+            </select>
+
+        <?php }else { ?>
+
+            
+
+            <input id="uacf7_countries_<?php  echo esc_attr($tag->name); ?>" type="text" <?php  echo $atts; ?> >
+
+            <h1><?php echo $dynamic_selection ?> </h1>
+            
+			<span><?php echo $validation_error; ?> </span>
 		
 			<div style="display:none;">
 				<input type="hidden" id="uacf7_countries_<?php echo esc_attr($tag->name); ?>_code" data-countrycodeinput="1" readonly="readonly" placeholder="Selected country code will appear here" />
 			</div>
+
+        <?php } ?>
+
+            <!-- <label for="uacf7_state">State</label>
+            <select name="uacf7_state" id="uacf7_state">
+                <option value="">Select a State</option>
+              
+            </select>
+
+            <label for="uacf7_city">City</label>
+            <select name="uacf7_city" id="uacf7_city">
+                <option value="">Select a city</option>
+            </select> -->
+        
 		</span>
 		<?php
 		
@@ -164,7 +196,7 @@ class UACF7_COUNTRY_DROPDOWN {
                         * Tag generator field: auto complete
                         */
 
-                        echo apply_filters('uacf7_tag_generator_country_autocomplete_field',$autocomplete_html);
+                        echo apply_filters('uacf7_tag_generator_country_autocomplete_field', $autocomplete_html);
                         ?>
 
                         <?php ob_start(); ?>
@@ -174,8 +206,23 @@ class UACF7_COUNTRY_DROPDOWN {
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="tag-defaul-panel-text-class"><?php echo esc_html( __( 'Default Country', 'ultimate-addons-cf7' ) ); ?> <a style="color:red" target="_blank" href="https://cf7addons.com/">(Pro)</a></label></th>
-                            <td><input type="text" name="" class="defaultvalue oneline " disabled id="tag-defaul-panel-text-class"></td>
+                        <th scope="row"><label><?php echo esc_html( __( 'Dynamic Selection', 'ultimate-addons-cf7' ) ); ?> <a style="color:red" target="_blank" href="https://cf7addons.com/">(Pro)</a></label></th>
+                            <td><input disabled type="checkbox" class="option"><?php echo esc_html( __( "Dynamic Country , States and Cities Populate.", "ultimate-addons-cf7" ) ); ?> </td>
+                        </tr>
+                        <?php 
+                        $dynamic_selection = ob_get_clean(); 
+                        /*
+                        * Tag generator field: auto complete
+                        */
+                        echo apply_filters('uacf7_tag_generator_dynamic_selection', $dynamic_selection);
+                        ?>
+
+                        <!-- Dynamic Selection Starts-->
+                        <?php ob_start(); ?>
+                        <tr>
+                            <th scope="row"><label><?php echo esc_html( __( 'Only Countries', 'ultimate-addons-cf7' ) ); ?> <a style="color:red" target="_blank" href="https://cf7addons.com/">(Pro)</a></label></th>
+                            <td><textarea class="values" name="" id="tag-generator-panel-product-id" cols="30" rows="10" disabled></textarea> One ID per line. </a>
+                            </td>
                         </tr>
                         <?php 
                         $default_country = ob_get_clean(); 
@@ -184,7 +231,8 @@ class UACF7_COUNTRY_DROPDOWN {
                         */
                         echo apply_filters('uacf7_tag_generator_default_country_field', $default_country);
                         ?>
-                        
+                        <!-- Dynamic Selection Ends -->
+ 
                         <tr>
                             <th scope="row"><label for="tag-generator-panel-text-class"><?php echo esc_html( __( 'Class attribute', 'ultimate-addons-cf7' ) ); ?> </label></th>
                             <td><input type="text" name="class" class="classvalue oneline option" id="tag-generator-panel-text-class"></td>
