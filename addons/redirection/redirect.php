@@ -250,7 +250,7 @@ class UACF7_Redirection {
 								<?php
 								}
 								?>
-                            </select>
+            </select>
 						</span>
            				<span> Value == </span>
            				<span> <input type="text" placeholder="Value"> </span>
