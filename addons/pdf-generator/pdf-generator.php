@@ -424,8 +424,7 @@ class UACF7_PDF_GENERATOR {
         </div> 
          <fieldset>
            <div class="ultimate-placeholder-admin pdf-generator-admin">
-               <div class="ultimate-placeholder-wrapper pdf-generator-wrap">
-                  <img src="" alt="">
+               <div class="ultimate-placeholder-wrapper pdf-generator-wrap"> 
                   <h3> Option</h3>
                     <div class="uacf7pdf-fourcolumns">
                        <h4><?php _e('Enable PDF Generator', 'ultimate-addons-cf7'); ?></h4>

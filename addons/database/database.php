@@ -31,13 +31,13 @@ class UACF7_DATABASE {
     
         $charset_collate = $wpdb->get_charset_collate();
     
-        $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+        $sql = "CREATE TABLE $table_name (
             id bigint(20) NOT NULL AUTO_INCREMENT,
             form_id bigint(20) NOT NULL,
             form_value longtext NOT NULL,
-            form_date datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+            form_date datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
             PRIMARY KEY  (id)
-        ) $charset_collate;";
+        ) $charset_collate";
     
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
         dbDelta( $sql ); 
@@ -186,7 +186,7 @@ class UACF7_DATABASE {
         $tags = $ContactForm->scan_form_tags();
         $skip_tag_insert = []; 
         foreach ($tags as $tag){
-            if( $tag->type == 'uacf7_step_start' || $tag->type == 'uacf7_step_end' || $tag->type == 'uarepeater' || $tag->type == 'conditional' ){
+            if( $tag->type == 'uacf7_step_start' || $tag->type == 'uacf7_step_end' || $tag->type == 'uarepeater' || $tag->type == 'conditional' || $tag->type == 'uacf7_conversational_start' || $tag->type == 'uacf7_conversational_end' ){
                 if($tag->name != ''){
                     $skip_tag_insert[] = $tag->name;
                 }
@@ -273,7 +273,7 @@ class UACF7_DATABASE {
         $fields = [];
         foreach($form_fields as $field){
             
-            if($field['type'] != 'submit' && $field['type'] !='uacf7_step_start' && $field['type'] !='uacf7_step_end' && $field['type'] !='uarepeater' ){
+            if($field['type'] != 'submit' && $field['type'] !='uacf7_step_start' && $field['type'] !='uacf7_step_end' && $field['type'] !='uarepeater' && $field['type'] == 'uacf7_conversational_start' && $field['type'] == 'uacf7_conversational_end'  ){
                 $fields[$field['name']] = '';
             }
         }
@@ -369,7 +369,7 @@ class UACF7_DATABASE {
                 $data = json_decode($fdata->form_value);
                 foreach($form_fields as $field){
                 
-                    if($field['type'] != 'submit' && $field['type'] !='uacf7_step_start' && $field['type'] !='uacf7_step_end' && $field['type'] !='uarepeater' ){
+                    if($field['type'] != 'submit' && $field['type'] !='uacf7_step_start' && $field['type'] !='uacf7_step_end' && $field['type'] !='uarepeater'  && $field['type'] == 'uacf7_conversational_start' && $field['type'] == 'uacf7_conversational_end' ){
                         $fields[$field['name']] = '';
                     }
                 }
