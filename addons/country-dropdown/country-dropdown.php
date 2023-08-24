@@ -5,10 +5,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class UACF7_COUNTRY_DROPDOWN {
 
+
+
     /*
     * Construct function
     */
     public function __construct() {
+
         add_action( 'wpcf7_init', array($this, 'add_shortcodes') );
         
 		add_action( 'admin_init', array( $this, 'tag_generator' ) );
@@ -17,10 +20,16 @@ class UACF7_COUNTRY_DROPDOWN {
         
 		add_filter( 'wpcf7_validate_uacf7_country_dropdown*', array($this,'wpcf7_country_dropdown_validation_filter'), 10, 2 );
         
-		add_action( 'wp_enqueue_scripts', array($this, 'wp_enqueue_script' ) );        
+		add_action( 'wp_enqueue_scripts', array($this, 'wp_enqueue_script' ) );
+        
+        
+        /** Dynamic Selection JS Validation */
+        // add_action( 'wp_ajax_uacf7_dynamic_selection', [$this, 'uacf7_dynamic_selection'] );
+        // add_action( 'wp_ajax_nopriv_uacf7_dynamic_selection', [$this, 'uacf7_dynamic_selection'] );
     }
     
     public function wp_enqueue_script() {
+
 		wp_enqueue_style( 'uacf7-country-select-main', UACF7_ADDONS . '/country-dropdown/assets/css/countrySelect.min.css' );
 		wp_enqueue_style( 'uacf7-country-select-style', UACF7_ADDONS . '/country-dropdown/assets/css/style.css' );
 		
@@ -65,62 +74,78 @@ class UACF7_COUNTRY_DROPDOWN {
 
         $atts['name'] = $tag->name;
 
-        $dynamic_selection = $tag->get_option('dynamic-selection', true);
-		
+        /** Condition for Dynamic Selection (API Based Country, States, Cities) */
+
+        $dynamic_selection = $tag->has_option('dynamic-selection');
+
+
+        if ( $dynamic_selection ) {
+			$atts['dynamic-selection'] = 'true';
+		}
+        
+
+      
 		$size = $tag->get_option( 'size', 'int', true );
 
 		if ( $size ) {
 			$atts['size'] = $size;
-		} else {
-			//$atts['size'] = 40;
-		}
+		} 
+
+		
         $country_atts =  apply_filters('uacf7_get_country_attr', $atts, $tag);  
         $atts = wpcf7_format_atts( $country_atts );
 		
 		ob_start();
+
+        
 		?>
+
+        <?php if($dynamic_selection){ ?>
+
 		<span id="uacf7_country_select" class="wpcf7-form-control-wrap <?php echo sanitize_html_class( $tag->name ); ?>">
-		
-	
-           <?php if( $dynamic_selection === true){ ?>
 
             <label for="uacf7_country">Country</label>
-            <select name="uacf7_country" id="uacf7_country">
-            <option value="">Select a Country</option>
+            <select <?php  echo $atts; ?>  id="uacf7_country" >
+                <option value="">Select a Country</option>
             </select>
 
-            <?php }else { ?>
+            <!-- <label for="uacf7_state">State</label>
+            <select  id="uacf7_state">
+                <option value="">Select a State</option> 
+            </select>
+
+            <label for="uacf7_city">City</label>
+            <select  id="uacf7_city">
+                <option value="">Select a city</option>
+            </select> -->
+
+            <!-- <input type="text" <?php  echo $atts; ?> > -->
+
+        </span>
+
+            
+            <?php }else{ ?>
+
+        <span id="uacf7_country_select" class="wpcf7-form-control-wrap <?php echo sanitize_html_class( $tag->name ); ?>">
 
             <input id="uacf7_countries_<?php  echo esc_attr($tag->name); ?>" type="text" <?php  echo $atts; ?> >
             
 			<span><?php echo $validation_error; ?> </span>
-		
+           
 			<div style="display:none;">
 				<input type="hidden" id="uacf7_countries_<?php echo esc_attr($tag->name); ?>_code" data-countrycodeinput="1" readonly="readonly" placeholder="Selected country code will appear here" />
-			</div>
-
-            <?php } ?>
-       
-
-            <!-- <label for="uacf7_state">State</label>
-            <select name="uacf7_state" id="uacf7_state">
-                <option value="">Select a State</option>
-              
-            </select>
-
-            <label for="uacf7_city">City</label>
-            <select name="uacf7_city" id="uacf7_city">
-                <option value="">Select a city</option>
-            </select> -->
+			</div> 
         
 		</span>
-		<?php
+		<?php }
 		
 		$countries = ob_get_clean();
 		
         return $countries;
     }
-    
+
+
+ 
     public function wpcf7_country_dropdown_validation_filter( $result, $tag ) {
         $name = $tag->name;
 
