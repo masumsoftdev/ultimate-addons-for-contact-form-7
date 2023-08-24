@@ -222,18 +222,13 @@ class UACF7_COUNTRY_DROPDOWN {
 
                         <?php ob_start(); ?>
                         <tr>
-                            <th scope="row"><label><?php echo esc_html( __( 'Only Countries', 'ultimate-addons-cf7' ) ); ?> <a style="color:red" target="_blank" href="https://cf7addons.com/">(Pro)</a></label></th>
-                            <td><textarea class="values" name="" id="tag-generator-panel-product-id" cols="30" rows="10" disabled></textarea> One ID per line. </a>
-                            </td>
-                        </tr>
-                        <tr>
                         <th scope="row"><label><?php echo esc_html( __( 'Dynamic Selection', 'ultimate-addons-cf7' ) ); ?> <a style="color:red" target="_blank" href="https://cf7addons.com/">(Pro)</a></label></th>
                             <td><input disabled type="checkbox" class="option"><?php echo esc_html( __( "Dynamic Country , States and Cities Populate.", "ultimate-addons-cf7" ) ); ?> </td>
                         </tr>
                         <?php 
                         $dynamic_selection = ob_get_clean(); 
                         /*
-                        * Tag generator field: auto complete
+                        * Tag generator field: Dynamic Selection
                         */
                         echo apply_filters('uacf7_tag_generator_dynamic_selection', $dynamic_selection);
                         ?>
