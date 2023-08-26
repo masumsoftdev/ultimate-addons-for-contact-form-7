@@ -94,7 +94,17 @@ class UACF7_COUNTRY_DROPDOWN {
 		
         $country_atts =  apply_filters('uacf7_get_country_attr', $atts, $tag);  
         $atts = wpcf7_format_atts( $country_atts );
-		
+
+        ob_start(); ?>
+        <select <?php  echo $atts; ?>  id="uacf7_country" >
+            <option value="">Select a Country</option>
+        </select>
+	<?php  
+    
+    
+    $api_country = ob_get_clean();
+
+
 		ob_start();
 
         
@@ -104,22 +114,17 @@ class UACF7_COUNTRY_DROPDOWN {
 
 		<span id="uacf7_country_select" class="wpcf7-form-control-wrap <?php echo sanitize_html_class( $tag->name ); ?>">
 
-            <label for="uacf7_country">Country</label>
-            <select <?php  echo $atts; ?>  id="uacf7_country" >
-                <option value="">Select a Country</option>
-            </select>
+            <?php echo apply_filters( 'uacf7_api_based_country_filter', $api_country, $atts ); ?>
 
-            <!-- <label for="uacf7_state">State</label>
-            <select  id="uacf7_state">
-                <option value="">Select a State</option> 
-            </select>
+          
 
-            <label for="uacf7_city">City</label>
+
+            <!-- <label for="uacf7_city">City</label>
             <select  id="uacf7_city">
                 <option value="">Select a city</option>
             </select> -->
 
-            <!-- <input type="text" <?php  echo $atts; ?> > -->
+            <!-- <input type="text" <?php  //echo $atts; ?> > -->
 
         </span>
 
