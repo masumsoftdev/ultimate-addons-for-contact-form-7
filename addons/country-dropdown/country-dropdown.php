@@ -76,11 +76,11 @@ class UACF7_COUNTRY_DROPDOWN {
 
         /** Condition for Dynamic Selection (API Based Country, States, Cities) */
 
-        $dynamic_selection = $tag->has_option('dynamic-selection');
+        $dynamic_selection = $tag->has_option('dynamic_selection');
 
 
         if ( $dynamic_selection ) {
-			$atts['dynamic-selection'] = 'true';
+			$atts['dynamic_selection'] = 'true';
 		}
         
 
@@ -96,7 +96,7 @@ class UACF7_COUNTRY_DROPDOWN {
         $atts = wpcf7_format_atts( $country_atts );
 
         ob_start(); ?>
-        <select <?php  echo $atts; ?>  id="uacf7_country" >
+        <select <?php  echo $atts; ?>  id="uacf7_country_api" >
             <option value="">Select a Country</option>
         </select>
 	<?php  
@@ -115,16 +115,6 @@ class UACF7_COUNTRY_DROPDOWN {
 		<span id="uacf7_country_select" class="wpcf7-form-control-wrap <?php echo sanitize_html_class( $tag->name ); ?>">
 
             <?php echo apply_filters( 'uacf7_api_based_country_filter', $api_country, $atts ); ?>
-
-          
-
-
-            <!-- <label for="uacf7_city">City</label>
-            <select  id="uacf7_city">
-                <option value="">Select a city</option>
-            </select> -->
-
-            <!-- <input type="text" <?php  //echo $atts; ?> > -->
 
         </span>
 
