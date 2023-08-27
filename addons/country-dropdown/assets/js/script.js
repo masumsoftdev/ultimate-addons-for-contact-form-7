@@ -1,7 +1,7 @@
 ;(function ($) {
 
   
-const ds_country = document.querySelector('[dynamic_selection="true"]');
+const ds_country = document.querySelector('[ds_country="true"]');
 const ds_state = document.querySelector('[ds_state="true"]');
 const ds_city = document.querySelector('[ds_city="true"]');
   // var dynamic_selection = $('.wpcf7-uacf7_country_dropdown').attr('dynamic-selection');
