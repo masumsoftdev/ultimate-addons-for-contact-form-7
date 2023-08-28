@@ -232,15 +232,6 @@ class UACF7_SUBMISSION_ID{
                 <table class="form-table">
                    <tbody>
                         <tr>
-                            <th scope="row"><?php echo esc_html__('Field type', 'ultimate-addons-cf7'); ?> </th>
-                            <td>
-                                <fieldset>
-                                <legend class="screen-reader-text"><?php echo esc_html__('Field type', 'ultimate-addons-cf7'); ?> </legend>
-                                <label><input type="checkbox" name="required" value="on"> <?php echo esc_html__('Required field', 'ultimate-addons-cf7'); ?></label>
-                                </fieldset>
-                            </td>
-                        </tr>
-                        <tr>
                             <th scope="row"><label for="<?php echo esc_attr($args['content'] . '-name'); ?>"><?php echo esc_html(__('Name', 'ultimate-addons-cf7')); ?></label></th>
                             <td><input type="text" name="name" class="tg-name oneline" id="<?php echo esc_attr($args['content'] . '-name'); ?>" /></td>
                         </tr>
@@ -255,10 +246,6 @@ class UACF7_SUBMISSION_ID{
                                 <label for="hidden"><input id="hidden" name="visibility" class="option" type="radio" value="hidden"> <?php //echo esc_html__('Hidden', 'ultimate-addons-cf7'); ?></label>
                             </td>
                         </tr> -->
-                        <tr class="">
-                            <th><label for="tag-generator-panel-star-style"><?php echo esc_html__('Submission ID from', 'ultimate-addons-cf7'); ?></label></th>
-                            <td><input type="text" name="uacf7_submission_id" id="uacf7_submission_id_res" value="" readonly="readonly" ></td>
-                        </tr>
                         <tr>
                             <th scope="row"><label for="tag-generator-panel-text-class"><?php echo esc_html__('Class attribute', 'ultimate-addons-cf7'); ?></label></th>
                             <td><input type="text" name="class" class="classvalue oneline option" id="tag-generator-panel-text-class"></td>
