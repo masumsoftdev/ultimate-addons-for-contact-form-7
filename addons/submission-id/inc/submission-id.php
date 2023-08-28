@@ -11,6 +11,7 @@ class UACF7_SUBMISSION_ID_PANEL{
   public function __construct(){
     add_action( 'wpcf7_editor_panels', [$this, 'uacf7_submission_panel_add'] );
     add_action( 'wpcf7_after_save', [$this, 'uacf7_submission_id_save_form'] );
+    // add_action( 'wpcf7_after_update', [$this, 'uacf7_submission_id_save_form'] );
     add_action( 'admin_init', [$this, 'uacf7_create_submission_id_database_col'] );
 
   }
@@ -84,7 +85,14 @@ class UACF7_SUBMISSION_ID_PANEL{
       $initial_value =  1;
       update_post_meta( $form->id(), 'uacf7_submission_id', $initial_value );
     }else{
-      update_post_meta( $form->id(), 'uacf7_submission_id', $_POST['uacf7_submission_id']);
+      $uacf7_submission_id = get_post_meta( $form->id(), 'uacf7_submission_id', true ); 
+
+      /** Submission ID Conditional Update */
+      if($_POST['uacf7_submission_id'] > $uacf7_submission_id ||$_POST['uacf7_submission_id'] < $uacf7_submission_id ){ 
+        update_post_meta( $form->id(), 'uacf7_submission_id', $_POST['uacf7_submission_id']);
+      }else{
+        update_post_meta( $form->id(), 'uacf7_submission_id', $uacf7_submission_id);
+      }
     }
 
     update_post_meta( $form->id(), 'uacf7_submission_id_step', $_POST['uacf7_submission_id_step']);
