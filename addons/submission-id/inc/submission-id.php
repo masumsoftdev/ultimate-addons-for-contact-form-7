@@ -84,11 +84,16 @@ class UACF7_SUBMISSION_ID_PANEL{
     if ( $_POST['uacf7_submission_id'] < 0 || $_POST['uacf7_submission_id'] === null || $_POST['uacf7_submission_id'] === '' ) {
       $initial_value =  1;
       update_post_meta( $form->id(), 'uacf7_submission_id', $initial_value );
-    }else{
-      $uacf7_submission_id = get_post_meta( $form->id(), 'uacf7_submission_id', true ); 
+    }else{ 
+      
+      global $wpdb;
+      $table_name = $wpdb->prefix.'uacf7_form';
+      $last_item = $wpdb->get_row(
+        $wpdb->prepare("SELECT * FROM $table_name WHERE form_id= %d  ORDER BY submission_id DESC ", $form->id() )
+      ); 
 
       /** Submission ID Conditional Update */
-      if($_POST['uacf7_submission_id'] > $uacf7_submission_id ||$_POST['uacf7_submission_id'] < $uacf7_submission_id ){ 
+      if($_POST['uacf7_submission_id'] > $last_item->submission_id ){ 
         update_post_meta( $form->id(), 'uacf7_submission_id', $_POST['uacf7_submission_id']);
       }else{
         update_post_meta( $form->id(), 'uacf7_submission_id', $uacf7_submission_id);

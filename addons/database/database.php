@@ -582,7 +582,9 @@ class uacf7_form_List_Table extends WP_List_Table{
     public function column_default( $item, $column_name ){ 
         // echo "<pre>";
         // print_r($item);
-        return $item[ $column_name ];
+        if(isset($item[ $column_name ])){ 
+            return $item[ $column_name ];
+        }
     }
 
 
