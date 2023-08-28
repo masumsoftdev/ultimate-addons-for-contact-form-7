@@ -231,6 +231,12 @@ class UACF7_SUBMISSION_ID{
       <fieldset>
                 <table class="form-table">
                    <tbody>
+                        <div class="uacf7-doc-notice"> 
+                            <?php echo sprintf( 
+                                __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                                '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/" target="_blank">documentation</a>'
+                            ); ?> 
+                        </div>
                         <tr>
                             <th scope="row"><label for="<?php echo esc_attr($args['content'] . '-name'); ?>"><?php echo esc_html(__('Name', 'ultimate-addons-cf7')); ?></label></th>
                             <td><input type="text" name="name" class="tg-name oneline" id="<?php echo esc_attr($args['content'] . '-name'); ?>" /></td>
