@@ -1,11 +1,4 @@
 ;(function ($) {
- 
-//Passing Data to Form TAG
-  var predefined_value = $('#uacf7_submission_id').val();
-
-  $('#uacf7_submission_id_res').attr('value', predefined_value);
-
-
 
 //Submission ID Duplication Message
 
