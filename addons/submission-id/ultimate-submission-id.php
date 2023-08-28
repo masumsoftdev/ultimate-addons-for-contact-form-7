@@ -95,9 +95,11 @@ class UACF7_SUBMISSION_ID{
             
             $submission_value = $last_item->submission_id + 1;
             }
+            
+                // update submission id existing database
+                $sql = $wpdb->prepare("UPDATE $table_name SET submission_id= %s WHERE id= %s", $submission_value, $id ); 
+            
         
-            // update submission id existing database
-            $sql = $wpdb->prepare("UPDATE $table_name SET submission_id= %s WHERE id= %s", $submission_value, $id );   
             $wpdb->query( $sql );  
         } 
 
@@ -115,6 +117,8 @@ class UACF7_SUBMISSION_ID{
             $getCurrentData = get_post_meta($_POST['_wpcf7'], 'uacf7_submission_id', true);
             $step_counter = get_post_meta( $_POST['_wpcf7'], 'uacf7_submission_id_step', true );
 
+   
+
             $valueIncreasing = '';
 
 
@@ -123,7 +127,7 @@ class UACF7_SUBMISSION_ID{
             }else{
                 $valueIncreasing .= $getCurrentData + 1;
             }
-            update_post_meta($form->id(), 'uacf7_submission_id', $valueIncreasing);
+            update_post_meta($form->id(), 'uacf7_submission_id', $valueIncreasing); 
         }
       
     }

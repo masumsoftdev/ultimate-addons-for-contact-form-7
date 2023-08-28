@@ -86,8 +86,9 @@ class UACF7_SUBMISSION_ID_PANEL{
       update_post_meta( $form->id(), 'uacf7_submission_id', $initial_value );
     }else{
       $uacf7_submission_id = get_post_meta( $form->id(), 'uacf7_submission_id', true ); 
+
       /** Submission ID Conditional Update */
-      if($_POST['uacf7_submission_id'] > $uacf7_submission_id ){ 
+      if($_POST['uacf7_submission_id'] > $uacf7_submission_id ||$_POST['uacf7_submission_id'] < $uacf7_submission_id ){ 
         update_post_meta( $form->id(), 'uacf7_submission_id', $_POST['uacf7_submission_id']);
       }else{
         update_post_meta( $form->id(), 'uacf7_submission_id', $uacf7_submission_id);
