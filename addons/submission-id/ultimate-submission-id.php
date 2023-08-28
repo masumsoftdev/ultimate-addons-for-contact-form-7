@@ -48,18 +48,21 @@ class UACF7_SUBMISSION_ID{
     /** Ends Loading Essential JS & CSS */
 
 
+
     /**
      * Submission ID Realtime update in the Frontend
      */
 
      public function uacf7_update_submission_id(){
-        $form_id = $_POST['form_id'];
-        $meta_data = get_post_meta($form_id, 'uacf7_submission_id', true);
-       echo wp_send_json( [
-        'form_id' => $form_id,
-        'meta_data' => $meta_data
-       ] );
-        
+
+ 
+            $form_id = $_POST['form_id'];
+            $meta_data = get_post_meta($form_id, 'uacf7_submission_id', true);
+            echo wp_send_json( [
+            'form_id' => $form_id,
+            'meta_data' => $meta_data
+           ] );
+       
      }
 
 
@@ -67,54 +70,62 @@ class UACF7_SUBMISSION_ID{
      * Submission ID Update
      */
     public function uacf7_submission_id_insert_callback( $uacf7_db_id, $form_id, $insert_data, $tags){
- 
-      $submission_value = get_post_meta($form_id, 'uacf7_submission_id', true);
 
-      if( $submission_value != '' || $submission_value != null || $submission_value != 0){
       
-        global $wpdb;  
-        $table_name = $wpdb->prefix.'uacf7_form';
-        $id = $uacf7_db_id;   
 
-        // count submission id exist in database
-        $get_db_data = $wpdb->get_var(
-            $wpdb->prepare("SELECT COUNT(*) FROM $table_name WHERE form_id= %d AND  submission_id = '104' ORDER BY submission_id DESC ", $form_id )
-        );  
+        $submission_value = get_post_meta($form_id, 'uacf7_submission_id', true);
 
-        // if submission id exist in database
-        if($get_db_data > 0){
-            
-          $last_item = $wpdb->get_row(
-              $wpdb->prepare("SELECT * FROM $table_name WHERE form_id= %d  ORDER BY submission_id DESC ", $form_id )
-          ); 
+        if( $submission_value != '' || $submission_value != null || $submission_value != 0){
         
-          $submission_value = $last_item->submission_id + 1;
-        }
-      
-        // update submission id existing database
-        $sql = $wpdb->prepare("UPDATE $table_name SET submission_id= %s WHERE id= %s", $submission_value, $id );   
-        $wpdb->query( $sql );  
-      } 
+            global $wpdb;  
+            $table_name = $wpdb->prefix.'uacf7_form';
+            $id = $uacf7_db_id;   
+
+            // count submission id exist in database
+            $get_db_data = $wpdb->get_var(
+                $wpdb->prepare("SELECT COUNT(*) FROM $table_name WHERE form_id= %d AND  submission_id = '104' ORDER BY submission_id DESC ", $form_id )
+            );  
+
+            // if submission id exist in database
+            if($get_db_data > 0){
+                
+            $last_item = $wpdb->get_row(
+                $wpdb->prepare("SELECT * FROM $table_name WHERE form_id= %d  ORDER BY submission_id DESC ", $form_id )
+            ); 
+            
+            $submission_value = $last_item->submission_id + 1;
+            }
+        
+            // update submission id existing database
+            $sql = $wpdb->prepare("UPDATE $table_name SET submission_id= %s WHERE id= %s", $submission_value, $id );   
+            $wpdb->query( $sql );  
+        } 
+
 
     }
 
+    
 
     public function submission_id_update($form){
-        // $wpcf7 = WPCF7_ContactForm::get_current();
-        //   // $formid = $wpcf7->id();
 
-        $getCurrentData = get_post_meta($_POST['_wpcf7'], 'uacf7_submission_id', true);
-        $step_counter = get_post_meta( $_POST['_wpcf7'], 'uacf7_submission_id_step', true );
+        $uacf7_submission_id_enable = get_post_meta( $_POST['_wpcf7'], 'uacf7_submission_id_enable', true ); 
 
-        $valueIncreasing = '';
+        if($uacf7_submission_id_enable){
+              
+            $getCurrentData = get_post_meta($_POST['_wpcf7'], 'uacf7_submission_id', true);
+            $step_counter = get_post_meta( $_POST['_wpcf7'], 'uacf7_submission_id_step', true );
+
+            $valueIncreasing = '';
 
 
-        if($step_counter > 0){
-            $valueIncreasing .= $getCurrentData + $step_counter;
-        }else{
-            $valueIncreasing .= $getCurrentData + 1;
+            if($step_counter > 0){
+                $valueIncreasing .= $getCurrentData + $step_counter;
+            }else{
+                $valueIncreasing .= $getCurrentData + 1;
+            }
+            update_post_meta($form->id(), 'uacf7_submission_id', $valueIncreasing);
         }
-        update_post_meta($form->id(), 'uacf7_submission_id', $valueIncreasing);
+      
     }
 
     /**
