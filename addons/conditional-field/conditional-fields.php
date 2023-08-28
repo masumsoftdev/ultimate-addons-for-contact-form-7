@@ -188,7 +188,7 @@ class UACF7_CF {
                                     <option value=""><?php echo esc_html( '-- Select field --', 'ultimate-addons-cf7' ) ?></option>
                                     <?php
                                     foreach ($all_fields as $tag) {
-                                        if ($tag['type'] == 'conditional' || $tag['name'] == '') continue;
+                                        if ($tag['type'] == 'conditional' || $tag['name'] == ''  || $tag['type'] == 'uacf7_conversational_start' || $tag['type'] == 'uacf7_conversational_end' ) continue;
                                     ?>
                                     <?php 
                                     if( $tag['type'] == 'checkbox' || $tag['type'] == 'checkbox*' ) { 
@@ -312,7 +312,7 @@ class UACF7_CF {
                                     <option value=""><?php echo esc_html( '-- Select field --', 'ultimate-addons-cf7' ) ?></option>
                                     <?php
                                     foreach ($all_fields as $tag) {
-                                        if ($tag['type'] == 'conditional' || $tag['name'] == '') continue;
+                                        if ($tag['type'] == 'conditional' || $tag['name'] == ''  || $tag['type'] == 'uacf7_conversational_start' || $tag['type'] == 'uacf7_conversational_end' ) continue;
                                     ?>
                                     <?php 
                                     if( $tag['type'] == 'checkbox' || $tag['type'] == 'checkbox*' ) { 

@@ -473,16 +473,18 @@ class uacf7_form_List_Table extends WP_List_Table{
         
         $columns = [];
         $columns['cb']      = '<input type="checkbox" />';  
-        if(count($form_fields) > 4){
-            $count = 4;
-        }else{
-            $count = count($form_fields);
-        }  
+        $count = count($form_fields);
+        $count_item = 4;
+        $count_i = 0; 
+
         for ($x = 0; $x < $count; $x++) { 
             
-          if($form_fields[$x]['type'] != 'submit' && $form_fields[$x]['type'] !='uacf7_step_start' && $form_fields[$x]['type'] !='uacf7_step_end' && $form_fields[$x]['type'] !='uarepeater' && $form_fields[$x]['type'] !='conditional' ){
+          if($form_fields[$x]['type'] != 'submit' && $form_fields[$x]['type'] !='uacf7_step_start' && $form_fields[$x]['type'] !='uacf7_step_end' && $form_fields[$x]['type'] !='uarepeater' && $form_fields[$x]['type'] !='conditional' && $form_fields[$x]['type'] != 'uacf7_conversational_start' && $form_fields[$x]['type'] != 'uacf7_conversational_end' ){ 
             
+            if($count_i == $count_item){ break; }
+
             $columns[$form_fields[$x]['name']] = $form_fields[$x]['name']; 
+            $count_i++;
           }
         }  
 
