@@ -20,6 +20,7 @@ class UACF7_SUBMISSION_ID{
         
         add_filter('wpcf7_mail_sent', [$this, 'submission_id_update']);
 
+        // Submission ID Update into Database
         add_action('uacf7_submission_id_insert', [$this, 'uacf7_submission_id_insert_callback'], 10, 4);
 
         require_once 'inc/submission-id.php';
@@ -67,43 +68,29 @@ class UACF7_SUBMISSION_ID{
 
 
     /**
-     * Submission ID Update
+     * Submission ID Update into Database
      */
     public function uacf7_submission_id_insert_callback( $uacf7_db_id, $form_id, $insert_data, $tags){
+ 
+        $uacf7_submission_id_enable = get_post_meta( $form_id, 'uacf7_submission_id_enable', true ); 
 
-      
-
-        $submission_value = get_post_meta($form_id, 'uacf7_submission_id', true);
-
-        if( $submission_value != '' || $submission_value != null || $submission_value != 0){
+        if($uacf7_submission_id_enable == 'on'){
+            
+            $submission_value = get_post_meta($form_id, 'uacf7_submission_id', true); 
+            if( $submission_value != '' || $submission_value != null || $submission_value != 0){
         
-            global $wpdb;  
-            $table_name = $wpdb->prefix.'uacf7_form';
-            $id = $uacf7_db_id;   
-
-            // count submission id exist in database
-            $get_db_data = $wpdb->get_var(
-                $wpdb->prepare("SELECT COUNT(*) FROM $table_name WHERE form_id= %d AND  submission_id = '104' ORDER BY submission_id DESC ", $form_id )
-            );  
-
-            // if submission id exist in database
-            if($get_db_data > 0){
-                
-            $last_item = $wpdb->get_row(
-                $wpdb->prepare("SELECT * FROM $table_name WHERE form_id= %d  ORDER BY submission_id DESC ", $form_id )
-            ); 
-            
-            $submission_value = $last_item->submission_id + 1;
-            }
-            
+                global $wpdb;  
+                $table_name = $wpdb->prefix.'uacf7_form';
+                $id = $uacf7_db_id;   
+       
                 // update submission id existing database
                 $sql = $wpdb->prepare("UPDATE $table_name SET submission_id= %s WHERE id= %s", $submission_value, $id ); 
+                
             
+                $wpdb->query( $sql );  
+            }  
+        }
         
-            $wpdb->query( $sql );  
-        } 
-
-
     }
 
     
@@ -112,7 +99,7 @@ class UACF7_SUBMISSION_ID{
 
         $uacf7_submission_id_enable = get_post_meta( $_POST['_wpcf7'], 'uacf7_submission_id_enable', true ); 
 
-        if($uacf7_submission_id_enable){
+        if($uacf7_submission_id_enable == 'on'){
               
             $getCurrentData = get_post_meta($_POST['_wpcf7'], 'uacf7_submission_id', true);
             $step_counter = get_post_meta( $_POST['_wpcf7'], 'uacf7_submission_id_step', true );
@@ -145,6 +132,15 @@ class UACF7_SUBMISSION_ID{
         if (empty($tag->name)) {
             return '';
         }
+         
+        /** Enable / Disable Submission ID */
+        $wpcf7 = WPCF7_ContactForm::get_current(); 
+        $formid = $wpcf7->id();
+        $uacf7_submission_id_enable = get_post_meta( $formid, 'uacf7_submission_id_enable', true ); 
+        
+        if($uacf7_submission_id_enable != 'on'){
+            return;
+        }
 
         $validation_error = wpcf7_get_validation_error($tag->name);
 
@@ -175,22 +171,10 @@ class UACF7_SUBMISSION_ID{
             $atts['size'] = $size;
         } else {
             $atts['size'] = 40;
-        }
-
-        // Visibility
-        // $visibility = $tag->get_option('visibility', '', true);
-        // if ($visibility == 'show') {
-        //     $atts['type'] = 'text';
-        //     $atts['readonly'] = 'readonly';
-        // }if ($visibility == 'hidden') {
-        //     $atts['type'] = 'hidden';
-        // }
-
+        } 
         $value = $tag->values;
         $default_value = $tag->get_default_option($value);
 
-        $wpcf7 = WPCF7_ContactForm::get_current();
-        $formid = $wpcf7->id();
 
         $value = get_post_meta($formid, "uacf7_submission_id", true);
 
@@ -202,21 +186,14 @@ class UACF7_SUBMISSION_ID{
 
         ob_start();
 
-        /** Enable / Disable Submission ID */
-
-        $uacf7_submission_id_enable = get_post_meta( $formid, 'uacf7_submission_id_enable', true ); 
-
-        if($uacf7_submission_id_enable){ ?>
-
-            <span  class="wpcf7-form-control-wrap <?php echo sanitize_html_class($tag->name); ?>" data-name="<?php echo sanitize_html_class($tag->name); ?>">
+        ?> 
+        <span  class="wpcf7-form-control-wrap <?php echo sanitize_html_class($tag->name); ?>" data-name="<?php echo sanitize_html_class($tag->name); ?>">
 
             <input hidden id="uacf7_<?php echo esc_attr($tag->name); ?>" <?php echo $atts;?> >
             <span><?php echo $validation_error; ?></span>
-            </span>
+        </span>
 
-       <?php }else{
-        return;
-       }
+       <?php 
    
         $submission_buffer = ob_get_clean();
 

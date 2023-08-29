@@ -47,8 +47,8 @@ class UACF7_SUBMISSION_ID_PANEL{
             ); ?> 
         </div>
 
-      <label for="uacf7_submission_id_enable">
-      <input class="uacf7_submission_id_enable" id="uacf7_submission_id_enable" name="uacf7_submission_id_enable" type="checkbox" value="1" <?php checked( '1', $uacf7_submission_id_enable, true ); ?>> <?php _e( 'Enable Submission ID fields', 'ultimate-addons-cf7' ); ?>
+      <label for="uacf7_submission_id_enable"> 
+      <input class="uacf7_submission_id_enable" id="uacf7_submission_id_enable" name="uacf7_submission_id_enable" type="checkbox" <?php checked( 'on', $uacf7_submission_id_enable, true ); ?>> <?php _e( 'Enable Submission ID fields', 'ultimate-addons-cf7' ); ?>
       </label>
 
       <div class="ultimate-submission-id-wrapper">
@@ -90,13 +90,12 @@ class UACF7_SUBMISSION_ID_PANEL{
       $table_name = $wpdb->prefix.'uacf7_form';
       $last_item = $wpdb->get_row(
         $wpdb->prepare("SELECT * FROM $table_name WHERE form_id= %d  ORDER BY submission_id DESC ", $form->id() )
-      ); 
-
+      );    
       /** Submission ID Conditional Update */
       if($_POST['uacf7_submission_id'] > $last_item->submission_id ){ 
         update_post_meta( $form->id(), 'uacf7_submission_id', $_POST['uacf7_submission_id']);
       }else{
-        update_post_meta( $form->id(), 'uacf7_submission_id', $uacf7_submission_id);
+        update_post_meta( $form->id(), 'uacf7_submission_id', $last_item->submission_id);
       }
     }
 
@@ -127,7 +126,7 @@ class UACF7_SUBMISSION_ID_PANEL{
     if($checked_status != true){ 
       $sql = "ALTER TABLE $table_name 
       MODIFY COLUMN form_date DATETIME NULL,
-      ADD submission_id VARCHAR(255) DEFAULT 0 NULL AFTER form_value"; 
+      ADD submission_id bigint(20) DEFAULT 0 NULL AFTER form_value"; 
       $wpdb->query( $sql );
     }
 } 
