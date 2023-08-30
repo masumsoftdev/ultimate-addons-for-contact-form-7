@@ -532,6 +532,7 @@ class uacf7_form_List_Table extends WP_List_Table{
             );  
         }
         foreach($form_data as $fdata){ 
+           $f_data = [];
            $field_data =  json_decode($fdata->form_value); 
            $repetar_value = '';
            $repetar_key = '';
