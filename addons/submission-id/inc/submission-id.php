@@ -95,7 +95,7 @@ class UACF7_SUBMISSION_ID_PANEL{
       if($_POST['uacf7_submission_id'] > $last_item->submission_id ){ 
         update_post_meta( $form->id(), 'uacf7_submission_id', $_POST['uacf7_submission_id']);
       }else{
-        update_post_meta( $form->id(), 'uacf7_submission_id', $last_item->submission_id);
+        update_post_meta( $form->id(), 'uacf7_submission_id', $last_item->submission_id + $_POST['uacf7_submission_id_step']);
       }
     }
 
