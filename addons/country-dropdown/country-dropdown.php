@@ -82,6 +82,15 @@ class UACF7_COUNTRY_DROPDOWN {
         if ( $ds_country ) {
 			$atts['ds_country'] = 'true';
 		}
+
+        /** Auto Complete */
+        $country_auto_complete = $tag->has_option('country_auto_complete');
+
+
+        if ( $country_auto_complete ) {
+			$atts['country_auto_complete'] = 'true';
+		}
+        
         
 
       
