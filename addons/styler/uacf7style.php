@@ -624,7 +624,7 @@ class UACF7_uacf7style {
                     <?php echo $ua_custom_css ?>
                 </style>
                 <?php
-                echo '<div class="uacf7-uacf7style-'.$cfform->id().'">'.$form.'</div>';
+                echo '<div class="uacf7-uacf7style uacf7-uacf7style-'.$cfform->id().'">'.$form.'</div>';
                 $properties['form'] = ob_get_clean();
             endif;
         }
