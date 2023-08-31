@@ -9,7 +9,7 @@
           
           var ds_country = $('.uacf7-form-'+formId).find('#uacf7_country_api').attr('ds_country');
           var country_auto_complete = $('.uacf7-form-'+formId).find('#uacf7_country_api').attr('country_auto_complete');
-          var country_auto_complete_v2 = $('.uacf7-form-'+formId).find('.wpcf7-uacf7_country_dropdown').attr('country_auto_complete');
+          var country_auto_complete_ip_geo = $('.uacf7-form-'+formId).find('.wpcf7-uacf7_country_dropdown').attr('country_auto_complete');
           // var country_auto_complete = $('.uacf7-form-'+formId).find('#uacf7_country_api').attr('country_auto_complete');  
           // var city_auto_complete = $('.uacf7-form-'+formId).find('#uacf7_country_api').attr('city_auto_complete'); 
           // var state_auto_complete = $('.uacf7-form-'+formId).find('#uacf7_country_api').attr('state_auto_complete'); 
@@ -17,7 +17,7 @@
   
  
 	if( !ds_country){
-    if(!country_auto_complete_v2){
+    if(!country_auto_complete_ip_geo){
       $('.uacf7-form-'+formId).find('.wpcf7-uacf7_country_dropdown').each(function(){
         var fieldId = jQuery(this).attr('id');
         var defaultCountry = jQuery(this).attr('country-code');
