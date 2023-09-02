@@ -3,7 +3,6 @@
   $(document).ready(function () {
     $('.uacf7-slider.uacf7-range').each(function () {
       
-      
       $(document).on('input', '.uacf7-slider.uacf7-range', function(){ 
           $(this).parent().parent().find('.uacf7-value').html($(this).val());
           

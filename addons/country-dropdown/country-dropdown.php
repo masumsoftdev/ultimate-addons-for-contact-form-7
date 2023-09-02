@@ -170,7 +170,7 @@ class UACF7_COUNTRY_DROPDOWN {
                         <?php ob_start(); ?>
                         <tr>
                             <th scope="row"><label><?php echo esc_html( __( 'Only Countries', 'ultimate-addons-cf7' ) ); ?> <a style="color:red" target="_blank" href="https://cf7addons.com/">(Pro)</a></label></th>
-                            <td><textarea class="values" name="" id="tag-generator-panel-product-id" cols="30" rows="10" disabled></textarea> One ID per line. </a>
+                            <td><textarea class="values" name="" id="tag-generator-panel-product-id" cols="30" rows="10" disabled></textarea><?php echo _e( ' One ID per line. ', 'ultimate-addons-cf7' ) ?></a>
                             </td>
                         </tr>
                         <tr>

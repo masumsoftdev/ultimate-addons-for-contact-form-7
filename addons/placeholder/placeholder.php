@@ -124,15 +124,28 @@ class UACF7_Placeholder {
         if ( ! wp_verify_nonce( $_POST['uacf7_placeholder_nonce'], 'uacf7_placeholder_nonce_action' ) ) {
             return;
         }
+ 
 
-        update_post_meta( $form->id(), 'uacf7_enable_placeholder_styles', $_POST['uacf7_enable_placeholder_styles'] );
-        
-        update_post_meta( $form->id(), 'uacf7_placeholder_fontfamily', $_POST['uacf7_placeholder_fontfamily'] );
-        update_post_meta( $form->id(), 'uacf7_placeholder_fontsize', $_POST['uacf7_placeholder_fontsize'] );
-        update_post_meta( $form->id(), 'uacf7_placeholder_fontstyle', $_POST['uacf7_placeholder_fontstyle'] );
-        update_post_meta( $form->id(), 'uacf7_placeholder_fontweight', $_POST['uacf7_placeholder_fontweight'] );
-        update_post_meta( $form->id(), 'uacf7_placeholder_color', $_POST['uacf7_placeholder_color'] );
-        update_post_meta( $form->id(), 'uacf7_placeholder_background_color', $_POST['uacf7_placeholder_background_color'] );
+        update_post_meta( $form->id(), 'uacf7_enable_placeholder_styles', sanitize_text_field($_POST['uacf7_enable_placeholder_styles']) );
+
+        if(isset($_POST['uacf7_placeholder_fontfamily'])){ 
+            update_post_meta( $form->id(), 'uacf7_placeholder_fontfamily', sanitize_text_field($_POST['uacf7_placeholder_fontfamily']) );
+        }
+        if(isset($_POST['uacf7_placeholder_fontsize'])){ 
+            update_post_meta( $form->id(), 'uacf7_placeholder_fontsize', sanitize_text_field($_POST['uacf7_placeholder_fontsize']) );
+        } 
+        if(isset($_POST['uacf7_placeholder_fontstyle'])){ 
+            update_post_meta( $form->id(), 'uacf7_placeholder_fontstyle', sanitize_text_field($_POST['uacf7_placeholder_fontstyle']) );
+        }   
+        if(isset($_POST['uacf7_placeholder_fontweight'])){ 
+            update_post_meta( $form->id(), 'uacf7_placeholder_fontweight', sanitize_text_field($_POST['uacf7_placeholder_fontweight']) );
+        }   
+        if(isset($_POST['uacf7_placeholder_color'])){ 
+            update_post_meta( $form->id(), 'uacf7_placeholder_color', sanitize_text_field($_POST['uacf7_placeholder_color']) );
+        }     
+        if(isset($_POST['uacf7_placeholder_background_color'])){ 
+            update_post_meta( $form->id(), 'uacf7_placeholder_background_color', sanitize_text_field($_POST['uacf7_placeholder_background_color']) );
+        }
     }
     
     public function uacf7_properties($properties, $cfform) {
