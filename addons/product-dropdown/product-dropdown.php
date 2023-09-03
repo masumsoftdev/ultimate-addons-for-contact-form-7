@@ -302,13 +302,13 @@ class UACF7_PRODUCT_DROPDOWN {
                         
                         <?php ob_start(); ?>
                         <tr>
-                            <th scope="row"><label for="product_by"><?php echo esc_attr( __( 'Show Product By', 'ultimate-addons-cf7' ) ); ?></label></th>
+                            <th scope="row"><label for="product_by"><?php echo esc_html( __( 'Show Product By', 'ultimate-addons-cf7' ) ); ?></label></th>
                             <td>
-                                <label for="byID"><input id="byID" name="product_by" class="" disabled type="radio" value="id" checked> Product ID</label>
+                                <label for="byID"><input id="byID" name="product_by" class="" disabled type="radio" value="id" checked><?php echo esc_html( __( ' Product ID', 'ultimate-addons-cf7' ) ); ?></label>
                                 
-                                <label for="byCategory"><input id="byCategory" name="product_by" class="" disabled type="radio" value="category"> Category</label>
+                                <label for="byCategory"><input id="byCategory" name="product_by" class="" disabled type="radio" value="category"><?php echo esc_html( __( 'Category', 'ultimate-addons-cf7' ) ); ?> </label>
                                 
-                                <label for="byTag"><input id="byTag" name="product_by" class="" disabled type="radio" value="tag"> Tag</label> <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a>
+                                <label for="byTag"><input id="byTag" name="product_by" class="" disabled type="radio" value="tag"> <?php echo esc_html( __( 'Tag', 'ultimate-addons-cf7' ) ); ?></label> <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a>
                             </td>
                         </tr>
                         
@@ -321,11 +321,11 @@ class UACF7_PRODUCT_DROPDOWN {
                         <tr>
                             <th scope="row"><label for="order_by"><?php echo esc_attr( __( 'Product Order By', 'ultimate-addons-cf7' ) ); ?></label></th>
                             <td>
-                                <label for="byDate"><input id="byDate" name="order_by" class="" disabled type="radio" value="" checked> Date (by Default)</label>
+                                <label for="byDate"><input id="byDate" name="order_by" class="" disabled type="radio" value="" checked><?php echo esc_html( __( ' Date (by Default)', 'ultimate-addons-cf7' ) ); ?></label>
                                 
-                                <label for="byASC"><input id="byASC" name="order_by" class="" disabled type="radio" value="asc"> ASC </label>
+                                <label for="byASC"><input id="byASC" name="order_by" class="" disabled type="radio" value="asc"><?php echo esc_html( __( 'ASC', 'ultimate-addons-cf7' ) ); ?>  </label>
                                 
-                                <label for="byDSC"><input id="byDSC" name="order_by" class="" disabled type="radio" value="dsc"> DSC </label> <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a>
+                                <label for="byDSC"><input id="byDSC" name="order_by" class="" disabled type="radio" value="dsc"><?php echo esc_html( __( 'DSC', 'ultimate-addons-cf7' ) ); ?>  </label> <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a>
                             </td>
                         </tr>
                         <?php

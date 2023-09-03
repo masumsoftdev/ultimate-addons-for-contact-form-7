@@ -74,7 +74,7 @@ class UACF7_PDF_GENERATOR {
         $pdf_footer_color = !empty(get_post_meta( $form_id, 'pdf_footer_color', true )) ? get_post_meta( $form_id, 'pdf_footer_color', true ) : ''; 
         $pdf_footer_bg_color = !empty(get_post_meta( $form_id, 'pdf_footer_bg_color', true )) ? get_post_meta( $form_id, 'pdf_footer_bg_color', true ) : '';  
         $pdf_bg_upload_image =  !empty($pdf_bg_upload_image) ? 'background-image: url("'.$pdf_bg_upload_image.'");' : '';
-        $pdf_header_upload_image =  !empty($pdf_header_upload_image) ? '<img src="'.$pdf_header_upload_image.'" style="height: 60; max-width: 100%; ">' : '';
+        $pdf_header_upload_image =  !empty($pdf_header_upload_image) ? '<img src="'.esc_attr( $pdf_header_upload_image ).'" style="height: 60; max-width: 100%; ">' : '';
 
         $mpdf = new \Mpdf\Mpdf([ 
             'fontdata' => [ // lowercase letters only in font key
@@ -95,27 +95,27 @@ class UACF7_PDF_GENERATOR {
         // PDF Style
         $pdf_style = ' <style>
             body {
-                 '.$pdf_bg_upload_image.'
+                 '.esc_attr( $pdf_bg_upload_image ).'
                 background-repeat:no-repeat;
                 background-image-resize: 6; 
             }
             .pdf-header{
                 height: 60px;   
-                background-color: '.$pdf_header_bg_color.';
-                color : '.$pdf_header_color.'; 
+                background-color: '.esc_attr( $pdf_header_bg_color ).';
+                color : '.esc_attr( $pdf_header_color ).'; 
             }
             .pdf-footer{ 
-                background-color: '.$pdf_footer_bg_color.';
-                color : '.$pdf_footer_color.'; 
+                background-color: '.esc_attr( $pdf_footer_bg_color ).';
+                color : '.esc_attr( $pdf_footer_color ).'; 
             }
             .pdf-content{ 
-                background-color: '.$pdf_content_bg_color.';
-                color : '.$pdf_content_color.';
+                background-color: '.esc_attr($pdf_content_bg_color).';
+                color : '.esc_attr( $pdf_content_color ).';
                 padding: 20px;
                 height: 100%;
             }
             .header-logo{
-                text-align: '.$pdf_header_img_aline.'; 
+                text-align: '.esc_attr( $pdf_header_img_aline ).'; 
                 float: left; 
                 width: 20%;
             }
@@ -228,8 +228,8 @@ class UACF7_PDF_GENERATOR {
             $pdf_header_bg_color = !empty(get_post_meta( $wpcf7->id(), 'pdf_header_bg_color', true )) ? get_post_meta( $wpcf7->id(), 'pdf_header_bg_color', true ) : '';  
             $pdf_footer_color = !empty(get_post_meta( $wpcf7->id(), 'pdf_footer_color', true )) ? get_post_meta( $wpcf7->id(), 'pdf_footer_color', true ) : ''; 
             $pdf_footer_bg_color = !empty(get_post_meta( $wpcf7->id(), 'pdf_footer_bg_color', true )) ? get_post_meta( $wpcf7->id(), 'pdf_footer_bg_color', true ) : '';  
-            $pdf_bg_upload_image =  !empty($pdf_bg_upload_image) ? 'background-image: url("'.$pdf_bg_upload_image.'");' : '';
-            $pdf_header_upload_image =  !empty($pdf_header_upload_image) ? '<img src="'.$pdf_header_upload_image.'" style="height: 60; max-width: 100%; ">' : '';
+            $pdf_bg_upload_image =  !empty($pdf_bg_upload_image) ? 'background-image: url("'.esc_attr( $pdf_bg_upload_image ).'");' : '';
+            $pdf_header_upload_image =  !empty($pdf_header_upload_image) ? '<img src="'.esc_attr( $pdf_header_upload_image ).'" style="height: 60; max-width: 100%; ">' : '';
             $mpdf = new \Mpdf\Mpdf([ 
                 'fontdata' => [ // lowercase letters only in font key
                     'dejavuserifcond' => [
@@ -255,21 +255,21 @@ class UACF7_PDF_GENERATOR {
                 }
                 .pdf-header{
                     height: 60px;   
-                    background-color: '.$pdf_header_bg_color.';
-                    color : '.$pdf_header_color.'; 
+                    background-color: '.esc_attr( $pdf_header_bg_color ).';
+                    color : '.esc_attr( $pdf_header_color ).'; 
                 }
                 .pdf-footer{ 
-                    background-color: '.$pdf_footer_bg_color.';
-                    color : '.$pdf_footer_color.'; 
+                    background-color: '.esc_attr( $pdf_footer_bg_color ).';
+                    color : '.esc_attr( $pdf_footer_color ).'; 
                 }
                 .pdf-content{ 
-                    background-color: '.$pdf_content_bg_color.';
-                    color : '.$pdf_content_color.';
+                    background-color: '.esc_attr( $pdf_content_bg_color ).';
+                    color : '.esc_attr( $pdf_content_color ).';
                     padding: 20px;
                     height: 100%;
                 }
                 .header-logo{
-                    text-align: '.$pdf_header_img_aline.'; 
+                    text-align: '.esc_attr( $pdf_header_img_aline ).'; 
                     float: left; 
                     width: 20%;
                 }
@@ -442,9 +442,9 @@ class UACF7_PDF_GENERATOR {
                     <div class="uacf7pdf-fourcolumns">
                        <h4 ><?php _e('PDF Send To', 'ultimate-addons-cf7'); ?></h4>
                        <select name="pdf_send_to" id="event_summary">
-                            <option <?php if($pdf_send_to == 'default') echo "selected"; ?> value="default" selected="selected">Default</option>
-                            <option <?php if($pdf_send_to == 'mail-1') echo "selected"; ?> value="mail-1">Mail-1</option> 
-                            <option <?php if($pdf_send_to == 'mail-2') echo "selected"; ?> value="mail-2">Mail-2</option>   
+                            <option <?php if($pdf_send_to == 'default') echo "selected"; ?> value="default" selected="selected"><?php echo esc_html__( 'Default', 'ultimate-addons-cf7' ); ?></option>
+                            <option <?php if($pdf_send_to == 'mail-1') echo "selected"; ?> value="mail-1"><?php echo esc_html__( 'Mail 1', 'ultimate-addons-cf7' ); ?></option> 
+                            <option <?php if($pdf_send_to == 'mail-2') echo "selected"; ?> value="mail-2"><?php echo esc_html__( 'Mail 2', 'ultimate-addons-cf7' ); ?></option>   
                         </select><br><br>
                     </div>
                  

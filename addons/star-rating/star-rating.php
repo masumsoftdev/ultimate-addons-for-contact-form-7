@@ -236,7 +236,7 @@ class UACF7_STAR_RATING {
                             <th><label for="tag-generator-panel-range-style"><?php _e( 'Star Rating Style', 'ultimate-addons-cf7' );?></label></th>                     
                             <td>
                                 <select  name="values" disabled class="values" id="tag-generator-panel-range-style">
-                                    <option value="default">Default</option>
+                                    <option value="default"><?php _e( 'Default', 'ultimate-addons-cf7' );?></option>
                                 </select>
                                  <a href="https://cf7addons.com/preview/star-rating/pro" style="color:red">(Pro)</a>
                             </td>

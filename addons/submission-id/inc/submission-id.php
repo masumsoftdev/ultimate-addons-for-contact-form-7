@@ -93,14 +93,17 @@ class UACF7_SUBMISSION_ID_PANEL{
       );    
       /** Submission ID Conditional Update */
       if($_POST['uacf7_submission_id'] > $last_item->submission_id ){ 
-        update_post_meta( $form->id(), 'uacf7_submission_id', $_POST['uacf7_submission_id']);
+        update_post_meta( $form->id(), 'uacf7_submission_id', sanitize_text_field($_POST['uacf7_submission_id']) );
       }else{
-        update_post_meta( $form->id(), 'uacf7_submission_id', $last_item->submission_id + $_POST['uacf7_submission_id_step']);
+        update_post_meta( $form->id(), 'uacf7_submission_id', sanitize_text_field($last_item->submission_id + $_POST['uacf7_submission_id_step'])  );
       }
     }
-
-    update_post_meta( $form->id(), 'uacf7_submission_id_step', $_POST['uacf7_submission_id_step']);
-    update_post_meta( $form->id(), 'uacf7_submission_id_enable', $_POST['uacf7_submission_id_enable']); 
+    if(isset($_POST['uacf7_submission_id_step'])){ 
+        update_post_meta( $form->id(), 'uacf7_submission_id_step', sanitize_text_field($_POST['uacf7_submission_id_step']) );
+    } 
+    if(isset($_POST['uacf7_submission_id_enable'])){ 
+        update_post_meta( $form->id(), 'uacf7_submission_id_enable', sanitize_text_field($_POST['uacf7_submission_id_enable']) );
+    }  
 
  }
 

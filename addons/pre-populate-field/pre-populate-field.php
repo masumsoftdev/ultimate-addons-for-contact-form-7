@@ -31,6 +31,7 @@ class UACF7_PRE_POPULATE {
         wp_localize_script( 'pre-populate-script', 'pre_populate_url',
             array( 
                     'ajaxurl' => admin_url( 'admin-ajax.php' ),
+                    'nonce' => wp_create_nonce('uacf7-pre-populate')
                 )
         );
     }
@@ -212,6 +213,13 @@ class UACF7_PRE_POPULATE {
     */
     
     public function uacf7_ajax_pre_populate_redirect() { 
+        if ( ! isset( $_POST ) || empty( $_POST ) ) {
+			return;
+		}
+        
+        if ( !wp_verify_nonce($_POST['ajax_nonce'], 'uacf7-pre-populate')) {
+            exit(esc_html__("Security error", 'ultimate-addons-cf7'));
+        }
 
         $form_id = $_POST['form_id']; 
         $pre_populate_enable = get_post_meta( $form_id, 'pre_populate_enable', true ); 

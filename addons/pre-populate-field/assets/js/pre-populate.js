@@ -13,6 +13,7 @@
                 data: {
                     action: 'uacf7_ajax_pre_populate_redirect',
                     form_id: form_id,
+                    ajax_nonce: pre_populate_url.nonce,
                 },
                 success: function (data) {
                   if(data != false){

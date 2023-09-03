@@ -232,18 +232,7 @@ class UACF7_SUBMISSION_ID{
                         <tr>
                             <th scope="row"><label for="<?php echo esc_attr($args['content'] . '-name'); ?>"><?php echo esc_html(__('Name', 'ultimate-addons-cf7')); ?></label></th>
                             <td><input type="text" name="name" class="tg-name oneline" id="<?php echo esc_attr($args['content'] . '-name'); ?>" /></td>
-                        </tr>
-                        <!-- <tr>
-                            <th><?php //echo esc_html( 'Please Note:', 'ultimate-addons-cf7' ) ?></th>
-                            <td><label for=""><?php //echo esc_html( 'The Submission ID will be Visible on User End for enabling "Show", and Hidden for "Hidden"', 'ultimate-addons-cf7' ); ?> </label></td>
-                        </tr> -->
-                        <!-- <tr>
-                            <th scope="row"><label for="visibility"><?php //echo esc_html__('Field Visibility', 'ultimate-addons-cf7'); ?>  </label></th>
-                            <td>
-                                <label for="show"><input id="show" name="visibility" class="option" type="radio" value="show" checked> <?php //echo esc_html__('Show', 'ultimate-addons-cf7'); ?></label>
-                                <label for="hidden"><input id="hidden" name="visibility" class="option" type="radio" value="hidden"> <?php //echo esc_html__('Hidden', 'ultimate-addons-cf7'); ?></label>
-                            </td>
-                        </tr> -->
+                        </tr> 
                         <tr>
                             <th scope="row"><label for="tag-generator-panel-text-class"><?php echo esc_html__('Class attribute', 'ultimate-addons-cf7'); ?></label></th>
                             <td><input type="text" name="class" class="classvalue oneline option" id="tag-generator-panel-text-class"></td>

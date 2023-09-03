@@ -181,7 +181,7 @@ class UACF7_Redirection {
             		<!--Start New row-->
             		<div style="display:none" class="uacf7_cr_copy">
 						<li class="uacf7_conditional_redirect_condition">
-							<span>If</span>
+							<span><?php echo esc_html__( 'If', 'ultimate-addons-cf7' ); ?></span>
 							<span>
 								<select class="uacf7-field">
 									<?php
@@ -210,9 +210,9 @@ class UACF7_Redirection {
 									?>
 								</select>
 							</span>
-							<span> Value == </span>
+							<span> <?php echo esc_html__( 'Value == ', 'ultimate-addons-cf7' ); ?> </span>
            					<span> <input type="text" placeholder="Value"> </span>
-							<span> Redirect to </span>
+							<span> <?php echo esc_html__( 'Redirect to', 'ultimate-addons-cf7' ); ?>  </span>
            					<span><input type="text" placeholder="Redirect URL"></span>
            					<spna><a href="#" class="uacf7_cr_remove_row">x</a></spna>
 						</li>
@@ -223,7 +223,7 @@ class UACF7_Redirection {
             	
             	<ul class="uacf7_conditional_redirect_conditions">
             		<li class="uacf7_conditional_redirect_condition">
-            			<span>If</span>
+            			<span><?php echo esc_html__( 'If', 'ultimate-addons-cf7' ); ?></span>
             			<span>
             				<select class="uacf7-field">
 								<?php
@@ -252,9 +252,9 @@ class UACF7_Redirection {
 								?>
             </select>
 						</span>
-           				<span> Value == </span>
+           				<span><?php echo esc_html__( ' Value == ', 'ultimate-addons-cf7' ); ?> </span>
            				<span> <input type="text" placeholder="Value"> </span>
-           				<span> Redirect to </span>
+           				<span><?php echo esc_html__( '  Redirect to ', 'ultimate-addons-cf7' ); ?></span>
            				<span><input type="text" placeholder="Redirect URL"></span>
            				<spna><a href="#" class="uacf7_cr_remove_row">x</a></spna>
             		</li>
