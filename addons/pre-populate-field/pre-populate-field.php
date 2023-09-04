@@ -190,20 +190,31 @@ class UACF7_PRE_POPULATE {
             return;
         }
 
-        update_post_meta( $form->id(), 'pre_populate_enable', sanitize_text_field($_POST['pre_populate_enable']) );
+
+        if(isset($_POST['pre_populate_enable'])){ 
+            update_post_meta( $post->id(), 'pre_populate_enable', sanitize_text_field($_POST['pre_populate_enable']) );
+        }else{
+            update_post_meta( $post->id(), 'pre_populate_enable', 'off' );
+        }
 
         if(isset($_POST['data_redirect_url'])){ 
-            update_post_meta( $form->id(), 'data_redirect_url', sanitize_text_field($_POST['data_redirect_url']) );
+            update_post_meta( $post->id(), 'data_redirect_url', sanitize_text_field($_POST['data_redirect_url']) );
         }
         if(isset($_POST['pre_populate_form'])){ 
-            update_post_meta( $form->id(), 'pre_populate_form', sanitize_text_field($_POST['pre_populate_form']) );
+            update_post_meta( $post->id(), 'pre_populate_form', sanitize_text_field($_POST['pre_populate_form']) );
         }  
 
         $filed_values = array();
-        foreach( $_POST['pre_populate_passing_field'] as $filed_value ) {
-            $filed_values[] = sanitize_text_field( $filed_value );
+        // $pre_populate_passing_field = isset($_POST['pre_populate_passing_field']) ? $_POST['pre_populate_passing_field'] : [];
+        if(isset($_POST['pre_populate_passing_field'])){
+            foreach( $_POST['pre_populate_passing_field'] as $filed_value ) {
+                $filed_values[] = sanitize_text_field( $filed_value );
+            }
+            update_post_meta( $post->id(), 'pre_populate_passing_field', $filed_values );
+        }else{
+            update_post_meta( $post->id(), 'pre_populate_passing_field', '' );
         }
-        update_post_meta( $post->id(), 'pre_populate_passing_field', $filed_values );
+        
 
     }
  

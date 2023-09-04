@@ -574,10 +574,24 @@ class UACF7_PDF_GENERATOR {
         if ( ! wp_verify_nonce( $_POST['uacf7_pdf_generator_nonce'], 'uacf7_pdf_generator_nonce_action' ) ) {
             return;
         } 
-        update_post_meta( $form->id(), 'uacf7_enable_pdf_generator', sanitize_text_field($_POST['uacf7_enable_pdf_generator']) );
-        update_post_meta( $form->id(), 'uacf7_pdf_disable_header', sanitize_text_field($_POST['uacf7_pdf_disable_header']) );
-        update_post_meta( $form->id(), 'uacf7_pdf_disable_footer', sanitize_text_field($_POST['uacf7_pdf_disable_footer']) );
-      
+        if(isset($_POST['uacf7_enable_pdf_generator'])){
+            update_post_meta( $form->id(), 'uacf7_enable_pdf_generator', sanitize_text_field($_POST['uacf7_enable_pdf_generator']) );
+        }else{
+            update_post_meta( $form->id(), 'uacf7_enable_pdf_generator', 'off' );
+        }
+
+        if(isset($_POST['uacf7_pdf_disable_header'])){
+            update_post_meta( $form->id(), 'uacf7_pdf_disable_header', sanitize_text_field($_POST['uacf7_pdf_disable_header']) );
+        }else{
+            update_post_meta( $form->id(), 'uacf7_pdf_disable_header', 'off' );
+        }
+    
+        if(isset($_POST['uacf7_pdf_disable_footer'])){
+            update_post_meta( $form->id(), 'uacf7_pdf_disable_footer', sanitize_text_field($_POST['uacf7_pdf_disable_footer']) );
+        }else{
+            update_post_meta( $form->id(), 'uacf7_pdf_disable_footer', 'off' );
+        }
+        
         if(isset($_POST['uacf7_pdf_name'])){ 
             update_post_meta( $form->id(), 'uacf7_pdf_name', sanitize_text_field($_POST['uacf7_pdf_name']) );
         }

@@ -414,12 +414,17 @@ class UACF7_MULTISTEP {
         $all_steps = $form_current->scan_form_tags( array('type'=>'uacf7_step_start') );
         
         apply_filters( 'uacf7_multistep_save_pro_feature', '', $form, $all_steps );
+
+        if(isset($_POST['uacf7_enable_multistep_progressbar'])){
+            update_post_meta( $form->id(), 'uacf7_enable_multistep_progressbar', sanitize_text_field($_POST['uacf7_enable_multistep_progressbar']) );
+        }
         
-        update_post_meta( $form->id(), 'uacf7_enable_multistep_progressbar', sanitize_text_field($_POST['uacf7_enable_multistep_progressbar']) );
- 
-		if( $_POST['uacf7_progressbar_style'] == 'default' || $_POST['uacf7_progressbar_style'] == 'style-1' ) {
-			update_post_meta( $form->id(), 'uacf7_progressbar_style', sanitize_text_field($_POST['uacf7_progressbar_style']) );
-		}
+        if(isset($_POST['uacf7_progressbar_style'])){
+            if($_POST['uacf7_progressbar_style'] == 'default' || $_POST['uacf7_progressbar_style'] == 'style-1' ) {
+                update_post_meta( $form->id(), 'uacf7_progressbar_style', sanitize_text_field($_POST['uacf7_progressbar_style']) );
+            }
+        }
+		
         if(isset($_POST['uacf7_multistep_step_height'])) {
             update_post_meta( $form->id(), 'uacf7_multistep_is_multistep', sanitize_text_field($_POST['uacf7_multistep_is_multistep']) );
         }
@@ -428,11 +433,13 @@ class UACF7_MULTISTEP {
         foreach ($all_steps as $step) {
             $step_titles[] = (is_array($step->values) && !empty($step->values)) ? $step->values[0] : '';
         }
-        if(!empty($step_titles)) {
+        if(!empty($step_titles) && isset($step_titles)) {
             update_post_meta( $form->id(), 'uacf7_multistep_steps_title', $step_titles );
         } 
 
-		update_post_meta( $form->id(), 'uacf7_multistep_use_step_labels', sanitize_text_field($_POST['uacf7_multistep_use_step_labels']) );
+		if(isset($_POST['uacf7_multistep_use_step_labels'])){
+            update_post_meta( $form->id(), 'uacf7_multistep_use_step_labels', sanitize_text_field($_POST['uacf7_multistep_use_step_labels']) );
+        }
         
         if(isset($_POST['uacf7_multistep_circle_width'])){ 
             update_post_meta( $form->id(), 'uacf7_multistep_circle_width', sanitize_text_field($_POST['uacf7_multistep_circle_width']) );

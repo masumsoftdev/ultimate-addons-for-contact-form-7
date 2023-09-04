@@ -399,7 +399,13 @@ class UACF7_uacf7style {
         if ( ! wp_verify_nonce( $_POST['uacf7_uacf7style_nonce'], 'uacf7_uacf7style_nonce_action' ) ) {
             return;
         } 
-        update_post_meta( $form->id(), 'uacf7_enable_form_styles', sanitize_text_field($_POST['uacf7_enable_form_styles']) );
+
+        if(isset($_POST['uacf7_enable_form_styles'])){
+            update_post_meta( $form->id(), 'uacf7_enable_form_styles', sanitize_text_field($_POST['uacf7_enable_form_styles']) );
+        }else{
+            update_post_meta( $form->id(), 'uacf7_enable_form_styles', 'off' );
+        }
+
         update_post_meta( $form->id(), 'uacf7_uacf7style_label_color', sanitize_text_field($_POST['uacf7_uacf7style_label_color']) );
         update_post_meta( $form->id(), 'uacf7_uacf7style_label_background_color', sanitize_text_field($_POST['uacf7_uacf7style_label_background_color']) );
         update_post_meta( $form->id(), 'uacf7_uacf7style_label_font_size', sanitize_text_field($_POST['uacf7_uacf7style_label_font_size']) );

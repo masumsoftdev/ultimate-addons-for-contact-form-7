@@ -347,8 +347,13 @@ class UACF7_Redirection {
         if ( ! wp_verify_nonce( $_POST['uacf7_redirect_nonce'], 'uacf7_redirection_nonce_action' ) ) {
             return;
         }
+
+				if(isset($_POST['uacf7_redirect_enable'])){
+					update_post_meta( $post->id(), 'uacf7_redirect_enable', sanitize_text_field( $_POST['uacf7_redirect_enable'] ) );
+				}else{
+					update_post_meta( $post->id(), 'uacf7_redirect_enable', 'off' );
+				}
         
-        update_post_meta( $post->id(), 'uacf7_redirect_enable', sanitize_text_field( $_POST['uacf7_redirect_enable'] ) );
         
         $fields = $this->fields();
         $data = $_POST['uacf7_redirect'];

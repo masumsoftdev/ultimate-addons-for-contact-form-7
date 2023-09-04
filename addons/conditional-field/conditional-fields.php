@@ -432,7 +432,10 @@ class UACF7_CF {
             
         }
 
-        update_post_meta( $post->id(), 'uacf7_conditions', $data );
+        if(isset($data)){
+            update_post_meta( $post->id(), 'uacf7_conditions', $data );
+        }
+       
         
     }
     

@@ -125,9 +125,11 @@ class UACF7_Placeholder {
             return;
         }
  
-
-        update_post_meta( $form->id(), 'uacf7_enable_placeholder_styles', sanitize_text_field($_POST['uacf7_enable_placeholder_styles']) );
-
+        if(isset($_POST['uacf7_enable_placeholder_styles'])){
+            update_post_meta( $form->id(), 'uacf7_enable_placeholder_styles', sanitize_text_field($_POST['uacf7_enable_placeholder_styles']) );
+        }else{
+            update_post_meta( $form->id(), 'uacf7_enable_placeholder_styles', 'off' );
+        }
         if(isset($_POST['uacf7_placeholder_fontfamily'])){ 
             update_post_meta( $form->id(), 'uacf7_placeholder_fontfamily', sanitize_text_field($_POST['uacf7_placeholder_fontfamily']) );
         }
