@@ -177,7 +177,7 @@ class UACF7_CF {
                     <a class="uacf7-remove button-primary" href="#" title="<?php echo esc_html( 'Remove', 'ultimate-addons-cf7' ) ?>"><?php echo esc_html__('Remove Rule', 'ultimate-addons-cf7'); ?></a>
                     <br>
                     <br>
-                    
+
                     <div class="uacf7-condition-group" style="text-indent:320px">
                        <div class="uacf7-conditions-wraper" data-rule-id="uacf7id">
                            <div class="uacf7-condition-wrap">
@@ -187,11 +187,14 @@ class UACF7_CF {
                                     ?>
                                     <option value=""><?php echo esc_html( '-- Select field --', 'ultimate-addons-cf7' ) ?></option>
                                     <?php
+
                                     foreach ($all_fields as $tag) {
+                                        
                                         if ($tag['type'] == 'conditional' || $tag['name'] == '') continue;
                                     ?>
                                     <?php 
-                                    if( $tag['type'] == 'checkbox' || $tag['type'] == 'checkbox*' ) { 
+
+                                    if( !in_array('exclusive', $tag['options']) && $tag['type'] == 'checkbox' || $tag['type'] == 'checkbox*' ) { 
                                         
                                         $tag_name = $tag['name'].'[]';
                                         
@@ -315,7 +318,7 @@ class UACF7_CF {
                                         if ($tag['type'] == 'conditional' || $tag['name'] == '') continue;
                                     ?>
                                     <?php 
-                                    if( $tag['type'] == 'checkbox' || $tag['type'] == 'checkbox*' ) { 
+                                     if( !in_array('exclusive', $tag['options']) && $tag['type'] == 'checkbox' || $tag['type'] == 'checkbox*' ) { 
                                         
                                         $tag_name = $tag['name'].'[]';
                                         
