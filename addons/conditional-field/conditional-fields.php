@@ -36,6 +36,11 @@ class UACF7_CF {
         add_filter( 'wpcf7_validate_multifile*', array($this, 'skip_validation_for_hidden_file_field'), 30, 3);
 
         add_action('wpcf7_config_validator_validate', array($this,'uacf7_config_validator_validate'));
+
+        add_action( 'wpcf7_before_send_mail', array($this, 'change_mail_properties') );
+        // add_filter( 'wpcf7_load_js', '__return_false' );
+
+
     }
     
     public function enqueue_cf_admin_script() {
@@ -50,6 +55,52 @@ class UACF7_CF {
         wp_localize_script( 'uacf7-cf-script', 'uacf7_cf_object', $this->get_forms() );
         
     }
+
+
+
+
+   
+
+
+    
+    public function change_mail_properties($WPCF7_ContactForm)
+    {
+    $wpcf7 = WPCF7_ContactForm :: get_current() ;
+    $submission = WPCF7_Submission :: get_instance() ;
+    if ($submission)
+    {
+    $posted_data = $submission->get_posted_data();
+    // $filteredArray = array_filter($posted_data, function($value) {
+    //     // Remove empty, null, and false values
+    //     return $value !== '' && $value !== null && $value !== false;
+    // });
+    
+   
+    // echo "<pre>";
+    // print_r($filteredArray);
+    // echo "</pre>";
+
+
+   
+    // nothing's here... do nothing...
+    if ( empty ($posted_data))
+    return ;
+ 
+   
+    $mail = $WPCF7_ContactForm->prop('mail') ;
+  
+    
+    // Save the email body
+    $WPCF7_ContactForm->set_properties( array("mail" => $mail)) ;
+  
+
+
+    return $WPCF7_ContactForm ;
+    }
+    }
+  
+
+    
     
     /*
     * Create tab panel
@@ -621,6 +672,13 @@ class UACF7_CF {
 
     	return new WPCF7_ConfigValidator($wpcf7_config_validator->contact_form());
     }
+
+
+    // public function wpcf7_mail_sent_pro(){
+    //     $submission = WPCF7_Submission::get_instance();
+    //     $data = $submission->get_posted_data();
+    //     print_r($data);
+    // }
 
 }
 new UACF7_CF();
