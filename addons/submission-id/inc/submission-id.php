@@ -39,11 +39,11 @@ class UACF7_SUBMISSION_ID_PANEL{
     ?> 
 
       <h2><?php echo esc_html__( 'Submission ID Settings', 'ultimate-addons-cf7' ); ?></h2>  
-      <p><?php echo esc_html__('This feature will help you to pass a custom range of Submission ID','ultimate-addons-cf7'); ?>  </p>
+      <p><?php echo esc_html__('This feature will help you to track submission data in to the database.','ultimate-addons-cf7'); ?>  </p>
       <div class="uacf7-doc-notice"> 
             <?php echo sprintf( 
                 __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
-                '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/" target="_blank">documentation</a>'
+                '<a href="https://themefic.com/docs/uacf7/free-addons/unique-submission-id/" target="_blank">documentation</a>'
             ); ?> 
         </div>
 

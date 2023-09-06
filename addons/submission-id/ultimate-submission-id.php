@@ -226,7 +226,7 @@ class UACF7_SUBMISSION_ID{
                         <div class="uacf7-doc-notice"> 
                             <?php echo sprintf( 
                                 __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
-                                '<a href="https://themefic.com/docs/ultimate-addons-for-contact-form-7/" target="_blank">documentation</a>'
+                                '<a href="https://themefic.com/docs/uacf7/free-addons/unique-submission-id/" target="_blank">documentation</a>'
                             ); ?> 
                         </div>
                         <tr>
