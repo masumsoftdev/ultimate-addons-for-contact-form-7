@@ -398,68 +398,73 @@ class UACF7_uacf7style {
 		}
         if ( ! wp_verify_nonce( $_POST['uacf7_uacf7style_nonce'], 'uacf7_uacf7style_nonce_action' ) ) {
             return;
-        }
-        update_post_meta( $form->id(), 'uacf7_enable_form_styles', $_POST['uacf7_enable_form_styles'] );
+        } 
 
-        update_post_meta( $form->id(), 'uacf7_uacf7style_label_color', $_POST['uacf7_uacf7style_label_color'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_label_background_color', $_POST['uacf7_uacf7style_label_background_color'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_label_font_size', $_POST['uacf7_uacf7style_label_font_size'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_label_font_family', $_POST['uacf7_uacf7style_label_font_family'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_label_font_style', $_POST['uacf7_uacf7style_label_font_style'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_label_font_weight', $_POST['uacf7_uacf7style_label_font_weight'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_label_padding_top', $_POST['uacf7_uacf7style_label_padding_top'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_label_padding_right', $_POST['uacf7_uacf7style_label_padding_right'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_label_padding_bottom', $_POST['uacf7_uacf7style_label_padding_bottom'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_label_padding_left', $_POST['uacf7_uacf7style_label_padding_left'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_label_margin_top', $_POST['uacf7_uacf7style_label_margin_top'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_label_margin_right', $_POST['uacf7_uacf7style_label_margin_right'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_label_margin_bottom', $_POST['uacf7_uacf7style_label_margin_bottom'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_label_margin_left', $_POST['uacf7_uacf7style_label_margin_left'] );
-        
-        update_post_meta( $form->id(), 'uacf7_uacf7style_input_color', $_POST['uacf7_uacf7style_input_color'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_input_background_color', $_POST['uacf7_uacf7style_input_background_color'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_input_font_size', $_POST['uacf7_uacf7style_input_font_size'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_input_font_family', $_POST['uacf7_uacf7style_input_font_family'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_input_font_style', $_POST['uacf7_uacf7style_input_font_style'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_input_font_weight', $_POST['uacf7_uacf7style_input_font_weight'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_input_height', $_POST['uacf7_uacf7style_input_height'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_input_border_width', $_POST['uacf7_uacf7style_input_border_width'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_input_border_color', $_POST['uacf7_uacf7style_input_border_color'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_input_border_style', $_POST['uacf7_uacf7style_input_border_style'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_input_border_radius', $_POST['uacf7_uacf7style_input_border_radius'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_textarea_input_height', $_POST['uacf7_uacf7style_textarea_input_height'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_input_padding_top', $_POST['uacf7_uacf7style_input_padding_top'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_input_padding_right', $_POST['uacf7_uacf7style_input_padding_right'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_input_padding_bottom', $_POST['uacf7_uacf7style_input_padding_bottom'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_input_padding_left', $_POST['uacf7_uacf7style_input_padding_left'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_input_margin_top', $_POST['uacf7_uacf7style_input_margin_top'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_input_margin_right', $_POST['uacf7_uacf7style_input_margin_right'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_input_margin_bottom', $_POST['uacf7_uacf7style_input_margin_bottom'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_input_margin_left', $_POST['uacf7_uacf7style_input_margin_left'] );
-        
-        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_color', $_POST['uacf7_uacf7style_btn_color'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_background_color', $_POST['uacf7_uacf7style_btn_background_color'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_font_size', $_POST['uacf7_uacf7style_btn_font_size'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_font_style', $_POST['uacf7_uacf7style_btn_font_style'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_font_weight', $_POST['uacf7_uacf7style_btn_font_weight'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_border_width', $_POST['uacf7_uacf7style_btn_border_width'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_border_color', $_POST['uacf7_uacf7style_btn_border_color'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_border_style', $_POST['uacf7_uacf7style_btn_border_style'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_border_radius', $_POST['uacf7_uacf7style_btn_border_radius'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_width', $_POST['uacf7_uacf7style_btn_width'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_color_hover', $_POST['uacf7_uacf7style_btn_color_hover'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_background_color_hover', $_POST['uacf7_uacf7style_btn_background_color_hover'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_border_color_hover', $_POST['uacf7_uacf7style_btn_border_color_hover'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_padding_top', $_POST['uacf7_uacf7style_btn_padding_top'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_padding_right', $_POST['uacf7_uacf7style_btn_padding_right'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_padding_bottom', $_POST['uacf7_uacf7style_btn_padding_bottom'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_padding_left', $_POST['uacf7_uacf7style_btn_padding_left'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_margin_top', $_POST['uacf7_uacf7style_btn_margin_top'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_margin_right', $_POST['uacf7_uacf7style_btn_margin_right'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_margin_bottom', $_POST['uacf7_uacf7style_btn_margin_bottom'] );
-        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_margin_left', $_POST['uacf7_uacf7style_btn_margin_left'] );
-        
-        update_post_meta( $form->id(), 'uacf7_uacf7style_ua_custom_css', $_POST['uacf7_uacf7style_ua_custom_css'] );
+        if(isset($_POST['uacf7_enable_form_styles'])){
+            update_post_meta( $form->id(), 'uacf7_enable_form_styles', sanitize_text_field($_POST['uacf7_enable_form_styles']) );
+        }else{
+            update_post_meta( $form->id(), 'uacf7_enable_form_styles', 'off' );
+        }
+
+        update_post_meta( $form->id(), 'uacf7_uacf7style_label_color', sanitize_text_field($_POST['uacf7_uacf7style_label_color']) );
+        update_post_meta( $form->id(), 'uacf7_uacf7style_label_background_color', sanitize_text_field($_POST['uacf7_uacf7style_label_background_color']) );
+        update_post_meta( $form->id(), 'uacf7_uacf7style_label_font_size', sanitize_text_field($_POST['uacf7_uacf7style_label_font_size']) );
+        update_post_meta( $form->id(), 'uacf7_uacf7style_label_font_family', sanitize_text_field($_POST['uacf7_uacf7style_label_font_family']) );
+        update_post_meta( $form->id(), 'uacf7_uacf7style_label_font_style', sanitize_text_field($_POST['uacf7_uacf7style_label_font_style']) );
+        update_post_meta( $form->id(), 'uacf7_uacf7style_label_font_weight', sanitize_text_field($_POST['uacf7_uacf7style_label_font_weight']) );
+        update_post_meta( $form->id(), 'uacf7_uacf7style_label_padding_top', sanitize_text_field($_POST['uacf7_uacf7style_label_padding_top']) );
+        update_post_meta( $form->id(), 'uacf7_uacf7style_label_padding_right', sanitize_text_field($_POST['uacf7_uacf7style_label_padding_right']) );
+        update_post_meta( $form->id(), 'uacf7_uacf7style_label_padding_bottom', sanitize_text_field($_POST['uacf7_uacf7style_label_padding_bottom']) );
+        update_post_meta( $form->id(), 'uacf7_uacf7style_label_padding_left', sanitize_text_field($_POST['uacf7_uacf7style_label_padding_left']) );
+        update_post_meta( $form->id(), 'uacf7_uacf7style_label_margin_top', sanitize_text_field($_POST['uacf7_uacf7style_label_margin_top']) );
+        update_post_meta( $form->id(), 'uacf7_uacf7style_label_margin_right', sanitize_text_field($_POST['uacf7_uacf7style_label_margin_right']) );
+        update_post_meta( $form->id(), 'uacf7_uacf7style_label_margin_bottom', sanitize_text_field($_POST['uacf7_uacf7style_label_margin_bottom']) );
+        update_post_meta( $form->id(), 'uacf7_uacf7style_label_margin_left', sanitize_text_field($_POST['uacf7_uacf7style_label_margin_left']) ); 
+
+        update_post_meta( $form->id(), 'uacf7_uacf7style_input_color', sanitize_text_field($_POST['uacf7_uacf7style_input_color']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_input_background_color', sanitize_text_field($_POST['uacf7_uacf7style_input_background_color']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_input_font_size', sanitize_text_field($_POST['uacf7_uacf7style_input_font_size']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_input_font_family', sanitize_text_field($_POST['uacf7_uacf7style_input_font_family']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_input_font_style', sanitize_text_field($_POST['uacf7_uacf7style_input_font_style']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_input_font_weight', sanitize_text_field($_POST['uacf7_uacf7style_input_font_weight']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_input_height', sanitize_text_field($_POST['uacf7_uacf7style_input_height']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_input_border_width', sanitize_text_field($_POST['uacf7_uacf7style_input_border_width']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_input_border_color', sanitize_text_field($_POST['uacf7_uacf7style_input_border_color']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_input_border_style', sanitize_text_field($_POST['uacf7_uacf7style_input_border_style']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_input_border_radius', sanitize_text_field($_POST['uacf7_uacf7style_input_border_radius']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_textarea_input_height', sanitize_text_field($_POST['uacf7_uacf7style_textarea_input_height']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_input_padding_top', sanitize_text_field($_POST['uacf7_uacf7style_input_padding_top']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_input_padding_right', sanitize_text_field($_POST['uacf7_uacf7style_input_padding_right']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_input_padding_bottom', sanitize_text_field($_POST['uacf7_uacf7style_input_padding_bottom']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_input_padding_left', sanitize_text_field($_POST['uacf7_uacf7style_input_padding_left']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_input_margin_top', sanitize_text_field($_POST['uacf7_uacf7style_input_margin_top']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_input_margin_right', sanitize_text_field($_POST['uacf7_uacf7style_input_margin_right']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_input_margin_bottom', sanitize_text_field($_POST['uacf7_uacf7style_input_margin_bottom']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_input_margin_left', sanitize_text_field($_POST['uacf7_uacf7style_input_margin_left']) ); 
+
+        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_color', sanitize_text_field($_POST['uacf7_uacf7style_btn_color']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_background_color', sanitize_text_field($_POST['uacf7_uacf7style_btn_background_color']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_font_size', sanitize_text_field($_POST['uacf7_uacf7style_btn_font_size']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_font_style', sanitize_text_field($_POST['uacf7_uacf7style_btn_font_style']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_font_weight', sanitize_text_field($_POST['uacf7_uacf7style_btn_font_weight']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_border_width', sanitize_text_field($_POST['uacf7_uacf7style_btn_border_width']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_border_color', sanitize_text_field($_POST['uacf7_uacf7style_btn_border_color']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_border_style', sanitize_text_field($_POST['uacf7_uacf7style_btn_border_style']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_border_radius', sanitize_text_field($_POST['uacf7_uacf7style_btn_border_radius']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_width', sanitize_text_field($_POST['uacf7_uacf7style_btn_width']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_color_hover', sanitize_text_field($_POST['uacf7_uacf7style_btn_color_hover']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_background_color_hover', sanitize_text_field($_POST['uacf7_uacf7style_btn_background_color_hover']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_border_color_hover', sanitize_text_field($_POST['uacf7_uacf7style_btn_border_color_hover']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_padding_top', sanitize_text_field($_POST['uacf7_uacf7style_btn_padding_top']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_padding_right', sanitize_text_field($_POST['uacf7_uacf7style_btn_padding_right']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_padding_bottom', sanitize_text_field($_POST['uacf7_uacf7style_btn_padding_bottom']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_padding_left', sanitize_text_field($_POST['uacf7_uacf7style_btn_padding_left']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_margin_top', sanitize_text_field($_POST['uacf7_uacf7style_btn_margin_top']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_margin_right', sanitize_text_field($_POST['uacf7_uacf7style_btn_margin_right']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_margin_bottom', sanitize_text_field($_POST['uacf7_uacf7style_btn_margin_bottom']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_btn_margin_left', sanitize_text_field($_POST['uacf7_uacf7style_btn_margin_left']) ); 
+        update_post_meta( $form->id(), 'uacf7_uacf7style_ua_custom_css', sanitize_text_field($_POST['uacf7_uacf7style_ua_custom_css']) );  
+         
     }
     
     public function uacf7_properties($properties, $cfform) {
@@ -624,7 +629,7 @@ class UACF7_uacf7style {
                     <?php echo $ua_custom_css ?>
                 </style>
                 <?php
-                echo '<div class="uacf7-uacf7style-'.$cfform->id().'">'.$form.'</div>';
+                echo '<div class="uacf7-uacf7style uacf7-uacf7style-'.$cfform->id().'">'.$form.'</div>';
                 $properties['form'] = ob_get_clean();
             endif;
         }

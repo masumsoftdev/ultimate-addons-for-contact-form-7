@@ -1039,7 +1039,7 @@
 		n: "Macau (澳門)",
 		i: "mo"
 	}, {
-		n: "Macedonia (FYROM) (Македонија)",
+		n: "North Macedonia (FYROM) (Северна Македонија)",
 		i: "mk"
 	}, {
 		n: "Madagascar (Madagasikara)",
