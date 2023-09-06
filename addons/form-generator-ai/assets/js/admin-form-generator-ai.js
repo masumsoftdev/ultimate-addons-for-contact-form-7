@@ -1,6 +1,17 @@
 (function ($) {
-
+    document.addEventListener('DOMContentLoaded', function () {
+          new Choices('#uacf7-form-generator-ai', {
+            maxItemCount: 2,
+            disabled: false,
+            allowHTML: false,
+            duplicateItemsAllowed: false,
+            removeItemButton: true, 
+            placeholderValue: 'This is a placeholder set in the config',
+            searchPlaceholderValue: 'This is a search placeholder',
+          });
+    });
     $(document).ready(function () { 
+     
         var fullURL = window.location.href;
         // Create a URL object
         var parsedUrl = new URL(fullURL);
@@ -8,11 +19,16 @@
         // Use URLSearchParams to get values
         var pageValue = parsedUrl.searchParams.get('page');
         var actionValue = parsedUrl.searchParams.get('action');
+        // display form generator ai in wpcf7-new page and edit page
         if( pageValue == 'wpcf7-new' || pageValue =='wpcf7' && actionValue == 'edit' ){ 
             $($(".wrap h1")[0]).append("<a  id='uacf7-ai-form-button-popup' class='uacf7-ai-form-button'>Form Generator AI</a>");
 
             $(document).on('click', '#uacf7-ai-form-button-popup', function(e){
-                 
+                $('.uacf7-form-ai-popup').addClass('active');
+                     
+            });
+            $(document).on('click', '.uacf7-form-ai-popup .close', function(e){
+                $('.uacf7-form-ai-popup').removeClass('active');
                      
             });
 
@@ -50,6 +66,10 @@
               });
         } 
         
+
+        // Generate form Using Ajax Query
         
     });
 })(jQuery);
+
+
