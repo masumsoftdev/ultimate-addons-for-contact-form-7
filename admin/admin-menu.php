@@ -597,7 +597,7 @@ class UACF7_Admin_Menu {
 			$pro = '';
 		}else{
 			$uacf7_enable_conversational_checked = '';
-			$pro = '<span class="uacf7-bf-pro-link"><a style="color:red" target="_blank" href="https://cf7addons.com/preview/booking-form">(Pro Addon)</a></span>';
+			$pro = '<span class="uacf7-bf-pro-link"><a style="color:red" target="_blank" href="https://cf7addons.com/preview/contact-form-7-conversational-form">(Pro Addon)</a></span>';
 		}
 		
 		printf(
