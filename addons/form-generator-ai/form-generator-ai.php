@@ -8,23 +8,20 @@ class UACF7_FORM_GENERATOR{
     /*
     * Construct function
     */
-    public function __construct() {
-        // add_action( 'wpcf7_init', array($this, 'add_shortcodes') );
-
-        // add_action( 'admin_init', array( $this, 'tag_generator' ) );
-
-        // add_filter( 'wpcf7_validate_uacf7_form_generator', array($this, 'uacf7_form_generator_validation_filter'), 10, 2 );
-        
-        // add_filter( 'wpcf7_validate_uacf7_form_generator*', array($this,'uacf7_form_generator_validation_filter'), 10, 2 );
-
+    public function __construct() { 
+        //
+        define( 'UACF7_FORM_AI_PATH', UACF7_PATH.'/addons/form-generator-ai' );
         // admin scripts
         add_action('admin_enqueue_scripts', array($this, 'admin_scripts'));
 
         // form tab panel
-        add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_panel' ) );
+        // add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_panel' ) );
 
         // add Popup Contact form 7 admin footer
         add_action( 'wpcf7_admin_footer', array( $this, 'uacf7_form_admin_footer_popup' ) );
+
+        // Ai form generator Ajax Function
+        add_action( 'wp_ajax_uacf7_form_generator_ai', array( $this, 'uacf7_form_generator_ai' ) ); 
     }
 
 
@@ -34,6 +31,13 @@ class UACF7_FORM_GENERATOR{
         wp_enqueue_script( 'uacf7-form-generator-ai-admin-js', UACF7_ADDONS . '/form-generator-ai/assets/js/admin-form-generator-ai.js', array('jquery'), null, true ); 
         wp_enqueue_style( 'uacf7-form-generator-ai-admin-cs', UACF7_ADDONS . '/form-generator-ai/assets/css/admin-form-generator-ai.css' );
         wp_enqueue_style( 'uacf7-form-generator-ai-choices-cs', UACF7_ADDONS . '/form-generator-ai/assets/css/choices.css' );
+
+        wp_localize_script( 'uacf7-form-generator-ai-admin-js', 'uacf7_form_ai',
+            array( 
+                'ajaxurl' => admin_url( 'admin-ajax.php' ),
+                'nonce' => wp_create_nonce( 'uacf7-form-generator-ai-nonce' ),
+            ) 
+        );
     }
 
 
@@ -62,17 +66,14 @@ class UACF7_FORM_GENERATOR{
                         <div class="uacf7-ai-form-column"> 
                             <div class="uacf7-form-input">
                                 <select class="form-control" data-trigger name="uacf7-form-generator-ai" id="uacf7-form-generator-ai"
-                                    placeholder="This is a placeholder" multiple>
-                                    <option value="Choice 1" selected>Create a</option>
-                                    <option value="uacf7-multistep">Multistep Form</option> 
-                                    <option value="uacf7-multistep">defult form Form</option> 
+                                    placeholder="This is a placeholder" multiple> 
                                 </select>
                                 <span class="uacf7-ai-hins">hins: Create a Multistep Form</span>
                             </div>
                             <button class="uacf7_ai_search_button">Generate With AI</button>
                         </div> 
                         <div class="uacf7-ai-form-column"> 
-                             <textarea name="uacf7_ai_code_content" id="" cols="30" rows="10"></textarea>
+                             <textarea name="uacf7_ai_code_content" id="uacf7_ai_code_content" cols="30" rows="10"></textarea>
                         </div> 
                         
                     </div>
@@ -80,6 +81,23 @@ class UACF7_FORM_GENERATOR{
             </div> 
         <?php
         echo ob_get_clean();
+    }
+
+    public function uacf7_form_generator_ai(){
+        if ( !wp_verify_nonce($_POST['ajax_nonce'], 'uacf7-form-generator-ai-nonce')) {
+            exit(esc_html__("Security error", 'ultimate-addons-cf7'));
+        }
+        $vaue = '';
+        $uacf7_default = $_POST['searchValue']; 
+        if(count($uacf7_default) > 0 || $uacf7_default[0] == 'create'){ 
+            $value=  require_once  apply_filters( 'uacf7_ai_form_generator_template', UACF7_FORM_AI_PATH . '/templates/'.$uacf7_default[1].'.php', $uacf7_default);
+        } 
+        $data = [
+            'status' => 'success',
+            'value' => $value,
+        ];
+        echo wp_send_json($data);
+        die();
     }
 }
 
