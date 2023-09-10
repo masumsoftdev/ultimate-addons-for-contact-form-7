@@ -107,15 +107,7 @@ class UACF7_range_Slider {
             <span class="wpcf7-form-control-wrap uacf7-slidecontainer uacf7-slider-handle" data-separator="<?php echo esc_attr( $separator ); ?>" data-handle="<?php echo esc_attr( $handle ); ?>" data-min="<?php echo esc_attr( $min ); ?>" data-max="<?php echo esc_attr( $max ); ?>" data-default="<?php echo esc_attr( $default ); ?>">
                 <input name="<?php echo esc_attr( $tag->name ); ?>" type="range" min="<?php echo esc_attr( $min ); ?>" max="<?php echo esc_attr( $max ); ?>"  step="<?php echo esc_attr( $step ); ?>" value="<?php echo esc_attr( $default ); ?>" class="uacf7-slider uacf7-range">
             </span>  
-            </div>
-            <script>
-
-                // document.querySelector(".<?php echo $tag->name . '-value'; ?>").innerHTML = document.querySelector(".<?php echo $tag->name ; ?> .uacf7-range").value + ' <?php echo esc_html( $label ); ?>'; // Display the default slider value
-                // // Update the current slider value (each time you drag the slider handle)
-                // document.querySelector(".<?php echo $tag->name ; ?> .uacf7-range").oninput = function () {
-                //     document.querySelector(".<?php echo $tag->name . '-value'; ?>").innerHTML = this.value + ' <?php echo esc_html( $label ); ?>';
-                // }  
-            </script>
+            </div> 
             <?php 
         } elseif ( $handle == 2 ) {
             if( $show_value == 'on'){
@@ -206,7 +198,7 @@ class UACF7_range_Slider {
                     </tr>
                     <?php ob_start() ?>
                         <tr class="">   
-                            <th><label for="tag-generator-panel-range-style">Range Slider Style</label></th>                     
+                            <th><label for="tag-generator-panel-range-style"><?php echo esc_html__( 'Range Slider Style', 'ultimate-addons-cf7' ); ?></label></th>                     
                             <td>
                                 <select name="values" disabled class="values" id="tag-generator-panel-range-style">
                                     <option value="default">Default</option> 

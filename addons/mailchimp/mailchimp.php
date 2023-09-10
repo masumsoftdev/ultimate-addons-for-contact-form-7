@@ -183,11 +183,22 @@ class UACF7_MAILCHIMP
       return;
     }
 
-    update_post_meta( $post->id(), 'uacf7_mailchimp_form_enable', sanitize_text_field($_POST['uacf7_mailchimp_form_enable']) );
+    if(isset($_POST['uacf7_mailchimp_form_enable'])){
+      update_post_meta( $post->id(), 'uacf7_mailchimp_form_enable', sanitize_text_field($_POST['uacf7_mailchimp_form_enable']) );
+    }else{
+      update_post_meta( $post->id(), 'uacf7_mailchimp_form_enable', 'off' );
+    }
     update_post_meta( $post->id(), 'uacf7_mailchimp_form_type', sanitize_text_field($_POST['uacf7_mailchimp_form_type']) );
-    update_post_meta( $post->id(), 'uacf7_mailchimp_audience', sanitize_text_field($_POST['uacf7_mailchimp_audience']) );
+
+    if(isset($_POST['uacf7_mailchimp_audience'])){
+      update_post_meta( $post->id(), 'uacf7_mailchimp_audience', sanitize_text_field($_POST['uacf7_mailchimp_audience']) );
+    }
+
     update_post_meta( $post->id(), 'uacf7_mailchimp_subscriber_email', sanitize_text_field($_POST['uacf7_mailchimp_subscriber_email']) );
-    update_post_meta( $post->id(), 'uacf7_mailchimp_subscriber_fname', sanitize_text_field($_POST['uacf7_mailchimp_subscriber_fname']) );
+
+    if(isset($_POST['uacf7_mailchimp_subscriber_fname'])){
+      update_post_meta( $post->id(), 'uacf7_mailchimp_subscriber_fname', sanitize_text_field($_POST['uacf7_mailchimp_subscriber_fname']) );
+    }
     update_post_meta( $post->id(), 'uacf7_mailchimp_subscriber_lname', sanitize_text_field($_POST['uacf7_mailchimp_subscriber_lname']) );
 
     $all_fields = $post->scan_form_tags();

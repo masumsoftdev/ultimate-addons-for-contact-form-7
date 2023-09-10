@@ -181,7 +181,7 @@ class UACF7_Redirection {
             		<!--Start New row-->
             		<div style="display:none" class="uacf7_cr_copy">
 						<li class="uacf7_conditional_redirect_condition">
-							<span>If</span>
+							<span><?php echo esc_html__( 'If', 'ultimate-addons-cf7' ); ?></span>
 							<span>
 								<select class="uacf7-field">
 									<?php
@@ -210,9 +210,9 @@ class UACF7_Redirection {
 									?>
 								</select>
 							</span>
-							<span> Value == </span>
+							<span> <?php echo esc_html__( 'Value == ', 'ultimate-addons-cf7' ); ?> </span>
            					<span> <input type="text" placeholder="Value"> </span>
-							<span> Redirect to </span>
+							<span> <?php echo esc_html__( 'Redirect to', 'ultimate-addons-cf7' ); ?>  </span>
            					<span><input type="text" placeholder="Redirect URL"></span>
            					<spna><a href="#" class="uacf7_cr_remove_row">x</a></spna>
 						</li>
@@ -223,7 +223,7 @@ class UACF7_Redirection {
             	
             	<ul class="uacf7_conditional_redirect_conditions">
             		<li class="uacf7_conditional_redirect_condition">
-            			<span>If</span>
+            			<span><?php echo esc_html__( 'If', 'ultimate-addons-cf7' ); ?></span>
             			<span>
             				<select class="uacf7-field">
 								<?php
@@ -250,11 +250,11 @@ class UACF7_Redirection {
 								<?php
 								}
 								?>
-                            </select>
+            </select>
 						</span>
-           				<span> Value == </span>
+           				<span><?php echo esc_html__( ' Value == ', 'ultimate-addons-cf7' ); ?> </span>
            				<span> <input type="text" placeholder="Value"> </span>
-           				<span> Redirect to </span>
+           				<span><?php echo esc_html__( '  Redirect to ', 'ultimate-addons-cf7' ); ?></span>
            				<span><input type="text" placeholder="Redirect URL"></span>
            				<spna><a href="#" class="uacf7_cr_remove_row">x</a></spna>
             		</li>
@@ -347,8 +347,13 @@ class UACF7_Redirection {
         if ( ! wp_verify_nonce( $_POST['uacf7_redirect_nonce'], 'uacf7_redirection_nonce_action' ) ) {
             return;
         }
+
+				if(isset($_POST['uacf7_redirect_enable'])){
+					update_post_meta( $post->id(), 'uacf7_redirect_enable', sanitize_text_field( $_POST['uacf7_redirect_enable'] ) );
+				}else{
+					update_post_meta( $post->id(), 'uacf7_redirect_enable', 'off' );
+				}
         
-        update_post_meta( $post->id(), 'uacf7_redirect_enable', sanitize_text_field( $_POST['uacf7_redirect_enable'] ) );
         
         $fields = $this->fields();
         $data = $_POST['uacf7_redirect'];

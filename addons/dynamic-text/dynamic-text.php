@@ -189,15 +189,15 @@ class UACF7_DYNAMIC_TEXT {
                             </td>
                         </tr>  
                         <tr class="">   
-                            <th><label for="tag-generator-panel-star-style"><?php echo esc_html__( 'Dynamic value', 'ultimate-addons-cf7' ); ?></label></th>                     
+                            <th><label for="tag-generator-panel-star-style"></label></th>                     
                             <td>
                                 <select  name="values" class="values" id="tag-generator-panel-dynamic-value">
-                                    <option value="">Select</option> 
-                                    <option value="UACF7_URL">Current URL</option> 
-                                    <option value="UACF7_BLOGINFO">Blog Info</option> 
-                                    <option value="UACF7_POSTINFO">Current post info</option> 
-                                    <option value="UACF7_USERINFO">Current User info</option> 
-                                    <option value="UACF7_CUSTOM_FIELDS">Custom fields</option> 
+                                    <option value=""><?php echo esc_html__( 'Select', 'ultimate-addons-cf7' ); ?></option> 
+                                    <option value="UACF7_URL"><?php echo esc_html__( 'Current URL', 'ultimate-addons-cf7' ); ?></option> 
+                                    <option value="UACF7_BLOGINFO"><?php echo esc_html__( 'Blog Info', 'ultimate-addons-cf7' ); ?></option> 
+                                    <option value="UACF7_POSTINFO"><?php echo esc_html__( 'Current post info', 'ultimate-addons-cf7' ); ?></option> 
+                                    <option value="UACF7_USERINFO"><?php echo esc_html__( 'Current User info', 'ultimate-addons-cf7' ); ?></option> 
+                                    <option value="UACF7_CUSTOM_FIELDS"><?php echo esc_html__( 'Custom fields', 'ultimate-addons-cf7' ); ?></option> 
                                 </select> 
                             </td>
                         </tr>

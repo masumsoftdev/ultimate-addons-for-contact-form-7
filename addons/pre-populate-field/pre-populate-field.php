@@ -31,6 +31,7 @@ class UACF7_PRE_POPULATE {
         wp_localize_script( 'pre-populate-script', 'pre_populate_url',
             array( 
                     'ajaxurl' => admin_url( 'admin-ajax.php' ),
+                    'nonce' => wp_create_nonce('uacf7-pre-populate')
                 )
         );
     }
@@ -189,16 +190,31 @@ class UACF7_PRE_POPULATE {
             return;
         }
 
-        // Event Calendar
-        update_post_meta( $post->id(), 'pre_populate_enable', $_POST['pre_populate_enable'] );
-        update_post_meta( $post->id(), 'data_redirect_url', $_POST['data_redirect_url'] ); 
-        update_post_meta( $post->id(), 'pre_populate_form', $_POST['pre_populate_form'] ); 
+
+        if(isset($_POST['pre_populate_enable'])){ 
+            update_post_meta( $post->id(), 'pre_populate_enable', sanitize_text_field($_POST['pre_populate_enable']) );
+        }else{
+            update_post_meta( $post->id(), 'pre_populate_enable', 'off' );
+        }
+
+        if(isset($_POST['data_redirect_url'])){ 
+            update_post_meta( $post->id(), 'data_redirect_url', sanitize_text_field($_POST['data_redirect_url']) );
+        }
+        if(isset($_POST['pre_populate_form'])){ 
+            update_post_meta( $post->id(), 'pre_populate_form', sanitize_text_field($_POST['pre_populate_form']) );
+        }  
 
         $filed_values = array();
-        foreach( $_POST['pre_populate_passing_field'] as $filed_value ) {
-            $filed_values[] = sanitize_text_field( $filed_value );
+        // $pre_populate_passing_field = isset($_POST['pre_populate_passing_field']) ? $_POST['pre_populate_passing_field'] : [];
+        if(isset($_POST['pre_populate_passing_field'])){
+            foreach( $_POST['pre_populate_passing_field'] as $filed_value ) {
+                $filed_values[] = sanitize_text_field( $filed_value );
+            }
+            update_post_meta( $post->id(), 'pre_populate_passing_field', $filed_values );
+        }else{
+            update_post_meta( $post->id(), 'pre_populate_passing_field', '' );
         }
-        update_post_meta( $post->id(), 'pre_populate_passing_field', $filed_values );
+        
 
     }
  
@@ -208,6 +224,13 @@ class UACF7_PRE_POPULATE {
     */
     
     public function uacf7_ajax_pre_populate_redirect() { 
+        if ( ! isset( $_POST ) || empty( $_POST ) ) {
+			return;
+		}
+        
+        if ( !wp_verify_nonce($_POST['ajax_nonce'], 'uacf7-pre-populate')) {
+            exit(esc_html__("Security error", 'ultimate-addons-cf7'));
+        }
 
         $form_id = $_POST['form_id']; 
         $pre_populate_enable = get_post_meta( $form_id, 'pre_populate_enable', true ); 

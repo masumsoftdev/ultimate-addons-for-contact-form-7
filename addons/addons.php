@@ -77,12 +77,14 @@ if( !function_exists( 'uacf7_addons_included' ) ) {
         //Addon - PDF Gererator 
         if( uacf7_checked( 'uacf7_enable_pdf_generator_field') != ''){
             require_once( 'pdf-generator/pdf-generator.php');
-        }
-
-
+        } 
         //Form Generator AI
         if( uacf7_checked( 'uacf7_enable_form_generator_ai_field') != ''){
             require_once( 'form-generator-ai/form-generator-ai.php');
+        } 
+        //Addon - Submission ID
+        if( uacf7_checked( 'uacf7_enable_submission_id_field') != ''){
+            require_once( 'submission-id/ultimate-submission-id.php');
         }
 		
     }

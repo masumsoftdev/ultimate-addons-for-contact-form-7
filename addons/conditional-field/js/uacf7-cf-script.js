@@ -305,10 +305,12 @@
 							if(equalResult == -1){ //IF not false and all true
 
 								$this_condition.show().removeClass('uacf7-hidden');
+								$this_condition.attr('data-condition', 'true');
 
 							}else{
 
 								$this_condition.hide().addClass('uacf7-hidden');
+								$this_condition.attr('data-condition', 'false');
 							}
 
 						}else {
@@ -316,10 +318,12 @@
 							if(equalResult == -1){ //IF not false and all true
 
 								$this_condition.hide().addClass('uacf7-hidden');
+								$this_condition.attr('data-condition', 'true');
 
 							}else{
 
 								$this_condition.show().removeClass('uacf7-hidden');
+								$this_condition.attr('data-condition', 'false');
 							}
 
 						}
@@ -331,10 +335,12 @@
 							if(orResult != -1){ //IF true or false 
 
 								$this_condition.show().removeClass('uacf7-hidden');
+								$this_condition.attr('data-condition', 'true');
 
 							}else{
 
 								$this_condition.hide().addClass('uacf7-hidden');
+								$this_condition.attr('data-condition', 'false');
 							}
 
 						}else {
@@ -342,10 +348,12 @@
 							if(orResult == -1){ //IF true or false
 								
 								$this_condition.show().removeClass('uacf7-hidden');
+								$this_condition.attr('data-condition', 'true');
 								
 
 							}else{
 								$this_condition.hide().addClass('uacf7-hidden');
+								$this_condition.attr('data-condition', 'false');
 							}
 
 						}

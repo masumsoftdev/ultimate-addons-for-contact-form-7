@@ -2,9 +2,9 @@
 Contributors: themefic, raihan143, hasanet, mdrejon
 Tags: contact form 7, contact form 7 addons, contact form 7 addon, contact form 7 booking form, contact form 7 appointment form, contact form 7 placeholder, contact form 7 conditional fields, redirection for contact form 7, contact form 7 thank you page, contact form 7 columns, contact form 7 style, contact form 7 woocommerce, contact form 7 woocommerce product, multi step contact form 7, multi-step contact form, multi step form, post submission contact form 7, form to post contact form 7, contact form 7 to post, custom post contact form 7, contact form 7 custom post type, contact form 7 post submit, caldera forms, Star Rating, Star Rating contact form 7, range slider, range slider contact form 7, contact form 7 conditional redirect, contact form 7 column width, contact form 7 repeater, contact form 7 repeatable fields,  contact form 7 country dropdown, contact form 7 country flags, contact form, contact form 7 mailchimp, contact form 7 dynamic text, contact form 7 pre-populate fields, contact form 7 database, elementor
 Requires at least: 4.2
-Tested up to: 6.3
+Tested up to: 6.3.1
 Requires PHP: 5.4
-Stable tag: 3.1.32
+Stable tag: 3.2.0
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -36,6 +36,7 @@ Packed with 25+ essential features, <strong>Ultimate Addons For Contact Form 7</
 * Dynamic Text Extension
 * Pre-populate fields
 * Save to Database
+* Ultimate submission ID 
 * WooCommerce Checkout (Pro)
 * Repeater Field (Pro)
 * Multi Step Form Skins/Templates (Pro)
@@ -47,6 +48,7 @@ Packed with 25+ essential features, <strong>Ultimate Addons For Contact Form 7</
 * Conditional Field (Pro)
 * Form Tag Support & Whatsapp Integration (Pro)
 * Autocomplete Country, City, State, Zip Fields [IP Geolocation based)] (Pro)
+* Ultimate conversational form (Pro)
 * More Coming soon
 
 ### How It works:
@@ -92,7 +94,7 @@ You can easily create Contact Form 7 two columns, three Columns; even Four colum
 
 Add Range slider fields to Contact Form 7. Ultimate Addon's Range Slider for Contact form 7 helps you to easily setup field range in your contact form 7 for your WordPress site. <a href="https://cf7addons.com/preview/contact-form-7-range-slider/">Click Here</a> to check live preview.
 
-= 🎉  Contact form 7 Multi step form = 
+= 🎉  Contact form 7 Multi-step form = 
 
 With our Contact Form 7 Multi-Step Forms addon, you can easily create Multi Step form for Contact Form 7. Fully responsive. <a href="https://cf7addons.com/preview/contact-form-7-multi-step-forms/">Click Here</a> to check live preview.
 
@@ -139,6 +141,10 @@ With our Contact Form 7 Database addon, you can save contact form 7 submissions 
 = 🎉  Contact Form 7 PDF  = 
 
 Send pdf for contact form 7. When someone will submit the Contact form then it will generate a pdf and the pdf will send to the admin and submited mail. <a href="https://cf7addons.com/preview/pdf-generator/">Click Here</a> to check live preview of Contact form 7 download pdf on submit.
+
+= 🎉  Contact Form 7 submission ID  = 
+
+Ultimate Addons for Contact Form 7’s Submission ID addon makes it possible to provide unique IDs for each submission of a contact form. <a href="https://cf7addons.com/preview/contact-form-7-unique-submission-id/">Click Here</a> to check live preview.
  
 = 🎉  Contact form 7 CSS = 
 
@@ -233,6 +239,10 @@ Show your Products with a Stunning Grid View. Products can be added based on ID/
 = 🎉  Contact form 7 Range Slider Pro =
 
 Add beautiful Range slider fields to Contact Form 7. Select from 3 Premium pre-built Range Slider layouts. <a href="https://cf7addons.com/preview/range-slider-pro">Click Here</a> to check live preview.
+
+= 🎉  Contact form 7 conversational form =
+
+Create an interactive conversational form using Ultimate conversational form, it allows conditional steps in contact form <a href="https://cf7addons.com/preview/contact-form-7-conversational-form">Click Here</a> to check live preview.
 
 = More Pro Addons Coming Soon =
 
@@ -427,11 +437,20 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 
 == Changelog ==
 
+=  3.2.0 – 06/09/2023  = 
+
+- Added: Ultimate conversational form new addon ( Pro )
+- Added: Product dropdown ( Product Order By ) feature ( Pro )
+- Added: Ultimate submission ID new addon 
+- Improved: Country dropdown addon country name changed
+- Fixed: Conditional field addon checkbox exclusive condition issue
+- Vulnerability: Sanitization and output escaping issue fixed
+
 =  3.1.32 – 10/08/2023  = 
 
 - Compatibility check with WordPress 6.3
 - Compatibility check with WooCommerce 8.0.1
-- Fixed: alert issue
+- Fixed: Pre-populated addon js alert issue
 
 =  3.1.31 – 01/08/2023  = 
 

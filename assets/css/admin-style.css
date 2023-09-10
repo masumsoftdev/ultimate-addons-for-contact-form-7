@@ -274,12 +274,14 @@
   #uacf7-placeholder-panel-tab, 
   #uacf7-pdf-generator-panel-tab, 
   #uacf7-multistep-panel-tab, 
+  #uacf7-conversational-panel-tab, 
   #uacf7-uacf7style-panel-tab, 
   #uacf7-range-slider-panel-tab,
   #uacf7-auto-product-cart-panel-tab,
   #uacf7-post-submission-panel-tab,
   #uacf7-pre-populate-panel-tab,
-  #uacf7-mailchimp-panel-tab {
+  #uacf7-mailchimp-panel-tab,
+  #uacf7-submission-id-panel-tab  {
     border: 2px solid #473080!important;
     background: #fff!important;
   }
@@ -291,11 +293,13 @@
   #uacf7-placeholder-panel-tab a, 
   #uacf7-pdf-generator-panel-tab a, 
   #uacf7-multistep-panel-tab a, 
+  #uacf7-conversational-panel-tab a, 
   #uacf7-uacf7style-panel-tab a, 
   #uacf7-range-slider-panel-tab a,
   #uacf7-auto-product-cart-panel-tab a,
   #uacf7-pre-populate-panel-tab a,
-  #uacf7-post-submission-panel-tab a {  
+  #uacf7-post-submission-panel-tab a,
+  #uacf7-submission-id-panel-tab a {  
     font-weight: bold!important;
     color: #473080!important;
   }
@@ -307,11 +311,14 @@
   #uacf7-placeholder-panel-tab:hover, 
   #uacf7-pdf-generator-panel-tab:hover, 
   #uacf7-multistep-panel-tab:hover, 
+  #uacf7-conversational-panel-tab:hover, 
   #uacf7-uacf7style-panel-tab:hover, 
   #uacf7-range-slider-panel-tab:hover,
   #uacf7-auto-product-cart-panel-tab:hover,
   #uacf7-post-submission-panel-tab:hover, 
-  #uacf7-mailchimp-panel-tab:hover {
+  #uacf7-mailchimp-panel-tab:hover,
+  #uacf7-submission-id-panel-tab:hover,
+  #uacf7-submission-id-panel-tab.ui-tabs-active{
     border: 2px solid #281266!important;
     background: #281266!important;
   }
@@ -324,6 +331,7 @@
   #uacf7-placeholder-panel-tab:hover a, 
   #uacf7-pdf-generator-panel-tab:hover a, 
   #uacf7-multistep-panel-tab:hover a, 
+  #uacf7-conversational-panel-tab:hover a, 
   #uacf7-uacf7style-panel-tab:hover a, 
   #uacf7-range-slider-panel-tab:hover a,
   #uacf7-auto-product-cart-panel-tab:hover a,
@@ -333,12 +341,14 @@
  #uacf7-placeholder-panel-tab.ui-tabs-active a, 
  #uacf7-pdf-generator-panel-tab.ui-tabs-active a, 
  #uacf7-multistep-panel-tab.ui-tabs-active a, 
+ #uacf7-conversational-panel-tab.ui-tabs-active a, 
  #uacf7-uacf7style-panel-tab.ui-tabs-active a, 
  #uacf7-range-slider-panel-tab.ui-tabs-active a,
  #uacf7-auto-product-cart-panel-tab.ui-tabs-active a,
  #uacf7-mailchimp-panel-tab.ui-tabs-active a,
- #uacf7-pre-populate-panel-tab.ui-tabs-active a,
- #uacf7-post-submission-panel-tab.ui-tabs-active a {
+ #uacf7-pre-populate-panel-tab.ui-tabs-active a, 
+ #uacf7-submission-id-panel-tab:hover a, 
+ #uacf7-submission-id-panel-tab.ui-tabs-active a{
     color: #fff!important;
   }
 
@@ -350,6 +360,7 @@
  #uacf7-placeholder-panel-tab.ui-tabs-active, 
  #uacf7-pdf-generator-panel-tab.ui-tabs-active, 
  #uacf7-multistep-panel-tab.ui-tabs-active, 
+ #uacf7-conversational-panel-tab.ui-tabs-active, 
  #uacf7-uacf7style-panel-tab.ui-tabs-active, 
  #uacf7-range-slider-panel-tab.ui-tabs-active,
  #uacf7-auto-product-cart-panel-tab.ui-tabs-active,
@@ -371,10 +382,14 @@
 #uacf7-placeholder-panel, 
 #uacf7-pdf-generator-panel, 
 #uacf7-multistep-panel, 
+#uacf7-conversational-panel, 
 #uacf7-uacf7style-panel, 
 #uacf7-range-slider-panel, 
 #uacf7-pre-populate-panel, 
-#uacf7-post-submission-panel {
+#ultimate-conv-admin-panel,
+#uacf7-post-submission-panel,
+#uacf7-post-submission-panel, 
+#uacf7-submission-id-panel {
   background: #fff!important;
   padding: 20px 50px 50px!important;
   font-size: 16px;
@@ -390,11 +405,13 @@
 #uacf7-placeholder-panel h2, 
 #uacf7-pdf-generator-panel h2, 
 #uacf7-multistep-panel h2, 
+#uacf7-conversational-panel h2, 
 #uacf7-uacf7style-panel h2, 
 #uacf7-range-slider-panel h2, 
 #uacf7-post-submission-panel h2,
 #uacf7-pre-populate-panel h2,
-#uacf7-mailchimp-panel-tab h2 {
+#uacf7-mailchimp-panel-tab h2,
+#uacf7-submission-id-panel h2  {
   font-size: 20px!important;
   font-weight: 600!important;
   line-height: 1.5!important;
@@ -409,13 +426,27 @@
 #uacf7-placeholder-panel p, 
 #uacf7-pdf-generator-panel p, 
 #uacf7-multistep-panel p, 
+#uacf7-conversational-panel p, 
 #uacf7-uacf7style-panel p, 
 #uacf7-range-slider-panel p, 
 #uacf7-post-submission-panel p,
 #uacf7-pre-populate-panel p,
-#uacf7-mailchimp-panel-tab p {
+#uacf7-mailchimp-panel-tab p,
+#uacf7-submission-id-panel p  {
   font-size: 16px!important;
   line-height: 1.5!important;
+}
+
+/*Ultimate Submission ID CSS*/
+
+#uacf7-submission-id-panel h3{
+  font-weight: 400px!important;
+}
+.ultimate-submission-id-wrapper{
+    background: #fff;
+    padding: 5px 30px 15px;
+    margin: 15px auto;
+    border: 1px solid #ccc;
 }
 
 .uacf7-doc-notice {

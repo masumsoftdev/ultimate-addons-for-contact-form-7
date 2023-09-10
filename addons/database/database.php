@@ -31,13 +31,13 @@ class UACF7_DATABASE {
     
         $charset_collate = $wpdb->get_charset_collate();
     
-        $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+        $sql = "CREATE TABLE $table_name (
             id bigint(20) NOT NULL AUTO_INCREMENT,
             form_id bigint(20) NOT NULL,
             form_value longtext NOT NULL,
-            form_date datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+            form_date datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
             PRIMARY KEY  (id)
-        ) $charset_collate;";
+        ) $charset_collate";
     
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
         dbDelta( $sql ); 
@@ -186,7 +186,7 @@ class UACF7_DATABASE {
         $tags = $ContactForm->scan_form_tags();
         $skip_tag_insert = []; 
         foreach ($tags as $tag){
-            if( $tag->type == 'uacf7_step_start' || $tag->type == 'uacf7_step_end' || $tag->type == 'uarepeater' || $tag->type == 'conditional' ){
+            if( $tag->type == 'uacf7_step_start' || $tag->type == 'uacf7_step_end' || $tag->type == 'uarepeater' || $tag->type == 'conditional' || $tag->type == 'uacf7_conversational_start' || $tag->type == 'uacf7_conversational_end' ){
                 if($tag->name != ''){
                     $skip_tag_insert[] = $tag->name;
                 }
@@ -245,13 +245,17 @@ class UACF7_DATABASE {
         $wpdb->insert($table_name, array(
             'form_id' => $form->id(),
             'form_value' =>  $insert_data, 
-            'form_date' => current_time('Y-m-d H:i:s'), 
+            'form_date' => current_time('Y-m-d H:i:s'),  
         )); 
         $uacf7_db_insert_id = $wpdb->insert_id;  
        
         //  print_r($uacf7_enable_track_order);
 
+        // Order tracking Action
         do_action( 'uacf7_checkout_order_traking', $uacf7_db_insert_id, $form->id());
+
+        // submission id Action
+        do_action( 'uacf7_submission_id_insert', $uacf7_db_insert_id, $form->id(), $contact_form_data, $tags);
 
     } 
    
@@ -273,7 +277,7 @@ class UACF7_DATABASE {
         $fields = [];
         foreach($form_fields as $field){
             
-            if($field['type'] != 'submit' && $field['type'] !='uacf7_step_start' && $field['type'] !='uacf7_step_end' && $field['type'] !='uarepeater' ){
+            if($field['type'] != 'submit' && $field['type'] !='uacf7_step_start' && $field['type'] !='uacf7_step_end' && $field['type'] !='uarepeater' && $field['type'] == 'uacf7_conversational_start' && $field['type'] == 'uacf7_conversational_end'  ){
                 $fields[$field['name']] = '';
             }
         }
@@ -369,7 +373,7 @@ class UACF7_DATABASE {
                 $data = json_decode($fdata->form_value);
                 foreach($form_fields as $field){
                 
-                    if($field['type'] != 'submit' && $field['type'] !='uacf7_step_start' && $field['type'] !='uacf7_step_end' && $field['type'] !='uarepeater' ){
+                    if($field['type'] != 'submit' && $field['type'] !='uacf7_step_start' && $field['type'] !='uacf7_step_end' && $field['type'] !='uarepeater'  && $field['type'] == 'uacf7_conversational_start' && $field['type'] == 'uacf7_conversational_end' ){
                         $fields[$field['name']] = '';
                     }
                 }
@@ -469,16 +473,18 @@ class uacf7_form_List_Table extends WP_List_Table{
         
         $columns = [];
         $columns['cb']      = '<input type="checkbox" />';  
-        if(count($form_fields) > 4){
-            $count = 4;
-        }else{
-            $count = count($form_fields);
-        }  
+        $count = count($form_fields);
+        $count_item = 4;
+        $count_i = 0; 
+
         for ($x = 0; $x < $count; $x++) { 
             
-          if($form_fields[$x]['type'] != 'submit' && $form_fields[$x]['type'] !='uacf7_step_start' && $form_fields[$x]['type'] !='uacf7_step_end' && $form_fields[$x]['type'] !='uarepeater' && $form_fields[$x]['type'] !='conditional' ){
+          if($form_fields[$x]['type'] != 'submit' && $form_fields[$x]['type'] !='uacf7_step_start' && $form_fields[$x]['type'] !='uacf7_step_end' && $form_fields[$x]['type'] !='uarepeater' && $form_fields[$x]['type'] !='conditional' && $form_fields[$x]['type'] != 'uacf7_conversational_start' && $form_fields[$x]['type'] != 'uacf7_conversational_end' ){ 
             
+            if($count_i == $count_item){ break; }
+
             $columns[$form_fields[$x]['name']] = $form_fields[$x]['name']; 
+            $count_i++;
           }
         }  
 
@@ -526,6 +532,7 @@ class uacf7_form_List_Table extends WP_List_Table{
             );  
         }
         foreach($form_data as $fdata){ 
+           $f_data = [];
            $field_data =  json_decode($fdata->form_value); 
            $repetar_value = '';
            $repetar_key = '';
@@ -576,7 +583,9 @@ class uacf7_form_List_Table extends WP_List_Table{
     public function column_default( $item, $column_name ){ 
         // echo "<pre>";
         // print_r($item);
-        return $item[ $column_name ];
+        if(isset($item[ $column_name ])){ 
+            return $item[ $column_name ];
+        }
     }
 
 

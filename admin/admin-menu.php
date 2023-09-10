@@ -183,7 +183,7 @@ class UACF7_Admin_Menu {
 			__( 'Dynamic Text', 'ultimate-addons-cf7' ), // title
 			array( $this, 'uacf7_enable_dynamic_text_callback' ), // callback
 			'ultimate-addons-admin', // page
-			'uacf7_setting_section' // section
+			'uacf7_setting_section_fields' // section
 		);
 
         add_settings_field(
@@ -191,7 +191,7 @@ class UACF7_Admin_Menu {
 			__( 'Pre-populate Field', 'ultimate-addons-cf7' ), // title
 			array( $this, 'uacf7_enable_pre_populate_field_callback' ), // callback
 			'ultimate-addons-admin', // page
-			'uacf7_setting_section' // section
+			'uacf7_setting_section_fields' // section
 		);
         add_settings_field(
 			'uacf7_enable_database_field', // id
@@ -207,6 +207,7 @@ class UACF7_Admin_Menu {
 			'ultimate-addons-admin', // page
 			'uacf7_setting_section' // section
 		);
+<<<<<<< HEAD
 		add_settings_field(
 			'uacf7_enable_form_generator_ai_field', // id
 			__( 'Form Generator AI', 'ultimate-addons-cf7' ), // title
@@ -214,6 +215,22 @@ class UACF7_Admin_Menu {
 			'ultimate-addons-admin', // page
 			'uacf7_setting_section' // section
 		);
+=======
+		 add_settings_field(
+			'uacf7_enable_conversational_form', // id
+			__( 'Conversational Form', 'ultimate-addons-cf7' ), // title
+			array( $this, 'uacf7_enable_conversational_form_callback' ), // callback
+			'ultimate-addons-admin', // page
+			'uacf7_setting_section' // section
+		);
+        
+
+			add_settings_field( 'uacf7_enable_submission_id_field',
+	__('Submission ID', 'ultimate-addons-cf7'),
+	[$this, 'uacf7_enable_submission_id_callback'], 
+	'ultimate-addons-admin', 
+	'uacf7_setting_section' );
+>>>>>>> 432a28fab36fc80d96c2097d0c12c52c37c9bb72
 
         add_settings_section(
 			'uacf7_setting_section_fields', // id
@@ -356,8 +373,16 @@ class UACF7_Admin_Menu {
         if ( isset( $input['uacf7_enable_pdf_generator_field'] ) ) {
 			$sanitary_values['uacf7_enable_pdf_generator_field'] = $input['uacf7_enable_pdf_generator_field'];
 		}
+<<<<<<< HEAD
         if ( isset( $input['uacf7_enable_form_generator_ai_field'] ) ) {
 			$sanitary_values['uacf7_enable_form_generator_ai_field'] = $input['uacf7_enable_form_generator_ai_field'];
+=======
+		if ( isset( $input['uacf7_enable_conversational_form'] ) && class_exists('UACF7_CONVERSATIONAL_FORM_PRO') ) {
+			$sanitary_values['uacf7_enable_conversational_form'] = $input['uacf7_enable_conversational_form'];
+		}
+		if ( isset( $input['uacf7_enable_submission_id_field'] ) ) {
+			$sanitary_values['uacf7_enable_submission_id_field'] = $input['uacf7_enable_submission_id_field'];
+>>>>>>> 432a28fab36fc80d96c2097d0c12c52c37c9bb72
 		}
 		if ( isset( $input['uacf7_enable_booking_form'] ) ) {
 			$sanitary_values['uacf7_enable_booking_form'] = $input['uacf7_enable_booking_form'];
@@ -563,6 +588,7 @@ class UACF7_Admin_Menu {
 			</label>', uacf7_checked('uacf7_enable_pdf_generator_field')
 		);
 	}
+<<<<<<< HEAD
 	
     
     /*
@@ -577,7 +603,44 @@ class UACF7_Admin_Menu {
 		);
 	}
 
+=======
+
+
+	/**
+	 * Field - Enable Submission ID 
+	 */
+
+	 public function uacf7_enable_submission_id_callback(){
+		printf(
+			'<label class="uacf7-admin-toggle" for="uacf7_enable_submission_id_field">
+				<input type="checkbox" class="uacf7-admin-toggle__input" name="uacf7_option_name[uacf7_enable_submission_id_field]" id="uacf7_enable_submission_id_field" %s>
+				<span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
+			</label>', uacf7_checked('uacf7_enable_submission_id_field')
+		);
+	 }
+>>>>>>> 432a28fab36fc80d96c2097d0c12c52c37c9bb72
     
+	/*
+    * Field - Enable post submission
+    */
+    public function uacf7_enable_conversational_form_callback() {
+		if(class_exists('UACF7_CONVERSATIONAL_FORM_PRO')){
+			$uacf7_enable_conversational_checked = uacf7_checked('uacf7_enable_conversational_form');
+			$pro = '';
+		}else{
+			$uacf7_enable_conversational_checked = '';
+			$pro = '<span class="uacf7-bf-pro-link"><a style="color:red" target="_blank" href="https://cf7addons.com/preview/contact-form-7-conversational-form">(Pro Addon)</a></span>';
+		}
+		
+		printf(
+			'<label class="uacf7-admin-toggle" for="uacf7_enable_conversational_form">
+				<input type="checkbox" class="uacf7-admin-toggle__input" name="uacf7_option_name[uacf7_enable_conversational_form]" id="uacf7_enable_conversational_form" %s>
+				<span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
+			</label> 
+			'.$pro, $uacf7_enable_conversational_checked
+		);
+	}
+
     /*
     * Field - Enable star rating
     */
