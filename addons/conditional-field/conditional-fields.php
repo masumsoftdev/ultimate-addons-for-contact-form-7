@@ -37,69 +37,71 @@ class UACF7_CF {
 
         add_action('wpcf7_config_validator_validate', array($this,'uacf7_config_validator_validate'));
 
-        add_action( 'wpcf7_before_send_mail', array($this, 'change_mail_properties') );
+        add_action( 'wpcf7_before_send_mail', array($this, 'change_mail_properties'));
+    
         // add_filter( 'wpcf7_load_js', '__return_false' );
 
 
     }
     
     public function enqueue_cf_admin_script() {
-        wp_enqueue_script( 'uacf7-cf-script', UACF7_ADDONS . '/conditional-field/js/cf-script.js', array('jquery'), null, true );
-        
+        wp_enqueue_script( 'uacf7-cf-script', UACF7_ADDONS . '/conditional-field/js/cf-script.js', array('jquery'), null, true ); 
         wp_enqueue_style( 'uacf7-cf-style', UACF7_ADDONS . '/conditional-field/css/cf-style.css' );
     }
     
     public function enqueue_cf_frontend_script() {
-        wp_enqueue_script( 'uacf7-cf-script', UACF7_ADDONS . '/conditional-field/js/uacf7-cf-script.js', array('jquery') );
-        
-        wp_localize_script( 'uacf7-cf-script', 'uacf7_cf_object', $this->get_forms() );
-        
+        wp_enqueue_script( 'uacf7-cf-script', UACF7_ADDONS . '/conditional-field/js/uacf7-cf-script.js', array('jquery') );  
+        wp_localize_script( 'uacf7-cf-script', 'uacf7_cf_object', $this->get_forms() );    
     }
 
 
 
-
-   
-
-
-    
-    public function change_mail_properties($WPCF7_ContactForm)
-    {
+    public function change_mail_properties($WPCF7_ContactForm){
     $wpcf7 = WPCF7_ContactForm :: get_current() ;
     $submission = WPCF7_Submission :: get_instance() ;
-    if ($submission)
-    {
-    $posted_data = $submission->get_posted_data();
-    // $filteredArray = array_filter($posted_data, function($value) {
-    //     // Remove empty, null, and false values
-    //     return $value !== '' && $value !== null && $value !== false;
-    // });
-    
-   
-    // echo "<pre>";
-    // print_r($filteredArray);
-    // echo "</pre>";
+    if ($submission){
+        $posted_data = $submission->get_posted_data();
+        $form_tags = $submission->get_contact_form()->form_scan_shortcode();
+        
+        // // Get the properties array from the submission object
+        $properties = $submission->get_contact_form()->get_properties();
 
+        // Initialize an empty email body
+        $email_body = "";
+        
+        // Iterate through the form fields and add their values to the email body
+        foreach ($form_tags as $index => $form_tag) {
 
-   
-    // nothing's here... do nothing...
-    if ( empty ($posted_data))
-    return ;
- 
-   
-    $mail = $WPCF7_ContactForm->prop('mail') ;
-  
-    
-    // Save the email body
-    $WPCF7_ContactForm->set_properties( array("mail" => $mail)) ;
-  
+            $field_name = $form_tag->name;
+       
 
+            // Check if the field has a value in the posted data
+            if (isset($posted_data[$field_name]) && !empty($posted_data[$field_name])) {
+                $field_value = $posted_data[$field_name];
 
-    return $WPCF7_ContactForm ;
+                if (is_array($field_value)) {
+                    $field_value = implode(', ', $field_value); 
+                }
+                
+               if(!empty($field_value)){
+                     // Append the field name and value to the email body
+                     $email_body .= $field_name . ": " . $field_value . "\n";
+               }
+           
+            }
+        }
+        
+        // Set the email body in the mail properties
+        $properties = $submission->get_contact_form()->get_properties();
+        $properties['mail']['body'] = $email_body;
+        $submission->get_contact_form()->set_properties($properties);
+
+        }
+
     }
-    }
   
 
+   
     
     
     /*

@@ -23,12 +23,43 @@
 
     });
 
+
+
+
+
+
+		// jQuery(document).on('wpcf7mailsent', function () { 
+
+		// 	var forms = jQuery('.wpcf7-form');
+
+		// 	forms.each(function(){
+
+		// 		var formId = jQuery(this).find('input[name="_wpcf7"]').val();
+
+		// 			var conditon = $('.uacf7-form-'+formId).find('.uacf7_conditional').attr('[data-condition="true"]'); 
+
+		// 			if(!conditon){
+		// 				// $('.uacf7-form-'+formId).find('.uacf7_conditional span input').val('');
+		// 				$('.uacf7-form-'+formId).find('.uacf7_conditional span input').val('testing'); 
+
+		// 				alert('sending')
+		// 			}
+		// 		});
+		// 	});
+			
+
+
+
+
+
+
     /*
      * Conditional script
      */
     function uacf7_cf_handler_this($this) { 
         jQuery('form.wpcf7-form').each(function () { 
 			var contactFormId = jQuery('input[name="_wpcf7"]', this).val();
+	
 			var repeater_count = jQuery('.uacf7-repeater-count', this).val();
 
 			var form = uacf7_cf_object[contactFormId]; 
@@ -404,5 +435,5 @@
 
         });
     }
-
+		
 })(jQuery);
