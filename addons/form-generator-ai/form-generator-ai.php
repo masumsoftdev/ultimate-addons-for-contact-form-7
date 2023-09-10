@@ -28,9 +28,11 @@ class UACF7_FORM_GENERATOR{
     // Add Admin Scripts
     public function admin_scripts(){  
         wp_enqueue_script( 'uacf7-form-generator-ai-choices-js', UACF7_ADDONS . '/form-generator-ai/assets/js/choices.min.js', array(), null, true ); 
+        wp_enqueue_script( 'uacf7-form-generator-ai-highlight-js', UACF7_ADDONS . '/form-generator-ai/assets/js/highlight.min.js', array(), null, true ); 
         wp_enqueue_script( 'uacf7-form-generator-ai-admin-js', UACF7_ADDONS . '/form-generator-ai/assets/js/admin-form-generator-ai.js', array('jquery'), null, true ); 
-        wp_enqueue_style( 'uacf7-form-generator-ai-admin-cs', UACF7_ADDONS . '/form-generator-ai/assets/css/admin-form-generator-ai.css' );
-        wp_enqueue_style( 'uacf7-form-generator-ai-choices-cs', UACF7_ADDONS . '/form-generator-ai/assets/css/choices.css' );
+        wp_enqueue_style( 'uacf7-form-generator-ai-choices-css', UACF7_ADDONS . '/form-generator-ai/assets/css/choices.css' );
+        wp_enqueue_style( 'uacf7-form-generator-ai-theme-highlight-dark-css', UACF7_ADDONS . '/form-generator-ai/assets/css/theme-highlight-dark.min.css' );
+        wp_enqueue_style( 'uacf7-form-generator-ai-admin-css', UACF7_ADDONS . '/form-generator-ai/assets/css/admin-form-generator-ai.css' );
 
         wp_localize_script( 'uacf7-form-generator-ai-admin-js', 'uacf7_form_ai',
             array( 
@@ -64,16 +66,24 @@ class UACF7_FORM_GENERATOR{
                     <div class="uacf7-form-ai-inner"> 
                         <div class="close" title="Exit Full Screen">╳</div>
                         <div class="uacf7-ai-form-column"> 
-                            <div class="uacf7-form-input">
+                            <div class="uacf7-form-input-wrap">
+                                
+                                <h4>Create a</h4>
+                               <div class="uacf7-form-input-inner">
                                 <select class="form-control" data-trigger name="uacf7-form-generator-ai" id="uacf7-form-generator-ai"
                                     placeholder="This is a placeholder" multiple> 
                                 </select>
-                                <span class="uacf7-ai-hins">hins: Create a Multistep Form</span>
+                                <p class="uacf7-ai-hins">hins: Create a Multistep Form</p>
+                                
+                                <button class="uacf7_ai_search_button">Generate With AI</button>
+                               </div>
+                                
                             </div>
-                            <button class="uacf7_ai_search_button">Generate With AI</button>
                         </div> 
                         <div class="uacf7-ai-form-column"> 
-                             <textarea name="uacf7_ai_code_content" id="uacf7_ai_code_content" cols="30" rows="10"></textarea>
+                             <div name="uacf7_ai_code_content" id="uacf7_ai_code_content" >
+ 
+                             </div>
                         </div> 
                         
                     </div>

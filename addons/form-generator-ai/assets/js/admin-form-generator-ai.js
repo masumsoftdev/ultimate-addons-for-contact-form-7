@@ -1,20 +1,11 @@
 (function ($) {
-    
-    // document.('#uacf7-form-generator-ai').addEventListener('change', function(event) {
-    //   alert(1)
-    //   if (event.detail.value) {
-    //     const newValue = 'NewOption'; // The value for the new option
-    //     const newLabel = 'New Option'; // The label for the new option
-        
-    //     // Add the new choice
-    //     choices.setChoices([
-    //       { value: newValue, label: newLabel },
-    //     ], 'value', 'label', false);
-    //   }
-    // });
+ 
      
-    $(document).ready(function () { 
-
+    $(document).ready(function () {  
+      document.querySelectorAll('#uacf7_ai_code_content').forEach(el => {
+        // then highlight each
+        hljs.highlightElement(el);
+      });
       $('#uacf7-form-generator-ai').each(function() {
         var $this = $(this);
         var first_option = [
@@ -27,7 +18,6 @@
         ];
         const uacf_form_ai = new Choices('#uacf7-form-generator-ai', {
           maxItemCount: 5,
-          
           disabled: false,
           allowHTML: false,
           duplicateItemsAllowed: false, 
@@ -107,6 +97,10 @@
 
     $(document).on('click', '.uacf7_ai_search_button', function(e){
         e.preventDefault();
+        html = hljs.highlightAuto('<h1>Hello World! how are you bro</h1>').value;
+        // $('#uacf7_ai_code_content pre code').html(html);
+        typeName(html, 0); 
+        return false;
         var searchValue = $('#uacf7-form-generator-ai').val();
         console.log(searchValue);
         jQuery.ajax({
@@ -134,7 +128,7 @@
           // Set the name to the current text + the next character
           // whilst incrementing the iteration variable
           // $('.name').text( $('.name').text() + data[iteration++] );
-          $('#uacf7_ai_code_content').val($('#uacf7_ai_code_content').val()+data[iteration++]);
+          $('#uacf7_ai_code_content').html($('#uacf7_ai_code_content').html()+data[iteration++]);
           // Re-trigger our function
           typeName(data, iteration);
       }, 5);

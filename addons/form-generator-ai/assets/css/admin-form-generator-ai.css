@@ -75,4 +75,28 @@
   transition: 0.4s;
   color: #ff1212;
 }
- 
+.uacf7-form-ai-inner .choices {
+  margin-bottom: 0 !important;
+}
+
+.uacf7-form-input-wrap {
+  display: flex;
+  gap: 8px;
+}
+.uacf7-form-input-wrap .uacf7-form-input-inner {
+  width: 85%;
+}
+.uacf7-form-input-wrap h4 {
+  width: 15%;
+  font-size: 17px;
+  line-height: 0;
+  font-weight: 700;
+}
+
+
+#uacf7_ai_code_content {
+  height: auto;
+  width: auto;
+  padding: 16px;
+  min-height: 175px;
+}

@@ -207,7 +207,6 @@ class UACF7_Admin_Menu {
 			'ultimate-addons-admin', // page
 			'uacf7_setting_section' // section
 		);
-<<<<<<< HEAD
 		add_settings_field(
 			'uacf7_enable_form_generator_ai_field', // id
 			__( 'Form Generator AI', 'ultimate-addons-cf7' ), // title
@@ -215,7 +214,6 @@ class UACF7_Admin_Menu {
 			'ultimate-addons-admin', // page
 			'uacf7_setting_section' // section
 		);
-=======
 		 add_settings_field(
 			'uacf7_enable_conversational_form', // id
 			__( 'Conversational Form', 'ultimate-addons-cf7' ), // title
@@ -230,7 +228,6 @@ class UACF7_Admin_Menu {
 	[$this, 'uacf7_enable_submission_id_callback'], 
 	'ultimate-addons-admin', 
 	'uacf7_setting_section' );
->>>>>>> 432a28fab36fc80d96c2097d0c12c52c37c9bb72
 
         add_settings_section(
 			'uacf7_setting_section_fields', // id
@@ -373,16 +370,14 @@ class UACF7_Admin_Menu {
         if ( isset( $input['uacf7_enable_pdf_generator_field'] ) ) {
 			$sanitary_values['uacf7_enable_pdf_generator_field'] = $input['uacf7_enable_pdf_generator_field'];
 		}
-<<<<<<< HEAD
         if ( isset( $input['uacf7_enable_form_generator_ai_field'] ) ) {
 			$sanitary_values['uacf7_enable_form_generator_ai_field'] = $input['uacf7_enable_form_generator_ai_field'];
-=======
+		}
 		if ( isset( $input['uacf7_enable_conversational_form'] ) && class_exists('UACF7_CONVERSATIONAL_FORM_PRO') ) {
 			$sanitary_values['uacf7_enable_conversational_form'] = $input['uacf7_enable_conversational_form'];
 		}
 		if ( isset( $input['uacf7_enable_submission_id_field'] ) ) {
 			$sanitary_values['uacf7_enable_submission_id_field'] = $input['uacf7_enable_submission_id_field'];
->>>>>>> 432a28fab36fc80d96c2097d0c12c52c37c9bb72
 		}
 		if ( isset( $input['uacf7_enable_booking_form'] ) ) {
 			$sanitary_values['uacf7_enable_booking_form'] = $input['uacf7_enable_booking_form'];
@@ -588,7 +583,6 @@ class UACF7_Admin_Menu {
 			</label>', uacf7_checked('uacf7_enable_pdf_generator_field')
 		);
 	}
-<<<<<<< HEAD
 	
     
     /*
@@ -603,7 +597,6 @@ class UACF7_Admin_Menu {
 		);
 	}
 
-=======
 
 
 	/**
@@ -618,7 +611,6 @@ class UACF7_Admin_Menu {
 			</label>', uacf7_checked('uacf7_enable_submission_id_field')
 		);
 	 }
->>>>>>> 432a28fab36fc80d96c2097d0c12c52c37c9bb72
     
 	/*
     * Field - Enable post submission
