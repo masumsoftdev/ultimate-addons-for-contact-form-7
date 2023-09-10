@@ -39,7 +39,7 @@ class UACF7_CF {
 
         add_action( 'wpcf7_before_send_mail', array($this, 'change_mail_properties'));
     
-        // add_filter( 'wpcf7_load_js', '__return_false' );
+        add_filter( 'wpcf7_load_js', '__return_false' );
 
 
     }
@@ -62,43 +62,50 @@ class UACF7_CF {
     if ($submission){
         $posted_data = $submission->get_posted_data();
         $form_tags = $submission->get_contact_form()->form_scan_shortcode();
+
+        // Set the email body in the mail properties
+        $properties = $submission->get_contact_form()->get_properties();
+        $uacf7_conditions = get_post_meta( $wpcf7->id(), 'uacf7_conditions', true );
+
+        echo "<pre>";
+        print_r($properties['mail']['body']);
+        echo "</pre>";
+
+        wp_die();
+
         
         // // Get the properties array from the submission object
         $properties = $submission->get_contact_form()->get_properties();
 
         // Initialize an empty email body
         $email_body = "";
-        
+
         // Iterate through the form fields and add their values to the email body
         foreach ($form_tags as $index => $form_tag) {
 
             $field_name = $form_tag->name;
-       
-
             // Check if the field has a value in the posted data
             if (isset($posted_data[$field_name]) && !empty($posted_data[$field_name])) {
                 $field_value = $posted_data[$field_name];
 
                 if (is_array($field_value)) {
                     $field_value = implode(', ', $field_value); 
-                }
+                } 
                 
                if(!empty($field_value)){
                      // Append the field name and value to the email body
                      $email_body .= $field_name . ": " . $field_value . "\n";
                }
-           
-            }
+
         }
         
-        // Set the email body in the mail properties
-        $properties = $submission->get_contact_form()->get_properties();
         $properties['mail']['body'] = $email_body;
         $submission->get_contact_form()->set_properties($properties);
 
         }
-
+  
     }
+}
   
 
    
