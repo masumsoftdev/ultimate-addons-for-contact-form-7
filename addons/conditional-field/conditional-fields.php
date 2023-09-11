@@ -38,6 +38,8 @@ class UACF7_CF {
         add_action('wpcf7_config_validator_validate', array($this,'uacf7_config_validator_validate'));
 
         add_action( 'wpcf7_before_send_mail', array($this, 'uacf7_conditional_mail_properties'));
+
+           add_filter( 'wpcf7_load_js', '__return_false' );
      
 
     }
@@ -688,52 +690,51 @@ class UACF7_CF {
 
                 // Check if the conditions for all  
                 if($uacf7_cf_conditions_for == 'all'){
-                    if( $uacf7_cf_hs == 'show'){
-                            $mail_body = preg_replace('/\['.$uacf7_cf_group.'\]/s', '', $mail_body); 
-                            $mail_body = preg_replace('/\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body);
+                    if( !in_array('false', $condition_status) ){ 
+                        if( $uacf7_cf_hs == 'show'){
+                                $mail_body = preg_replace('/\['.$uacf7_cf_group.'\]/s', '', $mail_body); 
+                                $mail_body = preg_replace('/\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body);
 
-                            // Mail 2 
-                            $mail_body_2 = preg_replace('/\['.$uacf7_cf_group.'\]/s', '', $mail_body_2); 
-                            $mail_body_2 = preg_replace('/\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body_2);
-                            
-                    }else{
-                        $mail_body = preg_replace('/\['.$uacf7_cf_group.'\].*?\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body);
-
+                                // Mail 2 
+                                $mail_body_2 = preg_replace('/\['.$uacf7_cf_group.'\]/s', '', $mail_body_2); 
+                                $mail_body_2 = preg_replace('/\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body_2);
+                        }
+                    } 
+                    else{
+                        $mail_body = preg_replace('/\['.$uacf7_cf_group.'\].*?\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body); 
+    
                         // Mail 2 
-                        $mail_body_2 = preg_replace('/\['.$uacf7_cf_group.'\].*?\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body_2); 
-                    }
-                }else{
-                    $mail_body = preg_replace('/\['.$uacf7_cf_group.'\].*?\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body); 
-
-                    // Mail 2 
-                    $mail_body_2 = preg_replace('/\['.$uacf7_cf_group.'\].*?\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body_2);  
-                } 
+                        $mail_body_2 = preg_replace('/\['.$uacf7_cf_group.'\].*?\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body_2);  
+                    } 
+                }
+                
 
                 // Check if the conditions for all 
                 if($uacf7_cf_conditions_for == 'any'){
-                    if( $uacf7_cf_hs == 'show'){
-                            $mail_body = preg_replace('/\['.$uacf7_cf_group.'\]/s', '', $mail_body); 
-                            $mail_body = preg_replace('/\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body);
+                    if( !in_array('false', $condition_status) ){ 
+                        if( $uacf7_cf_hs == 'show'){
+                                $mail_body = preg_replace('/\['.$uacf7_cf_group.'\]/s', '', $mail_body); 
+                                $mail_body = preg_replace('/\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body);
 
-                            // Mail 2 
-                            $mail_body_2 = preg_replace('/\['.$uacf7_cf_group.'\]/s', '', $mail_body_2); 
-                            $mail_body_2 = preg_replace('/\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body_2); 
-                    }else{
-                        $mail_body = preg_replace('/\['.$uacf7_cf_group.'\].*?\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body);
-
-                        // Mail 2 
-                        $mail_body_2 = preg_replace('/\['.$uacf7_cf_group.'\].*?\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body_2); 
-                    }
-                }else{
+                                // Mail 2 
+                                $mail_body_2 = preg_replace('/\['.$uacf7_cf_group.'\]/s', '', $mail_body_2); 
+                                $mail_body_2 = preg_replace('/\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body_2);
+                        }
+                    } 
+                    else{
                         $mail_body = preg_replace('/\['.$uacf7_cf_group.'\].*?\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body); 
-
+    
                         // Mail 2 
                         $mail_body_2 = preg_replace('/\['.$uacf7_cf_group.'\].*?\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body_2);  
+                    } 
                 } 
             } 
  
             // Set the email body in the mail properties
             $properties['mail']['body'] = $mail_body;
+
+            // echo $mail_body;
+            // wp_die();
 
             // Mail 2
             $properties['mail_2']['body'] = $mail_body_2;
