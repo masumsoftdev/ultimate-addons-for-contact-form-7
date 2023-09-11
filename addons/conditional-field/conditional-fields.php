@@ -38,9 +38,7 @@ class UACF7_CF {
         add_action('wpcf7_config_validator_validate', array($this,'uacf7_config_validator_validate'));
 
         add_action( 'wpcf7_before_send_mail', array($this, 'uacf7_conditional_mail_properties'));
-    
-        add_filter( 'wpcf7_load_js', '__return_false' );
-
+     
 
     }
     
