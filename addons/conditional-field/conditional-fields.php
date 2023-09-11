@@ -36,21 +36,24 @@ class UACF7_CF {
         add_filter( 'wpcf7_validate_multifile*', array($this, 'skip_validation_for_hidden_file_field'), 30, 3);
 
         add_action('wpcf7_config_validator_validate', array($this,'uacf7_config_validator_validate'));
+
+        add_action( 'wpcf7_before_send_mail', array($this, 'uacf7_conditional_mail_properties'));
+    
+        add_filter( 'wpcf7_load_js', '__return_false' );
+
+
     }
     
     public function enqueue_cf_admin_script() {
-        wp_enqueue_script( 'uacf7-cf-script', UACF7_ADDONS . '/conditional-field/js/cf-script.js', array('jquery'), null, true );
-        
+        wp_enqueue_script( 'uacf7-cf-script', UACF7_ADDONS . '/conditional-field/js/cf-script.js', array('jquery'), null, true ); 
         wp_enqueue_style( 'uacf7-cf-style', UACF7_ADDONS . '/conditional-field/css/cf-style.css' );
     }
     
     public function enqueue_cf_frontend_script() {
-        wp_enqueue_script( 'uacf7-cf-script', UACF7_ADDONS . '/conditional-field/js/uacf7-cf-script.js', array('jquery') );
-        
-        wp_localize_script( 'uacf7-cf-script', 'uacf7_cf_object', $this->get_forms() );
-        
+        wp_enqueue_script( 'uacf7-cf-script', UACF7_ADDONS . '/conditional-field/js/uacf7-cf-script.js', array('jquery') );  
+        wp_localize_script( 'uacf7-cf-script', 'uacf7_cf_object', $this->get_forms() );    
     }
-    
+ 
     /*
     * Create tab panel
     */
@@ -621,6 +624,127 @@ class UACF7_CF {
 
     	return new WPCF7_ConfigValidator($wpcf7_config_validator->contact_form());
     }
+
+
+    /**
+     * uacf7_conditional_mail_properties Function
+     * @author Sydur Rahman
+     * @since 3.2.1
+     */ 
+    public function uacf7_conditional_mail_properties($WPCF7_ContactForm){
+        $wpcf7 = WPCF7_ContactForm :: get_current() ;
+        $submission = WPCF7_Submission :: get_instance() ;
+
+        // Get the conditional fields
+        $uacf7_conditions = get_post_meta( $wpcf7->id(), 'uacf7_conditions', true );
+
+        if ($submission && is_array($uacf7_conditions) && !empty($uacf7_conditions)){
+            $posted_data = $submission->get_posted_data();
+            $form_tags = $submission->get_contact_form()->form_scan_shortcode();
+
+            // Set the email body in the mail properties
+            $properties = $submission->get_contact_form()->get_properties();
+
+            // Get the email body
+            $mail_body = $properties['mail']['body'];
+            $mail_body_2 = $properties['mail_2']['body'];
+         
+            // Loop through the conditional fields
+            foreach($uacf7_conditions as $key => $condition){
+                $uacf7_cf_hs = $condition['uacf7_cf_hs'];
+                $uacf7_cf_group = $condition['uacf7_cf_group'];
+                $uacf7_cf_conditions_for = $condition['uacf_cf_condition_for'];
+                $uacf7_cf_conditions = $condition['uacf7_cf_conditions'];
+                $condition_status = [];
+
+                // Check if the conditional field is hidden or shown
+                foreach($uacf7_cf_conditions['uacf7_cf_tn'] as $key => $value){
+                    // Condition for Equal  
+                    if($uacf7_cf_conditions['uacf7_cf_operator'][$key] == 'equal' && $posted_data[$value] == $uacf7_cf_conditions['uacf7_cf_val'][$key]){
+                        $condition_status[] = 'true';
+                    }
+                    // Condition for Not Equal
+                    else if($uacf7_cf_conditions['uacf7_cf_operator'][$key] == 'not_equal' && $posted_data[$value] != $uacf7_cf_conditions['uacf7_cf_val'][$key]){
+                    
+                        $condition_status[] = 'true';
+                    } 
+                    // Condition for Greater than
+                    else if($uacf7_cf_conditions['uacf7_cf_operator'][$key] == 'greater_than' && $posted_data[$value] > $uacf7_cf_conditions['uacf7_cf_val'][$key]){
+                        $condition_status[] = 'true';
+                    }  
+                    // Condition for Less than
+                    else if($uacf7_cf_conditions['uacf7_cf_operator'][$key] == 'less_than' && $posted_data[$value] < $uacf7_cf_conditions['uacf7_cf_val'][$key]){
+                        $condition_status[] = 'true';
+                    }  
+                    // Condition for Greater than or equal to
+                    else if($uacf7_cf_conditions['uacf7_cf_operator'][$key] == 'greater_than_or_equal_to' && $posted_data[$value] >= $uacf7_cf_conditions['uacf7_cf_val'][$key]){
+                        $condition_status[] = 'true';
+                    }  
+                    // Condition for Less than or equal to
+                    else if($uacf7_cf_conditions['uacf7_cf_operator'][$key] == 'less_than_or_equal_to' && $posted_data[$value] <= $uacf7_cf_conditions['uacf7_cf_val'][$key]){
+                        $condition_status[] = 'true';
+                    }else{
+                        $condition_status[] = 'false';
+                    }
+                }; 
+
+                // Check if the conditions for all  
+                if($uacf7_cf_conditions_for == 'all'){
+                    if( $uacf7_cf_hs == 'show'){
+                            $mail_body = preg_replace('/\['.$uacf7_cf_group.'\]/s', '', $mail_body); 
+                            $mail_body = preg_replace('/\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body);
+
+                            // Mail 2 
+                            $mail_body_2 = preg_replace('/\['.$uacf7_cf_group.'\]/s', '', $mail_body_2); 
+                            $mail_body_2 = preg_replace('/\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body_2);
+                            
+                    }else{
+                        $mail_body = preg_replace('/\['.$uacf7_cf_group.'\].*?\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body);
+
+                        // Mail 2 
+                        $mail_body_2 = preg_replace('/\['.$uacf7_cf_group.'\].*?\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body_2); 
+                    }
+                }else{
+                    $mail_body = preg_replace('/\['.$uacf7_cf_group.'\].*?\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body); 
+
+                    // Mail 2 
+                    $mail_body_2 = preg_replace('/\['.$uacf7_cf_group.'\].*?\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body_2);  
+                } 
+
+                // Check if the conditions for all 
+                if($uacf7_cf_conditions_for == 'any'){
+                    if( $uacf7_cf_hs == 'show'){
+                            $mail_body = preg_replace('/\['.$uacf7_cf_group.'\]/s', '', $mail_body); 
+                            $mail_body = preg_replace('/\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body);
+
+                            // Mail 2 
+                            $mail_body_2 = preg_replace('/\['.$uacf7_cf_group.'\]/s', '', $mail_body_2); 
+                            $mail_body_2 = preg_replace('/\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body_2); 
+                    }else{
+                        $mail_body = preg_replace('/\['.$uacf7_cf_group.'\].*?\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body);
+
+                        // Mail 2 
+                        $mail_body_2 = preg_replace('/\['.$uacf7_cf_group.'\].*?\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body_2); 
+                    }
+                }else{
+                        $mail_body = preg_replace('/\['.$uacf7_cf_group.'\].*?\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body); 
+
+                        // Mail 2 
+                        $mail_body_2 = preg_replace('/\['.$uacf7_cf_group.'\].*?\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body_2);  
+                } 
+            } 
+ 
+            // Set the email body in the mail properties
+            $properties['mail']['body'] = $mail_body;
+
+            // Mail 2
+            $properties['mail_2']['body'] = $mail_body_2;
+    
+            $submission->get_contact_form()->set_properties($properties);
+    
+        }
+    } 
+    
 
 }
 new UACF7_CF();
