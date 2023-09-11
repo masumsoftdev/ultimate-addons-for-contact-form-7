@@ -27,11 +27,9 @@ class UACF7_FORM_GENERATOR{
 
     // Add Admin Scripts
     public function admin_scripts(){  
-        wp_enqueue_script( 'uacf7-form-generator-ai-choices-js', UACF7_ADDONS . '/form-generator-ai/assets/js/choices.min.js', array(), null, true ); 
-        wp_enqueue_script( 'uacf7-form-generator-ai-highlight-js', UACF7_ADDONS . '/form-generator-ai/assets/js/highlight.min.js', array(), null, true ); 
+        wp_enqueue_script( 'uacf7-form-generator-ai-choices-js', UACF7_ADDONS . '/form-generator-ai/assets/js/choices.min.js', array(), null, true );  
         wp_enqueue_script( 'uacf7-form-generator-ai-admin-js', UACF7_ADDONS . '/form-generator-ai/assets/js/admin-form-generator-ai.js', array('jquery'), null, true ); 
-        wp_enqueue_style( 'uacf7-form-generator-ai-choices-css', UACF7_ADDONS . '/form-generator-ai/assets/css/choices.css' );
-        wp_enqueue_style( 'uacf7-form-generator-ai-theme-highlight-dark-css', UACF7_ADDONS . '/form-generator-ai/assets/css/theme-highlight-dark.min.css' );
+        wp_enqueue_style( 'uacf7-form-generator-ai-choices-css', UACF7_ADDONS . '/form-generator-ai/assets/css/choices.css' ); 
         wp_enqueue_style( 'uacf7-form-generator-ai-admin-css', UACF7_ADDONS . '/form-generator-ai/assets/css/admin-form-generator-ai.css' );
 
         wp_localize_script( 'uacf7-form-generator-ai-admin-js', 'uacf7_form_ai',
@@ -81,9 +79,12 @@ class UACF7_FORM_GENERATOR{
                             </div>
                         </div> 
                         <div class="uacf7-ai-form-column"> 
-                             <div name="uacf7_ai_code_content" id="uacf7_ai_code_content" >
- 
-                             </div>
+                            <div class="uacf7-ai-codeblock"> 
+                                <div class="uacf7-ai-navigation">
+                                    <span class="uacf7-ai-code-copy"> <?php echo _e( 'Copy Code', 'ultimate-addons-cf7' ); ?></span>
+                                </div>
+                                <textarea name="uacf7_ai_code_content" disable id="uacf7_ai_code_content" ></textarea>
+                            </div>
                         </div> 
                         
                     </div>
@@ -99,7 +100,7 @@ class UACF7_FORM_GENERATOR{
         }
         $vaue = '';
         $uacf7_default = $_POST['searchValue']; 
-        if(count($uacf7_default) > 0 || $uacf7_default[0] == 'create'){ 
+        if(count($uacf7_default) > 0 || $uacf7_default[0] == 'form'){ 
             $value=  require_once  apply_filters( 'uacf7_ai_form_generator_template', UACF7_FORM_AI_PATH . '/templates/'.$uacf7_default[1].'.php', $uacf7_default);
         } 
         $data = [

@@ -1,20 +1,34 @@
 (function ($) {
  
      
-    $(document).ready(function () {  
-      document.querySelectorAll('#uacf7_ai_code_content').forEach(el => {
-        // then highlight each
-        hljs.highlightElement(el);
-      });
+    $(document).ready(function () {   
       $('#uacf7-form-generator-ai').each(function() {
         var $this = $(this);
         var first_option = [
-          { value: 'uacf7-form-default', label: 'Default form Form' },
-          { value: 'uacf7-form-multistep', label: 'Multistep Form' }, 
+          { value: 'form', label: 'Form' },
+          { value: 'tag', label: 'Tag' }, 
         ];
-        var secend_option = [
-          { value: 'field', label: 'first 1' },
-          { value: 'field2', label: 'first 2' },
+        var secend_option_form = [
+          { value: 'uacf7-form-contact', label: 'Contact' },
+          { value: 'uacf7-form-multistep', label: 'Multistep' }, 
+          { value: 'uacf7-form-conversational ', label: 'Conversational' }, 
+          { value: 'uacf7-form-booking ', label: 'Booking  ' }, 
+          { value: 'uacf7-form-conditional  ', label: 'Conditional' }, 
+          { value: 'uacf7-form-subscription   ', label: 'Subscription' }, 
+        ];
+        var secend_option_tag = [
+          { value: 'text', label: 'Text' },
+          { value: 'email', label: 'Email' },
+          { value: 'URL', label: 'URL' },
+          { value: 'tel', label: 'Tel' },
+          { value: 'number', label: 'Number' },
+          { value: 'date', label: 'Date' },
+          { value: 'textarea', label: 'TExarea' },
+        ];
+        var third_option = [
+          { value: 'label', label: 'With Label' },  
+          { value: 'div', label: 'With Div' },  
+          { value: 'span', label: 'With Spen' },  
         ];
         const uacf_form_ai = new Choices('#uacf7-form-generator-ai', {
           maxItemCount: 5,
@@ -27,21 +41,21 @@
 
         $('#uacf7-form-generator-ai').on('change', function(event) {
           var current_values = uacf_form_ai.getValue();
+          
           uacf_form_ai.clearChoices(); 
           if(current_values.length == 1){ 
-            uacf_form_ai.setChoices(secend_option, 'value', 'label', true);
+            console.log(current_values[0]);
+            if(current_values[0].value == 'form'){
+              uacf_form_ai.setChoices(secend_option_form, 'value', 'label', true);
+            }else if(current_values[0] == 'tag'){
+              uacf_form_ai.setChoices(secend_option_tag, 'value', 'label', true);
+            } 
+          }else if(current_values.length == 2){
+            uacf_form_ai.setChoices(third_option, 'value', 'label', true); 
           }else if(current_values.length == 0){
             uacf_form_ai.setChoices(first_option, 'value', 'label', true);
           }
-
-          // $('#uacf7-form-generator-ai option').each(function() { 
-          //   console.log($(this));
-          //   if(!$(this).selected){
-          //     // $(this).remove();
-          //   } 
-          // });
-          
-          // uacf_form_ai.clearStore(); 
+ 
         });
 
      });
@@ -96,11 +110,8 @@
     });
 
     $(document).on('click', '.uacf7_ai_search_button', function(e){
-        e.preventDefault();
-        html = hljs.highlightAuto('<h1>Hello World! how are you bro</h1>').value;
-        // $('#uacf7_ai_code_content pre code').html(html);
-        typeName(html, 0); 
-        return false;
+        e.preventDefault(); 
+        // $('#uacf7_ai_code_content pre code').html(html); 
         var searchValue = $('#uacf7-form-generator-ai').val();
         console.log(searchValue);
         jQuery.ajax({
@@ -111,7 +122,7 @@
               searchValue: searchValue,
               ajax_nonce: uacf7_form_ai.nonce,
           },
-          success: function (data) {
+          success: function (data) {  
             typeName(data.value, 0);
            
           }

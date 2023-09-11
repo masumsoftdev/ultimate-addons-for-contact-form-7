@@ -99,4 +99,31 @@
   width: auto;
   padding: 16px;
   min-height: 175px;
+  width: 100%;
+  border: 0;
+  background-color: #3c3a3a;
+  color: #b9b7b7;
+}
+ 
+
+
+.uacf7-ai-codeblock {
+  position: relative;
+}
+.uacf7-ai-navigation {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background-color: #a9abc1;
+  z-index: 1;
+  width: auto; 
+}
+.uacf7-ai-code-copy:hover {
+  color: #777171;
+}
+.uacf7-ai-code-copy {
+  padding: 8px 10px;
+  display: inline-block;
+  border-radius: 4px;
+  cursor: pointer;
 }
