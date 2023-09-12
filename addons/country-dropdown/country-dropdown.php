@@ -119,7 +119,7 @@ class UACF7_COUNTRY_DROPDOWN {
         
 		?>
 
-        <?php if($ds_country){ ?>
+        <?php if($ds_country && !$country_auto_complete){ ?>
 
 		<span id="uacf7_country_select" class="wpcf7-form-control-wrap <?php echo sanitize_html_class( $tag->name ); ?>">
 
