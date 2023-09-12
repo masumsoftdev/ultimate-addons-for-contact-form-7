@@ -50,9 +50,11 @@
             }else if(current_values[0] == 'tag'){
               uacf_form_ai.setChoices(secend_option_tag, 'value', 'label', true);
             } 
-          }else if(current_values.length == 2){
-            uacf_form_ai.setChoices(third_option, 'value', 'label', true); 
-          }else if(current_values.length == 0){
+          }
+          // else if(current_values.length == 2){
+          //   uacf_form_ai.setChoices(third_option, 'value', 'label', true); 
+          // }
+          else if(current_values.length == 0){
             uacf_form_ai.setChoices(first_option, 'value', 'label', true);
           }
  

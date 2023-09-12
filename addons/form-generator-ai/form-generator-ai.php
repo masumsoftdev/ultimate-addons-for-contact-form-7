@@ -81,7 +81,8 @@ class UACF7_FORM_GENERATOR{
                         <div class="uacf7-ai-form-column"> 
                             <div class="uacf7-ai-codeblock"> 
                                 <div class="uacf7-ai-navigation">
-                                    <span class="uacf7-ai-code-copy"> <?php echo _e( 'Copy Code', 'ultimate-addons-cf7' ); ?></span>
+                                    <span class="uacf7-ai-code-copy"> <?php echo _e( 'Copy', 'ultimate-addons-cf7' ); ?></span>
+                                    <span class="uacf7-ai-code-insert"> <?php echo _e( 'Insert', 'ultimate-addons-cf7' ); ?></span>
                                 </div>
                                 <textarea name="uacf7_ai_code_content" disable id="uacf7_ai_code_content" ></textarea>
                             </div>
