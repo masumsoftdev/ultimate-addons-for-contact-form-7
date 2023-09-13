@@ -61,7 +61,14 @@ class UACF7_COUNTRY_DROPDOWN {
         }
 
         $atts = array();
-
+        
+        $ds_country = $tag->has_option('ds_country');
+        if ( $ds_country ) {
+			$atts['ds_country'] = 'true';
+            
+		}else{
+            $class .= ' uacf7_country_dropdown_with_flag';
+        }
         $atts['class'] = $tag->get_class_option( $class );
         $atts['id'] = $tag->get_id_option();
         $atts['tabindex'] = $tag->get_option( 'tabindex', 'signed_int', true );
@@ -74,26 +81,14 @@ class UACF7_COUNTRY_DROPDOWN {
 
         $atts['name'] = $tag->name;
 
-        /** Condition for Dynamic Selection (API Based Country, States, Cities) */
-
-        $ds_country = $tag->has_option('ds_country');
-
-
-        if ( $ds_country ) {
-			$atts['ds_country'] = 'true';
-		}
-
+        /** Condition for Dynamic Selection (API Based Country, States, Cities) */ 
         /** Auto Complete */
         $country_auto_complete = $tag->has_option('country_auto_complete');
 
 
         if ( $country_auto_complete ) {
 			$atts['country_auto_complete'] = 'true';
-		}
-        
-        
-
-      
+		} 
 		$size = $tag->get_option( 'size', 'int', true );
 
 		if ( $size ) {
@@ -108,32 +103,23 @@ class UACF7_COUNTRY_DROPDOWN {
         <select <?php  echo $atts; ?>  id="uacf7_country_api" >
             <option value="">Select a Country</option>
         </select>
-	<?php  
-    
-    
-    $api_country = ob_get_clean();
-
-
-		ob_start();
-
-        
+	<?php
+        $api_country = ob_get_clean(); 
+		ob_start(); 
 		?>
 
-        <?php if($ds_country && !$country_auto_complete){ ?>
+        <?php if($ds_country ){?> 
+            <span id="uacf7_country_select" class="wpcf7-form-control-wrap  <?php echo sanitize_html_class( $tag->name ); ?>">
 
-		<span id="uacf7_country_select" class="wpcf7-form-control-wrap <?php echo sanitize_html_class( $tag->name ); ?>">
+                <?php echo apply_filters( 'uacf7_api_based_country_filter', $api_country, $atts ); ?>
 
-            <?php echo apply_filters( 'uacf7_api_based_country_filter', $api_country, $atts ); ?>
-
-        </span>
-
-            
-            <?php }else{ ?>
-
-        <span id="uacf7_country_select" class="wpcf7-form-control-wrap <?php echo sanitize_html_class( $tag->name ); ?>">
+            </span>  
+        <?php }else{ ?>
+ 
+        <span id="uacf7_country_select" class="wpcf7-form-control-wrap  <?php echo sanitize_html_class( $tag->name ); ?>">
 
             <input id="uacf7_countries_<?php  echo esc_attr($tag->name); ?>" type="text" <?php  echo $atts; ?> >
-            
+             
 			<span><?php echo $validation_error; ?> </span>
            
 			<div style="display:none;">
@@ -141,10 +127,8 @@ class UACF7_COUNTRY_DROPDOWN {
 			</div> 
         
 		</span>
-		<?php }
-		
+		<?php } 
 		$countries = ob_get_clean();
-		
         return $countries;
     }
 
