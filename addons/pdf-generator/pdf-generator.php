@@ -364,7 +364,7 @@ class UACF7_PDF_GENERATOR {
             $mpdf->SetTitle($uacf7_pdf_name);
 
              // PDF Footer Content
-            $mpdf->WriteHTML($pdf_style.'<div class="pdf-content">'.$pdf_content.'   </div>');
+            $mpdf->WriteHTML($pdf_style.'<div class="pdf-content">'.nl2br($customize_pdf).'   </div>');
 
             $pdf_url = $dir.'/uacf7-uploads/'.$uacf7_pdf_name.'.pdf';
             $mpdf->Output($pdf_url, 'F'); // save to databaes 
