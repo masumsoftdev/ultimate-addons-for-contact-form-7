@@ -133,3 +133,32 @@
 #uacf7_ai_code_content {
 	padding-top: 45px;
 }
+
+
+.uacf7-form-options {
+  display: flex;
+  gap: 7px;
+  width: 100%;
+  padding: 12px 0;
+}
+.uacf7-form-options > label {
+	width: 33%;
+	padding: 6px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+}
+.uacf7-form-options > label input[type="number"] {
+	width: 100% !important;
+	border: 1px solid #ddd;
+}
+
+.uacf7-form-options > label span {
+  display: inline-block;
+  width: 100%;
+  padding: 3px 0;
+  font-weight: 600;
+}
+.uacf7-form-options > label input[type="number"]:focus {
+  outline: none !important;
+  box-shadow: none;
+}

@@ -66,14 +66,28 @@ class UACF7_FORM_GENERATOR{
                         <div class="uacf7-ai-form-column"> 
                             <div class="uacf7-form-input-wrap">
                                 
-                                <h4>Create a</h4>
+                                <h4><?php echo _e( 'Create a', 'ultimate-addons-cf7' ); ?></h4>
                                <div class="uacf7-form-input-inner">
-                                <select class="form-control" data-trigger name="uacf7-form-generator-ai" id="uacf7-form-generator-ai"
-                                    placeholder="This is a placeholder" multiple> 
-                                </select>
-                                <p class="uacf7-ai-hins">hins: Create a Multistep Form</p>
-                                
-                                <button class="uacf7_ai_search_button">Generate With AI</button>
+                                    <select class="form-control" data-trigger name="uacf7-form-generator-ai" id="uacf7-form-generator-ai"
+                                        placeholder="This is a placeholder" multiple> 
+                                    </select>
+                                    <div class="uacf7-form-options">
+                                        <label for="uacf7-form-steps" class="uacf7-form-steps-label">
+                                            <span>Step</span>
+                                            <input  type="number" name="uacf7-form-steps" id="uacf7-form-steps"></input>
+                                        </label>
+                                        <label for="uacf7-form-fields" class="uacf7-form-fields-label">
+                                            <span>Field</span>
+                                            <input type="number" name="uacf7-form-fields" id="uacf7-form-fields"></input>
+                                        </label>
+                                        <label for="uacf7-form-fields" class="uacf7-form-label-label"> 
+                                            <span>Label</span> 
+                                            <input type="checkbox" name="uacf7-enable-form-label">
+                                        </label>
+                                        
+                                    </div>
+                                    <p class="uacf7-ai-hins"><?php echo _e( 'hins: Create a Multistep Form', 'ultimate-addons-cf7' ); ?></p> 
+                                    <button class="uacf7_ai_search_button"><?php echo _e( 'Generate With AI', 'ultimate-addons-cf7' ); ?></button>
                                </div>
                                 
                             </div>
