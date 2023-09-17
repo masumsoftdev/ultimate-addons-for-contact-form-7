@@ -1,4 +1,4 @@
-;(function ($) {
+;(function ($) { 
     'use strict';  
       $ ( document ).ready(function() { 
         $(".wpcf7-submit").click(function(e){ 
