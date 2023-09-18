@@ -107,6 +107,14 @@ class UACF7_Admin_Menu {
 			'ultimate-mailchimp-admin' // page
 		);
 
+		//Telegram settings section
+		add_settings_section(
+			'uacf7_telegram_setting_section', // id
+			__( 'Telegram settings:', 'ultimate-addons-cf7' ), // title
+			array( $this, 'uacf7_telegram_section_info' ), // callback
+			'ultimate-telegram-admin' // page
+		);
+
 		add_settings_field(
 			'uacf7_enable_redirection', // id
 			__( 'Redirection', 'ultimate-addons-cf7' ), // title
@@ -203,7 +211,7 @@ class UACF7_Admin_Menu {
         add_settings_field(
 			'uacf7_enable_pdf_generator_field', // id
 			__( 'PDF Generator', 'ultimate-addons-cf7' ), // title
-			array( $this, 'uacf7_enable_pdf_generator_callback' ), // callback
+			array( $this, 'uacf7_enable_pdf_generator_callback' ), // callbacksubmission_id
 			'ultimate-addons-admin', // page
 			'uacf7_setting_section' // section
 		);
@@ -309,6 +317,15 @@ class UACF7_Admin_Menu {
 			'ultimate-mailchimp-admin', // page
 			'uacf7_mailchimp_setting_section'
 		);
+
+
+		add_settings_field(
+			'uacf7_telegram_api_key', //id
+			__( 'Telegram API', 'ultimate-addons-cf7'), //title 
+			array( $this, 'uacf7_telegram_api_key_callback'),
+			'ultimate-telegram-admin', // page
+			'uacf7_telegram_setting_section'
+		);
         
         do_action( 'uacf7_settings_field' );
 	}
@@ -407,6 +424,10 @@ class UACF7_Admin_Menu {
 	}
 
     public function uacf7_mailchimp_section_info() {
+		//Nothing to say
+	}
+
+	public function uacf7_telegram_section_info(){
 		//Nothing to say
 	}
     
@@ -742,6 +763,27 @@ class UACF7_Admin_Menu {
 				'.$mailchimp->connection_status().'
 			</label>';
 	}
+
+/**
+	 * Field - Telegram
+	 */
+	public function uacf7_telegram_api_key_callback(){
+		$val = get_option('uacf7_telegram_option_name');
+		
+		if( is_array($val) && !empty(array_filter($val)) ){
+			$val = $val['uacf7_telegram_api_key'];
+		}else {
+			$val = '';
+		}
+
+		$telegram = new UACF7_TELEGRAM();
+
+		echo '<label class="" for="uacf7_telegram_api_key">
+				<input type="text" class="" name="uacf7_telegram_option_name[uacf7_telegram_api_key]" id="uacf7_telegram_api_key" value="'. $val.'">
+				'.$telegram->connection_status().'
+			</label>';
+	}
+
 
 }
 
