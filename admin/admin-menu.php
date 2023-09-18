@@ -91,6 +91,13 @@ class UACF7_Admin_Menu {
 			array( $this, 'uacf7_mailchimp_sanitize' ) // sanitize_callback
 		);
 
+		//Mailchimp Settings
+		register_setting(
+			'uacf7_telegram_option', // option_group
+			'uacf7_telegram_option_name', // option_name
+			array( $this, 'uacf7_telegram_sanitize' ) // sanitize_callback
+		);
+
 		//Addons settings section
 		add_settings_section(
 			'uacf7_setting_section', // id
@@ -407,6 +414,10 @@ class UACF7_Admin_Menu {
 			$sanitary_values['uacf7_mailchimp_api_key'] = sanitize_text_field($input['uacf7_mailchimp_api_key']);
 		}
 
+		if ( isset( $input['uacf7_telegram_api_key'] ) ) {
+			$sanitary_values['uacf7_telegram_api_key'] = sanitize_text_field($input['uacf7_telegram_api_key']);
+		}
+
         return apply_filters( 'uacf7_save_admin_menu', $sanitary_values, $input );
 	}
     
@@ -417,6 +428,16 @@ class UACF7_Admin_Menu {
 			$sanitary_values['uacf7_mailchimp_api_key'] = $input['uacf7_mailchimp_api_key'];
 		}
 		return apply_filters( 'uacf7_save_mailchimp_menu', $sanitary_values, $input );
+	}
+
+
+	//Telegram sanitize
+	public function uacf7_telegram_sanitize($input) {
+		$sanitary_values = array();
+		if ( isset( $input['uacf7_telegram_api_key'] ) ) {
+			$sanitary_values['uacf7_telegram_api_key'] = $input['uacf7_telegram_api_key'];
+		}
+		return apply_filters( 'uacf7_save_telegram_menu', $sanitary_values, $input );
 	}
 
     public function uacf7_section_info() {
