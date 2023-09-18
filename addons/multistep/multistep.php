@@ -38,7 +38,7 @@ class UACF7_MULTISTEP {
         ob_start();
         $form_current = \WPCF7_ContactForm::get_current();
         ?>
-        <div class="uacf7-step uacf7-step-<?php echo $form_current->id(); ?> step-content" next-btn-text="<?php echo  esc_html( get_post_meta( $form_current->id(), 'next_btn_'.$tag->name, true ) ); ?>" prev-btn-text="<?php echo  esc_html( get_post_meta( $form_current->id(), 'prev_btn_'.$tag->name, true ) ); ?>">
+        <div class="uacf7-step uacf7-step-<?php echo esc_attr($form_current->id()); ?> step-content" next-btn-text="<?php echo  esc_html( get_post_meta( $form_current->id(), 'next_btn_'.$tag->name, true ) ); ?>" prev-btn-text="<?php echo  esc_html( get_post_meta( $form_current->id(), 'prev_btn_'.$tag->name, true ) ); ?>">
         <?php
         return ob_get_clean();
     } 
@@ -47,8 +47,8 @@ class UACF7_MULTISTEP {
         $form_current = \WPCF7_ContactForm::get_current();
         ?>
         <p>
-            <button class="uacf7-prev" data-form-id="<?php echo $form_current->id(); ?>" ><?php echo esc_html__('Previous', 'ultimate-addons-cf7'); ?></button>
-            <button class="uacf7-next" data-form-id="<?php echo $form_current->id(); ?>"><?php echo esc_html__('Next', 'ultimate-addons-cf7'); ?></button>
+            <button class="uacf7-prev" data-form-id="<?php echo esc_attr($form_current->id()); ?>" ><?php echo esc_html__('Previous', 'ultimate-addons-cf7'); ?></button>
+            <button class="uacf7-next" data-form-id="<?php echo esc_attr($form_current->id()); ?>"><?php echo esc_html__('Next', 'ultimate-addons-cf7'); ?></button>
             <span class="wpcf7-spinner uacf7-ajax-loader"></span>
         </p>
         </div>

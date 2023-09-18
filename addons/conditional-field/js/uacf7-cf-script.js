@@ -23,36 +23,7 @@
 
     });
 
-
-
-
-
-
-		// jQuery(document).on('wpcf7mailsent', function () { 
-
-		// 	var forms = jQuery('.wpcf7-form');
-
-		// 	forms.each(function(){
-
-		// 		var formId = jQuery(this).find('input[name="_wpcf7"]').val();
-
-		// 			var conditon = $('.uacf7-form-'+formId).find('.uacf7_conditional').attr('[data-condition="true"]'); 
-
-		// 			if(!conditon){
-		// 				// $('.uacf7-form-'+formId).find('.uacf7_conditional span input').val('');
-		// 				$('.uacf7-form-'+formId).find('.uacf7_conditional span input').val('testing'); 
-
-		// 				alert('sending')
-		// 			}
-		// 		});
-		// 	});
-			
-
-
-
-
-
-
+ 
     /*
      * Conditional script
      */

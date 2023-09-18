@@ -76,7 +76,7 @@ class UACF7_SUBMISSION_ID{
 
         if($uacf7_submission_id_enable == 'on'){
             
-            $submission_value = get_post_meta($form_id, 'uacf7_submission_id', true); 
+            $submission_value = sanitize_text_field(get_post_meta($form_id, 'uacf7_submission_id', true)); 
             if( $submission_value != '' || $submission_value != null || $submission_value != 0){
         
                 global $wpdb;  

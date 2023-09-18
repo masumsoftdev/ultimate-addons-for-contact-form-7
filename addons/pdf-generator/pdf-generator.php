@@ -493,7 +493,8 @@ class UACF7_PDF_GENERATOR {
                         </p>
 
                         <label for="customize_pdf">  
-                        <?php wp_editor( $customize_pdf, 'post_meta_box', array('textarea_name'=>'customize_pdf', 'media_buttons' => false )); ?>
+                        <?php  
+                        wp_editor( $customize_pdf, 'post_meta_box', array('textarea_name'=>'customize_pdf', 'media_buttons' => false )); ?>
 
                             <!-- <input type="text" id="customize_pdf" name="customize_pdf" class="large-text" value="<?php echo esc_attr_e($customize_pdf); ?>" placeholder="<?php echo esc_html__( 'Enter Your Custom CSS', 'ultimate-addons-cf7' ); ?>">  -->
                         </label><br><br>
@@ -595,8 +596,8 @@ class UACF7_PDF_GENERATOR {
         if(isset($_POST['uacf7_pdf_name'])){ 
             update_post_meta( $form->id(), 'uacf7_pdf_name', sanitize_text_field($_POST['uacf7_pdf_name']) );
         }
-        if(isset($_POST['uacf7_pdf_name'])){ 
-            update_post_meta( $form->id(), 'uacf7_pdf_name', sanitize_text_field($_POST['uacf7_pdf_name']) );
+        if(isset($_POST['customize_pdf'])){ 
+            update_post_meta( $form->id(), 'customize_pdf', wp_kses_post($_POST['customize_pdf']) );
         } 
         if(isset($_POST['pdf_send_to'])){ 
             update_post_meta( $form->id(), 'pdf_send_to', sanitize_text_field($_POST['pdf_send_to']) );
@@ -608,7 +609,7 @@ class UACF7_PDF_GENERATOR {
             update_post_meta( $form->id(), 'pdf_bg_upload_image', sanitize_text_field($_POST['pdf_bg_upload_image']) );
         }    
         if(isset($_POST['customize_pdf_header'])){ 
-            update_post_meta( $form->id(), 'customize_pdf_header', sanitize_text_field($_POST['customize_pdf_header']) );
+            update_post_meta( $form->id(), 'customize_pdf_header', wp_kses_post($_POST['customize_pdf_header']) );
         }     
         if(isset($_POST['pdf_header_upload_image'])){ 
             update_post_meta( $form->id(), 'pdf_header_upload_image', sanitize_text_field($_POST['pdf_header_upload_image']) );
@@ -617,7 +618,7 @@ class UACF7_PDF_GENERATOR {
             update_post_meta( $form->id(), 'pdf_header_upload_image', sanitize_text_field($_POST['pdf_header_upload_image']) );
         }      
         if(isset($_POST['customize_pdf_footer'])){ 
-            update_post_meta( $form->id(), 'customize_pdf_footer', sanitize_text_field($_POST['customize_pdf_footer']) );
+            update_post_meta( $form->id(), 'customize_pdf_footer', wp_kses_post($_POST['customize_pdf_footer']) );
         }      
         if(isset($_POST['custom_pdf_css'])){ 
             update_post_meta( $form->id(), 'custom_pdf_css', sanitize_text_field($_POST['custom_pdf_css']) );
