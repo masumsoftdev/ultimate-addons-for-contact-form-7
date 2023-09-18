@@ -14,12 +14,12 @@ function uacf7_settings_tab(event, tabName) {
   for (i = 0; i < tabcontent.length; i++) {
     tabcontent[i].style.display = "none";
   }
-  tablinks = document.getElementsByClassName("tablinks");
+  tablinks = document.getElementsByClassName(" tablinks ");
   for (i = 0; i < tablinks.length; i++) {
     tablinks[i].className = tablinks[i].className.replace("active", "");
   }
   document.getElementById(tabName).style.display = "block";
-  event.currentTarget.className += "active";
+  event.currentTarget.className += " active";
 }
 
 

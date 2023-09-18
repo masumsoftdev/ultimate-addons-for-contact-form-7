@@ -9,12 +9,12 @@ class UACF7_TELEGRAM{
     add_action('wpcf7_editor_panels', array($this, 'uacf7_cf_add_panel'));
     add_action('uacf7_admin_tab_button', array($this, 'add_telegram_tab'), 10);
     add_action('uacf7_admin_tab_content', array($this, 'add_telegram_tab_content'));
-    // add_action('admin_enqueue_scripts', array($this, 'admin_scripts_loading')); 
+    add_action('admin_enqueue_scripts', array($this, 'admin_scripts_loading')); 
   }
 
-  // public function admin_scripts_loading(){
-  //   wp_enqueue_script( 'admin-script-loading', '../../assets/js/admin-script.js', ['jquery'], time(), true );
-  // }
+  public function admin_scripts_loading(){
+    wp_enqueue_style('telegram-css', UACF7_ADDONS . '/telegram/assets/css/admin-style.css');
+  }
 
 
 
