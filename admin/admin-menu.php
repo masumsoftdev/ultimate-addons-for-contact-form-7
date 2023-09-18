@@ -91,13 +91,7 @@ class UACF7_Admin_Menu {
 			array( $this, 'uacf7_mailchimp_sanitize' ) // sanitize_callback
 		);
 
-		//Mailchimp Settings
-		register_setting(
-			'uacf7_telegram_option', // option_group
-			'uacf7_telegram_option_name', // option_name
-			array( $this, 'uacf7_telegram_sanitize' ) // sanitize_callback
-		);
-
+		
 		//Addons settings section
 		add_settings_section(
 			'uacf7_setting_section', // id
@@ -114,14 +108,7 @@ class UACF7_Admin_Menu {
 			'ultimate-mailchimp-admin' // page
 		);
 
-		//Telegram settings section
-		add_settings_section(
-			'uacf7_telegram_setting_section', // id
-			__( 'Telegram settings:', 'ultimate-addons-cf7' ), // title
-			array( $this, 'uacf7_telegram_section_info' ), // callback
-			'ultimate-telegram-admin' // page
-		);
-
+		
 		add_settings_field(
 			'uacf7_enable_redirection', // id
 			__( 'Redirection', 'ultimate-addons-cf7' ), // title
@@ -326,13 +313,7 @@ class UACF7_Admin_Menu {
 		);
 
 
-		add_settings_field(
-			'uacf7_telegram_api_key', //id
-			__( 'Telegram API', 'ultimate-addons-cf7'), //title 
-			array( $this, 'uacf7_telegram_api_key_callback'),
-			'ultimate-telegram-admin', // page
-			'uacf7_telegram_setting_section'
-		);
+	
         
         do_action( 'uacf7_settings_field' );
 	}
@@ -414,9 +395,6 @@ class UACF7_Admin_Menu {
 			$sanitary_values['uacf7_mailchimp_api_key'] = sanitize_text_field($input['uacf7_mailchimp_api_key']);
 		}
 
-		if ( isset( $input['uacf7_telegram_api_key'] ) ) {
-			$sanitary_values['uacf7_telegram_api_key'] = sanitize_text_field($input['uacf7_telegram_api_key']);
-		}
 
         return apply_filters( 'uacf7_save_admin_menu', $sanitary_values, $input );
 	}
@@ -431,14 +409,6 @@ class UACF7_Admin_Menu {
 	}
 
 
-	//Telegram sanitize
-	public function uacf7_telegram_sanitize($input) {
-		$sanitary_values = array();
-		if ( isset( $input['uacf7_telegram_api_key'] ) ) {
-			$sanitary_values['uacf7_telegram_api_key'] = $input['uacf7_telegram_api_key'];
-		}
-		return apply_filters( 'uacf7_save_telegram_menu', $sanitary_values, $input );
-	}
 
     public function uacf7_section_info() {
 		//Nothing to say
@@ -448,9 +418,7 @@ class UACF7_Admin_Menu {
 		//Nothing to say
 	}
 
-	public function uacf7_telegram_section_info(){
-		//Nothing to say
-	}
+	
     
     /*
     * Section- Extra fields
@@ -785,25 +753,6 @@ class UACF7_Admin_Menu {
 			</label>';
 	}
 
-/**
-	 * Field - Telegram
-	 */
-	public function uacf7_telegram_api_key_callback(){
-		$val = get_option('uacf7_telegram_option_name');
-		
-		if( is_array($val) && !empty(array_filter($val)) ){
-			$val = $val['uacf7_telegram_api_key'];
-		}else {
-			$val = '';
-		}
-
-		$telegram = new UACF7_TELEGRAM();
-
-		echo '<label class="" for="uacf7_telegram_api_key">
-				<input type="text" class="" name="uacf7_telegram_option_name[uacf7_telegram_api_key]" id="uacf7_telegram_api_key" value="'. $val.'">
-				'.$telegram->connection_status().'
-			</label>';
-	}
 
 
 }
