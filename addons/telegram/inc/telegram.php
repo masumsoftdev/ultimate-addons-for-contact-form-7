@@ -30,7 +30,17 @@ class UACF7_TELEGRAM_TAG_PANEL{
 
    public function uacf7_create_telegram_panel_fields($post){   
 
-    $uacf7_submission_id = get_post_meta( $post->id(), 'uacf7_submission_id', true ); 
+
+    // $uacf7_telegram_apply_settings = 'telegram_apply_settings';
+    $uacf7_telegram = [
+      'telegram_enable'
+    ];
+
+    $uacf7_telegram_is_enable = get_post_meta( $post->id(), $uacf7_telegram['telegram_enable'], true );
+
+    // Save the array as post meta
+    update_post_meta($post->id(),  'telegram_settings', $uacf7_telegram);
+
 
     
     ?> 
@@ -45,7 +55,7 @@ class UACF7_TELEGRAM_TAG_PANEL{
         </div>
 
       <label for="uacf7_telegram_enable"> 
-      <input class="uacf7_telegram_enable" id="uacf7_telegram_enable" name="uacf7_telegram_enable" type="checkbox" <?php checked( 'on', '$uacf7_telegram_enable', true ); ?>> <?php _e( 'Enable Telegram Settings', 'ultimate-addons-cf7' ); ?>
+      <input class="uacf7_telegram_enable" id="uacf7_telegram_enable" name="uacf7_telegram[teletam_enable]" type="checkbox" <?php checked( 'on', $uacf7_telegram_is_enable, true ); ?>> <?php _e( 'Enable Telegram Settings', 'ultimate-addons-cf7' ); ?>
       </label>
 
       <div class="ultimate-submission-id-wrapper">
