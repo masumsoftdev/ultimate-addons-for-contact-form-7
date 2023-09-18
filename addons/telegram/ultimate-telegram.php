@@ -10,6 +10,11 @@ class UACF7_TELEGRAM{
     add_action('admin_init', [$this, 'telegram_tag_generator']);
     add_action('wpcf7_init', [$this, 'telegram_add_shortcodes']);
 
+
+
+
+    require_once 'inc/telegram.php';
+
   }
 
   /** Telegram Tag Generator */
