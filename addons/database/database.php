@@ -84,12 +84,7 @@ class UACF7_DATABASE {
         $csv  = empty($_GET['csv']) ? 0 :  $_GET['csv']; 
         $pdf  = empty($_GET['pdf']) ? 0 :  $_GET['pdf']; 
         $data_id  = empty($_GET['data_id']) ? 0 :  $_GET['data_id'];
-
-        if(!empty($form_id) && $pdf == true && !empty($data_id)){ 
-
-            return apply_filters( 'uacf7_get_generated_pdf', $form_id, $data_id); // export as pdf
-        }
-        
+ 
         if(!empty($form_id) && $csv == true ){
             $this->uacf7_database_export_csv($form_id,  $csv); // export as CSV
         }  
@@ -310,7 +305,7 @@ class UACF7_DATABASE {
             $data = json_encode($data); 
             $table_name = $wpdb->prefix.'uacf7_form';  
             $data = array(
-                'form_value' =>  esc_html($data), 
+                'form_value' =>  $data, 
             );
             $where = array(
                 'id' => $id
@@ -538,7 +533,7 @@ class uacf7_form_List_Table extends WP_List_Table{
            $repetar_key = '';
            $enable_pdf = !empty(get_post_meta( $fdata->form_id, 'uacf7_enable_pdf_generator', true )) ? get_post_meta( $fdata->form_id, 'uacf7_enable_pdf_generator', true ) : '';
 
-            if($enable_pdf == 'on' && uacf7_checked( 'uacf7_enable_pdf_generator_field') != ''){ $pdf_btn =  "<a href='".esc_html($_SERVER['REQUEST_URI'])."&pdf=true&data_id=".$fdata->id."' data-id='".$fdata->id."' data-value='".esc_html($fdata->form_value)."' class='button-primary uacf7-db-pdf'> Export as PDF</a>";}else{ $pdf_btn = '';}
+            if($enable_pdf == 'on' && uacf7_checked( 'uacf7_enable_pdf_generator_field') != ''){ $pdf_btn =  "<button data-form-id='".esc_attr($fdata->form_id)."' data-id='".esc_attr($fdata->id)."' data-value='".esc_html($fdata->form_value)."' class='button-primary uacf7-db-pdf'> Export as PDF</button>";}else{ $pdf_btn = '';}
 
             $order_btn = isset($field_data->order_id) && $field_data->order_id != 0 ? "<a target='_blank' href='".admin_url('post.php?post=' . $field_data->order_id . '&action=edit')."' class='button-primary uacf7-db-pdf'> View Order</a>" : '';
            foreach($field_data as $key => $value){

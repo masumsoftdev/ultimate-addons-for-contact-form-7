@@ -55,36 +55,36 @@
             });
         });
     });
+    
+    $('.uacf7-db-pdf').click(function(e) {
+        e.preventDefault();
+        var $this = $(this);
+        var form_id = $this.attr('data-form-id');
+        var  id = $this.attr('data-id');
+        var old_button_text = $this.html();
+        $this.html('<img src="'+database_admin_url.plugin_dir_url+'assets/images/loader.gif" alt="">');
+        jQuery.ajax({
+            url: pdf_settings.ajaxurl,
+            type: 'post',
+            data: {
+                action: 'uacf7_get_generated_pdf',
+                form_id: form_id,
+                id: id,
+                ajax_nonce: pdf_settings.nonce,
+            },
+            success: function (data) {
+                $this.html(old_button_text);
+                if(data.status == 'success'){ 
+                    window.location.href = data.url; 
+                }else{
+                    alert(data.message);
+                }
+            
+            }
+    }); 
+       
+    });
 
-    // var custom_uploader;
-    // jQuery('#upload_image_button').click(function(e) {
- 
-    //     e.preventDefault(); 
-        
-    //     //If the uploader object has already been created, reopen the dialog
-    //     if (custom_uploader) {
-    //         custom_uploader.open();
-    //         return;
-    //     }
-
-    //     //Extend the wp.media object
-    //     custom_uploader = wp.media.frames.file_frame = wp.media({
-    //         title: Data.title,
-    //         button: {
-    //             text: Data.textebutton
-    //         },
-    //         multiple: false
-    //     });
-
-    //     //When a file is selected, grab the URL and set it as the text field's value
-    //     custom_uploader.on('select', function() {
-    //         attachment = custom_uploader.state().get('selection').first().toJSON();
-    //         jQuery('#upload_image').val(attachment.url);
-    //     });
-
-    //     //Open the uploader dialog
-    //     custom_uploader.open();
-
-    // });
+  
 
 })(jQuery);

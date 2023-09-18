@@ -18,8 +18,10 @@ class UACF7_PDF_GENERATOR {
         add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_contact_form' ) );     
         
         add_filter( 'wpcf7_mail_components', array( $this, 'uacf7_wpcf7_mail_components' ), 10, 3 );   
-        add_filter( 'uacf7_get_generated_pdf', array( $this, 'uacf7_get_generated_pdf' ), 10, 2 ); 
+        // add_filter( 'uacf7_get_generated_pdf', array( $this, 'uacf7_get_generated_pdf' ), 10, 2 ); 
         // add_filter( 'wpcf7_load_js', '__return_false' );
+        add_action( 'wp_ajax_uacf7_get_generated_pdf', array( $this, 'uacf7_get_generated_pdf' ) ); 
+        // add_action( 'wp_ajax_nopriv_uacf7_ajax_uacf7_get_generated_pdf', array( $this, 'uacf7_ajax_uacf7_get_generated_pdf' ) ); 
  
         
     } 
@@ -40,18 +42,31 @@ class UACF7_PDF_GENERATOR {
         wp_enqueue_style( 'pdf-generator-admin-style', UACF7_ADDONS . '/pdf-generator/assets/css/pdf-generator-admin.css' );
 		wp_enqueue_script( 'pdf-generator-admin', UACF7_ADDONS . '/pdf-generator/assets/js/pdf-generator-admin.js', array('jquery'), 'media-upload', true ); 
         $pdf_settings['codeEditor'] = wp_enqueue_code_editor(array('type' => 'text/css'));
+        $pdf_settings['ajaxurl'] = admin_url( 'admin-ajax.php' );
+        $pdf_settings['nonce'] = wp_create_nonce('uacf7-pre-populate');
         wp_localize_script('jquery', 'pdf_settings', $pdf_settings);
+        
         // require UACF7_PATH . 'third-party/vendor/autoload.php';
 
     } 
   
-    public function uacf7_get_generated_pdf($form_id, $data_id){ 
+    public function uacf7_get_generated_pdf(){ 
+        if ( ! isset( $_POST ) || empty( $_POST ) ) {
+			return;
+		}
+        
+        if ( !wp_verify_nonce($_POST['ajax_nonce'], 'uacf7-pre-populate')) {
+            exit(esc_html__("Security error", 'ultimate-addons-cf7'));
+        }
+        $form_id = !empty($_POST['form_id']) ? $_POST['form_id'] : '';
+        $data_id = !empty($_POST['id']) ? $_POST['id'] : '';
         require UACF7_PATH . 'third-party/vendor/autoload.php';
         $enable_pdf = !empty(get_post_meta( $form_id, 'uacf7_enable_pdf_generator', true )) ? get_post_meta( $form_id, 'uacf7_enable_pdf_generator', true ) : '';
         if( $enable_pdf != 'on'){ die; }
         
         $upload_dir    = wp_upload_dir(); 
         $dir = $upload_dir['basedir'];
+        $url = $upload_dir['baseurl'];
         global $wpdb; 
         $data = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM ".$wpdb->prefix."uacf7_form WHERE id = %s AND form_id = %s", $data_id, $form_id ) ); 
 
@@ -178,8 +193,17 @@ class UACF7_PDF_GENERATOR {
         // PDF Footer Content
         $mpdf->WriteHTML($pdf_style.'<div class="pdf-content">'.$pdf_content.'   </div>');
 
-        $pdf_url = $dir.'/uacf7-uploads/'.$uacf7_pdf_name.'.pdf';
-        $mpdf->Output($pdf_url, 'D'); // Dwonload
+        $pdf_dir = $dir.'/uacf7-uploads/'.$uacf7_pdf_name.'_db_.pdf';
+        $pdf_url = $url.'/uacf7-uploads/'.$uacf7_pdf_name.'_db_.pdf';
+        $mpdf->Output($pdf_dir, 'F'); // Dwonload
+        
+        wp_send_json( 
+            array(
+                'status' => 'success',
+                'url' => $pdf_url
+            )
+        );
+       
         die();
     }
     function uacf7_wpcf7_mail_components( $components, $form = null, $mail = null  ) { 
