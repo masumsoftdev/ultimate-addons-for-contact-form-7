@@ -59,11 +59,20 @@ class UACF7_TELEGRAM_TAG_PANEL{
             <div class="ultimate-telegram-wrapper">
               <fieldset>
                       <h3><?php echo esc_html__( 'Telegram BOT Token', 'ultimate-addons-cf7' ); ?></h3>
+                      <!-- <div class="check_bot online">
+                        <strong class="status">Bot is Online</strong>
+                        <div>Bot username: <code class="bot_username">@kiditambot</code></div>
+                      </div> -->
+                      <div class="check_bot offline">
+                        <strong class="status">Bot is Offline</strong>
+                      </div>
+                     <div class="bot_token_input_box">
                       <input type="text" name="uacf7_telegram_bot_token" placeholder="**************************************************************************************************"> 
-                      <br> <small>
-                              <?php esc_html_e( 'You need to create your own Telegram-Bot. Learn how to create & get Token', 'ultimate-addons-cf7' ); ?>
-                              <a target="_blank" href="https://core.telegram.org/bots#3-how-do-i-create-a-bot"><?php esc_html_e( 'here', 'ultimate-addons-cf7' ); ?></a>
-                          </small>
+                        <br> <small>
+                                <?php esc_html_e( 'You need to create your own Telegram-Bot. Learn how to create & get Token', 'ultimate-addons-cf7' ); ?>
+                                <a target="_blank" href="https://core.telegram.org/bots#3-how-do-i-create-a-bot"><?php esc_html_e( 'here', 'ultimate-addons-cf7' ); ?></a>
+                            </small>
+                     </div>
 
  
               </fieldset> 

@@ -425,7 +425,7 @@
   line-height: 1.5!important;
 }
 
-/*Telegram Panel Styles*/
+/*Telegram Panel Styles Starts*/
 
 #uacf7-telegram-panel{
   overflow: hidden!important;
@@ -440,14 +440,57 @@
   float: left!important;
 }
 
+#uacf7-telegram-panel .telegram_wrapper_first_col .bot_token_input_box{
+  margin-top: 10px!important;
+}
+
 #uacf7-telegram-panel .telegram_wrapper_second_col{
   width: 50%!important;
   float: left!important;
 }
 
+
 #uacf7-telegram-panel fieldset input{
   width: 90%!important;
 }
+
+/*Bot Status Styles Strats*/
+#uacf7-telegram-panel .telegram_wrapper_first_col .check_bot.online .status:before {
+    background: #037c09;
+    box-shadow: 0 0 2px #037c09;
+}
+
+
+#uacf7-telegram-panel .telegram_wrapper_first_col .check_bot .status:before {
+  content: ' ';
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+
+
+#uacf7-telegram-panel .telegram_wrapper_first_col .check_bot.offline .status:before {
+  background: #df0c0c;
+  box-shadow: 0 0 2px #df0c0c;
+}
+
+
+#uacf7-telegram-panel .telegram_wrapper_first_col .check_bot .status:before {
+content: ' ';
+width: 8px;
+height: 8px;
+display: inline-block;
+border-radius: 50%;
+margin-right: 8px;
+}
+
+/*Bot Status Styles Ends*/
+
+/*Telegram Panel Styles Ends*/
+
 
 #uacf7-repeater-panel p, 
 #uacf7-redirect-panel p, 
