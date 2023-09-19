@@ -58,7 +58,12 @@ class UACF7_TELEGRAM_TAG_PANEL{
               <fieldset>
                       <h3><?php echo esc_html__( 'Telegram BOT Token', 'ultimate-addons-cf7' ); ?></h3>
                       <input type="text" name="uacf7_telegram_bot_token" placeholder="paste here"> 
-                      <br><small> <?php esc_html_e( 'You need to create your own Telegram-Bot. Learn how to create & get Token', 'ultimate-addons-cf7' ) ?> </small> 
+                      <br> <small>
+                              <?php esc_html_e( 'You need to create your own Telegram-Bot. Learn how to create & get Token', 'ultimate-addons-cf7' ); ?>
+                              <a target="_blank" href="https://core.telegram.org/bots#3-how-do-i-create-a-bot"><?php esc_html_e( 'here', 'ultimate-addons-cf7' ); ?></a>
+                          </small>
+
+ 
               </fieldset> 
             </div>
           </div>
