@@ -7,7 +7,7 @@ if(!defined('ABSPATH')){
 class UACF7_TELEGRAM {
 
   public function __construct() {
-    
+
       require_once 'inc/telegram.php';
 
       add_action('wpcf7_mail_sent', [$this, 'uacf7_send_contact_form_data_to_telegram']);
@@ -31,8 +31,8 @@ class UACF7_TELEGRAM {
 
   public function uacf7_send_message_to_telegram($message) {
 
-      $bot_token = '6372209921:AAFy96X4MtvTaQT4BfeVGPsvdjG77X1TAJ8';
-      $chat_id = '6608527573';
+      $bot_token = '';
+      $chat_id = '';
 
       $api_url = "https://api.telegram.org/bot$bot_token/sendMessage";
       $args = array(
