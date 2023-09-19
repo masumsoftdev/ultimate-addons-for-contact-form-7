@@ -98,7 +98,7 @@ class UACF7_DATABASE {
                 <h2><?php echo esc_html__( 'Ultimate Database', 'ultimate-addons-cf7' ); ?></h2> 
                 <?php settings_errors(); ?>
                 <form method="post" action="">
-                    <input type="hidden" name="page" value="<?php echo $_REQUEST['page']; ?>" /> 
+                    <input type="hidden" name="page" value="<?php echo esc_attr($_REQUEST['page']); ?>" /> 
                     <?php $uacf7_ListTable->search_box('Search', 'search'); ?>
                     <?php $uacf7_ListTable->display(); ?>
                 </form>
@@ -281,7 +281,7 @@ class UACF7_DATABASE {
         } 
         $html = '<div class="db-view-wrap"> 
                     <h3>'.get_the_title( $form_data->form_id ).'</h3>
-                    <span>'.$form_data->form_date.'</span>
+                    <span>'.esc_html($form_data->form_date).'</span>
                     <table class="wp-list-table widefat fixed striped table-view-list">';
         $html .= '<tr> <th><strong>Fields</strong></th><th><strong>Values</strong> </th> </tr>';   
         foreach($fields as $key => $value){  
@@ -558,8 +558,8 @@ class uacf7_form_List_Table extends WP_List_Table{
            // Checked Star Review Status
            if($this->uacf7_star_review_status($form_id) == true){
             $checked = $fdata->is_review == 1 ? 'checked' : '';
-            $f_data['review_publish'] = '<label class="uacf7-admin-toggle1 uacf7_star_label" for="uacf7_review_status_'.$fdata->id.'">
-                <input type="checkbox" class="uacf7-admin-toggle__input star_is_review" value="'.esc_attr($fdata->id).'"  name="uacf7_review_status_'.$fdata->id.'" id="uacf7_review_status_'.$fdata->id.'" '.esc_attr($checked).'>
+            $f_data['review_publish'] = '<label class="uacf7-admin-toggle1 uacf7_star_label" for="uacf7_review_status_'.esc_attr($fdata->id).'">
+                <input type="checkbox" class="uacf7-admin-toggle__input star_is_review" value="'.esc_attr($fdata->id).'"  name="uacf7_review_status_'.esc_attr($fdata->id).'" id="uacf7_review_status_'.esc_attr($fdata->id).'" '.esc_attr($checked).'>
                 <span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
             </label>';
         

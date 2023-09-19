@@ -504,7 +504,7 @@ class UACF7_CF {
 
                     array_push($stack,$tag_html_type);
 
-                    echo '<'.$tag_html_type.' class="uacf7_conditional '.$tag_id.'">';
+                    echo '<'.$tag_html_type.' class="uacf7_conditional '.esc_attr($tag_id).'">';
                 } else if ($form_part == '[/conditional]') {
                     echo '</'.array_pop($stack).'>';
                 } else {

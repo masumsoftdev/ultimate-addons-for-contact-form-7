@@ -88,7 +88,7 @@ class UACF7_DYNAMIC_TEXT {
         // Short Code
         $shortcode = '';
         if(!empty($values)){ 
-             $shortcode =  do_shortcode('['.$values[0].' attr="'.$key.'"]'); 
+             $shortcode =  do_shortcode('['.esc_attr($values[0]).' attr="'.esc_attr($key).'"]'); 
         } 
 		$atts['value'] = esc_attr($shortcode);
 

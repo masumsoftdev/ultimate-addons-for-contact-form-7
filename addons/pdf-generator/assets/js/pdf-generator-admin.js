@@ -75,7 +75,8 @@
             success: function (data) {
                 $this.html(old_button_text);
                 if(data.status == 'success'){ 
-                    window.location.href = data.url; 
+                    // window.location.href = data.url; 
+                    window.open(data.url, '_blank');
                 }else{
                     alert(data.message);
                 }

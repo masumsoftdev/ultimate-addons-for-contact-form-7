@@ -17,11 +17,9 @@ class UACF7_PDF_GENERATOR {
         add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_panel' ) );     
         add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_contact_form' ) );     
         
-        add_filter( 'wpcf7_mail_components', array( $this, 'uacf7_wpcf7_mail_components' ), 10, 3 );   
-        // add_filter( 'uacf7_get_generated_pdf', array( $this, 'uacf7_get_generated_pdf' ), 10, 2 ); 
+        add_filter( 'wpcf7_mail_components', array( $this, 'uacf7_wpcf7_mail_components' ), 10, 3 );    
         // add_filter( 'wpcf7_load_js', '__return_false' );
-        add_action( 'wp_ajax_uacf7_get_generated_pdf', array( $this, 'uacf7_get_generated_pdf' ) ); 
-        // add_action( 'wp_ajax_nopriv_uacf7_ajax_uacf7_get_generated_pdf', array( $this, 'uacf7_ajax_uacf7_get_generated_pdf' ) ); 
+        add_action( 'wp_ajax_uacf7_get_generated_pdf', array( $this, 'uacf7_get_generated_pdf' ) );  
  
         
     } 
@@ -50,6 +48,7 @@ class UACF7_PDF_GENERATOR {
 
     } 
   
+    // Generate PDF and export form ultimate db
     public function uacf7_get_generated_pdf(){ 
         if ( ! isset( $_POST ) || empty( $_POST ) ) {
 			return;
@@ -58,6 +57,7 @@ class UACF7_PDF_GENERATOR {
         if ( !wp_verify_nonce($_POST['ajax_nonce'], 'uacf7-pre-populate')) {
             exit(esc_html__("Security error", 'ultimate-addons-cf7'));
         }
+
         $form_id = !empty($_POST['form_id']) ? $_POST['form_id'] : '';
         $data_id = !empty($_POST['id']) ? $_POST['id'] : '';
         require UACF7_PATH . 'third-party/vendor/autoload.php';
@@ -88,7 +88,7 @@ class UACF7_PDF_GENERATOR {
         $pdf_header_bg_color = !empty(get_post_meta( $form_id, 'pdf_header_bg_color', true )) ? get_post_meta( $form_id, 'pdf_header_bg_color', true ) : '';  
         $pdf_footer_color = !empty(get_post_meta( $form_id, 'pdf_footer_color', true )) ? get_post_meta( $form_id, 'pdf_footer_color', true ) : ''; 
         $pdf_footer_bg_color = !empty(get_post_meta( $form_id, 'pdf_footer_bg_color', true )) ? get_post_meta( $form_id, 'pdf_footer_bg_color', true ) : '';  
-        $pdf_bg_upload_image =  !empty($pdf_bg_upload_image) ? 'background-image: url("'.$pdf_bg_upload_image.'");' : '';
+        $pdf_bg_upload_image =  !empty($pdf_bg_upload_image) ? 'background-image: url("'.esc_attr($pdf_bg_upload_image).'");' : '';
         $pdf_header_upload_image =  !empty($pdf_header_upload_image) ? '<img src="'.esc_attr( $pdf_header_upload_image ).'" style="height: 60; max-width: 100%; ">' : '';
 
         $mpdf = new \Mpdf\Mpdf([ 
@@ -509,7 +509,7 @@ class UACF7_PDF_GENERATOR {
                                 <?php
                                     foreach ($all_fields as $tag) {
                                         if ($tag['type'] != 'submit') {
-                                            echo '<span>['.$tag['name'].']</span> ';
+                                            echo '<span>['.esc_attr($tag['name']).']</span> ';
                                         }
                                     }
                                 ?>
