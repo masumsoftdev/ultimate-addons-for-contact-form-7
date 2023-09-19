@@ -11,28 +11,47 @@ class UACF7_TELEGRAM {
       require_once 'inc/telegram.php';
 
       add_action('wpcf7_mail_sent', [$this, 'uacf7_send_contact_form_data_to_telegram']);
+        add_filter( 'wpcf7_load_js', '__return_false' );
   }
 
   public function uacf7_send_contact_form_data_to_telegram($contact_form) {
+
   
       $submission = WPCF7_Submission::get_instance();
       if ($submission) {
           $posted_data = $submission->get_posted_data();
+          $form_id = $contact_form->id();
 
-          $message = "New form submission:\n";
+          $message = "New form $form_id submission:\n";
           foreach ($posted_data as $field_name => $field_value) {
               $message .= "$field_name: $field_value\n";
           }
 
-          $this->uacf7_send_message_to_telegram($message);
+          $this->uacf7_send_message_to_telegram($message, $form_id);
       }
   }
 
 
-  public function uacf7_send_message_to_telegram($message) {
+  public function uacf7_send_message_to_telegram($message, $form_id) {
 
-      $bot_token = '';
-      $chat_id = '';
+    /**
+     * Getting Bot Token & Chat ID from the Database
+     */
+
+     $uacf7_telegram_settings = get_post_meta($form_id, 'uacf7_telegram_settings', true);
+
+
+     if (!empty($uacf7_telegram_settings)) {
+         $uacf7_telegram_enable = $uacf7_telegram_settings['uacf7_telegram_enable'];
+         $uacf7_telegram_bot_token = $uacf7_telegram_settings['uacf7_telegram_bot_token'];
+         $uacf7_telegram_chat_id = $uacf7_telegram_settings['uacf7_telegram_chat_id'];
+      
+     }
+
+ 
+      $bot_token = $uacf7_telegram_bot_token;
+      $chat_id =  $uacf7_telegram_chat_id;
+
 
       $api_url = "https://api.telegram.org/bot$bot_token/sendMessage";
       $args = array(

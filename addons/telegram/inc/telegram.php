@@ -30,14 +30,16 @@ class UACF7_TELEGRAM_TAG_PANEL{
 
    public function uacf7_create_telegram_panel_fields($post){   
 
-    $uacf7_telegram_enable = false;
-    $result = get_post_meta($post->ID, 'uacf7_telegram_settings', true );
+
+    $uacf7_telegram_settings = get_post_meta($post->id(), 'uacf7_telegram_settings', true);
 
 
-    if (is_array($result)) {
-        $uacf7_telegram_enable .= $result['uacf7_telegram_enable'];
-       
+    if (!empty($uacf7_telegram_settings)) {
+        $uacf7_telegram_enable = $uacf7_telegram_settings['uacf7_telegram_enable'];
+        $uacf7_telegram_bot_token = $uacf7_telegram_settings['uacf7_telegram_bot_token'];
+        $uacf7_telegram_chat_id = $uacf7_telegram_settings['uacf7_telegram_chat_id'];
     }
+
     ?> 
       <h2><?php echo esc_html__( 'Telegram Settings', 'ultimate-addons-cf7' ); ?></h2>  
       <p><?php echo esc_html__('This feature will help you to send the form data to the Telegram BOT.','ultimate-addons-cf7'); ?>  </p>
@@ -71,8 +73,7 @@ class UACF7_TELEGRAM_TAG_PANEL{
                         <div>Bot username: <code class="bot_username">@kiditambot</code></div>
                       </div>
                     </div>
-                </div>
-                      
+                </div>    
                      <div class="bot_token_input_box">
                       <input type="text" name="uacf7_telegram_bot_token" placeholder="Paste here....."> 
                         <br> <small>
@@ -81,7 +82,20 @@ class UACF7_TELEGRAM_TAG_PANEL{
                             </small>
                      </div>
 
- 
+
+                    <div class="chat_title_div">
+                      <div class="chat_title">
+                        <h3><?php echo esc_html__( 'Telegram Chat ID', 'ultimate-addons-cf7' ); ?></h3>
+                      </div>
+                    </div>    
+                     <div class="chat_id_input_box">
+                      <input type="text" name="uacf7_telegram_chat_id" placeholder="<?php echo  $result ?>"> 
+                        <br> <small>
+                                <?php esc_html_e( 'You need to create your own Telegram-Bot. Learn how to create & get Token', 'ultimate-addons-cf7' ); ?>
+                                <a target="_blank" href="https://core.telegram.org/bots#3-how-do-i-create-a-bot"><?php esc_html_e( 'here', 'ultimate-addons-cf7' ); ?></a>
+                            </small>
+                     </div>
+
               </fieldset> 
             </div>
           </div>
@@ -130,7 +144,8 @@ class UACF7_TELEGRAM_TAG_PANEL{
 
         $uacf7_telegram_settings = [
           'uacf7_telegram_enable' => $_POST['uacf7_telegram_enable'],
-          'uacf7_telegram_bot_token' => $_POST['uacf7_telegram_bot_token']
+          'uacf7_telegram_bot_token' => $_POST['uacf7_telegram_bot_token'],
+          'uacf7_telegram_chat_id' => $_POST['uacf7_telegram_chat_id']
         ];
 
         update_post_meta( $form->id(), 'uacf7_telegram_settings', $uacf7_telegram_settings );
