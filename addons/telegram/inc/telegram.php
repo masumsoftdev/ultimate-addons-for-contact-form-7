@@ -30,22 +30,15 @@ class UACF7_TELEGRAM_TAG_PANEL{
 
    public function uacf7_create_telegram_panel_fields($post){   
 
+    
+    $result = get_post_meta( $post->id(), 'uacf7_telegram_settings', true );
 
-    // $uacf7_telegram_apply_settings = 'telegram_apply_settings';
-    $uacf7_telegram = [
-      'telegram_enable',
-      'telegram_api'
-    ];
-
-    $uacf7_telegram_is_enable = get_post_meta( $post->id(), $uacf7_telegram['telegram_enable'], true );
-
-    // Save the array as post meta
-    update_post_meta($post->id(),  'telegram_settings', $uacf7_telegram);
+    $uacf7_telegram_enable = $result['uacf7_telegram_enable'];
+   
 
 
     
     ?> 
-
       <h2><?php echo esc_html__( 'Telegram Settings', 'ultimate-addons-cf7' ); ?></h2>  
       <p><?php echo esc_html__('This feature will help you to send the form data to the Telegram BOT.','ultimate-addons-cf7'); ?>  </p>
       <div class="uacf7-doc-notice"> 
@@ -53,18 +46,22 @@ class UACF7_TELEGRAM_TAG_PANEL{
                 __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
                 '<a href="https://themefic.com/docs/uacf7/free-addons/uacf7-telegram/" target="_blank">documentation</a>'
             ); ?> 
-        </div>
+      </div>
 
-      <label for="uacf7_telegram_enable"> 
-      <input class="uacf7_telegram_enable" id="uacf7_telegram_enable" name="uacf7_telegram[teletam_enable]" type="checkbox" <?php checked( 'on', $uacf7_telegram_is_enable, true ); ?>> <?php _e( 'Enable Telegram Settings', 'ultimate-addons-cf7' ); ?>
-      </label>
+      <div class="telegram_panel_wrapper">
+          <div class="telegram_wrapper_first_col">
+            <label for="uacf7_telegram_enable"> 
+            <input class="uacf7_telegram_enable" id="uacf7_telegram_enable" name="uacf7_telegram_enable"  type="checkbox" <?php checked( 'on', $uacf7_telegram_enable, true ); ?>> <?php _e( 'Enable Telegram Settings', 'ultimate-addons-cf7' ); ?>
+            </label>
 
-      <div class="ultimate-submission-id-wrapper">
-        <fieldset>
-                <h3><?php echo esc_html__( 'Add Telegram BOT', 'ultimate-addons-cf7' ); ?></h3>
-                
-                <br><small> <?php esc_html_e( 'E.g. default 1', 'ultimate-addons-cf7' ) ?> </small> 
+            <div class="ultimate-telegram-wrapper">
+              <fieldset>
+                      <h3><?php echo esc_html__( 'Telegram BOT Token', 'ultimate-addons-cf7' ); ?></h3>
+                      <input type="text" name="uacf7_telegram_bot_token" placeholder="paste here"> 
+                      <br><small> <?php esc_html_e( 'You need to create your own Telegram-Bot. Learn how to create & get Token', 'ultimate-addons-cf7' ) ?> </small> 
               </fieldset> 
+            </div>
+          </div>
       </div>
      
    <?php 
@@ -84,6 +81,13 @@ class UACF7_TELEGRAM_TAG_PANEL{
     if ( !wp_verify_nonce( $_POST['uacf7_telegram_nonce'], 'uacf7_telegram_nonce_action' ) ) {
         return;
     }
+
+    $uacf7_telegram_settings = [
+      'uacf7_telegram_enable' => $_POST['uacf7_telegram_enable'],
+      'uacf7_telegram_bot_token' => $_POST['uacf7_telegram_bot_token']
+    ];
+
+    update_post_meta( $form->id(), 'uacf7_telegram_settings', $uacf7_telegram_settings );
 
    }
 

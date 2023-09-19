@@ -425,6 +425,16 @@
   line-height: 1.5!important;
 }
 
+/*Telegram Panel Styles*/
+
+#uacf7-telegram-panel .telegram_panel_wrapper .telegram_wrapper_first_col{
+  width: 50%!important;
+}
+
+#uacf7-telegram-panel fieldset input{
+  width: 90%!important;
+}
+
 #uacf7-repeater-panel p, 
 #uacf7-redirect-panel p, 
 #uacf7-auto-product-cart-panel p, 
