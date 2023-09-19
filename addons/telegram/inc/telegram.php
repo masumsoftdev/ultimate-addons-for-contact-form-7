@@ -47,21 +47,41 @@ class UACF7_TELEGRAM_TAG_PANEL{
                 '<a href="https://themefic.com/docs/uacf7/free-addons/uacf7-telegram/" target="_blank">documentation</a>'
             ); ?> 
       </div>
+      <label for="uacf7_telegram_enable"> 
+            <input class="uacf7_telegram_enable" id="uacf7_telegram_enable" name="uacf7_telegram_enable"  type="checkbox" <?php checked( 'on', $uacf7_telegram_enable, true ); ?>> <?php _e( 'Enable Telegram Settings', 'ultimate-addons-cf7' ); ?>
+      </label>
 
       <div class="telegram_panel_wrapper">
+        <!-- First Column Start -->
           <div class="telegram_wrapper_first_col">
-            <label for="uacf7_telegram_enable"> 
-            <input class="uacf7_telegram_enable" id="uacf7_telegram_enable" name="uacf7_telegram_enable"  type="checkbox" <?php checked( 'on', $uacf7_telegram_enable, true ); ?>> <?php _e( 'Enable Telegram Settings', 'ultimate-addons-cf7' ); ?>
-            </label>
+            
 
             <div class="ultimate-telegram-wrapper">
               <fieldset>
                       <h3><?php echo esc_html__( 'Telegram BOT Token', 'ultimate-addons-cf7' ); ?></h3>
-                      <input type="text" name="uacf7_telegram_bot_token" placeholder="paste here"> 
+                      <input type="text" name="uacf7_telegram_bot_token" placeholder="**************************************************************************************************"> 
                       <br> <small>
                               <?php esc_html_e( 'You need to create your own Telegram-Bot. Learn how to create & get Token', 'ultimate-addons-cf7' ); ?>
                               <a target="_blank" href="https://core.telegram.org/bots#3-how-do-i-create-a-bot"><?php esc_html_e( 'here', 'ultimate-addons-cf7' ); ?></a>
                           </small>
+
+ 
+              </fieldset> 
+            </div>
+          </div>
+          <!-- Second Column Start -->
+          <div class="telegram_wrapper_second_col">
+            <div class="ultimate-telegram-wrapper">
+              <fieldset>
+                      <h3><?php echo esc_html__( 'Subscriber List', 'ultimate-addons-cf7' ); ?></h3>
+                     
+                      <ul>
+                        <li><a href="">Subscriber 1</a> Pasue | Delete</li>
+                        <li><a href="">Subscriber 2</a> Active | Delete</li>
+                        <li><a href="">Subscriber 3</a> Pasue | Delete</li>
+                        <li><a href="">Subscriber 4</a> Active | Delete</li>
+                        <li><a href="">Subscriber 5</a> Active | Delete</li>
+                      </ul>
 
  
               </fieldset> 

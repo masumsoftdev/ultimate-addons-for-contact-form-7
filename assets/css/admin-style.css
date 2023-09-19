@@ -427,8 +427,22 @@
 
 /*Telegram Panel Styles*/
 
+#uacf7-telegram-panel{
+  overflow: hidden!important;
+}
+
 #uacf7-telegram-panel .telegram_panel_wrapper .telegram_wrapper_first_col{
   width: 50%!important;
+}
+
+#uacf7-telegram-panel .telegram_wrapper_first_col{
+  width: 50%!important;
+  float: left!important;
+}
+
+#uacf7-telegram-panel .telegram_wrapper_second_col{
+  width: 50%!important;
+  float: left!important;
 }
 
 #uacf7-telegram-panel fieldset input{
