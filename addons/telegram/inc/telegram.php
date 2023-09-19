@@ -33,7 +33,8 @@ class UACF7_TELEGRAM_TAG_PANEL{
 
     // $uacf7_telegram_apply_settings = 'telegram_apply_settings';
     $uacf7_telegram = [
-      'telegram_enable'
+      'telegram_enable',
+      'telegram_api'
     ];
 
     $uacf7_telegram_is_enable = get_post_meta( $post->id(), $uacf7_telegram['telegram_enable'], true );
