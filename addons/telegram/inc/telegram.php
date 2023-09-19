@@ -58,16 +58,23 @@ class UACF7_TELEGRAM_TAG_PANEL{
 
             <div class="ultimate-telegram-wrapper">
               <fieldset>
+                <div class="bot_title_and_status">
+                    <div class="bot_title">
                       <h3><?php echo esc_html__( 'Telegram BOT Token', 'ultimate-addons-cf7' ); ?></h3>
-                      <!-- <div class="check_bot online">
+                    </div>
+                    <div class="bot_status">
+                      <!-- <div class="check_bot offline">
+                        <strong class="status">Bot is Offline</strong>
+                      </div> -->
+                       <div class="check_bot online">
                         <strong class="status">Bot is Online</strong>
                         <div>Bot username: <code class="bot_username">@kiditambot</code></div>
-                      </div> -->
-                      <div class="check_bot offline">
-                        <strong class="status">Bot is Offline</strong>
                       </div>
+                    </div>
+                </div>
+                      
                      <div class="bot_token_input_box">
-                      <input type="text" name="uacf7_telegram_bot_token" placeholder="**************************************************************************************************"> 
+                      <input type="text" name="uacf7_telegram_bot_token" placeholder="Paste here....."> 
                         <br> <small>
                                 <?php esc_html_e( 'You need to create your own Telegram-Bot. Learn how to create & get Token', 'ultimate-addons-cf7' ); ?>
                                 <a target="_blank" href="https://core.telegram.org/bots#3-how-do-i-create-a-bot"><?php esc_html_e( 'here', 'ultimate-addons-cf7' ); ?></a>
@@ -82,7 +89,7 @@ class UACF7_TELEGRAM_TAG_PANEL{
           <div class="telegram_wrapper_second_col">
             <div class="ultimate-telegram-wrapper">
               <fieldset>
-                      <h3><?php echo esc_html__( 'Subscriber List', 'ultimate-addons-cf7' ); ?></h3>
+                      <h3><?php echo esc_html__( 'Subscribers List', 'ultimate-addons-cf7' ); ?></h3>
                      
                       <ul>
                         <li><a href="">Subscriber 1</a> Pasue | Delete</li>

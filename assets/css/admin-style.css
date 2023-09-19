@@ -435,14 +435,31 @@
   width: 50%!important;
 }
 
+#uacf7-telegram-panel .telegram_panel_wrapper .telegram_wrapper_first_col .bot_title_and_status{
+  width:100%!important;
+  overflow: hidden!important;
+  display: inline-block;
+}
+
+#uacf7-telegram-panel .telegram_panel_wrapper .telegram_wrapper_first_col .bot_title_and_status .bot_title{
+  width: 50%!important;
+  float: left!important;
+}
+
+#uacf7-telegram-panel .telegram_panel_wrapper .telegram_wrapper_first_col .bot_title_and_status .bot_status{
+  width: 50%!important;
+  float: right!important;
+  padding: 24px 0px!important;
+ 
+}
 #uacf7-telegram-panel .telegram_wrapper_first_col{
   width: 50%!important;
   float: left!important;
 }
 
-#uacf7-telegram-panel .telegram_wrapper_first_col .bot_token_input_box{
+/* #uacf7-telegram-panel .telegram_wrapper_first_col .bot_token_input_box{
   margin-top: 10px!important;
-}
+} */
 
 #uacf7-telegram-panel .telegram_wrapper_second_col{
   width: 50%!important;
