@@ -8,10 +8,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class UACF7_TELEGRAM_TAG_PANEL{
 
-  public function __construct(){
-    add_action( 'wpcf7_editor_panels', [$this, 'uacf7_telegram_tag_panel_add'] );
-    add_action( 'wpcf7_after_save', [$this, 'uacf7_telegram_save_form'] );
-  }
+    public function __construct(){
+      add_action( 'wpcf7_editor_panels', [$this, 'uacf7_telegram_tag_panel_add'] );
+      add_action( 'wpcf7_after_save', [$this, 'uacf7_telegram_save_form'] );
+    }
 
 
   /** 
@@ -30,14 +30,14 @@ class UACF7_TELEGRAM_TAG_PANEL{
 
    public function uacf7_create_telegram_panel_fields($post){   
 
-    
-    $result = get_post_meta( $post->id(), 'uacf7_telegram_settings', true );
-
-    $uacf7_telegram_enable = $result['uacf7_telegram_enable'];
-   
+    $uacf7_telegram_enable = false;
+    $result = get_post_meta($post->ID, 'uacf7_telegram_settings', true );
 
 
-    
+    if (is_array($result)) {
+        $uacf7_telegram_enable .= $result['uacf7_telegram_enable'];
+       
+    }
     ?> 
       <h2><?php echo esc_html__( 'Telegram Settings', 'ultimate-addons-cf7' ); ?></h2>  
       <p><?php echo esc_html__('This feature will help you to send the form data to the Telegram BOT.','ultimate-addons-cf7'); ?>  </p>
@@ -108,31 +108,40 @@ class UACF7_TELEGRAM_TAG_PANEL{
    <?php 
 
     wp_nonce_field( 'uacf7_telegram_nonce_action', 'uacf7_telegram_nonce' );
+
+
+      
   }
 
-  /**
-   * Saving Form Data
-   */
 
-   public function uacf7_telegram_save_form($form){
-    if ( ! isset( $_POST ) || empty( $_POST ) ) {
-      return;
-    }
 
-    if ( !wp_verify_nonce( $_POST['uacf7_telegram_nonce'], 'uacf7_telegram_nonce_action' ) ) {
-        return;
-    }
+      /**
+       * Saving Form Data
+       */
 
-    $uacf7_telegram_settings = [
-      'uacf7_telegram_enable' => $_POST['uacf7_telegram_enable'],
-      'uacf7_telegram_bot_token' => $_POST['uacf7_telegram_bot_token']
-    ];
+      public function uacf7_telegram_save_form($form){
+        if ( ! isset( $_POST ) || empty( $_POST ) ) {
+          return;
+        }
 
-    update_post_meta( $form->id(), 'uacf7_telegram_settings', $uacf7_telegram_settings );
+        if ( !wp_verify_nonce( $_POST['uacf7_telegram_nonce'], 'uacf7_telegram_nonce_action' ) ) {
+            return;
+        }
 
-   }
+        $uacf7_telegram_settings = [
+          'uacf7_telegram_enable' => $_POST['uacf7_telegram_enable'],
+          'uacf7_telegram_bot_token' => $_POST['uacf7_telegram_bot_token']
+        ];
+
+        update_post_meta( $form->id(), 'uacf7_telegram_settings', $uacf7_telegram_settings );
+
+      }
 
 }
+
+
+
+  
 
 
 new UACF7_TELEGRAM_TAG_PANEL;
