@@ -11,7 +11,6 @@ class UACF7_TELEGRAM {
       require_once 'inc/telegram.php';
 
       add_action('wpcf7_mail_sent', [$this, 'uacf7_send_contact_form_data_to_telegram']);
-        add_filter( 'wpcf7_load_js', '__return_false' );
   }
 
   public function uacf7_send_contact_form_data_to_telegram($contact_form) {
@@ -22,7 +21,7 @@ class UACF7_TELEGRAM {
           $posted_data = $submission->get_posted_data();
           $form_id = $contact_form->id();
 
-          $message = "New form $form_id submission:\n";
+          $message = "New form submission:\n";
           foreach ($posted_data as $field_name => $field_value) {
               $message .= "$field_name: $field_value\n";
           }
