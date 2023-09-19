@@ -75,7 +75,7 @@ class UACF7_TELEGRAM_TAG_PANEL{
                     </div>
                 </div>    
                      <div class="bot_token_input_box">
-                      <input type="text" name="uacf7_telegram_bot_token" placeholder="Paste here....."> 
+                      <input type="text" name="uacf7_telegram_bot_token" placeholder="Paste here Telegram BOT TOKEN....."> 
                         <br> <small>
                                 <?php esc_html_e( 'You need to create your own Telegram-Bot. Learn how to create & get Token', 'ultimate-addons-cf7' ); ?>
                                 <a target="_blank" href="https://core.telegram.org/bots#3-how-do-i-create-a-bot"><?php esc_html_e( 'here', 'ultimate-addons-cf7' ); ?></a>
