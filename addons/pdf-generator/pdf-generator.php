@@ -577,7 +577,7 @@ class UACF7_PDF_GENERATOR {
                          </div>  
                    </div>
                    <div class="uacf7pdf-onecolumns">
-                        <h3>Custom CSS</h3>
+                        <h3><?php echo esc_html__( 'Custom CSS', 'ultimate-addons-cf7' ); ?></h3>
                         <hr> 
                         <label for="customize_pdf">  
                             <input type="text" id="custom_pdf_css" name="custom_pdf_css" class="large-text" value="<?php echo esc_attr_e($custom_pdf_css); ?>" placeholder="<?php echo esc_html__( 'Customize PDF CSS', 'ultimate-addons-cf7' ); ?>"> 
