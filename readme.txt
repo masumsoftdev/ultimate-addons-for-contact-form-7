@@ -439,11 +439,11 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 
 =  3.2.1 – 20/09/2023  = 
 
+- Added: Condition field sent to mail based on condition.
 - Fixed: PDF generator customize pdf line break issue.
 - Fixed: PDF generator saving issue fixed.
 - Fixed: PDF generator export to PDF database addon issue.
-- Fixed: Reflected Cross Site Scripting( XSS ) vulnerability issue.
-- Added: Condition field sent to mail based on condition. 
+- Fixed: Reflected Cross Site Scripting( XSS ) vulnerability issue. 
 - Updated: Appsero updated Version 1.2.4
 
 =  3.2.0 – 06/09/2023  = 
