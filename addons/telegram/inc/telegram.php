@@ -8,15 +8,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class UACF7_TELEGRAM_TAG_PANEL{
 
-  public $testdata = 'dfdfd';
-
-    public function __construct(){
-      add_action( 'wpcf7_editor_panels', [$this, 'uacf7_telegram_tag_panel_add'] );
-      add_action( 'wpcf7_after_save', [$this, 'uacf7_telegram_save_form'] );
-    }
+  public $bot_name;
+  public $bot_username;
 
 
-    
+  public $uacf7_telegram_enable;
+  public $uacf7_telegram_bot_token;
+  public $uacf7_telegram_chat_id;
+
+  public function __construct(){
+    add_action( 'wpcf7_editor_panels', [$this, 'uacf7_telegram_tag_panel_add'] );
+    add_action( 'wpcf7_after_save', [$this, 'uacf7_telegram_save_form'] );
+    add_action( 'admin_init', [$this, 'uacf7_get_telegram_boot_info'] );
+  }
+
 
 
   /** 
@@ -33,18 +38,16 @@ class UACF7_TELEGRAM_TAG_PANEL{
 
 
 
-   public function uacf7_create_telegram_panel_fields($post){   
-
-
+   public function uacf7_create_telegram_panel_fields($post){  
+    
     $uacf7_telegram_settings = get_post_meta($post->id(), 'uacf7_telegram_settings', true);
 
-
-    if (!empty($uacf7_telegram_settings)) {
-        $uacf7_telegram_enable = $uacf7_telegram_settings['uacf7_telegram_enable'];
-        $uacf7_telegram_bot_token = $uacf7_telegram_settings['uacf7_telegram_bot_token'];
-        $uacf7_telegram_chat_id = $uacf7_telegram_settings['uacf7_telegram_chat_id'];
+    if (!empty($uacf7_telegram_settings) && isset($uacf7_telegram_settings['uacf7_telegram_enable'], $uacf7_telegram_settings['uacf7_telegram_bot_token'], $uacf7_telegram_settings['uacf7_telegram_chat_id'])) {
+      $this->uacf7_telegram_enable = $uacf7_telegram_settings['uacf7_telegram_enable'];
+      $this->uacf7_telegram_bot_token = $uacf7_telegram_settings['uacf7_telegram_bot_token'];
+      $this->uacf7_telegram_chat_id = $uacf7_telegram_settings['uacf7_telegram_chat_id'];
     }
-
+  
     ?> 
       <h2><?php echo esc_html__( 'Telegram Settings', 'ultimate-addons-cf7' ); ?></h2>  
       <p><?php echo esc_html__('This feature will help you to send the form data to the Telegram BOT.','ultimate-addons-cf7'); ?>  </p>
@@ -55,7 +58,7 @@ class UACF7_TELEGRAM_TAG_PANEL{
             ); ?> 
       </div>
       <label for="uacf7_telegram_enable"> 
-            <input class="uacf7_telegram_enable" id="uacf7_telegram_enable" name="uacf7_telegram_enable"  type="checkbox" <?php checked( 'on', $uacf7_telegram_enable, true ); ?>> <?php _e( 'Enable Telegram Settings', 'ultimate-addons-cf7' ); ?>
+            <input class="uacf7_telegram_enable" id="uacf7_telegram_enable" name="uacf7_telegram_enable"  type="checkbox" <?php checked( 'on', $this->uacf7_telegram_enable, true ); ?>> <?php _e( 'Enable Telegram Settings', 'ultimate-addons-cf7' ); ?>
       </label>
 
       <div class="telegram_panel_wrapper">
@@ -69,11 +72,12 @@ class UACF7_TELEGRAM_TAG_PANEL{
                     </div>
                     <div class="bot_status">
                        <div class="check_bot online">
-                        <strong class="status">Bot is Online <code class="bot_username"> username: @kiditambot</code></strong>
+                        <strong class="status">Bot is Online<code class="bot_username"> username: @<?php  echo $this->bot_name; ?></code></strong>
+                        <?php  echo $this->uacf7_telegram_bot_token; ?>
                       </div>
-                      <div class="check_bot offline">
+                      <!-- <div class="check_bot offline">
                         <strong class="status">Bot is Offline</strong>
-                      </div>
+                      </div> -->
                     </div>
                 </div>    
                      <div class="bot_token_input_box">
@@ -109,11 +113,7 @@ class UACF7_TELEGRAM_TAG_PANEL{
                       <h3><?php echo esc_html__( 'Subscribers List', 'ultimate-addons-cf7' ); ?></h3>
                      
                       <ul>
-                        <li><a href="">Subscriber 1</a> Pasue | Delete  <?php 
-                  
-                  echo $this->testdata;
-                
-                ?></li>
+                        <li><a href="">Subscriber 1</a> Pasue | Delete </li>
                         <li><a href="">Subscriber 2</a> Active | Delete</li>
                         <li><a href="">Subscriber 3</a> Pasue | Delete</li>
                         <li><a href="">Subscriber 4</a> Active | Delete</li>
@@ -156,6 +156,45 @@ class UACF7_TELEGRAM_TAG_PANEL{
         update_post_meta( $form->id(), 'uacf7_telegram_settings', $uacf7_telegram_settings );
 
       }
+
+
+      /**
+       * Getting Telegram Bot Info
+       */
+
+
+       public function uacf7_get_telegram_boot_info(){
+
+        $botToken = $this->uacf7_telegram_bot_token;
+
+
+        $apiUrl = "https://api.telegram.org/bot$botToken/getMe";
+        
+        $response = file_get_contents($apiUrl);
+        if ($response === false) {
+            die('Failed to fetch data from Telegram API');
+        }
+        
+        $botData = json_decode($response, true);
+        
+        if (!$botData || !isset($botData['ok']) || $botData['ok'] !== true) {
+            die('Failed to retrieve bot data');
+        }
+        
+        $botUsername = $botData['result']['username'];
+        $botName = $botData['result']['first_name'];
+        
+        $this->bot_name = $botName;
+        $this->bot_username = $botUsername;
+
+
+       }
+
+
+
+
+
+      
 
 }
 

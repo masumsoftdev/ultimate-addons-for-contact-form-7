@@ -8,10 +8,10 @@ class UACF7_TELEGRAM {
 
   public function __construct() {
 
-      require_once 'inc/telegram.php';
+    require_once 'inc/telegram.php';
 
-      add_action('wpcf7_mail_sent', [$this, 'uacf7_send_contact_form_data_to_telegram']);
-      add_action('admin_enqueue_scripts', [$this, 'uacf7_telegram_admin_js_script']);
+    add_action('wpcf7_mail_sent', [$this, 'uacf7_send_contact_form_data_to_telegram']);
+    add_action('admin_enqueue_scripts', [$this, 'uacf7_telegram_admin_js_script']);
   }
 
 
