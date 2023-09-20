@@ -11,6 +11,11 @@ class UACF7_TELEGRAM {
       require_once 'inc/telegram.php';
 
       add_action('wpcf7_mail_sent', [$this, 'uacf7_send_contact_form_data_to_telegram']);
+      add_action('admin_enqueue_scripts', [$this, 'uacf7_telegram_admin_js_script']);
+  }
+
+  public function uacf7_telegram_admin_js_script(){
+    wp_enqueue_script( 'uacf7-telegram-script', UACF7_ADDONS. '/telegram/assets/js/admin-script.js', ['jquery'], 'UACF7_VERSION', true );
   }
 
   public function uacf7_send_contact_form_data_to_telegram($contact_form) {

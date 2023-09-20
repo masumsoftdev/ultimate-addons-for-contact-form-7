@@ -91,8 +91,8 @@ class UACF7_TELEGRAM_TAG_PANEL{
                      <div class="chat_id_input_box">
                       <input type="text" name="uacf7_telegram_chat_id" placeholder="Paste here Telegram Chat ID....."> 
                         <br> <small>
-                                <?php esc_html_e( 'You need to create your own Telegram-Bot. Learn how to create & get Token', 'ultimate-addons-cf7' ); ?>
-                                <a target="_blank" href="https://core.telegram.org/bots#3-how-do-i-create-a-bot"><?php esc_html_e( 'here', 'ultimate-addons-cf7' ); ?></a>
+                                <?php esc_html_e( 'You need to create your own Telegram-Chat ID. Learn how to get', 'ultimate-addons-cf7' ); ?>
+                                <button id="chat_id_button"><?php esc_html_e( 'here', 'ultimate-addons-cf7' ); ?></button>
                             </small>
                      </div>
 
