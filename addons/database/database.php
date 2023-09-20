@@ -84,12 +84,7 @@ class UACF7_DATABASE {
         $csv  = empty($_GET['csv']) ? 0 :  $_GET['csv']; 
         $pdf  = empty($_GET['pdf']) ? 0 :  $_GET['pdf']; 
         $data_id  = empty($_GET['data_id']) ? 0 :  $_GET['data_id'];
-
-        if(!empty($form_id) && $pdf == true && !empty($data_id)){ 
-
-            return apply_filters( 'uacf7_get_generated_pdf', $form_id, $data_id); // export as pdf
-        }
-        
+ 
         if(!empty($form_id) && $csv == true ){
             $this->uacf7_database_export_csv($form_id,  $csv); // export as CSV
         }  
@@ -103,7 +98,7 @@ class UACF7_DATABASE {
                 <h2><?php echo esc_html__( 'Ultimate Database', 'ultimate-addons-cf7' ); ?></h2> 
                 <?php settings_errors(); ?>
                 <form method="post" action="">
-                    <input type="hidden" name="page" value="<?php echo $_REQUEST['page']; ?>" /> 
+                    <input type="hidden" name="page" value="<?php echo esc_attr($_REQUEST['page']); ?>" /> 
                     <?php $uacf7_ListTable->search_box('Search', 'search'); ?>
                     <?php $uacf7_ListTable->display(); ?>
                 </form>
@@ -236,7 +231,7 @@ class UACF7_DATABASE {
         $insert_data = [];
         foreach ($data as $key => $value){
             if(!in_array($key, $skip_tag_insert)){
-                $insert_data[$key] = $value;
+                $insert_data[$key] = esc_html($value);
             }
         }
         
@@ -286,7 +281,7 @@ class UACF7_DATABASE {
         } 
         $html = '<div class="db-view-wrap"> 
                     <h3>'.get_the_title( $form_data->form_id ).'</h3>
-                    <span>'.$form_data->form_date.'</span>
+                    <span>'.esc_html($form_data->form_date).'</span>
                     <table class="wp-list-table widefat fixed striped table-view-list">';
         $html .= '<tr> <th><strong>Fields</strong></th><th><strong>Values</strong> </th> </tr>';   
         foreach($fields as $key => $value){  
@@ -296,9 +291,9 @@ class UACF7_DATABASE {
                 } 
                 if (strstr($value, $replace_dir)) { 
                     $value = str_replace($replace_dir,"",$value);
-                    $html .= '<tr> <td><strong>'.$key.'</strong></td> <td><a href="'.$dir.$replace_dir.$value.'" target="_blank">'.$value.'</a></td> </tr>';
+                    $html .= '<tr> <td><strong>'.esc_attr($key).'</strong></td> <td><a href="'.esc_url($dir.$replace_dir.$value).'" target="_blank">'.esc_html($value).'</a></td> </tr>';
                 }else{ 
-                    $html .= '<tr> <td><strong>'.$key.'</strong></td> <td>'.$value.'</td> </tr>';
+                    $html .= '<tr> <td><strong>'.esc_attr($key).'</strong></td> <td>'.esc_html($value).'</td> </tr>';
                 }
             }  
         }
@@ -538,24 +533,24 @@ class uacf7_form_List_Table extends WP_List_Table{
            $repetar_key = '';
            $enable_pdf = !empty(get_post_meta( $fdata->form_id, 'uacf7_enable_pdf_generator', true )) ? get_post_meta( $fdata->form_id, 'uacf7_enable_pdf_generator', true ) : '';
 
-            if($enable_pdf == 'on' && uacf7_checked( 'uacf7_enable_pdf_generator_field') != ''){ $pdf_btn =  "<a href='".esc_html($_SERVER['REQUEST_URI'])."&pdf=true&data_id=".$fdata->id."' data-id='".$fdata->id."' data-value='".$fdata->form_value."' class='button-primary uacf7-db-pdf'> Export as PDF</a>";}else{ $pdf_btn = '';}
+            if($enable_pdf == 'on' && uacf7_checked( 'uacf7_enable_pdf_generator_field') != ''){ $pdf_btn =  "<button data-form-id='".esc_attr($fdata->form_id)."' data-id='".esc_attr($fdata->id)."' data-value='".esc_html($fdata->form_value)."' class='button-primary uacf7-db-pdf'> Export as PDF</button>";}else{ $pdf_btn = '';}
 
             $order_btn = isset($field_data->order_id) && $field_data->order_id != 0 ? "<a target='_blank' href='".admin_url('post.php?post=' . $field_data->order_id . '&action=edit')."' class='button-primary uacf7-db-pdf'> View Order</a>" : '';
            foreach($field_data as $key => $value){
                 if(is_array($value)){ 
-                    $value = implode(", ",$value);
+                    $value = implode(", ", esc_html($value));
                 } 
                
                 if (strstr($value, $replace_dir)) { 
                     $value = str_replace($replace_dir,"",$value);
-                    $f_data[$key] = '<a href="'.$dir.$replace_dir.$value.'" target="_blank">'.$value.'</a>';
+                    $f_data[$key] = '<a href="'.$dir.$replace_dir.$value.'" target="_blank">'.esc_html($value).'</a>';
                 }else{
-                    $f_data[$key] =$value;
+                    $f_data[$key] = esc_html($value);
                 }
                 if (strpos($key, '__') !== false) {
                     $repetar_key = explode('__', $key);
                     $repetar_key = $repetar_key[0]; 
-                    $f_data[$repetar_key] =$value;
+                    $f_data[$repetar_key] = esc_html($value);
                 }  
            }
            $f_data['id']      = $fdata->id; 
@@ -563,14 +558,14 @@ class uacf7_form_List_Table extends WP_List_Table{
            // Checked Star Review Status
            if($this->uacf7_star_review_status($form_id) == true){
             $checked = $fdata->is_review == 1 ? 'checked' : '';
-            $f_data['review_publish'] = '<label class="uacf7-admin-toggle1 uacf7_star_label" for="uacf7_review_status_'.$fdata->id.'">
-                <input type="checkbox" class="uacf7-admin-toggle__input star_is_review" value="'.$fdata->id.'"  name="uacf7_review_status_'.$fdata->id.'" id="uacf7_review_status_'.$fdata->id.'" '.$checked.'>
+            $f_data['review_publish'] = '<label class="uacf7-admin-toggle1 uacf7_star_label" for="uacf7_review_status_'.esc_attr($fdata->id).'">
+                <input type="checkbox" class="uacf7-admin-toggle__input star_is_review" value="'.esc_attr($fdata->id).'"  name="uacf7_review_status_'.esc_attr($fdata->id).'" id="uacf7_review_status_'.esc_attr($fdata->id).'" '.esc_attr($checked).'>
                 <span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
             </label>';
         
             }
 
-           $f_data['action'] = "<button data-id='".$fdata->id."' data-value='".$fdata->form_value."' class='button-primary uacf7-db-view'>View</button>". $pdf_btn . $order_btn;
+           $f_data['action'] = "<button data-id='".esc_attr($fdata->id)."' data-value='".esc_html($fdata->form_value)."' class='button-primary uacf7-db-view'>". __('View', 'ultimate-addons-cf7')."</button>". $pdf_btn . $order_btn;
            $data[] = $f_data;    
         }  
         return $data;

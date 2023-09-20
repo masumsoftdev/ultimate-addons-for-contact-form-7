@@ -38,7 +38,7 @@ class UACF7_MULTISTEP {
         ob_start();
         $form_current = \WPCF7_ContactForm::get_current();
         ?>
-        <div class="uacf7-step uacf7-step-<?php echo $form_current->id(); ?> step-content" next-btn-text="<?php echo  esc_html( get_post_meta( $form_current->id(), 'next_btn_'.$tag->name, true ) ); ?>" prev-btn-text="<?php echo  esc_html( get_post_meta( $form_current->id(), 'prev_btn_'.$tag->name, true ) ); ?>">
+        <div class="uacf7-step uacf7-step-<?php echo esc_attr($form_current->id()); ?> step-content" next-btn-text="<?php echo  esc_html( get_post_meta( $form_current->id(), 'next_btn_'.$tag->name, true ) ); ?>" prev-btn-text="<?php echo  esc_html( get_post_meta( $form_current->id(), 'prev_btn_'.$tag->name, true ) ); ?>">
         <?php
         return ob_get_clean();
     } 
@@ -47,8 +47,8 @@ class UACF7_MULTISTEP {
         $form_current = \WPCF7_ContactForm::get_current();
         ?>
         <p>
-            <button class="uacf7-prev" data-form-id="<?php echo $form_current->id(); ?>" ><?php echo esc_html__('Previous', 'ultimate-addons-cf7'); ?></button>
-            <button class="uacf7-next" data-form-id="<?php echo $form_current->id(); ?>"><?php echo esc_html__('Next', 'ultimate-addons-cf7'); ?></button>
+            <button class="uacf7-prev" data-form-id="<?php echo esc_attr($form_current->id()); ?>" ><?php echo esc_html__('Previous', 'ultimate-addons-cf7'); ?></button>
+            <button class="uacf7-next" data-form-id="<?php echo esc_attr($form_current->id()); ?>"><?php echo esc_html__('Next', 'ultimate-addons-cf7'); ?></button>
             <span class="wpcf7-spinner uacf7-ajax-loader"></span>
         </p>
         </div>
@@ -588,7 +588,7 @@ class UACF7_MULTISTEP {
                                 } ?>
                             </a>
                             <?php if( $uacf7_multistep_use_step_labels != 'on' && $uacf7_progressbar_style != 'style-1' && $uacf7_progressbar_style != 'style-4' ) { 
-                                echo '<p>'.$content.'</p>'; 
+                                echo '<p>'.esc_html($content).'</p>'; 
                             } ?>
                         </div>
                         <?php
@@ -694,11 +694,10 @@ class UACF7_MULTISTEP {
 			    $result = apply_filters("wpcf7_validate_{$type}", $result, $tag, array( 'uploaded_files' => $new_files, ) );
               
                 if(isset($_REQUEST[$tag->name.'_size'])){
-                    $file_size = $_REQUEST[$tag->name.'_size'];   
-                    // echo $file_size;
+                    $file_size = $_REQUEST[$tag->name.'_size'];    
                     if ($file_size > $tag->get_limit_option()) { 
                         $file_error = array(
-                            'into' => 'span.wpcf7-form-control-wrap[data-name = '.$tag->name.']',
+                            'into' => 'span.wpcf7-form-control-wrap[data-name = '.esc_attr($tag->name).']',
                             'message' => 'The uploaded file is too large.',
                             'idref' => null,
                         ); 
@@ -749,7 +748,7 @@ class UACF7_MULTISTEP {
             if(!empty($invalid_data[$name])){
                 $field = $invalid_data[$name]; 
                 $invalid_fields[] = array(
-                    'into' => 'span.wpcf7-form-control-wrap[data-name = '.$value.']',
+                    'into' => 'span.wpcf7-form-control-wrap[data-name = '.esc_attr($value).']',
                     'message' => $field['message'],
                     'idref' => $field['idref'],
                 ); 

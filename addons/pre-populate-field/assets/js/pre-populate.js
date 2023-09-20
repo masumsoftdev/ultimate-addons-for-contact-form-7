@@ -1,9 +1,5 @@
-;(function ($) {
-    'use strict'; 
-      $("#button1").click(function(){
-        e.preventDefault();
-        var clone_field = $(this).parent.find('.single_data_shifting_field').html(); 
-      });
+;(function ($) { 
+    'use strict';  
       $ ( document ).ready(function() { 
         $(".wpcf7-submit").click(function(e){ 
           var form_id = $(this).closest("form").find('input[name="_wpcf7"]').val();

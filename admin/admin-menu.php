@@ -401,14 +401,14 @@ class UACF7_Admin_Menu {
     * Section- Extra fields
     */
     public function uacf7_setting_section_fields_callback() {
-		echo '<h2>Extra Fields Addons:</h2>';
+		echo '<h2>'.esc_html__( 'Extra Fields Addons:', 'ultimate-addons-cf7' ).'</h2>';
 	}
     
     /*
     * Section- WooCommerce Integration
     */
     public function uacf7_setting_section_woo_callback() {
-		echo '<h2>WooCommerce Integration Addons:</h2>';
+		echo '<h2>'.esc_html__( 'WooCommerce Integration Addons:', 'ultimate-addons-cf7' ).'</h2>';
 	}
     
     /*
@@ -711,7 +711,7 @@ class UACF7_Admin_Menu {
 		$mailchimp = new UACF7_MAILCHIMP();
 
 		echo '<label class="" for="uacf7_mailchimp_api_key">
-				<input type="text" class="" name="uacf7_mailchimp_option_name[uacf7_mailchimp_api_key]" id="uacf7_mailchimp_api_key" value="'. $val.'">
+				<input type="text" class="" name="uacf7_mailchimp_option_name[uacf7_mailchimp_api_key]" id="uacf7_mailchimp_api_key" value="'. esc_attr($val).'">
 				'.$mailchimp->connection_status().'
 			</label>';
 	}

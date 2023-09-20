@@ -76,7 +76,7 @@ class UACF7_SUBMISSION_ID{
 
         if($uacf7_submission_id_enable == 'on'){
             
-            $submission_value = get_post_meta($form_id, 'uacf7_submission_id', true); 
+            $submission_value = sanitize_text_field(get_post_meta($form_id, 'uacf7_submission_id', true)); 
             if( $submission_value != '' || $submission_value != null || $submission_value != 0){
         
                 global $wpdb;  
@@ -97,12 +97,12 @@ class UACF7_SUBMISSION_ID{
 
     public function submission_id_update($form){
 
-        $uacf7_submission_id_enable = get_post_meta( $_POST['_wpcf7'], 'uacf7_submission_id_enable', true ); 
+        $uacf7_submission_id_enable = get_post_meta( $form->id(), 'uacf7_submission_id_enable', true ); 
 
         if($uacf7_submission_id_enable == 'on'){
               
-            $getCurrentData = get_post_meta($_POST['_wpcf7'], 'uacf7_submission_id', true);
-            $step_counter = get_post_meta( $_POST['_wpcf7'], 'uacf7_submission_id_step', true );
+            $getCurrentData = get_post_meta($form->id(), 'uacf7_submission_id', true);
+            $step_counter = get_post_meta( $form->id(), 'uacf7_submission_id_step', true );
 
    
 
@@ -252,6 +252,5 @@ class UACF7_SUBMISSION_ID{
       <?php
 }
 
-}
-
+} 
 new UACF7_SUBMISSION_ID();
