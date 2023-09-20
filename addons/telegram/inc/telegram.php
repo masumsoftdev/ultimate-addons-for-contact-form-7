@@ -56,8 +56,6 @@ class UACF7_TELEGRAM_TAG_PANEL{
       <div class="telegram_panel_wrapper">
         <!-- First Column Start -->
           <div class="telegram_wrapper_first_col">
-            
-
             <div class="ultimate-telegram-wrapper">
               <fieldset>
                 <div class="bot_title_and_status">
@@ -75,6 +73,7 @@ class UACF7_TELEGRAM_TAG_PANEL{
                     </div>
                 </div>    
                      <div class="bot_token_input_box">
+
                       <input type="text" name="uacf7_telegram_bot_token" placeholder="Paste here Telegram BOT TOKEN....."> 
                         <br> <small>
                                 <?php esc_html_e( 'You need to create your own Telegram-Bot. Learn how to create & get Token', 'ultimate-addons-cf7' ); ?>
@@ -112,8 +111,6 @@ class UACF7_TELEGRAM_TAG_PANEL{
                         <li><a href="">Subscriber 4</a> Active | Delete</li>
                         <li><a href="">Subscriber 5</a> Active | Delete</li>
                       </ul>
-
- 
               </fieldset> 
             </div>
           </div>

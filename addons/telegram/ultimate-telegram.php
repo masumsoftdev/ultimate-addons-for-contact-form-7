@@ -57,8 +57,10 @@ class UACF7_TELEGRAM {
       $bot_token = $uacf7_telegram_bot_token;
       $chat_id =  $uacf7_telegram_chat_id;
 
+     if($uacf7_telegram_enable === 'on'){
+        $api_url = "https://api.telegram.org/bot$bot_token/sendMessage";
+     }
 
-      $api_url = "https://api.telegram.org/bot$bot_token/sendMessage";
       $args = array(
           'chat_id' => $chat_id,
           'text' => $message,
