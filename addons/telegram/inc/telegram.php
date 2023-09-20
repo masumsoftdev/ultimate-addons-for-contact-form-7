@@ -8,10 +8,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class UACF7_TELEGRAM_TAG_PANEL{
 
+  public $testdata = 'dfdfd';
+
     public function __construct(){
       add_action( 'wpcf7_editor_panels', [$this, 'uacf7_telegram_tag_panel_add'] );
       add_action( 'wpcf7_after_save', [$this, 'uacf7_telegram_save_form'] );
     }
+
+
+    
 
 
   /** 
@@ -63,12 +68,11 @@ class UACF7_TELEGRAM_TAG_PANEL{
                       <h3><?php echo esc_html__( 'Telegram BOT Token', 'ultimate-addons-cf7' ); ?></h3>
                     </div>
                     <div class="bot_status">
-                      <!-- <div class="check_bot offline">
-                        <strong class="status">Bot is Offline</strong>
-                      </div> -->
                        <div class="check_bot online">
-                        <strong class="status">Bot is Online</strong>
-                        <div>Bot username: <code class="bot_username">@kiditambot</code></div>
+                        <strong class="status">Bot is Online <code class="bot_username"> username: @kiditambot</code></strong>
+                      </div>
+                      <div class="check_bot offline">
+                        <strong class="status">Bot is Offline</strong>
                       </div>
                     </div>
                 </div>    
@@ -105,7 +109,11 @@ class UACF7_TELEGRAM_TAG_PANEL{
                       <h3><?php echo esc_html__( 'Subscribers List', 'ultimate-addons-cf7' ); ?></h3>
                      
                       <ul>
-                        <li><a href="">Subscriber 1</a> Pasue | Delete</li>
+                        <li><a href="">Subscriber 1</a> Pasue | Delete  <?php 
+                  
+                  echo $this->testdata;
+                
+                ?></li>
                         <li><a href="">Subscriber 2</a> Active | Delete</li>
                         <li><a href="">Subscriber 3</a> Pasue | Delete</li>
                         <li><a href="">Subscriber 4</a> Active | Delete</li>

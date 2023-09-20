@@ -14,6 +14,7 @@ class UACF7_TELEGRAM {
       add_action('admin_enqueue_scripts', [$this, 'uacf7_telegram_admin_js_script']);
   }
 
+
   public function uacf7_telegram_admin_js_script(){
     wp_enqueue_script( 'uacf7-telegram-scripts', UACF7_ADDONS. '/telegram/assets/js/admin-script.js', ['jquery'], 'UACF7_VERSION', true );
     wp_enqueue_style( 'uacf7-telegram-styles', UACF7_ADDONS. '/telegram/assets/css/admin-style.css', [], 'UACF7_VERSION', 'all' );
@@ -26,8 +27,9 @@ class UACF7_TELEGRAM {
       if ($submission) {
           $posted_data = $submission->get_posted_data();
           $form_id = $contact_form->id();
+          $form_name = $contact_form->title();
 
-          $message = "New form submission:\n";
+          $message = "Message from: $form_name:\n";
           foreach ($posted_data as $field_name => $field_value) {
               $message .= "$field_name: $field_value\n";
           }
@@ -61,6 +63,9 @@ class UACF7_TELEGRAM {
         $api_url = "https://api.telegram.org/bot$bot_token/sendMessage";
      }
 
+   
+
+
       $args = array(
           'chat_id' => $chat_id,
           'text' => $message,
@@ -76,7 +81,10 @@ class UACF7_TELEGRAM {
           error_log('Telegram API request failed: ' . $response->get_error_message());
       }
   }
+
 }
+
+
 
 
 $UACF7_TELEGRAM = new UACF7_TELEGRAM();
