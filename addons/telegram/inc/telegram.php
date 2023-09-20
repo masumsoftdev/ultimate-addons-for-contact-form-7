@@ -17,9 +17,9 @@ class UACF7_TELEGRAM_TAG_PANEL{
   public $uacf7_telegram_chat_id;
 
   public function __construct(){
-    add_action( 'wpcf7_editor_panels', [$this, 'uacf7_telegram_tag_panel_add'] );
+    add_action( 'wpcf7_editor_panels', [$this, 'uacf7_telegram_tag_panel_add']);
     add_action( 'wpcf7_after_save', [$this, 'uacf7_telegram_save_form'] );
-    add_action( 'admin_init', [$this, 'uacf7_get_telegram_boot_info'] );
+  
   }
 
 
@@ -72,8 +72,7 @@ class UACF7_TELEGRAM_TAG_PANEL{
                     </div>
                     <div class="bot_status">
                        <div class="check_bot online">
-                        <strong class="status">Bot is Online<code class="bot_username"> username: @<?php  echo $this->bot_name; ?></code></strong>
-                        <?php  echo $this->uacf7_telegram_bot_token; ?>
+                        <strong class="status">Bot is Online<code class="bot_username"> username: @<?php  echo $this->bot_username; ?></code></strong>
                       </div>
                       <!-- <div class="check_bot offline">
                         <strong class="status">Bot is Offline</strong>
@@ -148,53 +147,16 @@ class UACF7_TELEGRAM_TAG_PANEL{
         }
 
         $uacf7_telegram_settings = [
-          'uacf7_telegram_enable' => $_POST['uacf7_telegram_enable'],
-          'uacf7_telegram_bot_token' => $_POST['uacf7_telegram_bot_token'],
-          'uacf7_telegram_chat_id' => $_POST['uacf7_telegram_chat_id']
+          'uacf7_telegram_enable' => sanitize_text_field($_POST['uacf7_telegram_enable']),
+          'uacf7_telegram_bot_token' => sanitize_text_field($_POST['uacf7_telegram_bot_token']),
+          'uacf7_telegram_chat_id' => sanitize_text_field($_POST['uacf7_telegram_chat_id']),
         ];
 
         update_post_meta( $form->id(), 'uacf7_telegram_settings', $uacf7_telegram_settings );
 
       }
 
-
-      /**
-       * Getting Telegram Bot Info
-       */
-
-
-       public function uacf7_get_telegram_boot_info(){
-
-        $botToken = $this->uacf7_telegram_bot_token;
-
-
-        $apiUrl = "https://api.telegram.org/bot$botToken/getMe";
-        
-        $response = file_get_contents($apiUrl);
-        if ($response === false) {
-            die('Failed to fetch data from Telegram API');
-        }
-        
-        $botData = json_decode($response, true);
-        
-        if (!$botData || !isset($botData['ok']) || $botData['ok'] !== true) {
-            die('Failed to retrieve bot data');
-        }
-        
-        $botUsername = $botData['result']['username'];
-        $botName = $botData['result']['first_name'];
-        
-        $this->bot_name = $botName;
-        $this->bot_username = $botUsername;
-
-
-       }
-
-
-
-
-
-      
+  
 
 }
 
