@@ -156,8 +156,7 @@ class UACF7_FORM_GENERATOR{
             $value =  require_once  apply_filters( 'uacf7_ai_form_generator_template', UACF7_FORM_AI_PATH . '/templates/'.$uacf7_default[1].'.php');
         }elseif(count($uacf7_default) > 0 && $uacf7_default[0] == 'tag' ){ 
             $value =  require_once  apply_filters( 'uacf7_ai_form_generator_template', UACF7_FORM_AI_PATH . '/templates/form-tags.php');
-        } 
-
+        }  
         $data = [
             'status' => 'success',
             'value' => $value,

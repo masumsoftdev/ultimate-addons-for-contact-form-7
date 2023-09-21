@@ -59,8 +59,7 @@
           if(current_values.length == 1){   
             if(current_values[0].value == 'form'){
               uacf_form_ai.setChoices(secend_option_form, 'value', 'label', true);
-            }else if(current_values[0].value == 'tag'){
-              alert(secend_option_tag);
+            }else if(current_values[0].value == 'tag'){ 
               uacf_form_ai.setChoices(secend_option_tag, 'value', 'label', true);
             } 
           }
