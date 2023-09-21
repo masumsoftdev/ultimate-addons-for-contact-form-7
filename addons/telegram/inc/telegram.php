@@ -9,6 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class UACF7_TELEGRAM_TAG_PANEL{
 
   public $uacf7_telegram_enable;
+  public $uacf7_telegram_message_sending_enable;
   public $uacf7_telegram_bot_token;
   public $uacf7_telegram_chat_id;
   public $uacf7_telegram_bot_name;
@@ -46,8 +47,9 @@ class UACF7_TELEGRAM_TAG_PANEL{
     
     $uacf7_telegram_settings = get_post_meta($post->id(), 'uacf7_telegram_settings', true);
 
-    if (!empty($uacf7_telegram_settings) && isset($uacf7_telegram_settings['uacf7_telegram_enable'], $uacf7_telegram_settings['uacf7_telegram_bot_token'], $uacf7_telegram_settings['uacf7_telegram_chat_id'] , $uacf7_telegram_settings['uacf7_telegram_bot_name'], $uacf7_telegram_settings['uacf7_telegram_bot_username'], $uacf7_telegram_settings['uacf7_telegram_connection_error_message'])) {
+    if (!empty($uacf7_telegram_settings) && isset($uacf7_telegram_settings['uacf7_telegram_enable'], $uacf7_telegram_settings['uacf7_telegram_bot_token'], $uacf7_telegram_settings['uacf7_telegram_chat_id'] , $uacf7_telegram_settings['uacf7_telegram_bot_name'], $uacf7_telegram_settings['uacf7_telegram_bot_username'], $uacf7_telegram_settings['uacf7_telegram_connection_error_message'], $uacf7_telegram_settings['uacf7_telegram_message_sending_enable'])) {
       $this->uacf7_telegram_enable = $uacf7_telegram_settings['uacf7_telegram_enable'];
+      $this->uacf7_telegram_message_sending_enable = $uacf7_telegram_settings['uacf7_telegram_message_sending_enable'];
       $this->uacf7_telegram_bot_token = $uacf7_telegram_settings['uacf7_telegram_bot_token'];
       $this->uacf7_telegram_chat_id = $uacf7_telegram_settings['uacf7_telegram_chat_id'];
       $this->uacf7_telegram_bot_name = $uacf7_telegram_settings['uacf7_telegram_bot_name'];
@@ -120,9 +122,9 @@ class UACF7_TELEGRAM_TAG_PANEL{
               <fieldset>
                     <h3><?php echo esc_html__( 'Sending Message to Telegram', 'ultimate-addons-cf7' ); ?></h3>
                     <div class="swtichdiv">
-                      <label class="toggle">
+                      <label class="toggle" for="uacf7_telegram_message_sending_enable">
                         <span class="onoff">OFF</span>
-                        <input type="checkbox" />
+                        <input id="uacf7_telegram_message_sending_enable" name="uacf7_telegram_message_sending_enable"  type="checkbox" <?php checked( 'on', $this->uacf7_telegram_message_sending_enable, true ); ?> >
                         <span class="slider round"></span>
                       </label>
                     </div>
@@ -154,7 +156,7 @@ class UACF7_TELEGRAM_TAG_PANEL{
             return;
 
         }
-        
+
         $bot_token = !empty($_POST['uacf7_telegram_bot_token']) ? sanitize_text_field($_POST['uacf7_telegram_bot_token']) : $this->uacf7_telegram_bot_token;
 
         $error_messages = '';
@@ -201,6 +203,7 @@ class UACF7_TELEGRAM_TAG_PANEL{
 
           $uacf7_telegram_settings = [
             'uacf7_telegram_enable' => sanitize_text_field($_POST['uacf7_telegram_enable']),
+            'uacf7_telegram_message_sending_enable' => sanitize_text_field($_POST['uacf7_telegram_message_sending_enable']),
             'uacf7_telegram_bot_token' => sanitize_text_field($_POST['uacf7_telegram_bot_token']),
             'uacf7_telegram_chat_id' => sanitize_text_field($_POST['uacf7_telegram_chat_id']),
             'uacf7_telegram_bot_name' => sanitize_text_field($botName),
