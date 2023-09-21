@@ -215,6 +215,7 @@ class UACF7_TELEGRAM_TAG_PANEL{
       }
   
 
+  }
 }
 
 
