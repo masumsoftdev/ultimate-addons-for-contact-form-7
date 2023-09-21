@@ -15,12 +15,17 @@ class UACF7_TELEGRAM_TAG_PANEL{
   public $uacf7_telegram_enable;
   public $uacf7_telegram_bot_token;
   public $uacf7_telegram_chat_id;
+  public $uacf7_telegram_bot_name;
+  public $uacf7_telegram_bot_username;
 
   public function __construct(){
     add_action( 'wpcf7_editor_panels', [$this, 'uacf7_telegram_tag_panel_add']);
     add_action( 'wpcf7_after_save', [$this, 'uacf7_telegram_save_form'] );
+    // add_action( 'wpcf7_init', [$this, 'uacf7_telegram_bot_name_get'] );
   
   }
+
+
 
 
 
@@ -34,6 +39,8 @@ class UACF7_TELEGRAM_TAG_PANEL{
       'callback' => [ $this, 'uacf7_create_telegram_panel_fields' ],
       );
       return $panels;
+
+
   }
 
 
@@ -42,10 +49,12 @@ class UACF7_TELEGRAM_TAG_PANEL{
     
     $uacf7_telegram_settings = get_post_meta($post->id(), 'uacf7_telegram_settings', true);
 
-    if (!empty($uacf7_telegram_settings) && isset($uacf7_telegram_settings['uacf7_telegram_enable'], $uacf7_telegram_settings['uacf7_telegram_bot_token'], $uacf7_telegram_settings['uacf7_telegram_chat_id'])) {
+    if (!empty($uacf7_telegram_settings) && isset($uacf7_telegram_settings['uacf7_telegram_enable'], $uacf7_telegram_settings['uacf7_telegram_bot_token'], $uacf7_telegram_settings['uacf7_telegram_chat_id'] , $uacf7_telegram_settings['uacf7_telegram_bot_name'], $uacf7_telegram_settings['uacf7_telegram_bot_username'])) {
       $this->uacf7_telegram_enable = $uacf7_telegram_settings['uacf7_telegram_enable'];
       $this->uacf7_telegram_bot_token = $uacf7_telegram_settings['uacf7_telegram_bot_token'];
       $this->uacf7_telegram_chat_id = $uacf7_telegram_settings['uacf7_telegram_chat_id'];
+      $this->uacf7_telegram_bot_name = $uacf7_telegram_settings['uacf7_telegram_bot_name'];
+      $this->uacf7_telegram_bot_username = $uacf7_telegram_settings['uacf7_telegram_bot_username'];
     }
   
     ?> 
@@ -72,7 +81,8 @@ class UACF7_TELEGRAM_TAG_PANEL{
                     </div>
                     <div class="bot_status">
                        <div class="check_bot online">
-                        <strong class="status">Bot is Online<code class="bot_username"> username: @<?php  echo $this->bot_username; ?></code></strong>
+                        <strong class="status">Bot is Online</strong>
+                        <code class="bot_username">Bot Name: <?php  echo $this->uacf7_telegram_bot_name; ?> <br/> username: @<?php  echo $this->uacf7_telegram_bot_username; ?></code>
                       </div>
                       <!-- <div class="check_bot offline">
                         <strong class="status">Bot is Offline</strong>
@@ -144,25 +154,72 @@ class UACF7_TELEGRAM_TAG_PANEL{
 
         if ( !wp_verify_nonce( $_POST['uacf7_telegram_nonce'], 'uacf7_telegram_nonce_action' ) ) {
             return;
+
+
+        $bot_token = !empty($_POST['uacf7_telegram_bot_token']) ? sanitize_text_field($_POST['uacf7_telegram_bot_token']) : $this->uacf7_telegram_bot_token;
+
+        $error_messages = '';
+
+        if ($bot_token) {
+            $apiUrl = "https://api.telegram.org/bot$bot_token/getMe";
+            
+        
+            $context = stream_context_create([
+                'http' => [
+                    'ignore_errors' => true, // 
+                ],
+            ]);
+            
+            $response = file_get_contents($apiUrl, false, $context);
+
+            if ($response === false) {
+                $error_messages = 'your telegram bot token or telegram chat id is not valid';
+            }
+            
+      
+            $http_response_code = explode(' ', $http_response_header[0])[1];
+
+            if ($http_response_code === '404') {
+                $error_messages = 'your telegram bot token or telegram chat id is not valid';
+            }
+
+        
+            $botData = json_decode($response, true);
+            
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                $error_messages = 'your telegram bot token or telegram chat id is not valid';
+            }
+            
+            if (!$botData || !isset($botData['ok']) || $botData['ok'] !== true) {
+                $error_messages = 'your telegram bot token or telegram chat id is not valid';
+            }
+            
+            $botUsername = $botData['result']['username'];
+            $botName = $botData['result']['first_name'];
         }
 
-        $uacf7_telegram_settings = [
-          'uacf7_telegram_enable' => sanitize_text_field($_POST['uacf7_telegram_enable']),
-          'uacf7_telegram_bot_token' => sanitize_text_field($_POST['uacf7_telegram_bot_token']),
-          'uacf7_telegram_chat_id' => sanitize_text_field($_POST['uacf7_telegram_chat_id']),
-        ];
 
-        update_post_meta( $form->id(), 'uacf7_telegram_settings', $uacf7_telegram_settings );
+
+          $uacf7_telegram_settings = [
+            'uacf7_telegram_enable' => sanitize_text_field($_POST['uacf7_telegram_enable']),
+            'uacf7_telegram_bot_token' => sanitize_text_field($_POST['uacf7_telegram_bot_token']),
+            'uacf7_telegram_chat_id' => sanitize_text_field($_POST['uacf7_telegram_chat_id']),
+            'uacf7_telegram_bot_name' => sanitize_text_field($botName),
+            'uacf7_telegram_bot_username' => sanitize_text_field($botUsername),
+            'uacf7_telegram_connection_error_message' => sanitize_text_field($error_messages)
+          ];
+
+          update_post_meta( $form->id(), 'uacf7_telegram_settings', $uacf7_telegram_settings );
+
 
       }
-
   
 
 }
 
 
 
-  
+
 
 
 new UACF7_TELEGRAM_TAG_PANEL;

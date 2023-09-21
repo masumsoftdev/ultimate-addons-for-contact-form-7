@@ -83,21 +83,21 @@ class UACF7_TELEGRAM {
 
 
     
-        $apiUrl = "https://api.telegram.org/bot$bot_token/getMe";
+        // $apiUrl = "https://api.telegram.org/bot$bot_token/getMe";
         
-        $response = file_get_contents($apiUrl);
-        if ($response === false) {
-            die('Failed to fetch data from Telegram API');
-        }
+        // $response = file_get_contents($apiUrl);
+        // if ($response === false) {
+        //     die('Failed to fetch data from Telegram API');
+        // }
         
-        $botData = json_decode($response, true);
+        // $botData = json_decode($response, true);
         
-        if (!$botData || !isset($botData['ok']) || $botData['ok'] !== true) {
-            die('Failed to retrieve bot data');
-        }
+        // if (!$botData || !isset($botData['ok']) || $botData['ok'] !== true) {
+        //     die('Failed to retrieve bot data');
+        // }
         
-        $botUsername = $botData['result']['username'];
-        $botName = $botData['result']['first_name'];
+        // $botUsername = $botData['result']['username'];
+        // $botName = $botData['result']['first_name'];
 
 
         // $uacf7_telegram_settings = [
