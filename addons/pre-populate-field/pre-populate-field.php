@@ -101,7 +101,7 @@ class UACF7_PRE_POPULATE {
                         <div class="sub-block "> 
                             <h3><?php _e( 'Redirect URL', 'ultimate-addons-cf7' ); ?></h3> 
                             <label for="bf-enable">
-                                <input class="data-redirect-url" id="data_redirect_url" name="data_redirect_url" type="input" value="<?php echo $data_redirect_url; ?>"> 
+                                <input class="data-redirect-url" id="data_redirect_url" name="data_redirect_url" type="input" value="<?php echo esc_url($data_redirect_url); ?>"> 
                             </label> 
                         </div> 
                         <div class="sub-block "> 

@@ -217,7 +217,7 @@ class UACF7_COLUMN {
 						
                     }
 					
-                    $html = '<div class="'.$ucaf7_column_class.'">';
+                    $html = '<div class="'.esc_attr($ucaf7_column_class).'">';
 					
 					echo apply_filters( 'uacf7_column_custom_width', $html, $ucaf7_column_class, $uacf7_column_custom_width );
 					

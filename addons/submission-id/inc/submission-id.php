@@ -90,17 +90,22 @@ class UACF7_SUBMISSION_ID_PANEL{
       $table_name = $wpdb->prefix.'uacf7_form';
       $last_item = $wpdb->get_row(
         $wpdb->prepare("SELECT * FROM $table_name WHERE form_id= %d  ORDER BY submission_id DESC ", $form->id() )
-      );    
+      ); 
+      
+     
+     
       /** Submission ID Conditional Update */
+      if($last_item !== null && $last_item->submission_id != 0){  
+        $default_step = $_POST['uacf7_submission_id_step'] != '' ? $_POST['uacf7_submission_id_step'] : 1;
 
-      $default_step = $_POST['uacf7_submission_id_step'] != '' ? $_POST['uacf7_submission_id_step'] : 1;
-
-
-      if( isset($_POST['uacf7_submission_id']) && $_POST['uacf7_submission_id'] > $last_item->submission_id ){ 
-        update_post_meta( $form->id(), 'uacf7_submission_id', sanitize_text_field($_POST['uacf7_submission_id']) );
-      }else{
-        update_post_meta( $form->id(), 'uacf7_submission_id', sanitize_text_field($last_item->submission_id + intval($default_step))  );
+        if( isset($_POST['uacf7_submission_id']) && $_POST['uacf7_submission_id'] > $last_item->submission_id ){ 
+          update_post_meta( $form->id(), 'uacf7_submission_id', sanitize_text_field($_POST['uacf7_submission_id']) );
+        }else{ 
+          
+          update_post_meta( $form->id(), 'uacf7_submission_id', sanitize_text_field($last_item->submission_id + intval($default_step))  );
+        }
       }
+
     }
     if(isset($_POST['uacf7_submission_id_step'])){ 
         update_post_meta( $form->id(), 'uacf7_submission_id_step', sanitize_text_field($_POST['uacf7_submission_id_step']) );
@@ -140,9 +145,5 @@ class UACF7_SUBMISSION_ID_PANEL{
     }
 } 
 
-}
-
-
+} 
 new UACF7_SUBMISSION_ID_PANEL();
-
-

@@ -93,11 +93,13 @@
 	text-align: le;
 }
 
-.button-primary.uacf7-db-view {
+.button-primary.uacf7-db-view,
+.button-primary.uacf7-db-pdf {
 	line-height: 1.1;
 }
 
-.button-primary.uacf7-db-view img {
+.button-primary.uacf7-db-view img,
+.button-primary.uacf7-db-pdf img {
 	height: 20px;
 }
 

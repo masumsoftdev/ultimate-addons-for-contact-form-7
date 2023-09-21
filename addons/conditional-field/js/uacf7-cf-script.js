@@ -23,12 +23,14 @@
 
     });
 
+ 
     /*
      * Conditional script
      */
     function uacf7_cf_handler_this($this) { 
         jQuery('form.wpcf7-form').each(function () { 
 			var contactFormId = jQuery('input[name="_wpcf7"]', this).val();
+	
 			var repeater_count = jQuery('.uacf7-repeater-count', this).val();
 
 			var form = uacf7_cf_object[contactFormId]; 
@@ -102,14 +104,18 @@
                     if ( form[$i]['uacf7_cf_hs'] == 'show' ) { /*-If show*/ 
 						if(typeof repeater_count === 'undefined'){
 							jQuery('.uacf7_conditional.' + form[$i]['uacf7_cf_group'] + '').hide().addClass('uacf7-hidden');
+					
 						}else{
 							if( $this == false){
 								jQuery('.uacf7_conditional.' + form[$i]['uacf7_cf_group'] + '').hide().addClass('uacf7-hidden');
+						
 							}else{ 
 								if(typeof $this.attr('uacf-original-name') === 'undefined'  || $this.attr('uacf-original-name').length == 0){
 									jQuery('.uacf7_conditional.' + form[$i]['uacf7_cf_group'] + '').hide().addClass('uacf7-hidden');
+							
 								}else{
 								 	$this.closest('.uacf7_repeater_sub_field').find('.uacf7_conditional.' + form[$i]['uacf7_cf_group'] + '').hide().addClass('uacf7-hidden');
+									 
 								}
 							}	
 						} 
@@ -400,5 +406,5 @@
 
         });
     }
-
+		
 })(jQuery);
