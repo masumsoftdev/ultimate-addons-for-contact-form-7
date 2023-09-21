@@ -1,5 +1,16 @@
-<?php 
+<?php  
 defined( 'ABSPATH' ) || exit;
+
+/**
+ * Template for the Form Generator AI Multistep.
+ *
+ * @package   UACF7
+ * @subpackage Form Generator AI
+ * @since     1.0.0
+ * @Author:  Sydur Rahman
+ */
+
+
 ob_clean();
 echo '<label> Your name  
     [text* your-name autocomplete:name] </label>

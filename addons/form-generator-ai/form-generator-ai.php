@@ -22,6 +22,9 @@ class UACF7_FORM_GENERATOR{
 
         // Ai form generator Ajax Function
         add_action( 'wp_ajax_uacf7_form_generator_ai', array( $this, 'uacf7_form_generator_ai' ) ); 
+
+        // Ai form Get Tag Ajax Function
+        add_action( 'wp_ajax_uacf7_form_generator_ai_get_tag', array( $this, 'uacf7_form_generator_ai_get_tag' ) ); 
     }
 
 
@@ -55,14 +58,17 @@ class UACF7_FORM_GENERATOR{
     }
 
 
+    // Add Popup Contact form 7 admin footer
     public function uacf7_form_admin_footer_popup(){
         ob_start();
         
         ?>
+       
             <div class="uacf7-form-ai-popup">
                 <div class="uacf7-form-ai-wrap"> 
                     <div class="uacf7-form-ai-inner"> 
                         <div class="close" title="Exit Full Screen">╳</div>
+                        
                         <div class="uacf7-ai-form-column"> 
                             <div class="uacf7-form-input-wrap">
                                 
@@ -72,7 +78,7 @@ class UACF7_FORM_GENERATOR{
                                         placeholder="This is a placeholder" multiple> 
                                     </select>
                                     <div class="uacf7-form-options">
-                                        <label for="uacf7-form-steps" class="uacf7-form-steps-label">
+                                        <label for="uacf7-form-steps" class="uacf7-form-steps-label" style="display:none;">
                                             <span>Step</span>
                                             <input  type="number" name="uacf7-form-steps" id="uacf7-form-steps"></input>
                                         </label>
@@ -82,7 +88,7 @@ class UACF7_FORM_GENERATOR{
                                         </label>
                                         <label for="uacf7-form-fields" class="uacf7-form-label-label"> 
                                             <span>Label</span> 
-                                            <input type="checkbox" name="uacf7-enable-form-label">
+                                            <input type="checkbox" name="uacf7-enable-form-label" id="uacf7-enable-form-label">
                                         </label>
                                         
                                     </div>
@@ -109,15 +115,49 @@ class UACF7_FORM_GENERATOR{
         echo ob_get_clean();
     }
 
+    public function uacf7_form_generator_ai_get_tag(){
+        if ( !wp_verify_nonce($_POST['ajax_nonce'], 'uacf7-form-generator-ai-nonce')) {
+            exit(esc_html__("Security error", 'ultimate-addons-cf7'));
+        } 
+        $tag_generator = WPCF7_TagGenerator::get_instance('panel', true);
+
+        $reflector = new ReflectionClass('WPCF7_TagGenerator');
+        $property = $reflector->getProperty('panels');
+        $property->setAccessible(true);
+
+        $panels = $property->getValue($tag_generator); 
+        $tag_data = [];
+        foreach($panels as $key => $value){  
+            $tag_value['value'] = $key;
+            $tag_value['label'] = $value['title'];
+            $tag_data[] = $tag_value;
+        } 
+        $data = [
+            'status' => 'success',
+            'value' => $tag_data,
+        ];
+        echo wp_send_json($data);
+        die();
+    
+    }
+
+    // Ai form Get Tag Ajax Function
     public function uacf7_form_generator_ai(){
         if ( !wp_verify_nonce($_POST['ajax_nonce'], 'uacf7-form-generator-ai-nonce')) {
             exit(esc_html__("Security error", 'ultimate-addons-cf7'));
         }
         $vaue = '';
         $uacf7_default = $_POST['searchValue']; 
-        if(count($uacf7_default) > 0 || $uacf7_default[0] == 'form'){ 
-            $value=  require_once  apply_filters( 'uacf7_ai_form_generator_template', UACF7_FORM_AI_PATH . '/templates/'.$uacf7_default[1].'.php', $uacf7_default);
+        $form_step = $_POST['form_step']; 
+        $form_field = $_POST['form_field']; 
+        $form_label = $_POST['form_label']; 
+
+        if(count($uacf7_default) > 0 && $uacf7_default[0] == 'form' ){ 
+            $value =  require_once  apply_filters( 'uacf7_ai_form_generator_template', UACF7_FORM_AI_PATH . '/templates/'.$uacf7_default[1].'.php');
+        }elseif(count($uacf7_default) > 0 && $uacf7_default[0] == 'tag' ){ 
+            $value =  require_once  apply_filters( 'uacf7_ai_form_generator_template', UACF7_FORM_AI_PATH . '/templates/form-tags.php');
         } 
+
         $data = [
             'status' => 'success',
             'value' => $value,

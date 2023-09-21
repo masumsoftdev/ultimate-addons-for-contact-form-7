@@ -11,10 +11,10 @@
         var secend_option_form = [
           { value: 'uacf7-form-contact', label: 'Contact' },
           { value: 'uacf7-form-multistep', label: 'Multistep' }, 
-          { value: 'uacf7-form-conversational ', label: 'Conversational' }, 
-          { value: 'uacf7-form-booking ', label: 'Booking  ' }, 
-          { value: 'uacf7-form-conditional  ', label: 'Conditional' }, 
-          { value: 'uacf7-form-subscription   ', label: 'Subscription' }, 
+          { value: 'uacf7-form-conversational', label: 'Conversational' }, 
+          { value: 'uacf7-form-booking', label: 'Booking  ' }, 
+          { value: 'uacf7-form-conditional', label: 'Conditional' }, 
+          { value: 'uacf7-form-subscription', label: 'Subscription' }, 
         ];
         var secend_option_tag = [
           { value: 'text', label: 'Text' },
@@ -25,6 +25,19 @@
           { value: 'date', label: 'Date' },
           { value: 'textarea', label: 'TExarea' },
         ];
+   
+        $.ajax({
+          url: uacf7_form_ai.ajaxurl,
+          type: 'post',
+          data: {
+              action: 'uacf7_form_generator_ai_get_tag',  
+              ajax_nonce: uacf7_form_ai.nonce,
+          },
+          success: function (data) {  
+            secend_option_tag = data.value;  
+            
+          }
+        });  
         var third_option = [
           { value: 'label', label: 'With Label' },  
           { value: 'div', label: 'With Div' },  
@@ -43,17 +56,21 @@
           var current_values = uacf_form_ai.getValue();
           
           uacf_form_ai.clearChoices(); 
-          if(current_values.length == 1){ 
-            console.log(current_values[0]);
+          if(current_values.length == 1){   
             if(current_values[0].value == 'form'){
               uacf_form_ai.setChoices(secend_option_form, 'value', 'label', true);
-            }else if(current_values[0] == 'tag'){
+            }else if(current_values[0].value == 'tag'){
+              alert(secend_option_tag);
               uacf_form_ai.setChoices(secend_option_tag, 'value', 'label', true);
             } 
           }
-          // else if(current_values.length == 2){
-          //   uacf_form_ai.setChoices(third_option, 'value', 'label', true); 
-          // }
+          else if(current_values.length == 2){ 
+            if(current_values[1].value == 'uacf7-form-multistep' || current_values[1].value == 'uacf7-form-conditional'){ 
+              $('.uacf7-form-steps-label').show();
+            }else{
+              $('.uacf7-form-steps-label').hide();
+            }
+          }
           else if(current_values.length == 0){
             uacf_form_ai.setChoices(first_option, 'value', 'label', true);
           }
@@ -112,24 +129,32 @@
     });
 
     $(document).on('click', '.uacf7_ai_search_button', function(e){
-        e.preventDefault(); 
-        // $('#uacf7_ai_code_content pre code').html(html); 
-        var searchValue = $('#uacf7-form-generator-ai').val();
-        console.log(searchValue);
-        jQuery.ajax({
-          url: uacf7_form_ai.ajaxurl,
-          type: 'post',
-          data: {
-              action: 'uacf7_form_generator_ai', 
-              searchValue: searchValue,
-              ajax_nonce: uacf7_form_ai.nonce,
-          },
-          success: function (data) {  
-            typeName(data.value, 0);
-           
-          }
-      });    
-
+      e.preventDefault(); 
+      // $('#uacf7_ai_code_content pre code').html(html); 
+      var searchValue = $('#uacf7-form-generator-ai').val();
+      var form_step = $('#uacf7-form-steps').val();
+      var form_field = $('#uacf7-form-fields').val();
+      if ($('#uacf7-enable-form-label').is(':checked')) {
+        var form_label = 1;
+      }else{
+        var form_label = 0;
+      } 
+      $.ajax({
+        url: uacf7_form_ai.ajaxurl,
+        type: 'post',
+        data: {
+            action: 'uacf7_form_generator_ai', 
+            searchValue: searchValue,
+            form_step: form_step,
+            form_field: form_field,
+            form_label: form_label,
+            ajax_nonce: uacf7_form_ai.nonce,
+        },
+        success: function (data) {  
+          typeName(data.value, 0);
+          
+        }
+      });   
     });
 
     function typeName(data, iteration) {
