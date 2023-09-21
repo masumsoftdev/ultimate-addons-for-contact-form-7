@@ -9,6 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class UACF7_TELEGRAM_TAG_PANEL{
 
   public $form_id;
+  public $telegram_mse;
 
   public $uacf7_telegram_enable;
   public $uacf7_telegram_message_sending_enable;
@@ -22,9 +23,8 @@ class UACF7_TELEGRAM_TAG_PANEL{
     add_action( 'wpcf7_editor_panels', [$this, 'uacf7_telegram_tag_panel_add']);
     add_action( 'wpcf7_after_save', [$this, 'uacf7_telegram_save_form'] );
 
-    add_action('wp_ajax_update_post_meta', [$this,'uacf7_telegram_update_is_sending_message']);
-    add_action('wp_ajax_nopriv_update_post_meta', [$this, 'uacf7_telegram_update_is_sending_message']);
-    // add_action( 'wpcf7_after_update', [$this, 'uacf7_telegram_update_form'] );
+    add_action('wp_ajax_uacf7_telegram_post_meta', [$this,'uacf7_telegram_update_is_sending_message']);
+    add_action('wp_ajax_nopriv_uacf7_telegram_post_meta', [$this, 'uacf7_telegram_update_is_sending_message']); 
 
   
   }
@@ -139,10 +139,14 @@ class UACF7_TELEGRAM_TAG_PANEL{
                     <div class="swtichdiv">
                       <label class="toggle" for="uacf7_telegram_message_sending_enable">
                         <span class="onoff">OFF</span>
-                        <input id="uacf7_telegram_message_sending_enable" name="uacf7_telegram_message_sending_enable"  type="checkbox" <?php checked( 'on', $this->uacf7_telegram_message_sending_enable, true ); ?> >
+                        <!-- <input id="uacf7_telegram_message_sending_enable" name="uacf7_telegram_message_sending_enable"  type="checkbox" <?php //checked( 'on', $this->uacf7_telegram_message_sending_enable, true ); ?> > -->
+                        <input id="uacf7_telegram_message_sending_enable" name="uacf7_telegram_message_sending_enable" type="checkbox" <?php checked( 'on', $this->uacf7_telegram_message_sending_enable, true ); ?>>
+
                         <span class="slider round"></span>
                       </label>
                     </div>
+
+                    <?php echo $this->telegram_mse ?>
               </fieldset> 
             </div>
           </div>
@@ -242,87 +246,19 @@ class UACF7_TELEGRAM_TAG_PANEL{
   }
 
 
-  // public function uacf7_telegram_update_form($form){
-
-  //   if ( ! isset( $_POST ) || empty( $_POST ) ) {
-  //     return;
-  //   }
-
-  //   if ( !wp_verify_nonce( $_POST['uacf7_telegram_nonce'], 'uacf7_telegram_nonce_action' ) ) {
-  //       return;
-
-  //   }
-
-  //   $bot_token = !empty($_POST['uacf7_telegram_bot_token']) ? sanitize_text_field($_POST['uacf7_telegram_bot_token']) : $this->uacf7_telegram_bot_token;
-
-  //   $error_messages = '';
-
-  //   if ($bot_token) {
-  //       $apiUrl = "https://api.telegram.org/bot$bot_token/getMe";
-        
-    
-  //       $context = stream_context_create([
-  //           'http' => [
-  //               'ignore_errors' => true, // 
-  //           ],
-  //       ]);
-        
-  //       $response = file_get_contents($apiUrl, false, $context);
-
-  //       if ($response === false) {
-  //           $error_messages = 'your telegram bot token or telegram chat id is not valid';
-  //       }
-        
-  
-  //       $http_response_code = explode(' ', $http_response_header[0])[1];
-
-  //       if ($http_response_code === '404') {
-  //           $error_messages = 'your telegram bot token or telegram chat id is not valid';
-  //       }
-
-    
-  //       $botData = json_decode($response, true);
-        
-  //       if (json_last_error() !== JSON_ERROR_NONE) {
-  //           $error_messages = 'your telegram bot token or telegram chat id is not valid';
-  //       }
-        
-  //       if (!$botData || !isset($botData['ok']) || $botData['ok'] !== true) {
-  //           $error_messages = 'your telegram bot token or telegram chat id is not valid';
-  //       }
-        
-  //       $botUsername = $botData['result']['username'];
-  //       $botName = $botData['result']['first_name'];
-  //   }
-
-    
-  //   $uacf7_telegram_settings = [
-  //     'uacf7_telegram_enable' => !empty(sanitize_text_field($_POST['uacf7_telegram_enable'])) ? sanitize_text_field($_POST['uacf7_telegram_enable']): $this->uacf7_telegram_enable,
-  //     'uacf7_telegram_message_sending_enable' => !empty(sanitize_text_field($_POST['uacf7_telegram_message_sending_enable'])) ? sanitize_text_field($_POST['uacf7_telegram_message_sending_enable']): $this->uacf7_telegram_message_sending_enable,
-  //     'uacf7_telegram_bot_token' => !empty(sanitize_text_field($_POST['uacf7_telegram_bot_token'])) ? sanitize_text_field($_POST['uacf7_telegram_bot_token']): $this->uacf7_telegram_bot_token,
-  //     'uacf7_telegram_chat_id' => !empty(sanitize_text_field($_POST['uacf7_telegram_chat_id'])) ? sanitize_text_field($_POST['uacf7_telegram_chat_id']): $this->uacf7_telegram_chat_id,
-  //     'uacf7_telegram_bot_name' => sanitize_text_field($botName) ? sanitize_text_field($botName): $this->uacf7_telegram_bot_name,
-  //     'uacf7_telegram_bot_username' => sanitize_text_field($botUsername) ? sanitize_text_field($botUsername): $this->uacf7_telegram_bot_username,
-  //     'uacf7_telegram_connection_error_message' => sanitize_text_field($error_messages) ? sanitize_text_field($error_messages): $this->uacf7_telegram_connection_error_message
-  //   ];
-
-  //   update_post_meta( $form->id(), 'uacf7_telegram_settings', $uacf7_telegram_settings );
-
-  // }
-
 
   public function uacf7_telegram_update_is_sending_message(){
 
 
     $form_id = $_POST['form_id'];
-    // $new_value = sanitize_text_field($_POST['uacf7_telegram_message_sending_enable']);
-    $new_value = 'on';
+    $new_value = sanitize_text_field($_POST['new_value']);
+
 
     // Update the post meta.
-    update_post_meta('19', 'uacf7_telegram_message_sending_enable', $new_value);
+    update_post_meta($form_id, 'uacf7_telegram_message_sending_enable', $new_value);
 
   
-    echo 'Saved changes!';
+    // $this->telegram_mse = 'Successfully updated.....';
 
    
     die();

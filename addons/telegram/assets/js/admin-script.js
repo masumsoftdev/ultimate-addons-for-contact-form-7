@@ -22,8 +22,8 @@
             type: 'POST',
             url: uacf7_telegram_ajax.ajax_url,
             data: {
-                action: 'update_post_meta',
-                post_id: uacf7_telegram_ajax.form_id,
+                action: 'uacf7_telegram_post_meta',
+                form_id: uacf7_telegram_ajax.form_id,
                 new_value: updated_value,
             },
             success: function(response) {
