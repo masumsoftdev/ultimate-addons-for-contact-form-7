@@ -18,7 +18,7 @@ class UACF7_TELEGRAM_TAG_PANEL{
   public function __construct(){
     add_action( 'wpcf7_editor_panels', [$this, 'uacf7_telegram_tag_panel_add']);
     add_action( 'wpcf7_after_save', [$this, 'uacf7_telegram_save_form'] );
-    // add_action( 'wpcf7_init', [$this, 'uacf7_telegram_bot_name_get'] );
+
   
   }
 
@@ -153,7 +153,8 @@ class UACF7_TELEGRAM_TAG_PANEL{
         if ( !wp_verify_nonce( $_POST['uacf7_telegram_nonce'], 'uacf7_telegram_nonce_action' ) ) {
             return;
 
-
+        }
+        
         $bot_token = !empty($_POST['uacf7_telegram_bot_token']) ? sanitize_text_field($_POST['uacf7_telegram_bot_token']) : $this->uacf7_telegram_bot_token;
 
         $error_messages = '';
@@ -209,8 +210,6 @@ class UACF7_TELEGRAM_TAG_PANEL{
 
           update_post_meta( $form->id(), 'uacf7_telegram_settings', $uacf7_telegram_settings );
 
-
-      }
   
 
   }
