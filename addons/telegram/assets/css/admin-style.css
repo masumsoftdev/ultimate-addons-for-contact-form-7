@@ -99,6 +99,70 @@
   }
   
   /*Bot Status Styles Ends*/
+
+
+
+
+  /* Checkbox Swticher Styles Starts*/
+  .swtichdiv{
+    width: 100px!important;
+  }
+  .toggle {
+    position: relative;
+  }
+  
+  .toggle input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .toggle .onoff {
+    color: #000000;
+    font-size: 20px;
+    text-align: left;
+    display: block;
+  }
+  
+  .slider {
+    position: relative;
+    display: block;
+    cursor: pointer;
+    background-color: #000000;
+    transition: 0.4s;
+    width: 100px;
+    height: 40px;
+  }
+  
+  .slider:before {
+    content: "";
+    position: absolute;
+    height: 20px;
+    width: 30px;
+    background-color: #fff;
+    transition: 0.4s;
+    top: 10px;
+    left: 10px;
+  }
+  
+  input:checked + .slider {
+    background-color: #008000;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(50px);
+  }
+  
+  .slider.round {
+    border-radius: 10px;
+  }
+  .slider.round::before {
+    border-radius: 20px;
+  }
+
+  /* Checkbox Swticher Styles Starts*/
+  
   
   /*Telegram Panel Styles Ends*/
 

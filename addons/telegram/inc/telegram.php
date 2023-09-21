@@ -118,15 +118,14 @@ class UACF7_TELEGRAM_TAG_PANEL{
           <div class="telegram_wrapper_second_col">
             <div class="ultimate-telegram-wrapper">
               <fieldset>
-                      <h3><?php echo esc_html__( 'Subscribers List', 'ultimate-addons-cf7' ); ?></h3>
-                     
-                      <ul>
-                        <li><a href="">Subscriber 1</a> Pasue | Delete </li>
-                        <li><a href="">Subscriber 2</a> Active | Delete</li>
-                        <li><a href="">Subscriber 3</a> Pasue | Delete</li>
-                        <li><a href="">Subscriber 4</a> Active | Delete</li>
-                        <li><a href="">Subscriber 5</a> Active | Delete</li>
-                      </ul>
+                    <h3><?php echo esc_html__( 'Sending Message to Telegram', 'ultimate-addons-cf7' ); ?></h3>
+                    <div class="swtichdiv">
+                      <label class="toggle">
+                        <span class="onoff">OFF</span>
+                        <input type="checkbox" />
+                        <span class="slider round"></span>
+                      </label>
+                    </div>
               </fieldset> 
             </div>
           </div>
