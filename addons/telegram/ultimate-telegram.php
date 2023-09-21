@@ -18,6 +18,12 @@ class UACF7_TELEGRAM {
   public function uacf7_telegram_admin_js_script(){
     wp_enqueue_script( 'uacf7-telegram-scripts', UACF7_ADDONS. '/telegram/assets/js/admin-script.js', ['jquery'], 'UACF7_VERSION', true );
     wp_enqueue_style( 'uacf7-telegram-styles', UACF7_ADDONS. '/telegram/assets/css/admin-style.css', [], 'UACF7_VERSION', 'all' );
+
+    wp_localize_script('uacf7-telegram-scripts', 'uacf7_telegram_ajax', array(
+      'ajax_url' => admin_url('admin-ajax.php'),
+      'form_id' => '19'
+    ));
+    
   }
 
   public function uacf7_send_contact_form_data_to_telegram($contact_form) {
@@ -36,6 +42,8 @@ class UACF7_TELEGRAM {
 
           $this->uacf7_send_message_to_telegram($message, $form_id);
       }
+
+
   }
 
 
