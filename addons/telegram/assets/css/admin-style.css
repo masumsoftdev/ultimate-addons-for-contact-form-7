@@ -29,7 +29,7 @@
   }
   
   #uacf7-telegram-panel .telegram_panel_wrapper .telegram_wrapper_first_col{
-    width: 50%!important;
+    width: 70%!important;
   }
   
   #uacf7-telegram-panel .telegram_panel_wrapper .telegram_wrapper_first_col .bot_title_and_status .chat_title_div{
@@ -39,12 +39,12 @@
   }
   
   #uacf7-telegram-panel .telegram_panel_wrapper .telegram_wrapper_first_col .bot_title_and_status .bot_title{
-    width: 50%!important;
+    width: 30%!important;
     float: left!important;
   }
   
   #uacf7-telegram-panel .telegram_panel_wrapper .telegram_wrapper_first_col .bot_title_and_status .bot_status{
-    width: 50%!important;
+    width: 70%!important;
     float: right!important;
     padding: 24px 0px!important;
    
@@ -53,13 +53,10 @@
     width: 50%!important;
     float: left!important;
   }
-  
-  /* #uacf7-telegram-panel .telegram_wrapper_first_col .bot_token_input_box{
-    margin-top: 10px!important;
-  } */
+ 
   
   #uacf7-telegram-panel .telegram_wrapper_second_col{
-    width: 50%!important;
+    width: 30%!important;
     float: left!important;
   }
   
@@ -106,26 +103,3 @@
   /*Telegram Panel Styles Ends*/
 
 
-
-
-
-
-
-
-
-
-
-
-  .hidden {
-    display: none;
-}
-
-#overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
-    display: none;
-}

@@ -8,15 +8,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class UACF7_TELEGRAM_TAG_PANEL{
 
-  public $bot_name;
-  public $bot_username;
-
-
   public $uacf7_telegram_enable;
   public $uacf7_telegram_bot_token;
   public $uacf7_telegram_chat_id;
   public $uacf7_telegram_bot_name;
   public $uacf7_telegram_bot_username;
+  public $uacf7_telegram_connection_error_message;
 
   public function __construct(){
     add_action( 'wpcf7_editor_panels', [$this, 'uacf7_telegram_tag_panel_add']);
@@ -49,12 +46,13 @@ class UACF7_TELEGRAM_TAG_PANEL{
     
     $uacf7_telegram_settings = get_post_meta($post->id(), 'uacf7_telegram_settings', true);
 
-    if (!empty($uacf7_telegram_settings) && isset($uacf7_telegram_settings['uacf7_telegram_enable'], $uacf7_telegram_settings['uacf7_telegram_bot_token'], $uacf7_telegram_settings['uacf7_telegram_chat_id'] , $uacf7_telegram_settings['uacf7_telegram_bot_name'], $uacf7_telegram_settings['uacf7_telegram_bot_username'])) {
+    if (!empty($uacf7_telegram_settings) && isset($uacf7_telegram_settings['uacf7_telegram_enable'], $uacf7_telegram_settings['uacf7_telegram_bot_token'], $uacf7_telegram_settings['uacf7_telegram_chat_id'] , $uacf7_telegram_settings['uacf7_telegram_bot_name'], $uacf7_telegram_settings['uacf7_telegram_bot_username'], $uacf7_telegram_settings['uacf7_telegram_connection_error_message'])) {
       $this->uacf7_telegram_enable = $uacf7_telegram_settings['uacf7_telegram_enable'];
       $this->uacf7_telegram_bot_token = $uacf7_telegram_settings['uacf7_telegram_bot_token'];
       $this->uacf7_telegram_chat_id = $uacf7_telegram_settings['uacf7_telegram_chat_id'];
       $this->uacf7_telegram_bot_name = $uacf7_telegram_settings['uacf7_telegram_bot_name'];
       $this->uacf7_telegram_bot_username = $uacf7_telegram_settings['uacf7_telegram_bot_username'];
+      $this->uacf7_telegram_connection_error_message = $uacf7_telegram_settings['uacf7_telegram_connection_error_message'];
     }
   
     ?> 
@@ -82,7 +80,8 @@ class UACF7_TELEGRAM_TAG_PANEL{
                     <div class="bot_status">
                        <div class="check_bot online">
                         <strong class="status">Bot is Online</strong>
-                        <code class="bot_username">Bot Name: <?php  echo $this->uacf7_telegram_bot_name; ?> <br/> username: @<?php  echo $this->uacf7_telegram_bot_username; ?></code>
+                        <code class="bot_username">name: <?php  echo $this->uacf7_telegram_bot_name; ?>  </code>
+                        <code class="bot_username">username: @<?php  echo $this->uacf7_telegram_bot_username; ?></code>
                       </div>
                       <!-- <div class="check_bot offline">
                         <strong class="status">Bot is Offline</strong>
