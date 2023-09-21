@@ -4,7 +4,7 @@ Tags: contact form 7, contact form 7 addons, contact form 7 addon, contact form 
 Requires at least: 4.2
 Tested up to: 6.3.1
 Requires PHP: 5.4
-Stable tag: 3.2.0
+Stable tag: 3.2.1
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -436,6 +436,15 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 53. Range Slider Pro (Form Example)
 
 == Changelog ==
+
+=  3.2.1 – 20/09/2023  = 
+
+- Added: Condition field sent to mail based on condition.
+- Fixed: PDF generator customize pdf line break issue.
+- Fixed: PDF generator saving issue fixed.
+- Fixed: PDF generator export to PDF database addon issue.
+- Fixed: Reflected Cross Site Scripting( XSS ) vulnerability issue. 
+- Updated: Appsero updated Version 1.2.4
 
 =  3.2.0 – 06/09/2023  = 
 
