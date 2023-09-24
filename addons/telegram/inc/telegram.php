@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class UACF7_TELEGRAM_TAG_PANEL{
 
   public $form_id;
-  public $telegram_mse;
+  public $telegram_mse = 'updated';
 
   public $uacf7_telegram_enable;
   public $uacf7_telegram_message_sending_enable;
@@ -28,6 +28,9 @@ class UACF7_TELEGRAM_TAG_PANEL{
 
   
   }
+
+
+ 
 
 
   /** 
@@ -139,14 +142,16 @@ class UACF7_TELEGRAM_TAG_PANEL{
                     <div class="swtichdiv">
                       <label class="toggle" for="uacf7_telegram_message_sending_enable">
                         <span class="onoff">OFF</span>
-                        <!-- <input id="uacf7_telegram_message_sending_enable" name="uacf7_telegram_message_sending_enable"  type="checkbox" <?php //checked( 'on', $this->uacf7_telegram_message_sending_enable, true ); ?> > -->
                         <input id="uacf7_telegram_message_sending_enable" name="uacf7_telegram_message_sending_enable" type="checkbox" <?php checked( 'on', $this->uacf7_telegram_message_sending_enable, true ); ?>>
-
                         <span class="slider round"></span>
                       </label>
                     </div>
+                    <p id="showing_success_message"></p>
 
-                    <?php echo $this->telegram_mse ?>
+                    <!-- <label class="uacf7-admin-toggle" for="uacf7_telegram_message_sending_enable">
+                    <input type="checkbox" class="uacf7_telegram_message_sending_enable" name="uacf7_telegram_message_sending_enable" id="uacf7_telegram_message_sending_enable" %s>
+                    <span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
+                  </label> -->
               </fieldset> 
             </div>
           </div>
@@ -176,7 +181,6 @@ class UACF7_TELEGRAM_TAG_PANEL{
 
         }
 
-        $this->form_id = $form->id();
 
         $bot_token = !empty($_POST['uacf7_telegram_bot_token']) ? sanitize_text_field($_POST['uacf7_telegram_bot_token']) : $this->uacf7_telegram_bot_token;
 
@@ -241,6 +245,7 @@ class UACF7_TELEGRAM_TAG_PANEL{
 
 
 
+
   
 
   }
@@ -249,7 +254,7 @@ class UACF7_TELEGRAM_TAG_PANEL{
 
   public function uacf7_telegram_update_is_sending_message(){
 
-
+  
     $form_id = $_POST['form_id'];
     $new_value = sanitize_text_field($_POST['new_value']);
 
@@ -258,7 +263,6 @@ class UACF7_TELEGRAM_TAG_PANEL{
     update_post_meta($form_id, 'uacf7_telegram_message_sending_enable', $new_value);
 
   
-    // $this->telegram_mse = 'Successfully updated.....';
 
    
     die();

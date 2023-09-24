@@ -11,11 +11,16 @@
 
 
 
+    
     /** Updating "Is willing to send messages to Telegram Switcher Checkbox" */
+    var isChecked = false;
 
     $('#uacf7_telegram_message_sending_enable').on('click', function() {
-  
-        var updated_value = $('#uacf7_telegram_message_sending_enable').val();
+
+
+        isChecked = !isChecked;
+        $(this).checked = isChecked;
+        value = isChecked ? 'on' : 'off';
 
     
         $.ajax({
@@ -24,9 +29,14 @@
             data: {
                 action: 'uacf7_telegram_post_meta',
                 form_id: uacf7_telegram_ajax.form_id,
-                new_value: updated_value,
+                new_value: value,
             },
-            success: function(response) {
+            success: function() {
+
+                $('#showing_success_message').text('Updated Successfully.....');
+                setTimeout(function() {
+                    $('#showing_success_message').text(''); 
+                }, 3000);
                
             }
         });

@@ -6,7 +6,6 @@ if(!defined('ABSPATH')){
 
 class UACF7_TELEGRAM {
 
-  public $form_id_for_ajax;
 
   public function __construct() {
 
@@ -21,9 +20,11 @@ class UACF7_TELEGRAM {
     wp_enqueue_script( 'uacf7-telegram-scripts', UACF7_ADDONS. '/telegram/assets/js/admin-script.js', ['jquery'], 'UACF7_VERSION', true );
     wp_enqueue_style( 'uacf7-telegram-styles', UACF7_ADDONS. '/telegram/assets/css/admin-style.css', [], 'UACF7_VERSION', 'all' );
 
+
+
     wp_localize_script('uacf7-telegram-scripts', 'uacf7_telegram_ajax', array(
       'ajax_url' => admin_url('admin-ajax.php'),
-      'form_id' => $this->form_id_for_ajax,
+      'form_id' => '19'
     ));
     
   }
@@ -36,8 +37,6 @@ class UACF7_TELEGRAM {
           $posted_data = $submission->get_posted_data();
           $form_id = $contact_form->id();
           $form_name = $contact_form->title();
-
-          $this->form_id_for_ajax = $form_id;
 
           $message = "Message from: $form_name:\n";
           foreach ($posted_data as $field_name => $field_value) {

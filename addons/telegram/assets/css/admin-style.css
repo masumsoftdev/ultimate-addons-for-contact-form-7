@@ -161,7 +161,38 @@
     border-radius: 20px;
   }
 
-  /* Checkbox Swticher Styles Starts*/
+  /* Checkbox Swticher Styles Ends*/
+
+   
+  .uacf7-admin-toggle__input {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+
+  .uacf7-admin-toggle__input:checked + .uacf7-admin-toggle-track .uacf7-admin-toggle-indicator {
+    background: #06af00;
+    transform: translateX(30px);
+  }
+ 
+  .uacf7-admin-toggle__input:checked + .uacf7-admin-toggle-track {
+	  border: 2px solid #06af00;
+  }
+  .uacf7-admin-toggle-track:hover, .uacf7-admin-toggle__input:checked + .uacf7-admin-toggle-track:hover {
+	  opacity: 0.75;
+  }
+  .uacf7-admin-toggle__input:checked + .uacf7-admin-toggle-track .uacf7-admin-toggle-indicator .checkMark {
+    opacity: 1;
+    transition: opacity 0.25s ease-in-out;
+  }
+
+
+
   
   
   /*Telegram Panel Styles Ends*/
