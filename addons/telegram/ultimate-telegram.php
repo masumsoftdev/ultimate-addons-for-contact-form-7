@@ -6,6 +6,8 @@ if(!defined('ABSPATH')){
 
 class UACF7_TELEGRAM {
 
+  public $form_id;
+
 
   public function __construct() {
 
@@ -15,19 +17,10 @@ class UACF7_TELEGRAM {
     add_action('admin_enqueue_scripts', [$this, 'uacf7_telegram_admin_js_script']);
   }
 
-  public function get_current_form_id(){
- 
-    $contact_form_instance = WPCF7_ContactForm::get_current();
-    if(isset($contact_form)){
-      $form_id = $contact_form_instance->id();
-      return $form_id;
-    }
-  
-}
 
 
   public function uacf7_telegram_admin_js_script(){
-    $form_id = $this->get_current_form_id(); 
+    // $form_id = $this->uacf7_get_current_form_id(); 
 
     wp_enqueue_script( 'uacf7-telegram-scripts', UACF7_ADDONS. '/telegram/assets/js/admin-script.js', ['jquery'], 'UACF7_VERSION', true );
     wp_enqueue_style( 'uacf7-telegram-styles', UACF7_ADDONS. '/telegram/assets/css/admin-style.css', [], 'UACF7_VERSION', 'all' );
@@ -36,7 +29,7 @@ class UACF7_TELEGRAM {
 
     wp_localize_script('uacf7-telegram-scripts', 'uacf7_telegram_ajax', array(
       'ajax_url' => admin_url('admin-ajax.php'),
-      'form_id' => $form_id
+      'form_id' => $this->form_id
     ));
     
   }
@@ -48,6 +41,7 @@ class UACF7_TELEGRAM {
       if ($submission) {
           $posted_data = $submission->get_posted_data();
           $form_id = $contact_form->id();
+          $this->form_id = $form_id;
           $form_name = $contact_form->title();
 
           $message = "Message from: $form_name:\n";
@@ -69,6 +63,7 @@ class UACF7_TELEGRAM {
      */
 
      $uacf7_telegram_settings = get_post_meta($form_id, 'uacf7_telegram_settings', true);
+     $uacf7_telegram_message_sending_enable = get_post_meta($form_id, 'uacf7_telegram_message_sending_enable', true);
 
 
      if (!empty($uacf7_telegram_settings)) {
@@ -89,11 +84,13 @@ class UACF7_TELEGRAM {
    
 
 
+     if($uacf7_telegram_message_sending_enable === 'on'){
       $args = array(
-          'chat_id' => $chat_id,
-          'text' => $message,
-      );
+        'chat_id' => $chat_id,
+        'text' => $message,
+    );
 
+     }
       $response = wp_remote_post($api_url, array(
           'body' => json_encode($args),
           'headers' => array('Content-Type' => 'application/json'),

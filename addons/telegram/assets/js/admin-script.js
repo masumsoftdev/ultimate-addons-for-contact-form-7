@@ -22,7 +22,7 @@
         $(this).checked = isChecked;
         value = isChecked ? 'on' : 'off';
 
-    
+        alert(value)
         $.ajax({
             type: 'POST',
             url: uacf7_telegram_ajax.ajax_url,

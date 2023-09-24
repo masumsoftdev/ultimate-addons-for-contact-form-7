@@ -111,7 +111,7 @@ class UACF7_TELEGRAM_TAG_PANEL{
                      <div class="bot_token_input_box">
 
                       <input type="password" name="uacf7_telegram_bot_token" value="<?php echo isset($this->uacf7_telegram_bot_token) ? $this->uacf7_telegram_bot_token : ''; ?>"
- placeholder="Paste here Telegram BOT TOKEN....."> 
+                        placeholder="Paste here Telegram BOT TOKEN....."> 
                         <br> <small>
                                 <?php esc_html_e( 'You need to create your own Telegram-Bot. Learn how to create & get Token', 'ultimate-addons-cf7' ); ?>
                                 <a target="_blank" rel="nofollow" href="https://core.telegram.org/bots#3-how-do-i-create-a-bot"><?php esc_html_e( 'here', 'ultimate-addons-cf7' ); ?></a>
@@ -126,7 +126,7 @@ class UACF7_TELEGRAM_TAG_PANEL{
                     </div>    
                      <div class="chat_id_input_box">
                       <input type="password" name="uacf7_telegram_chat_id" value="<?php echo isset($this->uacf7_telegram_chat_id) ? $this->uacf7_telegram_chat_id : ''; ?>"
- placeholder="Paste here Telegram Chat ID....."> 
+                        placeholder="Paste here Telegram Chat ID....."> 
                         <br> <small>
                                 <?php esc_html_e( 'You need to create your own Telegram-Chat ID. Learn how to get', 'ultimate-addons-cf7' ); ?>
                                 <a target="_blank" rel="nofollow" href="https://www.google.com/search?q=%22how+to+get+telegram+chat+id"><?php esc_html_e( 'here', 'ultimate-addons-cf7' ); ?></a>
@@ -239,11 +239,10 @@ class UACF7_TELEGRAM_TAG_PANEL{
           update_post_meta( $form->id(), 'uacf7_telegram_settings', $uacf7_telegram_settings );
 
 
-          /** Saving Is will to send message Switcher */
+          /** Saving Is willing to send message Switcher */
 
-
-          $uacf7_telegram_message_sending_enable = sanitize_text_field($_POST['uacf7_telegram_message_sending_enable']);
-          update_post_meta( $form->id(), 'uacf7_telegram_message_sending_enable', $uacf7_telegram_message_sending_enable );
+          // $uacf7_telegram_message_sending_enable = sanitize_text_field($_POST['uacf7_telegram_message_sending_enable']);
+          // update_post_meta( $form->id(), 'uacf7_telegram_message_sending_enable', 'onek');
 
 
 
