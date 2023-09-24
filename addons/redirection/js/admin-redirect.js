@@ -1,4 +1,7 @@
+
+
 jQuery(document).ready(function () {
+
 	//Conditional check
 	function uacf7_redirect_conditional_field() {
 		var uacf7_redirect_to_type = jQuery('input.uacf7_redirect_to_type:checked').val();
@@ -51,5 +54,6 @@ jQuery(document).ready(function () {
     jQuery('#uacf7_redirect_type').on('click', function(){
         uacf7_conditional_redirect_type();
     });
+		
 	
 });

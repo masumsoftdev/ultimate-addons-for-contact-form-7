@@ -7,7 +7,6 @@
     });
 })( jQuery );
 
-
 function uacf7_settings_tab(event, tabName) {
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("uacf7-tabcontent");

@@ -18,8 +18,10 @@ class UACF7_TELEGRAM {
   public function get_current_form_id(){
  
     $contact_form_instance = WPCF7_ContactForm::get_current();
-    $form_id = $contact_form_instance->id();
-    return $form_id;
+    if(isset($contact_form)){
+      $form_id = $contact_form_instance->id();
+      return $form_id;
+    }
   
 }
 
