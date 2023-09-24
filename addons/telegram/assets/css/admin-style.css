@@ -192,6 +192,16 @@
   }
 
 
+  #showing_success_message{
+    color: #008000!important;
+    font-size: 20px!important;
+  }
+
+  .bot_username span {
+    font-weight: 600;
+  }
+
+
 
   
   

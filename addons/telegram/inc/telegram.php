@@ -99,8 +99,8 @@ class UACF7_TELEGRAM_TAG_PANEL{
                     <?php if(!empty($this->uacf7_telegram_bot_name) && !empty($this->uacf7_telegram_bot_username)){ ?>
                        <div class="check_bot online">
                         <strong class="status">Bot is Online</strong>
-                        <code class="bot_username">name: <?php  echo $this->uacf7_telegram_bot_name; ?>  </code>
-                        <code class="bot_username">username: @<?php  echo $this->uacf7_telegram_bot_username; ?></code>
+                        <code class="bot_username"> <span>Bot Name:</span> <?php  echo $this->uacf7_telegram_bot_name; ?>  </code>
+                        <code class="bot_username"> <span>Username:</span> @<?php  echo $this->uacf7_telegram_bot_username; ?></code>
                       </div>
 
                     <?php }else{ ?>
@@ -143,19 +143,13 @@ class UACF7_TELEGRAM_TAG_PANEL{
             <div class="ultimate-telegram-wrapper">
               <fieldset>
                     <h3><?php echo esc_html__( 'Sending Message to Telegram', 'ultimate-addons-cf7' ); ?></h3>
-                    <div class="swtichdiv">
-                      <label class="toggle" for="uacf7_telegram_message_sending_enable">
-                        <span class="onoff">OFF</span>
-                        <input data-form-id="<?php echo $this->form_id ?>" id="uacf7_telegram_message_sending_enable" name="uacf7_telegram_message_sending_enable" type="checkbox" <?php checked( 'on', $this->uacf7_telegram_message_sending_enable, true ); ?>>
-                        <span class="slider round"></span>
-                      </label>
-                    </div>
-                    <p id="showing_success_message"></p>
-
-                    <!-- <label class="uacf7-admin-toggle" for="uacf7_telegram_message_sending_enable">
-                    <input type="checkbox" class="uacf7_telegram_message_sending_enable" name="uacf7_telegram_message_sending_enable" id="uacf7_telegram_message_sending_enable" %s>
+                 
+                    <label class="uacf7-admin-toggle" for="uacf7_telegram_message_sending_enable">
+                    <input data-form-id="<?php echo $this->form_id ?>" class="uacf7-admin-toggle__input" id="uacf7_telegram_message_sending_enable" name="uacf7_telegram_message_sending_enable" type="checkbox" <?php checked( 'on', $this->uacf7_telegram_message_sending_enable, true ); ?>>
                     <span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
-                  </label> -->
+                  </label>
+            
+                  <p id="showing_success_message"></p>
               </fieldset> 
             </div>
           </div>
