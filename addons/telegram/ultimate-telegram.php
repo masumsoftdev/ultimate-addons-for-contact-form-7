@@ -15,8 +15,18 @@ class UACF7_TELEGRAM {
     add_action('admin_enqueue_scripts', [$this, 'uacf7_telegram_admin_js_script']);
   }
 
+  public function get_current_form_id(){
+ 
+    $contact_form_instance = WPCF7_ContactForm::get_current();
+    $form_id = $contact_form_instance->id();
+    return $form_id;
+  
+}
+
 
   public function uacf7_telegram_admin_js_script(){
+    $form_id = $this->get_current_form_id(); 
+
     wp_enqueue_script( 'uacf7-telegram-scripts', UACF7_ADDONS. '/telegram/assets/js/admin-script.js', ['jquery'], 'UACF7_VERSION', true );
     wp_enqueue_style( 'uacf7-telegram-styles', UACF7_ADDONS. '/telegram/assets/css/admin-style.css', [], 'UACF7_VERSION', 'all' );
 
@@ -24,7 +34,7 @@ class UACF7_TELEGRAM {
 
     wp_localize_script('uacf7-telegram-scripts', 'uacf7_telegram_ajax', array(
       'ajax_url' => admin_url('admin-ajax.php'),
-      'form_id' => '19'
+      'form_id' => $form_id
     ));
     
   }
