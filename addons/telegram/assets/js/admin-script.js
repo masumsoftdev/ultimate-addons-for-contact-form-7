@@ -17,18 +17,19 @@
 
     $('#uacf7_telegram_message_sending_enable').on('click', function() {
 
+        var form_id = $(this).data('form-id');
+
 
         isChecked = !isChecked;
         $(this).checked = isChecked;
         value = isChecked ? 'on' : 'off';
-
-        alert(value)
+        
         $.ajax({
             type: 'POST',
             url: uacf7_telegram_ajax.ajax_url,
             data: {
                 action: 'uacf7_telegram_post_meta',
-                form_id: uacf7_telegram_ajax.form_id,
+                form_id: form_id,
                 new_value: value,
             },
             success: function() {

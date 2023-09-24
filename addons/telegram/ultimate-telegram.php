@@ -6,9 +6,6 @@ if(!defined('ABSPATH')){
 
 class UACF7_TELEGRAM {
 
-  public $form_id;
-
-
   public function __construct() {
 
     require_once 'inc/telegram.php';
@@ -28,8 +25,7 @@ class UACF7_TELEGRAM {
 
 
     wp_localize_script('uacf7-telegram-scripts', 'uacf7_telegram_ajax', array(
-      'ajax_url' => admin_url('admin-ajax.php'),
-      'form_id' => $this->form_id
+      'ajax_url' => admin_url('admin-ajax.php')
     ));
     
   }
@@ -41,7 +37,6 @@ class UACF7_TELEGRAM {
       if ($submission) {
           $posted_data = $submission->get_posted_data();
           $form_id = $contact_form->id();
-          $this->form_id = $form_id;
           $form_name = $contact_form->title();
 
           $message = "Message from: $form_name:\n";
@@ -84,7 +79,7 @@ class UACF7_TELEGRAM {
    
 
 
-     if($uacf7_telegram_message_sending_enable === 'on'){
+     if($uacf7_telegram_message_sending_enable === 'on' && $uacf7_telegram_message_sending_enable !== null && $uacf7_telegram_message_sending_enable !== ''){
       $args = array(
         'chat_id' => $chat_id,
         'text' => $message,

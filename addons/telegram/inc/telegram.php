@@ -9,7 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 class UACF7_TELEGRAM_TAG_PANEL{
 
   public $form_id;
-  public $telegram_mse = 'updated';
 
   public $uacf7_telegram_enable;
   public $uacf7_telegram_message_sending_enable;
@@ -60,6 +59,9 @@ class UACF7_TELEGRAM_TAG_PANEL{
     }
 
     $uacf7_telegram_settings = get_post_meta($post->id(), 'uacf7_telegram_settings', true);
+
+
+    $this->form_id = $post->id();
 
     if (!empty($uacf7_telegram_settings) && isset($uacf7_telegram_settings['uacf7_telegram_enable'], $uacf7_telegram_settings['uacf7_telegram_bot_token'], $uacf7_telegram_settings['uacf7_telegram_chat_id'] , $uacf7_telegram_settings['uacf7_telegram_bot_name'], $uacf7_telegram_settings['uacf7_telegram_bot_username'], $uacf7_telegram_settings['uacf7_telegram_connection_error_message'], )) {
       $this->uacf7_telegram_enable = $uacf7_telegram_settings['uacf7_telegram_enable'];
@@ -144,7 +146,7 @@ class UACF7_TELEGRAM_TAG_PANEL{
                     <div class="swtichdiv">
                       <label class="toggle" for="uacf7_telegram_message_sending_enable">
                         <span class="onoff">OFF</span>
-                        <input id="uacf7_telegram_message_sending_enable" name="uacf7_telegram_message_sending_enable" type="checkbox" <?php checked( 'on', $this->uacf7_telegram_message_sending_enable, true ); ?>>
+                        <input data-form-id="<?php echo $this->form_id ?>" id="uacf7_telegram_message_sending_enable" name="uacf7_telegram_message_sending_enable" type="checkbox" <?php checked( 'on', $this->uacf7_telegram_message_sending_enable, true ); ?>>
                         <span class="slider round"></span>
                       </label>
                     </div>
@@ -239,15 +241,6 @@ class UACF7_TELEGRAM_TAG_PANEL{
           update_post_meta( $form->id(), 'uacf7_telegram_settings', $uacf7_telegram_settings );
 
 
-          /** Saving Is willing to send message Switcher */
-
-          // $uacf7_telegram_message_sending_enable = sanitize_text_field($_POST['uacf7_telegram_message_sending_enable']);
-          // update_post_meta( $form->id(), 'uacf7_telegram_message_sending_enable', 'onek');
-
-
-
-
-  
 
   }
 
@@ -259,13 +252,8 @@ class UACF7_TELEGRAM_TAG_PANEL{
     $form_id = $_POST['form_id'];
     $new_value = sanitize_text_field($_POST['new_value']);
 
-
-    // Update the post meta.
     update_post_meta($form_id, 'uacf7_telegram_message_sending_enable', $new_value);
 
-  
-
-   
     die();
   }
 }
