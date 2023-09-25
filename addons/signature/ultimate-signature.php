@@ -12,6 +12,9 @@ class UACF7_SIGNATURE{
   public function __construct(){
     require_once('inc/signature.php');
     add_action( 'wp_enqueue_scripts', [$this, 'uacf7_signature_public_scripts'] );
+
+    add_action('admin_init', [$this, 'uacf7_signature_tag_generator']);
+    add_action('wpcf7_init', [$this, 'uacf7_signature_add_shortcodes']);
   }
 
 
@@ -24,6 +27,72 @@ class UACF7_SIGNATURE{
 
     wp_enqueue_script( 'uacf7-signature-public-assets', UACF7_URL .'/addons/signature/assets/public/js/signature.js', ['jquery'], 'UACF7_VERSION', true );
 
+  }
+
+  /** Signature Tag Generator */
+
+  public function uacf7_signature_tag_generator(){
+    if (!function_exists('wpcf7_add_tag_generator')) {
+      return;
+  }
+
+  wpcf7_add_tag_generator('uacf7_signature',
+      __('Signature', 'ultimate-addons-cf7'),
+      'uacf7-tg-pane-signature',
+      array($this, 'tg_pane_signature')
+  );
+  }
+
+  public static function tg_pane_signature($contact_form, $args = ''){
+    $args = wp_parse_args($args, array());
+    $uacf7_field_type = 'uacf7_submission_id';
+    ?>
+      <div class="control-box">
+      <fieldset>
+                <table class="form-table">
+                  <tbody>
+                        <div class="uacf7-doc-notice"> 
+                            <?php echo sprintf( 
+                                __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                                '<a href="https://themefic.com/docs/uacf7/free-addons/unique-submission-id/" target="_blank">documentation</a>'
+                            ); ?> 
+                        </div>
+                        <tr>
+                            <th scope="row"><label for="<?php echo esc_attr($args['content'] . '-name'); ?>"><?php echo esc_html(__('Name', 'ultimate-addons-cf7')); ?></label></th>
+                            <td><input type="text" name="name" class="tg-name oneline" id="<?php echo esc_attr($args['content'] . '-name'); ?>" /></td>
+                        </tr> 
+                        <tr>
+                            <th scope="row"><label for="tag-generator-panel-text-class"><?php echo esc_html__('Class attribute', 'ultimate-addons-cf7'); ?></label></th>
+                            <td><input type="text" name="class" class="classvalue oneline option" id="tag-generator-panel-text-class"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+      </div>
+
+      <div class="insert-box">
+          <input type="text" name="<?php echo esc_attr($uacf7_field_type); ?>" class="tag code" readonly="readonly" onfocus="this.select()" />
+
+          <div class="submitbox">
+              <input type="button" class="button button-primary insert-tag" id="prevent_multiple" value="<?php echo esc_attr(__('Insert Tag', 'ultimate-addons-cf7')); ?>" />
+          </div>
+      </div>
+      <?php
+  }
+
+
+  /** Add Signature Shortcode */
+
+  public function uacf7_signature_add_shortcodes(){
+    wpcf7_add_form_tag(array('uacf7_signature', 'uacf7_signature*'),
+    array($this, 'uacf7_signature_tag_handler_callback'), array('name-attr' => true));
+  }
+
+  public function uacf7_signature_tag_handler_callback($tag){
+    if (empty($tag->name)) {
+      return '';
+  }
+   
   }
 
 }
