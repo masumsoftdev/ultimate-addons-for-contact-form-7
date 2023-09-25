@@ -8,9 +8,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class UACF7_SIGNATURE_PANEL{
 
+  public $uacf7_signature_enable;
+
   public function __construct(){
     add_action( 'wpcf7_editor_panels', [$this, 'uacf7_signature_panel_add'] );
-    // add_action( 'wpcf7_after_save', [$this, 'uacf7_submission_id_save_form'] );
+    add_action( 'wpcf7_after_save', [$this, 'uacf7_signature_save_form'] );
   }
 
 
@@ -25,7 +27,19 @@ class UACF7_SIGNATURE_PANEL{
       return $panels;
   }
 
-  public function uacf7_create_uacf7_signature_panel_fields(){
+  public function uacf7_create_uacf7_signature_panel_fields( $form){
+
+    $uacf7_signature_settings = get_post_meta( $form->id(), 'uacf7_signature_settings', true );
+
+
+
+    if(!empty($uacf7_signature_settings)){
+      $this->uacf7_signature_enable = $uacf7_signature_settings['uacf7_signature_enable'];
+
+    }
+
+   
+
 
     ?> 
 
@@ -39,10 +53,10 @@ class UACF7_SIGNATURE_PANEL{
         </div>
 
       <label for="uacf7_signature_enable"> 
-      <input class="uacf7_signature_enable" id="uacf7_signature_enable" name="uacf7_signature_enable" type="checkbox" <?php checked( 'on', $uacf7_signature_enable, true ); ?>> <?php _e( 'Enable Submission ID fields', 'ultimate-addons-cf7' ); ?>
+      <input class="uacf7_signature_enable" id="uacf7_signature_enable" name="uacf7_signature_enable" type="checkbox" <?php checked( 'on',  $this->uacf7_signature_enable, true ); ?>> <?php _e( 'Enable Signature for Form', 'ultimate-addons-cf7' ); ?>
       </label>
 
-      <div class="ultimate-submission-id-wrapper">
+      <div class="uacf7_signature_wrapper">
         <fieldset>
                
         </fieldset> 
@@ -51,6 +65,26 @@ class UACF7_SIGNATURE_PANEL{
    <?php 
 
     wp_nonce_field( 'uacf7_signature_nonce_action', 'uacf7_signature_nonce' );
+
+  }
+
+  /** Form Save */
+
+  public function uacf7_signature_save_form($form){
+    if ( ! isset( $_POST ) || empty( $_POST ) ) {
+      return;
+  }
+
+    if ( !wp_verify_nonce( $_POST['uacf7_signature_nonce'], 'uacf7_signature_nonce_action' ) ) {
+        return;
+    }
+
+    $uacf7_signature_settings = [
+      'uacf7_signature_enable' =>  sanitize_text_field($_POST['uacf7_signature_enable']),
+    ];
+
+    update_post_meta( $form->id(), 'uacf7_signature_settings', $uacf7_signature_settings);
+
 
   }
 
