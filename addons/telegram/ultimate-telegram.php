@@ -10,18 +10,17 @@ class UACF7_TELEGRAM {
 
     require_once 'inc/telegram.php';
 
-    add_action('wpcf7_mail_sent', [$this, 'uacf7_send_contact_form_data_to_telegram']);
+    add_action('wpcf7_before_send_mail', [$this, 'uacf7_send_contact_form_data_to_telegram']);
     add_action('admin_enqueue_scripts', [$this, 'uacf7_telegram_admin_js_script']);
+
   }
 
 
 
   public function uacf7_telegram_admin_js_script(){
-    // $form_id = $this->uacf7_get_current_form_id(); 
 
     wp_enqueue_script( 'uacf7-telegram-scripts', UACF7_ADDONS. '/telegram/assets/js/admin-script.js', ['jquery'], 'UACF7_VERSION', true );
     wp_enqueue_style( 'uacf7-telegram-styles', UACF7_ADDONS. '/telegram/assets/css/admin-style.css', [], 'UACF7_VERSION', 'all' );
-
 
 
     wp_localize_script('uacf7-telegram-scripts', 'uacf7_telegram_ajax', array(
@@ -32,26 +31,36 @@ class UACF7_TELEGRAM {
 
   public function uacf7_send_contact_form_data_to_telegram($contact_form) {
 
-  
       $submission = WPCF7_Submission::get_instance();
       if ($submission) {
-          $posted_data = $submission->get_posted_data();
           $form_id = $contact_form->id();
           $form_name = $contact_form->title();
+      
 
-          $message = "Message from: $form_name:\n";
-          foreach ($posted_data as $field_name => $field_value) {
-              $message .= "$field_name: $field_value\n";
-          }
+          $posted_data = $submission->get_posted_data();
+
+          $form_tags = $submission->get_contact_form()->form_scan_shortcode();
+   
+          $properties = $submission->get_contact_form()->get_properties();
+      
+
+          $mail = $contact_form->prop( 'mail' );
+          $message = wpcf7_mail_replace_tags( @ $mail[ 'body' ] );
+
+        
 
           $this->uacf7_send_message_to_telegram($message, $form_id);
+
       }
 
-
+    
   }
 
 
+
   public function uacf7_send_message_to_telegram($message, $form_id) {
+
+  
 
     /**
      * Getting Bot Token & Chat ID from the Database

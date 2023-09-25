@@ -29,9 +29,6 @@ class UACF7_TELEGRAM_TAG_PANEL{
   }
 
 
- 
-
-
   /** 
    * Telegram Tag Panel Adding
    */
@@ -51,7 +48,6 @@ class UACF7_TELEGRAM_TAG_PANEL{
    public function uacf7_create_telegram_panel_fields($post){  
     
   
-
     $uacf7_telegram_message_sending_enable = get_post_meta($post->id(), 'uacf7_telegram_message_sending_enable', true);
 
     if(isset($uacf7_telegram_message_sending_enable) && !empty($uacf7_telegram_message_sending_enable)){
@@ -158,12 +154,8 @@ class UACF7_TELEGRAM_TAG_PANEL{
    <?php 
 
     wp_nonce_field( 'uacf7_telegram_nonce_action', 'uacf7_telegram_nonce' );
-
-
       
   }
-
-
 
       /**
        * Saving Form Data
@@ -234,14 +226,11 @@ class UACF7_TELEGRAM_TAG_PANEL{
 
           update_post_meta( $form->id(), 'uacf7_telegram_settings', $uacf7_telegram_settings );
 
-
-
   }
 
 
 
   public function uacf7_telegram_update_is_sending_message(){
-
   
     $form_id = $_POST['form_id'];
     $new_value = sanitize_text_field($_POST['new_value']);
@@ -251,9 +240,6 @@ class UACF7_TELEGRAM_TAG_PANEL{
     die();
   }
 }
-
-
-
 
 
 
