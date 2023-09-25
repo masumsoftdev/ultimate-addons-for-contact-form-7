@@ -45,7 +45,7 @@ class UACF7_SIGNATURE{
 
   public static function tg_pane_signature($contact_form, $args = ''){
     $args = wp_parse_args($args, array());
-    $uacf7_field_type = 'uacf7_submission_id';
+    $uacf7_field_type = 'uacf7_signature';
     ?>
       <div class="control-box">
       <fieldset>
@@ -113,6 +113,61 @@ class UACF7_SIGNATURE{
         if ($validation_error) {
             $class .= 'wpcf7-not-valid';
         }
+
+        $atts = array();
+
+        $atts['class'] = $tag->get_class_option($class);
+        $atts['id'] = $tag->get_id_option();
+        $atts['tabindex'] = $tag->get_option('tabindex', 'signed_int', true);
+
+        if ($tag->is_required()) {
+            $atts['aria-required'] = 'true';
+        }
+
+        $atts['aria-invalid'] = $validation_error ? 'true' : 'false';
+
+        $atts['name'] = $tag->name;
+
+        // input size
+        $size = $tag->get_option('size', 'int', true);
+        if ($size) {
+            $atts['size'] = $size;
+        } else {
+            $atts['size'] = 40;
+        } 
+        $value = $tag->values;
+        $default_value = $tag->get_default_option($value);
+
+        // $value = get_post_meta($formid, "uacf7_submission_id", true);
+        // $value =  $uacf7_signature_enable;
+
+
+      
+        $atts['value'] = $value;
+    
+
+
+        $atts['name'] = $tag->name;
+
+        $atts = wpcf7_format_atts($atts);
+
+        ob_start();
+
+        ?> 
+        <span  class="wpcf7-form-control-wrap <?php echo sanitize_html_class($tag->name); ?>" data-name="<?php echo sanitize_html_class($tag->name); ?>">
+
+            <input hidden id="uacf7_<?php echo esc_attr($tag->name); ?>" <?php echo $atts;?> >
+            <div>
+                <input type="text" <?php echo $atts;?>>
+            </div>
+            <span><?php echo $validation_error; ?></span>
+
+        </span>
+        
+       <?php 
+        $signature_buffer = ob_get_clean();
+
+        return $signature_buffer;
 
    
   }
