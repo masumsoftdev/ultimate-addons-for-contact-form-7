@@ -91,7 +91,29 @@ class UACF7_SIGNATURE{
   public function uacf7_signature_tag_handler_callback($tag){
     if (empty($tag->name)) {
       return '';
-  }
+    }
+
+      /** Enable / Disable Submission ID */
+      $wpcf7 = WPCF7_ContactForm::get_current(); 
+      $formid = $wpcf7->id();
+      $uacf7_signature_settings = get_post_meta( $formid, 'uacf7_signature_settings', true ); 
+
+      $uacf7_signature_enable = $uacf7_signature_settings['uacf7_signature_enable'];
+
+      
+      if($uacf7_signature_enable != 'on'){
+          return;
+      }
+
+      $validation_error = wpcf7_get_validation_error($tag->name);
+
+        $class = wpcf7_form_controls_class($tag->type);
+
+
+        if ($validation_error) {
+            $class .= 'wpcf7-not-valid';
+        }
+
    
   }
 
