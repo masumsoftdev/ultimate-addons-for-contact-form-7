@@ -10,6 +10,7 @@ if (!defined('ABSPATH')) {
 class UACF7_SIGNATURE{
 
   public function __construct(){
+    require_once('inc/signature.php');
     add_action( 'wp_enqueue_scripts', [$this, 'uacf7_signature_public_scripts'] );
   }
 
