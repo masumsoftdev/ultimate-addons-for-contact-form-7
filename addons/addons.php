@@ -83,6 +83,11 @@ if( !function_exists( 'uacf7_addons_included' ) ) {
         if( uacf7_checked( 'uacf7_enable_submission_id_field') != ''){
             require_once( 'submission-id/ultimate-submission-id.php');
         }
+         //Addon - Signature
+         if( uacf7_checked( 'uacf7_enable_signature_field') != ''){
+            require_once( 'signature/ultimate-signature.php');
+        }
+		
 		
     }
 }
