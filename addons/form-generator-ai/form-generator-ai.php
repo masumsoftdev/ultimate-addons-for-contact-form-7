@@ -32,13 +32,14 @@ class UACF7_FORM_GENERATOR{
     public function admin_scripts(){  
         wp_enqueue_script( 'uacf7-form-generator-ai-choices-js', UACF7_ADDONS . '/form-generator-ai/assets/js/choices.min.js', array(), null, true );  
         wp_enqueue_script( 'uacf7-form-generator-ai-admin-js', UACF7_ADDONS . '/form-generator-ai/assets/js/admin-form-generator-ai.js', array('jquery'), null, true ); 
-        wp_enqueue_style( 'uacf7-form-generator-ai-choices-css', UACF7_ADDONS . '/form-generator-ai/assets/css/choices.css' ); 
+        // wp_enqueue_style( 'uacf7-form-generator-ai-choices-css', UACF7_ADDONS . '/form-generator-ai/assets/css/choices.css' ); 
         wp_enqueue_style( 'uacf7-form-generator-ai-admin-css', UACF7_ADDONS . '/form-generator-ai/assets/css/admin-form-generator-ai.css' );
 
         wp_localize_script( 'uacf7-form-generator-ai-admin-js', 'uacf7_form_ai',
             array( 
                 'ajaxurl' => admin_url( 'admin-ajax.php' ),
                 'nonce' => wp_create_nonce( 'uacf7-form-generator-ai-nonce' ),
+                'loader' => UACF7_ADDONS . '/form-generator-ai/assets/images/pre-loader.svg',
             ) 
         );
     }
@@ -60,57 +61,56 @@ class UACF7_FORM_GENERATOR{
 
     // Add Popup Contact form 7 admin footer
     public function uacf7_form_admin_footer_popup(){
-        ob_start();
-        
+        ob_start(); 
         ?>
-       
-            <div class="uacf7-form-ai-popup">
-                <div class="uacf7-form-ai-wrap"> 
-                    <div class="uacf7-form-ai-inner"> 
-                        <div class="close" title="Exit Full Screen">╳</div>
-                        
-                        <div class="uacf7-ai-form-column"> 
-                            <div class="uacf7-form-input-wrap">
-                                
-                                <h4><?php echo _e( 'Create a', 'ultimate-addons-cf7' ); ?></h4>
-                               <div class="uacf7-form-input-inner">
-                                    <select class="form-control" data-trigger name="uacf7-form-generator-ai" id="uacf7-form-generator-ai"
-                                        placeholder="This is a placeholder" multiple> 
-                                    </select>
-                                    <div class="uacf7-form-options">
-                                        <label for="uacf7-form-steps" class="uacf7-form-steps-label" style="display:none;">
-                                            <span>Step</span>
-                                            <input  type="number" name="uacf7-form-steps" id="uacf7-form-steps"></input>
-                                        </label>
-                                        <label for="uacf7-form-fields" class="uacf7-form-fields-label">
-                                            <span>Field</span>
-                                            <input type="number" name="uacf7-form-fields" id="uacf7-form-fields"></input>
-                                        </label>
-                                        <label for="uacf7-form-fields" class="uacf7-form-label-label"> 
-                                            <span>Label</span> 
-                                            <input type="checkbox" name="uacf7-enable-form-label" id="uacf7-enable-form-label">
-                                        </label>
-                                        
-                                    </div>
-                                    <p class="uacf7-ai-hins"><?php echo _e( 'hins: Create a Multistep Form', 'ultimate-addons-cf7' ); ?></p> 
-                                    <button class="uacf7_ai_search_button"><?php echo _e( 'Generate With AI', 'ultimate-addons-cf7' ); ?></button>
-                               </div>
-                                
+        <div class="uacf7-form-ai-popup">
+            <div class="uacf7-form-ai-wrap"> 
+                <div class="uacf7-form-ai-inner"> 
+                    <div class="close" title="Exit Full Screen">╳</div>
+                    
+                    <div class="uacf7-ai-form-column"> 
+                        <div class="uacf7-form-input-wrap">
+                            
+                            <h4><?php echo _e( 'Create a', 'ultimate-addons-cf7' ); ?></h4>
+                            <div class="uacf7-form-input-inner">
+                                <select class="form-control uacf7-choices" data-trigger name="uacf7-form-generator-ai" id="uacf7-form-generator-ai"
+                                    placeholder="This is a placeholder" multiple> 
+                                </select>
+                                <!-- <div class="uacf7-form-options">
+                                    <label for="uacf7-form-steps" class="uacf7-form-steps-label" style="display:none;">
+                                        <span>Step</span>
+                                        <input  type="number" name="uacf7-form-steps" id="uacf7-form-steps"></input>
+                                    </label>
+                                    <label for="uacf7-form-fields" class="uacf7-form-fields-label">
+                                        <span>Field</span>
+                                        <input type="number" name="uacf7-form-fields" id="uacf7-form-fields"></input>
+                                    </label>
+                                    <label for="uacf7-form-fields" class="uacf7-form-label-label"> 
+                                        <span>Label</span> 
+                                        <input type="checkbox" name="uacf7-enable-form-label" id="uacf7-enable-form-label">
+                                    </label>
+                                    
+                                </div> -->
+                                <p class="uacf7-ai-hins"><?php echo _e( 'hins: Create a Multistep Form', 'ultimate-addons-cf7' ); ?></p> 
+                                <button class="uacf7_ai_search_button"><?php echo _e( 'Generate With AI', 'ultimate-addons-cf7' ); ?></button>
                             </div>
-                        </div> 
-                        <div class="uacf7-ai-form-column"> 
-                            <div class="uacf7-ai-codeblock"> 
-                                <div class="uacf7-ai-navigation">
-                                    <span class="uacf7-ai-code-copy"> <?php echo _e( 'Copy', 'ultimate-addons-cf7' ); ?></span>
-                                    <span class="uacf7-ai-code-insert"> <?php echo _e( 'Insert', 'ultimate-addons-cf7' ); ?></span>
-                                </div>
-                                <textarea name="uacf7_ai_code_content" disable id="uacf7_ai_code_content" ></textarea>
+                            
+                        </div>
+                    </div> 
+                    <div class="uacf7-ai-form-column"> 
+                        <div class="uacf7-ai-codeblock"> 
+                            <div class="uacf7-ai-navigation">
+                                <span class="uacf7-ai-code-reset"> <?php echo _e( 'Reset', 'ultimate-addons-cf7' ); ?></span>
+                                <span class="uacf7-ai-code-copy"> <?php echo _e( 'Copy', 'ultimate-addons-cf7' ); ?></span>
+                                <span class="uacf7-ai-code-insert"> <?php echo _e( 'Insert', 'ultimate-addons-cf7' ); ?></span>
                             </div>
-                        </div> 
-                        
-                    </div>
+                            <textarea name="uacf7_ai_code_content" disabled id="uacf7_ai_code_content" ></textarea>
+                        </div>
+                    </div> 
+                    
                 </div>
-            </div> 
+            </div>
+        </div> 
         <?php
         echo ob_get_clean();
     }
@@ -128,14 +128,20 @@ class UACF7_FORM_GENERATOR{
         $panels = $property->getValue($tag_generator); 
         $tag_data = [];
         foreach($panels as $key => $value){  
-            $tag_value['value'] = $key;
-            $tag_value['label'] = $value['title'];
-            $tag_data[] = $tag_value;
+            if($key !== 'uacf7_conversational_start' && $key != 'uacf7_conversational_end' && $key != 'uacf7_step_start' && $key != 'uacf7_step_end' && $key != 'conditional' && $key != 'repeater' ){
+                $tag_value['value'] = $key;
+                $tag_value['label'] = $value['title'];
+                $tag_data[] = $tag_value;
+            }
+            
         } 
         $data = [
             'status' => 'success',
             'value' => $tag_data,
         ];
+        // echo "<pre>";
+        // print_r($tag_data);
+        // die();
         echo wp_send_json($data);
         die();
     
@@ -147,15 +153,12 @@ class UACF7_FORM_GENERATOR{
             exit(esc_html__("Security error", 'ultimate-addons-cf7'));
         }
         $vaue = '';
-        $uacf7_default = $_POST['searchValue']; 
-        $form_step = $_POST['form_step']; 
-        $form_field = $_POST['form_field']; 
-        $form_label = $_POST['form_label']; 
+        $uacf7_default = $_POST['searchValue'];  
 
         if(count($uacf7_default) > 0 && $uacf7_default[0] == 'form' ){ 
-            $value =  require_once  apply_filters( 'uacf7_ai_form_generator_template', UACF7_FORM_AI_PATH . '/templates/'.$uacf7_default[1].'.php');
+            $value =  require_once  apply_filters( 'uacf7_ai_form_generator_template', UACF7_FORM_AI_PATH . '/templates/uacf7-forms.php');
         }elseif(count($uacf7_default) > 0 && $uacf7_default[0] == 'tag' ){ 
-            $value =  require_once  apply_filters( 'uacf7_ai_form_generator_template', UACF7_FORM_AI_PATH . '/templates/form-tags.php');
+            $value =  require_once  apply_filters( 'uacf7_ai_form_generator_template', UACF7_FORM_AI_PATH . '/templates/uacf7-tags.php');
         }  
         $data = [
             'status' => 'success',
