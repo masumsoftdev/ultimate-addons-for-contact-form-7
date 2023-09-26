@@ -22,10 +22,6 @@ class UACF7_TELEGRAM {
     wp_enqueue_script( 'uacf7-telegram-scripts', UACF7_ADDONS. '/telegram/assets/js/admin-script.js', ['jquery'], 'UACF7_VERSION', true );
     wp_enqueue_style( 'uacf7-telegram-styles', UACF7_ADDONS. '/telegram/assets/css/admin-style.css', [], 'UACF7_VERSION', 'all' );
 
-
-    wp_localize_script('uacf7-telegram-scripts', 'uacf7_telegram_ajax', array(
-      'ajax_url' => admin_url('admin-ajax.php')
-    ));
     
   }
 
@@ -67,7 +63,6 @@ class UACF7_TELEGRAM {
      */
 
      $uacf7_telegram_settings = get_post_meta($form_id, 'uacf7_telegram_settings', true);
-     $uacf7_telegram_message_sending_enable = get_post_meta($form_id, 'uacf7_telegram_message_sending_enable', true);
 
 
      if (!empty($uacf7_telegram_settings)) {
@@ -88,13 +83,13 @@ class UACF7_TELEGRAM {
    
 
 
-     if($uacf7_telegram_message_sending_enable === 'on' && $uacf7_telegram_message_sending_enable !== null && $uacf7_telegram_message_sending_enable !== ''){
+
       $args = array(
         'chat_id' => $chat_id,
         'text' => $message,
     );
 
-     }
+
       $response = wp_remote_post($api_url, array(
           'body' => json_encode($args),
           'headers' => array('Content-Type' => 'application/json'),

@@ -11,7 +11,6 @@ class UACF7_TELEGRAM_TAG_PANEL{
   public $form_id;
 
   public $uacf7_telegram_enable;
-  public $uacf7_telegram_message_sending_enable;
   public $uacf7_telegram_bot_token;
   public $uacf7_telegram_chat_id;
   public $uacf7_telegram_bot_name;
@@ -22,10 +21,7 @@ class UACF7_TELEGRAM_TAG_PANEL{
     add_action( 'wpcf7_editor_panels', [$this, 'uacf7_telegram_tag_panel_add']);
     add_action( 'wpcf7_after_save', [$this, 'uacf7_telegram_save_form'] );
 
-    add_action('wp_ajax_uacf7_telegram_post_meta', [$this,'uacf7_telegram_update_is_sending_message']);
-    add_action('wp_ajax_nopriv_uacf7_telegram_post_meta', [$this, 'uacf7_telegram_update_is_sending_message']); 
 
-  
   }
 
 
@@ -136,18 +132,7 @@ class UACF7_TELEGRAM_TAG_PANEL{
           </div>
           <!-- Second Column Start -->
           <div class="telegram_wrapper_second_col">
-            <div class="ultimate-telegram-wrapper">
-              <fieldset>
-                    <h3><?php echo esc_html__( 'Sending Message to Telegram', 'ultimate-addons-cf7' ); ?></h3>
-                 
-                    <label class="uacf7-admin-toggle" for="uacf7_telegram_message_sending_enable">
-                    <input data-form-id="<?php echo $this->form_id ?>" class="uacf7-admin-toggle__input" id="uacf7_telegram_message_sending_enable" name="uacf7_telegram_message_sending_enable" type="checkbox" <?php checked( 'on', $this->uacf7_telegram_message_sending_enable, true ); ?>>
-                    <span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
-                  </label>
-            
-                  <p id="showing_success_message"></p>
-              </fieldset> 
-            </div>
+           
           </div>
       </div>
      
@@ -228,17 +213,6 @@ class UACF7_TELEGRAM_TAG_PANEL{
 
   }
 
-
-
-  public function uacf7_telegram_update_is_sending_message(){
-  
-    $form_id = $_POST['form_id'];
-    $new_value = sanitize_text_field($_POST['new_value']);
-
-    update_post_meta($form_id, 'uacf7_telegram_message_sending_enable', $new_value);
-
-    die();
-  }
 }
 
 
