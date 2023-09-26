@@ -5,8 +5,10 @@ const clearButton = document.getElementById("clear-button");
 let isDrawing = false;
 
 // Set up the canvas
-canvas.width = 300;
+canvas.width = 500;
 canvas.height = 150;
+canvas.style.border= "1px solid #000";
+canvas.style.cursor = "crosshair";
 ctx.lineWidth = 2;
 ctx.strokeStyle = "#000";
 
