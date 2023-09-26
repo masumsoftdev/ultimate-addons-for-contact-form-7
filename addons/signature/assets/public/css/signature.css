@@ -1,0 +1,15 @@
+#signature-pad canvas{
+  border: 2px solid #000!important;
+  width: 100%!important;
+  height: 150px!important;
+}
+
+/* #signature-canvas{
+  border: 2px solid #000!important;
+  width: 600px!important;
+  height: 150px!important;
+} */
+
+#clear-button {
+  margin-top: 10px;
+}

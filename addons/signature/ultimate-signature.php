@@ -25,8 +25,8 @@ class UACF7_SIGNATURE{
 
   public function uacf7_signature_public_scripts(){
 
-    wp_enqueue_script( 'uacf7-signature-public-scripts', UACF7_URL .'/addons/signature/assets/public/js/signature.js', ['jquery'], 'UACF7_VERSION', true );
-    wp_enqueue_style( 'uacf7-signature-public-styles', UACF7_URL.'/addons/signature/assets/public/css/signature.css', [], 'UACF7_VERSION', 'all' );
+    wp_enqueue_script( 'uacf7-signature-public-assets', UACF7_URL .'/addons/signature/assets/public/js/signature.js', ['jquery'], 'UACF7_VERSION', true );
+
   }
 
   /** Signature Tag Generator */
@@ -155,8 +155,10 @@ class UACF7_SIGNATURE{
 
             <input hidden id="uacf7_<?php echo esc_attr($tag->name); ?>" <?php echo $atts;?> >
             <div>
-              <div id="drawing-container"></div>
-              <button id="clear-button">Clear</button>
+            <div id="signature-pad">
+                <canvas id="signature-canvas"></canvas>
+            </div>
+            <button id="clear-button">Clear</button>
             </div>
             <span><?php echo $validation_error; ?></span>
 
