@@ -231,9 +231,15 @@ class UACF7_DATABASE {
         $insert_data = [];
         foreach ($data as $key => $value){
             if(!in_array($key, $skip_tag_insert)){
-                $insert_data[$key] = esc_html($value);
+                
+                if(is_array($value)){ 
+                    $insert_data[$key] = array_map('esc_html', $value);
+
+                }else{
+                    $insert_data[$key] = esc_html($value);
+                }
             }
-        }
+        } 
         
         $insert_data = json_encode($insert_data) ; 
  
@@ -538,7 +544,9 @@ class uacf7_form_List_Table extends WP_List_Table{
             $order_btn = isset($field_data->order_id) && $field_data->order_id != 0 ? "<a target='_blank' href='".admin_url('post.php?post=' . $field_data->order_id . '&action=edit')."' class='button-primary uacf7-db-pdf'> View Order</a>" : '';
            foreach($field_data as $key => $value){
                 if(is_array($value)){ 
-                    $value = implode(", ", esc_html($value));
+                    $value = implode(", ", $value);
+                }else{
+                    $value = esc_html($value);
                 } 
                
                 if (strstr($value, $replace_dir)) { 
