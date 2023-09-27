@@ -4,6 +4,12 @@ const canvas = document.getElementById("signature-canvas");
 const ctx = canvas.getContext("2d");
 const clearButton = document.getElementById("clear-button");
 
+
+
+const confirm_button = document.getElementById("convertButton");
+confirm_button.style.display = 'none';
+clearButton.style.display = 'none';
+
 let isDrawing = false;
 
 // Set up the canvas
@@ -14,10 +20,21 @@ canvas.style.cursor = "crosshair";
 ctx.lineWidth = 1;
 ctx.strokeStyle = "#000";
 
+
+
+
 function startDrawing(e) {
+    isClicked = true;
     isDrawing = true;
     ctx.beginPath();
     ctx.moveTo(e.clientX - canvas.getBoundingClientRect().left, e.clientY - canvas.getBoundingClientRect().top);
+
+    if(isDrawing == true){
+        const confirm_button = document.getElementById("convertButton");
+        confirm_button.style.display = 'inline-block';
+        clearButton.style.display = 'inline-block';
+    }
+    
 }
 
 function draw(e) {
@@ -36,6 +53,10 @@ function clearCanvas(e) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const fileInput = document.getElementById('img_id_special'); //Clearing the value of file input 
     fileInput.value = null;
+    const confirm_message = document.getElementById("confirm_message");
+    confirm_message.textContent = 'please sign first and confirm your signature before submission';
+    confirm_message.style.color = 'black';
+
 }
 
 // Event listeners
@@ -54,9 +75,11 @@ clearButton.addEventListener("click", clearCanvas);
 
  const convertButton = document.getElementById("convertButton");
  const signature_canvas = document.getElementById("signature-canvas");
+ const confirm_message = document.getElementById("confirm_message");
 
  convertButton.addEventListener("click", (e) => {
-    
+    confirm_message.textContent = 'signature confirmed';
+    confirm_message.style.color = 'green';
     e.preventDefault();
      const imageDataURL = signature_canvas.toDataURL("image/png");
 
@@ -107,6 +130,7 @@ clearButton.addEventListener("click", clearCanvas);
     /** Make Empty the Signature Art Board after Form Submission */
 
     document.addEventListener( 'wpcf7submit', function( event ) {
+        const canvas = document.getElementById("signature-canvas");
         const ctx = canvas.getContext("2d");
         ctx.clearRect(0, 0, canvas.width, canvas.height);
       }, false );
@@ -114,7 +138,7 @@ clearButton.addEventListener("click", clearCanvas);
 
 
 
-
+      /** Click Tracking for Art Board */
 
 
 

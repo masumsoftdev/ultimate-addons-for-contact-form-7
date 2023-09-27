@@ -158,10 +158,11 @@ class UACF7_SIGNATURE{
             <input type="file" id="img_id_special" <?php echo $atts;?> >
             <div>
             <div id="signature-pad">
-                <canvas id="signature-canvas"></canvas>
+              <canvas id="signature-canvas"></canvas>
             </div>
             <button id="clear-button">Clear</button>
             <button id="convertButton">Confirm Signature</button>
+            <span id="confirm_message"></span>
             </div>
             <span><?php echo $validation_error; ?></span>
 
