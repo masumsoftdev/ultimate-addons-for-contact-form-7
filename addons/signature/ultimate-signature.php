@@ -161,7 +161,7 @@ class UACF7_SIGNATURE{
                 <canvas id="signature-canvas"></canvas>
             </div>
             <button id="clear-button">Clear</button>
-            <button id="convertButton">Finalize</button>
+            <button id="convertButton">Confirm Signature</button>
             </div>
             <span><?php echo $validation_error; ?></span>
 
