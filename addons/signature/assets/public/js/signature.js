@@ -34,6 +34,8 @@ function stopDrawing() {
 function clearCanvas(e) {
     e.preventDefault();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const fileInput = document.getElementById('img_id_special'); //Clearing the value of file input 
+    fileInput.value = null;
 }
 
 // Event listeners
@@ -50,72 +52,39 @@ clearButton.addEventListener("click", clearCanvas);
 
 /** Convert Canvas to Image */
 
-
-
  const convertButton = document.getElementById("convertButton");
  const signature_canvas = document.getElementById("signature-canvas");
 
  convertButton.addEventListener("click", (e) => {
-
+    
     e.preventDefault();
      const imageDataURL = signature_canvas.toDataURL("image/png");
 
  
-     const image = new Image();
-     image.src = imageDataURL;
-     image.id = 'uploadedImage'
-
-
-     var img_id_special = document.querySelector('#img_id_special');
-     document.body.appendChild(image);
-
-     console.log(image)
-
-
-    const imageUrl = document.getElementById('uploadedImage').src;
-  
-    // const fileInput = document.getElementById('img_id_special');
-  
-    // fetch(imageUrl)
-    //   .then(response => response.blob())
-    //   .then(blob => {
-    //     const fileName = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
-    //     const file = new File([blob], fileName, { type: blob.type });
-  
-    //     const fileList = new DataTransfer();
-    //     fileList.items.add(file);
-  
-    //     fileInput.files = fileList.files;
+        const image = new Image();
+        image.src = imageDataURL;
+        image.id = 'uploadedImage'
+        image.style = 'display:none'
         
-    //     fileInput.dispatchEvent(new Event('change'));
-    //   })
-    //   .catch(error => {
-    //     console.error(error);
-    //   });
-
-
+        document.body.appendChild(image);
 
    
+
         const imagePreview = document.getElementById('uploadedImage');
         const fileInput = document.getElementById('img_id_special');
       
-        // Create a Blob from the data URL of the image
         const dataUrl = imagePreview.src;
         const blob = dataURLtoBlob(dataUrl);
       
-        // Create a File object from the Blob
-        const fileName = 'image.jpg'; // You can set the desired file name
+        const fileName = 'signature.jpg';
         const file = new File([blob], fileName);
       
-        // Create a FileList with the File object
         const fileList = new DataTransfer();
         fileList.items.add(file);
       
-        // Set the FileList to the file input
         fileInput.files = fileList.files;
       
       
-      // Function to convert a data URL to a Blob
       function dataURLtoBlob(dataURL) {
         const parts = dataURL.split(';base64,');
         const contentType = parts[0].split(':')[1];
@@ -131,6 +100,25 @@ clearButton.addEventListener("click", clearCanvas);
       }
  
     
-
-
     });
+
+
+
+    /** Make Empty the Signature Art Board after Form Submission */
+
+    document.addEventListener( 'wpcf7submit', function( event ) {
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }, false );
+
+
+
+
+
+
+
+
+
+
+   
+
