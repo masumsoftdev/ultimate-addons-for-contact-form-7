@@ -55,44 +55,82 @@ clearButton.addEventListener("click", clearCanvas);
  const convertButton = document.getElementById("convertButton");
  const signature_canvas = document.getElementById("signature-canvas");
 
- convertButton.addEventListener("click", () => {
+ convertButton.addEventListener("click", (e) => {
 
-
+    e.preventDefault();
      const imageDataURL = signature_canvas.toDataURL("image/png");
 
  
      const image = new Image();
      image.src = imageDataURL;
+     image.id = 'uploadedImage'
 
 
      var img_id_special = document.querySelector('#img_id_special');
-    //  document.body.appendChild(image);
      document.body.appendChild(image);
 
- });
+     console.log(image)
+
+
+    const imageUrl = document.getElementById('uploadedImage').src;
+  
+    // const fileInput = document.getElementById('img_id_special');
+  
+    // fetch(imageUrl)
+    //   .then(response => response.blob())
+    //   .then(blob => {
+    //     const fileName = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
+    //     const file = new File([blob], fileName, { type: blob.type });
+  
+    //     const fileList = new DataTransfer();
+    //     fileList.items.add(file);
+  
+    //     fileInput.files = fileList.files;
+        
+    //     fileInput.dispatchEvent(new Event('change'));
+    //   })
+    //   .catch(error => {
+    //     console.error(error);
+    //   });
 
 
 
+   
+        const imagePreview = document.getElementById('uploadedImage');
+        const fileInput = document.getElementById('img_id_special');
+      
+        // Create a Blob from the data URL of the image
+        const dataUrl = imagePreview.src;
+        const blob = dataURLtoBlob(dataUrl);
+      
+        // Create a File object from the Blob
+        const fileName = 'image.jpg'; // You can set the desired file name
+        const file = new File([blob], fileName);
+      
+        // Create a FileList with the File object
+        const fileList = new DataTransfer();
+        fileList.items.add(file);
+      
+        // Set the FileList to the file input
+        fileInput.files = fileList.files;
+      
+      
+      // Function to convert a data URL to a Blob
+      function dataURLtoBlob(dataURL) {
+        const parts = dataURL.split(';base64,');
+        const contentType = parts[0].split(':')[1];
+        const raw = window.atob(parts[1]);
+        const rawLength = raw.length;
+        const uint8Array = new Uint8Array(rawLength);
+      
+        for (let i = 0; i < rawLength; ++i) {
+          uint8Array[i] = raw.charCodeAt(i);
+        }
+      
+        return new Blob([uint8Array], { type: contentType });
+      }
+ 
+    
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-/** Handlilng Input Field & Attribute the Signature as Image*/
-var img_id_special = document.querySelector('#img_id_special');
-
-img_id_special.addEventListener('click', function (e) {
-    // e.preventDefault();
-    // alert();
-
-    // this.src = 'img/s.png';
-});
+    });
