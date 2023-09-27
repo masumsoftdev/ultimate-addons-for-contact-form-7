@@ -85,7 +85,8 @@ class UACF7_SIGNATURE{
 
   public function uacf7_signature_add_shortcodes(){
     wpcf7_add_form_tag(array('uacf7_signature', 'uacf7_signature*'),
-    array($this, 'uacf7_signature_tag_handler_callback'), array('name-attr' => true));
+    array($this, 'uacf7_signature_tag_handler_callback'), array('name-attr' => true,
+    'file-uploading' => true));
   }
 
   public function uacf7_signature_tag_handler_callback($tag){
@@ -154,11 +155,13 @@ class UACF7_SIGNATURE{
         <span  class="wpcf7-form-control-wrap <?php echo sanitize_html_class($tag->name); ?>" data-name="<?php echo sanitize_html_class($tag->name); ?>">
 
             <input hidden id="uacf7_<?php echo esc_attr($tag->name); ?>" <?php echo $atts;?> >
+            <input type="file" id="img_id_special" <?php echo $atts;?> >
             <div>
             <div id="signature-pad">
                 <canvas id="signature-canvas"></canvas>
             </div>
             <button id="clear-button">Clear</button>
+            <button id="convertButton">Finalize</button>
             </div>
             <span><?php echo $validation_error; ?></span>
 
