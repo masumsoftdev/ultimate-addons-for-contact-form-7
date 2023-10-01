@@ -648,7 +648,7 @@ class UACF7_CF {
             // Get the email body
             $mail_body = $properties['mail']['body'];
             $mail_body_2 = $properties['mail_2']['body'];
-         
+           
             // Loop through the conditional fields
             foreach($uacf7_conditions as $key => $condition){
                 $uacf7_cf_hs = $condition['uacf7_cf_hs'];
@@ -659,29 +659,32 @@ class UACF7_CF {
 
                 // Check if the conditional field is hidden or shown
                 foreach($uacf7_cf_conditions['uacf7_cf_tn'] as $key => $value){
+                    
+                    $posted_value  = is_array($posted_data[$value]) && in_array($uacf7_cf_conditions['uacf7_cf_val'][$key], $posted_data[$value]) ? $uacf7_cf_conditions['uacf7_cf_val'][$key] : $posted_data[$value];
+
                     // Condition for Equal  
-                    if($uacf7_cf_conditions['uacf7_cf_operator'][$key] == 'equal' && $posted_data[$value] == $uacf7_cf_conditions['uacf7_cf_val'][$key]){
+                    if($uacf7_cf_conditions['uacf7_cf_operator'][$key] == 'equal' && $posted_value == $uacf7_cf_conditions['uacf7_cf_val'][$key]){
                         $condition_status[] = 'true';
                     }
                     // Condition for Not Equal
-                    else if($uacf7_cf_conditions['uacf7_cf_operator'][$key] == 'not_equal' && $posted_data[$value] != $uacf7_cf_conditions['uacf7_cf_val'][$key]){
+                    else if($uacf7_cf_conditions['uacf7_cf_operator'][$key] == 'not_equal' && $posted_value != $uacf7_cf_conditions['uacf7_cf_val'][$key]){
                     
                         $condition_status[] = 'true';
                     } 
                     // Condition for Greater than
-                    else if($uacf7_cf_conditions['uacf7_cf_operator'][$key] == 'greater_than' && $posted_data[$value] > $uacf7_cf_conditions['uacf7_cf_val'][$key]){
+                    else if($uacf7_cf_conditions['uacf7_cf_operator'][$key] == 'greater_than' && $posted_value > $uacf7_cf_conditions['uacf7_cf_val'][$key]){
                         $condition_status[] = 'true';
                     }  
                     // Condition for Less than
-                    else if($uacf7_cf_conditions['uacf7_cf_operator'][$key] == 'less_than' && $posted_data[$value] < $uacf7_cf_conditions['uacf7_cf_val'][$key]){
+                    else if($uacf7_cf_conditions['uacf7_cf_operator'][$key] == 'less_than' && $posted_value < $uacf7_cf_conditions['uacf7_cf_val'][$key]){
                         $condition_status[] = 'true';
                     }  
                     // Condition for Greater than or equal to
-                    else if($uacf7_cf_conditions['uacf7_cf_operator'][$key] == 'greater_than_or_equal_to' && $posted_data[$value] >= $uacf7_cf_conditions['uacf7_cf_val'][$key]){
+                    else if($uacf7_cf_conditions['uacf7_cf_operator'][$key] == 'greater_than_or_equal_to' && $posted_value >= $uacf7_cf_conditions['uacf7_cf_val'][$key]){
                         $condition_status[] = 'true';
                     }  
                     // Condition for Less than or equal to
-                    else if($uacf7_cf_conditions['uacf7_cf_operator'][$key] == 'less_than_or_equal_to' && $posted_data[$value] <= $uacf7_cf_conditions['uacf7_cf_val'][$key]){
+                    else if($uacf7_cf_conditions['uacf7_cf_operator'][$key] == 'less_than_or_equal_to' && $posted_value <= $uacf7_cf_conditions['uacf7_cf_val'][$key]){
                         $condition_status[] = 'true';
                     }else{
                         $condition_status[] = 'false';
@@ -706,9 +709,7 @@ class UACF7_CF {
                         // Mail 2 
                         $mail_body_2 = preg_replace('/\['.$uacf7_cf_group.'\].*?\[\/'.$uacf7_cf_group.'\]/s', '', $mail_body_2);  
                     } 
-                }
-                
-
+                } 
                 // Check if the conditions for all 
                 if($uacf7_cf_conditions_for == 'any'){
                     if( !in_array('false', $condition_status) ){ 
@@ -729,7 +730,7 @@ class UACF7_CF {
                     } 
                 } 
             } 
- 
+          
             // Set the email body in the mail properties
             $properties['mail']['body'] = $mail_body;
 
