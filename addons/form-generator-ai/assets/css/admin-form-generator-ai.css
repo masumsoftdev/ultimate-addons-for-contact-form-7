@@ -228,6 +228,7 @@
   padding: 3px 10px;
   font-weight: 600;
   cursor: pointer;
+  text-transform: capitalize;
 } 
 .uacf7-form-ai-popup .choices__inner {
   position: relative;
@@ -236,8 +237,17 @@
 .uacf7-form-ai-popup .choices__list.choices__list--dropdown .choices__list > div.is-highlighted {
   background-color: #E1DEE9;
 }
+.uacf7-form-ai-popup .choices__list.choices__list--dropdown .choices__list .choices__item--disabled {
+	background-color: #fff0f0 !important;
+} 
 .uacf7-form-ai-popup .choices__item.choices__item--choice.has-no-choices {
   display: none;
+}
+.choices__inner img {
+	position: absolute;
+	height: 20px;
+	right: 8px !important;
+	bottom: 4px;
 }
 
 /* Choices Custom CSS  */

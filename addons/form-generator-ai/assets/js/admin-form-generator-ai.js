@@ -10,42 +10,13 @@
       var first_option = [
         { value: 'form', label: 'Form' },
         { value: 'tag', label: 'Tag' },
-      ];
+      ]; 
+
       // Second option for Form
-      var secend_option_form = [ 
-        { value: 'multistep', label: 'Multistep' }, 
-        { value: 'booking', label: 'Booking' },
-        { value: 'conditional', label: 'Conditional' },
-        { value: 'subscription', label: 'Subscription' },
-        { value: 'repeater', label: 'Repeater' },
-        { value: 'blog', label: 'Blog Submission' },
-        { value: 'feedback', label: 'Feedback' }, 
-        { value: 'application', label: 'Application' },
-        { value: 'inquiry', label: 'Inquiry' },
-        { value: 'survey', label: 'Survey' },
-        { value: 'address', label: 'Address' },
-        { value: 'event', label: 'Event Registration' },
-        { value: 'newsletter', label: 'Newsletter' },
-        { value: 'donation', label: 'Donation' },
-        { value: 'product-review', label: 'Product Review' },
-        { value: 'service-booking', label: 'Service Booking' },
-        { value: 'appointment-form', label: 'Appointment' },
-        { value: 'rating', label: 'Rating' },
-      ];
+      var secend_option_form = [];
       // Second option for Tag
       var secend_option_tag = [];
-      $.ajax({
-        url: uacf7_form_ai.ajaxurl,
-        type: 'post',
-        data: {
-          action: 'uacf7_form_generator_ai_get_tag',
-          ajax_nonce: uacf7_form_ai.nonce,
-        },
-        success: function (data) {
-          secend_option_tag = data.value;
-
-        }
-      }); 
+    
 
       // Third  option for Tag
       var third_option = [];
@@ -65,15 +36,40 @@
 
       // Add form generator ai On change customize option
       $('#uacf7-form-generator-ai').on('change', function (event) {
-        var current_values = uacf_form_ai.getValue();
-
+        var current_values = uacf_form_ai.getValue();     
+        // Clear all choices
         uacf_form_ai.clearChoices();
-        if (current_values.length == 1) {
-          if (current_values[0].value == 'form') {
-            uacf_form_ai.setChoices(secend_option_form, 'value', 'label', true);
-          } else if (current_values[0].value == 'tag') {
-            uacf_form_ai.setChoices(secend_option_tag, 'value', 'label', true);
+        if (current_values.length == 1 ) {
+          if(secend_option_tag.length == 0 || secend_option_form.length == 0){
+            $('.choices__inner').append('<img class="uacf7_ai_loader" src="' + uacf7_form_ai.loader + '" alt="loader">'); 
+            $.ajax({
+              url: uacf7_form_ai.ajaxurl,
+              type: 'post',
+              data: {
+                action: 'uacf7_form_generator_ai_get_tag',
+                ajax_nonce: uacf7_form_ai.nonce,
+                data_value: current_values[0].value,
+              },
+              success: function (data) {
+                $('.choices__inner img').remove();
+                secend_option_form = data.value_form;
+                secend_option_tag = data.value_tag; 
+
+                if(current_values[0].value == 'form'){
+                  uacf_form_ai.setChoices(secend_option_form, 'value', 'label', true);
+                }else{
+                  uacf_form_ai.setChoices(secend_option_tag, 'value', 'label', true);
+                }
+              }
+            }); 
+          }else{
+            if(current_values[0].value == 'form'){
+              uacf_form_ai.setChoices(secend_option_form, 'value', 'label', true);
+            }else{
+              uacf_form_ai.setChoices(secend_option_tag, 'value', 'label', true);
+            }
           }
+          
         }
         else if (current_values.length == 2) {
           if (current_values[0].value == 'tag' && (current_values[1].value == 'uacf7-col') ){

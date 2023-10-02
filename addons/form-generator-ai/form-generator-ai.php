@@ -114,7 +114,7 @@ class UACF7_FORM_GENERATOR{
         <?php
         echo ob_get_clean();
     }
-
+ 
     public function uacf7_form_generator_ai_get_tag(){
         if ( !wp_verify_nonce($_POST['ajax_nonce'], 'uacf7-form-generator-ai-nonce')) {
             exit(esc_html__("Security error", 'ultimate-addons-cf7'));
@@ -135,13 +135,39 @@ class UACF7_FORM_GENERATOR{
             }
             
         } 
+        $form_booking =  apply_filters('uacf7_booking_ai_form_dropdown', ["value" => "booking", "label" => "Booking (Pro)", "disabled" => "true"]);
+        // echo "<pre>";
+        // print_r($form_booking);
+        // echo "</pre>";
+        // die();
+        $secend_option_form = [
+            ["value" => "multistep", "label" => "Multistep"],
+            apply_filters('uacf7_booking_ai_form_dropdown', ["value" => "booking", "label" => "Booking (Pro)", "disabled" => "true"]),
+            ["value" => "conditional", "label" => "Conditional"],
+            ["value" => "subscription", "label" => "Subscription"],
+            apply_filters('uacf7_repeater_ai_form_dropdown', ["value" => "repeater", "label" => "Repeater (Pro)", "disabled" => "true"]), 
+            apply_filters('uacf7_blog_submission_ai_form_dropdown', ["value" => "blog", "label" => "Blog Submission (Pro)", "disabled" => "true"]),
+            ["value" => "feedback", "label" => "Feedback"],
+            ["value" => "application", "label" => "Application"],
+            ["value" => "inquiry", "label" => "Inquiry"],
+            ["value" => "survey", "label" => "Survey"],
+            ["value" => "address", "label" => "Address"],
+            ["value" => "event", "label" => "Event Registration"],
+            ["value" => "newsletter", "label" => "Newsletter"],
+            ["value" => "donation", "label" => "Donation"],
+            ["value" => "product-review", "label" => "Product Review"],
+            apply_filters('uacf7_service_booking_form_dropdown', ["value" => "service-booking", "label" => "Service Booking (Pro)", "disabled" => "true"]), 
+            apply_filters('uacf7_appointment_form_dropdown', ["value" => "appointment-form", "label" => "Appointment (Pro)", "disabled" => "true"]), 
+            ["value" => "appointment-form", "label" => "Appointment"],
+            ["value" => "rating", "label" => "Rating"],
+        ];
+        
         $data = [
             'status' => 'success',
-            'value' => $tag_data,
+            'value_tag' => $tag_data,
+            'value_form' => $secend_option_form,
         ];
-        // echo "<pre>";
-        // print_r($tag_data);
-        // die();
+        
         echo wp_send_json($data);
         die();
     
