@@ -45,10 +45,7 @@ function startDrawing(e) {
     ctx.moveTo(e.clientX - canvas.getBoundingClientRect().left, e.clientY - canvas.getBoundingClientRect().top);
 
     if(isDrawing == true){
-        const confirm_button = $('.uacf7-form-'+formId).find("#convertButton");
-        // confirm_button.style.display = 'inline-block';
-        // clearButton.style.display = 'inline-block';
-
+        const confirm_button = $('.uacf7-form-'+formId).find("#convertButton");  
         confirm_button.css('display', 'inline-block');
         clearButton.css('display', 'inline-block');
     }
@@ -73,7 +70,6 @@ function clearCanvas() {
     fileInput.value = null;
     const confirm_message = $('.uacf7-form-'+formId).find("#confirm_message");
     confirm_message.text('please sign first and confirm your signature before submission');
-    // confirm_message.style.color = 'black';
     confirm_message.css('color', 'black');
 
 }
@@ -102,10 +98,10 @@ clearButton.click(function (e) {
  const confirm_message = $('.uacf7-form-'+formId).find("#confirm_message");
 
 $(convertButton).click(function (e){
-  confirm_message.textContent = 'signature confirmed';
-  // confirm_message.style.color = 'green';
-  confirm_message.css('color', 'green');
   e.preventDefault();
+  confirm_message.text('signature confirmed');
+  confirm_message.css('color', 'green');
+
    const imageDataURL = signature_canvas[0].toDataURL("image/png");
 
 
@@ -114,6 +110,7 @@ $(convertButton).click(function (e){
       image.id = 'uploadedImage';
       image.style = 'display:none';
       
+      /** This need to be appened to get it's property: by Masum */
       $('.uacf7-form-'+formId).append(image);
 
  
@@ -125,7 +122,6 @@ $(convertButton).click(function (e){
 
       const blob = dataURLtoBlob(dataUrl);
 
-      console.log(blob)
     
       const fileName = 'signature.jpg';
       const file = new File([blob], fileName);
