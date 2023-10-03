@@ -6,20 +6,23 @@
   forms.each(function(){
 
     var formId = $(this).find('input[name="_wpcf7"]').val();
-
-    console.log(formId)
+    
 
 
 /** Making Canvas */
-const canvas = document.getElementById("signature-canvas");
-const ctx = canvas.getContext("2d");
-const clearButton = document.getElementById("clear-button");
+const canvas = $('.uacf7-form-'+formId).find("#signature-canvas")[0];
 
+const ctx = canvas.getContext('2d');
 
+const clearButton = $('.uacf7-form-'+formId).find("#clear-button");
 
-const confirm_button = document.getElementById("convertButton");
-confirm_button.style.display = 'none';
-clearButton.style.display = 'none';
+const confirm_button = $('.uacf7-form-'+formId).find("#convertButton");
+
+// confirm_button.style.display = 'none';
+// clearButton.style.display = 'none';
+
+confirm_button.css('display', 'none');
+clearButton.css('display', 'none');
 
 let isDrawing = false;
 
@@ -42,9 +45,12 @@ function startDrawing(e) {
     ctx.moveTo(e.clientX - canvas.getBoundingClientRect().left, e.clientY - canvas.getBoundingClientRect().top);
 
     if(isDrawing == true){
-        const confirm_button = document.getElementById("convertButton");
-        confirm_button.style.display = 'inline-block';
-        clearButton.style.display = 'inline-block';
+        const confirm_button = $('.uacf7-form-'+formId).find("#convertButton");
+        // confirm_button.style.display = 'inline-block';
+        // clearButton.style.display = 'inline-block';
+
+        confirm_button.css('display', 'inline-block');
+        clearButton.css('display', 'inline-block');
     }
     
 }
@@ -60,14 +66,15 @@ function stopDrawing() {
     ctx.closePath();
 }
 
-function clearCanvas(e) {
-    e.preventDefault();
+function clearCanvas() {
+    // e.preventDefault();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const fileInput = document.getElementById('img_id_special'); //Clearing the value of file input 
+    const fileInput = $('.uacf7-form-'+formId).find('#img_id_special'); //Clearing the value of file input 
     fileInput.value = null;
-    const confirm_message = document.getElementById("confirm_message");
+    const confirm_message = $('.uacf7-form-'+formId).find("#confirm_message");
     confirm_message.textContent = 'please sign first and confirm your signature before submission';
-    confirm_message.style.color = 'black';
+    // confirm_message.style.color = 'black';
+    confirm_message.css('color', 'black');
 
 }
 
@@ -77,7 +84,12 @@ canvas.addEventListener("mousemove", draw);
 canvas.addEventListener("mouseup", stopDrawing);
 canvas.addEventListener("mouseout", stopDrawing);
 
-clearButton.addEventListener("click", clearCanvas);
+// clearButton.addEventListener("click", clearCanvas);
+
+clearButton.click(function (e) {
+  e.preventDefault();
+  clearCanvas();
+});
 
 
 
@@ -85,44 +97,47 @@ clearButton.addEventListener("click", clearCanvas);
 
 /** Convert Canvas to Image */
 
- const convertButton = document.getElementById("convertButton");
- const signature_canvas = document.getElementById("signature-canvas");
- const confirm_message = document.getElementById("confirm_message");
+ const convertButton = $('.uacf7-form-'+formId).find("#convertButton");
+ const signature_canvas = $('.uacf7-form-'+formId).find("#signature-canvas");
+ const confirm_message = $('.uacf7-form-'+formId).find("#confirm_message");
 
- convertButton.addEventListener("click", (e) => {
-    confirm_message.textContent = 'signature confirmed';
-    confirm_message.style.color = 'green';
-    e.preventDefault();
-     const imageDataURL = signature_canvas.toDataURL("image/png");
+$(convertButton).click(function (e){
+  confirm_message.textContent = 'signature confirmed';
+  // confirm_message.style.color = 'green';
+  confirm_message.css('color', 'green');
+  e.preventDefault();
+   const imageDataURL = signature_canvas[0].toDataURL("image/png");
+
+
+      const image = new Image();
+      image.src = imageDataURL;
+      image.id = 'uploadedImage';
+      image.style = 'display:none';
+      
+      $('.uacf7-form-'+formId).append(image);
 
  
-        const image = new Image();
-        image.src = imageDataURL;
-        image.id = 'uploadedImage';
-        image.style = 'display:none';
-        image.style = 'display:none';
-        
-        document.body.appendChild(image);
 
-   
+      const imagePreview = $('.uacf7-form-'+formId).find('#uploadedImage');
+      const fileInput = $('.uacf7-form-'+formId).find('#img_id_special');
+    
+      const dataUrl = imagePreview.attr('src');
 
-        const imagePreview = document.getElementById('uploadedImage');
-        const fileInput = document.getElementById('img_id_special');
-      
-        const dataUrl = imagePreview.src;
-        const blob = dataURLtoBlob(dataUrl);
-      
-        const fileName = 'signature.jpg';
-        const file = new File([blob], fileName);
-      
-        const fileList = new DataTransfer();
-        fileList.items.add(file);
-      
-        fileInput.files = fileList.files;
-      
-      
-      function dataURLtoBlob(dataURL) {
-        const parts = dataURL.split(';base64,');
+      const blob = dataURLtoBlob(dataUrl);
+
+      console.log(blob)
+    
+      const fileName = 'signature.jpg';
+      const file = new File([blob], fileName);
+    
+      const fileList = new DataTransfer();
+      fileList.items.add(file);
+    
+      fileInput.files = fileList.files;
+    
+    
+    function dataURLtoBlob(dataUrl) {
+        const parts = dataUrl.split(';base64,');
         const contentType = parts[0].split(':')[1];
         const raw = window.atob(parts[1]);
         const rawLength = raw.length;
@@ -134,10 +149,9 @@ clearButton.addEventListener("click", clearCanvas);
       
         return new Blob([uint8Array], { type: contentType });
       }
- 
-    
-    });
-
+      
+  
+});
 
 
     /** Make Empty the Signature Art Board after Form Submission */
