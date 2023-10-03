@@ -155,7 +155,7 @@ class UACF7_SIGNATURE{
         <span  class="wpcf7-form-control-wrap <?php echo sanitize_html_class($tag->name); ?>" data-name="<?php echo sanitize_html_class($tag->name); ?>">
 
             <input hidden id="uacf7_<?php echo esc_attr($tag->name); ?>" <?php echo $atts;?> >
-            <input type="file" id="img_id_special" <?php echo $atts;?> >
+            <input hidden type="file" id="img_id_special" <?php echo $atts;?> >
             <div>
             <div id="signature-pad">
               <canvas id="signature-canvas"></canvas>

@@ -17,8 +17,8 @@
 
       const confirm_button = $('.uacf7-form-'+formId).find("#convertButton");
 
-      confirm_button.css('display', 'none');
-      clearButton.css('display', 'none');
+      const control_sec = $('.uacf7-form-'+formId).find(".control_div"); 
+      control_sec.css('display', 'none');
 
       let isDrawing = false;
 
@@ -32,6 +32,10 @@
       ctx.fillStyle = "#ffffff";
 
 
+      //Prevent empty signature generating
+        if(ctx.clearRect(0, 0, canvas.width, canvas.height)){
+          alert();
+        }
 
 
       function startDrawing(e) {
@@ -41,9 +45,11 @@
           ctx.moveTo(e.clientX - canvas.getBoundingClientRect().left, e.clientY - canvas.getBoundingClientRect().top);
 
           if(isDrawing == true){
-              const confirm_button = $('.uacf7-form-'+formId).find("#convertButton");  
-              confirm_button.css('display', 'inline-block');
-              clearButton.css('display', 'inline-block');
+              // const confirm_button = $('.uacf7-form-'+formId).find("#convertButton");   
+              // confirm_button.css('display', 'inline-block');
+              // clearButton.css('display', 'inline-block');
+              const control_sec = $('.uacf7-form-'+formId).find(".control_div"); 
+              control_sec.css('display', 'block');
           }
           
       }
@@ -65,8 +71,10 @@
           const fileInput = $('.uacf7-form-'+formId).find('#img_id_special'); //Clearing the value of file input 
           fileInput.value = null;
           const confirm_message = $('.uacf7-form-'+formId).find("#confirm_message");
-          confirm_message.text('please sign first and confirm your signature before submission');
+          confirm_message.text('Please sign first and confirm your signature before form submission');
           confirm_message.css('color', 'black');
+          const control_div = $('.uacf7-form-'+formId).find(".control_div"); 
+          control_div.css('display', 'none');
 
       }
 
@@ -94,8 +102,8 @@
 
       $(convertButton).click(function (e){
         e.preventDefault();
-        confirm_message.text('signature confirmed');
-        confirm_message.css('color', 'green');
+        confirm_message.text('Signature Confirmed');
+        confirm_message.css({'color':'#46B450', 'font-weight': '500'});
 
         const imageDataURL = signature_canvas[0].toDataURL("image/png");
 
