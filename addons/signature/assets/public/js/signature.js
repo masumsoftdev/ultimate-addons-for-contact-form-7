@@ -1,4 +1,15 @@
 
+;(function ($) {
+
+  var forms = $('.wpcf7-form');
+
+  forms.each(function(){
+
+    var formId = $(this).find('input[name="_wpcf7"]').val();
+
+    console.log(formId)
+
+
 /** Making Canvas */
 const canvas = document.getElementById("signature-canvas");
 const ctx = canvas.getContext("2d");
@@ -147,4 +158,6 @@ clearButton.addEventListener("click", clearCanvas);
 
 
    
+    }); 
 
+  })(jQuery);
