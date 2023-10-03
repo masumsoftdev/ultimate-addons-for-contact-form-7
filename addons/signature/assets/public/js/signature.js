@@ -19,6 +19,7 @@ canvas.style.border= "1px solid #000";
 canvas.style.cursor = "crosshair";
 ctx.lineWidth = 1;
 ctx.strokeStyle = "#000";
+ctx.fillStyle = "#ffffff";
 
 
 
@@ -86,8 +87,9 @@ clearButton.addEventListener("click", clearCanvas);
  
         const image = new Image();
         image.src = imageDataURL;
-        image.id = 'uploadedImage'
-        image.style = 'display:none'
+        image.id = 'uploadedImage';
+        image.style = 'display:none';
+        image.style = 'display:none';
         
         document.body.appendChild(image);
 
