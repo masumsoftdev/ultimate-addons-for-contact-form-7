@@ -72,7 +72,7 @@ function clearCanvas() {
     const fileInput = $('.uacf7-form-'+formId).find('#img_id_special'); //Clearing the value of file input 
     fileInput.value = null;
     const confirm_message = $('.uacf7-form-'+formId).find("#confirm_message");
-    confirm_message.textContent = 'please sign first and confirm your signature before submission';
+    confirm_message.text('please sign first and confirm your signature before submission');
     // confirm_message.style.color = 'black';
     confirm_message.css('color', 'black');
 
