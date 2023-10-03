@@ -31,12 +31,7 @@ $form = '[uacf7_step_start uacf7_step_start-901 "Step One"]
 [submit "Submit"]
 [uacf7_step_end]'; 
         break;
-    
-    case "booking":
-        $form = apply_filters('uacf7_booking_form_ai_generator', esc_html('Please Active Ultimate booking Addon First'), $uacf7_default);
- 
-        break;
-
+     
     case "conditional":
 $form =  '<h4>Condition for Field Type: <strong>Text</strong></h4>
 Write name <strong>"John Doe"</strong> or <strong>"Abul Mia"</strong> to test it out 
@@ -259,16 +254,13 @@ $form =  '<label> Your Name
 <label> Would you purchase this product again?
     [checkbox purchase-again "Yes"] </label> 
 [submit "Submit Your Review"]';
-        break;   
-        
+        break;    
     case "service-booking":
-        $form = apply_filters('uacf7_post_submission_form_ai_generator', esc_html('Please Active Ultimate booking Addon First'), $uacf7_default);
- 
-        break;   
-        
     case "appointment-form":
-        $form = apply_filters('uacf7_post_submission_form_ai_generator', esc_html('Please Active Ultimate booking Addon First'), $uacf7_default); 
-        break;   
+    case "booking": 
+        $form = apply_filters('uacf7_booking_form_ai_generator', esc_html('Please Active Ultimate booking Addon First'), $uacf7_default);
+ 
+        break;    
          
     case "rating":
 $form =  '<label> Name
@@ -287,6 +279,13 @@ $form =  '<label> Name
         $form = apply_filters('uacf7_repeater_form_ai_generator', esc_html('Please active ultimate repeater Addon first'), $uacf7_default);
 
         break;   
+        
+    case "conversational-appointment-form":
+    case "conversational-interview-form":
+        $form = apply_filters('uacf7_conversational_form_ai_generator', esc_html('Please active ultimate conversational form Addon first'), $uacf7_default);
+
+        break;   
+          
         
     default:
         $form = "Sorry, we couldn't find a matching form for the keyword ".$uacf7_default[1].". Please try another keyword or consult the Form Generator AI for assistance.";

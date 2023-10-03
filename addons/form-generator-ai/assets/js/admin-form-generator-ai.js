@@ -109,15 +109,13 @@
       });
 
       // Copy to clipboard using jquery
-      $('.uacf7-ai-code-copy').on('click', function (event) {
-         // Get the text from the textarea
-        //  var textToCopy = $('#uacf7_ai_code_content').val();
- 
-         // Set the value of the temporary textarea to the text we want to copy
-         $('#uacf7_ai_code_content').select();
+      $('.uacf7-ai-code-copy').on('click', function (event) { 
+         var $temp = $('<textarea>');
+         $("body").append($temp);
+         $temp.val($('#uacf7_ai_code_content').val()).select();
+         document.execCommand("copy");
+         $temp.remove();
          
-         // Execute the copy command
-         document.execCommand("copy"); 
          
          alert('Text copied to clipboard!');
       });
@@ -141,15 +139,17 @@
 
 
 
-    var fullURL = window.location.href;
+    // Add Button into UACF7 form editor
+    var fullURL = window.location.href; 
     // Create a URL object
     var parsedUrl = new URL(fullURL);
-
+    
     // Use URLSearchParams to get values
-    var pageValue = parsedUrl.searchParams.get('page');
+    var pageValue = parsedUrl.searchParams.get('page'); 
     var actionValue = parsedUrl.searchParams.get('action');
+
     // display form generator ai in wpcf7-new page and edit page
-    if (pageValue == 'wpcf7-new' || pageValue == 'wpcf7' && actionValue == 'edit') {
+    if (pageValue == 'wpcf7-new' || pageValue == 'wpcf7') {
       $($(".wrap h1")[0]).append("<a  id='uacf7-ai-form-button-popup' class='uacf7-ai-form-button'>Form Generator AI</a>");
 
       $(document).on('click', '#uacf7-ai-form-button-popup', function (e) {
@@ -226,8 +226,8 @@
     setTimeout(function () {
       // Set the name to the current text + the next character
       // whilst incrementing the iteration variable
-      // $('.name').text( $('.name').text() + data[iteration++] );
-      $('#uacf7_ai_code_content').html($('#uacf7_ai_code_content').html() + data[iteration++]);
+
+      $('#uacf7_ai_code_content').val($('#uacf7_ai_code_content').val() + data[iteration++]);
       // Re-trigger our function
       typeName(data, iteration);
       var textarea = $("#uacf7_ai_code_content");

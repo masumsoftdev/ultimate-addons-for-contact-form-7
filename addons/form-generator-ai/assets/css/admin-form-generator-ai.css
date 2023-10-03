@@ -1,8 +1,7 @@
 
 #uacf7-ai-form-button-popup, .uacf7_ai_search_button {
-    background-color: #281266;
+    background-color: #2271b1;
     color: #fff;
-    font-size: 13px;
     padding: 5px 10px;
     display: inline-block;
     border-radius: 2px;
@@ -12,11 +11,14 @@
     line-height: normal; 
     position: relative;
     top: -3px;
-    margin-left: 10px;
-    border-radius: 4px;
+    margin-left: 10px; 
     cursor: pointer;
     border: none;
   } 
+  
+#uacf7-ai-form-button-popup:hover {
+  background: #135e96;
+} 
   
 .uacf7_ai_search_button {
   margin: 0;
@@ -106,15 +108,16 @@
   width: 85%;
 }
 .uacf7-form-input-wrap h4 {
-  width: 15%;
+  width: 85px;
   font-size: 17px;
   line-height: 0;
   font-weight: 700;
+  text-align: right;
 }
 
 
 #uacf7_ai_code_content {
-  height: auto;
+  height: 320px;
   width: auto;
   padding: 16px;
   min-height: 175px;
@@ -122,6 +125,7 @@
   border: 0;
   background-color: #000;
   color: #b9b7b7;
+  font-size: 16px;
 }
 .uacf7-ai-codeblock {
   position: relative;
@@ -151,34 +155,7 @@
 }
 
 
-.uacf7-form-options {
-  display: flex;
-  gap: 7px;
-  width: 100%;
-  padding: 12px 0;
-}
-.uacf7-form-options > label {
-	width: 33%;
-	padding: 6px;
-	border: 1px solid #ddd;
-	border-radius: 5px;
-}
-.uacf7-form-options > label input[type="number"] {
-	width: 100% !important;
-	border: 1px solid #ddd;
-}
-
-.uacf7-form-options > label span {
-  display: inline-block;
-  width: 100%;
-  padding: 3px 0;
-  font-weight: 600;
-}
-.uacf7-form-options > label input[type="number"]:focus {
-  outline: none !important;
-  box-shadow: none;
-}
-
+ 
 /* Choices Custom CSS  */
 
 .uacf7-form-ai-popup .choices {
@@ -201,6 +178,7 @@
   display: flex;
   gap: 5px;
   padding: 5px;
+  flex-wrap: wrap;
 }
 .uacf7-form-ai-popup .choices__list.choices__list--multiple .choices__item.choices__item--selectable {
   padding: 5px 11px;
@@ -251,3 +229,23 @@
 }
 
 /* Choices Custom CSS  */
+
+
+/* Responsive */
+
+/* // Small devices (landscape phones, less than 768px) */
+@media (max-width: 991px) { 
+
+  .uacf7-form-ai-inner {
+    display: inline-block;
+    padding: 35px;
+    padding-bottom: 15px;
+  }
+  .uacf7-form-ai-inner .uacf7-ai-form-column {
+    width: auto;
+    padding: 0;
+    margin-bottom: 20px;
+  }
+
+ }
+/* Responsive */

@@ -75,22 +75,7 @@ class UACF7_FORM_GENERATOR{
                             <div class="uacf7-form-input-inner">
                                 <select class="form-control uacf7-choices" data-trigger name="uacf7-form-generator-ai" id="uacf7-form-generator-ai"
                                     placeholder="This is a placeholder" multiple> 
-                                </select>
-                                <!-- <div class="uacf7-form-options">
-                                    <label for="uacf7-form-steps" class="uacf7-form-steps-label" style="display:none;">
-                                        <span>Step</span>
-                                        <input  type="number" name="uacf7-form-steps" id="uacf7-form-steps"></input>
-                                    </label>
-                                    <label for="uacf7-form-fields" class="uacf7-form-fields-label">
-                                        <span>Field</span>
-                                        <input type="number" name="uacf7-form-fields" id="uacf7-form-fields"></input>
-                                    </label>
-                                    <label for="uacf7-form-fields" class="uacf7-form-label-label"> 
-                                        <span>Label</span> 
-                                        <input type="checkbox" name="uacf7-enable-form-label" id="uacf7-enable-form-label">
-                                    </label>
-                                    
-                                </div> -->
+                                </select> 
                                 <p class="uacf7-ai-hins"><?php echo _e( 'hins: Create a Multistep Form', 'ultimate-addons-cf7' ); ?></p> 
                                 <button class="uacf7_ai_search_button"><?php echo _e( 'Generate With AI', 'ultimate-addons-cf7' ); ?></button>
                             </div>
@@ -104,7 +89,7 @@ class UACF7_FORM_GENERATOR{
                                 <span class="uacf7-ai-code-copy"> <?php echo _e( 'Copy', 'ultimate-addons-cf7' ); ?></span>
                                 <span class="uacf7-ai-code-insert"> <?php echo _e( 'Insert', 'ultimate-addons-cf7' ); ?></span>
                             </div>
-                            <textarea name="uacf7_ai_code_content" disabled id="uacf7_ai_code_content" ></textarea>
+                            <textarea name="uacf7_ai_code_content" id="uacf7_ai_code_content" ></textarea>
                         </div>
                     </div> 
                     
@@ -136,10 +121,7 @@ class UACF7_FORM_GENERATOR{
             
         } 
         $form_booking =  apply_filters('uacf7_booking_ai_form_dropdown', ["value" => "booking", "label" => "Booking (Pro)", "disabled" => "true"]);
-        // echo "<pre>";
-        // print_r($form_booking);
-        // echo "</pre>";
-        // die();
+    
         $secend_option_form = [
             ["value" => "multistep", "label" => "Multistep"],
             apply_filters('uacf7_booking_ai_form_dropdown', ["value" => "booking", "label" => "Booking (Pro)", "disabled" => "true"]),
@@ -158,6 +140,8 @@ class UACF7_FORM_GENERATOR{
             ["value" => "product-review", "label" => "Product Review"],
             apply_filters('uacf7_service_booking_form_dropdown', ["value" => "service-booking", "label" => "Service Booking (Pro)", "disabled" => "true"]), 
             apply_filters('uacf7_appointment_form_dropdown', ["value" => "appointment-form", "label" => "Appointment (Pro)", "disabled" => "true"]), 
+            apply_filters('uacf7_conversational_appointment_form_dropdown', ["value" => "conversational-appointment-form", "label" => "Conversational Appointment Booking  (Pro)", "disabled" => "true"]), 
+            apply_filters('uacf7_conversational_interview_form_dropdown', ["value" => "conversational-interview-form", "label" => "Conversational Interview Process (Pro)", "disabled" => "true"]), 
             ["value" => "appointment-form", "label" => "Appointment"],
             ["value" => "rating", "label" => "Rating"],
         ];
