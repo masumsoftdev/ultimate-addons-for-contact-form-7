@@ -58,6 +58,15 @@ class UACF7_SIGNATURE{
                             ); ?> 
                         </div>
                         <tr>
+                            <th scope="row"><?php _e( 'Field Type', 'ultimate-addons-cf7' );?></th>
+                            <td>
+                                <fieldset>
+                                    <legend class="screen-reader-text"><?php _e( 'Field Type', 'ultimate-addons-cf7' );?></legend>
+                                    <label><input type="checkbox" name="required" value="on"><?php _e( 'Required Field', 'ultimate-addons-cf7' );?></label>
+                                </fieldset>
+                            </td>
+                        </tr> 
+                        <tr>
                             <th scope="row"><label for="<?php echo esc_attr($args['content'] . '-name'); ?>"><?php echo esc_html(__('Name', 'ultimate-addons-cf7')); ?></label></th>
                             <td><input type="text" name="name" class="tg-name oneline" id="<?php echo esc_attr($args['content'] . '-name'); ?>" /></td>
                         </tr> 
@@ -110,7 +119,9 @@ class UACF7_SIGNATURE{
 
         $class = wpcf7_form_controls_class($tag->type);
 
-
+        if ( $tag->is_required() ) {
+          $atts['aria-required'] = 'true';
+      }
         if ($validation_error) {
             $class .= 'wpcf7-not-valid';
         }
@@ -121,9 +132,7 @@ class UACF7_SIGNATURE{
         $atts['id'] = $tag->get_id_option();
         $atts['tabindex'] = $tag->get_option('tabindex', 'signed_int', true);
 
-        if ($tag->is_required()) {
-            $atts['aria-required'] = 'true';
-        }
+
 
         $atts['aria-invalid'] = $validation_error ? 'true' : 'false';
 
@@ -154,17 +163,16 @@ class UACF7_SIGNATURE{
         ?> 
         <span  class="wpcf7-form-control-wrap <?php echo sanitize_html_class($tag->name); ?>" data-name="<?php echo sanitize_html_class($tag->name); ?>">
 
-            <input hidden id="uacf7_<?php echo esc_attr($tag->name); ?>" <?php echo $atts;?> >
             <input hidden type="file" id="img_id_special" <?php echo $atts;?> >
             <div>
-            <div id="signature-pad">
-              <canvas id="signature-canvas"></canvas>
-            </div>
-            <div class="control_div">
-                <button id="clear-button">Clear</button>
-                <button id="convertButton">Confirm Signature</button>
-                <span id="confirm_message"></span>
-            </div>
+              <div id="signature-pad">
+                <canvas id="signature-canvas"></canvas>
+              </div>
+              <div class="control_div">
+                  <button id="clear-button">Clear</button>
+                  <button id="convertButton">Confirm Signature</button>
+                  <span id="confirm_message"></span>
+              </div>
             </div>
             <span><?php echo $validation_error; ?></span>
 

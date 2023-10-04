@@ -166,6 +166,12 @@
         const ctx = canvas.getContext("2d");
         ctx.clearRect(0, 0, canvas.width, canvas.height);
       });
+
+      /** Preventing file system opening */
+      
+      $('.uacf7-form-'+formId).find('#img_id_special').click(function (e){
+        e.preventDefault();
+      });
    
     }); 
 
