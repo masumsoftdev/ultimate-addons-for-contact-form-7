@@ -5,10 +5,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class UACF7_COUNTRY_DROPDOWN {
 
+
+
     /*
     * Construct function
     */
     public function __construct() {
+
         add_action( 'wpcf7_init', array($this, 'add_shortcodes') );
         
 		add_action( 'admin_init', array( $this, 'tag_generator' ) );
@@ -17,10 +20,16 @@ class UACF7_COUNTRY_DROPDOWN {
         
 		add_filter( 'wpcf7_validate_uacf7_country_dropdown*', array($this,'wpcf7_country_dropdown_validation_filter'), 10, 2 );
         
-		add_action( 'wp_enqueue_scripts', array($this, 'wp_enqueue_script' ) );        
+		add_action( 'wp_enqueue_scripts', array($this, 'wp_enqueue_script' ) );
+        
+        
+        /** Dynamic Selection JS Validation */
+        // add_action( 'wp_ajax_uacf7_dynamic_selection', [$this, 'uacf7_dynamic_selection'] );
+        // add_action( 'wp_ajax_nopriv_uacf7_dynamic_selection', [$this, 'uacf7_dynamic_selection'] );
     }
     
     public function wp_enqueue_script() {
+
 		wp_enqueue_style( 'uacf7-country-select-main', UACF7_ADDONS . '/country-dropdown/assets/css/countrySelect.min.css' );
 		wp_enqueue_style( 'uacf7-country-select-style', UACF7_ADDONS . '/country-dropdown/assets/css/style.css' );
 		
@@ -52,7 +61,14 @@ class UACF7_COUNTRY_DROPDOWN {
         }
 
         $atts = array();
-
+        
+        $ds_country = $tag->has_option('ds_country');
+        if ( $ds_country ) {
+			$atts['ds_country'] = 'true';
+            
+		}else{
+            $class .= ' uacf7_country_dropdown_with_flag';
+        }
         $atts['class'] = $tag->get_class_option( $class );
         $atts['id'] = $tag->get_id_option();
         $atts['tabindex'] = $tag->get_option( 'tabindex', 'signed_int', true );
@@ -64,35 +80,60 @@ class UACF7_COUNTRY_DROPDOWN {
         $atts['aria-invalid'] = $validation_error ? 'true' : 'false';
 
         $atts['name'] = $tag->name;
-		
+
+        /** Condition for Dynamic Selection (API Based Country, States, Cities) */ 
+        /** Auto Complete */
+        $country_auto_complete = $tag->has_option('country_auto_complete');
+
+
+        if ( $country_auto_complete ) {
+			$atts['country_auto_complete'] = 'true';
+		} 
 		$size = $tag->get_option( 'size', 'int', true );
 
 		if ( $size ) {
 			$atts['size'] = $size;
-		} else {
-			//$atts['size'] = 40;
-		}
+		} 
+
+		
         $country_atts =  apply_filters('uacf7_get_country_attr', $atts, $tag);  
         $atts = wpcf7_format_atts( $country_atts );
-		
-		ob_start();
+
+        ob_start(); ?>
+        <select <?php  echo $atts; ?>  id="uacf7_country_api" >
+            <option value="">Select a Country</option>
+        </select>
+	<?php
+        $api_country = ob_get_clean(); 
+		ob_start(); 
 		?>
-		<span id="uacf7_country_select" class="wpcf7-form-control-wrap <?php echo sanitize_html_class( $tag->name ); ?>">
-		
-			<input id="uacf7_countries_<?php echo esc_attr($tag->name); ?>" type="text" <?php echo $atts; ?> >
-			<span><?php echo $validation_error; ?></span>
-		
+
+        <?php if($ds_country ){?> 
+            <span id="uacf7_country_select" class="wpcf7-form-control-wrap  <?php echo sanitize_html_class( $tag->name ); ?>">
+
+                <?php echo apply_filters( 'uacf7_api_based_country_filter', $api_country, $atts ); ?>
+
+            </span>  
+        <?php }else{ ?>
+ 
+        <span id="uacf7_country_select" class="wpcf7-form-control-wrap  <?php echo sanitize_html_class( $tag->name ); ?>">
+
+            <input id="uacf7_countries_<?php  echo esc_attr($tag->name); ?>" type="text" <?php  echo $atts; ?> >
+             
+			<span><?php echo $validation_error; ?> </span>
+           
 			<div style="display:none;">
 				<input type="hidden" id="uacf7_countries_<?php echo esc_attr($tag->name); ?>_code" data-countrycodeinput="1" readonly="readonly" placeholder="Selected country code will appear here" />
-			</div>
+			</div> 
+        
 		</span>
-		<?php
-		
+		<?php } 
 		$countries = ob_get_clean();
-		
         return $countries;
     }
-    
+
+
+ 
     public function wpcf7_country_dropdown_validation_filter( $result, $tag ) {
         $name = $tag->name;
 
@@ -164,18 +205,28 @@ class UACF7_COUNTRY_DROPDOWN {
                         * Tag generator field: auto complete
                         */
 
-                        echo apply_filters('uacf7_tag_generator_country_autocomplete_field',$autocomplete_html);
+                        echo apply_filters('uacf7_tag_generator_country_autocomplete_field', $autocomplete_html);
                         ?>
 
+                        <?php ob_start(); ?>
+                        <tr>
+                        <th scope="row"><label><?php echo esc_html( __( 'Dynamic Selection', 'ultimate-addons-cf7' ) ); ?> <a style="color:red" target="_blank" href="https://cf7addons.com/">(Pro)</a></label></th>
+                            <td><input disabled type="checkbox" class="option"><?php echo esc_html( __( "Dynamic Country , States and Cities Populate.", "ultimate-addons-cf7" ) ); ?> </td>
+                        </tr>
+                        <?php 
+                        $dynamic_selection = ob_get_clean(); 
+                        /*
+                        * Tag generator field: Dynamic Selection
+                        */
+                        echo apply_filters('uacf7_tag_generator_dynamic_selection', $dynamic_selection);
+                        ?>
+
+                        <!-- Dynamic Selection Starts-->
                         <?php ob_start(); ?>
                         <tr>
                             <th scope="row"><label><?php echo esc_html( __( 'Only Countries', 'ultimate-addons-cf7' ) ); ?> <a style="color:red" target="_blank" href="https://cf7addons.com/">(Pro)</a></label></th>
                             <td><textarea class="values" name="" id="tag-generator-panel-product-id" cols="30" rows="10" disabled></textarea><?php echo _e( ' One ID per line. ', 'ultimate-addons-cf7' ) ?></a>
                             </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><label for="tag-defaul-panel-text-class"><?php echo esc_html( __( 'Default Country', 'ultimate-addons-cf7' ) ); ?> <a style="color:red" target="_blank" href="https://cf7addons.com/">(Pro)</a></label></th>
-                            <td><input type="text" name="" class="defaultvalue oneline " disabled id="tag-defaul-panel-text-class"></td>
                         </tr>
                         <?php 
                         $default_country = ob_get_clean(); 
@@ -184,7 +235,8 @@ class UACF7_COUNTRY_DROPDOWN {
                         */
                         echo apply_filters('uacf7_tag_generator_default_country_field', $default_country);
                         ?>
-                        
+                        <!-- Dynamic Selection Ends -->
+ 
                         <tr>
                             <th scope="row"><label for="tag-generator-panel-text-class"><?php echo esc_html( __( 'Class attribute', 'ultimate-addons-cf7' ) ); ?> </label></th>
                             <td><input type="text" name="class" class="classvalue oneline option" id="tag-generator-panel-text-class"></td>
