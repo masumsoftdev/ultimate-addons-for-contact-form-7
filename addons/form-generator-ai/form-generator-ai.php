@@ -75,11 +75,16 @@ class UACF7_FORM_GENERATOR{
                             <div class="uacf7-form-input-inner">
                                 <select class="form-control uacf7-choices" data-trigger name="uacf7-form-generator-ai" id="uacf7-form-generator-ai"
                                     placeholder="This is a placeholder" multiple> 
-                                </select> 
-                                <p class="uacf7-ai-hins"><?php echo _e( 'hins: Create a Multistep Form', 'ultimate-addons-cf7' ); ?></p> 
+                                </select>  
                                 <button class="uacf7_ai_search_button"><?php echo _e( 'Generate With AI', 'ultimate-addons-cf7' ); ?></button>
-                            </div>
+                            </div> 
                             
+                        </div>
+                        <div class="uacf7-doc-notice">
+                            <?php echo sprintf( 
+                                __( 'Not sure how to use this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                                '<a href="https://themefic.com/docs/uacf7/free-addons/" target="_blank">documentation</a>'
+                            ); ?> 
                         </div>
                     </div> 
                     <div class="uacf7-ai-form-column"> 
@@ -141,8 +146,7 @@ class UACF7_FORM_GENERATOR{
             apply_filters('uacf7_service_booking_form_dropdown', ["value" => "service-booking", "label" => "Service Booking (Pro)", "disabled" => "true"]), 
             apply_filters('uacf7_appointment_form_dropdown', ["value" => "appointment-form", "label" => "Appointment (Pro)", "disabled" => "true"]), 
             apply_filters('uacf7_conversational_appointment_form_dropdown', ["value" => "conversational-appointment-form", "label" => "Conversational Appointment Booking  (Pro)", "disabled" => "true"]), 
-            apply_filters('uacf7_conversational_interview_form_dropdown', ["value" => "conversational-interview-form", "label" => "Conversational Interview Process (Pro)", "disabled" => "true"]), 
-            ["value" => "appointment-form", "label" => "Appointment"],
+            apply_filters('uacf7_conversational_interview_form_dropdown', ["value" => "conversational-interview-form", "label" => "Conversational Interview Process (Pro)", "disabled" => "true"]),  
             ["value" => "rating", "label" => "Rating"],
         ];
         

@@ -117,7 +117,7 @@
          $temp.remove();
          
          
-         alert('Text copied to clipboard!');
+         alert('Form copied to clipboard!');
       });
 
       // Insert form generator ai On click insert button into form editor
@@ -147,9 +147,10 @@
     // Use URLSearchParams to get values
     var pageValue = parsedUrl.searchParams.get('page'); 
     var actionValue = parsedUrl.searchParams.get('action');
-
+    var activeTab = parsedUrl.searchParams.get('active-tab'); 
+ 
     // display form generator ai in wpcf7-new page and edit page
-    if (pageValue == 'wpcf7-new' || pageValue == 'wpcf7') {
+    if (pageValue == 'wpcf7-new' || (pageValue == 'wpcf7' && actionValue == 'edit') || (pageValue == 'wpcf7' && activeTab == 0 || activeTab > 0)){
       $($(".wrap h1")[0]).append("<a  id='uacf7-ai-form-button-popup' class='uacf7-ai-form-button'>Form Generator AI</a>");
 
       $(document).on('click', '#uacf7-ai-form-button-popup', function (e) {

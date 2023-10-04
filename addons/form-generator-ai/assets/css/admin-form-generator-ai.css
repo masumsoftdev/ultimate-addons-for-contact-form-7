@@ -21,16 +21,15 @@
 } 
   
 .uacf7_ai_search_button {
+  display: flex;
+  gap: 4px;
   margin: 0;
   padding: 10px 20px;
   background-color: #28126624 !important;
   color: #000 !important;
   transition: 0.2s;
-}
-.uacf7_ai_search_button {
-  display: flex;
-  gap: 4px;
-}
+  margin-top: 12px !important;
+} 
 .uacf7_ai_search_button img { 
   height: 20px !important;
 } 
