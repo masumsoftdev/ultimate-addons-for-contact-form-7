@@ -72,7 +72,7 @@
           fileInput.value = null;
           const confirm_message = $('.uacf7-form-'+formId).find("#confirm_message");
           confirm_message.text('Please sign first and confirm your signature before form submission');
-          confirm_message.css('color', 'black');
+          confirm_message.css({'color': '#FFB900', 'font-weight': '500'});
           const control_div = $('.uacf7-form-'+formId).find(".control_div"); 
           control_div.css('display', 'none');
 
@@ -168,7 +168,7 @@
       });
 
       /** Preventing file system opening */
-      
+
       $('.uacf7-form-'+formId).find('#img_id_special').click(function (e){
         e.preventDefault();
       });
