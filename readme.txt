@@ -447,6 +447,7 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 - Added: Telegram Integration with contact form 7.
 - Added: Dynamic Location Selection to IP Geolocation addon(Pro).
 - Improvement: Autocomplete Location User Permission updated(Pro).
+- Fixed: Conditional Fields issue in the mail
 
 =  3.2.2 – 24/09/2023  = 
 
