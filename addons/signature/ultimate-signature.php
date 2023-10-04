@@ -15,10 +15,13 @@ class UACF7_SIGNATURE{
 
     add_action('admin_init', [$this, 'uacf7_signature_tag_generator']);
     add_action('wpcf7_init', [$this, 'uacf7_signature_add_shortcodes']);
+ 
+		add_filter( 'wpcf7_validate_uacf7_signature', [ $this,'uacf7_signature_validation_filter'], 10, 2 ); 
+		add_filter( 'wpcf7_validate_uacf7_signature*', [ $this,'uacf7_signature_validation_filter'], 10, 2 ); 
+    //  add_filter( 'wpcf7_load_js', '__return_false' );
   }
 
-
-
+ 
 
 
   /** Loading Scripts */
@@ -90,6 +93,7 @@ class UACF7_SIGNATURE{
   }
 
 
+
   /** Add Signature Shortcode */
 
   public function uacf7_signature_add_shortcodes(){
@@ -99,72 +103,40 @@ class UACF7_SIGNATURE{
   }
 
   public function uacf7_signature_tag_handler_callback($tag){
-    if (empty($tag->name)) {
-      return '';
-    }
-
-      /** Enable / Disable Submission ID */
-      $wpcf7 = WPCF7_ContactForm::get_current(); 
-      $formid = $wpcf7->id();
-      $uacf7_signature_settings = get_post_meta( $formid, 'uacf7_signature_settings', true ); 
-
-      $uacf7_signature_enable = $uacf7_signature_settings['uacf7_signature_enable'];
-
-      
-      if($uacf7_signature_enable != 'on'){
-          return;
+        if ( empty( $tag->name ) ) {
+          return '';
       }
 
-      $validation_error = wpcf7_get_validation_error($tag->name);
+        $validation_error = wpcf7_get_validation_error( $tag->name );
 
-        $class = wpcf7_form_controls_class($tag->type);
+        $class = wpcf7_form_controls_class( $tag->type );
 
-        if ( $tag->is_required() ) {
-          $atts['aria-required'] = 'true';
-      }
-        if ($validation_error) {
-            $class .= 'wpcf7-not-valid';
+        if ( $validation_error ) {
+            $class .= ' wpcf7-not-valid';
         }
 
         $atts = array();
 
-        $atts['class'] = $tag->get_class_option($class);
+        $atts['class'] = $tag->get_class_option( $class );
         $atts['id'] = $tag->get_id_option();
-        $atts['tabindex'] = $tag->get_option('tabindex', 'signed_int', true);
+        $atts['tabindex'] = $tag->get_option( 'tabindex', 'signed_int', true );
 
-
+        if ( $tag->is_required() ) {
+            $atts['aria-required'] = 'true';
+        }
 
         $atts['aria-invalid'] = $validation_error ? 'true' : 'false';
-        $atts['aria-hidden'] = $validation_error ? 'true' : 'false';
 
-        $atts['name'] = $tag->name;
-
-        // input size
-        $size = $tag->get_option('size', 'int', true);
-        if ($size) {
-            $atts['size'] = $size;
-        } else {
-            $atts['size'] = 40;
-        } 
-        $value = $tag->values;
-        $default_value = $tag->get_default_option($value);
-
-
-      
-        $atts['value'] = $value;
-    
-
-
-        $atts['name'] = $tag->name;
+        $atts['name'] = $tag->name; 
 
         $atts = wpcf7_format_atts($atts);
+
 
         ob_start();
 
         ?> 
         <span  class="wpcf7-form-control-wrap <?php echo sanitize_html_class($tag->name); ?>" data-name="<?php echo sanitize_html_class($tag->name); ?>">
-
-            <input hidden type="file" id="img_id_special" <?php echo $atts;?> >
+            <input hidden type="file" id="img_id_special" <?php echo $atts;?>  >
             <div>
               <div id="signature-pad">
                 <canvas id="signature-canvas"></canvas>
@@ -174,9 +146,7 @@ class UACF7_SIGNATURE{
                   <button id="convertButton">Confirm Signature</button>
                   <span id="confirm_message"></span>
               </div>
-            </div>
-            <span><?php echo $validation_error; ?></span>
-
+            </div> 
         </span>
         
        <?php 
@@ -186,6 +156,22 @@ class UACF7_SIGNATURE{
 
    
   }
+
+
+    /** Validation Callback */
+
+    public function uacf7_signature_validation_filter( $result, $tag ) {
+      $name = $tag->name;
+
+      $empty = ! isset( $_FILES[$name]['name'] ) || empty( $_FILES[$name]['name'] ) && '0' !== $_FILES[$name]['name'];
+ 
+      if ( $tag->is_required() and $empty ) {
+          $result->invalidate( $tag, wpcf7_get_message( 'invalid_required' ) );
+      }
+
+      return $result;
+  }
+
 
 }
 

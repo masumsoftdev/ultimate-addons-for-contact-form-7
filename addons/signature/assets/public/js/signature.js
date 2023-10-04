@@ -29,7 +29,7 @@
       canvas.style.cursor = "crosshair";
       ctx.lineWidth = 1;
       ctx.strokeStyle = "#000";
-      ctx.fillStyle = "#ffffff";
+      ctx.fillStyle = "#fff";
 
 
     
@@ -100,6 +100,8 @@
         e.preventDefault();
         confirm_message.text('Signature Confirmed');
         confirm_message.css({'color':'#46B450', 'font-weight': '500'});
+
+        signature_canvas.css('background-color', '#fff');
 
         const imageDataURL = signature_canvas[0].toDataURL("image/png");
 
