@@ -25,18 +25,14 @@
       // Set up the canvas
       canvas.width = 500;
       canvas.height = 150;
-      canvas.style.border= "1px solid #000";
+      canvas.style.border= "1px solid #ddd";
       canvas.style.cursor = "crosshair";
       ctx.lineWidth = 1;
       ctx.strokeStyle = "#000";
       ctx.fillStyle = "#ffffff";
 
 
-      //Prevent empty signature generating
-        if(ctx.clearRect(0, 0, canvas.width, canvas.height)){
-          alert();
-        }
-
+    
 
       function startDrawing(e) {
           isClicked = true;

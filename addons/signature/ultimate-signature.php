@@ -135,6 +135,7 @@ class UACF7_SIGNATURE{
 
 
         $atts['aria-invalid'] = $validation_error ? 'true' : 'false';
+        $atts['aria-hidden'] = $validation_error ? 'true' : 'false';
 
         $atts['name'] = $tag->name;
 
