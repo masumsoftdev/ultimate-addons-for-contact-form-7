@@ -4,7 +4,7 @@ Tags: contact form 7, contact form 7 addons, contact form 7 addon, contact form 
 Requires at least: 4.2
 Tested up to: 6.3.1
 Requires PHP: 5.4
-Stable tag: 3.2.2
+Stable tag: 3.2.3
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -49,6 +49,7 @@ Packed with 25+ essential features, <strong>Ultimate Addons For Contact Form 7</
 * Form Tag Support & Whatsapp Integration (Pro)
 * Autocomplete Country, City, State, Zip Fields [IP Geolocation based)] (Pro)
 * Ultimate conversational form (Pro)
+* Telegram Integration
 * More Coming soon
 
 ### How It works:
@@ -145,6 +146,10 @@ Send pdf for contact form 7. When someone will submit the Contact form then it w
 = 🎉  Contact Form 7 submission ID  = 
 
 Ultimate Addons for Contact Form 7’s Submission ID addon makes it possible to provide unique IDs for each submission of a contact form. <a href="https://cf7addons.com/preview/contact-form-7-unique-submission-id/">Click Here</a> to check live preview.
+
+= 🎉  Telegram Integration With Contact Form 7 = 
+
+It provides integration of Telegram with Contact Form 7 through UACF7. This enables your submission data to be effortlessly forwarded to your designated Telegram channel. <a href="https://cf7addons.com/preview/telegram-integration-with-contact-form-7/">Click Here</a> to check live preview.
  
 = 🎉  Contact form 7 CSS = 
 
@@ -436,6 +441,12 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 53. Range Slider Pro (Form Example)
 
 == Changelog ==
+
+=  3.2.3 – 04/10/2023  = 
+
+- Added: Telegram Integration with contact form 7.
+- Added: Dynamic Location Selection to IP Geolocation addon(Pro).
+- Improvement: Autocomplete Location User Permission updated(Pro).
 
 =  3.2.2 – 24/09/2023  = 
 
