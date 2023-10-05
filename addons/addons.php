@@ -75,7 +75,7 @@ if( !function_exists( 'uacf7_addons_included' ) ) {
         }
 
         //Addon - PDF Generator 
-        if( uacf7_checked( 'uacf7_enable_pdf_generator_field') != ''){
+        if( uacf7_checked( 'uacf7_enable_pdf_generator_field') != ''){ 
             require_once( 'pdf-generator/pdf-generator.php');
         }
 
@@ -88,6 +88,11 @@ if( !function_exists( 'uacf7_addons_included' ) ) {
             require_once( 'signature/ultimate-signature.php');
         }
 		
+
+        //Addon - Telegram
+        if( uacf7_checked( 'uacf7_enable_telegram_field') != ''){
+            require_once( 'telegram/ultimate-telegram.php');
+        }
 		
     }
 }

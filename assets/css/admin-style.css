@@ -269,6 +269,7 @@
   /** Addon Tabs **/
   #uacf7-repeater-panel-tab,
   #uacf7-mailchimp-panel-tab,
+  #uacf7-telegram-panel-tab,
   #uacf7-redirect-panel-tab, 
   #uacf7-cf-panel-tab, 
   #uacf7-placeholder-panel-tab, 
@@ -289,6 +290,7 @@
 
   #uacf7-repeater-panel-tab a, 
   #uacf7-mailchimp-panel-tab a, 
+  #uacf7-telegram-panel-tab a, 
   #uacf7-redirect-panel-tab a, 
   #uacf7-cf-panel-tab a, 
   #uacf7-placeholder-panel-tab a, 
@@ -309,6 +311,7 @@
   #uacf7-repeater-panel-tab:hover, 
   #uacf7-redirect-panel-tab:hover, 
   #uacf7-mailchimp-panel-tab:hover, 
+  #uacf7-telegram-panel-tab:hover, 
   #uacf7-cf-panel-tab:hover, 
   #uacf7-placeholder-panel-tab:hover, 
   #uacf7-pdf-generator-panel-tab:hover, 
@@ -331,6 +334,7 @@
   #uacf7-repeater-panel-tab.ui-tabs-active a, 
   #uacf7-redirect-panel-tab:hover a,
   #uacf7-mailchimp-panel-tab:hover a,
+  #uacf7-telegram-panel-tab:hover a,
   #uacf7-cf-panel-tab:hover a, 
   #uacf7-placeholder-panel-tab:hover a, 
   #uacf7-pdf-generator-panel-tab:hover a, 
@@ -350,6 +354,7 @@
  #uacf7-range-slider-panel-tab.ui-tabs-active a,
  #uacf7-auto-product-cart-panel-tab.ui-tabs-active a,
  #uacf7-mailchimp-panel-tab.ui-tabs-active a,
+ #uacf7-telegram-panel-tab.ui-tabs-active a,
  #uacf7-pre-populate-panel-tab.ui-tabs-active a, 
  #uacf7-submission-id-panel-tab:hover a, 
  #uacf7-submission-id-panel-tab.ui-tabs-active a,
@@ -362,6 +367,7 @@
  #uacf7-repeater-panel-tab.ui-tabs-active, 
  #uacf7-redirect-panel-tab.ui-tabs-active, 
  #uacf7-mailchimp-panel-tab.ui-tabs-active, 
+ #uacf7-telegram-panel-tab.ui-tabs-active, 
  #uacf7-cf-panel-tab.ui-tabs-active, 
  #uacf7-placeholder-panel-tab.ui-tabs-active, 
  #uacf7-pdf-generator-panel-tab.ui-tabs-active, 
@@ -382,6 +388,7 @@
 #uacf7-redirect-panel, 
 #uacf7-repeater-panel, 
 #uacf7-mailchimp-panel, 
+#uacf7-telegram-panel, 
 #uacf7-auto-product-cart-panel, 
 #uacf7-bf-panel, 
 #uacf7-cf-panel, 
@@ -407,6 +414,7 @@
 #uacf7-redirect-panel h2, 
 #uacf7-auto-product-cart-panel h2, 
 #uacf7-mailchimp-panel h2, 
+#uacf7-telegram-panel h2, 
 #uacf7-bf-panel h2, 
 #uacf7-cf-panel h2, 
 #uacf7-placeholder-panel h2, 
@@ -425,11 +433,13 @@
   line-height: 1.5!important;
 }
 
+
 #uacf7-repeater-panel p, 
 #uacf7-redirect-panel p, 
 #uacf7-auto-product-cart-panel p, 
 #uacf7-bf-panel p, 
 #uacf7-mailchimp-panel p, 
+#uacf7-telegram-panel p, 
 #uacf7-cf-panel p, 
 #uacf7-placeholder-panel p, 
 #uacf7-pdf-generator-panel p, 
