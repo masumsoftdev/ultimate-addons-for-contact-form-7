@@ -28,6 +28,7 @@ class Ultimate_Addons_CF7 {
         define( 'UACF7_URL', plugin_dir_url( __FILE__ ) );
         define( 'UACF7_ADDONS', UACF7_URL.'addons' );
         define( 'UACF7_PATH', plugin_dir_path( __FILE__ ) );
+        define( 'UACF7_VERSION', '3.2.2' );
 
         
         if ( ! class_exists( 'Appsero\Client' ) ) {
@@ -81,19 +82,28 @@ class Ultimate_Addons_CF7 {
     */
     public function uacf7_init() {
         
+        // require_once UACF7_PATH . 'admin/tf-options/TF_Optionss.php';
+		if ( file_exists( UACF7_PATH . 'admin/tf-options/TF_Options.php' ) ) {
+			require_once UACF7_PATH . 'admin/tf-options/TF_Options.php';
+		}
+        
         //Require ultimate functions
         require_once( 'inc/functions.php' );
-        
+ 
         //Enqueue admin scripts
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'uacf7_frontend_scripts' ) );
+        
         
         //Require admin menu
         require_once( 'admin/admin-menu.php' );
         
         //Require ultimate addons
         require_once( 'addons/addons.php' );
+
+       
     }
+    
     
     //Enquene admin scripts
     public function enqueue_admin_scripts(){
@@ -103,12 +113,36 @@ class Ultimate_Addons_CF7 {
         wp_enqueue_media();
         wp_enqueue_style( 'wp-color-picker' );
         wp_enqueue_script( 'wp-color-picker' );
-        wp_enqueue_script( 'uacf7-admin-script', UACF7_URL . 'assets/js/admin-script.js', array('jquery'), null, true );
+        wp_enqueue_script( 'uacf7-admin-script', UACF7_URL . 'assets/js/admin-script.js', array('jquery'), null, true ); 
+
+		// Custom
+		wp_enqueue_style( 'tf-admin-sweet-alert', '//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css', '', UACF7_VERSION );
+		wp_enqueue_style( 'tf-admin', UACF7_URL . 'assets/admin/css/tourfic-admin.min.css', '', UACF7_VERSION );
+		wp_enqueue_script( 'tf-admin-sweet-alert', '//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js', array( 'jquery' ), UACF7_VERSION, true );
+		wp_enqueue_script( 'tf-admin', UACF7_URL . 'assets/admin/js/tourfic-admin-scripts.min.js', array( 'jquery', 'wp-data', 'wp-editor', 'wp-edit-post' ), UACF7_VERSION, true );
+		
+        $admin_date_format_for_users  = !empty(tfopt( "tf-date-format-for-users")) ? tfopt( "tf-date-format-for-users") : "Y/m/d";
+        $tf_google_map = function_exists( 'is_tf_pro' ) && is_tf_pro() && ! empty( tfopt( 'google-page-option' ) ) ? tfopt( 'google-page-option' ) : "false";
+        wp_localize_script( 'tf-admin', 'tf_options', array(
+            'ajax_url'          => admin_url( 'admin-ajax.php' ),
+            'nonce'             => wp_create_nonce( 'tf_options_nonce' ),
+            'gmaps'             => $tf_google_map, 
+            'tf_admin_date_format' => $admin_date_format_for_users
+        ) );
+        wp_localize_script( 'tf-admin', 'tf_admin_params',
+			array(
+				'tf_nonce'                         => wp_create_nonce( 'updates' ),
+				'ajax_url'                         => admin_url( 'admin-ajax.php' ),   
+			)
+		);
+        wp_enqueue_style( 'notyf', UACF7_URL . 'assets/app/libs/notyf/notyf.min.css', '', UACF7_VERSION );
+		wp_enqueue_script( 'notyf', UACF7_URL . 'assets/app/libs/notyf/notyf.min.js', array( 'jquery' ), UACF7_VERSION, true );
     }
 
     //Enquene admin scripts
     public function uacf7_frontend_scripts(){ 
         wp_enqueue_style( 'uacf7-frontend-style', UACF7_URL . 'assets/css/uacf7-frontend.css', '' ); 
+        
     }
 
     /**

@@ -3,6 +3,16 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+ /**
+ * Global Admin Get Option
+ */
+if ( ! function_exists( 'tfopt' ) ) {
+    function tfopt( $option = '', $default = null ) {
+        $options = get_option( 'tf_settings' );
+
+        return ( isset( $options[ $option ] ) ) ? $options[ $option ] : $default;
+    }
+}
 
 /*
 Function: uacf7_checked
