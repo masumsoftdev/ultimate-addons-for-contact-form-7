@@ -134,8 +134,11 @@ if ( ! class_exists( 'TF_Options' ) ) {
 		 */
 		public function tf_options_admin_enqueue_scripts( $screen ) {
 			global $post_type;
+			 
+
 			$tf_options_screens   = array(
 				'toplevel_page_tf_settings',
+				'toplevel_page_wpcf7',
 				'tourfic-settings_page_tf_get_help',
 				'tourfic-settings_page_tf_license_info',
 				'tourfic-settings_page_tf_dashboard',
@@ -343,8 +346,7 @@ if ( ! class_exists( 'TF_Options' ) ) {
 		/**
 		 * Dequeue scripts
 		 */
-		public function tf_options_admin_dequeue_scripts( $screen ) {
-			global $post_type;
+		public function tf_options_admin_dequeue_scripts( $screen ) { 
 			$tf_options_post_type = array( 'tf_hotel', 'tf_tours', 'tf_apartment' );
 
 			if ( $screen == 'toplevel_page_tf_settings' || in_array( $post_type, $tf_options_post_type ) ) {

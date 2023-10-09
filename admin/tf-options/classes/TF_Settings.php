@@ -98,16 +98,24 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 		 * @author Foysal
 		 */
 		public function tf_options() {
-			add_menu_page(
-				$this->option_title,
-				$this->option_title,
-				'manage_options',
-				$this->option_id,
-				array( $this, 'tf_options_page' ),
-				$this->option_icon,
-				$this->option_position
-			);
+			// add_menu_page(
+			// 	$this->option_title,
+			// 	$this->option_title,
+			// 	'manage_options',
+			// 	$this->option_id,
+			// 	array( $this, 'tf_options_page' ),
+			// 	$this->option_icon,
+			// 	$this->option_position
+			// );
 
+			add_submenu_page(
+				'wpcf7', //parent slug
+				__($this->option_title,'ultimate-addons-cf7'), // page_title
+				__($this->option_title,'ultimate-addons-cf7'), // menu_title
+				'manage_options', // capability
+				$this->option_id, // menu_slug
+				array( $this, 'tf_options_page' ) // function
+			);
             //Dashboard submenu
 			add_submenu_page(
 				$this->option_id,
@@ -130,7 +138,7 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 
 			//Get Help submenu
 			add_submenu_page(
-				$this->option_id,
+				'wpcf7',
 				__('Get Help', 'tourfic'),
 				__('Get Help', 'tourfic'),
 				'manage_options',

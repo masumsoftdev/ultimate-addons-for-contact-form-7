@@ -42,6 +42,7 @@ if ( ! class_exists( 'TF_Metabox' ) ) {
 			add_action( 'add_meta_boxes', array( $this, 'tf_meta_box' ) );
 			add_action( 'wpcf7_admin_footer', array( $this, 'tf_meta_box_content' ) );
 			add_action( 'save_post', array( $this, 'save_metabox' ), 10, 2 );
+			// add_action( 'wpcf7_after_save', array( $this, 'save_metabox' ), 10, 2 );
 
 			//load fields
 			$this->load_fields();
@@ -94,54 +95,63 @@ if ( ! class_exists( 'TF_Metabox' ) ) {
 		 */
 
 		public function tf_meta_box_content( $post ) {
-			// Add nonce for security and authentication.
-			wp_nonce_field( 'tf_meta_box_nonce_action', 'tf_meta_box_nonce' );
-
-			// Retrieve an existing value from the database.
-			$tf_meta_box_value = get_post_meta( $post->ID, $this->metabox_id, true );
-
-			// Set default values.
-			if ( empty( $tf_meta_box_value ) ) {
-				$tf_meta_box_value = array();
-			}
-			if ( empty( $this->metabox_sections ) ) {
-				return;
-			}
+			var_dump($post->id());
 			?>
-            <div class="tf-admin-meta-box">
-                <div class="tf-admin-tab">
-					<?php
-					$section_count = 0;
-					foreach ( $this->metabox_sections as $key => $section ) : ?>
-                        <a class="tf-tablinks <?php echo $section_count == 0 ? 'active' : ''; ?>" data-tab="<?php echo esc_attr( $key ) ?>">
-							<?php echo ! empty( $section['icon'] ) ? '<span class="tf-sec-icon"><i class="' . esc_attr( $section['icon'] ) . '"></i></span>' : ''; ?>
-							<?php echo esc_html( $section['title'] ); ?>
-                        </a>
-						<?php $section_count ++; endforeach; ?>
-                </div>
+			<div class="uacf7-metabox" style="display:none;">
+				<?php
+				// Add nonce for security and authentication.
+				wp_nonce_field( 'tf_meta_box_nonce_action', 'tf_meta_box_nonce' );
 
-                <div class="tf-tab-wrapper">
-					<?php $content_count = 0;
-					foreach ( $this->metabox_sections as $key => $section ) : ?>
-                        <div id="<?php echo esc_attr( $key ) ?>" class="tf-tab-content <?php echo $content_count == 0 ? 'active' : ''; ?>">
+				// Retrieve an existing value from the database.
+				if($post->ID != null){ 
+					$tf_meta_box_value = get_post_meta( $post->ID, $this->metabox_id, true );
+				}else{
+					$tf_meta_box_value = get_post_meta( $post->id(), $this->metabox_id, true );
+				}
 
-							<?php
-							if ( ! empty( $section['fields'] ) ):
-								foreach ( $section['fields'] as $field ) :
+				// Set default values.
+				if ( empty( $tf_meta_box_value ) ) {
+					$tf_meta_box_value = array();
+				}
+				if ( empty( $this->metabox_sections ) ) {
+					return;
+				}
+				?>
+				<div class="tf-admin-meta-box">
+					<div class="tf-admin-tab">
+						<?php
+						$section_count = 0;
+						foreach ( $this->metabox_sections as $key => $section ) : ?>
+							<a class="tf-tablinks <?php echo $section_count == 0 ? 'active' : ''; ?>" data-tab="<?php echo esc_attr( $key ) ?>">
+								<?php echo ! empty( $section['icon'] ) ? '<span class="tf-sec-icon"><i class="' . esc_attr( $section['icon'] ) . '"></i></span>' : ''; ?>
+								<?php echo esc_html( $section['title'] ); ?>
+							</a>
+							<?php $section_count ++; endforeach; ?>
+					</div>
 
-									$default = isset( $field['default'] ) ? $field['default'] : '';
-									$value   = isset( $tf_meta_box_value[ $field['id'] ] ) ? $tf_meta_box_value[ $field['id'] ] : $default;
+					<div class="tf-tab-wrapper">
+						<?php $content_count = 0;
+						foreach ( $this->metabox_sections as $key => $section ) : ?>
+							<div id="<?php echo esc_attr( $key ) ?>" class="tf-tab-content <?php echo $content_count == 0 ? 'active' : ''; ?>">
 
-									$tf_option = new TF_Options();
-									$tf_option->field( $field, $value, $this->metabox_id );
-								endforeach;
-							endif; ?>
+								<?php
+								if ( ! empty( $section['fields'] ) ):
+									foreach ( $section['fields'] as $field ) :
 
-                        </div>
-						<?php $content_count ++; endforeach; ?>
-                </div>
+										$default = isset( $field['default'] ) ? $field['default'] : '';
+										$value   = isset( $tf_meta_box_value[ $field['id'] ] ) ? $tf_meta_box_value[ $field['id'] ] : $default;
 
-            </div>
+										$tf_option = new TF_Options();
+										$tf_option->field( $field, $value, $this->metabox_id );
+									endforeach;
+								endif; ?>
+
+							</div>
+							<?php $content_count ++; endforeach; ?>
+					</div>
+
+				</div>
+			</div>
 			<?php
 		}
 
@@ -153,6 +163,8 @@ if ( ! class_exists( 'TF_Metabox' ) ) {
 			// Add nonce for security and authentication.
 			$nonce_name   = isset( $_POST['tf_meta_box_nonce'] ) ? $_POST['tf_meta_box_nonce'] : '';
 			$nonce_action = 'tf_meta_box_nonce_action';
+
+			// $post_id = $form->id();
 
 			// Check if a nonce is set.
 			if ( ! isset( $nonce_name ) ) {
@@ -178,6 +190,12 @@ if ( ! class_exists( 'TF_Metabox' ) ) {
 			if ( wp_is_post_revision( $post_id ) ) {
 				return;
 			}
+
+			// echo "<pre>";
+			// print_r($_POST);
+			// echo "</pre>";
+			// echo  $this->metabox_id;
+			// wp_die();
 
 			$tf_meta_box_value = array();
 			$metabox_request   = ( ! empty( $_POST[ $this->metabox_id ] ) ) ? $_POST[ $this->metabox_id ] : array();

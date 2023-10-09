@@ -2,6 +2,16 @@
     'use strict';
     $(document).ready(function () {
 
+        // get UACF7_metabox and get te append into the form tag
+        if($('.uacf7-metabox').length > 0){
+            $('.uacf7-metabox').each(function(){
+                var $this_clone = $(this).clone(); 
+                $('#contact-form-editor').append($this_clone);
+                $('#contact-form-editor').find('.uacf7-metabox').css('display','block');
+                $(this).remove();
+            });
+        }
+
         // Create an instance of Notyf
         const notyf = new Notyf({
             ripple: true,

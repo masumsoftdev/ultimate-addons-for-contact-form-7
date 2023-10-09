@@ -1165,6 +1165,13 @@ Steps
   border-radius: 5px;
 }
 
+.uacf7-metabox {
+  background-color: #fff;
+  padding: 6px;
+  border: 1px solid #ddddde;
+  margin-top: 20px;
+}
+
 @media only screen and (max-width: 991.98px) {
   #tf_tours_opt .tf-admin-meta-box {
     position: relative;
@@ -1178,7 +1185,6 @@ Steps
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-  margin: -6px -12px -12px -12px;
   z-index: 10;
   position: relative;
 }

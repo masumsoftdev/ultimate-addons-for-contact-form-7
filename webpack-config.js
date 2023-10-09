@@ -11,8 +11,8 @@ entryPoints['ultimate-addons-for-contact-form-7/assets/app/js/tourfic-scripts.mi
 entryPoints['ultimate-addons-for-contact-form-7/assets/admin/js/tourfic-admin-scripts.min'] = freeAdminJs;
 
 //scss entry points
-// const appScss = glob.sync('./sass/app/css/tourfic.scss');
-// const adminScss = glob.sync('./sass/admin/css/tourfic-admin.scss');
+const appScss = glob.sync('./sass/app/css/tourfic.scss');
+const adminScss = glob.sync('./sass/admin/css/tourfic-admin.scss');
 //
 // entryPoints['app/css/tourfic-style'] = appScss;
 // entryPoints['admin/css/tourfic-admin'] = adminScss;
