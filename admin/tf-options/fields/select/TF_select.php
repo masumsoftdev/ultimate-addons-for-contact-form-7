@@ -26,6 +26,30 @@ if ( ! class_exists( 'TF_select' ) ) {
 					$this->field['options'][ $post->ID ] = ( empty( $post->post_title ) ) ? 'No title (' . $post->ID . ')' : $post->post_title;
 				}
 			}
+			if ( ! empty( $this->field['query_args'] ) && $this->field['options'] == 'uacf7' ) {
+
+				$post_id                  = $this->field['query_args']['post_id'];
+				
+				$ContactForm = WPCF7_ContactForm::get_instance($post_id);
+				$tags = $ContactForm->scan_form_tags(); 
+				$this->field['options'] = array(
+					'0' => 'Select Field'
+				);
+				$exclude = isset($this->field['query_args']['exclude']) ? $this->field['query_args']['exclude'] : array();
+				foreach ( $tags as $tag ) {
+					if ($tag['name'] == '' || in_array($tag['name'], $exclude) ) continue;
+
+					if( $tag['type'] == 'checkbox' ) { 
+        
+						$tag_name = $tag['name'].'[]';
+
+					}else {
+
+						$tag_name = $tag['name'];
+					}
+					$this->field['options'][ $tag_name ] =  esc_html($tag['name']);
+				}
+			}
 
 			if ( ! empty( $this->field['query_args'] ) && $this->field['options'] == 'terms' ) {
 				$terms                  = get_terms( $this->field['query_args'] );

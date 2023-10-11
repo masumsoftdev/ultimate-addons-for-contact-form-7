@@ -14,6 +14,8 @@ class UACF7_Redirection {
 		add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_panel' ) );
 		add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_meta' ) );
 		add_action( 'wpcf7_submit', array( $this, 'uacf7_non_ajax_redirection' ) );
+		add_filter( 'uacf7_post_meta_options', array( $this, 'uacf7_post_meta_options_redirection' ), 10, 2 ); 
+		//add_filter( 'uacf7_post_meta_options_redirection_pro', array( $this, 'uacf7_post_meta_options_redirection_pro' ), 40, 1 ); 
     }
     
     public function enqueue_redirect_script() {
@@ -31,7 +33,204 @@ class UACF7_Redirection {
         wp_enqueue_script( 'uacf7-redirect-script', UACF7_URL . 'addons/redirection/js/admin-redirect.js', array(), null, true );
         wp_enqueue_style( 'uacf7-redirect-style', UACF7_URL . 'addons/redirection/css/admin-redirect.css', array(), null, true );
     }
-    
+    public function uacf7_post_meta_options_redirection($value, $post_id) {
+
+		
+
+		$redirection = apply_filters('uacf7_post_meta_options_redirection_pro', $data = array(
+			'title'  => __( 'Redirection', 'ultimate-addons-cf7' ),
+			'icon'   => 'fa-solid fa-viruses',
+			'fields' => array(
+				'redirection_headding' => array(
+					'id'    => 'redirection_headding',
+					'type'  => 'heading',
+					'label' => __( 'UACF7 Redirection Settings 2', 'ultimate-addons-cf7' ),
+					'sub_title' => __( 'This feature will help you to redirect contact form 7 after submission. You can Redirect users to a Thank you page or External page after user fills up the form. ', 'ultimate-addons-cf7' ),
+				),
+				'uacf7_redirect_enable' => array(
+					'id'        => 'uacf7_redirect_enable',
+					'type'      => 'switch',
+					'label'     => __( ' Enable redirection', 'ultimate-addons-cf7' ),
+					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
+					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+					'default'   => false
+				),
+				'uacf7_redirect_enable' => array(
+					'id'        => 'uacf7_redirect_enable',
+					'type'      => 'radio',
+					'label'     => __( 'Redirect to', 'ultimate-addons-cf7' ),
+					'options' => array(
+						'uacf7_redirect_to_page' => 'Redirect to page ',
+						'uacf7_redirect_to_url' => 'Redirect to external URL ',
+					 ),
+					 'default' => 'uacf7_redirect_to_page',
+					 'inline' => true,
+					 'dependency' => array( 'uacf7_redirect_type', '==', false ),
+				),
+				'uacf7_redirect_page' => array(
+					'id'        => 'uacf7_redirect_page',
+					'type'      => 'select',
+					'label'     => __( 'Select a page to redirect ', 'ultimate-addons-cf7' ),  
+					'options'     => 'posts', 
+					'query_args'  => array(
+						'post_type'      => 'page',
+						'posts_per_page' => - 1,
+					),
+					'dependency' => array(array( 'uacf7_redirect_enable', '==', 'uacf7_redirect_to_page' ), array( 'uacf7_redirect_type', '==', false )),
+				),
+				'external_url' => array(
+					'id'        => 'external_url',
+					'type'      => 'text',
+					'label'     => __( 'External URL', 'ultimate-addons-cf7' ),   
+					'dependency' => array( 'uacf7_redirect_enable', '==', 'uacf7_redirect_to_url' ),
+				),
+				'uacf7_redirect_type' => array(
+					'id'        => 'uacf7_redirect_type',
+					'type'      => 'switch',
+					'label'     => __( 'Conditional Redirect', 'ultimate-addons-cf7' ),
+					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
+					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+					'default'   => false,
+					'is_pro' => true,
+				),
+				'conditional_redirect' => array(
+					'id' => 'conditional_redirect',
+					'type' => 'repeater',
+					'label' => 'Conditional Redirect Field',  
+					'class' => 'tf-field-class',
+					'dependency' => array( 'uacf7_redirect_type', '==', true ),
+					'fields' => array(
+						'uacf7_cr_tn' => array(
+							'id' => 'uacf7_cr_tn',
+							'label' => 'Select field',
+							'type' => 'select', 
+						 ),
+						array(
+							'id' => 'uacf7_cr_field_val',
+							'label' => 'Value ==',
+							'type' => 'text',
+							'subtitle' => 'Enter your Conditional Value',
+							'placeholder' => 'value', 
+						 ),
+						array(
+							'id' => '"uacf7_cr_redirect_to_ur',
+							'label' => 'Redirect to',
+							'type' => 'text',
+							'subtitle' => 'Enter your Redirect UR',
+							'placeholder' => 'Redirect URL', 
+						 ),
+					 ),
+				),
+				'uacf7_tab_target' => array(
+					'id'        => 'uacf7_tab_target',
+					'type'      => 'switch',
+					'label'     => __( 'Open page in a new tab', 'ultimate-addons-cf7' ),
+					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
+					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+					'default'   => false
+				),
+				'uacf7_redirect_tag_support' => array(
+					'id'        => 'uacf7_redirect_tag_support',
+					'type'      => 'switch',
+					'label'     => __( 'Tags support to redirect UR', 'ultimate-addons-cf7' ),
+					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
+					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+					'default'   => false,
+					'is_pro' => true,
+				),
+				
+			),
+		), $post_id);
+		$value['redirection'] = $redirection;
+		// echo "<pre>";
+		// print_r($redirection);
+		// echo "</pre>";
+		// exit;
+		return $value;
+	}
+   
+	public function uacf7_post_meta_options_redirection_pro($data){
+		var_dump($data);
+		$data = array(
+			'title'  => __( 'Redirection 2', 'ultimate-addons-cf7' ),
+			'icon'   => 'fa-solid fa-viruses',
+			'fields' => array(
+				array(
+					'id'    => 'redirection_headding',
+					'type'  => 'heading',
+					'label' => __( 'UACF7 Redirection Settings 2', 'ultimate-addons-cf7' ),
+					'sub_title' => __( 'This feature will help you to redirect contact form 7 after submission. You can Redirect users to a Thank you page or External page after user fills up the form. ', 'ultimate-addons-cf7' ),
+				),
+				array(
+					'id'        => 'uacf7_redirect_enable',
+					'type'      => 'switch',
+					'label'     => __( ' Enable redirection', 'ultimate-addons-cf7' ),
+					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
+					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+					'default'   => false
+				),
+				array(
+					'id'        => 'uacf7_redirect_enable',
+					'type'      => 'radio',
+					'label'     => __( 'Redirect to', 'ultimate-addons-cf7' ),
+					'options' => array(
+						'uacf7_redirect_to_page' => 'Redirect to page ',
+						'uacf7_redirect_to_url' => 'Redirect to external URL ',
+					 ),
+					 'default' => 'uacf7_redirect_to_page',
+					 'inline' => true,
+					 'dependency' => array( 'uacf7_redirect_type', '==', false ),
+				),
+				array(
+					'id'        => 'uacf7-redirect-page',
+					'type'      => 'select',
+					'label'     => __( 'Select a page to redirect ', 'ultimate-addons-cf7' ),   
+					'options'     => 'uacf7', 
+					'query_args'  => array(
+						'post_type'      => 'page',
+						'posts_per_page' => - 1,
+					),
+					'dependency' => array(array( 'uacf7_redirect_enable', '==', 'uacf7_redirect_to_page' ), array( 'uacf7_redirect_type', '==', false )),
+				),
+				array(
+					'id'        => 'external_url',
+					'type'      => 'text',
+					'label'     => __( 'External URL', 'ultimate-addons-cf7' ),   
+					'dependency' => array( 'uacf7_redirect_enable', '==', 'uacf7_redirect_to_url' ),
+				),
+				array(
+					'id'        => 'uacf7_redirect_type',
+					'type'      => 'switch',
+					'label'     => __( 'Conditional Redirect', 'ultimate-addons-cf7' ),
+					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
+					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+					'default'   => false,
+					'is_pro' => true,
+				),
+				array(
+					'id'        => 'uacf7_tab_target',
+					'type'      => 'switch',
+					'label'     => __( 'Open page in a new tab', 'ultimate-addons-cf7' ),
+					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
+					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+					'default'   => false
+				),
+				array(
+					'id'        => 'uacf7_redirect_tag_support',
+					'type'      => 'switch',
+					'label'     => __( 'Tags support to redirect UR', 'ultimate-addons-cf7' ),
+					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
+					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+					'default'   => false,
+					'is_pro' => true,
+				),
+				
+			),
+		);
+		return $data;
+		// exit;
+	}
+
     public function get_forms() {
 		$args  = array(
 			'post_type'        => 'wpcf7_contact_form',

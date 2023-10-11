@@ -40,7 +40,7 @@ if ( ! class_exists( 'TF_Metabox' ) ) {
 			}*/
 
 			add_action( 'add_meta_boxes', array( $this, 'tf_meta_box' ) );
-			add_action( 'wpcf7_admin_footer', array( $this, 'tf_meta_box_content' ) );
+			add_action( 'wpcf7_admin_footer', array( $this, 'tf_meta_box_content' ), 20, 2 );
 			add_action( 'save_post', array( $this, 'save_metabox' ), 10, 2 );
 			// add_action( 'wpcf7_after_save', array( $this, 'save_metabox' ), 10, 2 );
 
@@ -51,7 +51,7 @@ if ( ! class_exists( 'TF_Metabox' ) ) {
 		public static function metabox( $key, $params = array() ) {
 			return new self( $key, $params );
 		}
-
+	  
 		/*
 		 * Load fields
 		 * @author Foysal
@@ -94,8 +94,10 @@ if ( ! class_exists( 'TF_Metabox' ) ) {
 		 * @author Foysal
 		 */
 
-		public function tf_meta_box_content( $post ) {
-			var_dump($post->id());
+		public function tf_meta_box_content( $post ) { 
+			if ( empty( $this->metabox_sections ) ) {
+				return;
+			}
 			?>
 			<div class="uacf7-metabox" style="display:none;">
 				<?php
@@ -113,19 +115,19 @@ if ( ! class_exists( 'TF_Metabox' ) ) {
 				if ( empty( $tf_meta_box_value ) ) {
 					$tf_meta_box_value = array();
 				}
-				if ( empty( $this->metabox_sections ) ) {
-					return;
-				}
+				
 				?>
 				<div class="tf-admin-meta-box">
 					<div class="tf-admin-tab">
 						<?php
 						$section_count = 0;
 						foreach ( $this->metabox_sections as $key => $section ) : ?>
+							<?php //if( $section != null): ?>
 							<a class="tf-tablinks <?php echo $section_count == 0 ? 'active' : ''; ?>" data-tab="<?php echo esc_attr( $key ) ?>">
 								<?php echo ! empty( $section['icon'] ) ? '<span class="tf-sec-icon"><i class="' . esc_attr( $section['icon'] ) . '"></i></span>' : ''; ?>
 								<?php echo esc_html( $section['title'] ); ?>
 							</a>
+							<?php // endif; ?>
 							<?php $section_count ++; endforeach; ?>
 					</div>
 
@@ -190,13 +192,7 @@ if ( ! class_exists( 'TF_Metabox' ) ) {
 			if ( wp_is_post_revision( $post_id ) ) {
 				return;
 			}
-
-			// echo "<pre>";
-			// print_r($_POST);
-			// echo "</pre>";
-			// echo  $this->metabox_id;
-			// wp_die();
-
+ 
 			$tf_meta_box_value = array();
 			$metabox_request   = ( ! empty( $_POST[ $this->metabox_id ] ) ) ? $_POST[ $this->metabox_id ] : array();
 

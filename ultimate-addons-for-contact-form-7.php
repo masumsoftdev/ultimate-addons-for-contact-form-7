@@ -82,25 +82,29 @@ class Ultimate_Addons_CF7 {
     */
     public function uacf7_init() {
         
-        // require_once UACF7_PATH . 'admin/tf-options/TF_Optionss.php';
-		if ( file_exists( UACF7_PATH . 'admin/tf-options/TF_Options.php' ) ) {
-			require_once UACF7_PATH . 'admin/tf-options/TF_Options.php';
-		}
-        
+     
         //Require ultimate functions
         require_once( 'inc/functions.php' );
  
         //Enqueue admin scripts
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'uacf7_frontend_scripts' ) );
-        
+         
+       
+
+       
         
         //Require admin menu
         require_once( 'admin/admin-menu.php' );
-        
+                
         //Require ultimate addons
         require_once( 'addons/addons.php' );
-
+        // require_once UACF7_PATH . 'admin/tf-options/TF_Optionss.php';
+       
+       
+        if ( file_exists( UACF7_PATH . 'admin/tf-options/TF_Options.php' ) ) {
+            require_once UACF7_PATH . 'admin/tf-options/TF_Options.php';
+        }
        
     }
     
