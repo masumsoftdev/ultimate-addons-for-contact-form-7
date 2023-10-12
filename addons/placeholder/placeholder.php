@@ -13,6 +13,7 @@ class UACF7_Placeholder {
 		add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_panel' ) );
         add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_contact_form' ) );
         add_filter( 'wpcf7_contact_form_properties', array( $this, 'uacf7_properties' ), 10, 2 );
+        add_filter( 'uacf7_post_meta_options', array( $this, 'uacf7_post_meta_options_placeholder' ), 13, 2 );  
     }
 	
 	public function admin_enqueue_placeholder_styles() {
@@ -23,6 +24,90 @@ class UACF7_Placeholder {
         wp_enqueue_style( 'uacf7-placeholder', UACF7_ADDONS . '/placeholder/css/placeholder-style.css' );
         wp_enqueue_script( 'uacf7-placeholder-script', UACF7_ADDONS . '/placeholder/js/color-pickr.js', array('jquery', 'wp-color-picker' ), '', true );
     }
+
+    // Add Placeholder Options
+    public function uacf7_post_meta_options_placeholder($value, $post_id){
+        $redirection = apply_filters('uacf7_post_meta_options_placeholder_pro', $data = array(
+			'title'  => __( 'Placeholder', 'ultimate-addons-cf7' ),
+			'icon'   => 'fa-solid fa-italic',
+			'fields' => array(
+				'placeholder_headding' => array(
+					'id'    => 'placeholder_headding',
+					'type'  => 'heading',
+					'label' => __( 'Placeholder Styles', 'ultimate-addons-cf7' ),
+					'sub_title' => __( 'This feature will help you to edit the Styles of Placeholder of your form. Note that, all below fields are optional. If any field is not needed, leave them blank.', 'ultimate-addons-cf7' ),
+				),
+				'uacf7_enable_placeholder_styles' => array(
+					'id'        => 'uacf7_enable_placeholder_styles',
+					'type'      => 'switch',
+					'label'     => __( ' Enable Placeholder ', 'ultimate-addons-cf7' ),
+					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
+					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+					'default'   => false
+				),
+                'uacf7_placeholder_color_option' => array(
+                    'id' => 'uacf7_placeholder_color_option',
+                    'type' => 'color',
+                    'label'     => __( 'Color Options', 'ultimate-addons-cf7' ), 
+                    'subtitle'     => __( 'Customize Placeholder Color Options', 'ultimate-addons-cf7' ), 
+                    'class' => 'tf-field-class',
+                    'default' => '#ffffff',
+                    'multiple' => true,
+                    'inline' => true,
+                    'colors' => array(
+                        'uacf7_placeholder_color' => 'Color',
+                        'uacf7_placeholder_background_color' => 'Background Color', 
+                    ), 
+                ),
+                'uacf7_placeholder_fontstyle' => array(
+					'id'        => 'uacf7_placeholder_fontstyle',
+					'type'      => 'select',
+					'label'     => __( 'Font Style', 'ultimate-addons-cf7' ),  
+					'subtitle'     => __( 'Select form style', 'ultimate-addons-cf7' ),  
+					'options'     => array(
+						'normal'      => 'Normal',
+						'italic' => "Italic",
+					), 
+				),
+                'uacf7_placeholder_fontweight' => array(
+					'id'        => 'uacf7_placeholder_fontweight',
+					'type'      => 'select',
+					'label'     => __( 'Font Weight ', 'ultimate-addons-cf7' ),  
+					'subtitle'     => __( 'Select form Weight', 'ultimate-addons-cf7' ),  
+					'options'     => array(
+						'normal'      => 'Normal / 400',
+						'300' => "300",
+						'500' => "500",
+						'700' => "700",
+						'900' => "900",
+					), 
+				), 
+				'uacf7_placeholder_fontsize' => array(
+					'id'        => 'uacf7_placeholder_fontsize',
+					'type'      => 'number',
+					'label'     => __( 'Font Size (in px)', 'ultimate-addons-cf7' ),  
+					'subtitle'     => __( 'E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ),  
+                    'placeholder'     => __( 'Enter Placeholder Font Size (in px)', 'ultimate-addons-cf7' ), 
+				),
+				'uacf7_placeholder_fontfamily' => array(
+					'id'        => 'uacf7_placeholder_fontfamily',
+					'type'      => 'number',
+					'label'     => __( 'Font Name ', 'ultimate-addons-cf7' ),  
+					'subtitle'     => __( " E.g. Roboto, sans-serif (Do not add special characters like '' or ; ) ", "ultimate-addons-cf7" ),  
+                    'placeholder'     => __( 'Enter Placeholder Font Name ', 'ultimate-addons-cf7' ), 
+				),
+                array(
+                    'id' => 'uacf7_placeholder_notice',
+                    'type' => 'notice',
+                    'content' => __( " Need more placeholder or other options? Let us know here . ", "ultimate-addons-cf7" ),  
+                    'class' => 'tf-field-class',   
+                    'notice' => 'info',
+                )  
+			),
+		), $post_id);
+		$value['placeholder'] = $redirection; 
+		return $value;
+    }   
     
     /*
     * Function create tab panel
