@@ -39,6 +39,8 @@ class UACF7_CF {
 
         add_action( 'wpcf7_before_send_mail', array($this, 'uacf7_conditional_mail_properties'));
 
+        add_filter( 'uacf7_post_meta_options', array( $this, 'uacf7_post_meta_options_conditional_field' ), 10, 2 ); 
+
         //    add_filter( 'wpcf7_load_js', '__return_false' );
      
 
@@ -53,6 +55,200 @@ class UACF7_CF {
         wp_enqueue_script( 'uacf7-cf-script', UACF7_ADDONS . '/conditional-field/js/uacf7-cf-script.js', array('jquery') );  
         wp_localize_script( 'uacf7-cf-script', 'uacf7_cf_object', $this->get_forms() );    
     }
+
+
+    public function uacf7_post_meta_options_conditional_field($value, $post_id) {
+
+		
+
+		$conditional = apply_filters('uacf7_post_meta_options_conditional_field_pro', $data = array(
+			'title'  => __( 'Conditional Field', 'ultimate-addons-cf7' ),
+			'icon'   => 'fa-solid fa-fan',
+			'fields' => array(
+				'conditional_headding' => array(
+					'id'    => 'conditional_headding',
+					'type'  => 'heading',
+					'label' => __( 'Conditional Fields Settings', 'ultimate-addons-cf7' ),
+					'sub_title' => __( 'With this feature, you can show or hide form fields depending on Contact form 7 Conditional Logic. You can check this video to learn more.', 'ultimate-addons-cf7' ),
+					'description' => __( 'Not sure how to set this? Check our step by step documentation.', 'ultimate-addons-cf7' ),
+				),
+               'conditional_repeater' => array(
+                    'id' => 'conditional_repeater',
+                    'type' => 'repeater',
+                    'label' => __( 'Condition', 'ultimate-addons-cf7' ),
+                    'subtitle' => __( 'Add Condition', 'ultimate-addons-cf7' ),
+                    'class' => 'tf-field-class',
+                    'fields' => array(
+                        'uacf7_cf_hs' => array(
+                            'id' => 'uacf7_cf_hs',
+                            'type' => 'select',
+                            'label' => __( 'Visibility', 'ultimate-addons-cf7' ),
+                            'class' => 'tf-field-class',
+                            'options' => array(
+                                'option-1' => 'Show',
+                                'option-2' => 'Hide',
+                             ),
+                            ),
+                            array(
+                                'id' => 'tf-select',
+                                'type' => 'select',
+                                'label' => __( 'Following Field', 'ultimate-addons-cf7' ),
+                                'class' => 'tf-field-class',
+                                'options' => 'uacf7',
+                                'query_args' => array(
+                                    'post_id'      => $post_id, 
+                                    'exclude'      => ['radio-426'], 
+                                ), 
+                            ),
+                            
+                            array(
+                                'id' => 'tf-select',
+                                'type' => 'select',
+                                'label' => __( 'If', 'ultimate-addons-cf7' ),
+                                'class' => 'tf-field-class',
+                                'options' => array(
+                                    'option-1' => 'Any',
+                                    'option-2' => 'All',
+                                 ),
+                                 
+                            ),
+                            'logic_repeater' => array(
+                                'id' => 'logic_repeater',
+                                'type' => 'repeater',
+                                'label' => __( 'Select Field', 'ultimate-addons-cf7' ),
+                                'subtitle' => __( 'Add Condition', 'ultimate-addons-cf7' ),
+                                'class' => 'tf-field-class',
+                                'fields' => array(
+                                    'uacf7_cf_hs' => array(
+                                        'id' => 'uacf7_cf_hs',
+                                        'type' => 'select',
+                                        'label' => __( 'Visibility', 'ultimate-addons-cf7' ),
+                                        'class' => 'tf-field-class',
+                                        'options' => array(
+                                            'option-1' => 'Show',
+                                            'option-2' => 'Hide',
+                                         ),
+                                        ),
+                                        array(
+                                            'id' => 'tf-select',
+                                            'type' => 'select',
+                                            'label' => __( 'Following Field', 'ultimate-addons-cf7' ),
+                                            'class' => 'tf-field-class',
+                                            'options' => 'uacf7',
+                                            'query_args' => array(
+                                                'post_id'      => $post_id, 
+                                                'exclude'      => ['radio-426'], 
+                                            ), 
+                                        ),
+                                        
+                                        array(
+                                            'id' => 'tf-select',
+                                            'type' => 'select',
+                                            'label' => __( 'If', 'ultimate-addons-cf7' ),
+                                            'class' => 'tf-field-class',
+                                            'options' => array(
+                                                'option-1' => 'Any',
+                                                'option-2' => 'All',
+                                             ),
+                                             
+                                        )
+                                 ),
+                            )
+                     ),
+                )
+				
+			),
+		), $post_id);
+		$value['conditional'] = $conditional;
+		// echo "<pre>";
+		// print_r($redirection);
+		// echo "</pre>";
+		// exit;
+		return $value;
+	}
+
+
+    public function uacf7_post_meta_options_conditional_field_pro($data){
+		var_dump($data);
+		$data = array(
+			'title'  => __( 'Redirection 2', 'ultimate-addons-cf7' ),
+			'icon'   => 'fa-solid fa-viruses',
+			'fields' => array(
+				array(
+					'id'    => 'redirection_headding',
+					'type'  => 'heading',
+					'label' => __( 'UACF7 Redirection Settings 2', 'ultimate-addons-cf7' ),
+					'sub_title' => __( 'This feature will help you to redirect contact form 7 after submission. You can Redirect users to a Thank you page or External page after user fills up the form. ', 'ultimate-addons-cf7' ),
+				),
+				array(
+					'id'        => 'uacf7_redirect_enable',
+					'type'      => 'switch',
+					'label'     => __( ' Enable redirection', 'ultimate-addons-cf7' ),
+					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
+					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+					'default'   => false
+				),
+				array(
+					'id'        => 'uacf7_redirect_enable',
+					'type'      => 'radio',
+					'label'     => __( 'Redirect to', 'ultimate-addons-cf7' ),
+					'options' => array(
+						'uacf7_redirect_to_page' => 'Redirect to page ',
+						'uacf7_redirect_to_url' => 'Redirect to external URL ',
+					 ),
+					 'default' => 'uacf7_redirect_to_page',
+					 'inline' => true,
+					 'dependency' => array( 'uacf7_redirect_type', '==', false ),
+				),
+				array(
+					'id'        => 'uacf7-redirect-page',
+					'type'      => 'select',
+					'label'     => __( 'Select a page to redirect ', 'ultimate-addons-cf7' ),   
+					'options'     => 'uacf7', 
+					'query_args'  => array(
+						'post_type'      => 'page',
+						'posts_per_page' => - 1,
+					),
+					'dependency' => array(array( 'uacf7_redirect_enable', '==', 'uacf7_redirect_to_page' ), array( 'uacf7_redirect_type', '==', false )),
+				),
+				array(
+					'id'        => 'external_url',
+					'type'      => 'text',
+					'label'     => __( 'External URL', 'ultimate-addons-cf7' ),   
+					'dependency' => array( 'uacf7_redirect_enable', '==', 'uacf7_redirect_to_url' ),
+				),
+				array(
+					'id'        => 'uacf7_redirect_type',
+					'type'      => 'switch',
+					'label'     => __( 'Conditional Redirect', 'ultimate-addons-cf7' ),
+					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
+					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+					'default'   => false,
+					'is_pro' => true,
+				),
+				array(
+					'id'        => 'uacf7_tab_target',
+					'type'      => 'switch',
+					'label'     => __( 'Open page in a new tab', 'ultimate-addons-cf7' ),
+					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
+					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+					'default'   => false
+				),
+				array(
+					'id'        => 'uacf7_redirect_tag_support',
+					'type'      => 'switch',
+					'label'     => __( 'Tags support to redirect UR', 'ultimate-addons-cf7' ),
+					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
+					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+					'default'   => false,
+					'is_pro' => true,
+				),
+				
+			),
+		);
+		return $data;
+		// exit;
+	}
  
     /*
     * Create tab panel

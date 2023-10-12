@@ -132,7 +132,7 @@ class UACF7_Redirection {
 				'uacf7_redirect_tag_support' => array(
 					'id'        => 'uacf7_redirect_tag_support',
 					'type'      => 'switch',
-					'label'     => __( 'Tags support to redirect UR', 'ultimate-addons-cf7' ),
+					'label'     => __( 'Tags support to redirect URL', 'ultimate-addons-cf7' ),
 					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
 					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
 					'default'   => false,
