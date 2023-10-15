@@ -75,8 +75,8 @@ class UACF7_CF {
                'conditional_repeater' => array(
                     'id' => 'conditional_repeater',
                     'type' => 'repeater',
-                    'label' => __( 'Condition', 'ultimate-addons-cf7' ),
-                    'subtitle' => __( 'Add Condition', 'ultimate-addons-cf7' ),
+                    'label' => __( 'Conditional Rule', 'ultimate-addons-cf7' ),
+                    'subtitle' => __( 'Add Rule', 'ultimate-addons-cf7' ),
                     'class' => 'tf-field-class',
                     'fields' => array(
                         'uacf7_cf_hs' => array(
@@ -115,24 +115,13 @@ class UACF7_CF {
                             'logic_repeater' => array(
                                 'id' => 'logic_repeater',
                                 'type' => 'repeater',
-                                'label' => __( 'Select Field', 'ultimate-addons-cf7' ),
-                                'subtitle' => __( 'Add Condition', 'ultimate-addons-cf7' ),
+                                'label' => __( 'Add Condition', 'ultimate-addons-cf7' ),
                                 'class' => 'tf-field-class',
                                 'fields' => array(
-                                    'uacf7_cf_hs' => array(
-                                        'id' => 'uacf7_cf_hs',
-                                        'type' => 'select',
-                                        'label' => __( 'Visibility', 'ultimate-addons-cf7' ),
-                                        'class' => 'tf-field-class',
-                                        'options' => array(
-                                            'option-1' => 'Show',
-                                            'option-2' => 'Hide',
-                                         ),
-                                        ),
                                         array(
                                             'id' => 'tf-select',
                                             'type' => 'select',
-                                            'label' => __( 'Following Field', 'ultimate-addons-cf7' ),
+                                            'label' => __( 'Coditional Field', 'ultimate-addons-cf7' ),
                                             'class' => 'tf-field-class',
                                             'options' => 'uacf7',
                                             'query_args' => array(
@@ -142,15 +131,11 @@ class UACF7_CF {
                                         ),
                                         
                                         array(
-                                            'id' => 'tf-select',
-                                            'type' => 'select',
-                                            'label' => __( 'If', 'ultimate-addons-cf7' ),
+                                            'id' => 'tf-text',
+                                            'type' => 'text',
+                                            'label' => 'Conditional Value',
+                                            'description' => '',
                                             'class' => 'tf-field-class',
-                                            'options' => array(
-                                                'option-1' => 'Any',
-                                                'option-2' => 'All',
-                                             ),
-                                             
                                         )
                                  ),
                             )
