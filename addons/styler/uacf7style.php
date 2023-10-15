@@ -13,7 +13,7 @@ class UACF7_uacf7style {
 		add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_panel' ) );
         add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_contact_form' ) );
         add_filter( 'wpcf7_contact_form_properties', array( $this, 'uacf7_properties' ), 10, 2 );
-        add_filter( 'uacf7_post_meta_options', array( $this, 'uacf7_post_meta_options_styler' ), 14, 2 );  
+        add_filter( 'uacf7_post_meta_options', array( $this, 'uacf7_post_meta_options_styler' ), 13, 2 );  
     }
 	
 	public function admin_enqueue_uacf7style_styles() {

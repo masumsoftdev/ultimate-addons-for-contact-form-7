@@ -21,6 +21,7 @@ class UACF7_MULTISTEP {
         add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_panel' ) );
         add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_contact_form' ) );
         add_filter( 'wpcf7_contact_form_properties', array( $this, 'uacf7_properties' ), 10, 2 );
+        add_filter( 'uacf7_post_meta_options', array( $this, 'uacf7_post_meta_options_multistep' ), 14, 2 );  
     }
     
     public function enqueue_script() {
@@ -32,6 +33,206 @@ class UACF7_MULTISTEP {
         wp_localize_script('uacf7-multistep', 'uacf7_multistep_obj', array(
         'ajax_url' => admin_url('admin-ajax.php'), 
         'nonce' => wp_create_nonce('uacf7-multistep') ));
+    }
+
+
+
+    public function uacf7_post_meta_options_multistep( $value, $post_id){
+        $multistep = apply_filters('uacf7_post_meta_options_placeholder_pro', $data = array(
+			'title'  => __( 'Multistep', 'ultimate-addons-cf7' ),
+			'icon'   => 'fa-solid fa-stairs',
+			'fields' => array(
+				'placeholder_headding' => array(
+					'id'    => 'placeholder_headding',
+					'type'  => 'heading',
+					'label' => __( 'Multistep', 'ultimate-addons-cf7' ),
+					'sub_title' => __( 'This feature will help you to create the Multistep Form.', 'ultimate-addons-cf7' ),
+				),
+				'uacf7_enable_multistep' => array(
+					'id'        => 'uacf7_enable_multistep',
+					'type'      => 'switch',
+					'label'     => __( ' Is It Multistep Form? ', 'ultimate-addons-cf7' ),
+					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
+					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+					'default'   => false
+                ),
+                'uacf7_enable_multistep_progressbar' => array(
+					'id'        => 'uacf7_enable_multistep_progressbar',
+					'type'      => 'switch',
+					'label'     => __( ' Multistep Progressbar ', 'ultimate-addons-cf7' ),
+					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
+					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+					'default'   => false
+				),
+                'uacf7_enable_multistep_auto_scroll' => array(
+					'id'        => 'uacf7_enable_multistep_auto_scroll',
+					'type'      => 'switch',
+					'label'     => __( 'Form Auto Scrolling ', 'ultimate-addons-cf7' ),
+					'description'     => __( 'Auto scroll to top after clicking on the next button ', 'ultimate-addons-cf7' ),
+					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
+					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+					'default'   => false,
+                    'is_pro' => true,
+				),
+                'uacf7_multistep_layout_skin' => array(
+					'id'        => 'uacf7_multistep_layout_skin',
+                    'type'     => 'imageselect',
+					'label'     => __( ' Progressbar Layout (Multistep Skins)', 'ultimate-addons-cf7' ),
+					'description'     => __( 'See live demo examples here: <a href="URL_TO_LIVE_DEMO" target="_blank">Live demo</a>. Check our step by step <a href="URL_TO_DOCUMENTATION" target="_blank">documentation</a>.', 'ultimate-addons-cf7' ),
+                    'multiple' 		=> true,
+                    'inline'   		=> true,
+                    'options' => array(
+                        'design-1' 				=> array(
+                            'title'			=> 'Design 1',
+                           'url' 			=> UACF7_PATH."/assets/admin/images/template/default-hotel.jpg",
+                        ),
+                        'default' 			=> array(
+                            'title'			=> 'Defult',
+                            'url' 			=> UACF7_PATH."/assets/admin/images/template/default-hotel.jpg",
+                        ),
+                     ), 
+                    // 'default'   	=> function_exists( 'tourfic_template_settings' ) ? tourfic_template_settings() : '',
+                    // 'dependency'  => [
+                    // array( 'tf_single_hotel_layout_opt', '==', 'single' )
+                    // ],
+              
+                    ),
+
+                'uacf7_progressbar_color_option' => array(
+                    'id' => 'uacf7_progressbar_color_option',
+                    'type' => 'color',
+                    'label'     => __( 'Color Options', 'ultimate-addons-cf7' ), 
+                    'subtitle'     => __( 'Customize Progressbar Color Options', 'ultimate-addons-cf7' ), 
+                    'class' => 'tf-field-class',
+                    'multiple' => true,
+                    'inline' => true,
+                    'colors' => array(
+                        'uacf7_progressbar_circle_bg_color' => ' Circle Background Color', 
+                        'uacf7_progressbar_line_color' => ' Progressbar Line Color', 
+                        'uacf7_progressbar_font_color' => ' Progressbar Font Color', 
+                        'uacf7_progressbar_circle_active_color' => 'Circle Active Color', 
+                        'uacf7_progressbar_circle_active_color' => 'Circle Active Color', 
+                        'uacf7_progressbar_circle_font_color' => 'Circle Font Color', 
+                    ), 
+                ),
+
+                'uacf7_progressbar_size_option' => array(
+                    'id' => 'uacf7_progressbar_size_option',
+                    'type'  => 'heading',
+                    'label'     => __( 'Size Options', 'ultimate-addons-cf7' ), 
+                    'content' => __( ' E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ), 
+                ),
+
+                'uacf7_progressbar_circle_width' => array(
+                    'id'        => 'uacf7_progressbar_circle_width',
+                    'type'      => 'number',
+                    'label'     => __( ' Circle Width', 'ultimate-addons-cf7' ),   
+                    'placeholder'     => __( 'width', 'ultimate-addons-cf7' ), 
+                    'field_width' => 20,
+                ),
+
+                'uacf7_progressbar_circle_height' => array(
+                    'id'        => 'uacf7_progressbar_circle_height',
+                    'type'      => 'number',
+                    'label'     => __( ' Circle Height', 'ultimate-addons-cf7' ),   
+                    'placeholder'     => __( 'height', 'ultimate-addons-cf7' ), 
+                    'field_width' => 20,
+                ),
+                'uacf7_progressbar_circle_font_size' => array(
+                    'id'        => 'uacf7_progressbar_circle_font_size',
+                    'type'      => 'number',
+                    'label'     => __( ' Circle Font Size', 'ultimate-addons-cf7' ),   
+                    'placeholder'     => __( 'font size', 'ultimate-addons-cf7' ), 
+                    'field_width' => 20,
+                ),
+                'uacf7_progressbar_circle_border_radious' => array(
+                    'id'        => 'uacf7_progressbar_circle_border_radious',
+                    'type'      => 'number',
+                    'label'     => __( ' Circle Border Radious', 'ultimate-addons-cf7' ),   
+                    'placeholder'     => __( 'border radious', 'ultimate-addons-cf7' ), 
+                    'field_width' => 20,
+                ),
+                'uacf7_progressbar_button_style' => array(
+                    'id' => 'uacf7_progressbar_button_style',
+                    'type'  => 'heading',
+                    'label'     => __( 'Button Style', 'ultimate-addons-cf7' ), 
+                    'content' => __( ' E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ), 
+                ),
+                'uacf7_progressbar_butto_padding_top_bottom' => array(
+                    'id'        => 'uacf7_progressba_padding_button_top_bottom',
+                    'type'      => 'number',
+                    'label'     => __( ' Padding ( Top - Bottom )', 'ultimate-addons-cf7' ),   
+                    'placeholder'     => __( 'y axis padding', 'ultimate-addons-cf7' ), 
+                    'field_width' => 40,
+                ),
+                'uacf7_progressba_padding_button_left_right' => array(
+                    'id'        => 'uacf7_progressba_padding_button_left_right',
+                    'type'      => 'number',
+                    'label'     => __( ' Padding ( Left - Right )', 'ultimate-addons-cf7' ),   
+                    'placeholder'     => __( 'x axis padding', 'ultimate-addons-cf7' ), 
+                    'field_width' => 40,
+                ),
+
+                'uacf7_multistep_next_previous' => array(
+					'id'        => 'uacf7_multistep_next_previous',
+					'type'      => 'heading',
+					'label'     => __( 'Next - Previous Button Styling', 'ultimate-addons-cf7' ),
+					'description'     => __( 'Change button text for each Step ', 'ultimate-addons-cf7' ),
+     
+				),
+                'uacf7_multistep_step_next' => array(
+					'id'        => 'uacf7_multistep_step_next',
+					'type'      => 'text',
+					'label'     => __( 'Step 1: Next ', 'ultimate-addons-cf7' ),
+					'description'     => __( 'Change next button text for this Step ', 'ultimate-addons-cf7' ),
+                    'field_width' => 40,
+                     'is_pro' => true,
+				),
+
+                'uacf7_multistep_step_previous' => array(
+					'id'        => 'uacf7_multistep_step_previous',
+					'type'      => 'text',
+					'label'     => __( 'Step 2: Previous ', 'ultimate-addons-cf7' ),
+					'description'     => __( 'Change previous button text for this Step ', 'ultimate-addons-cf7' ),
+                    'field_width' => 40,
+                     'is_pro' => true,
+				),
+
+                'uacf7_multistep_progressbar_image' => array(
+					'id'        => 'uacf7_multistep_progressbar_image',
+					'type'      => 'heading',
+					'label'     => __( 'Next - Previous Progressbar Image', 'ultimate-addons-cf7' ),
+					'description'     => __( 'Add progressbar image for each Step ', 'ultimate-addons-cf7' ),
+            
+				),
+
+                'uacf7_multistep_step_next_image' => array(
+					'id'        => 'uacf7_multistep_step_next_image',
+					'type'      => 'image',
+					'label'     => __( 'Step 1: Image ', 'ultimate-addons-cf7' ),
+					'description'     => __( 'add next button text for this Step ', 'ultimate-addons-cf7' ),
+                    'field_width' => 40,
+                     'is_pro' => true,
+				),
+                'uacf7_multistep_step_previous_image' => array(
+					'id'        => 'uacf7_multistep_step_previous_image',
+					'type'      => 'image',
+					'label'     => __( 'Step 2: Image ', 'ultimate-addons-cf7' ),
+					'description'     => __( 'add previous button text for this Step ', 'ultimate-addons-cf7' ),
+                    'field_width' => 40,
+                     'is_pro' => true,
+				),
+
+                    
+                 
+        		
+            ),
+                
+
+		), $post_id);
+
+        $value['multistep'] = $multistep; 
+		return $value;
     }
     
     function step_start_tag_handler($tag){
