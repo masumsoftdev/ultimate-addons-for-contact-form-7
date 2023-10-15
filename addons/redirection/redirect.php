@@ -32,9 +32,8 @@ class UACF7_Redirection {
         wp_enqueue_script( 'uacf7-redirect-script', UACF7_URL . 'addons/redirection/js/admin-redirect.js', array(), null, true );
         wp_enqueue_style( 'uacf7-redirect-style', UACF7_URL . 'addons/redirection/css/admin-redirect.css', array(), null, true );
     }
+	
     public function uacf7_post_meta_options_redirection($value, $post_id) {
-
-		
 
 		$redirection = apply_filters('uacf7_post_meta_options_redirection_pro', $data = array(
 			'title'  => __( 'Redirection', 'ultimate-addons-cf7' ),
@@ -43,7 +42,7 @@ class UACF7_Redirection {
 				'redirection_headding' => array(
 					'id'    => 'redirection_headding',
 					'type'  => 'heading',
-					'label' => __( 'UACF7 Redirection Settings 2', 'ultimate-addons-cf7' ),
+					'label' => __( 'UACF7 Redirection Settings', 'ultimate-addons-cf7' ),
 					'sub_title' => __( 'This feature will help you to redirect contact form 7 after submission. You can Redirect users to a Thank you page or External page after user fills up the form. ', 'ultimate-addons-cf7' ),
 				),
 				'uacf7_redirect_enable' => array(
@@ -54,20 +53,20 @@ class UACF7_Redirection {
 					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
 					'default'   => false
 				),
-				'uacf7_redirect_enable' => array(
-					'id'        => 'uacf7_redirect_enable',
+				'uacf7_redirect_to_type' => array(
+					'id'        => 'uacf7_redirect_to_type',
 					'type'      => 'radio',
 					'label'     => __( 'Redirect to', 'ultimate-addons-cf7' ),
 					'options' => array(
-						'uacf7_redirect_to_page' => 'Redirect to page ',
-						'uacf7_redirect_to_url' => 'Redirect to external URL ',
+						'to_page' => 'Redirect to page ',
+						'to_url' => 'Redirect to external URL ',
 					 ),
-					 'default' => 'uacf7_redirect_to_page',
+					 'default' => 'to_page',
 					 'inline' => true,
 					 'dependency' => array( 'uacf7_redirect_type', '==', false ),
 				),
-				'uacf7_redirect_page' => array(
-					'id'        => 'uacf7_redirect_page',
+				'page_id' => array(
+					'id'        => 'page_id',
 					'type'      => 'select',
 					'label'     => __( 'Select a page to redirect ', 'ultimate-addons-cf7' ),  
 					'options'     => 'posts', 
@@ -75,13 +74,13 @@ class UACF7_Redirection {
 						'post_type'      => 'page',
 						'posts_per_page' => - 1,
 					),
-					'dependency' => array(array( 'uacf7_redirect_enable', '==', 'uacf7_redirect_to_page' ), array( 'uacf7_redirect_type', '==', false )),
+					'dependency' => array(array( 'uacf7_redirect_to_type', '==', 'to_page' ), array( 'uacf7_redirect_type', '==', false )),
 				),
 				'external_url' => array(
 					'id'        => 'external_url',
 					'type'      => 'text',
 					'label'     => __( 'External URL', 'ultimate-addons-cf7' ),   
-					'dependency' => array( 'uacf7_redirect_enable', '==', 'uacf7_redirect_to_url' ),
+					'dependency' => array(array( 'uacf7_redirect_to_type', '==', 'to_url' ), array( 'uacf7_redirect_type', '==', false )),
 				),
 				'uacf7_redirect_type' => array(
 					'id'        => 'uacf7_redirect_type',
@@ -112,7 +111,7 @@ class UACF7_Redirection {
 							'placeholder' => 'value', 
 						 ),
 						array(
-							'id' => '"uacf7_cr_redirect_to_ur',
+							'id' => 'uacf7_cr_redirect_to_url',
 							'label' => 'Redirect to',
 							'type' => 'text',
 							'subtitle' => 'Enter your Redirect UR',
@@ -120,8 +119,8 @@ class UACF7_Redirection {
 						 ),
 					 ),
 				),
-				'uacf7_tab_target' => array(
-					'id'        => 'uacf7_tab_target',
+				'target' => array(
+					'id'        => 'target',
 					'type'      => 'switch',
 					'label'     => __( 'Open page in a new tab', 'ultimate-addons-cf7' ),
 					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
@@ -131,7 +130,7 @@ class UACF7_Redirection {
 				'uacf7_redirect_tag_support' => array(
 					'id'        => 'uacf7_redirect_tag_support',
 					'type'      => 'switch',
-					'label'     => __( 'Tags support to redirect UR', 'ultimate-addons-cf7' ),
+					'label'     => __( 'Tags support to redirect URL', 'ultimate-addons-cf7' ),
 					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
 					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
 					'default'   => false,
@@ -157,15 +156,16 @@ class UACF7_Redirection {
 
 		if ( $query->have_posts() ) :
 
-			$fields = $this->fields();
+			
+			$fields = $this->fields(); 
 
 			while ( $query->have_posts() ) :
 				$query->the_post();
 
-				$post_id = get_the_ID();
-
+				$post_id = get_the_ID(); 
 				foreach ( $fields as $field ) {
-					$forms[ $post_id ][ $field['name'] ] = get_post_meta( $post_id, 'uacf7_redirect_' . $field['name'], true );
+					// $forms[ $post_id ][ $field['name'] ] = get_post_meta( $post_id, 'uacf7_redirect_' . $field['name'], true );
+					$forms[ $post_id ][ $field['name'] ] = uacf7_get_form_option($post_id, $field['name']);
 				}
 
 				$forms[ $post_id ]['thankyou_page_url'] = $forms[ $post_id ]['page_id'] ? get_permalink( $forms[ $post_id ]['page_id'] ) : '';
@@ -179,7 +179,7 @@ class UACF7_Redirection {
     public function uacf7_get_options( $post_id ) {
 		$fields = $this->fields();
 		foreach ( $fields as $field ) {
-			$values[ $field['name'] ] = get_post_meta( $post_id, 'uacf7_redirect_' . $field['name'], true );
+			$values[ $field['name'] ] = uacf7_get_form_option($post_id, $field['name']);
 		}
 		return $values;
 	}
@@ -518,10 +518,11 @@ class UACF7_Redirection {
     
                 $post_id = get_the_ID();
                 
-                $uacf7_redirect = get_post_meta( get_the_ID(), 'uacf7_redirect_enable', true );
-                
-                if( !empty($uacf7_redirect) && $uacf7_redirect == 'yes' ) {
-                
+                // $uacf7_redirect = get_post_meta( get_the_ID(), 'uacf7_redirect_enable', true );
+                $uacf7_redirect = uacf7_get_form_option(get_the_ID(), 'uacf7_redirect_enable'); 
+
+                if( !empty($uacf7_redirect) && $uacf7_redirect == true ) {
+					 
                     $forms[ $post_id ] = $uacf7_redirect;
                 
                 }
