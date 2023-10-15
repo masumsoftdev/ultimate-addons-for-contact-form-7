@@ -21,6 +21,7 @@ class UACF7_MULTISTEP {
         add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_panel' ) );
         add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_contact_form' ) );
         add_filter( 'wpcf7_contact_form_properties', array( $this, 'uacf7_properties' ), 10, 2 );
+        add_filter( 'uacf7_post_meta_options', array( $this, 'uacf7_post_meta_options_multistep' ), 14, 2 );  
     }
     
     public function enqueue_script() {
@@ -32,6 +33,35 @@ class UACF7_MULTISTEP {
         wp_localize_script('uacf7-multistep', 'uacf7_multistep_obj', array(
         'ajax_url' => admin_url('admin-ajax.php'), 
         'nonce' => wp_create_nonce('uacf7-multistep') ));
+    }
+
+
+
+    public function uacf7_post_meta_options_multistep( $value, $post_id){
+        $multistep = apply_filters('uacf7_post_meta_options_placeholder_pro', $data = array(
+			'title'  => __( 'Multistep', 'ultimate-addons-cf7' ),
+			'icon'   => 'fa-solid fa-stairs',
+			'fields' => array(
+				'placeholder_headding' => array(
+					'id'    => 'placeholder_headding',
+					'type'  => 'heading',
+					'label' => __( 'Multistep', 'ultimate-addons-cf7' ),
+					'sub_title' => __( 'This feature will help you to create the Multistep Form.', 'ultimate-addons-cf7' ),
+				),
+				'uacf7_enable_multistep' => array(
+					'id'        => 'uacf7_enable_multistep',
+					'type'      => 'switch',
+					'label'     => __( ' Is It Multistep Form? ', 'ultimate-addons-cf7' ),
+					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
+					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+					'default'   => false
+				)
+        		
+			),
+		), $post_id);
+
+        $value['multistep'] = $multistep; 
+		return $value;
     }
     
     function step_start_tag_handler($tag){
