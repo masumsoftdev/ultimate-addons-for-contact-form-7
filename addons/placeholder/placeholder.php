@@ -10,8 +10,8 @@ class UACF7_Placeholder {
     */
     public function __construct() {
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_placeholder_style' ) );
-		add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_panel' ) );
-        add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_contact_form' ) );
+		// add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_panel' ) );
+        // add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_contact_form' ) );
         add_filter( 'wpcf7_contact_form_properties', array( $this, 'uacf7_properties' ), 10, 2 );
         add_filter( 'uacf7_post_meta_options', array( $this, 'uacf7_post_meta_options_placeholder' ), 12, 2 );  
     }
@@ -91,7 +91,7 @@ class UACF7_Placeholder {
 				),
 				'uacf7_placeholder_fontfamily' => array(
 					'id'        => 'uacf7_placeholder_fontfamily',
-					'type'      => 'number',
+					'type'      => 'text',
 					'label'     => __( 'Font Name ', 'ultimate-addons-cf7' ),  
 					'subtitle'     => __( " E.g. Roboto, sans-serif (Do not add special characters like '' or ; ) ", "ultimate-addons-cf7" ),  
                     'placeholder'     => __( 'Enter Placeholder Font Name ', 'ultimate-addons-cf7' ), 
@@ -240,19 +240,21 @@ class UACF7_Placeholder {
         if (!is_admin() || (defined('DOING_AJAX') && DOING_AJAX)) { 
 
             $form = $properties['form'];
+            
+            $form_meta = uacf7_get_form_option( $cfform->id(), '' );
 
-            $placeholder_styles = get_post_meta( $cfform->id(), 'uacf7_enable_placeholder_styles', true );
+            $placeholder_styles = isset($form_meta['uacf7_enable_placeholder_styles']) ? $form_meta['uacf7_enable_placeholder_styles'] : false ;
             
-            if( $placeholder_styles == 'on' ) :
+            if( $placeholder_styles == true ) :
             
-            ob_start();
-            
-            $fontfamily = get_post_meta( $cfform->id(), 'uacf7_placeholder_fontfamily', true );
-            $fontsize = get_post_meta( $cfform->id(), 'uacf7_placeholder_fontsize', true );
-            $fontstyle = get_post_meta( $cfform->id(), 'uacf7_placeholder_fontstyle', true );
-            $fontweight = get_post_meta( $cfform->id(), 'uacf7_placeholder_fontweight', true );
-            $color = get_post_meta( $cfform->id(), 'uacf7_placeholder_color', true );
-            $background_color = get_post_meta( $cfform->id(), 'uacf7_placeholder_background_color', true );
+            ob_start(); 
+
+            $fontfamily = $form_meta['uacf7_placeholder_fontfamily'];
+            $fontsize = $form_meta['uacf7_placeholder_fontsize'];
+            $fontstyle = $form_meta['uacf7_placeholder_fontstyle'];
+            $fontweight = $form_meta['uacf7_placeholder_fontweight'];
+            $color = isset($form_meta['uacf7_placeholder_color_option']) ? $form_meta['uacf7_placeholder_color_option']['uacf7_placeholder_color'] : '';
+            $background_color = isset($form_meta['uacf7_placeholder_color_option']) ? $form_meta['uacf7_placeholder_color_option']['uacf7_placeholder_background_color'] : '';
             ?>
             <style>
                 .uacf7-form-<?php esc_attr_e( $cfform->id() ); ?> ::placeholder {

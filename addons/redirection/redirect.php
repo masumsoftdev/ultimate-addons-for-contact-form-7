@@ -11,8 +11,8 @@ class UACF7_Redirection {
     public function __construct() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_redirect_script' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_redirect_script' ) );
-		add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_panel' ) );
-		add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_meta' ) );
+		// add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_panel' ) );
+		// add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_meta' ) );
 		add_action( 'wpcf7_submit', array( $this, 'uacf7_non_ajax_redirection' ) );
 		add_filter( 'uacf7_post_meta_options', array( $this, 'uacf7_post_meta_options_redirection' ), 10, 2 );  
     }

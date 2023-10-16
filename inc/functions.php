@@ -503,3 +503,115 @@ if(!function_exists('uacf7_review_notice_callback')){
 
 }
 
+// Themefic Plugin Review Admin Notice Ajax Callback 
+if(!function_exists('uacf7_form_option_Migration_callback')){
+
+    function uacf7_form_option_Migration_callback(){
+        $args  = array(
+    		'post_type'        => 'wpcf7_contact_form',
+    		'posts_per_page'   => -1,
+    	);
+    	$query = new WP_Query( $args );
+    
+    	$forms = array();
+    
+    	if ( $query->have_posts() ) :
+    
+    		while ( $query->have_posts() ) :
+    			$query->the_post();
+    
+                $post_id = get_the_ID(); 
+                    // $uacf7_redirect_tag_support = get_post_meta( get_the_ID(), 'uacf7_redirect_tag_support', true );
+                    // $meta = uacf7_get_form_option($post_id, '');  
+                    $meta =  get_post_meta( $post_id, 'uacf7_form_opt', true ) !='' ? get_post_meta( $post_id, 'uacf7_form_opt', true ) : array();
+
+                    //  Redirection addon Migration
+                    // $uacf7_redirect_enable = get_post_meta( get_the_ID(), 'uacf7_redirect_enable', true ) == 'yes' ? 1 : 0;
+                    // if($uacf7_redirect_enable == true){
+                    //     $uacf7_redirect_uacf7_redirect_to_type = get_post_meta( get_the_ID(), 'uacf7_redirect_uacf7_redirect_to_type', true );
+                    //     $uacf7_redirect_page_id = get_post_meta( get_the_ID(), 'uacf7_redirect_page_id', true );
+                    //     $uacf7_redirect_external_url = get_post_meta( get_the_ID(), 'uacf7_redirect_external_url', true );
+                    //     $uacf7_conditional_redirect_conditions = get_post_meta( get_the_ID(), 'uacf7_conditional_redirect_conditions', true );
+                    //     $uacf7_redirect_target = get_post_meta( get_the_ID(), 'uacf7_redirect_target', true ) == 'yes' ? 1 : 0;
+                    //     $uacf7_redirect_type = get_post_meta( get_the_ID(), 'uacf7_redirect_type', true ) == 'yes' ? 1 : 0;
+                    //     $uacf7_redirect_tag_support = get_post_meta( get_the_ID(), 'uacf7_redirect_tag_support', true ) == 'on' ? 1 : 0; 
+                    
+                    //     $meta['uacf7_redirect_enable'] = $uacf7_redirect_enable;
+                    //     $meta['uacf7_redirect_to_type'] = $uacf7_redirect_uacf7_redirect_to_type;
+                    //     $meta['page_id'] = $uacf7_redirect_page_id;
+                    //     $meta['external_url'] = $uacf7_redirect_external_url;
+                    //     $meta['target'] = $uacf7_redirect_target;
+                    //     $meta['uacf7_redirect_type'] = $uacf7_redirect_type;
+                    //     $meta['uacf7_redirect_tag_support'] = $uacf7_redirect_tag_support;
+                    //     $i = 0;
+                    //     if($uacf7_redirect_type == 1){
+                    //         foreach( $uacf7_conditional_redirect_conditions['uacf7_cr_tn'] as $key => $value ){ 
+                    //             $meta['conditional_redirect'][$i]['uacf7_cr_tn'] = $uacf7_conditional_redirect_conditions['uacf7_cr_tn'][$i];
+                    //             $meta['conditional_redirect'][$i]['uacf7_cr_field_val'] = $uacf7_conditional_redirect_conditions['uacf7_cr_field_val'][$i];
+                    //             $meta['conditional_redirect'][$i]['uacf7_cr_redirect_to_url'] = $uacf7_conditional_redirect_conditions['uacf7_cr_redirect_to_url'][$i];
+    
+                    //             $i++; 
+                               
+                    //         }
+                    //     }
+                        
+                    // }
+                     
+                    //  Conditional addon Migration 
+                    
+                    // $condition = get_post_meta( get_the_ID(), 'uacf7_conditions', true );
+                    // if(is_array($condition)){
+                    //     $count = 0 ;
+                    //     foreach($condition as $value){
+                    //         $meta['conditional_repeater'][$count]['uacf7_cf_group'] = $value['uacf7_cf_group']; 
+                    //         $meta['conditional_repeater'][$count]['uacf7_cf_hs'] = $value['uacf7_cf_hs']; 
+                    //         $meta['conditional_repeater'][$count]['uacf_cf_condition_for'] = $value['uacf_cf_condition_for']; 
+
+                    //         if(!empty($value['uacf7_cf_conditions']) && isset($value['uacf7_cf_conditions'])){
+                    //             $i = 0;
+                    //             foreach($value['uacf7_cf_conditions']['uacf7_cf_tn'] as $cf_key => $cf_value ){
+                    //                 $meta['conditional_repeater'][$count]['uacf7_cf_conditions'][$i]['uacf7_cf_tn'] = $value['uacf7_cf_conditions']['uacf7_cf_tn'][$i];
+                    //                 $meta['conditional_repeater'][$count]['uacf7_cf_conditions'][$i]['uacf7_cf_operator'] = $value['uacf7_cf_conditions']['uacf7_cf_operator'][$i];
+                    //                 $meta['conditional_repeater'][$count]['uacf7_cf_conditions'][$i]['uacf7_cf_val'] = $value['uacf7_cf_conditions']['uacf7_cf_val'][$i];
+
+                    //                 $i++;
+                    //             }
+                    //         }
+                            
+                    //     $count++;
+                    //     }
+                        
+                    // } 
+
+                     
+                    // Placehoder addon Migration
+                    $uacf7_enable_placeholder_styles = get_post_meta( get_the_ID(), 'uacf7_enable_placeholder_styles', true ) == 'on' ? 1 : 0;
+                    if($uacf7_enable_placeholder_styles == true){
+                        $uacf7_placeholder_fontsize = get_post_meta( get_the_ID(), 'uacf7_placeholder_fontsize', true );
+                        $uacf7_placeholder_fontstyle = get_post_meta( get_the_ID(), 'uacf7_placeholder_fontstyle', true );
+                        $uacf7_placeholder_fontfamily = get_post_meta( get_the_ID(), 'uacf7_placeholder_fontfamily', true );
+                        $uacf7_placeholder_fontweight = get_post_meta( get_the_ID(), 'uacf7_placeholder_fontweight', true );
+                        $uacf7_placeholder_color = get_post_meta( get_the_ID(), 'uacf7_placeholder_color', true );
+                        $uacf7_placeholder_background_color = get_post_meta( get_the_ID(), 'uacf7_placeholder_background_color', true );
+
+                        $meta['uacf7_enable_placeholder_styles'] = $uacf7_enable_placeholder_styles;
+                        $meta['uacf7_placeholder_fontsize'] = $uacf7_placeholder_fontsize;
+                        $meta['uacf7_placeholder_fontstyle'] = $uacf7_placeholder_fontstyle;
+                        $meta['uacf7_placeholder_fontfamily'] = $uacf7_placeholder_fontfamily;
+                        $meta['uacf7_placeholder_fontweight'] = $uacf7_placeholder_fontweight;
+                        $meta['uacf7_placeholder_color_option']['uacf7_placeholder_color'] = $uacf7_placeholder_color;
+                        $meta['uacf7_placeholder_color_option']['uacf7_placeholder_background_color'] = $uacf7_placeholder_background_color;
+                    }
+ 
+                    uacf7_print_r($meta);
+                    update_post_meta( get_the_ID(), 'uacf7_form_opt', $meta ); 
+               
+        
+    		endwhile;
+    		wp_reset_postdata();
+    	endif; 
+    }
+    // add_action( 'init', 'uacf7_form_option_Migration_callback' );
+
+}
+
