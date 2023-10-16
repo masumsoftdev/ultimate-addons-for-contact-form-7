@@ -31,6 +31,40 @@ if( !function_exists('uacf7_checked') ){
 }
 
 /*
+Function: uacf7_print_r
+Return: checked
+*/
+if( !function_exists('uacf7_print_r') ){
+    function uacf7_print_r( $value ){
+        echo '<pre>';
+        print_r($value);
+        echo '</pre>';
+        // exit;
+    }
+}
+
+
+/*
+Function: uacf7_get_form_option
+Return: checked
+*/
+if( !function_exists('uacf7_get_form_option') ){
+    function uacf7_get_form_option( $id, $key ){
+        $value = get_post_meta( $id, 'uacf7_form_opt', true );  
+        
+        if( empty($key) ) {
+            return $value;
+        } 
+        if( isset( $value[$key] ) ) {
+            return $value[$key];
+        }else{
+            return false;
+        }
+       
+    }
+}
+
+/*
 * Hook: uacf7_multistep_pro_features
 * Multistep pro features demo
 */
