@@ -20,9 +20,79 @@ class UACF7_PDF_GENERATOR {
         add_filter( 'wpcf7_mail_components', array( $this, 'uacf7_wpcf7_mail_components' ), 10, 3 );    
         // add_filter( 'wpcf7_load_js', '__return_false' );
         add_action( 'wp_ajax_uacf7_get_generated_pdf', array( $this, 'uacf7_get_generated_pdf' ) );  
+        add_filter( 'uacf7_post_meta_options', array($this, 'uacf7_post_meta_options_pdf_generator'), 18, 2 );  
  
         
     } 
+
+
+
+
+    function uacf7_post_meta_options_pdf_generator( $value, $post_id){
+
+        $pdf_generator = apply_filters('uacf7_post_meta_options_pdf_generator_pro', $data = array(
+            'title'  => __( 'PDF Generator', 'ultimate-addons-cf7' ),
+            'icon'   => 'fa-solid fa-file-pdf',
+            'fields' => array(
+                'uacf7_mailchimp_label' => array(
+                    'id'    => 'uacf7_mailchimp_label',
+                    'type'  => 'heading',
+                    'label' => __( 'PDF Generator Settings', 'ultimate-addons-cf7' ),
+                    'sub_title' => __( 'This feature will help you to create PDF using form Data.', 'ultimate-addons-cf7' ),
+                ),
+             
+                'uacf7_enable_pdf_generator' => array(
+                    'id'        => 'uacf7_enable_pdf_generator',
+                    'type'      => 'switch',
+                    'label'     => __( ' Enable/Disable PDF Generator ', 'ultimate-addons-cf7' ),
+                    'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
+                    'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+                    'default'   => false
+                ),
+              
+                'uacf7_pdf_title' => array(
+                    'id'        => 'uacf7_pdf_title',
+                    'type'      => 'text',
+                    'label'     => __( 'PDF Title ', 'ultimate-addons-cf7' ),
+                    'placeholder'     => __( 'pdf title ', 'ultimate-addons-cf7' ),
+            
+                ),
+                'uacf7_pdf_send_to' => array(
+                    'id'        => 'uacf7_pdf_send_to',
+                    'type'      => 'select',
+                    'label'     => __( 'PDF Send To ', 'ultimate-addons-cf7' ),
+                    'options'   => array(
+                        'option 1' => 'Default',
+                        'option 2' => 'Mail 1',
+                        'option 3' => 'Mail 2',
+                    ),
+                    'field_width' => '50'
+                ),
+                'uacf7_pdf_disable_header_footer' => array(
+                    'id'        => 'uacf7_pdf_disable_header_footer',
+                    'type'      => 'checkbox',
+                    'label'     => __( 'Disable Header and Footer ', 'ultimate-addons-cf7' ),
+                    'options'   => array(
+                        'option 1' => 'Disable Header',
+                        'option 2' => 'Disable Footer'
+                    ),
+                    'field_width' => '50',
+                    'inline'      => true
+                ),
+            
+                    
+              
+    
+    
+    
+            ),
+                
+    
+        ), $post_id);
+    
+        $value['pdf_generator'] = $pdf_generator; 
+        return $value;
+    }
 
  
     /*
