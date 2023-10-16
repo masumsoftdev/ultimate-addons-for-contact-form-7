@@ -20,10 +20,10 @@ class UACF7_CF {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_cf_frontend_script' ) );
         add_action('wpcf7_init', array(__CLASS__, 'add_shortcodes'));
         add_action( 'admin_init', array( $this, 'tag_generator' ) );
-		add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_cf_add_panel' ) );
+		// add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_cf_add_panel' ) );
         
-		add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_meta' ) );
-        add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_contact_form' ) );
+		// add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_meta' ) );
+        // add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_contact_form' ) );
         
         add_filter( 'wpcf7_contact_form_properties', array( $this, 'uacf7_properties' ), 10, 2 );
         
@@ -78,60 +78,78 @@ class UACF7_CF {
                     'label' => __( 'Conditional Rule', 'ultimate-addons-cf7' ),
                     'subtitle' => __( 'Add Rule', 'ultimate-addons-cf7' ),
                     'class' => 'tf-field-class',
-                    'fields' => array(
-                        'uacf7_cf_hs' => array(
-                            'id' => 'uacf7_cf_hs',
-                            'type' => 'select',
-                            'label' => __( 'Visibility', 'ultimate-addons-cf7' ),
-                            'class' => 'tf-field-class',
-                            'options' => array(
-                                'option-1' => 'Show',
-                                'option-2' => 'Hide',
-                             ),
-                            ),
-                            array(
-                                'id' => 'tf-select',
+                    'fields' => array( 
+                           'uacf7_cf_group' => array(
+                                'id' => 'uacf7_cf_group',
                                 'type' => 'select',
                                 'label' => __( 'Following Field', 'ultimate-addons-cf7' ),
                                 'class' => 'tf-field-class',
                                 'options' => 'uacf7',
                                 'query_args' => array(
                                     'post_id'      => $post_id, 
-                                    'exclude'      => ['radio-426'], 
+                                    'specific'      => 'conditional', 
                                 ), 
+                                'field_width' => '33',
                             ),
-                            
-                            array(
-                                'id' => 'tf-select',
+                            'uacf7_cf_hs' => array(
+                                'id' => 'uacf7_cf_hs',
+                                'type' => 'select',
+                                'label' => __( 'Visibility', 'ultimate-addons-cf7' ),
+                                'class' => 'tf-field-class',
+                                'options' => array(
+                                    'show' => 'Show',
+                                    'hide' => 'Hide',
+                                 ),
+                                 'field_width' => '33',
+                            ),
+                            'uacf7_cf_condition_for' => array(
+                                'id' => 'uacf7_cf_condition_for',
                                 'type' => 'select',
                                 'label' => __( 'If', 'ultimate-addons-cf7' ),
                                 'class' => 'tf-field-class',
                                 'options' => array(
-                                    'option-1' => 'Any',
-                                    'option-2' => 'All',
+                                    'any' => 'Any',
+                                    'all' => 'All',
                                  ),
+                                 'field_width' => '33',
                                  
                             ),
-                            'logic_repeater' => array(
-                                'id' => 'logic_repeater',
+                            'uacf7_cf_conditions' => array(
+                                'id' => 'uacf7_cf_conditions',
                                 'type' => 'repeater',
                                 'label' => __( 'Add Condition', 'ultimate-addons-cf7' ),
                                 'class' => 'tf-field-class',
                                 'fields' => array(
-                                        array(
-                                            'id' => 'tf-select',
-                                            'type' => 'select',
-                                            'label' => __( 'Coditional Field', 'ultimate-addons-cf7' ),
-                                            'class' => 'tf-field-class',
-                                            'options' => 'uacf7',
-                                            'query_args' => array(
-                                                'post_id'      => $post_id, 
-                                                'exclude'      => ['radio-426'], 
-                                            ), 
+
+                                    'uacf7_cf_tn' => array(
+                                        'id' => 'uacf7_cf_tn',
+                                        'type' => 'select',
+                                        'label' => __( 'Coditional Field', 'ultimate-addons-cf7' ),
+                                        'class' => 'tf-field-class',
+                                        'options' => 'uacf7',
+                                        'query_args' => array(
+                                            'post_id'      => $post_id, 
+                                            'exclude'      => ['submit'], 
                                         ),
-                                        
-                                        array(
-                                            'id' => 'tf-text',
+                                        'field_width' => '50', 
+                                    ), 
+                                      'uacf7_cf_operator' => array(
+                                        'id' => 'uacf7_cf_operator',
+                                        'type' => 'select',
+                                        'label' => __( 'If', 'ultimate-addons-cf7' ),
+                                        'class' => 'tf-field-class',
+                                        'options' => array(
+                                            'equal' => 'equal',
+                                            'not_equal' => 'Not Equal',
+                                            'greater_than' => 'Greater than',
+                                            'less_than' => 'Less than',
+                                            'greater_than_or_equal_to' => 'Greater than or equal to',
+                                            'less_than_or_equal_to' => 'Less than or equal to', 
+                                        ),
+                                        'field_width' => '50', 
+                                    ),
+                                      'uacf7_cf_val' =>   array(
+                                            'id' => 'uacf7_cf_val',
                                             'type' => 'text',
                                             'label' => 'Conditional Value',
                                             'description' => '',
@@ -569,7 +587,37 @@ class UACF7_CF {
 
                 $post_id = get_the_ID();
 
-	            $forms[ $post_id ] = get_post_meta( get_the_ID(), 'uacf7_conditions', true );
+                // if($post_id != 128) continue;
+                
+                $conditional_repeater = uacf7_get_form_option($post_id, 'conditional_repeater');
+                if($conditional_repeater != false){ 
+                    $count = 0 ;
+                    $data = [];
+
+                    foreach ($conditional_repeater as $item) {
+                        $newItem = [
+                            'uacf7_cf_hs' => $item['uacf7_cf_hs'],
+                            'uacf7_cf_group' => $item['uacf7_cf_group'],
+                            'uacf7_cf_condition_for' => isset($item['uacf7_cf_condition_for']) ? $item['uacf7_cf_condition_for'] : 'any',
+                            'uacf7_cf_conditions' => [
+                                'uacf7_cf_tn' => [],
+                                'uacf7_cf_operator' => [],
+                                'uacf7_cf_val' => [],
+                            ],
+                        ];
+
+                        foreach ($item['uacf7_cf_conditions'] as $condition) {
+                            $newItem['uacf7_cf_conditions']['uacf7_cf_tn'][] = $condition['uacf7_cf_tn'];
+                            $newItem['uacf7_cf_conditions']['uacf7_cf_operator'][] = $condition['uacf7_cf_operator'];
+                            $newItem['uacf7_cf_conditions']['uacf7_cf_val'][] = $condition['uacf7_cf_val'];
+                        }
+
+                        $data[] = $newItem;
+                    }
+                    // uacf7_print_r($data);
+                    // $data = get_post_meta( get_the_ID(), 'uacf7_conditions', true );
+                    $forms[ $post_id ] = $data;
+                } 
         
 			endwhile;
 			wp_reset_postdata();

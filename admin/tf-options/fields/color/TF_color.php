@@ -29,5 +29,9 @@ if ( ! class_exists( 'TF_color' ) ) {
 			}
 		}
 
+		public function sanitize() {
+			return $this->value;
+		}
+
 	}
 }

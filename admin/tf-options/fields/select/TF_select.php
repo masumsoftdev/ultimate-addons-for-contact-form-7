@@ -30,14 +30,26 @@ if ( ! class_exists( 'TF_select' ) ) {
 
 				$post_id                  = $this->field['query_args']['post_id'];
 				
+				$specific = isset($this->field['query_args']['specific']) ? 'conditional' : ''; 
+
 				$ContactForm = WPCF7_ContactForm::get_instance($post_id);
-				$tags = $ContactForm->scan_form_tags(); 
+
+				if($specific != ''){
+					$tags = $ContactForm->scan_form_tags(array('type'=>'conditional'));
+				}else{
+					$tags = $ContactForm->scan_form_tags(); 
+				}
+				
 				$this->field['options'] = array(
 					'0' => 'Select Field'
 				);
 				$exclude = isset($this->field['query_args']['exclude']) ? $this->field['query_args']['exclude'] : array();
+				
 				foreach ( $tags as $tag ) {
-					if ($tag['name'] == '' || in_array($tag['name'], $exclude) ) continue;
+					
+					if ($tag['type'] == '' || in_array($tag['type'], $exclude) ) continue;
+
+					
 
 					if( $tag['type'] == 'checkbox' ) { 
         
@@ -48,6 +60,7 @@ if ( ! class_exists( 'TF_select' ) ) {
 						$tag_name = $tag['name'];
 					}
 					$this->field['options'][ $tag_name ] =  esc_html($tag['name']);
+					
 				}
 			}
 
