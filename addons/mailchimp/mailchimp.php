@@ -18,9 +18,138 @@ class UACF7_MAILCHIMP
     add_action('admin_enqueue_scripts', array($this, 'admin_scripts'));
     add_action("wpcf7_before_send_mail", array($this, 'send_data'));
     add_action('wpcf7_after_save', array($this, 'uacf7_save_contact_form'));
+    add_filter( 'uacf7_post_meta_options', array($this, 'uacf7_post_meta_options_mailchimp'), 17, 2 );  
 
     $this->get_api_key();
   }
+
+
+  function uacf7_post_meta_options_mailchimp( $value, $post_id){
+
+    $mailchimp = apply_filters('uacf7_post_meta_options_mailchimp_pro', $data = array(
+        'title'  => __( 'Mailchimp', 'ultimate-addons-cf7' ),
+        'icon'   => 'fa-brands fa-mailchimp',
+        'fields' => array(
+            'uacf7_mailchimp_label' => array(
+                'id'    => 'uacf7_mailchimp_label',
+                'type'  => 'heading',
+                'label' => __( 'Mailchimp Form Settings', 'ultimate-addons-cf7' ),
+                'sub_title' => __( 'This feature will help you to Intergrate with Mailchimp.', 'ultimate-addons-cf7' ),
+            ),
+         
+            'uacf7_enable_mailchimp' => array(
+                'id'        => 'uacf7_enable_mailchimp',
+                'type'      => 'switch',
+                'label'     => __( ' Enable/Disable Mailchimp ', 'ultimate-addons-cf7' ),
+                'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
+                'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+                'default'   => false
+            ),
+            'uacf7_create_mailchimp_form' => array(
+              'id'        => 'uacf7_create_mailchimp_form',
+              'type'      => 'radio',
+              'label'     => __( ' Type of Form ', 'ultimate-addons-cf7' ),
+              'options' => array(
+                'option 1' => 'Subscribe Form',
+                'option 2' => 'Unsubscribe Form',
+              ),
+              'inline'  => true
+            ),
+            'uacf7_mailchimp_select_audience' => array(
+              'id'        => 'uacf7_mailchimp_select_audience',
+              'type'      => 'select',
+              'label'     => __( ' Select Audience ', 'ultimate-addons-cf7' ),
+              'options' => array(
+                'option 1' => 'option 1',
+                'option 2' => 'option 2',
+                'option 3' => 'option 3',
+                'option 4' => 'option 4',
+              )
+            ),
+            'uacf7_mailchimp_subscriber_email' => array(
+              'id'        => 'uacf7_mailchimp_subscriber_email',
+              'type'      => 'select',
+              'label'     => __( ' Subscriber Email ', 'ultimate-addons-cf7' ),
+              'options' => array(
+                'option 1' => 'option 1',
+                'option 2' => 'option 2',
+                'option 3' => 'option 3',
+                'option 4' => 'option 4',
+              ),
+              'field_width' => '33'
+            ),
+            'uacf7_mailchimp_subscriber_first_name' => array(
+              'id'        => 'uacf7_mailchimp_subscriber_first_name',
+              'type'      => 'select',
+              'label'     => __( ' Subscriber First Name ', 'ultimate-addons-cf7' ),
+              'options' => array(
+                'option 1' => 'option 1',
+                'option 2' => 'option 2',
+                'option 3' => 'option 3',
+                'option 4' => 'option 4',
+              ),
+              'field_width' => '33'
+          ),
+            'uacf7_mailchimp_subscriber_last_name' => array(
+              'id'        => 'uacf7_mailchimp_subscriber_last_name',
+              'type'      => 'select',
+              'label'     => __( ' Subscriber Last Name ', 'ultimate-addons-cf7' ),
+              'options' => array(
+                'option 1' => 'option 1',
+                'option 2' => 'option 2',
+                'option 3' => 'option 3',
+                'option 4' => 'option 4',
+              ),
+              'field_width' => '33'
+          ),
+          'uacf7_mailchimp_custom_fields' => array(
+            'id'        => 'uacf7_mailchimp_custom_fields',
+            'type'      => 'heading',
+            'label'     => __( ' Custom Fields ', 'ultimate-addons-cf7' ),
+  
+          ),
+
+          'uacf7_mailchimp_custom_fields_repeater' => array(
+            'id' => 'uacf7_mailchimp_custom_fields_repeater',
+            'type' => 'repeater',
+            'label' => 'Add New Custom Field',
+            'class' => 'tf-field-class',
+            'fields' => array(
+                array(
+                    'id' => 'contact_form_tag',
+                    'label' => 'Contact Form Tag',
+                    'type' => 'select',
+                    'field_width' => '45',
+                    'options' => array(
+                      'option 1' => 'option 1',
+                      'option 2' => 'option 2',
+                      'option 3' => 'option 3',
+                      'option 4' => 'option 4',
+                    ),
+                 ),
+                array(
+                    'id' => 'mailchimp_field',
+                    'label' => 'Mailchimp Field',
+                    'type' => 'text',
+                    'field_width' => '45',
+        
+                 ),
+             ),
+        )
+                
+          
+
+
+
+        ),
+            
+
+    ), $post_id);
+
+    $value['mailchimp'] = $mailchimp; 
+    return $value;
+}
+
 
   /* Mailchimp tab */
   public function add_mailchimp_tab()
