@@ -79,6 +79,114 @@ class UACF7_PDF_GENERATOR {
                     'field_width' => '50',
                     'inline'      => true
                 ),
+                'uacf7_customize_pdf_body' => array(
+                    'id'        => 'uacf7_customize_pdf_body',
+                    'type'      => 'heading',
+                    'label'     => __( ' Customize PDF Body', 'ultimate-addons-cf7' ),
+                ),
+
+                'uacf7_pdf_background_image' => array(
+                    'id'        => 'uacf7_pdf_background_image',
+                    'type'      => 'image',
+                    'label'     => __( 'PDF Background Image ', 'ultimate-addons-cf7' ),
+
+                ),
+
+                
+                'uacf7_pdf_background_color' => array(
+                    'id'        => 'uacf7_pdf_background_color',
+                    'type'      => 'color',
+                    'label'     => __( 'PDF Background Color ', 'ultimate-addons-cf7' ),
+
+                ),
+
+                'uacf7_form_tags_priting' => array(
+                    'id'        => 'uacf7_form_tags_priting',
+                    'type'      => 'notice',
+                    'label'     => __( 'Form Tags ', 'ultimate-addons-cf7' ),
+                    'class' => 'tf-field-class',
+                    'content' => '
+                    [uacf7_step_start-637] [your-name] [your-email] [] [uacf7_step_start-637] [your-subject] [your-message] []
+                    ',
+                ),
+
+                'uacf7_editor_for_pdf_body' => array(
+                    'id'        => 'uacf7_editor_for_pdf_body',
+                    'type'      => 'editor',
+
+                ),
+                'uacf7_customize_pdf_header' => array(
+                    'id'        => 'uacf7_customize_pdf_header',
+                    'type'      => 'heading',
+                    'label'     => __( ' Customize PDF Header', 'ultimate-addons-cf7' ),
+                ),
+                'uacf7_pdf_generator_mpdf_tags' => array(
+                    'id'        => 'uacf7_pdf_generator_mpdf_tags',
+                    'type'      => 'notice',
+                    'label'     => __( 'm-PDF Tags ', 'ultimate-addons-cf7' ),
+                    'class' => 'tf-field-class',
+                    'content' => '
+                    {PAGENO}, {DATE j-m-Y}, {nb}, {nbpg}
+                    ',
+                ),
+                'uacf7_pdf_header_background_image' => array(
+                    'id'        => 'uacf7_pdf_header_background_image',
+                    'type'      => 'image',
+                    'label'     => __( 'PDF Header Background Image ', 'ultimate-addons-cf7' ),
+
+                ),
+
+                
+                'uacf7_pdf_header_background_color' => array(
+                    'id'        => 'uacf7_pdf_header_background_color',
+                    'type'      => 'color',
+                    'label'     => __( 'PDF Header Background Color ', 'ultimate-addons-cf7' ),
+
+                ),
+
+                'uacf7_editor_for_pdf_header' => array(
+                    'id'        => 'uacf7_editor_for_pdf_header',
+                    'type'      => 'editor',
+
+                ),
+                'uacf7_customize_pdf_footer' => array(
+                    'id'        => 'uacf7_customize_pdf_footer',
+                    'type'      => 'heading',
+                    'label'     => __( ' Customize PDF Footer', 'ultimate-addons-cf7' ),
+                ),
+
+                'uacf7_pdf_footer_background_image' => array(
+                    'id'        => 'uacf7_pdf_footer_background_image',
+                    'type'      => 'image',
+                    'label'     => __( 'PDF Footer Background Image ', 'ultimate-addons-cf7' ),
+
+                ),
+
+                
+                'uacf7_pdf_footer_background_color' => array(
+                    'id'        => 'uacf7_pdf_footer_background_color',
+                    'type'      => 'color',
+                    'label'     => __( 'PDF footer Background Color ', 'ultimate-addons-cf7' ),
+
+                ),
+
+                'uacf7_editor_for_pdf_footer' => array(
+                    'id'        => 'uacf7_editor_for_pdf_footer',
+                    'type'      => 'editor',
+
+                ),
+                'uacf7_pdf_custom_css' => array(
+                    'id'        => 'uacf7_pdf_custom_css',
+                    'type'      => 'heading',
+                    'label'     => __( 'PDF Custom CSS', 'ultimate-addons-cf7' ),
+                ),
+                'uacf7_editor_for_pdf_custom_css' => array(
+                    'id'        => 'uacf7_editor_for_pdf_custom_css',
+                    'type'      => 'editor',
+
+                ),
+
+         
             
                     
               
