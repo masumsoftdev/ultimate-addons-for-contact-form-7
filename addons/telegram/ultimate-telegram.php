@@ -3,8 +3,10 @@ if(!defined('ABSPATH')){
   exit();
 }
 
-
+ 
 class UACF7_TELEGRAM {
+
+  public $id;
 
   public function __construct() {
 
@@ -17,7 +19,6 @@ class UACF7_TELEGRAM {
   }
 
 
-
   public function uacf7_telegram_admin_js_script(){
 
     wp_enqueue_script( 'uacf7-telegram-scripts', UACF7_ADDONS. '/telegram/assets/js/admin-script.js', ['jquery'], 'UACF7_VERSION', true );
@@ -26,11 +27,18 @@ class UACF7_TELEGRAM {
     
   }
 
-  function uacf7_post_meta_options_telegram( $value, $post_id){
+
+
+
+
+    
+  
+
+  public function uacf7_post_meta_options_telegram( $value, $post_id){
 
     $telegram = apply_filters('uacf7_post_meta_options_telegram_pro', $data = array(
         'title'  => __( 'Telegram', 'ultimate-addons-cf7' ),
-        'icon'   => 'fa-solid fa-telegram',
+        'icon'   => 'fa-brands fa-telegram',
         'fields' => array(
             'uacf7_telegram_heading' => array(
                 'id'    => 'uacf7_telegram_heading',
@@ -38,6 +46,13 @@ class UACF7_TELEGRAM {
                 'label' => __( 'Telegram', 'ultimate-addons-cf7' ),
                 'sub_title' => __( 'This feature will help you to track submission data into the database.', 'ultimate-addons-cf7' ),
             ),
+
+            'uacf7_telegram_enable_icon' => array(
+              'id'        => 'uacf7_telegram_enable_icon',
+              'type'     => 'callback',
+              'function' => 'uacf7_telegram_active_status_callback',
+         
+          ),
          
             'uacf7_telegram_enable' => array(
                 'id'        => 'uacf7_telegram_enable',
@@ -97,6 +112,8 @@ class UACF7_TELEGRAM {
 
     
   }
+
+
 
 
 
