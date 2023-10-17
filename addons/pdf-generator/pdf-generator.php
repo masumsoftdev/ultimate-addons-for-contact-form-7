@@ -93,10 +93,17 @@ class UACF7_PDF_GENERATOR {
                 ),
 
                 
-                'uacf7_pdf_background_color' => array(
-                    'id'        => 'uacf7_pdf_background_color',
+                'pdf_content_bg_color' => array(
+                    'id'        => 'pdf_content_bg_color',
                     'type'      => 'color',
                     'label'     => __( 'PDF Background Color ', 'ultimate-addons-cf7' ),
+
+                ),
+
+                'pdf_content_color' => array(
+                    'id'        => 'pdf_content_color',
+                    'type'      => 'color',
+                    'label'     => __( 'PDF Content Color ', 'ultimate-addons-cf7' ),
 
                 ),
 
@@ -137,8 +144,14 @@ class UACF7_PDF_GENERATOR {
                 ),
 
                 
-                'uacf7_pdf_header_background_color' => array(
-                    'id'        => 'uacf7_pdf_header_background_color',
+                'pdf_header_color' => array(
+                    'id'        => 'pdf_header_color',
+                    'type'      => 'color',
+                    'label'     => __( 'PDF Header Content Color ', 'ultimate-addons-cf7' ),
+
+                ),
+                'pdf_header_bg_color' => array(
+                    'id'        => 'pdf_header_bg_color',
                     'type'      => 'color',
                     'label'     => __( 'PDF Header Background Color ', 'ultimate-addons-cf7' ),
 
@@ -163,8 +176,15 @@ class UACF7_PDF_GENERATOR {
                 ),
 
                 
-                'uacf7_pdf_footer_background_color' => array(
-                    'id'        => 'uacf7_pdf_footer_background_color',
+                'pdf_footer_color' => array(
+                    'id'        => 'pdf_footer_color',
+                    'type'      => 'color',
+                    'label'     => __( 'PDF footer Content Color ', 'ultimate-addons-cf7' ),
+
+                ),
+
+                'pdf_footer_bg_color' => array(
+                    'id'        => 'pdf_footer_bg_color',
                     'type'      => 'color',
                     'label'     => __( 'PDF footer Background Color ', 'ultimate-addons-cf7' ),
 
