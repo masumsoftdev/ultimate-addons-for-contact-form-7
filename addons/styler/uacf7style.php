@@ -10,8 +10,8 @@ class UACF7_uacf7style {
     */
     public function __construct() {
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_uacf7style_style' ) );
-		add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_panel' ) );
-        add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_contact_form' ) );
+		// add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_panel' ) );
+        // add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_contact_form' ) );
         add_filter( 'wpcf7_contact_form_properties', array( $this, 'uacf7_properties' ), 10, 2 );
         add_filter( 'uacf7_post_meta_options', array( $this, 'uacf7_post_meta_options_styler' ), 13, 2 );  
     }
@@ -85,7 +85,8 @@ class UACF7_uacf7style {
                     'options'     => array(
                         'normal'      => 'Normal',
                         'italic' => "Italic",
-                    ), 
+                    ),
+                    'field_width' => 50,
                 ),
                 'uacf7_uacf7style_label_font_weight' => array(
                     'id'        => 'uacf7_uacf7style_label_font_weight',
@@ -98,22 +99,93 @@ class UACF7_uacf7style {
                         '500' => "500",
                         '700' => "700",
                         '900' => "900",
-                    ), 
+                    ),
+                    'field_width' => 50,
                 ), 
                 'uacf7_uacf7style_label_font_size' => array(
                     'id'        => 'uacf7_uacf7style_label_font_size',
                     'type'      => 'number',
                     'label'     => __( 'Font Size (in px)', 'ultimate-addons-cf7' ),  
                     'subtitle'     => __( 'E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ),  
-                    'placeholder'     => __( 'Enter Placeholder Font Size (in px)', 'ultimate-addons-cf7' ), 
+                    'placeholder'     => __( 'Enter Placeholder Font Size (in px)', 'ultimate-addons-cf7' ),
+                    'field_width' => 50,
                 ),
                 'uacf7_uacf7style_label_font_family' => array(
                     'id'        => 'uacf7_uacf7style_label_font_family',
-                    'type'      => 'number',
+                    'type'      => 'text',
                     'label'     => __( 'Font Name ', 'ultimate-addons-cf7' ),  
                     'subtitle'     => __( " E.g. Roboto, sans-serif (Do not add special characters like '' or ; ) ", "ultimate-addons-cf7" ),  
-                    'placeholder'     => __( 'Enter Placeholder Font Name ', 'ultimate-addons-cf7' ), 
+                    'placeholder'     => __( 'Enter Placeholder Font Name ', 'ultimate-addons-cf7' ),
+                    'field_width' => 50, 
                 ),
+                'styler_headding_label_padding' => array(
+                    'id'    => 'styler_headding_label_padding',
+                    'type'  => 'heading',
+                    'title' => __( 'Padding (in px)', 'ultimate-addons-cf7' ), 
+                    'content' => __( ' E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ), 
+                ),
+                'uacf7_uacf7style_label_padding_top' => array(
+                    'id'        => 'uacf7_uacf7style_input_padding_top',
+                    'type'      => 'number',
+                    'label'     => __( 'Top', 'ultimate-addons-cf7' ),   
+                    'placeholder'     => __( 'Top', 'ultimate-addons-cf7' ), 
+                    'field_width' => 20,
+                ),
+                'uacf7_uacf7style_label_padding_right' => array(
+                    'id'        => 'uacf7_uacf7style_label_padding_right',
+                    'type'      => 'number',
+                    'label'     => __( 'Right', 'ultimate-addons-cf7' ),   
+                    'placeholder'     => __( 'Right', 'ultimate-addons-cf7' ), 
+                    'field_width' => 20,
+                ), 
+                'uacf7_uacf7style_label_padding_bottom' => array(
+                    'id'        => 'uacf7_uacf7style_label_padding_bottom',
+                    'type'      => 'number',
+                    'label'     => __( 'Bottom', 'ultimate-addons-cf7' ),   
+                    'placeholder'     => __( 'Bottom', 'ultimate-addons-cf7' ), 
+                    'field_width' => 20,
+                ), 
+                'uacf7_uacf7style_label_padding_left' => array(
+                    'id'        => 'uacf7_uacf7style_label_padding_left',
+                    'type'      => 'number',
+                    'label'     => __( 'Left', 'ultimate-addons-cf7' ),   
+                    'placeholder'     => __( 'Left', 'ultimate-addons-cf7' ), 
+                    'field_width' => 20,
+                ), 
+                'styler_headding_label_margin' => array(
+                    'id'    => 'styler_headding_label_margin',
+                    'type'  => 'heading',
+                    'title' => __( 'Margin (in px)', 'ultimate-addons-cf7' ), 
+                    'content' => __( ' E.g. 16(Do not add px or em ). ', 'ultimate-addons-cf7' ), 
+                ),
+                'uacf7_uacf7style_label_margin_top' => array(
+                    'id'        => 'uacf7_uacf7style_label_margin_top',
+                    'type'      => 'number',
+                    'label'     => __( 'Top', 'ultimate-addons-cf7' ),   
+                    'placeholder'     => __( 'Top', 'ultimate-addons-cf7' ), 
+                    'field_width' => 20,
+                ),
+                'uacf7_uacf7style_label_margin_right' => array(
+                    'id'        => 'uacf7_uacf7style_label_margin_right',
+                    'type'      => 'number',
+                    'label'     => __( 'Right', 'ultimate-addons-cf7' ),   
+                    'placeholder'     => __( 'Right', 'ultimate-addons-cf7' ), 
+                    'field_width' => 20,
+                ), 
+                'uacf7_uacf7style_label_margin_bottom' => array(
+                    'id'        => 'uacf7_uacf7style_label_margin_bottom',
+                    'type'      => 'number',
+                    'label'     => __( 'Bottom', 'ultimate-addons-cf7' ),   
+                    'placeholder'     => __( 'Bottom', 'ultimate-addons-cf7' ), 
+                    'field_width' => 20,
+                ), 
+                'uacf7_uacf7style_label_margin_left' => array(
+                    'id'        => 'uacf7_uacf7style_label_margin_left',
+                    'type'      => 'number',
+                    'label'     => __( 'Left', 'ultimate-addons-cf7' ),   
+                    'placeholder'     => __( 'Left', 'ultimate-addons-cf7' ), 
+                    'field_width' => 20,
+                ),  
                 'styler_headding_input' => array(
                     'id'    => 'styler_headding_label',
                     'type'  => 'heading',
@@ -132,7 +204,7 @@ class UACF7_uacf7style {
                         'uacf7_uacf7style_input_color' => 'Color',
                         'uacf7_uacf7style_input_background_color' => 'Background Color', 
                     ), 
-                ),
+                ), 
                 'uacf7_uacf7style_input_font_style' => array(
                     'id'        => 'uacf7_uacf7style_input_font_style',
                     'type'      => 'select',
@@ -142,6 +214,7 @@ class UACF7_uacf7style {
                         'normal'      => 'Normal',
                         'italic' => "Italic",
                     ), 
+                    'field_width' => 50,
                 ),
                 'uacf7_uacf7style_input_font_weight' => array(
                     'id'        => 'uacf7_uacf7style_input_font_weight',
@@ -154,21 +227,24 @@ class UACF7_uacf7style {
                         '500' => "500",
                         '700' => "700",
                         '900' => "900",
-                    ), 
+                    ),
+                    'field_width' => 50,
                 ), 
                 'uacf7_uacf7style_input_font_size' => array(
                     'id'        => 'uacf7_uacf7style_input_font_size',
                     'type'      => 'number',
                     'label'     => __( 'Font Size (in px)', 'ultimate-addons-cf7' ),  
                     'subtitle'     => __( 'E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ),  
-                    'placeholder'     => __( 'Enter Input Font Size', 'ultimate-addons-cf7' ), 
+                    'placeholder'     => __( 'Enter Input Font Size', 'ultimate-addons-cf7' ),
+                    'field_width' => 50,
                 ),
                 'uacf7_uacf7style_input_font_family' => array(
                     'id'        => 'uacf7_uacf7style_input_font_family',
-                    'type'      => 'number',
+                    'type'      => 'text',
                     'label'     => __( 'Font Name ', 'ultimate-addons-cf7' ),  
                     'subtitle'     => __( " E.g. Roboto, sans-serif (Do not add special characters like '' or ; ) ", "ultimate-addons-cf7" ),  
                     'placeholder'     => __( 'Enter Input Font Name ', 'ultimate-addons-cf7' ), 
+                    'field_width' => 50,
                 ),
                 'uacf7_uacf7style_input_height' => array(
                     'id'        => 'uacf7_uacf7style_input_height',
@@ -176,13 +252,16 @@ class UACF7_uacf7style {
                     'label'     => __( 'Input Height (in px)', 'ultimate-addons-cf7' ),  
                     'subtitle'     => __( 'E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ),  
                     'placeholder'     => __( 'Enter Input Height', 'ultimate-addons-cf7' ), 
+                    'field_width' => 50,
                 ),
+                
                 'uacf7_uacf7style_textarea_input_height' => array(
                     'id'        => 'uacf7_uacf7style_textarea_input_height',
                     'type'      => 'number',
                     'label'     => __( 'Input (Textarea) Height (in px)', 'ultimate-addons-cf7' ),  
                     'subtitle'     => __( 'E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ),  
-                    'placeholder'     => __( 'Enter Textarea Height', 'ultimate-addons-cf7' ), 
+                    'placeholder'     => __( 'Enter Textarea Height', 'ultimate-addons-cf7' ),
+                    'field_width' => 50,
                 ),
                 'styler_headding_input_padding' => array(
                     'id'    => 'styler_headding_input_padding',
@@ -219,7 +298,7 @@ class UACF7_uacf7style {
                     'field_width' => 20,
                 ), 
                 'styler_headding_input_margin' => array(
-                    'id'    => 'styler_headding_input_padding',
+                    'id'    => 'styler_headding_input_margin',
                     'type'  => 'heading',
                     'title' => __( 'Margin (in px)', 'ultimate-addons-cf7' ), 
                     'content' => __( ' E.g. 16(Do not add px or em ). ', 'ultimate-addons-cf7' ), 
@@ -263,7 +342,7 @@ class UACF7_uacf7style {
                     'label'     => __( 'Border Width (in px)', 'ultimate-addons-cf7' ),   
                     'placeholder'     => __( 'Enter input border width', 'ultimate-addons-cf7' ), 
                     'content' => __( ' E.g. 16(Do not add px or em ). ', 'ultimate-addons-cf7' ), 
-                    'field_width' => 50,
+                    'field_width' => 33,
                 ), 
                 'uacf7_uacf7style_input_border_style' => array(
                     'id'        => 'uacf7_uacf7style_input_border_style',
@@ -276,7 +355,7 @@ class UACF7_uacf7style {
                         'solid' => "Solid",
                         'double' => "Double",
                     ),
-                    'field_width' => 50,
+                    'field_width' => 33,
                 ), 
                 'uacf7_uacf7style_input_border_radius' => array(
                     'id'        => 'uacf7_uacf7style_input_border_radius',
@@ -284,35 +363,35 @@ class UACF7_uacf7style {
                     'label'     => __( 'Border Radius (in px)', 'ultimate-addons-cf7' ),   
                     'placeholder'     => __( 'Enter input border radius', 'ultimate-addons-cf7' ), 
                     'content' => __( ' E.g. 16(Do not add px or em ). ', 'ultimate-addons-cf7' ), 
-                    'field_width' => 50,
+                    'field_width' => 33,
                 ),
                 'uacf7_uacf7style_input_border_color' => array(
                     'id' => 'uacf7_uacf7style_input_border_color',
                     'type' => 'color',
-                    'label'     => __( 'Border Color', 'ultimate-addons-cf7' ),  
+                    'label'     => __( 'Border Color', 'ultimate-addons-cf7' ), 
+                    // 'subtitle'     => __( 'Customize Placeholder Color Options', 'ultimate-addons-cf7' ), 
                     'class' => 'tf-field-class',
                     // 'default' => '#ffffff',
                     'multiple' => false,
                     'inline' => true,
                     // 'colors' => array(
-                    //     'uacf7_uacf7style_input_color' => 'Color',
-                    //     'uacf7_uacf7style_input_background_color' => 'Background Color', 
+                    //     'uacf7_uacf7style_label_color' => 'Color',
+                    //     'uacf7_uacf7style_label_background_color' => 'Background Color', 
                     // ), 
-                    'field_width' => 50,
-                ),
+                ), 
                 'styler_headding_button' => array(
                     'id'    => 'styler_headding_label',
                     'type'  => 'heading',
                     'label' => __( 'Submit Button Options', 'ultimate-addons-cf7' ), 
                 ),
-                'uacf7_uacf7style_input_border_color' => array(
-                    'id' => 'uacf7_uacf7style_input_border_color',
+                'uacf7_uacf7style_btn_color_option' => array(
+                    'id' => 'uacf7_uacf7style_btn_color_option',
                     'type' => 'color',
                     'label'     => __( 'Border Color', 'ultimate-addons-cf7' ),  
                     'class' => 'tf-field-class',
                     // 'default' => '#ffffff',
                     'multiple' => true,
-                    'inline' => false,
+                    'inline' => true,
                     'colors' => array(
                         'uacf7_uacf7style_btn_color' => 'Color',
                         'uacf7_uacf7style_btn_color_hover' => 'Color (hover)', 
@@ -371,6 +450,22 @@ class UACF7_uacf7style {
                         'double' => "Double",
                     ),
                     'field_width' => 33,
+                ),
+                'uacf7_uacf7style_btn_border_width' => array(
+                    'id'        => 'uacf7_uacf7style_btn_border_width',
+                    'type'      => 'number',
+                    'label'     => __( 'Border Width (in px)', 'ultimate-addons-cf7' ),   
+                    'placeholder'     => __( 'Enter Button border width', 'ultimate-addons-cf7' ), 
+                    'content' => __( ' E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ), 
+                    'field_width' => 50,
+                ), 
+                'uacf7_uacf7style_btn_border_radius' => array(
+                    'id'        => 'uacf7_uacf7style_btn_border_radius',
+                    'type'      => 'number',
+                    'label'     => __( 'Border Radius (in px)', 'ultimate-addons-cf7' ),   
+                    'placeholder'     => __( 'Enter Button border radius', 'ultimate-addons-cf7' ), 
+                    'content' => __( ' E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ), 
+                    'field_width' => 50,
                 ), 
                 'uacf7_uacf7style_btn_border_color' => array(
                     'id' => 'uacf7_uacf7style_btn_border_color',
@@ -395,33 +490,17 @@ class UACF7_uacf7style {
                     'class' => 'tf-field-class',
                     // 'default' => '#ffffff',
                     'multiple' => false,
-                    'inline' => false,
+                    'inline' => true,
                     // 'colors' => array(
                     //     'uacf7_uacf7style_btn_color' => 'Color',
                     //     'uacf7_uacf7style_btn_color_hover' => 'Color (hover)', 
                     //     'uacf7_uacf7style_btn_background_color' => 'Background Color (hover)', 
                     //     'uacf7_uacf7style_btn_background_color_hover' => 'Background Color (hover)', 
                     // ),  
-                    'field_width' => 33,
+                    'field_width' => 33, 
                 ),
-                'uacf7_uacf7style_btn_border_width' => array(
-                    'id'        => 'uacf7_uacf7style_btn_border_width',
-                    'type'      => 'number',
-                    'label'     => __( 'Border Width (in px)', 'ultimate-addons-cf7' ),   
-                    'placeholder'     => __( 'Enter Button border width', 'ultimate-addons-cf7' ), 
-                    'content' => __( ' E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ), 
-                    'field_width' => 33,
-                ), 
-                'uacf7_uacf7style_btn_border_radius' => array(
-                    'id'        => 'uacf7_uacf7style_btn_border_radius',
-                    'type'      => 'number',
-                    'label'     => __( 'Border Radius (in px)', 'ultimate-addons-cf7' ),   
-                    'placeholder'     => __( 'Enter Button border radius', 'ultimate-addons-cf7' ), 
-                    'content' => __( ' E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ), 
-                    'field_width' => 33,
-                ),
-                'styler_headding_input_padding' => array(
-                    'id'    => 'styler_headding_input_padding',
+                'uacf7_uacf7style_btn_padding' => array(
+                    'id'    => 'uacf7_uacf7style_btn_padding',
                     'type'  => 'heading',
                     'title' => __( 'Padding (in px)', 'ultimate-addons-cf7' ), 
                     'content' => __( ' E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ), 
@@ -454,8 +533,8 @@ class UACF7_uacf7style {
                     'placeholder'     => __( 'Left', 'ultimate-addons-cf7' ), 
                     'field_width' => 20,
                 ), 
-                'styler_headding_input_margin' => array(
-                    'id'    => 'styler_headding_input_padding',
+                'uacf7_uacf7style_btn_margin' => array(
+                    'id'    => 'uacf7_uacf7style_btn_margin',
                     'type'  => 'heading',
                     'title' => __( 'Margin (in px)', 'ultimate-addons-cf7' ), 
                     'content' => __( ' E.g. 16(Do not add px or em ). ', 'ultimate-addons-cf7' ), 
@@ -939,72 +1018,73 @@ class UACF7_uacf7style {
         if (!is_admin() || (defined('DOING_AJAX') && DOING_AJAX)) { 
 
             $form = $properties['form'];
-            $form_styles =  get_post_meta( $cfform->id(), 'uacf7_enable_form_styles', true );
+            $form_meta = uacf7_get_form_option( $cfform->id(), '' );
 
-            if( $form_styles == 'on' ) :
+            $form_styles = isset($form_meta['uacf7_enable_form_styles']) ? $form_meta['uacf7_enable_form_styles'] : false ; 
 
-                ob_start();
+            if( $form_styles == true ) :
 
-            
-                $label_color = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_color', true );
-                $label_background_color = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_background_color', true );
-                $label_font_size = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_font_size', true );
-                $label_font_family = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_font_family', true );
-                $label_font_style = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_font_style', true );
-                $label_font_weight = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_font_weight', true );
-                $label_padding_top = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_padding_top', true );
-                $label_padding_right = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_padding_right', true );
-                $label_padding_bottom = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_padding_bottom', true );
-                $label_padding_left = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_padding_left', true );
-                $label_margin_top = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_margin_top', true );
-                $label_margin_right = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_margin_right', true );
-                $label_margin_bottom = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_margin_bottom', true );
-                $label_margin_left = get_post_meta( $cfform->id(), 'uacf7_uacf7style_label_margin_left', true );
+                ob_start(); 
+
+                $label_color = $form_meta['uacf7_uacf7style_label_color_option']['uacf7_uacf7style_label_color'];
+                $label_background_color = $form_meta['uacf7_uacf7style_label_color_option']['uacf7_uacf7style_label_background_color'];
+                $label_font_size = $form_meta['uacf7_uacf7style_label_font_size'];
+                $label_font_family = $form_meta['uacf7_uacf7style_label_font_family'];
+                $label_font_style = $form_meta['uacf7_uacf7style_label_font_style'];
+                $label_font_weight = $form_meta['uacf7_uacf7style_label_font_weight'];
+                $label_padding_top = $form_meta['uacf7_uacf7style_label_padding_top'];
+                $label_padding_right = $form_meta['uacf7_uacf7style_label_padding_right'];
+                $label_padding_bottom = $form_meta['uacf7_uacf7style_label_padding_bottom'];
+                $label_padding_left = $form_meta['uacf7_uacf7style_label_padding_left'];
+                $label_margin_top = $form_meta['uacf7_uacf7style_label_margin_top'];
+                $label_margin_right = $form_meta['uacf7_uacf7style_label_margin_right'];
+                $label_margin_bottom = $form_meta['uacf7_uacf7style_label_margin_bottom'];
+                $label_margin_left = $form_meta['uacf7_uacf7style_label_margin_left'];
                 
-                $input_color = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_color', true );
-                $input_background_color = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_background_color', true );
-                $input_font_size = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_font_size', true );
-                $input_font_family = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_font_family', true );
-                $input_font_style = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_font_style', true );
-                $input_font_weight = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_font_weight', true );
-                $input_height = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_height', true );
-                $input_border_width = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_border_width', true );
-                $input_border_color = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_border_color', true );
-                $input_border_style = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_border_style', true );
-                $input_border_radius = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_border_radius', true );
-                $textarea_input_height = get_post_meta( $cfform->id(), 'uacf7_uacf7style_textarea_input_height', true );
-                $input_padding_top = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_padding_top', true );
-                $input_padding_right = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_padding_right', true );
-                $input_padding_bottom = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_padding_bottom', true );
-                $input_padding_left = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_padding_left', true );
-                $input_margin_top = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_margin_top', true );
-                $input_margin_right = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_margin_right', true );
-                $input_margin_bottom = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_margin_bottom', true );
-                $input_margin_left = get_post_meta( $cfform->id(), 'uacf7_uacf7style_input_margin_left', true );
+                $input_color = $form_meta['uacf7_uacf7style_input_color_option']['uacf7_uacf7style_input_color'];
+                $input_background_color = $form_meta['uacf7_uacf7style_input_color_option']['uacf7_uacf7style_input_background_color'];
+                $input_font_size = $form_meta['uacf7_uacf7style_input_font_size'];
+                $input_font_family = $form_meta['uacf7_uacf7style_input_font_family'];
+                $input_font_style = $form_meta['uacf7_uacf7style_input_font_style'];
+                $input_font_weight = $form_meta['uacf7_uacf7style_input_font_weight'];
+                $input_height = $form_meta['uacf7_uacf7style_input_height'];
+                $input_border_width = $form_meta['uacf7_uacf7style_input_border_width'];
+                $input_border_color = $form_meta['uacf7_uacf7style_input_border_color'];
+                $input_border_style = $form_meta['uacf7_uacf7style_input_border_style'];
+                $input_border_radius = $form_meta['uacf7_uacf7style_input_border_radius'];
+                $textarea_input_height = $form_meta['uacf7_uacf7style_textarea_input_height'];
+                $input_padding_top = $form_meta['uacf7_uacf7style_input_padding_top'];
+                $input_padding_right = $form_meta['uacf7_uacf7style_input_padding_right'];
+                $input_padding_bottom = $form_meta['uacf7_uacf7style_input_padding_bottom'];
+                $input_padding_left = $form_meta['uacf7_uacf7style_input_padding_left'];
+                $input_margin_top = $form_meta['uacf7_uacf7style_input_margin_top'];
+                $input_margin_right = $form_meta['uacf7_uacf7style_input_margin_right'];
+                $input_margin_bottom = $form_meta['uacf7_uacf7style_input_margin_bottom'];
+                $input_margin_left = $form_meta['uacf7_uacf7style_input_margin_left'];
                 
-                $btn_color = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_color', true );
-                $btn_background_color = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_background_color', true );
-                $btn_font_size = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_font_size', true );
-                $btn_font_style = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_font_style', true );
-                $btn_font_weight = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_font_weight', true );
-                $btn_width = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_width', true );
-                $btn_border_color = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_border_color', true );
-                $btn_border_style = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_border_style', true );
-                $btn_border_radius = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_border_radius', true );
-                $btn_border_width = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_border_width', true );
-                $btn_color_hover = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_color_hover', true );
-                $btn_background_color_hover = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_background_color_hover', true );
-                $btn_border_color_hover = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_border_color_hover', true );
-                $btn_padding_top = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_padding_top', true );
-                $btn_padding_right = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_padding_right', true );
-                $btn_padding_bottom = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_padding_bottom', true );
-                $btn_padding_left = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_padding_left', true );
-                $btn_margin_top = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_margin_top', true );
-                $btn_margin_right = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_margin_right', true );
-                $btn_margin_bottom = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_margin_bottom', true );
-                $btn_margin_left = get_post_meta( $cfform->id(), 'uacf7_uacf7style_btn_margin_left', true );
+                $btn_color = $form_meta['uacf7_uacf7style_btn_color_option']['uacf7_uacf7style_btn_color'];
+                $btn_background_color = $form_meta['uacf7_uacf7style_btn_color_option']['uacf7_uacf7style_btn_background_color'];
+                $btn_font_size = $form_meta['uacf7_uacf7style_btn_font_size'];
+                $btn_font_style = $form_meta['uacf7_uacf7style_btn_font_style'];
+                $btn_font_weight = $form_meta['uacf7_uacf7style_btn_font_weight'];
+                $btn_width = $form_meta['uacf7_uacf7style_btn_width'];
+                $btn_border_color = $form_meta['uacf7_uacf7style_btn_border_color'];
+                $btn_border_style = $form_meta['uacf7_uacf7style_btn_border_style'];
+                $btn_border_radius = $form_meta['uacf7_uacf7style_btn_border_radius'];
+                $btn_border_width = $form_meta['uacf7_uacf7style_btn_border_width'];
+                $btn_color_hover = $form_meta['uacf7_uacf7style_btn_color_option']['uacf7_uacf7style_btn_color_hover'];
+                $btn_background_color_hover = $form_meta['uacf7_uacf7style_btn_color_option']['uacf7_uacf7style_btn_background_color_hover'];
+                $btn_border_color_hover = $form_meta['uacf7_uacf7style_btn_border_color_hover'];
+                $btn_padding_top = $form_meta['uacf7_uacf7style_btn_padding_top'];
+                $btn_padding_right = $form_meta['uacf7_uacf7style_btn_padding_right'];
+                $btn_padding_bottom = $form_meta['uacf7_uacf7style_btn_padding_bottom'];
+                $btn_padding_left = $form_meta['uacf7_uacf7style_btn_padding_left'];
+                $btn_margin_top = $form_meta['uacf7_uacf7style_btn_margin_top'];
+                $btn_margin_right = $form_meta['uacf7_uacf7style_btn_margin_right'];
+                $btn_margin_bottom = $form_meta['uacf7_uacf7style_btn_margin_bottom'];
+                $btn_margin_left = $form_meta['uacf7_uacf7style_btn_margin_left'];
                 
-                $ua_custom_css = get_post_meta( $cfform->id(), 'uacf7_uacf7style_ua_custom_css', true );
+                // $ua_custom_css = $form_meta['uacf7_uacf7style_ua_custom_css'];
                 ?>
                 <style>
                     .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> label {
