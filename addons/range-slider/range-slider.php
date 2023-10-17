@@ -20,7 +20,81 @@ class UACF7_range_Slider {
         add_action( 'wpcf7_contact_form_properties', array( $this, 'uacf7_contact_form_properties' ), 10, 2 );
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_slider_scripts' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'uacf7_admin_enqueue_scripts' ) );
+        add_filter( 'uacf7_post_meta_options', array($this, 'uacf7_post_meta_options_range_slider'), 23, 2 ); 
     } 
+
+
+
+
+    public function uacf7_post_meta_options_range_slider( $value, $post_id){
+
+        $pre_populated = apply_filters('uacf7_post_meta_options_range_slider_pro', $data = array(
+            'title'  => __( 'Range Slider', 'ultimate-addons-cf7' ),
+            'icon'   => 'fa-solid fa-sliders',
+            'fields' => array(
+                'uacf7_range_slider_heading' => array(
+                    'id'    => 'uacf7_range_slider_heading',
+                    'type'  => 'heading',
+                    'label' => __( 'Range Slider', 'ultimate-addons-cf7' ),
+                    'sub_title' => __( 'This feature will help you to edit the Styles of Range Slider of your form. Note that, all below fields are optional. If any field is not needed, leave them blank.' ),
+                ),
+    
+             
+                'uacf7-selection-color' => array(
+                    'id'        => 'uacf7-selection-color',
+                    'type'      => 'color',
+                    'label'     => __( ' Slider Selection Color', 'ultimate-addons-cf7' ),
+                    'field_width' => 50
+        
+                ),
+                'uacf7-handle-color' => array(
+                    'id'        => 'uacf7-handle-color',
+                    'type'      => 'color',
+                    'label'     => __( ' Slider Handle Color ', 'ultimate-addons-cf7' ),
+                    'field_width' => 50
+        
+                ),
+                'uacf7_range_slider_height' => array(
+                    'id'        => 'uacf7_range_slider_height',
+                    'type'      => 'number',
+                    'label'     => __( ' Slider Handle Height', 'ultimate-addons-cf7' ),
+                    'placeholder'     => __( ' px', 'ultimate-addons-cf7' ),
+                    'field_width' => 50
+        
+                ),
+                'uacf7_range_handle_height' => array(
+                    'id'        => 'uacf7_range_handle_height',
+                    'type'      => 'number',
+                    'label'     => __( ' Slider Handle Height', 'ultimate-addons-cf7' ),
+                    'placeholder'     => __( ' px', 'ultimate-addons-cf7' ),
+                    'field_width' => 50
+        
+                ),
+                'uacf7_range_handle_width' => array(
+                    'id'        => 'uacf7_range_handle_width',
+                    'type'      => 'number',
+                    'label'     => __( ' Slider Handle Width', 'ultimate-addons-cf7' ),
+                    'placeholder'     => __( ' px', 'ultimate-addons-cf7' ),
+                    'field_width' => 50
+        
+                ),
+                'uacf7-handle-border-radius' => array(
+                    'id'        => 'uacf7-handle-border-radius',
+                    'type'      => 'number',
+                    'label'     => __( ' Handle Border Radius', 'ultimate-addons-cf7' ),
+                    'placeholder'     => __( ' px', 'ultimate-addons-cf7' ),
+                    'field_width' => 50
+        
+                ),
+
+            )
+                
+    
+        ), $post_id);
+    
+        $value['pre_populated'] = $pre_populated; 
+        return $value;
+    }
 
     /**
      * add form tag
