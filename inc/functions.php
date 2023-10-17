@@ -602,140 +602,134 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                     //     $meta['uacf7_placeholder_color_option']['uacf7_placeholder_color'] = $uacf7_placeholder_color;
                     //     $meta['uacf7_placeholder_color_option']['uacf7_placeholder_background_color'] = $uacf7_placeholder_background_color;
                     // }
-                
-                if($post_id = 128){
-                    // styler addon Migration
-                    $uacf7_enable_form_styles = get_post_meta( get_the_ID(), 'uacf7_enable_form_styles', true ) == 'on' ? 1 : 0;
-                    if($uacf7_enable_form_styles == true){
-                        $uacf7_uacf7style_label_color = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_color', true );
-                        $uacf7_uacf7style_label_background_color = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_background_color', true );
-                        $uacf7_uacf7style_label_font_size = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_font_size', true );
-                        $uacf7_uacf7style_label_font_family = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_font_family', true );
-                        $uacf7_uacf7style_label_font_style = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_font_style', true );
-                        $uacf7_uacf7style_label_font_weight = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_font_weight', true );
-                        $uacf7_uacf7style_label_padding_top = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_padding_top', true );
-                        $uacf7_uacf7style_label_padding_right = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_padding_right', true );
-                        $uacf7_uacf7style_label_padding_bottom = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_padding_bottom', true );
-                        $uacf7_uacf7style_label_padding_left = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_padding_left', true );
-                        $uacf7_uacf7style_label_margin_top = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_margin_top', true );
-                        $uacf7_uacf7style_label_margin_right = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_margin_right', true );
-                        $uacf7_uacf7style_label_margin_bottom = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_margin_bottom', true );
-                        $uacf7_uacf7style_label_margin_left = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_margin_left', true );
-                        $uacf7_uacf7style_input_color = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_color', true );
-                        $uacf7_uacf7style_input_background_color = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_background_color', true );
-                        $uacf7_uacf7style_input_font_size = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_font_size', true );
-                        $uacf7_uacf7style_input_font_family = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_font_family', true );
-                        $uacf7_uacf7style_input_font_style = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_font_style', true );
-                        $uacf7_uacf7style_input_font_weight = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_font_weight', true );
-                        $uacf7_uacf7style_input_height = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_height', true );
-                        $uacf7_uacf7style_input_border_width = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_border_width', true );
+                 
+                    // // styler addon Migration
+                    // $uacf7_enable_form_styles = get_post_meta( get_the_ID(), 'uacf7_enable_form_styles', true ) == 'on' ? 1 : 0;
+                    // if($uacf7_enable_form_styles == true){
+                    //     $uacf7_uacf7style_label_color = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_color', true );
+                    //     $uacf7_uacf7style_label_background_color = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_background_color', true );
+                    //     $uacf7_uacf7style_label_font_size = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_font_size', true );
+                    //     $uacf7_uacf7style_label_font_family = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_font_family', true );
+                    //     $uacf7_uacf7style_label_font_style = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_font_style', true );
+                    //     $uacf7_uacf7style_label_font_weight = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_font_weight', true );
+                    //     $uacf7_uacf7style_label_padding_top = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_padding_top', true );
+                    //     $uacf7_uacf7style_label_padding_right = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_padding_right', true );
+                    //     $uacf7_uacf7style_label_padding_bottom = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_padding_bottom', true );
+                    //     $uacf7_uacf7style_label_padding_left = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_padding_left', true );
+                    //     $uacf7_uacf7style_label_margin_top = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_margin_top', true );
+                    //     $uacf7_uacf7style_label_margin_right = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_margin_right', true );
+                    //     $uacf7_uacf7style_label_margin_bottom = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_margin_bottom', true );
+                    //     $uacf7_uacf7style_label_margin_left = get_post_meta( get_the_ID(), 'uacf7_uacf7style_label_margin_left', true );
+                    //     $uacf7_uacf7style_input_color = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_color', true );
+                    //     $uacf7_uacf7style_input_background_color = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_background_color', true );
+                    //     $uacf7_uacf7style_input_font_size = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_font_size', true );
+                    //     $uacf7_uacf7style_input_font_family = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_font_family', true );
+                    //     $uacf7_uacf7style_input_font_style = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_font_style', true );
+                    //     $uacf7_uacf7style_input_font_weight = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_font_weight', true );
+                    //     $uacf7_uacf7style_input_height = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_height', true );
+                    //     $uacf7_uacf7style_input_border_width = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_border_width', true );
 
-                        $uacf7_uacf7style_input_border_color = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_border_color', true );
+                    //     $uacf7_uacf7style_input_border_color = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_border_color', true );
 
-                        $uacf7_uacf7style_input_border_style = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_border_style', true );
-                        $uacf7_uacf7style_input_border_radius = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_border_radius', true );
-                        $uacf7_uacf7style_textarea_input_height = get_post_meta( get_the_ID(), 'uacf7_uacf7style_textarea_input_height', true );
-                        $uacf7_uacf7style_input_padding_top = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_padding_top', true );
-                        $uacf7_uacf7style_input_padding_right = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_padding_right', true );
-                        $uacf7_uacf7style_input_padding_bottom = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_padding_bottom', true );
-                        $uacf7_uacf7style_input_padding_left = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_padding_left', true );
-                        $uacf7_uacf7style_input_margin_top = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_margin_top', true );
-                        $uacf7_uacf7style_input_margin_right = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_margin_right', true );
-                        $uacf7_uacf7style_input_margin_bottom = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_margin_bottom', true );
-                        $uacf7_uacf7style_input_margin_left = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_margin_left', true );
-                        $uacf7_uacf7style_btn_color = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_color', true );
-                        $uacf7_uacf7style_btn_background_color = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_background_color', true ); 
-                        $uacf7_uacf7style_btn_color_hover = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_color_hover', true );
-                        $uacf7_uacf7style_btn_background_color_hover = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_background_color_hover', true );
-                        $uacf7_uacf7style_btn_font_size = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_font_size', true );
-                        $uacf7_uacf7style_btn_font_style = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_font_style', true );
-                        $uacf7_uacf7style_btn_font_weight = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_font_weight', true );
-                        $uacf7_uacf7style_btn_border_width = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_border_width', true );
-                        $uacf7_uacf7style_btn_border_color = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_border_color', true );
-                        $uacf7_uacf7style_btn_border_style = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_border_style', true );
-                        $uacf7_uacf7style_btn_border_radius = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_border_radius', true );
-                        $uacf7_uacf7style_btn_width = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_width', true );
-                        $uacf7_uacf7style_btn_border_color_hover = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_border_color_hover', true );
-                        $uacf7_uacf7style_btn_padding_top = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_padding_top', true );
-                        $uacf7_uacf7style_btn_padding_right = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_padding_right', true );
-                        $uacf7_uacf7style_btn_padding_bottom = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_padding_bottom', true );
-                        $uacf7_uacf7style_btn_padding_left = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_padding_left', true );
-                        $uacf7_uacf7style_btn_margin_top = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_margin_top', true );
-                        $uacf7_uacf7style_btn_margin_right = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_margin_right', true );
-                        $uacf7_uacf7style_btn_margin_bottom = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_margin_bottom', true );
-                        $uacf7_uacf7style_btn_margin_left = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_margin_left', true );
-                        $uacf7_uacf7style_ua_custom_css = get_post_meta( get_the_ID(), 'uacf7_uacf7style_ua_custom_css', true );
-
-
-                        //  Migration 
-                        $meta['uacf7_enable_form_styles'] = $uacf7_enable_form_styles;
-                        $meta['uacf7_uacf7style_label_color_option']['uacf7_uacf7style_label_color'] = $uacf7_uacf7style_label_color;
-                        $meta['uacf7_uacf7style_label_color_option']['uacf7_uacf7style_label_background_color'] = $uacf7_uacf7style_label_background_color;
-                        $meta['uacf7_uacf7style_label_font_style'] = $uacf7_uacf7style_label_font_style;
-                        $meta['uacf7_uacf7style_label_font_weight'] = $uacf7_uacf7style_label_font_weight;
-                        $meta['uacf7_uacf7style_label_font_size'] = $uacf7_uacf7style_label_font_size;
-                        $meta['uacf7_uacf7style_label_font_family'] = $uacf7_uacf7style_label_font_family; 
-                        $meta['uacf7_uacf7style_label_padding_top'] = $uacf7_uacf7style_label_padding_top;
-                        $meta['uacf7_uacf7style_label_padding_right'] = $uacf7_uacf7style_label_padding_right;
-                        $meta['uacf7_uacf7style_label_padding_bottom'] = $uacf7_uacf7style_label_padding_bottom;
-                        $meta['uacf7_uacf7style_label_padding_left'] = $uacf7_uacf7style_label_padding_left;
-                        $meta['uacf7_uacf7style_label_margin_top'] = $uacf7_uacf7style_label_margin_top;
-                        $meta['uacf7_uacf7style_label_margin_right'] = $uacf7_uacf7style_label_margin_right;
-                        $meta['uacf7_uacf7style_label_margin_bottom'] = $uacf7_uacf7style_label_margin_bottom;
-                        $meta['uacf7_uacf7style_label_margin_left'] = $uacf7_uacf7style_label_margin_left;
+                    //     $uacf7_uacf7style_input_border_style = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_border_style', true );
+                    //     $uacf7_uacf7style_input_border_radius = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_border_radius', true );
+                    //     $uacf7_uacf7style_textarea_input_height = get_post_meta( get_the_ID(), 'uacf7_uacf7style_textarea_input_height', true );
+                    //     $uacf7_uacf7style_input_padding_top = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_padding_top', true );
+                    //     $uacf7_uacf7style_input_padding_right = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_padding_right', true );
+                    //     $uacf7_uacf7style_input_padding_bottom = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_padding_bottom', true );
+                    //     $uacf7_uacf7style_input_padding_left = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_padding_left', true );
+                    //     $uacf7_uacf7style_input_margin_top = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_margin_top', true );
+                    //     $uacf7_uacf7style_input_margin_right = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_margin_right', true );
+                    //     $uacf7_uacf7style_input_margin_bottom = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_margin_bottom', true );
+                    //     $uacf7_uacf7style_input_margin_left = get_post_meta( get_the_ID(), 'uacf7_uacf7style_input_margin_left', true );
+                    //     $uacf7_uacf7style_btn_color = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_color', true );
+                    //     $uacf7_uacf7style_btn_background_color = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_background_color', true ); 
+                    //     $uacf7_uacf7style_btn_color_hover = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_color_hover', true );
+                    //     $uacf7_uacf7style_btn_background_color_hover = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_background_color_hover', true );
+                    //     $uacf7_uacf7style_btn_font_size = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_font_size', true );
+                    //     $uacf7_uacf7style_btn_font_style = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_font_style', true );
+                    //     $uacf7_uacf7style_btn_font_weight = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_font_weight', true );
+                    //     $uacf7_uacf7style_btn_border_width = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_border_width', true );
+                    //     $uacf7_uacf7style_btn_border_color = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_border_color', true );
+                    //     $uacf7_uacf7style_btn_border_style = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_border_style', true );
+                    //     $uacf7_uacf7style_btn_border_radius = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_border_radius', true );
+                    //     $uacf7_uacf7style_btn_width = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_width', true );
+                    //     $uacf7_uacf7style_btn_border_color_hover = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_border_color_hover', true );
+                    //     $uacf7_uacf7style_btn_padding_top = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_padding_top', true );
+                    //     $uacf7_uacf7style_btn_padding_right = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_padding_right', true );
+                    //     $uacf7_uacf7style_btn_padding_bottom = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_padding_bottom', true );
+                    //     $uacf7_uacf7style_btn_padding_left = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_padding_left', true );
+                    //     $uacf7_uacf7style_btn_margin_top = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_margin_top', true );
+                    //     $uacf7_uacf7style_btn_margin_right = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_margin_right', true );
+                    //     $uacf7_uacf7style_btn_margin_bottom = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_margin_bottom', true );
+                    //     $uacf7_uacf7style_btn_margin_left = get_post_meta( get_the_ID(), 'uacf7_uacf7style_btn_margin_left', true );
+                    //     $uacf7_uacf7style_ua_custom_css = get_post_meta( get_the_ID(), 'uacf7_uacf7style_ua_custom_css', true );
 
 
-                        $meta['uacf7_uacf7style_input_color_option']['uacf7_uacf7style_input_color'] = $uacf7_uacf7style_input_color;
-                        $meta['uacf7_uacf7style_input_color_option']['uacf7_uacf7style_input_background_color'] = $uacf7_uacf7style_input_background_color;
-                        $meta['uacf7_uacf7style_input_font_style'] = $uacf7_uacf7style_input_font_style;
-                        $meta['uacf7_uacf7style_input_font_weight'] = $uacf7_uacf7style_input_font_weight;
-                        $meta['uacf7_uacf7style_input_font_size'] = $uacf7_uacf7style_input_font_size;
-                        $meta['uacf7_uacf7style_input_font_family'] = $uacf7_uacf7style_input_font_family;
-                        $meta['uacf7_uacf7style_input_height'] = $uacf7_uacf7style_input_height;
-                        $meta['uacf7_uacf7style_textarea_input_height'] = $uacf7_uacf7style_textarea_input_height; 
-                        $meta['uacf7_uacf7style_input_padding_top'] = $uacf7_uacf7style_input_padding_top;
-                        $meta['uacf7_uacf7style_input_padding_right'] = $uacf7_uacf7style_input_padding_right;
-                        $meta['uacf7_uacf7style_input_padding_bottom'] = $uacf7_uacf7style_input_padding_bottom;
-                        $meta['uacf7_uacf7style_input_padding_left'] = $uacf7_uacf7style_input_padding_left;
-                        $meta['uacf7_uacf7style_input_margin_top'] = $uacf7_uacf7style_input_margin_top;
-                        $meta['uacf7_uacf7style_input_margin_right'] = $uacf7_uacf7style_input_margin_right;
-                        $meta['uacf7_uacf7style_input_margin_bottom'] = $uacf7_uacf7style_input_margin_bottom;
-                        $meta['uacf7_uacf7style_input_margin_left'] = $uacf7_uacf7style_input_margin_left; 
-                        $meta['uacf7_uacf7style_input_border_width'] = $uacf7_uacf7style_input_border_width; 
-                        $meta['uacf7_uacf7style_input_border_style'] = $uacf7_uacf7style_input_border_style;
-                        $meta['uacf7_uacf7style_input_border_radius'] = $uacf7_uacf7style_input_border_radius;
-                        $meta['uacf7_uacf7style_input_border_color'] = $uacf7_uacf7style_input_border_color;
-                        $meta['uacf7_uacf7style_btn_color_option']['uacf7_uacf7style_btn_color'] = $uacf7_uacf7style_btn_color;
-                        $meta['uacf7_uacf7style_btn_color_option']['uacf7_uacf7style_btn_background_color'] = $uacf7_uacf7style_btn_background_color;
-                        $meta['uacf7_uacf7style_btn_color_option']['uacf7_uacf7style_btn_color_hover'] = $uacf7_uacf7style_btn_color_hover;
-                        $meta['uacf7_uacf7style_btn_color_option']['uacf7_uacf7style_btn_background_color_hover'] = $uacf7_uacf7style_btn_background_color_hover;
-
-                        $meta['uacf7_uacf7style_btn_font_size'] = $uacf7_uacf7style_btn_font_size;
-                        $meta['uacf7_uacf7style_btn_font_style'] = $uacf7_uacf7style_btn_font_style;
-                        $meta['uacf7_uacf7style_btn_font_weight'] = $uacf7_uacf7style_btn_font_weight;
-                        $meta['uacf7_uacf7style_btn_width'] = $uacf7_uacf7style_btn_width;
-                        $meta['uacf7_uacf7style_btn_border_style'] = $uacf7_uacf7style_btn_border_style;
-                        $meta['uacf7_uacf7style_btn_border_color'] = $uacf7_uacf7style_btn_border_color;
-                        $meta['uacf7_uacf7style_btn_border_color_hover'] = $uacf7_uacf7style_btn_border_color_hover;
-                        $meta['uacf7_uacf7style_btn_border_width'] = $uacf7_uacf7style_btn_border_width;
-                        $meta['uacf7_uacf7style_btn_border_radius'] = $uacf7_uacf7style_btn_border_radius; 
-                        $meta['uacf7_uacf7style_btn_padding_top'] = $uacf7_uacf7style_btn_padding_top;
-                        $meta['uacf7_uacf7style_btn_padding_right'] = $uacf7_uacf7style_btn_padding_right;
-                        $meta['uacf7_uacf7style_btn_padding_bottom'] = $uacf7_uacf7style_btn_padding_bottom;
-                        $meta['uacf7_uacf7style_btn_padding_left'] = $uacf7_uacf7style_btn_padding_left;
-                        $meta['uacf7_uacf7style_btn_margin_top'] = $uacf7_uacf7style_btn_margin_top;
-                        $meta['uacf7_uacf7style_btn_margin_right'] = $uacf7_uacf7style_btn_margin_right;
-                        $meta['uacf7_uacf7style_btn_margin_bottom'] = $uacf7_uacf7style_btn_margin_bottom;
-                        $meta['uacf7_uacf7style_btn_margin_left'] = $uacf7_uacf7style_btn_margin_left;
-                        $meta['uacf7_uacf7style_ua_custom_css'] = $uacf7_uacf7style_ua_custom_css;
+                    //     //  Migration 
+                    //     $meta['uacf7_enable_form_styles'] = $uacf7_enable_form_styles;
+                    //     $meta['uacf7_uacf7style_label_color_option']['uacf7_uacf7style_label_color'] = $uacf7_uacf7style_label_color;
+                    //     $meta['uacf7_uacf7style_label_color_option']['uacf7_uacf7style_label_background_color'] = $uacf7_uacf7style_label_background_color;
+                    //     $meta['uacf7_uacf7style_label_font_style'] = $uacf7_uacf7style_label_font_style;
+                    //     $meta['uacf7_uacf7style_label_font_weight'] = $uacf7_uacf7style_label_font_weight;
+                    //     $meta['uacf7_uacf7style_label_font_size'] = $uacf7_uacf7style_label_font_size;
+                    //     $meta['uacf7_uacf7style_label_font_family'] = $uacf7_uacf7style_label_font_family; 
+                    //     $meta['uacf7_uacf7style_label_padding_top'] = $uacf7_uacf7style_label_padding_top;
+                    //     $meta['uacf7_uacf7style_label_padding_right'] = $uacf7_uacf7style_label_padding_right;
+                    //     $meta['uacf7_uacf7style_label_padding_bottom'] = $uacf7_uacf7style_label_padding_bottom;
+                    //     $meta['uacf7_uacf7style_label_padding_left'] = $uacf7_uacf7style_label_padding_left;
+                    //     $meta['uacf7_uacf7style_label_margin_top'] = $uacf7_uacf7style_label_margin_top;
+                    //     $meta['uacf7_uacf7style_label_margin_right'] = $uacf7_uacf7style_label_margin_right;
+                    //     $meta['uacf7_uacf7style_label_margin_bottom'] = $uacf7_uacf7style_label_margin_bottom;
+                    //     $meta['uacf7_uacf7style_label_margin_left'] = $uacf7_uacf7style_label_margin_left;
 
 
+                    //     $meta['uacf7_uacf7style_input_color_option']['uacf7_uacf7style_input_color'] = $uacf7_uacf7style_input_color;
+                    //     $meta['uacf7_uacf7style_input_color_option']['uacf7_uacf7style_input_background_color'] = $uacf7_uacf7style_input_background_color;
+                    //     $meta['uacf7_uacf7style_input_font_style'] = $uacf7_uacf7style_input_font_style;
+                    //     $meta['uacf7_uacf7style_input_font_weight'] = $uacf7_uacf7style_input_font_weight;
+                    //     $meta['uacf7_uacf7style_input_font_size'] = $uacf7_uacf7style_input_font_size;
+                    //     $meta['uacf7_uacf7style_input_font_family'] = $uacf7_uacf7style_input_font_family;
+                    //     $meta['uacf7_uacf7style_input_height'] = $uacf7_uacf7style_input_height;
+                    //     $meta['uacf7_uacf7style_textarea_input_height'] = $uacf7_uacf7style_textarea_input_height; 
+                    //     $meta['uacf7_uacf7style_input_padding_top'] = $uacf7_uacf7style_input_padding_top;
+                    //     $meta['uacf7_uacf7style_input_padding_right'] = $uacf7_uacf7style_input_padding_right;
+                    //     $meta['uacf7_uacf7style_input_padding_bottom'] = $uacf7_uacf7style_input_padding_bottom;
+                    //     $meta['uacf7_uacf7style_input_padding_left'] = $uacf7_uacf7style_input_padding_left;
+                    //     $meta['uacf7_uacf7style_input_margin_top'] = $uacf7_uacf7style_input_margin_top;
+                    //     $meta['uacf7_uacf7style_input_margin_right'] = $uacf7_uacf7style_input_margin_right;
+                    //     $meta['uacf7_uacf7style_input_margin_bottom'] = $uacf7_uacf7style_input_margin_bottom;
+                    //     $meta['uacf7_uacf7style_input_margin_left'] = $uacf7_uacf7style_input_margin_left; 
+                    //     $meta['uacf7_uacf7style_input_border_width'] = $uacf7_uacf7style_input_border_width; 
+                    //     $meta['uacf7_uacf7style_input_border_style'] = $uacf7_uacf7style_input_border_style;
+                    //     $meta['uacf7_uacf7style_input_border_radius'] = $uacf7_uacf7style_input_border_radius;
+                    //     $meta['uacf7_uacf7style_input_border_color'] = $uacf7_uacf7style_input_border_color;
+                    //     $meta['uacf7_uacf7style_btn_color_option']['uacf7_uacf7style_btn_color'] = $uacf7_uacf7style_btn_color;
+                    //     $meta['uacf7_uacf7style_btn_color_option']['uacf7_uacf7style_btn_background_color'] = $uacf7_uacf7style_btn_background_color;
+                    //     $meta['uacf7_uacf7style_btn_color_option']['uacf7_uacf7style_btn_color_hover'] = $uacf7_uacf7style_btn_color_hover;
+                    //     $meta['uacf7_uacf7style_btn_color_option']['uacf7_uacf7style_btn_background_color_hover'] = $uacf7_uacf7style_btn_background_color_hover;
 
-
-                    }
-                    uacf7_print_r($meta);
-                    update_post_meta( get_the_ID(), 'uacf7_form_opt', $meta ); 
-                }
+                    //     $meta['uacf7_uacf7style_btn_font_size'] = $uacf7_uacf7style_btn_font_size;
+                    //     $meta['uacf7_uacf7style_btn_font_style'] = $uacf7_uacf7style_btn_font_style;
+                    //     $meta['uacf7_uacf7style_btn_font_weight'] = $uacf7_uacf7style_btn_font_weight;
+                    //     $meta['uacf7_uacf7style_btn_width'] = $uacf7_uacf7style_btn_width;
+                    //     $meta['uacf7_uacf7style_btn_border_style'] = $uacf7_uacf7style_btn_border_style;
+                    //     $meta['uacf7_uacf7style_btn_border_color'] = $uacf7_uacf7style_btn_border_color;
+                    //     $meta['uacf7_uacf7style_btn_border_color_hover'] = $uacf7_uacf7style_btn_border_color_hover;
+                    //     $meta['uacf7_uacf7style_btn_border_width'] = $uacf7_uacf7style_btn_border_width;
+                    //     $meta['uacf7_uacf7style_btn_border_radius'] = $uacf7_uacf7style_btn_border_radius; 
+                    //     $meta['uacf7_uacf7style_btn_padding_top'] = $uacf7_uacf7style_btn_padding_top;
+                    //     $meta['uacf7_uacf7style_btn_padding_right'] = $uacf7_uacf7style_btn_padding_right;
+                    //     $meta['uacf7_uacf7style_btn_padding_bottom'] = $uacf7_uacf7style_btn_padding_bottom;
+                    //     $meta['uacf7_uacf7style_btn_padding_left'] = $uacf7_uacf7style_btn_padding_left;
+                    //     $meta['uacf7_uacf7style_btn_margin_top'] = $uacf7_uacf7style_btn_margin_top;
+                    //     $meta['uacf7_uacf7style_btn_margin_right'] = $uacf7_uacf7style_btn_margin_right;
+                    //     $meta['uacf7_uacf7style_btn_margin_bottom'] = $uacf7_uacf7style_btn_margin_bottom;
+                    //     $meta['uacf7_uacf7style_btn_margin_left'] = $uacf7_uacf7style_btn_margin_left;
+                    //     $meta['uacf7_uacf7style_ua_custom_css'] = $uacf7_uacf7style_ua_custom_css; 
+                    // }
+                    // uacf7_print_r($meta);
+                    // update_post_meta( get_the_ID(), 'uacf7_form_opt', $meta );  
         
     		endwhile;
     		wp_reset_postdata();
