@@ -10,6 +10,8 @@ class UACF7_TELEGRAM_TAG_PANEL{
 
   public $form_id;
 
+  public $test = 'test message';
+
   public $uacf7_telegram_enable;
   public $uacf7_telegram_bot_token;
   public $uacf7_telegram_chat_id;
@@ -23,6 +25,15 @@ class UACF7_TELEGRAM_TAG_PANEL{
 
 
   }
+
+  public function uacf7_provide_property_access(){ 
+
+   
+    echo $this->test;
+    
+  }
+
+ 
 
 
   /** 
@@ -209,12 +220,33 @@ class UACF7_TELEGRAM_TAG_PANEL{
             'uacf7_telegram_connection_error_message' => sanitize_text_field($error_messages)
           ];
 
-          update_post_meta( $form->id(), 'uacf7_telegram_settings', $uacf7_telegram_settings );
+          update_post_meta( $form->id(), 'uacf7_telegram_settings', $uacf7_telegram_settings );    
 
   }
+
+
+
+
+
+
 
 }
 
 
+ new UACF7_TELEGRAM_TAG_PANEL;
 
-new UACF7_TELEGRAM_TAG_PANEL;
+
+
+
+ function uacf7_telegram_active_status_callback() {
+
+    $telegram_instance = new UACF7_TELEGRAM_TAG_PANEL;
+
+    $result = $telegram_instance->uacf7_provide_property_access();
+    
+    return $result;
+
+ }
+
+
+
