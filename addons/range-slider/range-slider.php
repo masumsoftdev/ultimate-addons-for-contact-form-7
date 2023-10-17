@@ -40,15 +40,15 @@ class UACF7_range_Slider {
                 ),
     
              
-                'range_slider_selection_color' => array(
-                    'id'        => 'range_slider_selection_color',
+                'uacf7-selection-color' => array(
+                    'id'        => 'uacf7-selection-color',
                     'type'      => 'color',
                     'label'     => __( ' Slider Selection Color', 'ultimate-addons-cf7' ),
                     'field_width' => 50
         
                 ),
-                'range_slider_handle_color' => array(
-                    'id'        => 'range_slider_handle_color',
+                'uacf7-handle-color' => array(
+                    'id'        => 'uacf7-handle-color',
                     'type'      => 'color',
                     'label'     => __( ' Slider Handle Color ', 'ultimate-addons-cf7' ),
                     'field_width' => 50
