@@ -22,9 +22,56 @@ class UACF7_SUBMISSION_ID{
 
         // Submission ID Update into Database
         add_action('uacf7_submission_id_insert', [$this, 'uacf7_submission_id_insert_callback'], 10, 4);
+        add_filter( 'uacf7_post_meta_options', array($this, 'uacf7_post_meta_options_submission_id'), 20, 2 ); 
 
         require_once 'inc/submission-id.php';
 
+    }
+
+    function uacf7_post_meta_options_submission_id( $value, $post_id){
+
+        $submission_id = apply_filters('uacf7_post_meta_options_submission_id_pro', $data = array(
+            'title'  => __( 'Submission ID', 'ultimate-addons-cf7' ),
+            'icon'   => 'fa-solid fa-fingerprint',
+            'fields' => array(
+                'uacf7_submission_id_heading' => array(
+                    'id'    => 'uacf7_submission_id_heading',
+                    'type'  => 'heading',
+                    'label' => __( 'Post Submission', 'ultimate-addons-cf7' ),
+                    'sub_title' => __( 'This feature will help you to track submission data into the database.', 'ultimate-addons-cf7' ),
+                ),
+             
+                'uacf7_submission_id_enable' => array(
+                    'id'        => 'uacf7_submission_id_enable',
+                    'type'      => 'switch',
+                    'label'     => __( ' Enable/Disable Submission ID', 'ultimate-addons-cf7' ),
+                    'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
+                    'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+                    'default'   => false
+                ),
+                'uacf7_submission_id' => array(
+                    'id'        => 'uacf7_submission_id',
+                    'type'      => 'number',
+                    'label'     => __( ' Submission ID Starts from ', 'ultimate-addons-cf7' ),
+                    'placeholder'     => __( ' 1 ', 'ultimate-addons-cf7' ),
+                    'description'     => __( ' E.g. default 1 ', 'ultimate-addons-cf7' ),
+                ),
+                'uacf7_submission_id_step' => array(
+                    'id'        => 'uacf7_submission_id_step',
+                    'type'      => 'number',
+                    'label'     => __( ' Submission ID Step Increament ', 'ultimate-addons-cf7' ),
+                    'placeholder'     => __( ' 1 ', 'ultimate-addons-cf7' ),
+                    'description'     => __( ' E.g. default 1 ', 'ultimate-addons-cf7' ),
+                ),
+       
+    
+            ),
+                
+    
+        ), $post_id);
+    
+        $value['submission_id'] = $submission_id; 
+        return $value;
     }
 
 /** Starts Loading Essential JS & CSS */
