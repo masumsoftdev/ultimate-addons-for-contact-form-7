@@ -19,8 +19,77 @@ class UACF7_PRE_POPULATE {
         add_action( 'wpcf7_after_save', array( $this, 'uacf7_bf_save_contact_form' ) ); 
         add_action( 'wp_ajax_uacf7_ajax_pre_populate_redirect', array( $this, 'uacf7_ajax_pre_populate_redirect' ) ); 
         add_action( 'wp_ajax_nopriv_uacf7_ajax_pre_populate_redirect', array( $this, 'uacf7_ajax_pre_populate_redirect' ) ); 
+        add_filter( 'uacf7_post_meta_options', array($this, 'uacf7_post_meta_options_pre_populated'), 22, 2 ); 
         
     } 
+
+
+    public function uacf7_post_meta_options_pre_populated( $value, $post_id){
+
+        $pre_populated = apply_filters('uacf7_post_meta_options_pre_populated_pro', $data = array(
+            'title'  => __( 'Pre Populated', 'ultimate-addons-cf7' ),
+            'icon'   => 'fa-solid fa-arrow-up-right-dots',
+            'fields' => array(
+                'uacf7_pre_populated_heading' => array(
+                    'id'    => 'uacf7_pre_populated_heading',
+                    'type'  => 'heading',
+                    'label' => __( 'Pre Populated', 'ultimate-addons-cf7' ),
+                    'sub_title' => __( 'This feature will help you form pre-populate.', 'ultimate-addons-cf7' ),
+                ),
+    
+             
+                'pre_populate_enable' => array(
+                    'id'        => 'pre_populate_enable',
+                    'type'      => 'switch',
+                    'label'     => __( ' Pre-Populate', 'ultimate-addons-cf7' ),
+                    'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
+                    'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+                    'default'   => false
+                ),
+                'data_redirect_url' => array(
+                    'id'        => 'data_redirect_url',
+                    'type'      => 'text',
+                    'label'     => __( ' Redirect URL ', 'ultimate-addons-cf7' ),
+                    'placeholder'     => __( ' Redirect URL ', 'ultimate-addons-cf7' ),
+                ),
+                'pre_populate_form' => array(
+                  'id'        => 'pre_populate_form',
+                  'type'      => 'select',
+                  'label'     => __( ' Select Pre-Populate Form', 'ultimate-addons-cf7' ),
+                  'options'     => array(
+                    'form 1' => 'Form 1',
+                    'form 2' => 'Form 2',
+                  )
+              ),
+
+              'pre_populate_field_increaser' => array(
+                'id' => 'pre_populate_field_increaser',
+                'type' => 'repeater',
+                'label' => 'Select Pre-Populate Field',
+                'class' => 'tf-field-class',
+                'fields' => array(
+                    array(
+                        'id' => 'pre_populate_passing_field',
+                        'type' => 'select',
+                        'options' => array(
+                            'option 1' => 'option 1',
+                            'option 2' => 'option 2',
+                            'option 3' => 'option 3',
+                            'option 4' => 'option 4',
+                            'option 5' => 'option 5',
+                        )
+                     )
+                 ),
+            )
+    
+            ),
+                
+    
+        ), $post_id);
+    
+        $value['pre_populated'] = $pre_populated; 
+        return $value;
+    }
 
     /*
     * Enqueue script Forntend
@@ -35,6 +104,8 @@ class UACF7_PRE_POPULATE {
                 )
         );
     }
+
+
 
     /*
     * Enqueue script Backend
