@@ -50,15 +50,15 @@ class UACF7_PDF_GENERATOR {
                     'default'   => false
                 ),
               
-                'uacf7_pdf_title' => array(
-                    'id'        => 'uacf7_pdf_title',
+                'uacf7_pdf_name' => array(
+                    'id'        => 'uacf7_pdf_name',
                     'type'      => 'text',
                     'label'     => __( 'PDF Title ', 'ultimate-addons-cf7' ),
                     'placeholder'     => __( 'pdf title ', 'ultimate-addons-cf7' ),
             
                 ),
-                'uacf7_pdf_send_to' => array(
-                    'id'        => 'uacf7_pdf_send_to',
+                'pdf_send_to' => array(
+                    'id'        => 'pdf_send_to',
                     'type'      => 'select',
                     'label'     => __( 'PDF Send To ', 'ultimate-addons-cf7' ),
                     'options'   => array(
@@ -73,8 +73,8 @@ class UACF7_PDF_GENERATOR {
                     'type'      => 'checkbox',
                     'label'     => __( 'Disable Header and Footer ', 'ultimate-addons-cf7' ),
                     'options'   => array(
-                        'option 1' => 'Disable Header',
-                        'option 2' => 'Disable Footer'
+                        'uacf7_pdf_disable_header' => 'Disable Header',
+                        'uacf7_pdf_disable_footer' => 'Disable Footer'
                     ),
                     'field_width' => '50',
                     'inline'      => true
@@ -85,8 +85,8 @@ class UACF7_PDF_GENERATOR {
                     'label'     => __( ' Customize PDF Body', 'ultimate-addons-cf7' ),
                 ),
 
-                'uacf7_pdf_background_image' => array(
-                    'id'        => 'uacf7_pdf_background_image',
+                'pdf_bg_upload_image' => array(
+                    'id'        => 'pdf_bg_upload_image',
                     'type'      => 'image',
                     'label'     => __( 'PDF Background Image ', 'ultimate-addons-cf7' ),
 
@@ -129,8 +129,8 @@ class UACF7_PDF_GENERATOR {
                     {PAGENO}, {DATE j-m-Y}, {nb}, {nbpg}
                     ',
                 ),
-                'uacf7_pdf_header_background_image' => array(
-                    'id'        => 'uacf7_pdf_header_background_image',
+                'pdf_header_upload_image' => array(
+                    'id'        => 'pdf_header_upload_image',
                     'type'      => 'image',
                     'label'     => __( 'PDF Header Background Image ', 'ultimate-addons-cf7' ),
 
