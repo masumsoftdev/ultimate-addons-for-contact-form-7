@@ -47,6 +47,11 @@
       background: #037c09;
       box-shadow: 0 0 2px #037c09;
   }
+
+  .check_bot .online .status:before {
+    background: #037c09!important;
+    box-shadow: 0 0 2px #037c09!important;
+}
   
   
   #uacf7-telegram-panel .telegram_wrapper_first_col .check_bot .status:before {
@@ -65,6 +70,11 @@
     box-shadow: 0 0 2px #df0c0c;
   }
   
+
+  .check_bot .offline .status:before {
+    background: #df0c0c!important;
+    box-shadow: 0 0 2px #df0c0c!important;
+  }
   
   #uacf7-telegram-panel .telegram_wrapper_first_col .check_bot .status:before {
   content: ' ';

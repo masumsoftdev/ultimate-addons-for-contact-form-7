@@ -51,6 +51,7 @@ class UACF7_TELEGRAM {
               'id'        => 'uacf7_telegram_enable_icon',
               'type'     => 'callback',
               'function' => 'uacf7_telegram_active_status_callback',
+              'argument' => $post_id,
          
           ),
          
@@ -64,14 +65,14 @@ class UACF7_TELEGRAM {
             ),
             'uacf7_telegram_bot_token' => array(
                 'id'        => 'uacf7_telegram_bot_token',
-                'type'      => 'number',
+                'type'      => 'text',
                 'label'     => __( ' Telegram BOT Token ', 'ultimate-addons-cf7' ),
                 'placeholder'     => __( ' Paste here Telegram BOT TOKEN..... ', 'ultimate-addons-cf7' ),
                 'description'     => __( 'You need to create your own Telegram-Bot. Learn how to create & get Token <a href="https://core.telegram.org/bots#3-how-do-i-create-a-bot">here</a>.', 'ultimate-addons-cf7' ),
             ),
             'uacf7_telegram_chat_id' => array(
               'id'        => 'uacf7_telegram_chat_id',
-              'type'      => 'number',
+              'type'      => 'text',
               'label'     => __( ' Telegram Chat ID ', 'ultimate-addons-cf7' ),
               'placeholder'     => __( ' Paste here Telegram Chat ID..... ', 'ultimate-addons-cf7' ),
               'description'     => __( 'You need to create your own Telegram-Chat ID. Learn how to get  <a href="https://www.google.com/search?q=%22how+to+get+telegram+chat+id">here</a>.', 'ultimate-addons-cf7' ),
