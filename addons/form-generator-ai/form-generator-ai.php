@@ -125,15 +125,15 @@ class UACF7_FORM_GENERATOR{
             }
             
         } 
-        $form_booking =  apply_filters('uacf7_booking_ai_form_dropdown', ["value" => "booking", "label" => "Booking (Pro)", "disabled" => "true"]);
+        $form_booking =  apply_filters('uacf7_booking_ai_form_dropdown', ["value" => "booking", "label" => "Booking (Pro)", "disabled" => "false"]);
     
         $secend_option_form = [
             ["value" => "multistep", "label" => "Multistep"],
-            apply_filters('uacf7_booking_ai_form_dropdown', ["value" => "booking", "label" => "Booking (Pro)", "disabled" => "true"]),
+            apply_filters('uacf7_booking_ai_form_dropdown', ["value" => "booking", "label" => "Booking (Pro)", "disabled" => "false"]),
             ["value" => "conditional", "label" => "Conditional"],
             ["value" => "subscription", "label" => "Subscription"],
-            apply_filters('uacf7_repeater_ai_form_dropdown', ["value" => "repeater", "label" => "Repeater (Pro)", "disabled" => "true"]), 
-            apply_filters('uacf7_blog_submission_ai_form_dropdown', ["value" => "blog", "label" => "Blog Submission (Pro)", "disabled" => "true"]),
+            apply_filters('uacf7_repeater_ai_form_dropdown', ["value" => "repeater", "label" => "Repeater (Pro)", "disabled" => "false"]), 
+            apply_filters('uacf7_blog_submission_ai_form_dropdown', ["value" => "blog", "label" => "Blog Submission (Pro)", "disabled" => "false"]),
             ["value" => "feedback", "label" => "Feedback"],
             ["value" => "application", "label" => "Application"],
             ["value" => "inquiry", "label" => "Inquiry"],
@@ -143,10 +143,10 @@ class UACF7_FORM_GENERATOR{
             ["value" => "newsletter", "label" => "Newsletter"],
             ["value" => "donation", "label" => "Donation"],
             ["value" => "product-review", "label" => "Product Review"],
-            apply_filters('uacf7_service_booking_form_dropdown', ["value" => "service-booking", "label" => "Service Booking (Pro)", "disabled" => "true"]), 
-            apply_filters('uacf7_appointment_form_dropdown', ["value" => "appointment-form", "label" => "Appointment (Pro)", "disabled" => "true"]), 
-            apply_filters('uacf7_conversational_appointment_form_dropdown', ["value" => "conversational-appointment-form", "label" => "Conversational Appointment Booking  (Pro)", "disabled" => "true"]), 
-            apply_filters('uacf7_conversational_interview_form_dropdown', ["value" => "conversational-interview-form", "label" => "Conversational Interview Process (Pro)", "disabled" => "true"]),  
+            apply_filters('uacf7_service_booking_form_dropdown', ["value" => "service-booking", "label" => "Service Booking (Pro)", "disabled" => "false"]), 
+            apply_filters('uacf7_appointment_form_dropdown', ["value" => "appointment-form", "label" => "Appointment (Pro)", "disabled" => "false"]), 
+            apply_filters('uacf7_conversational_appointment_form_dropdown', ["value" => "conversational-appointment-form", "label" => "Conversational Appointment Booking  (Pro)", "disabled" => "false"]), 
+            apply_filters('uacf7_conversational_interview_form_dropdown', ["value" => "conversational-interview-form", "label" => "Conversational Interview Process (Pro)", "disabled" => "false"]),  
             ["value" => "rating", "label" => "Rating"],
         ];
         
