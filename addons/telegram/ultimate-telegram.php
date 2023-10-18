@@ -126,7 +126,7 @@ class UACF7_TELEGRAM {
      * Getting Bot Token & Chat ID from the Database
      */
 
-     $uacf7_telegram_settings = get_post_meta($form_id, 'uacf7_telegram_settings', true);
+     $uacf7_telegram_settings = get_post_meta($form_id, 'uacf7_form_opt', true);
 
 
      if (!empty($uacf7_telegram_settings)) {
@@ -137,10 +137,10 @@ class UACF7_TELEGRAM {
      }
 
  
-      $bot_token = $uacf7_telegram_bot_token;
+      $bot_token =  $uacf7_telegram_bot_token;
       $chat_id =  $uacf7_telegram_chat_id;
 
-     if($uacf7_telegram_enable === 'on'){
+     if($uacf7_telegram_enable === 'on' || $uacf7_telegram_enable === '1'){
         $api_url = "https://api.telegram.org/bot$bot_token/sendMessage";
      }
 
