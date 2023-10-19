@@ -47,27 +47,25 @@ class UACF7_TELEGRAM_TAG_PANEL{
    public function uacf7_create_telegram_panel_fields($post){  
     
   
-    // $uacf7_telegram_message_sending_enable = get_post_meta($post->id(), 'uacf7_telegram_message_sending_enable', true);
+    $uacf7_telegram_message_sending_enable = get_post_meta($post->id(), 'uacf7_telegram_message_sending_enable', true);
 
-    // if(isset($uacf7_telegram_message_sending_enable) && !empty($uacf7_telegram_message_sending_enable)){
-    // $this->uacf7_telegram_message_sending_enable =  $uacf7_telegram_message_sending_enable;
-    // }
+    if(isset($uacf7_telegram_message_sending_enable) && !empty($uacf7_telegram_message_sending_enable)){
+    $this->uacf7_telegram_message_sending_enable =  $uacf7_telegram_message_sending_enable;
+    }
 
-    $uacf7_telegram_settings = get_post_meta($post->id(), 'uacf7_form_opt', true);
-
-    // var_dump($uacf7_telegram_settings);
+    $uacf7_telegram_settings = get_post_meta($post->id(), 'uacf7_telegram_settings', true);
 
 
     $this->form_id = $post->id();
 
-    // if (!empty($uacf7_telegram_settings) && isset($uacf7_telegram_settings['uacf7_telegram_enable'], $uacf7_telegram_settings['uacf7_telegram_bot_token'], $uacf7_telegram_settings['uacf7_telegram_chat_id'] , $uacf7_telegram_settings['uacf7_telegram_bot_name'], $uacf7_telegram_settings['uacf7_telegram_bot_username'], $uacf7_telegram_settings['uacf7_telegram_connection_error_message'], )) {
+    if (!empty($uacf7_telegram_settings) && isset($uacf7_telegram_settings['uacf7_telegram_enable'], $uacf7_telegram_settings['uacf7_telegram_bot_token'], $uacf7_telegram_settings['uacf7_telegram_chat_id'] , $uacf7_telegram_settings['uacf7_telegram_bot_name'], $uacf7_telegram_settings['uacf7_telegram_bot_username'], $uacf7_telegram_settings['uacf7_telegram_connection_error_message'], )) {
       $this->uacf7_telegram_enable = $uacf7_telegram_settings['uacf7_telegram_enable'];
       $this->uacf7_telegram_bot_token = $uacf7_telegram_settings['uacf7_telegram_bot_token'];
       $this->uacf7_telegram_chat_id = $uacf7_telegram_settings['uacf7_telegram_chat_id'];
-      // $this->uacf7_telegram_bot_name = $uacf7_telegram_settings['uacf7_telegram_bot_name'];
-      // $this->uacf7_telegram_bot_username = $uacf7_telegram_settings['uacf7_telegram_bot_username'];
-      // $this->uacf7_telegram_connection_error_message = $uacf7_telegram_settings['uacf7_telegram_connection_error_message'];
-    // }
+      $this->uacf7_telegram_bot_name = $uacf7_telegram_settings['uacf7_telegram_bot_name'];
+      $this->uacf7_telegram_bot_username = $uacf7_telegram_settings['uacf7_telegram_bot_username'];
+      $this->uacf7_telegram_connection_error_message = $uacf7_telegram_settings['uacf7_telegram_connection_error_message'];
+    }
 
     ?> 
       <h2><?php echo esc_html__( 'Telegram Settings', 'ultimate-addons-cf7' ); ?></h2>  
@@ -216,6 +214,22 @@ class UACF7_TELEGRAM_TAG_PANEL{
 
           update_post_meta( $form->id(), 'uacf7_telegram_settings', $uacf7_telegram_settings );    
 
+  }
+
+
+
+  public function uacf7_provide_property_access(){ 
+
+    // $uacf7_form_opt = get_post_meta($this->form_id, 'uacf7_form_opt', true);
+   
+    // $tl_bot_name = isset($uacf7_form_opt['uacf7_telegram_bot_name']) ? $uacf7_form_opt['uacf7_telegram_bot_name']: '';
+
+    // echo $tl_bot_name;
+
+   
+
+    // var_dump($all_forms);
+    
   }
 
 
