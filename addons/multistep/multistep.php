@@ -84,14 +84,35 @@ class UACF7_MULTISTEP {
                     'multiple' 		=> true,
                     'inline'   		=> true,
                     'options' => array(
-                        'design-1' 				=> array(
-                            'title'			=> 'Design 1',
-                           'url' 			=> UACF7_PATH."/assets/admin/images/template/default-hotel.jpg",
-                        ),
-                        'default' 			=> array(
-                            'title'			=> 'Defult',
-                            'url' 			=> UACF7_PATH."/assets/admin/images/template/default-hotel.jpg",
-                        ),
+                        'style-1' 				=> array(
+                            'title'			=> 'Style 1',
+                            'url' 			=> UACF7_ADDONS."/multistep/assets/img/skin-1.png", 
+                        ), 
+                        'style-2' 				=> array(
+                            'title'			=> 'Style 2',
+                            'url' 			=> UACF7_ADDONS."/multistep/assets/img/skin-2.png",
+                            'is_pro' => true,    
+                        ), 
+                        'style-3' 				=> array(
+                            'title'			=> 'Style 3',
+                            'url' 			=> UACF7_ADDONS."/multistep/assets/img/skin-3.png",
+                            'is_pro' => true,    
+                        ), 
+                        'style-4' 				=> array(
+                            'title'			=> 'Style 4',
+                            'url' 			=> UACF7_ADDONS."/multistep/assets/img/skin-4.png",
+                            'is_pro' => true,    
+                        ), 
+                        'style-5' 				=> array(
+                            'title'			=> 'Style 5',
+                            'url' 			=> UACF7_ADDONS."/multistep/assets/img/skin-5.png",
+                            'is_pro' => true,    
+                        ), 
+                        'style-6' 				=> array(
+                            'title'			=> 'Style 6',
+                            'url' 			=> UACF7_ADDONS."/multistep/assets/img/skin-6.png",
+                            'is_pro' => true,    
+                        ), 
                      ), 
                     // 'default'   	=> function_exists( 'tourfic_template_settings' ) ? tourfic_template_settings() : '',
                     // 'dependency'  => [
