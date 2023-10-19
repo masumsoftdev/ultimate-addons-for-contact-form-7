@@ -583,6 +583,8 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                         
                     // } 
 
+
+
                 
                     // Placehoder addon Migration
                     // $uacf7_enable_placeholder_styles = get_post_meta( get_the_ID(), 'uacf7_enable_placeholder_styles', true ) == 'on' ? 1 : 0;
@@ -602,7 +604,10 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                     //     $meta['uacf7_placeholder_color_option']['uacf7_placeholder_color'] = $uacf7_placeholder_color;
                     //     $meta['uacf7_placeholder_color_option']['uacf7_placeholder_background_color'] = $uacf7_placeholder_background_color;
                     // }
-                 
+
+
+                
+             
                     // // styler addon Migration
                     // $uacf7_enable_form_styles = get_post_meta( get_the_ID(), 'uacf7_enable_form_styles', true ) == 'on' ? 1 : 0;
                     // if($uacf7_enable_form_styles == true){
@@ -709,27 +714,63 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                     //     $meta['uacf7_uacf7style_btn_color_option']['uacf7_uacf7style_btn_color_hover'] = $uacf7_uacf7style_btn_color_hover;
                     //     $meta['uacf7_uacf7style_btn_color_option']['uacf7_uacf7style_btn_background_color_hover'] = $uacf7_uacf7style_btn_background_color_hover;
 
-                    //     $meta['uacf7_uacf7style_btn_font_size'] = $uacf7_uacf7style_btn_font_size;
-                    //     $meta['uacf7_uacf7style_btn_font_style'] = $uacf7_uacf7style_btn_font_style;
-                    //     $meta['uacf7_uacf7style_btn_font_weight'] = $uacf7_uacf7style_btn_font_weight;
-                    //     $meta['uacf7_uacf7style_btn_width'] = $uacf7_uacf7style_btn_width;
-                    //     $meta['uacf7_uacf7style_btn_border_style'] = $uacf7_uacf7style_btn_border_style;
-                    //     $meta['uacf7_uacf7style_btn_border_color'] = $uacf7_uacf7style_btn_border_color;
-                    //     $meta['uacf7_uacf7style_btn_border_color_hover'] = $uacf7_uacf7style_btn_border_color_hover;
-                    //     $meta['uacf7_uacf7style_btn_border_width'] = $uacf7_uacf7style_btn_border_width;
-                    //     $meta['uacf7_uacf7style_btn_border_radius'] = $uacf7_uacf7style_btn_border_radius; 
-                    //     $meta['uacf7_uacf7style_btn_padding_top'] = $uacf7_uacf7style_btn_padding_top;
-                    //     $meta['uacf7_uacf7style_btn_padding_right'] = $uacf7_uacf7style_btn_padding_right;
-                    //     $meta['uacf7_uacf7style_btn_padding_bottom'] = $uacf7_uacf7style_btn_padding_bottom;
-                    //     $meta['uacf7_uacf7style_btn_padding_left'] = $uacf7_uacf7style_btn_padding_left;
-                    //     $meta['uacf7_uacf7style_btn_margin_top'] = $uacf7_uacf7style_btn_margin_top;
-                    //     $meta['uacf7_uacf7style_btn_margin_right'] = $uacf7_uacf7style_btn_margin_right;
-                    //     $meta['uacf7_uacf7style_btn_margin_bottom'] = $uacf7_uacf7style_btn_margin_bottom;
-                    //     $meta['uacf7_uacf7style_btn_margin_left'] = $uacf7_uacf7style_btn_margin_left;
-                    //     $meta['uacf7_uacf7style_ua_custom_css'] = $uacf7_uacf7style_ua_custom_css; 
+                    // $meta['uacf7_uacf7style_btn_font_size'] = $uacf7_uacf7style_btn_font_size;
+                    // $meta['uacf7_uacf7style_btn_font_style'] = $uacf7_uacf7style_btn_font_style;
+                    // $meta['uacf7_uacf7style_btn_font_weight'] = $uacf7_uacf7style_btn_font_weight;
+                    // $meta['uacf7_uacf7style_btn_width'] = $uacf7_uacf7style_btn_width;
+                    // $meta['uacf7_uacf7style_btn_border_style'] = $uacf7_uacf7style_btn_border_style;
+                    // $meta['uacf7_uacf7style_btn_border_color'] = $uacf7_uacf7style_btn_border_color;
+                    // $meta['uacf7_uacf7style_btn_border_color_hover'] = $uacf7_uacf7style_btn_border_color_hover;
+                    // $meta['uacf7_uacf7style_btn_border_width'] = $uacf7_uacf7style_btn_border_width;
+                    // $meta['uacf7_uacf7style_btn_border_radius'] = $uacf7_uacf7style_btn_border_radius; 
+                    // $meta['uacf7_uacf7style_btn_padding_top'] = $uacf7_uacf7style_btn_padding_top;
+                    // $meta['uacf7_uacf7style_btn_padding_right'] = $uacf7_uacf7style_btn_padding_right;
+                    // $meta['uacf7_uacf7style_btn_padding_bottom'] = $uacf7_uacf7style_btn_padding_bottom;
+                    // $meta['uacf7_uacf7style_btn_padding_left'] = $uacf7_uacf7style_btn_padding_left;
+                    // $meta['uacf7_uacf7style_btn_margin_top'] = $uacf7_uacf7style_btn_margin_top;
+                    // $meta['uacf7_uacf7style_btn_margin_right'] = $uacf7_uacf7style_btn_margin_right;
+                    // $meta['uacf7_uacf7style_btn_margin_bottom'] = $uacf7_uacf7style_btn_margin_bottom;
+                    // $meta['uacf7_uacf7style_btn_margin_left'] = $uacf7_uacf7style_btn_margin_left;
+                    // $meta['uacf7_uacf7style_ua_custom_css'] = $uacf7_uacf7style_ua_custom_css; 
                     // }
+
+                     //Submission ID addon Migration
+
+                     $uacf7_submission_id_enable = get_post_meta( $post_id, 'uacf7_submission_id_enable', true ) == 'on' ? 1 : 0;
+                     if($uacf7_submission_id_enable == true){
+
+                         $uacf7_submission_id = get_post_meta( $post_id, 'uacf7_submission_id', true );
+                         $uacf7_submission_id_step = get_post_meta( $post_id, 'uacf7_submission_id_step', true ); 
+                         
+                         $meta['uacf7_submission_id_enable'] = $uacf7_submission_id_enable;
+                         $meta['uacf7_submission_id'] = $uacf7_submission_id;
+                         $meta['uacf7_submission_id_step'] = $uacf7_submission_id_step;
+
+                     }
+
+                     //Telegram Addon Migration 
+                     $uacf7_telegram_settings = get_post_meta($post_id, 'uacf7_telegram_settings', true);
+                     $uacf7_telegram_enable = isset($uacf7_telegram_settings['uacf7_telegram_enable']) ? $uacf7_telegram_settings['uacf7_telegram_enable'] == 'on': '1';
+
+
+                         $uacf7_telegram_bot_token = isset($uacf7_telegram_settings['uacf7_telegram_bot_token']) ? $uacf7_telegram_settings['uacf7_telegram_bot_token'] : '';
+                         $uacf7_telegram_chat_id = isset($uacf7_telegram_settings['uacf7_telegram_chat_id']) ? $uacf7_telegram_settings['uacf7_telegram_chat_id'] : ''; 
+                         $uacf7_telegram_bot_name = isset($uacf7_telegram_settings['uacf7_telegram_bot_name']) ? $uacf7_telegram_settings['uacf7_telegram_bot_name'] : ''; 
+                         $uacf7_telegram_bot_username = isset($uacf7_telegram_settings['uacf7_telegram_bot_username']) ? $uacf7_telegram_settings['uacf7_telegram_bot_username'] : ''; 
+                         $uacf7_telegram_connection_error_message = isset($uacf7_telegram_settings['uacf7_telegram_connection_error_message']) ? $uacf7_telegram_settings['uacf7_telegram_connection_error_message'] : ''; 
+                         
+                         $meta['uacf7_telegram_enable'] = $uacf7_telegram_enable;
+                         $meta['uacf7_telegram_bot_token'] = $uacf7_telegram_bot_token;
+                         $meta['uacf7_telegram_chat_id'] = $uacf7_telegram_chat_id;
+                         $meta['uacf7_telegram_bot_name'] = $uacf7_telegram_bot_name;
+                         $meta['uacf7_telegram_bot_username'] = $uacf7_telegram_bot_username;
+                         $meta['uacf7_telegram_connection_error_message'] = $uacf7_telegram_connection_error_message;
+                 
+
+                
                     // uacf7_print_r($meta);
-                    // update_post_meta( get_the_ID(), 'uacf7_form_opt', $meta );
+                    update_post_meta( $post_id, 'uacf7_form_opt', $meta ); 
+                
         
     		endwhile;
     		wp_reset_postdata();

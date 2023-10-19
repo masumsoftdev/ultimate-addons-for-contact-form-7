@@ -11,7 +11,11 @@ if ( ! class_exists( 'TF_callback' ) ) {
 
 		public function render() {
 			if ( isset( $this->field['function'] ) ) {
-                call_user_func( $this->field['function'] );
+				if(isset($this->field['argument'])){
+					call_user_func( $this->field['function'], $this->field['argument'] );
+				}else{
+					call_user_func( $this->field['function'] );
+				} 
             }
 		}
 
