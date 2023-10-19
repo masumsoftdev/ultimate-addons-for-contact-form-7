@@ -830,9 +830,9 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                         }
 
                     }
-                    uacf7_print_r($meta);
+                    // uacf7_print_r($meta);
                 }
-                exit;
+                // exit;
                     
                 // update_post_meta( $post_id, 'uacf7_form_opt', $meta ); 
                 
@@ -841,7 +841,7 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
     		wp_reset_postdata();
     	endif; 
     }
-    add_action( 'init', 'uacf7_form_option_Migration_callback' );
+    // add_action( 'init', 'uacf7_form_option_Migration_callback' );
 
 }
 
