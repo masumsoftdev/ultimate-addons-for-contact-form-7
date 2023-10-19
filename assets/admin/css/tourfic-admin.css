@@ -3645,12 +3645,14 @@ Steps
 .tf-image-radio-group {
   display: flex;
   align-items: initial;
+  flex-wrap: wrap;
+  gap: 1%;
 }
 .tf-image-radio-group li {
   display: inline-block;
-  margin-right: 20px;
   cursor: n-resize;
   border-radius: 5px;
+  width: 31%;
 }
 .tf-image-radio-group li .tf-image-checkbox img {
   width: 240px;
@@ -3668,6 +3670,7 @@ Steps
 .tf-image-radio-group li .tf-image-checkbox > img {
   cursor: pointer;
   border: 3px solid transparent;
+  width: 100%;
 }
 .tf-image-radio-group li .tf-image-checkbox > input:checked + img {
   border-color: #607085;
