@@ -92,8 +92,6 @@ class UACF7_SUBMISSION_ID_PANEL{
         $wpdb->prepare("SELECT * FROM $table_name WHERE form_id= %d  ORDER BY submission_id DESC ", $form->id() )
       ); 
       
-     var_dump($last_item);
-    //  die();
      
       /** Submission ID Conditional Update */
       if($last_item !== null && $last_item->submission_id != 0){  
