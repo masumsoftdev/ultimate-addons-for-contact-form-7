@@ -37,7 +37,7 @@ class UACF7_SUBMISSION_ID{
                 'uacf7_submission_id_heading' => array(
                     'id'    => 'uacf7_submission_id_heading',
                     'type'  => 'heading',
-                    'label' => __( 'Post Submission', 'ultimate-addons-cf7' ),
+                    'label' => __( 'Unique Submission ID', 'ultimate-addons-cf7' ),
                     'sub_title' => __( 'This feature will help you to track submission data into the database.', 'ultimate-addons-cf7' ),
                 ),
              
@@ -105,7 +105,9 @@ class UACF7_SUBMISSION_ID{
 
  
             $form_id = $_POST['form_id'];
-            $meta_data = get_post_meta($form_id, 'uacf7_submission_id', true);
+            $uacf7_form_opt = get_post_meta($form_id, 'uacf7_form_opt', true);
+ 
+            $meta_data = $uacf7_form_opt['uacf7_submission_id'];
             echo wp_send_json( [
             'form_id' => $form_id,
             'meta_data' => $meta_data
@@ -118,12 +120,15 @@ class UACF7_SUBMISSION_ID{
      * Submission ID Update into Database
      */
     public function uacf7_submission_id_insert_callback( $uacf7_db_id, $form_id, $insert_data, $tags){
- 
-        $uacf7_submission_id_enable = get_post_meta( $form_id, 'uacf7_submission_id_enable', true ); 
 
-        if($uacf7_submission_id_enable == 'on'){
+        $uacf7_form_opt = get_post_meta($form_id, 'uacf7_form_opt', true);
+ 
+        $uacf7_submission_id_enable = $uacf7_form_opt['uacf7_submission_id_enable']; 
+        $uacf7_submission_id = $uacf7_form_opt['uacf7_submission_id']; 
+
+        if($uacf7_submission_id_enable == 'on' || $uacf7_submission_id_enable == '1'){
             
-            $submission_value = sanitize_text_field(get_post_meta($form_id, 'uacf7_submission_id', true)); 
+            $submission_value = sanitize_text_field($uacf7_submission_id); 
             if( $submission_value != '' || $submission_value != null || $submission_value != 0){
         
                 global $wpdb;  
@@ -144,12 +149,20 @@ class UACF7_SUBMISSION_ID{
 
     public function submission_id_update($form){
 
-        $uacf7_submission_id_enable = get_post_meta( $form->id(), 'uacf7_submission_id_enable', true ); 
+        $uacf7_form_opt = get_post_meta( $form->id(), 'uacf7_form_opt', true);
+ 
+        $uacf7_submission_id_enable = $uacf7_form_opt['uacf7_submission_id_enable']; 
 
-        if($uacf7_submission_id_enable == 'on'){
+        // $uacf7_submission_id_enable = get_post_meta( $form->id(), 'uacf7_submission_id_enable', true ); 
+
+        if($uacf7_submission_id_enable == 'on' || $uacf7_submission_id_enable == '1'){
+
+            $uacf7_form_opt = get_post_meta( $form->id(), 'uacf7_form_opt', true);
               
-            $getCurrentData = get_post_meta($form->id(), 'uacf7_submission_id', true);
-            $step_counter = get_post_meta( $form->id(), 'uacf7_submission_id_step', true );
+            $getCurrentData =  $uacf7_form_opt['uacf7_submission_id'];
+            $step_counter =  $uacf7_form_opt['uacf7_submission_id_step'];
+            // $getCurrentData = get_post_meta( $form->id(), 'uacf7_submission_id', true );
+            // $step_counter = get_post_meta( $form->id(), 'uacf7_submission_id_step', true );
 
    
 
@@ -161,7 +174,9 @@ class UACF7_SUBMISSION_ID{
             }else{
                 $valueIncreasing .= $getCurrentData + 1;
             }
-            update_post_meta($form->id(), 'uacf7_submission_id', $valueIncreasing); 
+
+            $uacf7_form_opt['uacf7_submission_id'] = $valueIncreasing; 
+            update_post_meta($form->id(), 'uacf7_form_opt', $uacf7_form_opt); 
         }
       
     }
@@ -183,9 +198,13 @@ class UACF7_SUBMISSION_ID{
         /** Enable / Disable Submission ID */
         $wpcf7 = WPCF7_ContactForm::get_current(); 
         $formid = $wpcf7->id();
-        $uacf7_submission_id_enable = get_post_meta( $formid, 'uacf7_submission_id_enable', true ); 
+
+        $uacf7_form_opt = get_post_meta( $formid, 'uacf7_form_opt', true);
+ 
+        $uacf7_submission_id_enable = $uacf7_form_opt['uacf7_submission_id_enable']; 
+        // $uacf7_submission_id_enable = get_post_meta( $formid, 'uacf7_submission_id_enable', true ); 
         
-        if($uacf7_submission_id_enable != 'on'){
+        if($uacf7_submission_id_enable != 'on' || $uacf7_submission_id_enable != '1'){
             return;
         }
 
@@ -223,7 +242,8 @@ class UACF7_SUBMISSION_ID{
         $default_value = $tag->get_default_option($value);
 
 
-        $value = get_post_meta($formid, "uacf7_submission_id", true);
+        $value =   $uacf7_form_opt["uacf7_submission_id"];
+        // $value = get_post_meta($formid, "uacf7_submission_id", true);
 
         $atts['value'] = $value;
 

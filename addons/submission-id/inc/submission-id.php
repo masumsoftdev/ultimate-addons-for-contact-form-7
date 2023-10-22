@@ -30,11 +30,18 @@ class UACF7_SUBMISSION_ID_PANEL{
    }
 
 
-   public function uacf7_create_uacf7submission_id_panel_fields($post){   
+   public function uacf7_create_uacf7submission_id_panel_fields($post){  
+    
+    
+    $uacf7_form_opt = get_post_meta( $post->id(), 'uacf7_form_opt', true);
+ 
+    $uacf7_submission_id = $uacf7_form_opt['uacf7_submission_id']; 
+    $uacf7_submission_id_step = $uacf7_form_opt['uacf7_submission_id_step']; 
+    $uacf7_submission_id_enable = $uacf7_form_opt['uacf7_submission_id_enable']; 
 
-    $uacf7_submission_id = get_post_meta( $post->id(), 'uacf7_submission_id', true ); 
-    $uacf7_submission_id_step = get_post_meta( $post->id(), 'uacf7_submission_id_step', true ); 
-    $uacf7_submission_id_enable = get_post_meta( $post->id(), 'uacf7_submission_id_enable', true ); 
+    // $uacf7_submission_id = get_post_meta( $post->id(), 'uacf7_submission_id', true ); 
+    // $uacf7_submission_id_step = get_post_meta( $post->id(), 'uacf7_submission_id_step', true ); 
+    // $uacf7_submission_id_enable = get_post_meta( $post->id(), 'uacf7_submission_id_enable', true ); 
     
     ?> 
 
@@ -81,9 +88,17 @@ class UACF7_SUBMISSION_ID_PANEL{
         return;
     }
 
-    if ( $_POST['uacf7_submission_id'] < 0 || $_POST['uacf7_submission_id'] === null || $_POST['uacf7_submission_id'] === '' ) {
+    $uacf7_form_opt = get_post_meta($post_id, 'uacf7_form_opt', true);
+
+
+    
+
+
+
+    if ( $_POST['uacf7_form_opt']['uacf7_submission_id'] < 0 || $_POST['uacf7_form_opt']['uacf7_submission_id'] === null || $_POST['uacf7_form_opt']['uacf7_submission_id'] === '' ) {
       $initial_value =  1;
-      update_post_meta( $form->id(), 'uacf7_submission_id', $initial_value );
+      $uacf7_form_opt['uacf7_submission_id'] = $initial_value;
+      update_post_meta( $form->id(), 'uacf7_form_opt', $uacf7_form_opt );
     }else{ 
       
       global $wpdb;
@@ -93,30 +108,47 @@ class UACF7_SUBMISSION_ID_PANEL{
       ); 
       
      
-     
-      /** Submission ID Conditional Update */
+
+
        /** Submission ID Conditional Update */
        if($last_item !== null && $last_item->submission_id != 0){  
-        $default_step = $_POST['uacf7_submission_id_step'] != '' ? $_POST['uacf7_submission_id_step'] : 1;
+        $default_step = $_POST['uacf7_form_opt']['uacf7_submission_id_step'] != '' ? $_POST['uacf7_form_opt']['uacf7_submission_id_step'] : 1;
 
-        if( isset($_POST['uacf7_submission_id']) && $_POST['uacf7_submission_id'] > $last_item->submission_id ){ 
-          update_post_meta( $form->id(), 'uacf7_submission_id', sanitize_text_field($_POST['uacf7_submission_id']) );
+        if( isset($_POST['uacf7_form_opt']['uacf7_submission_id']) && $_POST['uacf7_form_opt']['uacf7_submission_id'] > $last_item->submission_id ){ 
+          $uacf7_form_opt['uacf7_submission_id'] = sanitize_text_field($_POST['uacf7_form_opt']['uacf7_submission_id']);
+          update_post_meta( $form->id(), 'uacf7_form_opt', $uacf7_form_opt );
+
+          // update_post_meta( $form->id(), 'uacf7_submission_id', sanitize_text_field($_POST['uacf7_form_opt']['uacf7_submission_id']) );
         }else{ 
+
+          $uacf7_form_opt['uacf7_submission_id'] = sanitize_text_field($last_item->submission_id + intval($default_step));
+          update_post_meta( $form->id(), 'uacf7_form_opt', $uacf7_form_opt );
           
-          update_post_meta( $form->id(), 'uacf7_submission_id', sanitize_text_field($last_item->submission_id + intval($default_step))  );
+          // update_post_meta( $form->id(), 'uacf7_submission_id', sanitize_text_field($last_item->submission_id + intval($default_step))  );
         }
       }else{
-          update_post_meta( $form->id(), 'uacf7_submission_id', sanitize_text_field($_POST['uacf7_submission_id']) );
+
+        $uacf7_form_opt['uacf7_submission_id'] = sanitize_text_field($_POST['uacf7_form_opt']['uacf7_submission_id']);
+        update_post_meta( $form->id(), 'uacf7_form_opt', $uacf7_form_opt );
+          // update_post_meta( $form->id(), 'uacf7_submission_id', sanitize_text_field($_POST['uacf7_form_opt']['uacf7_submission_id']) );
       }
 
     }
-    if(isset($_POST['uacf7_submission_id_step'])){ 
-        update_post_meta( $form->id(), 'uacf7_submission_id_step', sanitize_text_field($_POST['uacf7_submission_id_step']) );
+    if(isset($_POST['uacf7_form_opt']['uacf7_submission_id_step'])){ 
+      $uacf7_form_opt['uacf7_submission_id_step'] = sanitize_text_field($_POST['uacf7_form_opt']['uacf7_submission_id_step']);
+        update_post_meta( $form->id(), 'uacf7_form_opt', $uacf7_form_opt );
+        // update_post_meta( $form->id(), 'uacf7_submission_id_step', sanitize_text_field($_POST['uacf7_form_opt']['uacf7_submission_id_step']) );
     } 
-    if(isset($_POST['uacf7_submission_id_enable'])){ 
-        update_post_meta( $form->id(), 'uacf7_submission_id_enable', sanitize_text_field($_POST['uacf7_submission_id_enable']) );
+    if(isset($_POST['uacf7_form_opt']['uacf7_submission_id_enable'])){ 
+
+      $uacf7_form_opt['uacf7_submission_id_enable'] = sanitize_text_field($_POST['uacf7_form_opt']['uacf7_submission_id_enable']);
+      update_post_meta( $form->id(), 'uacf7_form_opt', $uacf7_form_opt );
+        // update_post_meta( $form->id(), 'uacf7_submission_id_enable', sanitize_text_field($_POST['uacf7_form_opt']['uacf7_submission_id_enable']) );
     }else{
-        update_post_meta( $form->id(), 'uacf7_submission_id_enable', 'off' );
+
+      $uacf7_form_opt['uacf7_submission_id_enable'] = '1';
+      update_post_meta( $form->id(), 'uacf7_form_opt', $uacf7_form_opt );
+        // update_post_meta( $form->id(), 'uacf7_submission_id_enable', 'off' );
     }  
 
  }
