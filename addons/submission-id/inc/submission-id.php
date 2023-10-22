@@ -88,7 +88,7 @@ class UACF7_SUBMISSION_ID_PANEL{
         return;
     }
 
-    $uacf7_form_opt = get_post_meta($post_id, 'uacf7_form_opt', true);
+    $uacf7_form_opt = get_post_meta($form->id(), 'uacf7_form_opt', true);
 
 
     
