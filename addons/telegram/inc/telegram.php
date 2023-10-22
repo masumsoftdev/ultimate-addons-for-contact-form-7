@@ -218,20 +218,6 @@ class UACF7_TELEGRAM_TAG_PANEL{
 
 
 
-  public function uacf7_provide_property_access(){ 
-
-    // $uacf7_form_opt = get_post_meta($this->form_id, 'uacf7_form_opt', true);
-   
-    // $tl_bot_name = isset($uacf7_form_opt['uacf7_telegram_bot_name']) ? $uacf7_form_opt['uacf7_telegram_bot_name']: '';
-
-    // echo $tl_bot_name;
-
-   
-
-    // var_dump($all_forms);
-    
-  }
-
 
 
 
@@ -257,23 +243,23 @@ class UACF7_TELEGRAM_TAG_PANEL{
     <div class="bot_title_and_status">
       <div class="bot_status">
 
-      <?php if(!empty($uacf7_telegram_bot_name) && !empty($uacf7_telegram_bot_username)){ ?>
-        <div class="check_bot online">
+
+        <div class="check_bot online" style="display:none;">
           <strong class="status" style="background-color: #037c09; color: #ffffff; padding: 6px 10px; border-radius: 3px;">Bot is Online</strong>
-          <code class="bot_username"> <span>Bot Name:</span> <?php  echo $uacf7_telegram_bot_name; ?>  </code>
-          <code class="bot_username"> <span>Username:</span> @<?php  echo $uacf7_telegram_bot_username; ?></code>
+          <code class="bot_name">  </code>
+          <code class="bot_username"> </code>
         </div>
 
-        <?php }else{ ?>
+
           <div class="check_bot offline">
             <strong class="status" style="background-color: #df0c0c; color: #ffffff; padding: 6px 10px; border-radius: 3px;">Bot is Offline</strong>
           </div>
         </div>
-        <?php } ?>
+
     </div> 
 
-  <?php
 
+<?php
  }
 
 
