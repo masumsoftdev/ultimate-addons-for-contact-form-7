@@ -264,7 +264,7 @@ class UACF7_MULTISTEP {
     function step_start_tag_handler($tag){
         ob_start();
         $form_current = \WPCF7_ContactForm::get_current();
-        $meta = uacf7_get_form_option( $form_current->id(), '' );
+        $meta = uacf7_get_form_option( $form_current->id(), 'multistep' );
         $next_btn = isset($meta['next_btn_'.$tag->name]) ? $meta['next_btn_'.$tag->name] : esc_html__('Next', 'ultimate-addons-cf7');
         $prev_btn = isset($meta['prev_btn_'.$tag->name]) ? $meta['prev_btn_'.$tag->name] : esc_html__('Previous', 'ultimate-addons-cf7');
 
@@ -292,7 +292,7 @@ class UACF7_MULTISTEP {
 		$form_current = \WPCF7_ContactForm::get_current();  
         $steps = $form_current->scan_form_tags( array('type'=>'uacf7_step_start') );
 		$all_steps = apply_filters('uacf7_multistep_steps_title', array(), $all_steps);
-        $meta = uacf7_get_form_option( $form_current->id(), '' );
+        $meta = uacf7_get_form_option( $form_current->id(), 'multistep' );
         ?>
         <div class="uacf7-steps steps-form">
 			<div class="steps-row setup-panel">
@@ -831,7 +831,7 @@ class UACF7_MULTISTEP {
     public function uacf7_properties($properties, $cfform) {
         if (!is_admin() || (defined('DOING_AJAX') && DOING_AJAX)) { 
             $form = $properties['form'];
-            $multistep_meta = uacf7_get_form_option( $cfform->id(), '' );
+            $multistep_meta = uacf7_get_form_option( $cfform->id(), 'multistep' );
             
             $uacf7_multistep_is_multistep = $multistep_meta['uacf7_multistep_is_multistep']; 
             $uacf7_enable_multistep_progressbar = $multistep_meta['uacf7_enable_multistep_progressbar'];

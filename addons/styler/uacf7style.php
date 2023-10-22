@@ -1018,7 +1018,7 @@ class UACF7_uacf7style {
         if (!is_admin() || (defined('DOING_AJAX') && DOING_AJAX)) { 
 
             $form = $properties['form'];
-            $form_meta = uacf7_get_form_option( $cfform->id(), '' );
+            $form_meta = uacf7_get_form_option( $cfform->id(), 'styler' );
 
             $form_styles = isset($form_meta['uacf7_enable_form_styles']) ? $form_meta['uacf7_enable_form_styles'] : false ; 
 

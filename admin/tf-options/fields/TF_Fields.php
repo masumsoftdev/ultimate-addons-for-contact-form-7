@@ -5,21 +5,25 @@ defined( 'ABSPATH' ) || exit;
 if ( ! class_exists( 'TF_Fields' ) ) {
 	class TF_Fields {
 
-		public function __construct( $field = array(), $value = '', $settings_id = '', $parent_field = '') {
+		public function __construct( $field = array(), $value = '', $settings_id = '', $parent_field = '', $section_key = '') {
 			$this->field       = $field;
 			$this->value       = $value;
 			$this->settings_id = $settings_id;
 			$this->parent_field = $parent_field;
+			$this->section_key = $section_key;
 		}
 
 		public function field_name() {
 
 			$field_id   = ( ! empty( $this->field['id'] ) ) ? $this->field['id'] : '';
+			$section_key = ( ! empty( $this->section_key ) ) ? '[' . $this->section_key . ']' : '';
+			
 			if(!empty($field_id)){ 
-				$field_name = ( ! empty( $this->settings_id ) ) ? $this->settings_id . $this->parent_field . '[' . $field_id . ']' : $field_id;
+				$field_name = ( ! empty( $this->settings_id ) ) ? $this->settings_id  . $section_key . $this->parent_field . '[' . $field_id . ']' : $field_id;
 			}else{ 
-				$field_name = ( ! empty( $this->settings_id ) ) ? $this->settings_id . '[' . $field_id . ']' : $field_id;
+				$field_name = ( ! empty( $this->settings_id ) ) ? $this->settings_id . $section_key . '[' . $field_id . ']' : $field_id;
 			}
+			// uacf7_print_r($this->section_key);
 
 			return $field_name;
 

@@ -769,68 +769,115 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
 
                     //  }
 
-                if($post_id = 128){
-                    $uacf7_multistep_is_multistep = get_post_meta( $post_id, 'uacf7_multistep_is_multistep', true ) == 'on' ? 1 : 0;
-                    if($uacf7_multistep_is_multistep == true){
-                        $meta['uacf7_multistep_is_multistep'] = $uacf7_multistep_is_multistep;
-                        $meta['uacf7_enable_multistep_progressbar'] = get_post_meta( $post_id, 'uacf7_enable_multistep_progressbar', true ) == 'on' ? 1 : 0;
-                        $meta['uacf7_enable_multistep_scroll'] = get_post_meta( $post_id, 'uacf7_enable_multistep_scroll', true ) == 'on' ? 1 : 0;
-                        $meta['uacf7_progressbar_style'] = get_post_meta( $post_id, 'uacf7_progressbar_style', true ); 
-                        $meta['uacf7_multistep_use_step_labels'] = get_post_meta( $post_id, 'uacf7_multistep_use_step_labels', true ) == 'on' ? 1 : 0;
-                        $meta['uacf7_multistep_circle_width'] = get_post_meta( $post_id, 'uacf7_multistep_circle_width', true ) ;
-                        $meta['uacf7_multistep_circle_height'] = get_post_meta( $post_id, 'uacf7_multistep_circle_height', true ) ;
-                        $meta['uacf7_multistep_circle_bg_color'] = get_post_meta( $post_id, 'uacf7_multistep_circle_bg_color', true ) ;
-                        $meta['uacf7_multistep_circle_font_color'] = get_post_meta( $post_id, 'uacf7_multistep_circle_font_color', true ) ;
-                        $meta['uacf7_multistep_circle_border_radious'] = get_post_meta( $post_id, 'uacf7_multistep_circle_border_radious', true ) ;
-                        $meta['uacf7_multistep_font_size'] = get_post_meta( $post_id, 'uacf7_multistep_font_size', true ) ;
-                        $meta['uacf7_multistep_progressbar_color_option']['uacf7_multistep_circle_bg_color'] = get_post_meta( $post_id, 'uacf7_multistep_circle_bg_color', true ) ;
-                        $meta['uacf7_multistep_progressbar_color_option']['uacf7_multistep_circle_active_color'] = get_post_meta( $post_id, 'uacf7_multistep_circle_active_color', true ) ;
-                        $meta['uacf7_multistep_progressbar_color_option']['uacf7_multistep_circle_font_color'] = get_post_meta( $post_id, 'uacf7_multistep_circle_font_color', true ) ;
-                        $meta['uacf7_multistep_progressbar_color_option']['uacf7_multistep_progress_bg_color'] = get_post_meta( $post_id, 'uacf7_multistep_progress_bg_color', true ) ;
-                        $meta['uacf7_multistep_progressbar_color_option']['uacf7_multistep_progress_line_color'] = get_post_meta( $post_id, 'uacf7_multistep_progress_line_color', true ) ;
-                        $meta['uacf7_multistep_progressbar_color_option']['uacf7_multistep_step_title_color'] = get_post_meta( $post_id, 'uacf7_multistep_step_title_color', true ) ;
-                        $meta['uacf7_multistep_progressbar_color_option']['uacf7_multistep_progressbar_title_color'] = get_post_meta( $post_id, 'uacf7_multistep_progressbar_title_color', true ) ;
-                        $meta['uacf7_multistep_progressbar_color_option']['uacf7_multistep_step_description_color'] = get_post_meta( $post_id, 'uacf7_multistep_step_description_color', true ) ;
-                        $meta['uacf7_multistep_step_height'] = get_post_meta( $post_id, 'uacf7_multistep_step_height', true ) ;
-                        $meta['uacf7_multistep_button_padding_tb'] = get_post_meta( $post_id, 'uacf7_multistep_button_padding_tb', true ) ;
-                        $meta['uacf7_multistep_button_padding_lr'] = get_post_meta( $post_id, 'uacf7_multistep_button_padding_lr', true ) ;
-                        $meta['uacf7_multistep_next_prev_option']['uacf7_multistep_button_bg'] = get_post_meta( $post_id, 'uacf7_multistep_button_bg', true ) ;
-                        $meta['uacf7_multistep_next_prev_option']['uacf7_multistep_button_color'] = get_post_meta( $post_id, 'uacf7_multistep_button_color', true ) ;
-                        $meta['uacf7_multistep_next_prev_option']['uacf7_multistep_button_border_color'] = get_post_meta( $post_id, 'uacf7_multistep_button_border_color', true ) ;
-                        $meta['uacf7_multistep_next_prev_option']['uacf7_multistep_button_hover_bg'] = get_post_meta( $post_id, 'uacf7_multistep_button_hover_bg', true ) ;
-                        $meta['uacf7_multistep_next_prev_option']['uacf7_multistep_button_hover_color'] = get_post_meta( $post_id, 'uacf7_multistep_button_hover_color', true ) ;
-                        $meta['uacf7_multistep_next_prev_option']['uacf7_multistep_button_border_hover_color'] = get_post_meta( $post_id, 'uacf7_multistep_button_border_hover_color', true ) ;
-                        $meta['uacf7_multistep_button_border_radius'] = get_post_meta( $post_id, 'uacf7_multistep_button_border_radius', true ) ; 
+                    // Multistep addon Migration
+                    // $uacf7_multistep_is_multistep = get_post_meta( $post_id, 'uacf7_multistep_is_multistep', true ) == 'on' ? 1 : 0;
+                    // if($uacf7_multistep_is_multistep == true){
+                    //     $multistep = $meta['multistep'];
+                    //     $multistep['uacf7_multistep_is_multistep'] = $uacf7_multistep_is_multistep;
+                    //     $multistep['uacf7_enable_multistep_progressbar'] = get_post_meta( $post_id, 'uacf7_enable_multistep_progressbar', true ) == 'on' ? 1 : 0;
+                    //     $multistep['uacf7_enable_multistep_scroll'] = get_post_meta( $post_id, 'uacf7_enable_multistep_scroll', true ) == 'on' ? 1 : 0;
+                    //     $multistep['uacf7_progressbar_style'] = get_post_meta( $post_id, 'uacf7_progressbar_style', true ); 
+                    //     $multistep['uacf7_multistep_use_step_labels'] = get_post_meta( $post_id, 'uacf7_multistep_use_step_labels', true ) == 'on' ? 1 : 0;
+                    //     $multistep['uacf7_multistep_circle_width'] = get_post_meta( $post_id, 'uacf7_multistep_circle_width', true ) ;
+                    //     $multistep['uacf7_multistep_circle_height'] = get_post_meta( $post_id, 'uacf7_multistep_circle_height', true ) ;
+                    //     $multistep['uacf7_multistep_circle_bg_color'] = get_post_meta( $post_id, 'uacf7_multistep_circle_bg_color', true ) ;
+                    //     $multistep['uacf7_multistep_circle_font_color'] = get_post_meta( $post_id, 'uacf7_multistep_circle_font_color', true ) ;
+                    //     $multistep['uacf7_multistep_circle_border_radious'] = get_post_meta( $post_id, 'uacf7_multistep_circle_border_radious', true ) ;
+                    //     $multistep['uacf7_multistep_font_size'] = get_post_meta( $post_id, 'uacf7_multistep_font_size', true ) ;
+                    //     $multistep['uacf7_multistep_progressbar_color_option']['uacf7_multistep_circle_bg_color'] = get_post_meta( $post_id, 'uacf7_multistep_circle_bg_color', true ) ;
+                    //     $multistep['uacf7_multistep_progressbar_color_option']['uacf7_multistep_circle_active_color'] = get_post_meta( $post_id, 'uacf7_multistep_circle_active_color', true ) ;
+                    //     $multistep['uacf7_multistep_progressbar_color_option']['uacf7_multistep_circle_font_color'] = get_post_meta( $post_id, 'uacf7_multistep_circle_font_color', true ) ;
+                    //     $multistep['uacf7_multistep_progressbar_color_option']['uacf7_multistep_progress_bg_color'] = get_post_meta( $post_id, 'uacf7_multistep_progress_bg_color', true ) ;
+                    //     $multistep['uacf7_multistep_progressbar_color_option']['uacf7_multistep_progress_line_color'] = get_post_meta( $post_id, 'uacf7_multistep_progress_line_color', true ) ;
+                    //     $multistep['uacf7_multistep_progressbar_color_option']['uacf7_multistep_step_title_color'] = get_post_meta( $post_id, 'uacf7_multistep_step_title_color', true ) ;
+                    //     $multistep['uacf7_multistep_progressbar_color_option']['uacf7_multistep_progressbar_title_color'] = get_post_meta( $post_id, 'uacf7_multistep_progressbar_title_color', true ) ;
+                    //     $multistep['uacf7_multistep_progressbar_color_option']['uacf7_multistep_step_description_color'] = get_post_meta( $post_id, 'uacf7_multistep_step_description_color', true ) ;
+                    //     $multistep['uacf7_multistep_step_height'] = get_post_meta( $post_id, 'uacf7_multistep_step_height', true ) ;
+                    //     $multistep['uacf7_multistep_button_padding_tb'] = get_post_meta( $post_id, 'uacf7_multistep_button_padding_tb', true ) ;
+                    //     $multistep['uacf7_multistep_button_padding_lr'] = get_post_meta( $post_id, 'uacf7_multistep_button_padding_lr', true ) ;
+                    //     $multistep['uacf7_multistep_next_prev_option']['uacf7_multistep_button_bg'] = get_post_meta( $post_id, 'uacf7_multistep_button_bg', true ) ;
+                    //     $multistep['uacf7_multistep_next_prev_option']['uacf7_multistep_button_color'] = get_post_meta( $post_id, 'uacf7_multistep_button_color', true ) ;
+                    //     $multistep['uacf7_multistep_next_prev_option']['uacf7_multistep_button_border_color'] = get_post_meta( $post_id, 'uacf7_multistep_button_border_color', true ) ;
+                    //     $multistep['uacf7_multistep_next_prev_option']['uacf7_multistep_button_hover_bg'] = get_post_meta( $post_id, 'uacf7_multistep_button_hover_bg', true ) ;
+                    //     $multistep['uacf7_multistep_next_prev_option']['uacf7_multistep_button_hover_color'] = get_post_meta( $post_id, 'uacf7_multistep_button_hover_color', true ) ;
+                    //     $multistep['uacf7_multistep_next_prev_option']['uacf7_multistep_button_border_hover_color'] = get_post_meta( $post_id, 'uacf7_multistep_button_border_hover_color', true ) ;
+                    //     $multistep['uacf7_multistep_button_border_radius'] = get_post_meta( $post_id, 'uacf7_multistep_button_border_radius', true ) ; 
 
 
-                        // Current Contact Form tags
-                        $form_current = WPCF7_ContactForm::get_instance($post_id);
+                    //     // Current Contact Form tags
+                    //     $form_current = WPCF7_ContactForm::get_instance($post_id);
                                     
-                        $all_steps = $form_current->scan_form_tags( array('type'=>'uacf7_step_start') );
+                    //     $all_steps = $form_current->scan_form_tags( array('type'=>'uacf7_step_start') );
 
-                        $step_count = 1;
-                        foreach( $all_steps as $step ) { 
+                    //     $step_count = 1;
+                    //     foreach( $all_steps as $step ) { 
                              
-                            if($step_count == 1){ 
-                                $meta['next_btn_'.$step->name.''] = get_post_meta( $post_id, 'next_btn_'.$step->name.'', true );
-                            }else{
-                                if( count($all_steps) == $step_count ) {
-                                    $meta['prev_btn_'.$step->name.''] = get_post_meta( $post_id, 'prev_btn_'.$step->name.'', true );
-                                }else{
-                                    $meta['next_btn_'.$step->name.''] = get_post_meta( $post_id, 'next_btn_'.$step->name.'', true );
-                                    $meta['prev_btn_'.$step->name.''] = get_post_meta( $post_id, 'prev_btn_'.$step->name.'', true );
-                                }
-                            }
+                    //         if($step_count == 1){ 
+                    //             $multistep['next_btn_'.$step->name.''] = get_post_meta( $post_id, 'next_btn_'.$step->name.'', true );
+                    //         }else{
+                    //             if( count($all_steps) == $step_count ) {
+                    //                 $multistep['prev_btn_'.$step->name.''] = get_post_meta( $post_id, 'prev_btn_'.$step->name.'', true );
+                    //             }else{
+                    //                 $multistep['next_btn_'.$step->name.''] = get_post_meta( $post_id, 'next_btn_'.$step->name.'', true );
+                    //                 $multistep['prev_btn_'.$step->name.''] = get_post_meta( $post_id, 'prev_btn_'.$step->name.'', true );
+                    //             }
+                    //         }
                             
-                            $meta['uacf7_progressbar_image_'.$step->name.''] = get_post_meta( $post_id, 'uacf7_progressbar_image_'.$step->name.'', true );
-                            $meta['desc_title_'.$step->name.''] = get_post_meta( $post_id, 'desc_title_'.$step->name.'', true );
-                            $meta['step_desc_'.$step->name.''] = get_post_meta( $post_id, 'step_desc_'.$step->name.'', true );
+                    //         $multistep['uacf7_progressbar_image_'.$step->name.''] = get_post_meta( $post_id, 'uacf7_progressbar_image_'.$step->name.'', true );
+                    //         $multistep['desc_title_'.$step->name.''] = get_post_meta( $post_id, 'desc_title_'.$step->name.'', true );
+                    //         $multistep['step_desc_'.$step->name.''] = get_post_meta( $post_id, 'step_desc_'.$step->name.'', true );
                             
-                            $step_count++;
-                        }
+                    //         $step_count++;
+                    //     }
+
+                    // }
+
+                if($post_id = 128){
+                    $bf_enable = get_post_meta( $post_id, 'bf_enable', true ) == 'on' ? 1 : 0;
+                    $booking = isset($meta['booking']) ? $meta['booking'] : ''; 
+                    if($bf_enable == true){
+                        $booking['bf_enable'] = $bf_enable;
+                        $booking['bf_duplicate_status'] = get_post_meta( $post_id, 'bf_duplicate_status', true ) == 'on' ? 1 : 0;
+                        $booking['calendar_event_enable'] = get_post_meta( $post_id, 'calendar_event_enable', true ) == 'on' ? 1 : 0;
+                        $booking['event_email'] = get_post_meta( $post_id, 'event_email', true );
+                        $booking['event_summary'] = get_post_meta( $post_id, 'event_summary', true );
+                        $booking['event_date'] = get_post_meta( $post_id, 'event_date', true );
+                        $booking['event_time'] = get_post_meta( $post_id, 'event_time', true );
+                        $booking['date_mode_front'] = get_post_meta( $post_id, 'date_mode_front', true );
+                        $booking['bf_date_theme'] = get_post_meta( $post_id, 'bf_date_theme', true );
+                        $booking['bf_allowed_date'] = get_post_meta( $post_id, 'bf_allowed_date', true );
+                        $booking['allowed_min_max_date']['from'] = get_post_meta( $post_id, 'min_date', true );
+                        $booking['allowed_min_max_date']['to'] = get_post_meta( $post_id, 'max_date', true );
+                        $booking['allowed_specific_date'] = get_post_meta( $post_id, 'allowed_specific_date', true );
+                        $booking['disable_day'] = get_post_meta( $post_id, 'disable_day', true );
+                        $booking['disabled_date']['from'] = get_post_meta( $post_id, 'disabled_start_date', true );
+                        $booking['disabled_date']['to'] = get_post_meta( $post_id, 'disabled_end_date', true );
+                        $booking['disabled_specific_date'] = get_post_meta( $post_id, 'disabled_specific_date', true );
+                        $booking['uacf7_time_settings'] = get_post_meta( $post_id, 'uacf7_time_settings', true );
+                        $booking['time_format_front'] = get_post_meta( $post_id, 'time_format_front', true );
+                        $booking['min_time'] = get_post_meta( $post_id, 'min_time', true );
+                        $booking['max_time'] = get_post_meta( $post_id, 'max_time', true );
+                        $booking['from_dis_time'] = get_post_meta( $post_id, 'from_dis_time', true );
+                        $booking['to_dis_time'] = get_post_meta( $post_id, 'to_dis_time', true );
+                        $booking['uacf7_time_interval'] = get_post_meta( $post_id, 'uacf7_time_interval', true );
+                        $booking['time_one_step'] = get_post_meta( $post_id, 'time_one_step', true );
+                        $booking['time_two_step'] = get_post_meta( $post_id, 'time_two_step', true );
+                        $booking['bf_allowed_time'] = get_post_meta( $post_id, 'bf_allowed_time', true );
+                        $booking['allowed_time_day'] = get_post_meta( $post_id, 'allowed_time_day', true );
+                        $booking['specific_date_time'] = get_post_meta( $post_id, 'specific_date_time', true );
+                        $booking['min_day_time'] = get_post_meta( $post_id, 'min_day_time', true );
+                        $booking['max_day_time'] = get_post_meta( $post_id, 'max_day_time', true );
+                        $booking['bf_woo'] = get_post_meta( $post_id, 'bf_woo', true );
+                        $booking['bf_product'] = get_post_meta( $post_id, 'bf_product', true );
+                        $booking['bf_product_id'] = get_post_meta( $post_id, 'bf_product_id', true );
+                        $booking['bf_product_name'] = get_post_meta( $post_id, 'bf_product_name', true );
+                        $booking['bf_product_price'] = get_post_meta( $post_id, 'bf_product_name', true );
 
                     }
-                    // uacf7_print_r($meta);
+
+                    uacf7_print_r($booking);
+
+                   
                 }
                 // exit;
                     
@@ -841,7 +888,7 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
     		wp_reset_postdata();
     	endif; 
     }
-    // add_action( 'init', 'uacf7_form_option_Migration_callback' );
+    add_action( 'init', 'uacf7_form_option_Migration_callback' );
 
 }
 

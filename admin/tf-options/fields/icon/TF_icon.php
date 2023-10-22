@@ -5,9 +5,8 @@ defined( 'ABSPATH' ) || exit;
 if ( ! class_exists( 'TF_icon' ) ) {
 	class TF_icon extends TF_Fields {
 
-		public function __construct( $field, $value = '', $settings_id = '', $parent_field = '' ) {
-			parent::__construct( $field, $value, $settings_id, $parent_field );
-
+		public function __construct( $field, $value = '', $settings_id = '', $parent_field = '', $section_key = '' ) {
+			parent::__construct( $field, $value, $settings_id, $parent_field, $section_key  ); 
 			//tf_icon_modal method load single time
 			static $tf_icon_modal;
 			if ( ! $tf_icon_modal ) {

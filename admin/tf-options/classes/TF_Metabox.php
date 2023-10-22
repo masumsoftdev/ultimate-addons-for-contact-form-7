@@ -114,8 +114,7 @@ if ( ! class_exists( 'TF_Metabox' ) ) {
 				// Set default values.
 				if ( empty( $tf_meta_box_value ) ) {
 					$tf_meta_box_value = array();
-				}
-				
+				} 
 				?>
 				<div class="tf-admin-meta-box">
 					<div class="tf-admin-tab">
@@ -141,10 +140,11 @@ if ( ! class_exists( 'TF_Metabox' ) ) {
 									foreach ( $section['fields'] as $field ) :
 
 										$default = isset( $field['default'] ) ? $field['default'] : '';
-										$value   = isset( $tf_meta_box_value[ $field['id'] ] ) ? $tf_meta_box_value[ $field['id'] ] : $default;
+										$value   = isset( $tf_meta_box_value[$key][ $field['id'] ] ) ? $tf_meta_box_value[$key][ $field['id'] ] : $default;
 
 										$tf_option = new TF_Options();
-										$tf_option->field( $field, $value, $this->metabox_id );
+										// $tf_option->field( $field, $value, $this->option_id );
+										$tf_option->field( $field, $value, $this->metabox_id, '', $key  );
 									endforeach;
 								endif; ?>
 
@@ -192,25 +192,29 @@ if ( ! class_exists( 'TF_Metabox' ) ) {
 			if ( wp_is_post_revision( $post_id ) ) {
 				return;
 			}
- 
-			$tf_meta_box_value = array();
+			$meta_data = get_post_meta( $post_id, $this->metabox_id, true );
+			if($meta_data){
+				$tf_meta_box_value = $meta_data;
+			}else{ 
+				$tf_meta_box_value = array();
+			}
 			$metabox_request   = ( ! empty( $_POST[ $this->metabox_id ] ) ) ? $_POST[ $this->metabox_id ] : array();
 
 			if ( ! empty( $metabox_request ) && ! empty( $this->metabox_sections ) ) {
-				foreach ( $this->metabox_sections as $section ) {
+				foreach ( $this->metabox_sections as $section_key => $section ) {
 					if ( ! empty( $section['fields'] ) ) {
 
 						foreach ( $section['fields'] as $field ) {
 
 							if ( ! empty( $field['id'] ) ) {
-								$data = isset( $metabox_request[ $field['id'] ] ) ? $metabox_request[ $field['id'] ] : '';
+								$data = isset( $metabox_request[$section_key][ $field['id'] ] ) ? $metabox_request[$section_key][ $field['id'] ] : '';
 
 								$fieldClass = 'TF_' . $field['type'];
 								$data       = $fieldClass == 'TF_map' ? serialize( $data ) : $data;
 
 								if ( class_exists( $fieldClass ) ) {
 									$_field                            = new $fieldClass( $field, $data, $this->metabox_id );
-									$tf_meta_box_value[ $field['id'] ] = $_field->sanitize();
+									$tf_meta_box_value[$section_key][ $field['id'] ] = $_field->sanitize();
 								}
 
 							}

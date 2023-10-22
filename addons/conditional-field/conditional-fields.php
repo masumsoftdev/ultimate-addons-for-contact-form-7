@@ -589,7 +589,9 @@ class UACF7_CF {
 
                 // if($post_id != 128) continue;
                 
-                $conditional_repeater = uacf7_get_form_option($post_id, 'conditional_repeater');
+                $conditional = uacf7_get_form_option($post_id, 'conditional');
+                if($conditional != false){
+                    $conditional_repeater = $conditional['conditional_repeater'];
                 if($conditional_repeater != false){ 
                     $count = 0 ;
                     $data = [];
@@ -618,6 +620,8 @@ class UACF7_CF {
                     // $data = get_post_meta( get_the_ID(), 'uacf7_conditions', true );
                     $forms[ $post_id ] = $data;
                 } 
+                }
+                
         
 			endwhile;
 			wp_reset_postdata();

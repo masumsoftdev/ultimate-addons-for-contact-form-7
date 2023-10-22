@@ -5,8 +5,8 @@ defined( 'ABSPATH' ) || exit;
 if ( ! class_exists( 'TF_select' ) ) {
 	class TF_select extends TF_Fields {
 
-		public function __construct( $field, $value = '', $settings_id = '', $parent_field = '' ) {
-			parent::__construct( $field, $value, $settings_id, $parent_field );
+		public function __construct( $field, $value = '', $settings_id = '', $parent_field = '', $section_key = '' ) {
+			parent::__construct( $field, $value, $settings_id, $parent_field, $section_key  );
 		}
 
 		public function render() {
@@ -30,16 +30,15 @@ if ( ! class_exists( 'TF_select' ) ) {
 
 				$post_id                  = $this->field['query_args']['post_id'];
 				
-				$specific = isset($this->field['query_args']['specific']) ? 'conditional' : ''; 
+				$specific = isset($this->field['query_args']['specific']) ? $this->field['query_args']['specific'] : ''; 
 
 				$ContactForm = WPCF7_ContactForm::get_instance($post_id);
 
 				if($specific != ''){
-					$tags = $ContactForm->scan_form_tags(array('type'=>'conditional'));
+					$tags = $ContactForm->scan_form_tags(array('basetype'=> $specific));
 				}else{
 					$tags = $ContactForm->scan_form_tags(); 
-				}
-				
+				} 
 				$this->field['options'] = array(
 					'0' => 'Select Field'
 				);
@@ -47,7 +46,7 @@ if ( ! class_exists( 'TF_select' ) ) {
 				
 				foreach ( $tags as $tag ) {
 					
-					if ($tag['type'] == '' || in_array($tag['type'], $exclude) ) continue;
+					if ($tag['type'] == '' || in_array($tag['basetype'], $exclude) ) continue;
 
 					
 

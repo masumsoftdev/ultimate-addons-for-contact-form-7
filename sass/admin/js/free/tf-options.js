@@ -162,8 +162,9 @@
                     enableTime: true,
                     noCalendar: true,
                     dateFormat: format,
+                    minuteIncrement: 30, 
                 });
-            });
+            }); 
         }
         tfTimeInt('.tf-field-time');
 

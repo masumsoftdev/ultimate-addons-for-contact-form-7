@@ -5,8 +5,8 @@ defined( 'ABSPATH' ) || exit;
 if ( ! class_exists( 'TF_date' ) ) {
 	class TF_date extends TF_Fields {
 
-		public function __construct( $field, $value = '', $settings_id = '', $parent_field = '' ) {
-			parent::__construct( $field, $value, $settings_id, $parent_field );
+		public function __construct( $field, $value = '', $settings_id = '', $parent_field = '', $section_key = '' ) {
+			parent::__construct( $field, $value, $settings_id, $parent_field, $section_key  );
 		}
 
 		public function render() {
@@ -58,7 +58,9 @@ if ( ! class_exists( 'TF_date' ) ) {
 			<?php
 			endif;
 		}
-
+		public function sanitize() {
+			return $this->value;
+		}
 
 	}
 }

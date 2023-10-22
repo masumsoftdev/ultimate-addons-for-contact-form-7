@@ -241,7 +241,7 @@ class UACF7_Placeholder {
 
             $form = $properties['form'];
             
-            $form_meta = uacf7_get_form_option( $cfform->id(), '' );
+            $form_meta = uacf7_get_form_option( $cfform->id(), 'placeholder' );
 
             $placeholder_styles = isset($form_meta['uacf7_enable_placeholder_styles']) ? $form_meta['uacf7_enable_placeholder_styles'] : false ;
             
