@@ -110,21 +110,25 @@
 
       // Copy to clipboard using jquery
       $('.uacf7-ai-code-copy').on('click', function (event) { 
-         var $temp = $('<textarea>');
-         $("body").append($temp);
-         $temp.val($('#uacf7_ai_code_content').val()).select();
-         document.execCommand("copy");
-         $temp.remove();
+        if($('#uacf7_ai_code_content').val() != ''){
+          var $temp = $('<textarea>');
+          $("body").append($temp);
+          $temp.val($('#uacf7_ai_code_content').val()).select();
+          document.execCommand("copy");
+          $temp.remove();
+          
+          alert('Form copied to clipboard!');
+        }else{
+          alert('Please generate form first!');
+        }
          
-         
-         alert('Form copied to clipboard!');
       });
 
       // Insert form generator ai On click insert button into form editor
       $('.uacf7-ai-code-insert').on('click', function (event) {
         var textToCopy = $('#uacf7_ai_code_content').val();
-        var editor = tinyMCE.get('wpcf7-form');
-        if (editor) {
+        if(typeof tinyMCE !== 'undefined'){
+          var editor = tinyMCE.get('wpcf7-form'); 
           editor.focus();
           editor.selection.setContent(textToCopy);
         } else {
