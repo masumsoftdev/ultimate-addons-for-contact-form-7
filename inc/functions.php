@@ -833,8 +833,8 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                     // }
 
                 if($post_id = 128){
-                    $bf_enable = get_post_meta( $post_id, 'bf_enable', true ) == 'on' ? 1 : 0;
-                    $booking = isset($meta['booking']) ? $meta['booking'] : ''; 
+                    $bf_enable = get_post_meta( $post_id, 'bf_enable', true ) == 'on' ? 1: get_post_meta( $post_id, 'bf_enable', true );
+                    $booking = isset($meta['booking']) ? $meta['booking'] : array();  
                     if($bf_enable == true){
                         $booking['bf_enable'] = $bf_enable;
                         $booking['bf_duplicate_status'] = get_post_meta( $post_id, 'bf_duplicate_status', true ) == 'on' ? 1 : 0;
@@ -846,10 +846,10 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                         $booking['date_mode_front'] = get_post_meta( $post_id, 'date_mode_front', true );
                         $booking['bf_date_theme'] = get_post_meta( $post_id, 'bf_date_theme', true );
                         $booking['bf_allowed_date'] = get_post_meta( $post_id, 'bf_allowed_date', true );
-                        $booking['allowed_min_max_date']['from'] = get_post_meta( $post_id, 'min_date', true );
+                        $booking['allowed_min_max_date']['form'] = get_post_meta( $post_id, 'min_date', true );
                         $booking['allowed_min_max_date']['to'] = get_post_meta( $post_id, 'max_date', true );
                         $booking['allowed_specific_date'] = get_post_meta( $post_id, 'allowed_specific_date', true );
-                        $booking['disable_day'] = get_post_meta( $post_id, 'disable_day', true );
+                        // $booking['disable_day'] = get_post_meta( $post_id, 'disable_day', true );
                         $booking['disabled_date']['from'] = get_post_meta( $post_id, 'disabled_start_date', true );
                         $booking['disabled_date']['to'] = get_post_meta( $post_id, 'disabled_end_date', true );
                         $booking['disabled_specific_date'] = get_post_meta( $post_id, 'disabled_specific_date', true );
