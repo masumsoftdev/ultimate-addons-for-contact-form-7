@@ -127,13 +127,7 @@
       // Insert form generator ai On click insert button into form editor
       $('.uacf7-ai-code-insert').on('click', function (event) {
         var textToCopy = $('#uacf7_ai_code_content').val();
-        if(typeof tinyMCE !== 'undefined'){
-          var editor = tinyMCE.get('wpcf7-form'); 
-          editor.focus();
-          editor.selection.setContent(textToCopy);
-        } else {
-          $('#wpcf7-form').val(textToCopy);
-        }
+        $('#wpcf7-form').val(textToCopy);
 
         // Close popup
         $('.uacf7-form-ai-popup').removeClass('active');
