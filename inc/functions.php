@@ -832,52 +832,72 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
 
                     // }
 
+                // Booking addon Migration
+                $bf_enable = get_post_meta( $post_id, 'bf_enable', true ) == 'on' ? 1: get_post_meta( $post_id, 'bf_enable', true );
+                $booking = isset($meta['booking']) ? $meta['booking'] : array();  
+                if($bf_enable == true){
+                    $booking['bf_enable'] = $bf_enable;
+                    $booking['bf_duplicate_status'] = get_post_meta( $post_id, 'bf_duplicate_status', true ) == 'on' ? 1 : 0;
+                    $booking['calendar_event_enable'] = get_post_meta( $post_id, 'calendar_event_enable', true ) == 'on' ? 1 : 0;
+                    $booking['event_email'] = get_post_meta( $post_id, 'event_email', true );
+                    $booking['event_summary'] = get_post_meta( $post_id, 'event_summary', true );
+                    $booking['event_date'] = get_post_meta( $post_id, 'event_date', true );
+                    $booking['event_time'] = get_post_meta( $post_id, 'event_time', true );
+                    $booking['date_mode_front'] = get_post_meta( $post_id, 'date_mode_front', true );
+                    $booking['bf_date_theme'] = get_post_meta( $post_id, 'bf_date_theme', true );
+                    $booking['bf_allowed_date'] = get_post_meta( $post_id, 'bf_allowed_date', true );
+                    $booking['allowed_min_max_date']['from'] = get_post_meta( $post_id, 'min_date', true );
+                    $booking['allowed_min_max_date']['to'] = get_post_meta( $post_id, 'max_date', true );
+                    $booking['allowed_specific_date'] = get_post_meta( $post_id, 'allowed_specific_date', true );
+                    $booking['disable_day'][0] = get_post_meta( $post_id, 'disable_day_1', true );
+                    $booking['disable_day'][1] = get_post_meta( $post_id, 'disable_day_2', true );
+                    $booking['disable_day'][2] = get_post_meta( $post_id, 'disable_day_3', true );
+                    $booking['disable_day'][3] = get_post_meta( $post_id, 'disable_day_4', true );
+                    $booking['disable_day'][4] = get_post_meta( $post_id, 'disable_day_5', true );
+                    $booking['disable_day'][5] = get_post_meta( $post_id, 'disable_day_6', true );
+                    $booking['disable_day'][6] = get_post_meta( $post_id, 'disable_day_0', true );
+                    $booking['disabled_date']['from'] = get_post_meta( $post_id, 'disabled_start_date', true );
+                    $booking['disabled_date']['to'] = get_post_meta( $post_id, 'disabled_end_date', true );
+                    $booking['disabled_specific_date'] = get_post_meta( $post_id, 'disabled_specific_date', true ); 
+                    $booking['time_format_front'] = get_post_meta( $post_id, 'time_format_front', true );
+                    $booking['min_time'] = get_post_meta( $post_id, 'min_time', true );
+                    $booking['max_time'] = get_post_meta( $post_id, 'max_time', true );
+                    $booking['from_dis_time'] = get_post_meta( $post_id, 'from_dis_time', true );
+                    $booking['to_dis_time'] = get_post_meta( $post_id, 'to_dis_time', true );
+                    $booking['uacf7_time_interval'] = get_post_meta( $post_id, 'uacf7_time_interval', true );
+                    $booking['time_one_step'] = get_post_meta( $post_id, 'time_one_step', true );
+                    $booking['time_two_step'] = get_post_meta( $post_id, 'time_two_step', true );
+                    $booking['bf_allowed_time'] = get_post_meta( $post_id, 'bf_allowed_time', true );
+                    $booking['allowed_time_day'][0] = get_post_meta( $post_id, 'time_day_1', true );
+                    $booking['allowed_time_day'][1] = get_post_meta( $post_id, 'time_day_2', true );
+                    $booking['allowed_time_day'][2] = get_post_meta( $post_id, 'time_day_3', true );
+                    $booking['allowed_time_day'][3] = get_post_meta( $post_id, 'time_day_4', true );
+                    $booking['allowed_time_day'][4] = get_post_meta( $post_id, 'time_day_5', true );
+                    $booking['allowed_time_day'][5] = get_post_meta( $post_id, 'time_day_6', true );
+                    $booking['allowed_time_day'][6] = get_post_meta( $post_id, 'time_day_0', true ); 
+                    $booking['specific_date_time'] = get_post_meta( $post_id, 'specific_date_time', true );
+                    $booking['min_day_time'] = get_post_meta( $post_id, 'min_day_time', true );
+                    $booking['max_day_time'] = get_post_meta( $post_id, 'max_day_time', true );
+                    $booking['bf_woo'] = get_post_meta( $post_id, 'bf_woo', true );
+                    $booking['bf_product'] = get_post_meta( $post_id, 'bf_product', true );
+                    $booking['bf_product_id'] = get_post_meta( $post_id, 'bf_product_id', true );
+                    $booking['bf_product_name'] = get_post_meta( $post_id, 'bf_product_name', true );
+                    $booking['bf_product_price'] = get_post_meta( $post_id, 'bf_product_name', true );  
+                    $meta['booking'] = $booking;
+                }
+
                 if($post_id = 128){
-                    $bf_enable = get_post_meta( $post_id, 'bf_enable', true ) == 'on' ? 1: get_post_meta( $post_id, 'bf_enable', true );
-                    $booking = isset($meta['booking']) ? $meta['booking'] : array();  
-                    if($bf_enable == true){
-                        $booking['bf_enable'] = $bf_enable;
-                        $booking['bf_duplicate_status'] = get_post_meta( $post_id, 'bf_duplicate_status', true ) == 'on' ? 1 : 0;
-                        $booking['calendar_event_enable'] = get_post_meta( $post_id, 'calendar_event_enable', true ) == 'on' ? 1 : 0;
-                        $booking['event_email'] = get_post_meta( $post_id, 'event_email', true );
-                        $booking['event_summary'] = get_post_meta( $post_id, 'event_summary', true );
-                        $booking['event_date'] = get_post_meta( $post_id, 'event_date', true );
-                        $booking['event_time'] = get_post_meta( $post_id, 'event_time', true );
-                        $booking['date_mode_front'] = get_post_meta( $post_id, 'date_mode_front', true );
-                        $booking['bf_date_theme'] = get_post_meta( $post_id, 'bf_date_theme', true );
-                        $booking['bf_allowed_date'] = get_post_meta( $post_id, 'bf_allowed_date', true );
-                        $booking['allowed_min_max_date']['form'] = get_post_meta( $post_id, 'min_date', true );
-                        $booking['allowed_min_max_date']['to'] = get_post_meta( $post_id, 'max_date', true );
-                        $booking['allowed_specific_date'] = get_post_meta( $post_id, 'allowed_specific_date', true );
-                        // $booking['disable_day'] = get_post_meta( $post_id, 'disable_day', true );
-                        $booking['disabled_date']['from'] = get_post_meta( $post_id, 'disabled_start_date', true );
-                        $booking['disabled_date']['to'] = get_post_meta( $post_id, 'disabled_end_date', true );
-                        $booking['disabled_specific_date'] = get_post_meta( $post_id, 'disabled_specific_date', true );
-                        $booking['uacf7_time_settings'] = get_post_meta( $post_id, 'uacf7_time_settings', true );
-                        $booking['time_format_front'] = get_post_meta( $post_id, 'time_format_front', true );
-                        $booking['min_time'] = get_post_meta( $post_id, 'min_time', true );
-                        $booking['max_time'] = get_post_meta( $post_id, 'max_time', true );
-                        $booking['from_dis_time'] = get_post_meta( $post_id, 'from_dis_time', true );
-                        $booking['to_dis_time'] = get_post_meta( $post_id, 'to_dis_time', true );
-                        $booking['uacf7_time_interval'] = get_post_meta( $post_id, 'uacf7_time_interval', true );
-                        $booking['time_one_step'] = get_post_meta( $post_id, 'time_one_step', true );
-                        $booking['time_two_step'] = get_post_meta( $post_id, 'time_two_step', true );
-                        $booking['bf_allowed_time'] = get_post_meta( $post_id, 'bf_allowed_time', true );
-                        $booking['allowed_time_day'] = get_post_meta( $post_id, 'allowed_time_day', true );
-                        $booking['specific_date_time'] = get_post_meta( $post_id, 'specific_date_time', true );
-                        $booking['min_day_time'] = get_post_meta( $post_id, 'min_day_time', true );
-                        $booking['max_day_time'] = get_post_meta( $post_id, 'max_day_time', true );
-                        $booking['bf_woo'] = get_post_meta( $post_id, 'bf_woo', true );
-                        $booking['bf_product'] = get_post_meta( $post_id, 'bf_product', true );
-                        $booking['bf_product_id'] = get_post_meta( $post_id, 'bf_product_id', true );
-                        $booking['bf_product_name'] = get_post_meta( $post_id, 'bf_product_name', true );
-                        $booking['bf_product_price'] = get_post_meta( $post_id, 'bf_product_name', true );
-
+                    
+                
+                    $enable_post_submission = get_post_meta( $post_id, 'enable_post_submission', true ) == 'yes' ? 1 : 0;
+                    $post_submission = isset($meta['post_submission']) ? $meta['post_submission'] : array();
+                    if($enable_post_submission == true){
+                        $post_submission['enable_post_submission'] =  $enable_post_submission;
+                        $post_submission['post_submission_post_type'] = get_post_meta( $post_id, 'post_submission_post_type', true );
+                        $post_submission['post_submission_post_status'] = get_post_meta( $post_id, 'post_submission_post_status', true );
+                        $meta['post_submission'] = $post_submission;
                     }
-
-                    uacf7_print_r($booking);
-
-                   
+                    // uacf7_print_r($post_submission);
                 }
                 // exit;
                     
@@ -888,7 +908,7 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
     		wp_reset_postdata();
     	endif; 
     }
-    add_action( 'init', 'uacf7_form_option_Migration_callback' );
+    // add_action( 'init', 'uacf7_form_option_Migration_callback' );
 
 }
 

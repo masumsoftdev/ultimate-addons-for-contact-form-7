@@ -52,8 +52,8 @@ class UACF7_TELEGRAM {
               'type'     => 'callback',
               'function' => 'uacf7_telegram_active_status_callback',
               'argument' => $post_id,
-         
-          ),
+          
+            ),
          
             'uacf7_telegram_enable' => array(
                 'id'        => 'uacf7_telegram_enable',

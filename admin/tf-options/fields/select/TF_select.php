@@ -26,14 +26,11 @@ if ( ! class_exists( 'TF_select' ) ) {
 					$this->field['options'][ $post->ID ] = ( empty( $post->post_title ) ) ? 'No title (' . $post->ID . ')' : $post->post_title;
 				}
 			}
-			if ( ! empty( $this->field['query_args'] ) && $this->field['options'] == 'uacf7' ) {
 
-				$post_id                  = $this->field['query_args']['post_id'];
-				
-				$specific = isset($this->field['query_args']['specific']) ? $this->field['query_args']['specific'] : ''; 
-
-				$ContactForm = WPCF7_ContactForm::get_instance($post_id);
-
+			if ( ! empty( $this->field['query_args'] ) && $this->field['options'] == 'uacf7' ) { 
+				$post_id                  = $this->field['query_args']['post_id']; 
+				$specific = isset($this->field['query_args']['specific']) ? $this->field['query_args']['specific'] : '';  
+				$ContactForm = WPCF7_ContactForm::get_instance($post_id); 
 				if($specific != ''){
 					$tags = $ContactForm->scan_form_tags(array('basetype'=> $specific));
 				}else{
@@ -42,27 +39,26 @@ if ( ! class_exists( 'TF_select' ) ) {
 				$this->field['options'] = array(
 					'0' => 'Select Field'
 				);
-				$exclude = isset($this->field['query_args']['exclude']) ? $this->field['query_args']['exclude'] : array();
-				
-				foreach ( $tags as $tag ) {
-					
-					if ($tag['type'] == '' || in_array($tag['basetype'], $exclude) ) continue;
+				$exclude = isset($this->field['query_args']['exclude']) ? $this->field['query_args']['exclude'] : array(); 
+				foreach ( $tags as $tag ) { 
 
-					
+					if ($tag['type'] == '' || in_array($tag['basetype'], $exclude) ) continue; 
 
-					if( $tag['type'] == 'checkbox' ) { 
-        
-						$tag_name = $tag['name'].'[]';
-
-					}else {
-
+					if( $tag['type'] == 'checkbox' ) {  
+						$tag_name = $tag['name'].'[]'; 
+					}else { 
 						$tag_name = $tag['name'];
 					}
-					$this->field['options'][ $tag_name ] =  esc_html($tag['name']);
-					
+					$this->field['options'][ $tag_name ] =  esc_html($tag['name']); 
 				}
 			}
-
+			if($this->field['options'] == 'post_types'){
+				$post_types = get_post_types();
+				$this->field['options'] = array();
+				foreach ( $post_types as $post ) {
+					$this->field['options'][ $post ] = $post;
+				}
+			}
 			if ( ! empty( $this->field['query_args'] ) && $this->field['options'] == 'terms' ) {
 				$terms                  = get_terms( $this->field['query_args'] );
 				$this->field['options'] = array();
