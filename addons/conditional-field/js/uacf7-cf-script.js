@@ -11,7 +11,7 @@
 			uacf7_cf_handler_this($this); 
 		});
 
-        jQuery(document).on('change', '.wpcf7-form select:not(.wpcf7-uacf7_product_dropdown), .wpcf7-form input[type="radio"]:not(.uacf7-rating input[type="radio"])', function () {
+        jQuery(document).on('change', '.wpcf7-form select:not(.wpcf7-uacf7_product_dropdown), .wpcf7-form input[type="radio"]:not(.uacf7-rating input[type="radio"]), .wpcf7-form input[type="date"]', function () {
 			var $this = $(this);   
 			uacf7_cf_handler_this($this);
         });
