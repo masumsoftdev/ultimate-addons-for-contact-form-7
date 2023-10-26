@@ -12,6 +12,23 @@
             });
         }
 
+        // Field: code_editor
+    // $(document).ready(function () { 
+    //     // if (typeof CodeMirror !== 'function') { return; }
+    //     // console.log("working");
+    //     var $this = $('.tf-field-textarea'),
+    //         $textarea = $this.find('textarea'),
+    //         $inited = $this.find('.CodeMirror'),
+    //         data_editor = $textarea.data('editor');
+
+    //     // console.log($this);
+
+    //     if ($inited.length) { 
+    //         $inited.remove();
+    //     } 
+
+    // });
+
         // Create an instance of Notyf
         const notyf = new Notyf({
             ripple: true,

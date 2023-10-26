@@ -14,22 +14,23 @@ class UACF7_PDF_GENERATOR {
     public function __construct() {
         
         add_action( 'admin_enqueue_scripts', array($this, 'wp_enqueue_admin_script' ) );    
-        add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_panel' ) );     
+        // add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_panel' ) );     
         add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_contact_form' ) );     
         
         add_filter( 'wpcf7_mail_components', array( $this, 'uacf7_wpcf7_mail_components' ), 10, 3 );    
-        // add_filter( 'wpcf7_load_js', '__return_false' );
+        add_filter( 'wpcf7_load_js', '__return_false' );
         add_action( 'wp_ajax_uacf7_get_generated_pdf', array( $this, 'uacf7_get_generated_pdf' ) );  
         add_filter( 'uacf7_post_meta_options', array($this, 'uacf7_post_meta_options_pdf_generator'), 18, 2 );  
+
+        require_once( 'inc/functions.php' );
  
         
     } 
 
-
-
-
-    function uacf7_post_meta_options_pdf_generator( $value, $post_id){
-
+  
+    public function uacf7_post_meta_options_pdf_generator( $value, $post_id){
+ 
+        
         $pdf_generator = apply_filters('uacf7_post_meta_options_pdf_generator_pro', $data = array(
             'title'  => __( 'PDF Generator', 'ultimate-addons-cf7' ),
             'icon'   => 'fa-solid fa-file-pdf',
@@ -47,14 +48,16 @@ class UACF7_PDF_GENERATOR {
                     'label'     => __( ' Enable/Disable PDF Generator ', 'ultimate-addons-cf7' ),
                     'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
                     'label_off' => __( 'No', 'ultimate-addons-cf7' ),
-                    'default'   => false
+                    'default'   => false,
+                    'field_width' => 50,
                 ),
               
                 'uacf7_pdf_name' => array(
                     'id'        => 'uacf7_pdf_name',
                     'type'      => 'text',
                     'label'     => __( 'PDF Title ', 'ultimate-addons-cf7' ),
-                    'placeholder'     => __( 'pdf title ', 'ultimate-addons-cf7' ),
+                    'placeholder'     => __( 'PDF Title ', 'ultimate-addons-cf7' ),
+                    'field_width' => 50,
             
                 ),
                 'pdf_send_to' => array(
@@ -73,8 +76,8 @@ class UACF7_PDF_GENERATOR {
                     'type'      => 'checkbox',
                     'label'     => __( 'Disable Header and Footer ', 'ultimate-addons-cf7' ),
                     'options'   => array(
-                        'uacf7_pdf_disable_header' => 'Disable Header',
-                        'uacf7_pdf_disable_footer' => 'Disable Footer'
+                        'header' => 'Disable Header',
+                        'footer' => 'Disable Footer'
                     ),
                     'field_width' => '50',
                     'inline'      => true
@@ -90,35 +93,38 @@ class UACF7_PDF_GENERATOR {
                     'type'      => 'image',
                     'label'     => __( 'PDF Background Image ', 'ultimate-addons-cf7' ),
 
-                ),
-
-                
+                ), 
                 'pdf_content_bg_color' => array(
                     'id'        => 'pdf_content_bg_color',
                     'type'      => 'color',
                     'label'     => __( 'PDF Background Color ', 'ultimate-addons-cf7' ),
-
+                    'field_width' => 50,
+                    'class' => 'tf-field-class',
+                    // 'default' => '#ffffff',
+                    'multiple' => false,
+                    'inline' => true,   
                 ),
-
                 'pdf_content_color' => array(
                     'id'        => 'pdf_content_color',
                     'type'      => 'color',
                     'label'     => __( 'PDF Content Color ', 'ultimate-addons-cf7' ),
-
-                ),
-
-                'uacf7_form_tags_priting' => array(
-                    'id'        => 'uacf7_form_tags_priting',
-                    'type'      => 'notice',
-                    'label'     => __( 'Form Tags ', 'ultimate-addons-cf7' ),
+                    'field_width' => 50,
                     'class' => 'tf-field-class',
-                    'content' => '
-                    [uacf7_step_start-637] [your-name] [your-email] [] [uacf7_step_start-637] [your-subject] [your-message] []
-                    ',
+                    // 'default' => '#ffffff',
+                    'multiple' => false,
+                    'inline' => true,   
                 ),
-
-                'uacf7_editor_for_pdf_body' => array(
-                    'id'        => 'uacf7_editor_for_pdf_body',
+                
+                'uacf7_pdf_form_tags' => array(
+                    'id'        => 'uacf7_pdf_form_tags',
+                    'type'     => 'callback', 
+                    'function' => 'uacf7_pdf_form_tags_callback',
+                    'argument' => $post_id,
+                
+                ),  
+                'customize_pdf' => array(
+                    'id'        => 'customize_pdf',
+                    'label'        => __( 'Customize PDF Content ', 'ultimate-addons-cf7' ),
                     'type'      => 'editor',
 
                 ),
@@ -126,38 +132,45 @@ class UACF7_PDF_GENERATOR {
                     'id'        => 'uacf7_customize_pdf_header',
                     'type'      => 'heading',
                     'label'     => __( ' Customize PDF Header', 'ultimate-addons-cf7' ),
+                    'sub_title' => __( ' header and footer page numbers & date Tags : {PAGENO}, {DATE j-m-Y}, {nb}, {nbpg} ', 'ultimate-addons-cf7' ),
                 ),
-                'uacf7_pdf_generator_mpdf_tags' => array(
-                    'id'        => 'uacf7_pdf_generator_mpdf_tags',
-                    'type'      => 'notice',
-                    'label'     => __( 'm-PDF Tags ', 'ultimate-addons-cf7' ),
-                    'class' => 'tf-field-class',
-                    'content' => '
-                    {PAGENO}, {DATE j-m-Y}, {nb}, {nbpg}
-                    ',
-                ),
+                // 'uacf7_pdf_generator_mpdf_tags' => array(
+                //     'id'        => 'uacf7_pdf_generator_mpdf_tags',
+                //     'type'      => 'notice',
+                //     'label'     => __( 'm-PDF Tags ', 'ultimate-addons-cf7' ),
+                //     'class' => 'tf-field-class',
+                //     'content' => '
+                //     {PAGENO}, {DATE j-m-Y}, {nb}, {nbpg}
+                //     ',
+                // ),
                 'pdf_header_upload_image' => array(
                     'id'        => 'pdf_header_upload_image',
                     'type'      => 'image',
                     'label'     => __( 'PDF Header Background Image ', 'ultimate-addons-cf7' ),
 
                 ),
-
-                
+ 
                 'pdf_header_color' => array(
                     'id'        => 'pdf_header_color',
                     'type'      => 'color',
                     'label'     => __( 'PDF Header Content Color ', 'ultimate-addons-cf7' ),
-
+                    'field_width' => 50,
+                    'class' => 'tf-field-class',
+                    // 'default' => '#ffffff',
+                    'multiple' => false,
+                    'inline' => true,   
                 ),
                 'pdf_header_bg_color' => array(
                     'id'        => 'pdf_header_bg_color',
                     'type'      => 'color',
                     'label'     => __( 'PDF Header Background Color ', 'ultimate-addons-cf7' ),
-
+                    'field_width' => 50,
+                    'class' => 'tf-field-class',
+                    // 'default' => '#ffffff',
+                    'multiple' => false,
+                    'inline' => true,   
                 ),
-
-                'uacf7_editor_for_pdf_header' => array(
+                'customize_pdf_header' => array(
                     'id'        => 'uacf7_editor_for_pdf_header',
                     'type'      => 'editor',
 
@@ -168,30 +181,38 @@ class UACF7_PDF_GENERATOR {
                     'label'     => __( ' Customize PDF Footer', 'ultimate-addons-cf7' ),
                 ),
 
-                'uacf7_pdf_footer_background_image' => array(
-                    'id'        => 'uacf7_pdf_footer_background_image',
-                    'type'      => 'image',
-                    'label'     => __( 'PDF Footer Background Image ', 'ultimate-addons-cf7' ),
+                // 'uacf7_pdf_footer_background_image' => array(
+                //     'id'        => 'uacf7_pdf_footer_background_image',
+                //     'type'      => 'image',
+                //     'label'     => __( 'PDF Footer Background Image ', 'ultimate-addons-cf7' ),
 
-                ),
+                // ),
 
-                
+                 
                 'pdf_footer_color' => array(
                     'id'        => 'pdf_footer_color',
                     'type'      => 'color',
-                    'label'     => __( 'PDF footer Content Color ', 'ultimate-addons-cf7' ),
-
+                    'label'     => __( 'PDF footer Content Color ', 'ultimate-addons-cf7' ), 
+                    'class' => 'tf-field-class',
+                    // 'default' => '#ffffff',
+                    'multiple' => false,
+                    'inline' => true,  
+                    'field_width' => 50, 
                 ),
-
+ 
                 'pdf_footer_bg_color' => array(
                     'id'        => 'pdf_footer_bg_color',
                     'type'      => 'color',
                     'label'     => __( 'PDF footer Background Color ', 'ultimate-addons-cf7' ),
-
+                    'field_width' => 50,
+                    'class' => 'tf-field-class',
+                    // 'default' => '#ffffff',
+                    'multiple' => false,
+                    'inline' => true,   
                 ),
 
-                'uacf7_editor_for_pdf_footer' => array(
-                    'id'        => 'uacf7_editor_for_pdf_footer',
+                'customize_pdf_footer' => array(
+                    'id'        => 'customize_pdf_footer',
                     'type'      => 'editor',
 
                 ),
@@ -200,19 +221,11 @@ class UACF7_PDF_GENERATOR {
                     'type'      => 'heading',
                     'label'     => __( 'PDF Custom CSS', 'ultimate-addons-cf7' ),
                 ),
-                'uacf7_editor_for_pdf_custom_css' => array(
-                    'id'        => 'uacf7_editor_for_pdf_custom_css',
-                    'type'      => 'editor',
+                'custom_pdf_css' => array(
+                    'id'        => 'custom_pdf_css',
+                    'type'      => 'code_editor',
 
-                ),
-
-         
-            
-                    
-              
-    
-    
-    
+                ), 
             ),
                 
     
@@ -259,8 +272,12 @@ class UACF7_PDF_GENERATOR {
         $form_id = !empty($_POST['form_id']) ? $_POST['form_id'] : '';
         $data_id = !empty($_POST['id']) ? $_POST['id'] : '';
         require UACF7_PATH . 'third-party/vendor/autoload.php';
-        $enable_pdf = !empty(get_post_meta( $form_id, 'uacf7_enable_pdf_generator', true )) ? get_post_meta( $form_id, 'uacf7_enable_pdf_generator', true ) : '';
-        if( $enable_pdf != 'on'){ die; }
+
+        // Pdf get Meta Option
+        $pdf = uacf7_get_form_option( $form_id, 'pdf_generator' );
+
+        $enable_pdf = isset($pdf['uacf7_enable_pdf_generator']) ? $pdf['uacf7_enable_pdf_generator'] : 0;
+        if( $enable_pdf != true){ die; }
         
         $upload_dir    = wp_upload_dir(); 
         $dir = $upload_dir['basedir'];
@@ -268,27 +285,27 @@ class UACF7_PDF_GENERATOR {
         global $wpdb; 
         $data = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM ".$wpdb->prefix."uacf7_form WHERE id = %s AND form_id = %s", $data_id, $form_id ) ); 
 
-        $uacf7_pdf_name = !empty(get_post_meta( $form_id, 'uacf7_pdf_name', true )) ? get_post_meta( $form_id, 'uacf7_pdf_name', true ) : get_the_title( $form_id );
-        $disable_header = !empty(get_post_meta( $form_id, 'uacf7_pdf_disable_header', true )) ? get_post_meta( $form_id, 'uacf7_pdf_disable_header', true ) : '';
-        $disable_footer = !empty(get_post_meta( $form_id, 'uacf7_pdf_disable_footer', true )) ? get_post_meta( $form_id, 'uacf7_pdf_disable_footer', true ) : '';
-        $customize_pdf = !empty(get_post_meta( $form_id, 'customize_pdf', true )) ? get_post_meta( $form_id, 'customize_pdf', true ) : '';
-        $pdf_bg_upload_image = !empty(get_post_meta( $form_id, 'pdf_bg_upload_image', true )) ? get_post_meta( $form_id, 'pdf_bg_upload_image', true ) : '';
-        $customize_pdf_header = !empty(get_post_meta( $form_id, 'customize_pdf_header', true )) ? get_post_meta( $form_id, 'customize_pdf_header', true ) : '';
-        $pdf_header_upload_image = !empty(get_post_meta( $form_id, 'pdf_header_upload_image', true )) ? get_post_meta( $form_id, 'pdf_header_upload_image', true ) : '';
-        $pdf_header_img_height = !empty(get_post_meta( $form_id, 'pdf_header_img_height', true )) ? get_post_meta( $form_id, 'pdf_header_img_height', true ) : '';
-        $pdf_header_img_width = !empty(get_post_meta( $form_id, 'pdf_header_img_width', true )) ? get_post_meta( $form_id, 'pdf_header_img_width', true ) : '';
-        $pdf_header_img_aline = !empty(get_post_meta( $form_id, 'pdf_header_img_aline', true )) ? get_post_meta( $form_id, 'pdf_header_img_aline', true ) : '';
-        $customize_pdf_footer = !empty(get_post_meta( $form_id, 'customize_pdf_footer', true )) ? get_post_meta( $form_id, 'customize_pdf_footer', true ) : '';
-        $custom_pdf_css = !empty(get_post_meta( $form_id, 'custom_pdf_css', true )) ? get_post_meta( $form_id, 'custom_pdf_css', true ) : ''; 
-        $pdf_content_color = !empty(get_post_meta( $form_id, 'pdf_content_color', true )) ? get_post_meta( $form_id, 'pdf_content_color', true ) : ''; 
-        $pdf_content_bg_color = !empty(get_post_meta( $form_id, 'pdf_content_bg_color', true )) ? get_post_meta( $form_id, 'pdf_content_bg_color', true ) : '';  
-        $pdf_header_color = !empty(get_post_meta( $form_id, 'pdf_header_color', true )) ? get_post_meta( $form_id, 'pdf_header_color', true ) : ''; 
-        $pdf_header_bg_color = !empty(get_post_meta( $form_id, 'pdf_header_bg_color', true )) ? get_post_meta( $form_id, 'pdf_header_bg_color', true ) : '';  
-        $pdf_footer_color = !empty(get_post_meta( $form_id, 'pdf_footer_color', true )) ? get_post_meta( $form_id, 'pdf_footer_color', true ) : ''; 
-        $pdf_footer_bg_color = !empty(get_post_meta( $form_id, 'pdf_footer_bg_color', true )) ? get_post_meta( $form_id, 'pdf_footer_bg_color', true ) : '';  
+        $uacf7_pdf_name = !empty($pdf['uacf7_pdf_name']) ? $pdf['uacf7_pdf_name'] : get_the_title( $form_id );
+        $disable_header = in_array('header', $pdf['uacf7_pdf_disable_header_footer']) ? true : false;
+        $disable_footer = in_array('footer', $pdf['uacf7_pdf_disable_header_footer']) ? true : false; 
+        $customize_pdf = !empty($pdf['customize_pdf']) ? $pdf['customize_pdf'] : '';
+        $pdf_bg_upload_image = !empty($pdf['pdf_bg_upload_image']) ? $pdf['pdf_bg_upload_image'] : '';
+        $customize_pdf_header = !empty($pdf['customize_pdf_header']) ? $pdf['customize_pdf_header'] : '';
+        $pdf_header_upload_image = !empty($pdf['pdf_header_upload_image']) ? $pdf['pdf_header_upload_image'] : '';
+        $pdf_header_img_height = !empty($pdf['pdf_header_img_height']) ? $pdf['pdf_header_img_height'] : '';
+        $pdf_header_img_width = !empty($pdf['pdf_header_img_width']) ? $pdf['pdf_header_img_width'] : '';
+        $pdf_header_img_aline = !empty($pdf['pdf_header_img_aline']) ? $pdf['pdf_header_img_aline'] : '';
+        $customize_pdf_footer = !empty($pdf['customize_pdf_footer']) ? $pdf['customize_pdf_footer'] : '';
+        $custom_pdf_css = !empty($pdf['custom_pdf_css']) ? $pdf['custom_pdf_css'] : ''; 
+        $pdf_content_color = !empty($pdf['pdf_content_color']) ? $pdf['pdf_content_color'] : ''; 
+        $pdf_content_bg_color = !empty($pdf['pdf_content_bg_color']) ? $pdf['pdf_content_bg_color'] : '';  
+        $pdf_header_color = !empty($pdf['pdf_header_color']) ? $pdf['pdf_header_color'] : ''; 
+        $pdf_header_bg_color = !empty($pdf['pdf_header_bg_color']) ? $pdf['pdf_header_bg_color'] : '';  
+        $pdf_footer_color = !empty($pdf['pdf_footer_color']) ? $pdf['pdf_footer_color'] : ''; 
+        $pdf_footer_bg_color = !empty($pdf['pdf_footer_bg_color']) ? $pdf['pdf_footer_bg_color'] : '';  
         $pdf_bg_upload_image =  !empty($pdf_bg_upload_image) ? 'background-image: url("'.esc_attr($pdf_bg_upload_image).'");' : '';
         $pdf_header_upload_image =  !empty($pdf_header_upload_image) ? '<img src="'.esc_attr( $pdf_header_upload_image ).'" style="height: 60; max-width: 100%; ">' : '';
-
+       
         $mpdf = new \Mpdf\Mpdf([ 
             'fontdata' => [ // lowercase letters only in font key
                 'dejavuserifcond' => [
@@ -342,7 +359,7 @@ class UACF7_PDF_GENERATOR {
      
 
         // PDF Header checked( 'on', $disable_header );
-        if( $disable_header != 'on' ){
+        if( $disable_header != true ){
             $mpdf->SetHTMLHeader('
             <div class="pdf-header"  >
                     <div class="header-logo"  >
@@ -357,7 +374,7 @@ class UACF7_PDF_GENERATOR {
         
 
         // PDF Footer
-        if( $disable_footer != 'on' ){
+        if( $disable_footer != true ){
             $mpdf->SetHTMLFooter('<div class="pdf-footer">'.$customize_pdf_footer.'</div>');
         }
         
@@ -408,12 +425,16 @@ class UACF7_PDF_GENERATOR {
        
 
         $wpcf7 = WPCF7_ContactForm::get_current(); 
-        $enable_pdf = !empty(get_post_meta( $wpcf7->id(), 'uacf7_enable_pdf_generator', true )) ? get_post_meta( $wpcf7->id(), 'uacf7_enable_pdf_generator', true ) : '';
-        $pdf_send_to = !empty(get_post_meta( $wpcf7->id(), 'pdf_send_to', true )) ? get_post_meta( $wpcf7->id(), 'pdf_send_to', true ) : '';
+
+        // Pdf get Meta Option
+        $pdf = uacf7_get_form_option( $wpcf7->id(), 'pdf_generator' );
+
+        $enable_pdf = isset($pdf['uacf7_enable_pdf_generator']) ? $pdf['uacf7_enable_pdf_generator'] : 0;
+        $pdf_send_to = isset($pdf['pdf_send_to']) ? $pdf['pdf_send_to'] : '';
         if(($pdf_send_to == 'mail-1' && $mail->name() == 'mail_2') || ($pdf_send_to == 'mail-2' && $mail->name() == 'mail') ){
             return $components;
         }
-        if($enable_pdf == 'on'){ 
+        if($enable_pdf == true){ 
             $submission = WPCF7_Submission::get_instance();
             $contact_form_data = $submission->get_posted_data();
             $files            = $submission->uploaded_files();
@@ -432,26 +453,26 @@ class UACF7_PDF_GENERATOR {
             }
 
             //  
-            $uacf7_pdf_name = !empty(get_post_meta( $wpcf7->id(), 'uacf7_pdf_name', true )) ? get_post_meta( $wpcf7->id(), 'uacf7_pdf_name', true ) : get_the_title( $wpcf7->id() );
-            $disable_header = !empty(get_post_meta( $wpcf7->id(), 'uacf7_pdf_disable_header', true )) ? get_post_meta( $wpcf7->id(), 'uacf7_pdf_disable_header', true ) : '';
-            $disable_footer = !empty(get_post_meta( $wpcf7->id(), 'uacf7_pdf_disable_footer', true )) ? get_post_meta( $wpcf7->id(), 'uacf7_pdf_disable_footer', true ) : '';
-            $customize_pdf = !empty(get_post_meta( $wpcf7->id(), 'customize_pdf', true )) ? get_post_meta( $wpcf7->id(), 'customize_pdf', true ) : '';
-            $pdf_bg_upload_image = !empty(get_post_meta( $wpcf7->id(), 'pdf_bg_upload_image', true )) ? get_post_meta( $wpcf7->id(), 'pdf_bg_upload_image', true ) : '';
-            $customize_pdf_header = !empty(get_post_meta( $wpcf7->id(), 'customize_pdf_header', true )) ? get_post_meta( $wpcf7->id(), 'customize_pdf_header', true ) : '';
-            $pdf_header_upload_image = !empty(get_post_meta( $wpcf7->id(), 'pdf_header_upload_image', true )) ? get_post_meta( $wpcf7->id(), 'pdf_header_upload_image', true ) : '';
-            $pdf_header_img_height = !empty(get_post_meta( $wpcf7->id(), 'pdf_header_img_height', true )) ? get_post_meta( $wpcf7->id(), 'pdf_header_img_height', true ) : '';
-            $pdf_header_img_width = !empty(get_post_meta( $wpcf7->id(), 'pdf_header_img_width', true )) ? get_post_meta( $wpcf7->id(), 'pdf_header_img_width', true ) : '';
-            $pdf_header_img_aline = !empty(get_post_meta( $wpcf7->id(), 'pdf_header_img_aline', true )) ? get_post_meta( $wpcf7->id(), 'pdf_header_img_aline', true ) : '';
-            $customize_pdf_footer = !empty(get_post_meta( $wpcf7->id(), 'customize_pdf_footer', true )) ? get_post_meta( $wpcf7->id(), 'customize_pdf_footer', true ) : '';
-            $custom_pdf_css = !empty(get_post_meta( $wpcf7->id(), 'custom_pdf_css', true )) ? get_post_meta( $wpcf7->id(), 'custom_pdf_css', true ) : ''; 
-            $pdf_content_color = !empty(get_post_meta( $wpcf7->id(), 'pdf_content_color', true )) ? get_post_meta( $wpcf7->id(), 'pdf_content_color', true ) : ''; 
-            $pdf_content_bg_color = !empty(get_post_meta( $wpcf7->id(), 'pdf_content_bg_color', true )) ? get_post_meta( $wpcf7->id(), 'pdf_content_bg_color', true ) : '';  
-            $pdf_header_color = !empty(get_post_meta( $wpcf7->id(), 'pdf_header_color', true )) ? get_post_meta( $wpcf7->id(), 'pdf_header_color', true ) : ''; 
-            $pdf_header_bg_color = !empty(get_post_meta( $wpcf7->id(), 'pdf_header_bg_color', true )) ? get_post_meta( $wpcf7->id(), 'pdf_header_bg_color', true ) : '';  
-            $pdf_footer_color = !empty(get_post_meta( $wpcf7->id(), 'pdf_footer_color', true )) ? get_post_meta( $wpcf7->id(), 'pdf_footer_color', true ) : ''; 
-            $pdf_footer_bg_color = !empty(get_post_meta( $wpcf7->id(), 'pdf_footer_bg_color', true )) ? get_post_meta( $wpcf7->id(), 'pdf_footer_bg_color', true ) : '';  
+            $uacf7_pdf_name = !empty($pdf['uacf7_pdf_name']) ? $pdf['uacf7_pdf_name'] : get_the_title( $wpcf7->id() );
+            $disable_header = in_array('header', $pdf['uacf7_pdf_disable_header_footer']) ? true : false;
+            $disable_footer = in_array('footer', $pdf['uacf7_pdf_disable_header_footer']) ? true : false; 
+            $customize_pdf = !empty($pdf['customize_pdf']) ? $pdf['customize_pdf'] : '';
+            $pdf_bg_upload_image = !empty($pdf['pdf_bg_upload_image']) ? $pdf['pdf_bg_upload_image'] : '';
+            $customize_pdf_header = !empty($pdf['customize_pdf_header']) ? $pdf['customize_pdf_header'] : '';
+            $pdf_header_upload_image = !empty($pdf['pdf_header_upload_image']) ? $pdf['pdf_header_upload_image'] : '';
+            $pdf_header_img_height = !empty($pdf['pdf_header_img_height']) ? $pdf['pdf_header_img_height'] : '';
+            $pdf_header_img_width = !empty($pdf['pdf_header_img_width']) ? $pdf['pdf_header_img_width'] : '';
+            $pdf_header_img_aline = !empty($pdf['pdf_header_img_aline']) ? $pdf['pdf_header_img_aline'] : '';
+            $customize_pdf_footer = !empty($pdf['customize_pdf_footer']) ? $pdf['customize_pdf_footer'] : '';
+            $custom_pdf_css = !empty($pdf['custom_pdf_css']) ? $pdf['custom_pdf_css'] : ''; 
+            $pdf_content_color = !empty($pdf['pdf_content_color']) ? $pdf['pdf_content_color'] : ''; 
+            $pdf_content_bg_color = !empty($pdf['pdf_content_bg_color']) ? $pdf['pdf_content_bg_color'] : '';  
+            $pdf_header_color = !empty($pdf['pdf_header_color']) ? $pdf['pdf_header_color'] : ''; 
+            $pdf_header_bg_color = !empty($pdf['pdf_header_bg_color']) ? $pdf['pdf_header_bg_color'] : '';  
+            $pdf_footer_color = !empty($pdf['pdf_footer_color']) ? $pdf['pdf_footer_color'] : ''; 
+            $pdf_footer_bg_color = !empty($pdf['pdf_footer_bg_color']) ? $pdf['pdf_footer_bg_color'] : '';  
             $pdf_bg_upload_image =  !empty($pdf_bg_upload_image) ? 'background-image: url("'.esc_attr( $pdf_bg_upload_image ).'");' : '';
-            $pdf_header_upload_image =  !empty($pdf_header_upload_image) ? '<img src="'.esc_attr( $pdf_header_upload_image ).'" style="height: 60; max-width: 100%; ">' : '';
+            $pdf_header_upload_image =  !empty($pdf_header_upload_image) ? '<img src="'.esc_attr( $pdf_header_upload_image ).'" style="height: 60; max-width: 100%; ">' : ''; 
             $mpdf = new \Mpdf\Mpdf([ 
                 'fontdata' => [ // lowercase letters only in font key
                     'dejavuserifcond' => [
@@ -505,7 +526,7 @@ class UACF7_PDF_GENERATOR {
             $replace_value = []; 
 
             // PDF Header
-            if($disable_header != 'on'){
+            if($disable_header != true){
                 $mpdf->SetHTMLHeader('
                 <div class="pdf-header"  >
                         <div class="header-logo"  >
@@ -519,7 +540,7 @@ class UACF7_PDF_GENERATOR {
             }
              
             // PDF Footer
-            if($disable_footer != 'on'){ 
+            if($disable_footer != true){ 
                 $mpdf->SetHTMLFooter('<div class="pdf-footer">'.$customize_pdf_footer.'</div>');
             }
 
@@ -579,17 +600,18 @@ class UACF7_PDF_GENERATOR {
             } 
 
             $pdf_content = str_replace($replace_key, $replace_value, $customize_pdf);
-
+           
             // Replace PDF Name
             $uacf7_pdf_name = str_replace($replace_key, $replace_value, $uacf7_pdf_name);
-
+         
             $mpdf->SetTitle($uacf7_pdf_name);
 
              // PDF Footer Content
             $mpdf->WriteHTML($pdf_style.'<div class="pdf-content">'.nl2br($pdf_content).'   </div>');
 
             $pdf_url = $dir.'/uacf7-uploads/'.$uacf7_pdf_name.'.pdf';
-            $mpdf->Output($pdf_url, 'F'); // save to databaes 
+            
+            $mpdf->Output($uacf7_pdf_name, 'F'); // save to databaes 
             $components['attachments'][] = $pdf_url; 
             
         }
