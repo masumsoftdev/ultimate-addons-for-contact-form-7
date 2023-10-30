@@ -6,11 +6,9 @@ if (!defined('ABSPATH')) {
     exit();
 }
 
-class UACF7_SIGNATURE
-{
+class UACF7_SIGNATURE{
 
-    public function __construct()
-    {
+    public function __construct(){
         require_once 'inc/signature.php';
         add_action('wp_enqueue_scripts', [$this, 'uacf7_signature_public_scripts']);
 
@@ -19,6 +17,9 @@ class UACF7_SIGNATURE
 
         add_filter('wpcf7_validate_uacf7_signature', [$this, 'uacf7_signature_validation_filter'], 10, 2);
         add_filter('wpcf7_validate_uacf7_signature*', [$this, 'uacf7_signature_validation_filter'], 10, 2);
+
+        add_action( 'wp_ajax_uacf7_signature', [$this, 'uacf7_signature_ajax_callback'] );
+        add_action( 'wp_ajax_nopriv_uacf7_signature', [$this, 'uacf7_signature_ajax_callback'] );
         //  add_filter( 'wpcf7_load_js', '__return_false' );
     }
 
@@ -28,6 +29,27 @@ class UACF7_SIGNATURE
     {
 
         wp_enqueue_script('uacf7-signature-public-assets', UACF7_URL . '/addons/signature/assets/public/js/signature.js', ['jquery'], 'UACF7_VERSION', true);
+       
+        wp_localize_script( 'uacf7-signature-public-assets', 'signature_obj', [
+          "ajaxurl" => admin_url( 'admin-ajax.php' ),
+
+      ] );
+
+    }
+
+
+    public function uacf7_signature_ajax_callback(){
+
+      $form_id = $_POST['form_id'];
+
+     
+      $meta_data = get_post_meta('7', 'uacf7_signature_settings', true);
+
+      echo wp_send_json( [
+        'width' => $meta_data['uacf7_signature_width'],
+        'height' => $meta_data['uacf7_signature_height']
+       ] );
+
 
     }
 
@@ -47,6 +69,8 @@ class UACF7_SIGNATURE
 
     public static function tg_pane_signature($contact_form, $args = '')
     {
+
+
         $args = wp_parse_args($args, array());
         $uacf7_field_type = 'uacf7_signature';
         ?>

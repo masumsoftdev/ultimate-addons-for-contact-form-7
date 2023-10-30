@@ -11,3 +11,10 @@ cursor: crosshair;
 #uploadedImage{
   display: none!important;
 }
+
+
+/* @media screen and (min-width: 480px) {
+  #signature-pad canvas {
+    width: 100%!important;
+  }
+} */
