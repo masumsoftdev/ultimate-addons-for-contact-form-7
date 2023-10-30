@@ -34,13 +34,22 @@
 
     
 
-        function startDrawing(e) {
+      function startDrawing(e) {
           isClicked = true;
           isDrawing = true;
       
-          const touch = e.touches[0];
+          let clientX, clientY;
+      
+          if (e.touches && e.touches.length) {
+              clientX = e.touches[0].clientX;
+              clientY = e.touches[0].clientY;
+          } else {
+              clientX = e.clientX;
+              clientY = e.clientY;
+          }
+      
           ctx.beginPath();
-          ctx.moveTo(touch.clientX - canvas.getBoundingClientRect().left, touch.clientY - canvas.getBoundingClientRect().top);
+          ctx.moveTo(clientX - canvas.getBoundingClientRect().left, clientY - canvas.getBoundingClientRect().top);
       
           if (isDrawing) {
               const control_sec = $('.uacf7-form-' + formId).find(".control_div");
@@ -51,8 +60,17 @@
       function draw(e) {
           if (!isDrawing) return;
       
-          const touch = e.touches[0];
-          ctx.lineTo(touch.clientX - canvas.getBoundingClientRect().left, touch.clientY - canvas.getBoundingClientRect().top);
+          let clientX, clientY;
+      
+          if (e.touches && e.touches.length) {
+              clientX = e.touches[0].clientX;
+              clientY = e.touches[0].clientY;
+          } else {
+              clientX = e.clientX;
+              clientY = e.clientY;
+          }
+      
+          ctx.lineTo(clientX - canvas.getBoundingClientRect().left, clientY - canvas.getBoundingClientRect().top);
           ctx.stroke();
       }
       
@@ -166,6 +184,7 @@
         const canvas = $('.uacf7-form-'+formId).find("#signature-canvas")[0];
         const ctx = canvas.getContext("2d");
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        alert("Fire!"); 
       });
 
       /** Preventing file system opening */
