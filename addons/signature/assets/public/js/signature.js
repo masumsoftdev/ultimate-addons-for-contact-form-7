@@ -29,8 +29,8 @@
               type: 'POST',
               data: {form_id : formId, action: 'uacf7_signature'},
               success: function(response) {
-                canvas.width = response.width ? response.width : '300';
-                canvas.height = response.height ? response.height : '150';
+                canvas.width = response.width ? response.width : '100';
+                canvas.height = response.height ? response.height : '100';
               }
           });
         });
