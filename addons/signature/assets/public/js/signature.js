@@ -184,7 +184,7 @@
         const canvas = $('.uacf7-form-'+formId).find("#signature-canvas")[0];
         const ctx = canvas.getContext("2d");
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        alert("Fire!"); 
+        confirm_message.text('');
       });
 
       /** Preventing file system opening */
