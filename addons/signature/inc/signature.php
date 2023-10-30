@@ -36,10 +36,7 @@ class UACF7_SIGNATURE_PANEL{
     if(!empty($uacf7_signature_settings)){
       $this->uacf7_signature_enable = $uacf7_signature_settings['uacf7_signature_enable'];
 
-    }
-
-   
-
+    } 
 
     ?> 
 
