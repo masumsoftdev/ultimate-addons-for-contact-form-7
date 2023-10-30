@@ -1,7 +1,10 @@
+/* #signature-pad{
+  width: 100%;
+  } */
 
+  #signature-pad #signature-canvas{
+  cursor: crosshair;
 
-#signature-canvas{
-cursor: crosshair;
 }
 
 #clear-button {
@@ -13,8 +16,10 @@ cursor: crosshair;
 }
 
 
-/* @media screen and (min-width: 480px) {
-  #signature-pad canvas {
-    width: 100%!important;
-  }
-} */
+
+ /* @media screen and (min-width: 480px) {
+  canvas#signature-canvas {
+    height: 200px;
+    width: 100%;
+}
+}  */

@@ -29,25 +29,41 @@
               type: 'POST',
               data: {form_id : formId, action: 'uacf7_signature'},
               success: function(response) {
-                canvas.width = response.width ? response.width : '100';
-                canvas.height = response.height ? response.height : '100';
+
+                canvas.style.width = `${response.width+'%'}`;
+                canvas.style.height = `${response.height+'px'}`;
+
               }
           });
         });
 
   
+   
+    
+        // Use mouseX and mouseY to draw
+      
+      
         canvas.style.border= "1px solid #ddd";
         canvas.style.cursor = "crosshair";
-        ctx.lineWidth = 1;
+        // ctx.lineWidth = 1;
         ctx.strokeStyle = "#000";
         ctx.fillStyle = "#fff";
+        ctx.lineCap = 'round';
 
 
       
 
         function startDrawing(e) {
+
             isClicked = true;
             isDrawing = true;
+        
+            let rect = canvas.getBoundingClientRect();
+            let scaleX = canvas.width / rect.width;
+            let scaleY = canvas.height / rect.height;
+        
+            let offsetX = rect.left;
+            let offsetY = rect.top;
         
             let clientX, clientY;
         
@@ -59,17 +75,28 @@
                 clientY = e.clientY;
             }
         
+            let x = (clientX - offsetX) * scaleX;
+            let y = (clientY - offsetY) * scaleY;
+        
             ctx.beginPath();
-            ctx.moveTo(clientX - canvas.getBoundingClientRect().left, clientY - canvas.getBoundingClientRect().top);
+            ctx.moveTo(x, y);
         
             if (isDrawing) {
-                const control_sec = $('.uacf7-form-' + formId).find(".control_div");
-                control_sec.css('display', 'block');
+                const control_sec = document.querySelector('.uacf7-form-' + formId + ' .control_div');
+                control_sec.style.display = 'block';
             }
         }
         
         function draw(e) {
+
             if (!isDrawing) return;
+
+            let rect = canvas.getBoundingClientRect();
+            let scaleX = canvas.width / rect.width;
+            let scaleY = canvas.height / rect.height;
+        
+            let offsetX = rect.left;
+            let offsetY = rect.top;
         
             let clientX, clientY;
         
@@ -81,7 +108,13 @@
                 clientY = e.clientY;
             }
         
-            ctx.lineTo(clientX - canvas.getBoundingClientRect().left, clientY - canvas.getBoundingClientRect().top);
+          
+
+            let x = (clientX - offsetX) * scaleX;
+            let y = (clientY - offsetY) * scaleY;
+        
+            ctx.lineTo(x, y);
+            ctx.lineWidth = 1; 
             ctx.stroke();
         }
         
