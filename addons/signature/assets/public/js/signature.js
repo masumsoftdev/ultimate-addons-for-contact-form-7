@@ -30,8 +30,8 @@
               data: {form_id : formId, action: 'uacf7_signature'},
               success: function(response) {
 
-                canvas.style.width = `${response.width+'%'}`;
                 canvas.style.height = `${response.height+'px'}`;
+                canvas.style.width = `${response.width+'%'}`;
 
               }
           });
@@ -45,7 +45,7 @@
       
         canvas.style.border= "1px solid #ddd";
         canvas.style.cursor = "crosshair";
-        // ctx.lineWidth = 1;
+        ctx.lineWidth = 1;
         ctx.strokeStyle = "#000";
         ctx.fillStyle = "#fff";
         ctx.lineCap = 'round';
@@ -112,9 +112,9 @@
 
             let x = (clientX - offsetX) * scaleX;
             let y = (clientY - offsetY) * scaleY;
+
         
             ctx.lineTo(x, y);
-            ctx.lineWidth = 1; 
             ctx.stroke();
         }
         
@@ -122,6 +122,9 @@
             isDrawing = false;
             ctx.closePath();
         }
+
+
+      
 
         function clearCanvas() {
             // e.preventDefault();

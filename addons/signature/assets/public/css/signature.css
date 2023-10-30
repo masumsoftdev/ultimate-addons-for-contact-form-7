@@ -1,8 +1,5 @@
-/* #signature-pad{
-  width: 100%;
-  } */
 
-  #signature-pad #signature-canvas{
+#signature-pad #signature-canvas{
   cursor: crosshair;
 
 }
@@ -14,12 +11,3 @@
 #uploadedImage{
   display: none!important;
 }
-
-
-
- /* @media screen and (min-width: 480px) {
-  canvas#signature-canvas {
-    height: 200px;
-    width: 100%;
-}
-}  */

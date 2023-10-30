@@ -80,9 +80,9 @@ class UACF7_SIGNATURE{
                   <tbody>
                         <div class="uacf7-doc-notice">
                             <?php echo sprintf(
-            __('Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7'),
-            '<a href="https://themefic.com/docs/uacf7/free-addons/unique-submission-id/" target="_blank">documentation</a>'
-        ); ?>
+                                  __('Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7'),
+                                  '<a href="https://themefic.com/docs/uacf7/free-addons/signature-field/" target="_blank">documentation</a>'
+                              ); ?>
                         </div>
                         <tr>
                             <th scope="row"><?php _e('Field Type', 'ultimate-addons-cf7');?></th>
