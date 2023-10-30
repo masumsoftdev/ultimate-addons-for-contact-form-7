@@ -30,8 +30,8 @@
               data: {form_id : formId, action: 'uacf7_signature'},
               success: function(response) {
 
-                canvas.style.height = `${response.height+'px'}`;
-                canvas.style.width = `${response.width+'%'}`;
+                canvas.width = response.width ? response.width : '300';
+                canvas.height = response.height ? response.height : '100';
 
               }
           });
@@ -41,13 +41,12 @@
    
     
         // Use mouseX and mouseY to draw
-      
-      
+        
         canvas.style.border= "1px solid #ddd";
         canvas.style.cursor = "crosshair";
         ctx.lineWidth = 1;
-        ctx.strokeStyle = "#000";
-        ctx.fillStyle = "#fff";
+        ctx.strokeStyle = "#000000";
+        ctx.fillStyle = "#ffffff";
         ctx.lineCap = 'round';
 
 

@@ -60,14 +60,14 @@ class UACF7_SIGNATURE_PANEL{
       <div class="uacf7_signature_wrapper">
         <fieldset>
              <h3><?php _e('Signature Height', 'ultimate-addons-cf7' ) ?></h3>
-            <input type="number" min="1" placeholder="50px" value="<?php echo $this->uacf7_signature_height; ?>" id="uacf7_signature_height" name="uacf7_signature_height">
+            <input type="number" min="1" placeholder="100" value="<?php echo $this->uacf7_signature_height; ?>" id="uacf7_signature_height" name="uacf7_signature_height">
             <br>
-            <small><?php _e(' E.g. In px', 'ultimate-addons-cf7' ) ?></small>
+            <small><?php _e(' E.g. do not use px or rem', 'ultimate-addons-cf7' ) ?></small>
             
             <h3><?php _e('Signature Width', 'ultimate-addons-cf7' ) ?></h3>
-            <input type="number" min="1" placeholder="100%" value="<?php echo $this->uacf7_signature_width; ?>" id="uacf7_signature_width" name="uacf7_signature_width">
+            <input type="number" min="1" placeholder="300" value="<?php echo $this->uacf7_signature_width; ?>" id="uacf7_signature_width" name="uacf7_signature_width">
             <br>
-            <small><?php _e(' E.g. In %', 'ultimate-addons-cf7' ) ?></small>
+            <small><?php _e(' E.g. do not use px or rem. The default value is compatible with all kind of devices', 'ultimate-addons-cf7' ) ?></small>
                
         </fieldset> 
       </div>
