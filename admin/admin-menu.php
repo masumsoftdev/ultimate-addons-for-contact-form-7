@@ -218,11 +218,17 @@ class UACF7_Admin_Menu {
 		);
         
 
-			add_settings_field( 'uacf7_enable_submission_id_field',
-	__('Submission ID', 'ultimate-addons-cf7'),
-	[$this, 'uacf7_enable_submission_id_callback'], 
-	'ultimate-addons-admin', 
-	'uacf7_setting_section' );
+				add_settings_field( 'uacf7_enable_submission_id_field',
+		__('Submission ID', 'ultimate-addons-cf7'),
+		[$this, 'uacf7_enable_submission_id_callback'], 
+		'ultimate-addons-admin', 
+		'uacf7_setting_section' );
+
+		add_settings_field( 'uacf7_enable_signature_field',
+		__('Signature', 'ultimate-addons-cf7'),
+		[$this, 'uacf7_enable_signature_callback'], 
+		'ultimate-addons-admin', 
+		'uacf7_setting_section' );
 
 	/** Telegram Intergration */
 
@@ -383,6 +389,9 @@ class UACF7_Admin_Menu {
 		}
 		if ( isset( $input['uacf7_enable_submission_id_field'] ) ) {
 			$sanitary_values['uacf7_enable_submission_id_field'] = $input['uacf7_enable_submission_id_field'];
+		}
+		if ( isset( $input['uacf7_enable_signature_field'] ) ) {
+			$sanitary_values['uacf7_enable_signature_field'] = $input['uacf7_enable_signature_field'];
 		}
 		if ( isset( $input['uacf7_enable_telegram_field'] ) ) {
 			$sanitary_values['uacf7_enable_telegram_field'] = $input['uacf7_enable_telegram_field'];
@@ -611,6 +620,18 @@ class UACF7_Admin_Menu {
 		);
 	 }
 
+	 	/**
+	 * Field - Enable Signature 
+	 */
+
+	 public function uacf7_enable_signature_callback(){
+		printf(
+			'<label class="uacf7-admin-toggle" for="uacf7_enable_signature_field">
+				<input type="checkbox" class="uacf7-admin-toggle__input" name="uacf7_option_name[uacf7_enable_signature_field]" id="uacf7_enable_signature_field" %s>
+				<span class="uacf7-admin-toggle-track"><span class="uacf7-admin-toggle-indicator"><span class="checkMark"><svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true"><path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path></svg></span></span></span>
+			</label>', uacf7_checked('uacf7_enable_signature_field')
+		);
+	 }
 
 	 /**
 		* Field - Telegram

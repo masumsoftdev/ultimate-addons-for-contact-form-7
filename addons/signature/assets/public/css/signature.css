@@ -1,0 +1,13 @@
+
+
+#signature-canvas{
+cursor: crosshair;
+}
+
+#clear-button {
+  margin-top: 10px;
+}
+
+#uploadedImage{
+  display: none!important;
+}
