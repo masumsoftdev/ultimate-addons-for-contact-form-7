@@ -34,28 +34,28 @@
 
     
 
-      function startDrawing(e) {
+        function startDrawing(e) {
           isClicked = true;
           isDrawing = true;
+      
+          const touch = e.touches[0];
           ctx.beginPath();
-          ctx.moveTo(e.clientX - canvas.getBoundingClientRect().left, e.clientY - canvas.getBoundingClientRect().top);
-
-          if(isDrawing == true){
-              // const confirm_button = $('.uacf7-form-'+formId).find("#convertButton");   
-              // confirm_button.css('display', 'inline-block');
-              // clearButton.css('display', 'inline-block');
-              const control_sec = $('.uacf7-form-'+formId).find(".control_div"); 
+          ctx.moveTo(touch.clientX - canvas.getBoundingClientRect().left, touch.clientY - canvas.getBoundingClientRect().top);
+      
+          if (isDrawing) {
+              const control_sec = $('.uacf7-form-' + formId).find(".control_div");
               control_sec.css('display', 'block');
           }
-          
       }
-
+      
       function draw(e) {
           if (!isDrawing) return;
-          ctx.lineTo(e.clientX - canvas.getBoundingClientRect().left, e.clientY - canvas.getBoundingClientRect().top);
+      
+          const touch = e.touches[0];
+          ctx.lineTo(touch.clientX - canvas.getBoundingClientRect().left, touch.clientY - canvas.getBoundingClientRect().top);
           ctx.stroke();
       }
-
+      
       function stopDrawing() {
           isDrawing = false;
           ctx.closePath();
@@ -76,9 +76,12 @@
 
       // Event listeners
       canvas.addEventListener("mousedown", startDrawing);
+      canvas.addEventListener("touchstart", startDrawing);
       canvas.addEventListener("mousemove", draw);
+      canvas.addEventListener("touchmove", draw);
       canvas.addEventListener("mouseup", stopDrawing);
       canvas.addEventListener("mouseout", stopDrawing);
+      canvas.addEventListener("touchend", stopDrawing);
 
       // clearButton.addEventListener("click", clearCanvas);
 
