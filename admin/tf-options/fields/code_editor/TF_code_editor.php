@@ -19,7 +19,7 @@ if ( ! class_exists( 'TF_code_editor' ) ) {
                 'tabSize'       => 2,
                 'lineNumbers'   => true,
                 'theme'         => 'monokai',
-                'mode'          => 'htmlmixed',
+                'mode'          => 'css',
                 'cdnURL'        => $this->cdn_url . $this->version,
               );
 
@@ -27,7 +27,7 @@ if ( ! class_exists( 'TF_code_editor' ) ) {
             $settings = wp_parse_args( $settings, $default_settings );
 
         ?>
-        <div class="tf-field-textarea">
+        <div class="tf-field-textarea tf-field-code-editor">
             <?php
                 echo '<textarea name="'. esc_attr( $this->field_name() ) .'"'. $this->field_attributes() .' data-editor="'. esc_attr( json_encode( $settings ) ) .'">'. $this->value .'</textarea>';
             ?>

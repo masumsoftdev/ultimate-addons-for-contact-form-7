@@ -12,22 +12,78 @@
             });
         }
 
-        // Field: code_editor
-    // $(document).ready(function () { 
-    //     // if (typeof CodeMirror !== 'function') { return; }
-    //     // console.log("working");
-    //     var $this = $('.tf-field-textarea'),
-    //         $textarea = $this.find('textarea'),
-    //         $inited = $this.find('.CodeMirror'),
-    //         data_editor = $textarea.data('editor');
+       
 
-    //     // console.log($this);
+       // Field: code_editor
 
-    //     if ($inited.length) { 
-    //         $inited.remove();
-    //     } 
+       var TF = TF || {};
 
-    // });
+       TF.funcs = {};
+
+       TF.vars = {
+           onloaded: false,
+           $body: $('body'),
+           $window: $(window),
+           $document: $(document),
+           $form_warning: null,
+           is_confirm: false,
+           form_modified: false,
+           code_themes: [],
+           is_rtl: $('body').hasClass('rtl'),
+       };
+
+        $(document).ready(function () {
+            $(".tf-field-code-editor").each(function () {
+                if (typeof CodeMirror !== 'function') { return; }
+                // console.log("working");
+                // return false;
+                var $this =
+                 $(this),
+                    $textarea = $this.find('textarea'),
+                    $inited = $this.find('.CodeMirror'),
+                    data_editor = $textarea.data('editor');
+
+                if ($inited.length) {
+                    $inited.remove();
+                }
+
+                var interval = setInterval(function () {
+                    if ($this.is(':visible')) {
+
+                        var code_editor = CodeMirror.fromTextArea($textarea[0], data_editor);
+                        console.log(code_editor);
+                        // load code-mirror theme css.
+                        if (data_editor.theme !== 'default' && TF.vars.code_themes.indexOf(data_editor.theme) === -1) {
+
+                            var $cssLink = $('<link>');
+
+                            $('#tf-codemirror-css').after($cssLink);
+
+                            $cssLink.attr({
+                                rel: 'stylesheet',
+                                id: 'tf-codemirror-' + data_editor.theme + '-css', 
+                                href: data_editor.cdnURL + '/theme/' + data_editor.theme + '.min.css',
+                                type: 'text/css',
+                                media: 'all'
+                            });
+
+                            TF.vars.code_themes.push(data_editor.theme);
+
+                        }
+
+                        CodeMirror.modeURL = data_editor.cdnURL + '/mode/%N/%N.min.js';
+                        CodeMirror.autoLoadMode(code_editor, data_editor.mode);
+
+                        code_editor.on('change', function (editor, event) {
+                            $textarea.val(code_editor.getValue()).trigger('change');
+                        });
+
+                        clearInterval(interval);
+
+                    }
+                });
+            });
+        });
 
         // Create an instance of Notyf
         const notyf = new Notyf({
@@ -519,7 +575,7 @@
             $this_parent.find('.tf-repeater-wrap .tf-field-notice-inner').remove();
             // Chacked maximum repeater
             if (max != '' && count >= max) {
-                $this_parent.find('.tf-repeater-wrap').append('<div class="tf-field-notice-inner tf-notice-danger" style="display: block;">You have reached limit in free version. Please subscribe to Pro for unlimited access</div>');
+                $this_parent.find('.tf-repeater-wrap').append('<div class="tf-field-notice-inner tf-notice-danger" style="display: block;">You have reached limit.</div>');
                 return false;
             }
 

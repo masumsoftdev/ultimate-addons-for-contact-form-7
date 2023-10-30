@@ -1,9 +1,7 @@
 ;(function ($) {
 
-
-  var botToken = $('#uacf7_form_opt\\[uacf7_telegram_bot_token\\]').val();
-
-  console.log(botToken);
+//
+  var botToken = $('#uacf7_form_opt\\[uacf7_telegram_bot_token\\]').val(); 
 
   var apiUrl = `https://api.telegram.org/bot${botToken}/getMe`;
 

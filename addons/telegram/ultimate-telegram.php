@@ -28,12 +28,6 @@ class UACF7_TELEGRAM {
   }
 
 
-
-
-
-    
-  
-
   public function uacf7_post_meta_options_telegram( $value, $post_id){
 
     $telegram = apply_filters('uacf7_post_meta_options_telegram_pro', $data = array(
@@ -124,9 +118,9 @@ class UACF7_TELEGRAM {
 
     /**
      * Getting Bot Token & Chat ID from the Database
-     */
+     */ 
 
-     $uacf7_telegram_settings = get_post_meta($form_id, 'uacf7_form_opt', true);
+     $uacf7_telegram_settings = uacf7_get_form_option( $form_id, 'telegram' );
 
 
      if (!empty($uacf7_telegram_settings)) {
@@ -140,20 +134,15 @@ class UACF7_TELEGRAM {
       $bot_token =  $uacf7_telegram_bot_token;
       $chat_id =  $uacf7_telegram_chat_id;
 
-     if($uacf7_telegram_enable === 'on' || $uacf7_telegram_enable === '1'){
+     if($uacf7_telegram_enable == true ){
         $api_url = "https://api.telegram.org/bot$bot_token/sendMessage";
-     }
-
-   
-
-
+     } 
 
       $args = array(
         'chat_id' => $chat_id,
         'text' => $message,
-    );
-
-
+      ); 
+      
       $response = wp_remote_post($api_url, array(
           'body' => json_encode($args),
           'headers' => array('Content-Type' => 'application/json'),

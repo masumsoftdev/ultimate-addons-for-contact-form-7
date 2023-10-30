@@ -15,8 +15,8 @@ class UACF7_PRE_POPULATE {
         
         add_action( 'wp_enqueue_scripts', array($this, 'wp_enqueue_script' ) );  
         add_action( 'admin_enqueue_scripts', array($this, 'wp_enqueue_admin_script' ) );  
-        add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_panel' ) );
-        add_action( 'wpcf7_after_save', array( $this, 'uacf7_bf_save_contact_form' ) ); 
+        // add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_panel' ) );
+        // add_action( 'wpcf7_after_save', array( $this, 'uacf7_bf_save_contact_form' ) ); 
         add_action( 'wp_ajax_uacf7_ajax_pre_populate_redirect', array( $this, 'uacf7_ajax_pre_populate_redirect' ) ); 
         add_action( 'wp_ajax_nopriv_uacf7_ajax_pre_populate_redirect', array( $this, 'uacf7_ajax_pre_populate_redirect' ) ); 
         add_filter( 'uacf7_post_meta_options', array($this, 'uacf7_post_meta_options_pre_populated'), 22, 2 ); 
@@ -25,7 +25,14 @@ class UACF7_PRE_POPULATE {
 
 
     public function uacf7_post_meta_options_pre_populated( $value, $post_id){
-
+        $list_forms = get_posts(array(
+            'post_type'     => 'wpcf7_contact_form',
+            'posts_per_page'   => -1
+        ));
+        $all_forms = array();
+        foreach ($list_forms as $form) { 
+            $all_forms[$form->ID] = $form->post_title; 
+        }
         $pre_populated = apply_filters('uacf7_post_meta_options_pre_populated_pro', $data = array(
             'title'  => __( 'Pre Populated', 'ultimate-addons-cf7' ),
             'icon'   => 'fa-solid fa-arrow-up-right-dots',
@@ -56,28 +63,23 @@ class UACF7_PRE_POPULATE {
                   'id'        => 'pre_populate_form',
                   'type'      => 'select',
                   'label'     => __( ' Select Pre-Populate Form', 'ultimate-addons-cf7' ),
-                  'options'     => array(
-                    'form 1' => 'Form 1',
-                    'form 2' => 'Form 2',
-                  )
+                  'options'     => $all_forms
               ),
 
-              'pre_populate_field_increaser' => array(
-                'id' => 'pre_populate_field_increaser',
+              'pre_populate_passing_field' => array(
+                'id' => 'pre_populate_passing_field',
                 'type' => 'repeater',
                 'label' => 'Select Pre-Populate Field',
                 'class' => 'tf-field-class',
                 'fields' => array(
-                    array(
-                        'id' => 'pre_populate_passing_field',
+                    'field_name' => array(
+                        'id' => 'field_name',
                         'type' => 'select',
-                        'options' => array(
-                            'option 1' => 'option 1',
-                            'option 2' => 'option 2',
-                            'option 3' => 'option 3',
-                            'option 4' => 'option 4',
-                            'option 5' => 'option 5',
-                        )
+                        'options'  => 'uacf7',
+                        'query_args' => array(
+                            'post_id'      => $post_id,  
+                            'exclude'      => ['submit'], 
+                        ), 
                      )
                  ),
             )
@@ -137,9 +139,11 @@ class UACF7_PRE_POPULATE {
         $form_current = \WPCF7_ContactForm::get_current();
          
         $all_fields = $post->scan_form_tags();
-         
-        $pre_populate_enable = !empty(get_post_meta( $post->id(), 'pre_populate_enable', true )) ? get_post_meta( $post->id(), 'pre_populate_enable', true ) : '';
-        $data_redirect_url = !empty(get_post_meta( $post->id(), 'data_redirect_url', true )) ? get_post_meta( $post->id(), 'data_redirect_url', true ) : ''; 
+        $pre_populate = uacf7_get_form_option( $post->id(), 'pre_populated' );
+        
+        $pre_populate_enable = isset($pre_populate['pre_populate_enable']) ? $pre_populate['pre_populate_enable'] : '';
+
+        $data_redirect_url = isset($pre_populate['data_redirect_url']) ? $pre_populate['data_redirect_url'] : '';
         $pre_populate_passing_field = !empty(get_post_meta( $post->id(), 'pre_populate_passing_field', true )) ? get_post_meta( $post->id(), 'pre_populate_passing_field', true ) : []; 
         $pre_populate_form = !empty(get_post_meta( $post->id(), 'pre_populate_form', true )) ? get_post_meta( $post->id(), 'pre_populate_form', true ) : []; 
         $count_shifting = count($pre_populate_passing_field);
@@ -304,17 +308,23 @@ class UACF7_PRE_POPULATE {
         }
 
         $form_id = $_POST['form_id']; 
-        $pre_populate_enable = get_post_meta( $form_id, 'pre_populate_enable', true ); 
-        if($pre_populate_enable != '' || $pre_populate_enable != 0){
-            $data_redirect_url = get_post_meta( $form_id, 'data_redirect_url', true );
-            $pre_populate_passing_field = get_post_meta( $form_id, 'pre_populate_passing_field', true );
-            $pre_populate_form = get_post_meta( $form_id, 'pre_populate_form', true );
-
+        $pre_populate = uacf7_get_form_option( $form_id, 'pre_populated' );
+        $pre_populate_enable = isset($pre_populate['pre_populate_enable']) ? $pre_populate['pre_populate_enable'] : false;
+        if($pre_populate_enable == true){
+            $data_redirect_url = isset($pre_populate['data_redirect_url']) ? $pre_populate['data_redirect_url'] : '#';
+            $pre_populate_passing_field = isset($pre_populate['pre_populate_passing_field']) ? $pre_populate['pre_populate_passing_field'] : '';
+            $pre_populate_form = isset($pre_populate['pre_populate_form']) ? $pre_populate['pre_populate_form'] : '';
+            $field_name = array();
+            if(is_array($pre_populate_passing_field)){
+                foreach($pre_populate_passing_field as $key => $value){
+                    $field_name[$key] = $value['field_name'];
+                }
+            }
             $data = [
                 'form_id' => $form_id,
                 'pre_populate_enable' => $pre_populate_enable,
                 'data_redirect_url' => $data_redirect_url,
-                'pre_populate_passing_field' => $pre_populate_passing_field,
+                'pre_populate_passing_field' => $field_name,
                 'pre_populate_form' => $pre_populate_form,
             ];
             

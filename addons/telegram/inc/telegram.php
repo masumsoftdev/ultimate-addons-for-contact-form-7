@@ -84,7 +84,7 @@ class UACF7_TELEGRAM_TAG_PANEL{
         <!-- First Column Start -->
           <div class="telegram_wrapper_first_col">
             <div class="ultimate-telegram-wrapper">
-              <fieldset>
+              <fieldset>6
                 <div class="bot_title_and_status">
                     <div class="bot_title">
                       <h3><?php echo esc_html__( 'Telegram BOT Token', 'ultimate-addons-cf7' ); ?></h3>
@@ -231,11 +231,11 @@ class UACF7_TELEGRAM_TAG_PANEL{
 
 
  function uacf7_telegram_active_status_callback($form_id) {
-
-  $uacf7_form_opt = get_post_meta($form_id, 'uacf7_form_opt', true);
+ 
+  $telegram = uacf7_get_form_option( $form_id, 'telegram' );
    
-    $uacf7_telegram_bot_username = isset($uacf7_form_opt['uacf7_telegram_bot_username']) ? $uacf7_form_opt['uacf7_telegram_bot_username']: ''; 
-    $uacf7_telegram_bot_name = isset($uacf7_form_opt['uacf7_telegram_bot_name']) ? $uacf7_form_opt['uacf7_telegram_bot_name']: ''; 
+    $uacf7_telegram_bot_username = isset($telegram['uacf7_telegram_bot_username']) ? $telegram['uacf7_telegram_bot_username']: ''; 
+    $uacf7_telegram_bot_name = isset($telegram['uacf7_telegram_bot_name']) ? $telegram['uacf7_telegram_bot_name']: ''; 
     
     ?>
 

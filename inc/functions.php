@@ -738,40 +738,8 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                     // $meta['uacf7_uacf7style_ua_custom_css'] = $uacf7_uacf7style_ua_custom_css; 
                     // }
 
-                     //Submission ID addon Migration
+                     
 
-                    //  $uacf7_submission_id_enable = get_post_meta( $post_id, 'uacf7_submission_id_enable', true ) == 'on' ? 1 : 0;
-                    //  if($uacf7_submission_id_enable == true){
-
-                    //      $uacf7_submission_id = get_post_meta( $post_id, 'uacf7_submission_id', true );
-                    //      $uacf7_submission_id_step = get_post_meta( $post_id, 'uacf7_submission_id_step', true ); 
-                         
-                    //      $meta['uacf7_submission_id_enable'] = $uacf7_submission_id_enable;
-                    //      $meta['uacf7_submission_id'] = $uacf7_submission_id;
-                    //      $meta['uacf7_submission_id_step'] = $uacf7_submission_id_step;
-
-                    //  }
-
-                     //Telegram Addon Migration 
-                    //  $uacf7_telegram_settings = get_post_meta($post_id, 'uacf7_telegram_settings', true);
-                    //  $uacf7_telegram_enable = isset($uacf7_telegram_settings['uacf7_telegram_enable']) ? $uacf7_telegram_settings['uacf7_telegram_enable'] == 'on': '1';
-
-                    //  if($uacf7_telegram_enable == true){
-                    //      $uacf7_telegram_bot_token = isset($uacf7_telegram_settings['uacf7_telegram_bot_token']) ? $uacf7_telegram_settings['uacf7_telegram_bot_token'] : '';
-                    //      $uacf7_telegram_chat_id = isset($uacf7_telegram_settings['uacf7_telegram_chat_id']) ? $uacf7_telegram_settings['uacf7_telegram_chat_id'] : ''; 
-                    //      $uacf7_telegram_bot_name = isset($uacf7_telegram_settings['uacf7_telegram_bot_name']) ? $uacf7_telegram_settings['uacf7_telegram_bot_name'] : ''; 
-                    //      $uacf7_telegram_bot_username = isset($uacf7_telegram_settings['uacf7_telegram_bot_username']) ? $uacf7_telegram_settings['uacf7_telegram_bot_username'] : ''; 
-                    //      $uacf7_telegram_connection_error_message = isset($uacf7_telegram_settings['uacf7_telegram_connection_error_message']) ? $uacf7_telegram_settings['uacf7_telegram_connection_error_message'] : ''; 
-                         
-                    //      $meta['uacf7_telegram_enable'] = $uacf7_telegram_enable;
-                    //      $meta['uacf7_telegram_bot_token'] = $uacf7_telegram_bot_token;
-                    //      $meta['uacf7_telegram_chat_id'] = $uacf7_telegram_chat_id;
-                    //      $meta['uacf7_telegram_bot_name'] = $uacf7_telegram_bot_name;
-                    //      $meta['uacf7_telegram_bot_username'] = $uacf7_telegram_bot_username;
-                    //      $meta['uacf7_telegram_connection_error_message'] = $uacf7_telegram_connection_error_message;
-                 
-
-                    //  }
 
                     // Multistep addon Migration
                     // $uacf7_multistep_is_multistep = get_post_meta( $post_id, 'uacf7_multistep_is_multistep', true ) == 'on' ? 1 : 0;
@@ -938,15 +906,103 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                 //     $meta['pdf_generator'] = $pdf; 
                 // }
 
+
+                // Conversation form addon Migration
+                // $conversational = isset($meta['conversational_form']) ? $meta['conversational_form'] : array();
+                // $uacf7_conversation_form_enable = get_post_meta( $post_id, 'uacf7_is_conversational', true ) == 'on' ? 1 : get_post_meta( $post_id, 'uacf7_is_conversational', true );
+                // if($uacf7_conversation_form_enable == true){
+                //     $conversational['uacf7_is_conversational'] = $uacf7_conversation_form_enable;
+                //     $conversational['uacf7_full_screen'] = get_post_meta( $post_id, 'uacf7_full_screen', true );
+                //     $conversational['uacf7_enable_progress_bar'] = get_post_meta( $post_id, 'uacf7_enable_progress_bar', true );
+                //     $conversational['uacf7_conversational_intro'] = get_post_meta( $post_id, 'uacf7_conversational_intro', true );
+                //     $conversational['uacf7_conversational_thankyou'] = get_post_meta( $post_id, 'uacf7_conversational_thankyou', true );
+                //     $conversational['uacf7_conversational_style'] = get_post_meta( $post_id, 'uacf7_conversational_style', true );
+                //     $conversational['uacf7_conversational_bg_color'] = get_post_meta( $post_id, 'uacf7_conversational_bg_color', true );
+                //     $conversational['uacf7_conversational_button_color'] = get_post_meta( $post_id, 'uacf7_conversational_button_color', true );
+                //     $conversational['uacf7_conversational_button_bg_color'] = get_post_meta( $post_id, 'uacf7_conversational_button_bg_color', true );
+                //     $conversational['uacf7_conversational_bg_image'] = get_post_meta( $post_id, 'uacf7_conversational_bg_image', true );
+                //     $conversational['uacf7_progress_bar_height'] = get_post_meta( $post_id, 'uacf7_progress_bar_height', true );
+                //     $conversational['uacf7_progress_bar_bg_color'] = get_post_meta( $post_id, 'uacf7_progress_bar_bg_color', true );
+                //     $conversational['uacf7_progress_bar_completed_bg_color'] = get_post_meta( $post_id, 'uacf7_progress_bar_completed_bg_color', true );
+                //     $conversational['uacf7_conversational_intro_title'] = get_post_meta( $post_id, 'uacf7_conversational_intro_title', true );
+                //     $conversational['uacf7_conversational_intro_button'] = get_post_meta( $post_id, 'uacf7_conversational_intro_button', true );
+                //     $conversational['uacf7_conversational_intro_bg_color'] = get_post_meta( $post_id, 'uacf7_conversational_intro_bg_color', true );
+                //     $conversational['uacf7_conversational_intro_text_color'] = get_post_meta( $post_id, 'uacf7_conversational_intro_text_color', true );
+                //     $conversational['uacf7_conversational_intro_image'] = get_post_meta( $post_id, 'uacf7_conversational_intro_image', true );
+                //     $conversational['uacf7_conversational_intro_message'] = get_post_meta( $post_id, 'uacf7_conversational_intro_message', true );
+                //     $conversational['uacf7_conversational_thank_you_title'] = get_post_meta( $post_id, 'uacf7_conversational_thank_you_title', true );
+                //     $conversational['uacf7_conversational_thank_you_button'] = get_post_meta( $post_id, 'uacf7_conversational_thank_you_button', true );
+                //     $conversational['uacf7_conversational_thank_you_url'] = get_post_meta( $post_id, 'uacf7_conversational_thank_you_url', true );
+                //     $conversational['uacf7_conversational_thankyou_bg_color'] = get_post_meta( $post_id, 'uacf7_conversational_thankyou_bg_color', true );
+                //     $conversational['uacf7_conversational_thankyou_text_color'] = get_post_meta( $post_id, 'uacf7_conversational_thankyou_text_color', true );
+                //     $conversational['uacf7_conversational_thankyou_image'] = get_post_meta( $post_id, 'uacf7_conversational_thankyou_image', true );
+                //     $conversational['uacf7_conversational_thank_you_message'] = get_post_meta( $post_id, 'uacf7_conversational_thank_you_message', true );
+                //     $conversational['custom_conv_css'] = get_post_meta( $post_id, 'custom_conv_css', true );
+
+                //     $uacf7_conversational_field = get_post_meta( $post_id, 'uacf7_conversational_field', true );
+                //     $count = 0;
+                //     foreach($uacf7_conversational_field as $field_key => $field_value){
+                //         $conversational['uacf7_conversational_steps'][$count] = $field_value;  
+                //         $conversational['uacf7_conversational_steps'][$count]['steps_name'] = $field_key;  
+                //         $count++;
+                //     }
+
+                //     $meta['conversational_form'] = $conversational; 
+                // }
+
+                 // Submission ID addon Migration
+                //  $submission = isset($meta['submission_id']) ? $meta['submission_id'] : array();
+                //  $uacf7_submission_id_enable = get_post_meta( $post_id, 'uacf7_submission_id_enable', true ) == 'on' ? 1 : 0;
+                //  if($uacf7_submission_id_enable == true){
+
+                //      $uacf7_submission_id = get_post_meta( $post_id, 'uacf7_submission_id', true );
+                //      $uacf7_submission_id_step = get_post_meta( $post_id, 'uacf7_submission_id_step', true );
+                //      $submission['uacf7_submission_id_enable'] = $uacf7_submission_id_enable;
+                //      $submission['uacf7_submission_id'] = $uacf7_submission_id;
+                //      $submission['uacf7_submission_id_step'] = $uacf7_submission_id_step;
+                //     $meta['submission_id'] = $submission;
+                //  }
+                
+                //Telegram Addon Migration 
+                // $telegram = isset($meta['telegram']) ? $meta['telegram'] : array();
+                // $uacf7_telegram_settings = get_post_meta($post_id, 'uacf7_telegram_settings', true);
+                // $uacf7_telegram_enable = is_array($uacf7_telegram_settings) && isset($uacf7_telegram_settings['uacf7_telegram_enable']) ? $uacf7_telegram_settings['uacf7_telegram_enable'] : 0;
+
+                //  if($uacf7_telegram_enable == true){ 
+                //     $uacf7_telegram_bot_token = isset($uacf7_telegram_settings['uacf7_telegram_bot_token']) ? $uacf7_telegram_settings['uacf7_telegram_bot_token'] : '';
+                //     $uacf7_telegram_chat_id = isset($uacf7_telegram_settings['uacf7_telegram_chat_id']) ? $uacf7_telegram_settings['uacf7_telegram_chat_id'] : '';  
+                //     $telegram['uacf7_telegram_enable'] = $uacf7_telegram_enable;
+                //     $telegram['uacf7_telegram_bot_token'] = $uacf7_telegram_bot_token;
+                //     $telegram['uacf7_telegram_chat_id'] = $uacf7_telegram_chat_id;
+                //     $meta['telegram'] = $telegram; 
+
+                //  }
+
                 if($post_id == 128){
+                    $pre_populated = isset($meta['pre_populated']) ? $meta['pre_populated'] : array(); 
                     
-                    // uacf7_print_r($pdf);
-                    uacf7_print_r($meta);
-                    
+                    $pre_populate_enable = get_post_meta( $post_id, 'pre_populate_enable', true ) == 'on' ? 1 : get_post_meta( $post_id, 'pre_populate_enable', true );
+
+                    if($pre_populate_enable == true){ 
+                        $pre_populated['pre_populate_enable'] = $pre_populate_enable;
+                        $pre_populated['data_redirect_url'] = get_post_meta( $post_id, 'data_redirect_url', true );
+                        $pre_populated['pre_populate_form'] = get_post_meta( $post_id, 'pre_populate_form', true );
+
+                        $pre_populate_passing_field = get_post_meta( $post_id, 'pre_populate_passing_field', true );  
+                        $count = 0;
+                        foreach($pre_populate_passing_field as $field_key => $field_value){
+                            // $pre_populated['pre_populate_passing_field'][$count] = $field_value;  
+                            $pre_populated['pre_populate_passing_field'][$count]['field_name'] = $field_value;  
+                            $count++;
+                        }
+                        $meta['pre_populated'] = $pre_populated;
+
+                    }
+                    // uacf7_print_r($pre_populated); 
                 }
                
                     
-                // update_post_meta( $post_id, 'uacf7_form_opt', $meta ); 
+                update_post_meta( $post_id, 'uacf7_form_opt', $meta ); 
                 
         
     		endwhile;

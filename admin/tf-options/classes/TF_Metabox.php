@@ -199,6 +199,7 @@ if ( ! class_exists( 'TF_Metabox' ) ) {
 				$tf_meta_box_value = array();
 			}
 			$metabox_request   = ( ! empty( $_POST[ $this->metabox_id ] ) ) ? $_POST[ $this->metabox_id ] : array();
+			 
 
 			if ( ! empty( $metabox_request ) && ! empty( $this->metabox_sections ) ) {
 				foreach ( $this->metabox_sections as $section_key => $section ) {
@@ -226,7 +227,9 @@ if ( ! class_exists( 'TF_Metabox' ) ) {
 			if ( ! empty( $tf_meta_box_value ) ) {
 //                tf_var_dump($tf_meta_box_value);
 //                die();
-				update_post_meta( $post_id, $this->metabox_id, $tf_meta_box_value );
+				$meta_data = apply_filters('tf_metabox_before_save_option', $tf_meta_box_value, $post_id); 
+				
+				update_post_meta( $post_id, $this->metabox_id, $meta_data );
 			} else {
 				delete_post_meta( $post_id, $this->metabox_id );
 			}

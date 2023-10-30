@@ -12,7 +12,7 @@
                     ajax_nonce: pre_populate_url.nonce,
                 },
                 success: function (data) {
-                  if(data != false){
+                  if(data != false){ 
                       var count_field = data.pre_populate_passing_field.length; 
                       var shifting_field = data.pre_populate_passing_field;
                       // Redirect form parameter
