@@ -43,7 +43,7 @@ class UACF7_SIGNATURE{
       $form_id = $_POST['form_id'];
 
      
-      $meta_data = get_post_meta('7', 'uacf7_signature_settings', true);
+      $meta_data = get_post_meta($form_id, 'uacf7_signature_settings', true);
 
       echo wp_send_json( [
         'width' => $meta_data['uacf7_signature_width'],
