@@ -20,6 +20,7 @@
   control_sec.css('display', 'none');
 
   let isDrawing = false;
+  
 
   $(document).ready(function() {
 
@@ -43,7 +44,7 @@
   
   canvas.style.border= "1px solid #ddd";
   canvas.style.cursor = "crosshair";
-  ctx.lineWidth = 1;
+  ctx.lineWidth = 2;
   ctx.strokeStyle = "#000000";
   ctx.fillStyle = "#ffffff";
   ctx.lineCap = 'round';
