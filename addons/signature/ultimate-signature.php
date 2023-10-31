@@ -165,10 +165,10 @@ class UACF7_SIGNATURE{
               <div id="signature-pad">
                 <canvas id="signature-canvas"></canvas>
               </div>
+              <span id="confirm_message"></span>
               <div class="control_div">
                   <button id="clear-button">Clear</button>
                   <button id="convertButton">Confirm Signature</button>
-                  <span id="confirm_message"></span>
               </div>
             </div>
         </span>
