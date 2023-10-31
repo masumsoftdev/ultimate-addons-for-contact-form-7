@@ -1,14 +1,11 @@
 
 
-
-
-
-
-
 jQuery(document).ready(function($){
-  var forms  = $(".wpcf7");
 
+
+  var forms  = $(".wpcf7");
   var signs = [];
+
   forms.each(function(k, form){
 
     var formId = $(this).find('input[name="_wpcf7"]').val();
@@ -19,6 +16,7 @@ jQuery(document).ready(function($){
         var data;
           
           var canvas = $(wrap).find('canvas').get(0);
+          
 
           // button = $(wrap).find('button.cf7sg-sign'),
           // form_id = $(form).find('[name=_wpcf7]').val(),
@@ -26,7 +24,7 @@ jQuery(document).ready(function($){
           // resizeCanvas(canvas);
 
           var signaturePad = new SignaturePad(canvas, {
-              backgroundColor: 'rgb(255, 255, 255)'  
+              backgroundColor: 'rgb(255, 255, 255)' 
           });
 
           signs[k+'-'+i] = signaturePad;
@@ -34,6 +32,7 @@ jQuery(document).ready(function($){
               data = signaturePad.toDataURL('image/png');
 
               control_div.css('display', 'block');
+              confirm_message.text('');
             
           });
 
@@ -43,8 +42,12 @@ jQuery(document).ready(function($){
           const convertButton = $('.uacf7-form-'+formId).find("#convertButton");
           const signature_canvas = $('.uacf7-form-'+formId).find("#signature-canvas");
           const confirm_message = $('.uacf7-form-'+formId).find("#confirm_message");
+          const fileInput = $('.uacf7-form-'+formId).find('#img_id_special'); 
           const clearButton = $('.uacf7-form-'+formId).find("#clear-button");
           const control_div = $('.uacf7-form-'+formId).find(".control_div"); 
+
+          canvas.style.border= "1px solid #ddd";
+          canvas.style.cursor = "crosshair";
 
           $(convertButton).click(function (e){
                 e.preventDefault();
@@ -59,7 +62,7 @@ jQuery(document).ready(function($){
             
                     image.id = 'uploadedImage_'+formId;
             
-                    // image.style = 'display:none';
+                    image.style = 'display:none';
             
                     document.body.appendChild(image);
             
@@ -68,8 +71,6 @@ jQuery(document).ready(function($){
             
                     const imagePreview = document.getElementById('uploadedImage_'+formId);
                 
-                    const fileInput = $('.uacf7-form-'+formId).find("#img_id_special");
-            
                     const dataUrl = imagePreview.src;
                     const blob = dataURLtoBlob(dataUrl);
                   
@@ -99,52 +100,56 @@ jQuery(document).ready(function($){
                       }
                     
                       return new Blob([uint8Array], { type: contentType });
-                    }       
+                    }   
+                    
+                
                 
               });   
               
               
               // Clear Canvas
 
-                function clearCanvas(e) {
-                // e.preventDefault();
-                const fileInput = $('.uacf7-form-'+formId).find('#img_id_special'); 
-                fileInput.value = null;
-
-                signs = [];
-              
-                confirm_message.text('Please sign first and confirm your signature before form submission');
-                confirm_message.css({'color': '#FFB900', 'font-weight': '500'});
-               
-                control_div.css('display', 'none');
-
-            }
-
                 clearButton.click(function (e) {
-                // e.preventDefault();
-                clearCanvas();
-                var existing_img = $('.uacf7-form-'+formId).find('.control_div').find('#uploadedImage');
-                existing_img.remove();
-              });
+                    e.preventDefault();
+                      
+                    fileInput.val('');
+                 
+                    signaturePad.clear();
+                    signs = [];
+                  
+                    confirm_message.text('Please sign first and confirm your signature before form submission');
+                    confirm_message.css({'color': '#FFB900', 'font-weight': '500'});       
+                    control_div.css('display', 'none');
               
+                    var existing_img = $('.uacf7-form-'+formId).find('.control_div').find('#uploadedImage');
+                    existing_img.remove();
 
 
-          // document.addEventListener( 'wpcf7mailsent', function( event ) {
-          //     if( event.detail.contactFormId != form_id ) return;
-          //     signs[k+'-'+i].clear();
-          //     $('.wpcf7-sign').val('');
-          // }, false );
+              });
 
 
-          // $(button).on('click',function(e){
-          //     e.preventDefault();
-          //     signs[k+'-'+i].clear();
-          //     $(wrap).find('input').val('');
-          // });
+              // /** Make Empty the Signature Art Board after Form Submission */
+
+                $('.uacf7-form-'+formId).find('.wpcf7-submit').click(function (){
+                  signaturePad.clear();
+                  signs = [];
+                  confirm_message.text('');
+                });
+
+                /** Preventing file system opening */
+
+                $('.uacf7-form-'+formId).find('#img_id_special').click(function (e){
+                  e.preventDefault();
+                });
+
+              }); 
+              
 
       }); 
-  }); 
-});
+
+  });
+
+
 
 
 function resizeCanvas( canvas ) {
