@@ -29,6 +29,7 @@ class UACF7_SIGNATURE{
     {
 
         wp_enqueue_script('uacf7-signature-public-assets', UACF7_URL . '/addons/signature/assets/public/js/signature.js', ['jquery'], 'UACF7_VERSION', true);
+        wp_enqueue_script('uacf7-sign-lib.min', UACF7_URL . '/addons/signature/assets/public/js/sign-lib.min.js', ['jquery'], 'UACF7_VERSION', true);
        
         wp_localize_script( 'uacf7-signature-public-assets', 'signature_obj', [
           "ajaxurl" => admin_url( 'admin-ajax.php' ),
