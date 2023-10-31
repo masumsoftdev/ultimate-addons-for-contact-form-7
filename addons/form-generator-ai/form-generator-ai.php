@@ -83,7 +83,7 @@ class UACF7_FORM_GENERATOR{
                         <div class="uacf7-doc-notice">
                             <?php echo sprintf( 
                                 __( 'Not sure how to use this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
-                                '<a href="https://themefic.com/docs/uacf7/free-addons/" target="_blank">documentation</a>'
+                                '<a href="https://themefic.com/docs/uacf7/free-addons/ai-form-generator/" target="_blank">documentation</a>'
                             ); ?> 
                         </div>
                     </div> 
