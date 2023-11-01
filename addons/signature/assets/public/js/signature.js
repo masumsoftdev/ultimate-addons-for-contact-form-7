@@ -9,49 +9,28 @@ jQuery(document).ready(function($){
 
       $(form).find("#signature-pad").each(function(i, wrap){
 
+        /** Convert Canvas to Image */
+
+        var convertButton = $('.uacf7-form-'+formId).find("#convertButton");
+        var signature_canvas = $('.uacf7-form-'+formId).find("#signature-canvas");
+        var confirm_message = $('.uacf7-form-'+formId).find("#confirm_message");
+        var fileInput = $('.uacf7-form-'+formId).find('#img_id_special'); 
+        var clearButton = $('.uacf7-form-'+formId).find("#clear-button");
+        var control_div = $('.uacf7-form-'+formId).find(".control_div");
+
         var data;
-        var pad_bg_color;
-        var pen_color;
+        var pad_bg_color = fileInput.attr('bg-color');
+        var pen_color = fileInput.attr('pen-color');
 
 
         var canvas = $(wrap).find('canvas').get(0);
         var signaturePad = new SignaturePad(canvas, {
+          includeBackgroundColor: true,
+          backgroundColor : pad_bg_color,
+          penColor: pen_color,
         });
 
-
-
-
-        // Requesting to get settings data
-
-        $(document).ready(function() {
-
-          $.ajax({
-              url: signature_obj.ajaxurl,
-              type: 'POST',
-              data: {form_id : formId, action: 'uacf7_signature'},
-              success: function(response) {
-      
-                pad_bg_color = response.bg_color;
-                pen_color = response.pen_color;
-
-                canvas.style.background = response.bg_color;
-                signaturePad.penColor = response.pen_color;
-                // signaturePad.backgroundColor = response.bg_color;
-              
-      
-              }
-          });
-        });
-
-
-      
-
-          
-          
-
-         
-
-          
+       
 
      
 
@@ -65,14 +44,7 @@ jQuery(document).ready(function($){
           });
 
 
-          /** Convert Canvas to Image */
-
-          var convertButton = $('.uacf7-form-'+formId).find("#convertButton");
-          var signature_canvas = $('.uacf7-form-'+formId).find("#signature-canvas");
-          var confirm_message = $('.uacf7-form-'+formId).find("#confirm_message");
-          var fileInput = $('.uacf7-form-'+formId).find('#img_id_special'); 
-          var clearButton = $('.uacf7-form-'+formId).find("#clear-button");
-          var control_div = $('.uacf7-form-'+formId).find(".control_div"); 
+         
 
 
           canvas.style.cursor = "crosshair";
@@ -91,8 +63,6 @@ jQuery(document).ready(function($){
                     image.setAttribute('class', 'Uacf7UploadedImageForSign_'+formId);
                 
                     image.style = 'display:none';
-
-                    image.style.background = pad_bg_color;
             
                     document.body.appendChild(image);
                

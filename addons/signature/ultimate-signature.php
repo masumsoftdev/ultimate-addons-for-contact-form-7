@@ -18,9 +18,6 @@ class UACF7_SIGNATURE{
         add_filter('wpcf7_validate_uacf7_signature', [$this, 'uacf7_signature_validation_filter'], 10, 2);
         add_filter('wpcf7_validate_uacf7_signature*', [$this, 'uacf7_signature_validation_filter'], 10, 2);
 
-        add_action( 'wp_ajax_uacf7_signature', [$this, 'uacf7_signature_ajax_callback'] );
-        add_action( 'wp_ajax_nopriv_uacf7_signature', [$this, 'uacf7_signature_ajax_callback'] );
-
         //  add_filter( 'wpcf7_load_js', '__return_false' );
     }
 
@@ -31,28 +28,9 @@ class UACF7_SIGNATURE{
 
         wp_enqueue_script('uacf7-signature-public-assets', UACF7_URL . '/addons/signature/assets/public/js/signature.js', ['jquery'], 'UACF7_VERSION', true);
         wp_enqueue_script('uacf7-sign-lib.min', UACF7_URL . '/addons/signature/assets/public/js/sign-lib.min.js', ['jquery'], 'UACF7_VERSION', true);
-        wp_localize_script( 'uacf7-signature-public-assets', 'signature_obj', [
-            "ajaxurl" => admin_url( 'admin-ajax.php' ),
-  
-        ] );
 
     }
 
-
-    public function uacf7_signature_ajax_callback(){
-
-        $form_id = $_POST['form_id'];
-  
-       
-        $meta_data = get_post_meta($form_id, 'uacf7_signature_settings', true);
-  
-        echo wp_send_json( [
-          'bg_color' => $meta_data['uacf7_signature_bg_color'],
-          'pen_color' => $meta_data['uacf7_signature_pen_color']
-         ] );
-  
-  
-      }
 
 
     /** Signature Tag Generator */
@@ -136,8 +114,10 @@ class UACF7_SIGNATURE{
        /** Enable / Disable Submission ID */
        $wpcf7 = WPCF7_ContactForm::get_current(); 
        $formid = $wpcf7->id();
-       $uacf7_signature_settings = get_post_meta( $formid, 'uacf7_signature_settings', true ); 
-       $uacf7_signature_enable = $uacf7_signature_settings['uacf7_signature_enable']; 
+       $uacf7_signature_settings = get_post_meta( $formid, 'uacf7_signature_settings', true );  
+       $uacf7_signature_enable = $uacf7_signature_settings['uacf7_signature_enable'];  
+       $bg_color = $uacf7_signature_settings['uacf7_signature_bg_color']; 
+       $pen_color = $uacf7_signature_settings['uacf7_signature_pen_color']; 
        
        if($uacf7_signature_enable != 'on' || $uacf7_signature_enable === ''){
            return;
@@ -150,10 +130,13 @@ class UACF7_SIGNATURE{
             $class .= ' wpcf7-not-valid';
         }
 
+       
         $atts = array();
 
         $atts['class'] = $tag->get_class_option($class);
         $atts['id'] = $tag->get_id_option();
+        $atts['pen-color'] = esc_attr( $pen_color );
+        $atts['bg-color'] = esc_attr( $bg_color );
         $atts['tabindex'] = $tag->get_option('tabindex', 'signed_int', true);
 
         if ($tag->is_required()) {
