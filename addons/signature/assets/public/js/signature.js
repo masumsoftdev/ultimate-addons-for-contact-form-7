@@ -10,6 +10,35 @@ jQuery(document).ready(function($){
       $(form).find("#signature-pad").each(function(i, wrap){
 
         var data;
+
+
+
+
+
+
+
+
+
+        // Requesting to get settings data
+
+        $(document).ready(function() {
+
+          $.ajax({
+              url: signature_obj.ajaxurl,
+              type: 'POST',
+              data: {form_id : formId, action: 'uacf7_signature'},
+              success: function(response) {
+      
+                // canvas.width = response.width ? response.width : '300';
+                // canvas.height = response.height ? response.height : '100';
+
+                console.log(response)
+      
+              }
+          });
+        });
+
+
           
           var canvas = $(wrap).find('canvas').get(0);
 

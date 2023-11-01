@@ -9,8 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 class UACF7_SIGNATURE_PANEL{
 
   public $uacf7_signature_enable;
-  public $uacf7_signature_height;
-  public $uacf7_signature_width;
+  public $uacf7_signature_bg_color;
+  public $uacf7_signature_pen_color;
 
   public function __construct(){
     add_action( 'wpcf7_editor_panels', [$this, 'uacf7_signature_panel_add'] );
@@ -36,8 +36,10 @@ class UACF7_SIGNATURE_PANEL{
 
 
     if(!empty($uacf7_signature_settings)){
-      $this->uacf7_signature_enable = $uacf7_signature_settings['uacf7_signature_enable'];
-
+      $this->uacf7_signature_enable = $uacf7_signature_settings['uacf7_signature_enable'] ?? '';
+      $this->uacf7_signature_bg_color = $uacf7_signature_settings['uacf7_signature_bg_color'] ?? 'black';
+      $this->uacf7_signature_pen_color = $uacf7_signature_settings['uacf7_signature_pen_color'] ?? 'grey';
+      
     } 
 
     ?> 
@@ -57,7 +59,15 @@ class UACF7_SIGNATURE_PANEL{
 
       <div class="uacf7_signature_wrapper">
         <fieldset>
-               
+        <h3><?php _e('Signature Pad Background Color', 'ultimate-addons-cf7' ) ?></h3>
+            <input type="color"  value="<?php echo $this->uacf7_signature_bg_color; ?>" id="uacf7_signature_bg_color" name="uacf7_signature_bg_color">
+            <br>
+            <small><?php _e(' E.g. do not use px or rem', 'ultimate-addons-cf7' ) ?></small>
+            
+            <h3><?php _e('Signature Pen Color', 'ultimate-addons-cf7' ) ?></h3>
+            <input type="color" value="<?php echo $this->uacf7_signature_pen_color; ?>" id="uacf7_signature_pen_color" name="uacf7_signature_pen_color">
+            <br>
+            <small><?php _e(' E.g. do not use px or rem. The default value is compatible with all kind of devices', 'ultimate-addons-cf7' ) ?></small> 
         </fieldset> 
       </div>
      
@@ -80,6 +90,8 @@ class UACF7_SIGNATURE_PANEL{
 
     $uacf7_signature_settings = [
       'uacf7_signature_enable' =>  sanitize_text_field($_POST['uacf7_signature_enable']),
+      'uacf7_signature_bg_color' =>  sanitize_text_field($_POST['uacf7_signature_bg_color']),
+      'uacf7_signature_pen_color' =>  sanitize_text_field($_POST['uacf7_signature_pen_color'])
     ];
 
     update_post_meta( $form->id(), 'uacf7_signature_settings', $uacf7_signature_settings);
