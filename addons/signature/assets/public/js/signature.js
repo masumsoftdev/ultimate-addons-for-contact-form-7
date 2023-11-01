@@ -16,12 +16,6 @@ jQuery(document).ready(function($){
         var data;
           
           var canvas = $(wrap).find('canvas').get(0);
-          
-
-          // button = $(wrap).find('button.cf7sg-sign'),
-          // form_id = $(form).find('[name=_wpcf7]').val(),
-          // input = $(wrap).find('input');
-          // resizeCanvas(canvas);
 
           var signaturePad = new SignaturePad(canvas, {
               backgroundColor: 'rgb(255, 255, 255)' 
@@ -39,12 +33,13 @@ jQuery(document).ready(function($){
 
             /** Convert Canvas to Image */
 
-          const convertButton = $('.uacf7-form-'+formId).find("#convertButton");
-          const signature_canvas = $('.uacf7-form-'+formId).find("#signature-canvas");
-          const confirm_message = $('.uacf7-form-'+formId).find("#confirm_message");
-          const fileInput = $('.uacf7-form-'+formId).find('#img_id_special'); 
-          const clearButton = $('.uacf7-form-'+formId).find("#clear-button");
-          const control_div = $('.uacf7-form-'+formId).find(".control_div"); 
+          var convertButton = $('.uacf7-form-'+formId).find("#convertButton");
+          var signature_canvas = $('.uacf7-form-'+formId).find("#signature-canvas");
+          var confirm_message = $('.uacf7-form-'+formId).find("#confirm_message");
+          var existing_img = $('.uacf7-form-'+formId).find('.control_div').find('.uploadedImage');
+          var fileInput = $('.uacf7-form-'+formId).find('#img_id_special'); 
+          var clearButton = $('.uacf7-form-'+formId).find("#clear-button");
+          var control_div = $('.uacf7-form-'+formId).find(".control_div"); 
 
           canvas.style.border= "1px solid #ddd";
           canvas.style.cursor = "crosshair";
@@ -60,16 +55,17 @@ jQuery(document).ready(function($){
             
                     image.src = data;
             
-                    image.id = 'uploadedImage_'+formId;
+                    image.setAttribute('class', 'uploadedImage');
+                    // image.class = 'uploadedImage_'+formId;
             
-                    image.style = 'display:none';
+                    // image.style = 'display:none';
             
                     document.body.appendChild(image);
             
                     
                     /** This need to be appened to get it's property: by Masum */
             
-                    const imagePreview = document.getElementById('uploadedImage_'+formId);
+                    const imagePreview = document.querySelectorAll('.uploadedImage_'+formId);
                 
                     const dataUrl = imagePreview.src;
                     const blob = dataURLtoBlob(dataUrl);
@@ -112,16 +108,15 @@ jQuery(document).ready(function($){
                 clearButton.click(function (e) {
                     e.preventDefault();
                       
-                    fileInput.val('');
-                 
+                    $('#img_id_special').val('');
+
+           
                     signaturePad.clear();
                     signs = [];
                   
                     confirm_message.text('Please sign first and confirm your signature before form submission');
                     confirm_message.css({'color': '#FFB900', 'font-weight': '500'});       
                     control_div.css('display', 'none');
-              
-                    var existing_img = $('.uacf7-form-'+formId).find('.control_div').find('#uploadedImage');
                     existing_img.remove();
 
 

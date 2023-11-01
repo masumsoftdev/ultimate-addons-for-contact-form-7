@@ -37,8 +37,6 @@ class UACF7_SIGNATURE_PANEL{
 
     if(!empty($uacf7_signature_settings)){
       $this->uacf7_signature_enable = $uacf7_signature_settings['uacf7_signature_enable'];
-      $this->uacf7_signature_height = $uacf7_signature_settings['uacf7_signature_height'];
-      $this->uacf7_signature_width = $uacf7_signature_settings['uacf7_signature_width'];
 
     } 
 
@@ -59,15 +57,6 @@ class UACF7_SIGNATURE_PANEL{
 
       <div class="uacf7_signature_wrapper">
         <fieldset>
-             <h3><?php _e('Signature Height', 'ultimate-addons-cf7' ) ?></h3>
-            <input type="number" min="1" placeholder="100" value="<?php echo $this->uacf7_signature_height; ?>" id="uacf7_signature_height" name="uacf7_signature_height">
-            <br>
-            <small><?php _e(' E.g. do not use px or rem', 'ultimate-addons-cf7' ) ?></small>
-            
-            <h3><?php _e('Signature Width', 'ultimate-addons-cf7' ) ?></h3>
-            <input type="number" min="1" placeholder="300" value="<?php echo $this->uacf7_signature_width; ?>" id="uacf7_signature_width" name="uacf7_signature_width">
-            <br>
-            <small><?php _e(' E.g. do not use px or rem. The default value is compatible with all kind of devices', 'ultimate-addons-cf7' ) ?></small>
                
         </fieldset> 
       </div>
@@ -91,8 +80,6 @@ class UACF7_SIGNATURE_PANEL{
 
     $uacf7_signature_settings = [
       'uacf7_signature_enable' =>  sanitize_text_field($_POST['uacf7_signature_enable']),
-      'uacf7_signature_height' =>  sanitize_text_field($_POST['uacf7_signature_height']),
-      'uacf7_signature_width' =>  sanitize_text_field($_POST['uacf7_signature_width'])
     ];
 
     update_post_meta( $form->id(), 'uacf7_signature_settings', $uacf7_signature_settings);

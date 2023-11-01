@@ -18,8 +18,6 @@ class UACF7_SIGNATURE{
         add_filter('wpcf7_validate_uacf7_signature', [$this, 'uacf7_signature_validation_filter'], 10, 2);
         add_filter('wpcf7_validate_uacf7_signature*', [$this, 'uacf7_signature_validation_filter'], 10, 2);
 
-        add_action( 'wp_ajax_uacf7_signature', [$this, 'uacf7_signature_ajax_callback'] );
-        add_action( 'wp_ajax_nopriv_uacf7_signature', [$this, 'uacf7_signature_ajax_callback'] );
         //  add_filter( 'wpcf7_load_js', '__return_false' );
     }
 
@@ -31,28 +29,9 @@ class UACF7_SIGNATURE{
         wp_enqueue_script('uacf7-signature-public-assets', UACF7_URL . '/addons/signature/assets/public/js/signature.js', ['jquery'], 'UACF7_VERSION', true);
         wp_enqueue_script('uacf7-sign-lib.min', UACF7_URL . '/addons/signature/assets/public/js/sign-lib.min.js', ['jquery'], 'UACF7_VERSION', true);
        
-        wp_localize_script( 'uacf7-signature-public-assets', 'signature_obj', [
-          "ajaxurl" => admin_url( 'admin-ajax.php' ),
-
-      ] );
 
     }
 
-
-    public function uacf7_signature_ajax_callback(){
-
-      $form_id = $_POST['form_id'];
-
-     
-      $meta_data = get_post_meta($form_id, 'uacf7_signature_settings', true);
-
-      echo wp_send_json( [
-        'width' => $meta_data['uacf7_signature_width'],
-        'height' => $meta_data['uacf7_signature_height']
-       ] );
-
-
-    }
 
     /** Signature Tag Generator */
 
