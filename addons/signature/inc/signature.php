@@ -60,12 +60,12 @@ class UACF7_SIGNATURE_PANEL{
       <div class="uacf7_signature_wrapper">
         <fieldset>
         <h3><?php _e('Signature Pad Background Color', 'ultimate-addons-cf7' ) ?></h3>
-            <input type="color"  value="<?php echo $this->uacf7_signature_bg_color? $this->uacf7_signature_bg_color : '#dddddd'; ?>" id="uacf7_signature_bg_color" name="uacf7_signature_bg_color">
+            <input type="text" id="uacf7_signature_bg_color" name="uacf7_signature_bg_color" class="uacf7-color-picker" value="<?php echo esc_attr_e($this->uacf7_signature_bg_color? $this->uacf7_signature_bg_color : '#dddddd'); ?>" placeholder="<?php echo esc_html__( 'Background Color', 'ultimate-addons-cf7' ); ?>"><br><br>
             <br>
             <small><?php _e(' E.g. Default is #dddddd', 'ultimate-addons-cf7' ) ?></small>
            
             <h3><?php _e('Signature Pen Color', 'ultimate-addons-cf7' ) ?></h3>
-            <input type="color" value="<?php echo $this->uacf7_signature_pen_color ? $this->uacf7_signature_pen_color : '#000000' ; ?>" id="uacf7_signature_pen_color" name="uacf7_signature_pen_color">
+            <input type="text" id="uacf7_signature_pen_color" name="uacf7_signature_pen_color" class="uacf7-color-picker" value="<?php echo esc_attr_e($this->uacf7_signature_pen_color? $this->uacf7_signature_pen_color : '#dddddd'); ?>" placeholder="<?php echo esc_html__( 'Pen Color', 'ultimate-addons-cf7' ); ?>"><br><br>
             <br>
             <small><?php _e(' E.g. Default is #000000', 'ultimate-addons-cf7' ) ?></small> 
         </fieldset> 
