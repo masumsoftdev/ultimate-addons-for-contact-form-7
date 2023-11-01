@@ -48,6 +48,7 @@ class UACF7_SIGNATURE{
   
         echo wp_send_json( [
           'bg_color' => $meta_data['uacf7_signature_bg_color'],
+          'border_color' => $meta_data['uacf7_signature_border_color'],
           'pen_color' => $meta_data['uacf7_signature_pen_color']
          ] );
   
