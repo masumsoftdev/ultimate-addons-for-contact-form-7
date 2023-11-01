@@ -36,7 +36,6 @@ jQuery(document).ready(function($){
           var convertButton = $('.uacf7-form-'+formId).find("#convertButton");
           var signature_canvas = $('.uacf7-form-'+formId).find("#signature-canvas");
           var confirm_message = $('.uacf7-form-'+formId).find("#confirm_message");
-          var existing_img = $('.uacf7-form-'+formId).find('.control_div').find('.uploadedImage');
           var fileInput = $('.uacf7-form-'+formId).find('#img_id_special'); 
           var clearButton = $('.uacf7-form-'+formId).find("#clear-button");
           var control_div = $('.uacf7-form-'+formId).find(".control_div"); 
@@ -55,17 +54,17 @@ jQuery(document).ready(function($){
             
                     image.src = data;
             
-                    image.setAttribute('class', 'uploadedImage');
+                    image.setAttribute('class', 'Uacf7UploadedImageForSign_'+formId);
                     // image.class = 'uploadedImage_'+formId;
             
-                    // image.style = 'display:none';
+                    image.style = 'display:none';
             
                     document.body.appendChild(image);
             
                     
                     /** This need to be appened to get it's property: by Masum */
             
-                    const imagePreview = document.querySelectorAll('.uploadedImage_'+formId);
+                    const imagePreview = document.querySelector('.Uacf7UploadedImageForSign_'+formId);
                 
                     const dataUrl = imagePreview.src;
                     const blob = dataURLtoBlob(dataUrl);
@@ -108,16 +107,14 @@ jQuery(document).ready(function($){
                 clearButton.click(function (e) {
                     e.preventDefault();
                       
-                    $('#img_id_special').val('');
-
-           
+                    fileInput.val('');
                     signaturePad.clear();
                     signs = [];
                   
                     confirm_message.text('Please sign first and confirm your signature before form submission');
                     confirm_message.css({'color': '#FFB900', 'font-weight': '500'});       
                     control_div.css('display', 'none');
-                    existing_img.remove();
+                    $('.Uacf7UploadedImageForSign_'+formId).remove();
 
 
               });
