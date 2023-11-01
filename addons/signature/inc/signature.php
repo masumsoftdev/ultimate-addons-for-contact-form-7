@@ -10,7 +10,6 @@ class UACF7_SIGNATURE_PANEL{
 
   public $uacf7_signature_enable;
   public $uacf7_signature_bg_color;
-  public $uacf7_signature_border_color;
   public $uacf7_signature_pen_color;
 
   public function __construct(){
@@ -40,7 +39,6 @@ class UACF7_SIGNATURE_PANEL{
       $this->uacf7_signature_enable = $uacf7_signature_settings['uacf7_signature_enable'] ?? '';
       $this->uacf7_signature_bg_color = $uacf7_signature_settings['uacf7_signature_bg_color'] ?? '#ffffff';
       $this->uacf7_signature_pen_color = $uacf7_signature_settings['uacf7_signature_pen_color'] ?? '#dddddd';
-      $this->uacf7_signature_border_color = $uacf7_signature_settings['uacf7_signature_border_color'] ?? '#000000';
       
     } 
 
@@ -62,16 +60,12 @@ class UACF7_SIGNATURE_PANEL{
       <div class="uacf7_signature_wrapper">
         <fieldset>
         <h3><?php _e('Signature Pad Background Color', 'ultimate-addons-cf7' ) ?></h3>
-            <input type="color"  value="<?php echo $this->uacf7_signature_bg_color; ?>" id="uacf7_signature_bg_color" name="uacf7_signature_bg_color">
+            <input type="color"  value="<?php echo $this->uacf7_signature_bg_color? $this->uacf7_signature_bg_color : '#dddddd'; ?>" id="uacf7_signature_bg_color" name="uacf7_signature_bg_color">
             <br>
-            <small><?php _e(' E.g. Default is #ffffff', 'ultimate-addons-cf7' ) ?></small>
-            
-            <h3><?php _e('Signature Pad Border Color', 'ultimate-addons-cf7' ) ?></h3>
-            <input type="color" value="<?php echo $this->uacf7_signature_border_color; ?>" id="uacf7_signature_border_color" name="uacf7_signature_border_color">
-            <br>
-            <small><?php _e(' E.g. Default is #dddddd', 'ultimate-addons-cf7' ) ?></small> 
+            <small><?php _e(' E.g. Default is #dddddd', 'ultimate-addons-cf7' ) ?></small>
+           
             <h3><?php _e('Signature Pen Color', 'ultimate-addons-cf7' ) ?></h3>
-            <input type="color" value="<?php echo $this->uacf7_signature_pen_color; ?>" id="uacf7_signature_pen_color" name="uacf7_signature_pen_color">
+            <input type="color" value="<?php echo $this->uacf7_signature_pen_color ? $this->uacf7_signature_pen_color : '#000000' ; ?>" id="uacf7_signature_pen_color" name="uacf7_signature_pen_color">
             <br>
             <small><?php _e(' E.g. Default is #000000', 'ultimate-addons-cf7' ) ?></small> 
         </fieldset> 
@@ -97,7 +91,6 @@ class UACF7_SIGNATURE_PANEL{
     $uacf7_signature_settings = [
       'uacf7_signature_enable' =>  sanitize_text_field($_POST['uacf7_signature_enable']),
       'uacf7_signature_bg_color' =>  sanitize_text_field($_POST['uacf7_signature_bg_color']),
-      'uacf7_signature_border_color' =>  sanitize_text_field($_POST['uacf7_signature_border_color']),
       'uacf7_signature_pen_color' =>  sanitize_text_field($_POST['uacf7_signature_pen_color']),
     ];
 

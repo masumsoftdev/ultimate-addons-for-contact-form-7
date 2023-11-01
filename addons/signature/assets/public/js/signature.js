@@ -10,11 +10,13 @@ jQuery(document).ready(function($){
       $(form).find("#signature-pad").each(function(i, wrap){
 
         var data;
+        var pad_bg_color;
+        var pen_color;
 
 
-
-
-
+        var canvas = $(wrap).find('canvas').get(0);
+        var signaturePad = new SignaturePad(canvas, {
+        });
 
 
 
@@ -29,22 +31,29 @@ jQuery(document).ready(function($){
               data: {form_id : formId, action: 'uacf7_signature'},
               success: function(response) {
       
-                // canvas.width = response.width ? response.width : '300';
-                // canvas.height = response.height ? response.height : '100';
+                pad_bg_color = response.bg_color;
+                pen_color = response.pen_color;
 
-                console.log(response)
+                canvas.style.background = response.bg_color;
+                signaturePad.penColor = response.pen_color;
+                // signaturePad.backgroundColor = response.bg_color;
+              
       
               }
           });
         });
 
 
-          
-          var canvas = $(wrap).find('canvas').get(0);
+      
 
-          var signaturePad = new SignaturePad(canvas, {
-              backgroundColor: 'rgb(255, 255, 255)' 
-          });
+          
+          
+
+         
+
+          
+
+     
 
           signs[k+'-'+i] = signaturePad;
           signs[k+'-'+i].addEventListener('endStroke', function(e){
@@ -65,15 +74,15 @@ jQuery(document).ready(function($){
           var clearButton = $('.uacf7-form-'+formId).find("#clear-button");
           var control_div = $('.uacf7-form-'+formId).find(".control_div"); 
 
-          canvas.style.border= "1px solid #ddd";
+
           canvas.style.cursor = "crosshair";
 
           $(convertButton).click(function (e){
                 e.preventDefault();
                 confirm_message.text('Signature Confirmed');
                 confirm_message.css({'color':'#46B450', 'font-weight': '500'});
+              
             
-                signature_canvas.css('background-color', '#fff');
                 
                     const image = new Image();
             
@@ -82,6 +91,8 @@ jQuery(document).ready(function($){
                     image.setAttribute('class', 'Uacf7UploadedImageForSign_'+formId);
                 
                     image.style = 'display:none';
+
+                    image.style.background = pad_bg_color;
             
                     document.body.appendChild(image);
                

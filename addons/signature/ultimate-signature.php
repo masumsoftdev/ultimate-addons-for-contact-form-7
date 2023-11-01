@@ -48,7 +48,6 @@ class UACF7_SIGNATURE{
   
         echo wp_send_json( [
           'bg_color' => $meta_data['uacf7_signature_bg_color'],
-          'border_color' => $meta_data['uacf7_signature_border_color'],
           'pen_color' => $meta_data['uacf7_signature_pen_color']
          ] );
   
@@ -140,7 +139,7 @@ class UACF7_SIGNATURE{
        $uacf7_signature_settings = get_post_meta( $formid, 'uacf7_signature_settings', true ); 
        $uacf7_signature_enable = $uacf7_signature_settings['uacf7_signature_enable']; 
        
-       if($uacf7_signature_enable != 'on'){
+       if($uacf7_signature_enable != 'on' || $uacf7_signature_enable === ''){
            return;
        }
         $validation_error = wpcf7_get_validation_error($tag->name);
