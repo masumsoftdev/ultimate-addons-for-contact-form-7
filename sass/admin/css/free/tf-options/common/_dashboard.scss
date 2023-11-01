@@ -1,4 +1,4 @@
-.tf-setting-dashboard {
+.tf-setting-dashboard, .uacf7-metabox  {
     .tf-setting-top-bar {
         background-color: #fff;
         padding: 15px 40px;
@@ -569,7 +569,7 @@
         padding: 30px 30px 30px 0px;
 
         .tf-option {
-            @include flexbox();
+            @include flexbox(); 
             z-index: 10;
             position: relative;
 
@@ -661,7 +661,7 @@
                             content: "";
                             width: 8px;
                             border: none;
-                            left: -4px;
+                            left: -4px !important;
                             bottom: 0;
                             top: 0;
                             background: #003c79;
@@ -747,10 +747,12 @@
 
                     > .tf-field {
                         background-color: #fff;
-                        margin: 5px 0px;
                         border-radius: 8px;
-                        padding: 20px 30px;
-
+                        
+                        margin: 5px 0px;
+                        .tf-field-wrap{ 
+                            padding: 20px 30px;
+                        }
                         p.description {
                             font-size: 14px;
                             margin-top: 10px;
@@ -762,15 +764,23 @@
                     }
 
                     > .tf-field.tf-field-color {
-                        background-color: transparent;
-                        padding: 0px;
+                        .tf-color-group li{ 
+                            background-color: #ededf8 !important; 
+                        }
                     }
                 }
             }
         }
     }
 }
-
+.uacf7-metabox{
+    .tf-admin-meta-box{
+        padding: 0 !important;
+    }
+    .tf-option-wrapper{
+         margin: 16px !important;
+    }
+}
 .tf-shortcode-generator-section {
     background-color: #fff;
     padding: 30px;

@@ -15,8 +15,8 @@ class UACF7_range_Slider {
     public function __construct() {
         add_action( 'wpcf7_init', array( $this, 'add_shortcodes' ) );
         add_action( 'admin_init', array( $this, 'tag_generator' ) );
-        add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_tab_panel' ) );
-        add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_contact_form' ) );
+        // add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_tab_panel' ) );
+        // add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_contact_form' ) );
         add_action( 'wpcf7_contact_form_properties', array( $this, 'uacf7_contact_form_properties' ), 10, 2 );
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_slider_scripts' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'uacf7_admin_enqueue_scripts' ) );
@@ -28,7 +28,7 @@ class UACF7_range_Slider {
 
     public function uacf7_post_meta_options_range_slider( $value, $post_id){
 
-        $pre_populated = apply_filters('uacf7_post_meta_options_range_slider_pro', $data = array(
+        $range_silder = apply_filters('uacf7_post_meta_options_range_slider_pro', $data = array(
             'title'  => __( 'Range Slider', 'ultimate-addons-cf7' ),
             'icon'   => 'fa-solid fa-sliders',
             'fields' => array(
@@ -40,22 +40,22 @@ class UACF7_range_Slider {
                 ),
     
              
-                'uacf7-selection-color' => array(
-                    'id'        => 'uacf7-selection-color',
+                'uacf7_range_selection_color' => array(
+                    'id'        => 'uacf7_range_selection_color',
                     'type'      => 'color',
                     'label'     => __( ' Slider Selection Color', 'ultimate-addons-cf7' ),
                     'field_width' => 50
         
                 ),
-                'uacf7-handle-color' => array(
-                    'id'        => 'uacf7-handle-color',
+                'uacf7_range_handle_color' => array(
+                    'id'        => 'uacf7_range_handle_color',
                     'type'      => 'color',
                     'label'     => __( ' Slider Handle Color ', 'ultimate-addons-cf7' ),
                     'field_width' => 50
         
                 ),
-                'uacf7_range_slider_height' => array(
-                    'id'        => 'uacf7_range_slider_height',
+                'uacf7_range_handle_width' => array(
+                    'id'        => 'uacf7_range_handle_width',
                     'type'      => 'number',
                     'label'     => __( ' Slider Handle Height', 'ultimate-addons-cf7' ),
                     'placeholder'     => __( ' px', 'ultimate-addons-cf7' ),
@@ -70,18 +70,19 @@ class UACF7_range_Slider {
                     'field_width' => 50
         
                 ),
-                'uacf7_range_handle_width' => array(
-                    'id'        => 'uacf7_range_handle_width',
+               
+                'uacf7_range_handle_border_radius' => array(
+                    'id'        => 'uacf7_range_handle_border_radius',
                     'type'      => 'number',
-                    'label'     => __( ' Slider Handle Width', 'ultimate-addons-cf7' ),
+                    'label'     => __( ' Handle Border Radius', 'ultimate-addons-cf7' ),
                     'placeholder'     => __( ' px', 'ultimate-addons-cf7' ),
                     'field_width' => 50
         
                 ),
-                'uacf7-handle-border-radius' => array(
-                    'id'        => 'uacf7-handle-border-radius',
+                'uacf7_range_slider_height' => array(
+                    'id'        => 'uacf7_range_slider_height',
                     'type'      => 'number',
-                    'label'     => __( ' Handle Border Radius', 'ultimate-addons-cf7' ),
+                    'label'     => __( ' Slider Height (px)', 'ultimate-addons-cf7' ),
                     'placeholder'     => __( ' px', 'ultimate-addons-cf7' ),
                     'field_width' => 50
         
@@ -92,7 +93,7 @@ class UACF7_range_Slider {
     
         ), $post_id);
     
-        $value['pre_populated'] = $pre_populated; 
+        $value['range_slider'] = $range_silder; 
         return $value;
     }
 
@@ -446,13 +447,13 @@ class UACF7_range_Slider {
             $form = $properties['form'];
 
             ob_start();
-
-            $selection_color = !empty( get_post_meta( $cf->id(), 'uacf7_range_selection_color', true ) ) ? get_post_meta( $cf->id(), 'uacf7_range_selection_color', true ) : "#1e90ff";
-            $handle_width = !empty( get_post_meta( $cf->id(), 'uacf7_range_handle_width', true ) ) ? get_post_meta( $cf->id(), 'uacf7_range_handle_width', true ) : '24';
-            $handle_height = !empty( get_post_meta( $cf->id(), 'uacf7_range_handle_height', true ) ) ? get_post_meta( $cf->id(), 'uacf7_range_handle_height', true ) : '24';
-            $handle_border_radius = !empty( get_post_meta( $cf->id(), 'uacf7_range_handle_border_radius', true ) ) ? get_post_meta( $cf->id(), 'uacf7_range_handle_border_radius', true ) : '24';
-            $handle_color = !empty( get_post_meta( $cf->id(), 'uacf7_range_handle_color', true ) ) ? get_post_meta( $cf->id(), 'uacf7_range_handle_color', true ) : '#3498db';
-            $range_slider_height = !empty( get_post_meta( $cf->id(), 'uacf7_range_slider_height', true ) ) ? get_post_meta( $cf->id(), 'uacf7_range_slider_height', true ) : 9;
+            $range_slider = uacf7_get_form_option( $cf->id(), 'range_slider' );
+            $selection_color = isset( $range_silder['uacf7_range_selection_color'] ) ? $range_silder['uacf7_range_selection_color'] : "#1e90ff";
+            $handle_width = isset( $range_silder['uacf7_range_handle_width'] ) ? $range_silder['uacf7_range_handle_width'] : '24';
+            $handle_height = isset( $range_silder['uacf7_range_handle_height']) ? $range_silder['uacf7_range_handle_height']: '24';
+            $handle_border_radius = isset( $range_silder['uacf7_range_handle_border_radius'] ) ? $range_silder['uacf7_range_handle_border_radius'] : '24';
+            $handle_color = isset( $range_slider['uacf7_range_handle_color'] ) ? $range_slider['uacf7_range_handle_color'] : '#3498db';
+            $range_slider_height = isset( $range_silder['uacf7_range_slider_height'] ) ? $range_silder['uacf7_range_slider_height'] : 9;
             $handle_dynamic_position = ( $handle_height / 2 - $range_slider_height / 2 ) + 1;
             ?>
             <style>

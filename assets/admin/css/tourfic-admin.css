@@ -1289,11 +1289,6 @@ Steps
   height: 10px;
   width: 10px;
   background: #fff;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
-  right: -5px;
   top: 50%;
   margin-top: -5px;
 }
@@ -1415,7 +1410,7 @@ Steps
   }
 }
 
-.tf-setting-dashboard .tf-setting-top-bar {
+.tf-setting-dashboard .tf-setting-top-bar, .uacf7-metabox .tf-setting-top-bar {
   background-color: #fff;
   padding: 15px 40px;
   margin-left: -20px;
@@ -1424,14 +1419,14 @@ Steps
   justify-content: space-between;
   align-items: center;
 }
-.tf-setting-dashboard .tf-setting-top-bar .version {
+.tf-setting-dashboard .tf-setting-top-bar .version, .uacf7-metabox .tf-setting-top-bar .version {
   display: flex;
   align-items: center;
 }
-.tf-setting-dashboard .tf-setting-top-bar .version img {
+.tf-setting-dashboard .tf-setting-top-bar .version img, .uacf7-metabox .tf-setting-top-bar .version img {
   width: 100px;
 }
-.tf-setting-dashboard .tf-setting-top-bar .version span {
+.tf-setting-dashboard .tf-setting-top-bar .version span, .uacf7-metabox .tf-setting-top-bar .version span {
   font-size: 11px;
   line-height: 11px;
   color: #000;
@@ -1443,14 +1438,14 @@ Steps
   padding: 2px 6px;
   margin-left: 10px;
 }
-.tf-setting-dashboard .tf-setting-top-bar .other-document {
+.tf-setting-dashboard .tf-setting-top-bar .other-document, .uacf7-metabox .tf-setting-top-bar .other-document {
   position: relative;
   width: 30px;
   height: 30px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
-.tf-setting-dashboard .tf-setting-top-bar .other-document .dropdown {
+.tf-setting-dashboard .tf-setting-top-bar .other-document .dropdown, .uacf7-metabox .tf-setting-top-bar .other-document .dropdown {
   position: absolute;
   cursor: context-menu;
   top: 60px;
@@ -1467,7 +1462,7 @@ Steps
   transition: all 0.2s ease;
   z-index: 99;
 }
-.tf-setting-dashboard .tf-setting-top-bar .other-document .dropdown:after {
+.tf-setting-dashboard .tf-setting-top-bar .other-document .dropdown:after, .uacf7-metabox .tf-setting-top-bar .other-document .dropdown:after {
   content: "";
   position: absolute;
   border-left: 10px solid transparent;
@@ -1478,7 +1473,7 @@ Steps
   margin-top: 0;
   z-index: 1;
 }
-.tf-setting-dashboard .tf-setting-top-bar .other-document .dropdown .list-item a {
+.tf-setting-dashboard .tf-setting-top-bar .other-document .dropdown .list-item a, .uacf7-metabox .tf-setting-top-bar .other-document .dropdown .list-item a {
   font-size: 15px;
   font-weight: 500;
   color: #000;
@@ -1488,14 +1483,14 @@ Steps
   text-decoration: none;
   padding: 10px 0px;
 }
-.tf-setting-dashboard .tf-setting-top-bar .other-document .dropdown .list-item a span {
+.tf-setting-dashboard .tf-setting-top-bar .other-document .dropdown .list-item a span, .uacf7-metabox .tf-setting-top-bar .other-document .dropdown .list-item a span {
   margin-left: 10px;
 }
-.tf-setting-dashboard .tf-setting-top-bar .other-document:hover .dropdown {
+.tf-setting-dashboard .tf-setting-top-bar .other-document:hover .dropdown, .uacf7-metabox .tf-setting-top-bar .other-document:hover .dropdown {
   visibility: visible;
   opacity: 1;
 }
-.tf-setting-dashboard .tf-setting-banner {
+.tf-setting-dashboard .tf-setting-banner, .uacf7-metabox .tf-setting-banner {
   background-color: transparent;
   padding: 30px 100px;
   border-radius: 10px;
@@ -1506,75 +1501,75 @@ Steps
   background-image: radial-gradient(at center center, #004A9E 0%, #001C39 75%);
 }
 @media only screen and (max-width: 991.98px) {
-  .tf-setting-dashboard .tf-setting-banner {
+  .tf-setting-dashboard .tf-setting-banner, .uacf7-metabox .tf-setting-banner {
     display: flow-root;
   }
 }
 @media only screen and (max-width: 767.98px) {
-  .tf-setting-dashboard .tf-setting-banner {
+  .tf-setting-dashboard .tf-setting-banner, .uacf7-metabox .tf-setting-banner {
     padding: 30px 40px;
   }
 }
-.tf-setting-dashboard .tf-setting-banner .tf-setting-banner-content {
+.tf-setting-dashboard .tf-setting-banner .tf-setting-banner-content, .uacf7-metabox .tf-setting-banner .tf-setting-banner-content {
   width: 50%;
 }
 @media only screen and (max-width: 991.98px) {
-  .tf-setting-dashboard .tf-setting-banner .tf-setting-banner-content {
+  .tf-setting-dashboard .tf-setting-banner .tf-setting-banner-content, .uacf7-metabox .tf-setting-banner .tf-setting-banner-content {
     width: 100%;
   }
 }
-.tf-setting-dashboard .tf-setting-banner .tf-setting-banner-content img {
+.tf-setting-dashboard .tf-setting-banner .tf-setting-banner-content img, .uacf7-metabox .tf-setting-banner .tf-setting-banner-content img {
   width: 200px;
   display: block;
   margin-bottom: 15px;
 }
-.tf-setting-dashboard .tf-setting-banner .tf-setting-banner-content span {
+.tf-setting-dashboard .tf-setting-banner .tf-setting-banner-content span, .uacf7-metabox .tf-setting-banner .tf-setting-banner-content span {
   color: #fff;
   font-size: 38px;
   line-height: 1.2;
   font-weight: 200;
 }
 @media only screen and (max-width: 575.98px) {
-  .tf-setting-dashboard .tf-setting-banner .tf-setting-banner-content span {
+  .tf-setting-dashboard .tf-setting-banner .tf-setting-banner-content span, .uacf7-metabox .tf-setting-banner .tf-setting-banner-content span {
     font-size: 26px;
   }
 }
-.tf-setting-dashboard .tf-setting-banner .tf-setting-banner-content span b {
+.tf-setting-dashboard .tf-setting-banner .tf-setting-banner-content span b, .uacf7-metabox .tf-setting-banner .tf-setting-banner-content span b {
   display: block;
   font-weight: 700;
 }
-.tf-setting-dashboard .tf-setting-banner .tf-setting-banner-image {
+.tf-setting-dashboard .tf-setting-banner .tf-setting-banner-image, .uacf7-metabox .tf-setting-banner .tf-setting-banner-image {
   width: 30%;
 }
 @media only screen and (max-width: 991.98px) {
-  .tf-setting-dashboard .tf-setting-banner .tf-setting-banner-image {
+  .tf-setting-dashboard .tf-setting-banner .tf-setting-banner-image, .uacf7-metabox .tf-setting-banner .tf-setting-banner-image {
     width: 100%;
   }
 }
-.tf-setting-dashboard .tf-setting-banner .tf-setting-banner-image img {
+.tf-setting-dashboard .tf-setting-banner .tf-setting-banner-image img, .uacf7-metabox .tf-setting-banner .tf-setting-banner-image img {
   width: 100%;
 }
-.tf-setting-dashboard .tf-setting-performace-section {
+.tf-setting-dashboard .tf-setting-performace-section, .uacf7-metabox .tf-setting-performace-section {
   margin: 40px 20px 40px 0;
   position: relative;
 }
-.tf-setting-dashboard .tf-setting-performace-section h2 {
+.tf-setting-dashboard .tf-setting-performace-section h2, .uacf7-metabox .tf-setting-performace-section h2 {
   font-size: 26px;
   font-weight: 600;
   line-height: 36px;
   color: #000;
   margin: 0 0 10px;
 }
-.tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid {
+.tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid, .uacf7-metabox .tf-setting-performace-section .tf-performance-grid {
   display: flex;
   justify-content: space-between;
 }
 @media only screen and (max-width: 1199.98px) {
-  .tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid {
+  .tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid, .uacf7-metabox .tf-setting-performace-section .tf-performance-grid {
     display: flow-root;
   }
 }
-.tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid {
+.tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid, .uacf7-metabox .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid {
   padding: 20px;
   border-radius: 8px;
   background-color: #fff;
@@ -1584,58 +1579,58 @@ Steps
   width: 16.5%;
 }
 @media only screen and (max-width: 1650px) {
-  .tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid {
+  .tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid, .uacf7-metabox .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid {
     padding: 12px;
   }
 }
 @media only screen and (max-width: 1199.98px) {
-  .tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid {
+  .tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid, .uacf7-metabox .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid {
     width: 42%;
     margin: 15px 1%;
     float: left;
   }
 }
 @media only screen and (max-width: 767.98px) {
-  .tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid {
+  .tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid, .uacf7-metabox .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid {
     width: 94%;
     margin: 15px 0px;
   }
 }
-.tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-icon {
+.tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-icon, .uacf7-metabox .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-icon {
   width: 70px;
   height: 70px;
   border-radius: 50%;
   flex-shrink: 0;
 }
-.tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-icon img {
+.tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-icon img, .uacf7-metabox .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-icon img {
   width: 100%;
 }
 @media only screen and (max-width: 1650px) {
-  .tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-icon {
+  .tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-icon, .uacf7-metabox .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-icon {
     width: 42px;
     height: 42px;
   }
 }
-.tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-content {
+.tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-content, .uacf7-metabox .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-content {
   padding-left: 25px;
 }
 @media only screen and (max-width: 1650px) {
-  .tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-content {
+  .tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-content, .uacf7-metabox .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-content {
     padding-left: 10px;
   }
 }
-.tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-content p {
+.tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-content p, .uacf7-metabox .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-content p {
   font-size: 16px;
   font-weight: 600;
   color: #222;
   margin: 0 0 10px;
 }
 @media only screen and (max-width: 1650px) {
-  .tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-content p {
+  .tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-content p, .uacf7-metabox .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-content p {
     font-size: 14px;
   }
 }
-.tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-content h3 {
+.tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-content h3, .uacf7-metabox .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-content h3 {
   margin: 0;
   font-size: 30px;
   font-weight: 700;
@@ -1643,11 +1638,11 @@ Steps
   line-height: 0.8;
 }
 @media only screen and (max-width: 1650px) {
-  .tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-content h3 {
+  .tf-setting-dashboard .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-content h3, .uacf7-metabox .tf-setting-performace-section .tf-performance-grid .tf-single-performance-grid .tf-single-performance-content h3 {
     font-size: 24px;
   }
 }
-.tf-setting-dashboard .tf-setting-performace-section #tf-report-loader {
+.tf-setting-dashboard .tf-setting-performace-section #tf-report-loader, .uacf7-metabox .tf-setting-performace-section #tf-report-loader {
   position: absolute;
   height: 100%;
   width: 100%;
@@ -1660,32 +1655,32 @@ Steps
   opacity: 0;
   visibility: hidden;
 }
-.tf-setting-dashboard .tf-setting-performace-section #tf-report-loader img {
+.tf-setting-dashboard .tf-setting-performace-section #tf-report-loader img, .uacf7-metabox .tf-setting-performace-section #tf-report-loader img {
   width: 120px;
 }
-.tf-setting-dashboard .tf-setting-performace-section #tf-report-loader.show {
+.tf-setting-dashboard .tf-setting-performace-section #tf-report-loader.show, .uacf7-metabox .tf-setting-performace-section #tf-report-loader.show {
   opacity: 1;
   visibility: visible;
 }
-.tf-setting-dashboard .tf-setting-performace-section .tf-order-report {
+.tf-setting-dashboard .tf-setting-performace-section .tf-order-report, .uacf7-metabox .tf-setting-performace-section .tf-order-report {
   background: #fff;
   padding: 20px;
   border-radius: 10px;
 }
 @media only screen and (max-width: 640px) {
-  .tf-setting-dashboard .tf-setting-performace-section .tf-order-report {
+  .tf-setting-dashboard .tf-setting-performace-section .tf-order-report, .uacf7-metabox .tf-setting-performace-section .tf-order-report {
     padding: 0;
   }
 }
-.tf-setting-dashboard .tf-setting-performace-section .tf-report-filter {
+.tf-setting-dashboard .tf-setting-performace-section .tf-report-filter, .uacf7-metabox .tf-setting-performace-section .tf-report-filter {
   display: flex;
   justify-content: space-between;
 }
-.tf-setting-dashboard .tf-setting-performace-section .tf-report-filter .tf-month-filter {
+.tf-setting-dashboard .tf-setting-performace-section .tf-report-filter .tf-month-filter, .uacf7-metabox .tf-setting-performace-section .tf-report-filter .tf-month-filter {
   margin-bottom: 15px;
   display: inline-block;
 }
-.tf-setting-dashboard .tf-setting-performace-section .tf-report-filter .tf-month-filter span {
+.tf-setting-dashboard .tf-setting-performace-section .tf-report-filter .tf-month-filter span, .uacf7-metabox .tf-setting-performace-section .tf-report-filter .tf-month-filter span {
   display: block;
   font-size: 11px;
   line-height: 13px;
@@ -1694,7 +1689,7 @@ Steps
   text-transform: uppercase;
   margin-bottom: 5px;
 }
-.tf-setting-dashboard .tf-setting-performace-section .tf-report-filter .tf-month-filter select {
+.tf-setting-dashboard .tf-setting-performace-section .tf-report-filter .tf-month-filter select, .uacf7-metabox .tf-setting-performace-section .tf-report-filter .tf-month-filter select {
   width: 180px;
   color: #222;
   border: 1px solid #ddd;
@@ -2082,7 +2077,7 @@ Steps
   content: "";
   width: 8px;
   border: none;
-  left: -4px;
+  left: -4px !important;
   bottom: 0;
   top: 0;
   background: #003c79;
@@ -2170,8 +2165,10 @@ Steps
 }
 .tf-setting-wrapper .tf-option-form .tf-option .tf-tab-wrapper .tf-tab-content > .tf-field {
   background-color: #fff;
-  margin: 5px 0px;
   border-radius: 8px;
+  margin: 5px 0px;
+}
+.tf-setting-wrapper .tf-option-form .tf-option .tf-tab-wrapper .tf-tab-content > .tf-field .tf-field-wrap {
   padding: 20px 30px;
 }
 .tf-setting-wrapper .tf-option-form .tf-option .tf-tab-wrapper .tf-tab-content > .tf-field p.description {
@@ -2181,9 +2178,15 @@ Steps
 .tf-setting-wrapper .tf-option-form .tf-option .tf-tab-wrapper .tf-tab-content > .tf-field.tf-field-heading {
   border-radius: 0px;
 }
-.tf-setting-wrapper .tf-option-form .tf-option .tf-tab-wrapper .tf-tab-content > .tf-field.tf-field-color {
-  background-color: transparent;
-  padding: 0px;
+.tf-setting-wrapper .tf-option-form .tf-option .tf-tab-wrapper .tf-tab-content > .tf-field.tf-field-color .tf-color-group li {
+  background-color: #ededf8 !important;
+}
+
+.uacf7-metabox .tf-admin-meta-box {
+  padding: 0 !important;
+}
+.uacf7-metabox .tf-option-wrapper {
+  margin: 16px !important;
 }
 
 .tf-shortcode-generator-section {
@@ -3653,6 +3656,16 @@ Steps
   cursor: n-resize;
   border-radius: 5px;
   width: 31%;
+}
+.tf-image-radio-group li .tf-image-title {
+  display: flex;
+  font-size: 15px;
+  color: #000 !important;
+  font-weight: 700;
+  text-align: match-parent;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
 }
 .tf-image-radio-group li .tf-image-checkbox img {
   width: 240px;

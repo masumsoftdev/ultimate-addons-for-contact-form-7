@@ -95,7 +95,7 @@ if ( ! class_exists( 'TF_Repeater' ) ) {
 										}
 
 										$tf_option = new TF_Options();
-										$tf_option->field( $re_field, $value, $this->settings_id, $parent_field);
+										$tf_option->field( $re_field, $value, $this->settings_id, $parent_field, $this->section_key );
 									endforeach;
 									$num ++;
 									?>

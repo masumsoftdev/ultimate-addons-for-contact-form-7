@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class UACF7_SUBMISSION_ID_PANEL{
 
   public function __construct(){
-    add_action( 'wpcf7_editor_panels', [$this, 'uacf7_submission_panel_add'] );
+    // add_action( 'wpcf7_editor_panels', [$this, 'uacf7_submission_panel_add'] );
     // add_action( 'wpcf7_after_save', [$this, 'uacf7_submission_id_save_form'] );
     // add_action( 'wpcf7_after_update', [$this, 'uacf7_submission_id_save_form'] );
     add_action( 'admin_init', [$this, 'uacf7_create_submission_id_database_col'] );

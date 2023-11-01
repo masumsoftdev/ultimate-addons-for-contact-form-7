@@ -436,37 +436,39 @@ if ( ! class_exists( 'TF_Options' ) ) {
 
             <div class="tf-field tf-field-<?php echo esc_attr( $field['type'] ); ?> <?php echo esc_attr( $class ); ?> <?php echo ! empty( $visible ) ? $visible : ''; ?>" <?php echo ! empty( $depend ) ? $depend : ''; ?>
                  style="<?php echo esc_attr( $field_style ); ?>">
+				<div class="tf-field-wrap">
+					<?php if ( ! empty( $field['label'] ) ): ?>
+						<label for="<?php echo esc_attr( $id ) ?>" class="tf-field-label">
+							<?php echo esc_html( $field['label'] ) ?>
+							<?php if ( $is_pro ): ?>
+								<div class="tf-csf-badge"><span class="tf-pro"><?php _e( "Pro", "tourfic" ); ?></span></div>
+							<?php endif; ?>
+							<?php if ( $badge_up ): ?>
+								<div class="tf-csf-badge"><span class="tf-upcoming"><?php _e( "Upcoming", "tourfic" ); ?></span></div>
+							<?php endif; ?>
+						</label>
+					<?php endif; ?>
 
-				<?php if ( ! empty( $field['label'] ) ): ?>
-                    <label for="<?php echo esc_attr( $id ) ?>" class="tf-field-label">
-						<?php echo esc_html( $field['label'] ) ?>
-						<?php if ( $is_pro ): ?>
-                            <div class="tf-csf-badge"><span class="tf-pro"><?php _e( "Pro", "tourfic" ); ?></span></div>
-						<?php endif; ?>
-						<?php if ( $badge_up ): ?>
-                            <div class="tf-csf-badge"><span class="tf-upcoming"><?php _e( "Upcoming", "tourfic" ); ?></span></div>
-						<?php endif; ?>
-                    </label>
-				<?php endif; ?>
+					<?php if ( ! empty( $field['subtitle'] ) ) : ?>
+						<span class="tf-field-sub-title"><?php echo wp_kses_post( $field['subtitle'] ) ?></span>
+					<?php endif; ?>
 
-				<?php if ( ! empty( $field['subtitle'] ) ) : ?>
-                    <span class="tf-field-sub-title"><?php echo wp_kses_post( $field['subtitle'] ) ?></span>
-				<?php endif; ?>
-
-                <div class="tf-fieldset">
-					<?php
-					$fieldClass = 'TF_' . $field['type'];
-					if ( class_exists( $fieldClass ) ) {
-						$_field = new $fieldClass( $field, $value, $settings_id, $parent, $section_key );
-						$_field->render();
-					} else {
-						echo '<p>' . __( 'Field not found!', 'tourfic' ) . '</p>';
-					}
-					?>
-                </div>
-				<?php if ( ! empty( $field['description'] ) ): ?>
-                    <p class="description"><?php echo wp_kses_post( $field['description'] ) ?></p>
-				<?php endif; ?>
+					<div class="tf-fieldset">
+						<?php
+						$fieldClass = 'TF_' . $field['type'];
+						if ( class_exists( $fieldClass ) ) {
+							$_field = new $fieldClass( $field, $value, $settings_id, $parent, $section_key );
+							$_field->render();
+						} else {
+							echo '<p>' . __( 'Field not found!', 'tourfic' ) . '</p>';
+						}
+						?>
+					</div>
+					<?php if ( ! empty( $field['description'] ) ): ?>
+						<p class="description"><?php echo wp_kses_post( $field['description'] ) ?></p>
+					<?php endif; ?>
+				</div>
+				
             </div>
 			<?php
 		}

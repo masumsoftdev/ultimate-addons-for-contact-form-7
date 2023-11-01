@@ -20,8 +20,8 @@ class UACF7_TELEGRAM_TAG_PANEL{
   public $uacf7_telegram_connection_error_message;
 
   public function __construct(){
-    add_action( 'wpcf7_editor_panels', [$this, 'uacf7_telegram_tag_panel_add']);
-    add_action( 'wpcf7_after_save', [$this, 'uacf7_telegram_save_form'] );
+    // add_action( 'wpcf7_editor_panels', [$this, 'uacf7_telegram_tag_panel_add']);
+    // add_action( 'wpcf7_after_save', [$this, 'uacf7_telegram_save_form'] );
 
 
   }

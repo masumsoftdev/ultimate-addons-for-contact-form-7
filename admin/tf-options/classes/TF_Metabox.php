@@ -100,58 +100,64 @@ if ( ! class_exists( 'TF_Metabox' ) ) {
 			}
 			?>
 			<div class="uacf7-metabox" style="display:none;">
-				<?php
-				// Add nonce for security and authentication.
-				wp_nonce_field( 'tf_meta_box_nonce_action', 'tf_meta_box_nonce' );
-
-				// Retrieve an existing value from the database.
-				if($post->ID != null){ 
-					$tf_meta_box_value = get_post_meta( $post->ID, $this->metabox_id, true );
-				}else{
-					$tf_meta_box_value = get_post_meta( $post->id(), $this->metabox_id, true );
-				}
-
-				// Set default values.
-				if ( empty( $tf_meta_box_value ) ) {
-					$tf_meta_box_value = array();
-				} 
-				?>
-				<div class="tf-admin-meta-box">
-					<div class="tf-admin-tab">
+				<div class="tf-setting-dashboard">
+					<div class="tf-option-wrapper tf-setting-wrapper">
 						<?php
-						$section_count = 0;
-						foreach ( $this->metabox_sections as $key => $section ) : ?>
-							<?php //if( $section != null): ?>
-							<a class="tf-tablinks <?php echo $section_count == 0 ? 'active' : ''; ?>" data-tab="<?php echo esc_attr( $key ) ?>">
-								<?php echo ! empty( $section['icon'] ) ? '<span class="tf-sec-icon"><i class="' . esc_attr( $section['icon'] ) . '"></i></span>' : ''; ?>
-								<?php echo esc_html( $section['title'] ); ?>
-							</a>
-							<?php // endif; ?>
-							<?php $section_count ++; endforeach; ?>
-					</div>
+						// Add nonce for security and authentication.
+						wp_nonce_field( 'tf_meta_box_nonce_action', 'tf_meta_box_nonce' );
 
-					<div class="tf-tab-wrapper">
-						<?php $content_count = 0;
-						foreach ( $this->metabox_sections as $key => $section ) : ?>
-							<div id="<?php echo esc_attr( $key ) ?>" class="tf-tab-content <?php echo $content_count == 0 ? 'active' : ''; ?>">
+						// Retrieve an existing value from the database.
+						if($post->ID != null){ 
+							$tf_meta_box_value = get_post_meta( $post->ID, $this->metabox_id, true );
+						}else{
+							$tf_meta_box_value = get_post_meta( $post->id(), $this->metabox_id, true );
+						}
 
-								<?php
-								if ( ! empty( $section['fields'] ) ):
-									foreach ( $section['fields'] as $field ) :
+						// Set default values.
+						if ( empty( $tf_meta_box_value ) ) {
+							$tf_meta_box_value = array();
+						} 
+						?>
+						<div class="tf-admin-meta-box tf-option-form">
+							<div class="tf-option">
+								<div class="tf-admin-tab ">
+									<?php
+									$section_count = 0;
+									foreach ( $this->metabox_sections as $key => $section ) : ?>
+										<?php //if( $section != null): ?>
+										<a class="tf-tablinks <?php echo $section_count == 0 ? 'active' : ''; ?>" data-tab="<?php echo esc_attr( $key ) ?>">
+											<?php echo ! empty( $section['icon'] ) ? '<span class="tf-sec-icon"><i class="' . esc_attr( $section['icon'] ) . '"></i></span>' : ''; ?>
+											<?php echo esc_html( $section['title'] ); ?>
+										</a>
+										<?php // endif; ?>
+										<?php $section_count ++; endforeach; ?>
+								</div>
 
-										$default = isset( $field['default'] ) ? $field['default'] : '';
-										$value   = isset( $tf_meta_box_value[$key][ $field['id'] ] ) ? $tf_meta_box_value[$key][ $field['id'] ] : $default;
+								<div class="tf-tab-wrapper">
+									<?php $content_count = 0;
+									foreach ( $this->metabox_sections as $key => $section ) : ?>
+										<div id="<?php echo esc_attr( $key ) ?>" class="tf-tab-content <?php echo $content_count == 0 ? 'active' : ''; ?>">
 
-										$tf_option = new TF_Options();
-										// $tf_option->field( $field, $value, $this->option_id );
-										$tf_option->field( $field, $value, $this->metabox_id, '', $key  );
-									endforeach;
-								endif; ?>
+											<?php
+											if ( ! empty( $section['fields'] ) ):
+												foreach ( $section['fields'] as $field ) :
 
+													$default = isset( $field['default'] ) ? $field['default'] : '';
+													$value   = isset( $tf_meta_box_value[$key][ $field['id'] ] ) ? $tf_meta_box_value[$key][ $field['id'] ] : $default;
+
+													$tf_option = new TF_Options();
+													// $tf_option->field( $field, $value, $this->option_id );
+													$tf_option->field( $field, $value, $this->metabox_id, '', $key  );
+												endforeach;
+											endif; ?>
+
+										</div>
+										<?php $content_count ++; endforeach; ?>
+								</div>
 							</div>
-							<?php $content_count ++; endforeach; ?>
-					</div>
 
+						</div>
+					</div>
 				</div>
 			</div>
 			<?php

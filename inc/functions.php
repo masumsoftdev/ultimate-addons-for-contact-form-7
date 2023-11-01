@@ -978,31 +978,56 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
 
                 //  }
 
-                if($post_id == 128){
-                    $pre_populated = isset($meta['pre_populated']) ? $meta['pre_populated'] : array(); 
+                // Pre Populate addon Migration
+                // $pre_populated = isset($meta['pre_populated']) ? $meta['pre_populated'] : array(); 
                     
-                    $pre_populate_enable = get_post_meta( $post_id, 'pre_populate_enable', true ) == 'on' ? 1 : get_post_meta( $post_id, 'pre_populate_enable', true );
+                // $pre_populate_enable = get_post_meta( $post_id, 'pre_populate_enable', true ) == 'on' ? 1 : get_post_meta( $post_id, 'pre_populate_enable', true );
 
-                    if($pre_populate_enable == true){ 
-                        $pre_populated['pre_populate_enable'] = $pre_populate_enable;
-                        $pre_populated['data_redirect_url'] = get_post_meta( $post_id, 'data_redirect_url', true );
-                        $pre_populated['pre_populate_form'] = get_post_meta( $post_id, 'pre_populate_form', true );
+                // if($pre_populate_enable == true){ 
+                //     $pre_populated['pre_populate_enable'] = $pre_populate_enable;
+                //     $pre_populated['data_redirect_url'] = get_post_meta( $post_id, 'data_redirect_url', true );
+                //     $pre_populated['pre_populate_form'] = get_post_meta( $post_id, 'pre_populate_form', true );
 
-                        $pre_populate_passing_field = get_post_meta( $post_id, 'pre_populate_passing_field', true );  
-                        $count = 0;
-                        foreach($pre_populate_passing_field as $field_key => $field_value){
-                            // $pre_populated['pre_populate_passing_field'][$count] = $field_value;  
-                            $pre_populated['pre_populate_passing_field'][$count]['field_name'] = $field_value;  
-                            $count++;
-                        }
-                        $meta['pre_populated'] = $pre_populated;
+                //     $pre_populate_passing_field = get_post_meta( $post_id, 'pre_populate_passing_field', true );  
+                //     $count = 0;
+                //     foreach($pre_populate_passing_field as $field_key => $field_value){
+                //         // $pre_populated['pre_populate_passing_field'][$count] = $field_value;  
+                //         $pre_populated['pre_populate_passing_field'][$count]['field_name'] = $field_value;  
+                //         $count++;
+                //     }
+                //     $meta['pre_populated'] = $pre_populated;
 
+                // }
+
+                // Range Slider Filter addon Migration
+                    // $range_slider = isset($meta['range_slider']) ? $meta['range_slider'] : array(); 
+                    // $range_slider['uacf7_range_selection_color'] = get_post_meta( $post_id, 'uacf7_range_selection_color', true );
+                    // $range_slider['uacf7_range_handle_color'] = get_post_meta( $post_id, 'uacf7_range_handle_color', true );
+                    // $range_slider['uacf7_range_handle_width'] = get_post_meta( $post_id, 'uacf7_range_handle_width', true );
+                    // $range_slider['uacf7_range_handle_height'] = get_post_meta( $post_id, 'uacf7_range_handle_height', true );
+                    // $range_slider['uacf7_range_handle_border_radius'] = get_post_meta( $post_id, 'uacf7_range_handle_border_radius', true );
+                    // $range_slider['uacf7_range_slider_height'] = get_post_meta( $post_id, 'uacf7_range_slider_height', true );
+                    // $meta['range_slider'] = $range_slider;
+                     
+
+                if($post_id == 128){
+                    // Auto Cart Checkout addon Migration
+                    $auto_cart = isset($meta['auto_cart']) ? $meta['auto_cart'] : array();
+                    $uacf7_enable_product_auto_cart = get_post_meta( $post_id, 'uacf7_enable_product_auto_cart', true ) == 'on' ? 1 : get_post_meta( $post_id, 'uacf7_enable_product_auto_cart', true );
+                    
+                    if($uacf7_enable_product_auto_cart == true){
+                        $auto_cart['uacf7_enable_product_auto_cart'] = $uacf7_enable_product_auto_cart;
+                        $auto_cart['uacf7_product_auto_cart_redirect_to'] = get_post_meta( $post_id, 'uacf7_product_auto_cart_redirect_to', true );
+                        $auto_cart['uacf7_enable_track_order'] =get_post_meta( $post_id, 'uacf7_enable_track_order', true ) == 'on' ? 1 : get_post_meta( $post_id, 'uacf7_enable_track_order', true );
+                        $meta['auto_cart'] = $auto_cart;
                     }
-                    // uacf7_print_r($pre_populated); 
+                    
+                    // uacf7_print_r($meta);
+                     
                 }
                
                     
-                update_post_meta( $post_id, 'uacf7_form_opt', $meta ); 
+                // update_post_meta( $post_id, 'uacf7_form_opt', $meta ); 
                 
         
     		endwhile;

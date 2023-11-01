@@ -36,6 +36,7 @@ if ( ! class_exists( 'TF_select' ) ) {
 				}else{
 					$tags = $ContactForm->scan_form_tags(); 
 				} 
+				// uacf7_print_r($tags);
 				$this->field['options'] = array(
 					'0' => 'Select Field'
 				);
@@ -49,7 +50,14 @@ if ( ! class_exists( 'TF_select' ) ) {
 					}else { 
 						$tag_name = $tag['name'];
 					}
-					$this->field['options'][ $tag_name ] =  esc_html($tag['name']); 
+					if($tag['name'] == '' && $tag['type'] == 'uarepeater'){
+						$attrs = explode(' ', $tag['attr']); 
+						
+						$this->field['options'][ $attrs[0] ] =  esc_html($attrs[0]);  
+					}else{
+
+						$this->field['options'][ $tag_name ] =  esc_html($tag['name']); 
+					}
 				}
 			}
 			if($this->field['options'] == 'post_types'){
