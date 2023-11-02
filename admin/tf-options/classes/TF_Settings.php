@@ -115,27 +115,28 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 				'manage_options', // capability
 				$this->option_id, // menu_slug
 				array( $this, 'tf_options_page' ) // function
-			);
-            //Dashboard submenu
-			add_submenu_page(
-				$this->option_id,
-				__('Dashboard', 'tourfic'),
-				__('Dashboard', 'tourfic'),
-				'manage_options',
-				'tf_dashboard',
-				array( $this, 'tf_dashboard_page' ),
-			);
+			); 
 
-			//Setting submenu
-			add_submenu_page(
-				$this->option_id,
-				__('Settings', 'tourfic'),
-				__('Settings', 'tourfic'),
-				'manage_options',
-				$this->option_id . '#tab=general',
-				array( $this, 'tf_options_page' ),
-			);
-
+			if ( class_exists('Ultimate_Addons_CF7_PRO') ) {
+				//License Info submenu
+				// add_submenu_page(
+				// 	$this->option_id,
+				// 	__('License Info', 'tourfic'),
+				// 	__('License Info', 'tourfic'),
+				// 	'manage_options',
+				// 	'tf_license_info',
+				// 	array( $this,'tf_license_info_callback'),
+				// );
+				add_submenu_page(
+					'wpcf7',
+					__('UACF7 License', 'ultimate-addons-cf7'),
+					__('UACF7 License', 'ultimate-addons-cf7'),
+					'manage_options',
+					'uacf7_license_info',
+					array( $this,'uacf7_license_info_callback'),
+				);
+			}
+			
 			//Get Help submenu
 			add_submenu_page(
 				'wpcf7',
@@ -144,29 +145,9 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 				'manage_options',
 				'tf_get_help',
 				array( $this,'tf_get_help_callback'),
+				10,
 			);
-
-			// Shortcode submenu
-			add_submenu_page(
-				$this->option_id,
-				__('Shortcodes', 'tourfic'),
-				__('Shortcodes', 'tourfic'),
-				'manage_options',
-				'tf_shortcodes',
-				array( 'TF_Shortcodes','tf_shortcode_callback'),
-			);
-
-			if ( function_exists('is_tf_pro') ) {
-				//License Info submenu
-				add_submenu_page(
-					$this->option_id,
-					__('License Info', 'tourfic'),
-					__('License Info', 'tourfic'),
-					'manage_options',
-					'tf_license_info',
-					array( $this,'tf_license_info_callback'),
-				);
-			}
+ 
 
 			// remove first submenu
 			remove_submenu_page( $this->option_id, $this->option_id );
@@ -575,72 +556,8 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 		</div>
 		<?php
 		}
-		public function tf_license_info_callback(){
-		?>
-		<div class="tf-setting-dashboard">
-
-			<!-- deshboard-header-include -->
-			<?php //echo tf_dashboard_header(); ?>
-			
-			<div class="tf-setting-license">
-				<div class="tf-setting-license-tabs">
-					<ul>
-						<li class="active">
-							<span>
-								<i class="fas fa-key"></i>
-								<?php _e("License Info","tourfic"); ?>
-							</span>
-						</li>
-					</ul>
-				</div>
-				<div class="tf-setting-license-field">
-					<div class="tf-tab-wrapper">
-						<div id="license" class="tf-tab-content">
-							<div class="tf-field tf-field-callback" style="width: 100%;">
-								<div class="tf-fieldset"></div>
-							</div>
-							<?php 
-							$licenseKey = ! empty( tfliopt( 'license-key' ) ) ? tfliopt( 'license-key' ) : '';
-							$liceEmail  = ! empty( tfliopt( 'license-email' ) ) ? tfliopt( 'license-email' ) : '';
-							
-							if ( TourficProBase::CheckWPPlugin( $licenseKey, $liceEmail, $licenseMessage, $responseObj, TF_PRO_PATH . 'tourfic-pro.php' ) ) {
-								tf_license_info();
-							} else {
-							?>
-							<div class="tf-field tf-field-text" style="width: 100%;">
-								<label for="tf_settings[license-key]" class="tf-field-label"> <?php _e("License Key","tourfic"); ?></label>
-
-								<span class="tf-field-sub-title"><?php _e("Enter your license key here, to activate the product, and get full feature updates and premium support.","tourfic"); ?></span>
-
-								<div class="tf-fieldset">
-									<input type="text" name="tf_settings[license-key]" id="tf_settings[license-key]" value="" placeholder="xxxxxxxx-xxxxxxxx-xxxxxxxx-xxxxxxxx" />
-								</div>
-							</div>
-
-							<div class="tf-field tf-field-text" style="width: 100%;">
-								<label for="tf_settings[license-email]" class="tf-field-label"> <?php _e("License Email ","tourfic"); ?></label>
-
-								<span class="tf-field-sub-title"><?php _e("We will send update news of this product by this email address, don't worry, we hate spam","tourfic"); ?></span>
-
-								<div class="tf-fieldset">
-									<input type="text" name="tf_settings[license-email]" id="tf_settings[license-email]" value="" />
-								</div>
-							</div>
-
-							<div class="tf-field tf-field-callback" style="width: 100%;">
-								<div class="tf-fieldset">
-									<div class="tf-license-activate">
-										<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Activate" /></p>
-									</div>
-								</div>
-							</div>
-							<?php } ?>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<?php
+		public function uacf7_license_info_callback(){
+			echo apply_filters('tf_license_info_pro_callback', ''); 
 		}
 
 		/**
