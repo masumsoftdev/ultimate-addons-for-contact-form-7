@@ -101,6 +101,7 @@ if ( ! class_exists( 'TF_Metabox' ) ) {
 			?>
 			<div class="uacf7-metabox" style="display:none;">
 				<div class="tf-setting-dashboard">
+					
 					<div class="tf-option-wrapper tf-setting-wrapper">
 						<?php
 						// Add nonce for security and authentication.
@@ -118,6 +119,11 @@ if ( ! class_exists( 'TF_Metabox' ) ) {
 							$tf_meta_box_value = array();
 						} 
 						?>
+						<div class="tf-metabox-title">
+							<h3><?php echo esc_html('UACF7 Options', 'ultimate-addons-cf7') ?></h3>
+							
+							<span><?php echo esc_html('VERSION : ', 'ultimate-addons-cf7'); ?>  <?php echo UACF7_VERSION ?></span>
+						</div>
 						<div class="tf-admin-meta-box tf-option-form">
 							<div class="tf-option">
 								<div class="tf-admin-tab ">

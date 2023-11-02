@@ -778,7 +778,18 @@
         padding: 0 !important;
     }
     .tf-option-wrapper{
-         margin: 16px !important;
+         margin: 16px !important; 
+
+         .tf-metabox-title{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+
+            h3 {
+                margin: 0;
+            }
+         }
     }
 }
 .tf-shortcode-generator-section {
