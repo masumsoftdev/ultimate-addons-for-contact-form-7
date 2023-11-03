@@ -2,9 +2,9 @@
 Contributors: themefic, raihan143, hasanet, mdrejon
 Tags: contact form 7, contact form 7 addons, contact form 7 addon, contact form 7 booking form, contact form 7 appointment form, contact form 7 placeholder, contact form 7 conditional fields, redirection for contact form 7, contact form 7 thank you page, contact form 7 columns, contact form 7 style, contact form 7 woocommerce, contact form 7 woocommerce product, multi step contact form 7, multi-step contact form, multi step form, post submission contact form 7, form to post contact form 7, contact form 7 to post, custom post contact form 7, contact form 7 custom post type, contact form 7 post submit, caldera forms, Star Rating, Star Rating contact form 7, range slider, range slider contact form 7, contact form 7 conditional redirect, contact form 7 column width, contact form 7 repeater, contact form 7 repeatable fields,  contact form 7 country dropdown, contact form 7 country flags, contact form, contact form 7 mailchimp, contact form 7 dynamic text, contact form 7 pre-populate fields, contact form 7 database, elementor
 Requires at least: 4.2
-Tested up to: 6.3.1
+Tested up to: 6.3.2
 Requires PHP: 5.4
-Stable tag: 3.2.3
+Stable tag: 3.2.4
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -50,6 +50,8 @@ Packed with 25+ essential features, <strong>Ultimate Addons For Contact Form 7</
 * Autocomplete Country, City, State, Zip Fields [IP Geolocation based)] (Pro)
 * Ultimate conversational form (Pro)
 * Telegram Integration
+* Generator Forms with AI
+* Digital Signature
 * More Coming soon
 
 ### How It works:
@@ -150,6 +152,14 @@ Ultimate Addons for Contact Form 7’s Submission ID addon makes it possible to 
 = 🎉  Telegram Integration With Contact Form 7 = 
 
 It provides integration of Telegram with Contact Form 7 through UACF7. This enables your submission data to be effortlessly forwarded to your designated Telegram channel. <a href="https://cf7addons.com/preview/telegram-integration-with-contact-form-7/">Click Here</a> to check live preview.
+
+= 🎉  Generator Forms with AI in Contact Form 7 = 
+
+This feature allows you to create contact forms with AI prompts. With its intuitive interface, you can swiftly create and customize forms, along with Contact Form 7's tags. <a href="https://cf7addons.com/preview/best-ai-contact-form-generator-with-contact-form-7/">Click Here</a> to check live preview.
+
+= 🎉  Create Digital Signature form with Contact form 7 = 
+
+This feature Facilitates the creation of electronic signatures for individuals seeking to incorporate E-signatures into the system. <a href="https://cf7addons.com/preview/create-best-digital-signature-form-with-contact-form-7/">Click Here</a> to check live preview.
  
 = 🎉  Contact form 7 CSS = 
 
@@ -441,6 +451,18 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 53. Range Slider Pro (Form Example)
 
 == Changelog ==
+
+=  3.2.4 – 03/11/2023  = 
+
+- New Feature: Digital Signature feature introduced
+- New Feature: Create contact forms with AI prompts feature introduced
+- Compatible: AI prompts with Ultimate conversational form(Pro)
+- Compatible: AI prompts with Ultimate repeater(Pro)
+- Compatible: AI prompts with Ultimate Post Submission(Pro)
+- Compatible: AI prompts with Ultimate Booking Form(Pro)
+- Fixed: After booking time hide date issue
+- Fixed: Submission ID Support Issue
+- Fixed: Conditional Issue Fixed with Exclusive Checkbox 
 
 =  3.2.3 – 04/10/2023  = 
 
