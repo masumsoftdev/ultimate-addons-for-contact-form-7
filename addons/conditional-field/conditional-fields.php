@@ -196,7 +196,7 @@ class UACF7_CF {
                                     ?>
                                     <?php 
 
-                                    if( !in_array('exclusive', $tag['options']) && $tag['type'] == 'checkbox' || $tag['type'] == 'checkbox*' ) { 
+                                    if( !in_array('exclusive', $tag['options']) && $tag['type'] == 'checkbox' || !in_array('exclusive', $tag['options']) && $tag['type'] == 'checkbox*' ) { 
                                         
                                         $tag_name = $tag['name'].'[]';
                                         
@@ -320,7 +320,7 @@ class UACF7_CF {
                                         if ($tag['type'] == 'conditional' || $tag['name'] == ''  || $tag['type'] == 'uacf7_conversational_start' || $tag['type'] == 'uacf7_conversational_end' ) continue;
                                     ?>
                                     <?php 
-                                     if( !in_array('exclusive', $tag['options']) && $tag['type'] == 'checkbox' || $tag['type'] == 'checkbox*' ) { 
+                                     if( !in_array('exclusive', $tag['options']) && $tag['type'] == 'checkbox' || !in_array('exclusive', $tag['options']) && $tag['type'] == 'checkbox*' ) { 
                                         
                                         $tag_name = $tag['name'].'[]';
                                         

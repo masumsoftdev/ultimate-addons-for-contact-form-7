@@ -93,7 +93,6 @@ class UACF7_SUBMISSION_ID_PANEL{
       ); 
       
      
-     
       /** Submission ID Conditional Update */
       if($last_item !== null && $last_item->submission_id != 0){  
         $default_step = $_POST['uacf7_submission_id_step'] != '' ? $_POST['uacf7_submission_id_step'] : 1;
@@ -104,6 +103,8 @@ class UACF7_SUBMISSION_ID_PANEL{
           
           update_post_meta( $form->id(), 'uacf7_submission_id', sanitize_text_field($last_item->submission_id + intval($default_step))  );
         }
+      }else{
+          update_post_meta( $form->id(), 'uacf7_submission_id', sanitize_text_field($_POST['uacf7_submission_id']) );
       }
 
     }
