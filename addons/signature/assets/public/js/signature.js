@@ -9,12 +9,12 @@ jQuery(document).ready(function($){
 
       $(form).find("#signature-pad").each(function(i, wrap){
 
-        /** Convert Canvas to Image */
 
         var convertButton = $('.uacf7-form-'+formId).find("#convertButton");
         var signature_canvas = $('.uacf7-form-'+formId).find("#signature-canvas");
         var confirm_message = $('.uacf7-form-'+formId).find("#confirm_message");
         var fileInput = $('.uacf7-form-'+formId).find('#img_id_special'); 
+            fileInput.css('display', 'none');
         var clearButton = $('.uacf7-form-'+formId).find("#clear-button");
         var control_div = $('.uacf7-form-'+formId).find(".control_div");
 
