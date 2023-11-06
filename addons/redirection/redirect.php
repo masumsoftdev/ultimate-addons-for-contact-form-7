@@ -164,12 +164,15 @@ class UACF7_Redirection {
 
 				$post_id = get_the_ID(); 
 				$post_meta = uacf7_get_form_option($post_id, 'redirection');
-				foreach ( $fields as $field ) {
-					// $forms[ $post_id ][ $field['name'] ] = get_post_meta( $post_id, 'uacf7_redirect_' . $field['name'], true );
-					$forms[ $post_id ][ $field['name'] ] = $post_meta[$field['name']];
+				if($post_meta != false){
+					foreach ( $fields as $field ) {
+						// $forms[ $post_id ][ $field['name'] ] = get_post_meta( $post_id, 'uacf7_redirect_' . $field['name'], true );
+						$forms[ $post_id ][ $field['name'] ] = $post_meta[$field['name']];
+					}
+	
+					$forms[ $post_id ]['thankyou_page_url'] = $forms[ $post_id ]['page_id'] ? get_permalink( $forms[ $post_id ]['page_id'] ) : '';
 				}
-
-				$forms[ $post_id ]['thankyou_page_url'] = $forms[ $post_id ]['page_id'] ? get_permalink( $forms[ $post_id ]['page_id'] ) : '';
+				
 			endwhile;
 			wp_reset_postdata();
 		endif;
@@ -522,14 +525,15 @@ class UACF7_Redirection {
                 
                 // $uacf7_redirect = get_post_meta( get_the_ID(), 'uacf7_redirect_enable', true );
 				$post_meta = uacf7_get_form_option(get_the_ID(), 'redirection');
-                $uacf7_redirect = $post_meta['uacf7_redirect_enable']; 
+				if($post_meta != false){
+					$uacf7_redirect = $post_meta['uacf7_redirect_enable']; 
 
-                if( !empty($uacf7_redirect) && $uacf7_redirect == true ) {
-					 
-                    $forms[ $post_id ] = $uacf7_redirect;
-                
-                }
-        
+					if( !empty($uacf7_redirect) && $uacf7_redirect == true ) {
+						
+						$forms[ $post_id ] = $uacf7_redirect;
+					
+					}
+				} 
     		endwhile;
     		wp_reset_postdata();
     	endif;

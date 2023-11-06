@@ -833,8 +833,8 @@ class UACF7_MULTISTEP {
             $form = $properties['form'];
             $multistep_meta = uacf7_get_form_option( $cfform->id(), 'multistep' );
             
-            $uacf7_multistep_is_multistep = $multistep_meta['uacf7_multistep_is_multistep']; 
-            $uacf7_enable_multistep_progressbar = $multistep_meta['uacf7_enable_multistep_progressbar'];
+            $uacf7_multistep_is_multistep = isset($multistep_meta['uacf7_multistep_is_multistep']) ? $multistep_meta['uacf7_multistep_is_multistep'] : ''; 
+            $uacf7_enable_multistep_progressbar =  isset($multistep_meta['uacf7_enable_multistep_progressbar']) ? $multistep_meta['uacf7_enable_multistep_progressbar'] : '';
            
             $all_steps = $cfform->scan_form_tags( array('type'=>'uacf7_step_start') );
          

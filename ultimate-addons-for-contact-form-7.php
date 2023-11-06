@@ -124,14 +124,11 @@ class Ultimate_Addons_CF7 {
 		wp_enqueue_style( 'tf-admin', UACF7_URL . 'assets/admin/css/tourfic-admin.min.css', '', UACF7_VERSION );
 		wp_enqueue_script( 'tf-admin-sweet-alert', '//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js', array( 'jquery' ), UACF7_VERSION, true );
 		wp_enqueue_script( 'tf-admin', UACF7_URL . 'assets/admin/js/tourfic-admin-scripts.min.js', array( 'jquery', 'wp-data', 'wp-editor', 'wp-edit-post' ), UACF7_VERSION, true );
-		
-        $admin_date_format_for_users  = !empty(tfopt( "tf-date-format-for-users")) ? tfopt( "tf-date-format-for-users") : "Y/m/d";
-        $tf_google_map = function_exists( 'is_tf_pro' ) && is_tf_pro() && ! empty( tfopt( 'google-page-option' ) ) ? tfopt( 'google-page-option' ) : "false";
+		 
+       
         wp_localize_script( 'tf-admin', 'tf_options', array(
             'ajax_url'          => admin_url( 'admin-ajax.php' ),
-            'nonce'             => wp_create_nonce( 'tf_options_nonce' ),
-            'gmaps'             => $tf_google_map, 
-            'tf_admin_date_format' => $admin_date_format_for_users
+            'nonce'             => wp_create_nonce( 'tf_options_nonce' ), 
         ) );
         wp_localize_script( 'tf-admin', 'tf_admin_params',
 			array(

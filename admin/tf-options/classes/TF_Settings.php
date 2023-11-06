@@ -196,186 +196,7 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 		<?php
 		}
 
-		/**
-		 * Options Page HTML
-		 * @author Jahid, Foysal
-		 */
-		public function tf_dashboard_page() {
-            $current_page_url = $this->get_current_page_url();
-            $query_string = $this->get_query_string($current_page_url);
-
-			?>
-			<div class="tf-setting-dashboard">
-				<!-- dashboard-header-include -->
-				<?php //echo tf_dashboard_header(); ?>
-
-				<div class="tf-setting-preview">
-				<!-- dashboard-banner-section -->
-				<div class="tf-setting-banner">
-					<div class="tf-setting-banner-content">
-						<img src="<?php // echo TF_ASSETS_APP_URL; ?>images/tourfic-logo-white.png" alt="logo">
-						<span>Build & Manage Your Next <b>Travel or Hotel Booking Website</b>with Tourfic</span>
-					</div>
-					<div class="tf-setting-banner-image">
-						<img src="<?php // echo TF_ASSETS_APP_URL; ?>images/hotel-booking-management-system@2x.webp" alt="Banner Image">
-					</div>
-				</div>
-				<!-- dashboard-banner-section -->
-
-				<!-- dashboard-performance-section -->
-
-				<div class="tf-setting-performace-section">
-					<h2><?php _e("Overview","tourfic"); ?></h2>
-					<div class="tf-performance-grid">
-						<div class="tf-single-performance-grid">
-							<div class="tf-single-performance-icon">
-							<img src="<?php // echo TF_ASSETS_APP_URL; ?>images/tf-hotel.png" alt="total Hotel">
-							</div>
-							<div class="tf-single-performance-content">
-								<p><?php _e("Total Hotels","tourfic"); ?></p>
-								<h3>
-									<?php
-									$tf_total_hotels = array(
-										'post_type'      => 'tf_hotel',
-										'post_status'    => 'publish',
-										'posts_per_page' => - 1
-									);
-									echo count( get_posts ($tf_total_hotels ) );
-									?>
-								</h3>
-							</div>
-						</div>
-						
-						<div class="tf-single-performance-grid">
-							<div class="tf-single-performance-icon">
-							<img src="<?php // echo TF_ASSETS_APP_URL; ?>images/tf-tours.png" alt="total Tours">
-							</div>
-							<div class="tf-single-performance-content">
-								<p><?php _e("Total Tours","tourfic"); ?></p>
-								<h3>
-									<?php
-									$tf_total_tours = array(
-										'post_type'      => 'tf_tours',
-										'post_status'    => 'publish',
-										'posts_per_page' => - 1
-									);
-									echo count( get_posts ($tf_total_tours ));
-									?>
-								</h3>
-							</div>
-						</div>
-
-                        <div class="tf-single-performance-grid">
-                            <div class="tf-single-performance-icon">
-                                <img src="<?php // echo TF_ASSETS_APP_URL; ?>images/tf-apartment.png" alt="total apartment">
-                            </div>
-                            <div class="tf-single-performance-content">
-                                <p><?php _e("Total Apartments","tourfic"); ?></p>
-                                <h3>
-									<?php
-									$tf_total_apartments = array(
-										'post_type'      => 'tf_apartment',
-										'post_status'    => 'publish',
-										'posts_per_page' => - 1
-									);
-									echo count( get_posts ($tf_total_apartments ) );
-									?>
-                                </h3>
-                            </div>
-                        </div>
-
-						<div class="tf-single-performance-grid">
-							<div class="tf-single-performance-icon">
-							<img src="<?php // echo TF_ASSETS_APP_URL; ?>images/tf-booking-online.png" alt="total Booking">
-							</div>
-							<div class="tf-single-performance-content">
-								<p><?php _e("Total Bookings","tourfic"); ?></p>
-								<h3>
-									<?php
-									$tf_order_query_orders = wc_get_orders( array(
-											'limit'  => - 1,
-											'type'   => 'shop_order',
-											'status' => array( 'wc-completed' ),
-										)
-									);
-									echo count( $tf_order_query_orders );
-									?>
-								</h3>
-							</div>
-						</div>
-						<div class="tf-single-performance-grid">
-							<div class="tf-single-performance-icon">
-							<img src="<?php // echo TF_ASSETS_APP_URL; ?>images/tf-add-user.png" alt="total Customer">
-							</div>
-							<div class="tf-single-performance-content">
-								<p><?php _e("Total Customers","tourfic"); ?></p>
-								<h3>
-									<?php
-									$tf_customer_query = new WP_User_Query(
-										array(
-											'role' => 'customer',
-										)
-									);
-									echo count( $tf_customer_query->get_results() );
-									?>
-								</h3>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="tf-setting-performace-section">
-					<div id="tf-report-loader">
-						<img src="<?php // echo TF_ASSETS_APP_URL; ?>images/loader.gif" alt="Loader">
-					</div>
-					<div class="tf-report-filter">
-						<h2><?php _e("Reports","tourfic"); ?></h2>
-						<div class="tf-dates-filter">
-							<div class="tf-month-filter">
-								<span><?php _e("Year","tourfic"); ?></span>
-								<select name="tf-year-report" id="tf-year-report">
-									<option value="23"><?php _e("2023","tourfic"); ?></option>
-									<option value="22"><?php _e("2022","tourfic"); ?></option>
-									<option value="21"><?php _e("2021","tourfic"); ?></option>
-									<option value="20"><?php _e("2020","tourfic"); ?></option>
-									<option value="19"><?php _e("2019","tourfic"); ?></option>
-									<option value="18"><?php _e("2018","tourfic"); ?></option>
-									<option value="17"><?php _e("2017","tourfic"); ?></option>
-								</select>
-							</div>
-							<div class="tf-month-filter">
-								<span><?php _e("Month","tourfic"); ?></span>
-								<select name="tf-month-report" id="tf-month-report">
-									<option value=""><?php _e("Select Month","tourfic"); ?></option>
-									<option value="1"><?php _e("January","tourfic"); ?></option>
-									<option value="2"><?php _e("February","tourfic"); ?></option>
-									<option value="3"><?php _e("March","tourfic"); ?></option>
-									<option value="4"><?php _e("April","tourfic"); ?></option>
-									<option value="5"><?php _e("May","tourfic"); ?></option>
-									<option value="6"><?php _e("June","tourfic"); ?></option>
-									<option value="7"><?php _e("July","tourfic"); ?></option>
-									<option value="8"><?php _e("August","tourfic"); ?></option>
-									<option value="9"><?php _e("September","tourfic"); ?></option>
-									<option value="10"><?php _e("October","tourfic"); ?></option>
-									<option value="11"><?php _e("November","tourfic"); ?></option>
-									<option value="12"><?php _e("December","tourfic"); ?></option>
-								</select>
-							</div>
-						</div>
-					</div>
-					<div class="tf-order-report">
-						<canvas id="tf_months" width="800" height="450"></canvas>
-					</div>
-				</div>
-
-				<!-- deshboar-performance-section -->
-
-				</div>
-			</div>
-            
-			<?php
-		}
-
+	 
 		/**
 		 * Get Help Page
 		 * @author Jahid
@@ -385,7 +206,7 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 		<div class="tf-setting-dashboard">
 
 			<!-- deshboard-header-include -->
-			<?php //echo tf_dashboard_header(); ?>
+			<?php echo $this->tf_top_header(); ?>
 
 			<div class="tf-settings-help-center">
 				<div class="tf-help-center-banner">
@@ -557,7 +378,7 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 		<?php
 		}
 		public function uacf7_license_info_callback(){
-			echo apply_filters('tf_license_info_pro_callback', ''); 
+			do_action('uacf7_license_info_pro_callback'); 
 		}
 
 		/**
@@ -583,7 +404,7 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 				?>
 				<div class="tf-setting-dashboard">
 				<!-- dashboard-header-include -->
-				<?php //echo tf_dashboard_header(); ?>
+				<?php echo $this->tf_top_header(); ?>
 
                 <div class="tf-option-wrapper tf-setting-wrapper">
                     <form method="post" action="" class="tf-option-form <?php echo esc_attr($ajax_save_class) ?>" enctype="multipart/form-data">
@@ -593,7 +414,12 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 								<?php
 								$section_count = 0;
 								foreach ( $this->pre_tabs as $key => $section ) :
-									$parent_tab_key = ! empty( $section['fields'] ) ? $key : array_key_first( $section['sub_section'] );
+									if(isset($section['sub_section'])){
+										
+										$parent_tab_key = ! empty( $section['fields'] ) ? $key : array_key_first( $section['sub_section'] );
+									}else{
+										continue;
+									}
 									?>
                                     <div class="tf-admin-tab-item<?php echo ! empty( $section['sub_section'] ) ? ' tf-has-submenu' : '' ?>">
 									

@@ -6,11 +6,21 @@ if ( ! defined( 'ABSPATH' ) ) {
  /**
  * Global Admin Get Option
  */
-if ( ! function_exists( 'tfopt' ) ) {
-    function tfopt( $option = '', $default = null ) {
-        $options = get_option( 'tf_settings' );
+if ( ! function_exists( 'uacf7_settings' ) ) {
+    function uacf7_settings( $option = '') {
 
-        return ( isset( $options[ $option ] ) ) ? $options[ $option ] : $default;
+        $value = get_option( 'uacf7_settings' );
+
+         
+        if( empty($option) ) {
+            return $value;
+        }
+
+        if( isset( $value[$option] ) ) {
+            return $value[$option];
+        }else{
+            return false;
+        }
     }
 }
 
@@ -1009,22 +1019,20 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                     // $range_slider['uacf7_range_slider_height'] = get_post_meta( $post_id, 'uacf7_range_slider_height', true );
                     // $meta['range_slider'] = $range_slider;
                      
-
-                if($post_id == 128){
                     // Auto Cart Checkout addon Migration
-                    $auto_cart = isset($meta['auto_cart']) ? $meta['auto_cart'] : array();
-                    $uacf7_enable_product_auto_cart = get_post_meta( $post_id, 'uacf7_enable_product_auto_cart', true ) == 'on' ? 1 : get_post_meta( $post_id, 'uacf7_enable_product_auto_cart', true );
+                    // $auto_cart = isset($meta['auto_cart']) ? $meta['auto_cart'] : array();
+                    // $uacf7_enable_product_auto_cart = get_post_meta( $post_id, 'uacf7_enable_product_auto_cart', true ) == 'on' ? 1 : get_post_meta( $post_id, 'uacf7_enable_product_auto_cart', true );
+
+                    // if($uacf7_enable_product_auto_cart == true){
+                    //     $auto_cart['uacf7_enable_product_auto_cart'] = $uacf7_enable_product_auto_cart;
+                    //     $auto_cart['uacf7_product_auto_cart_redirect_to'] = get_post_meta( $post_id, 'uacf7_product_auto_cart_redirect_to', true );
+                    //     $auto_cart['uacf7_enable_track_order'] =get_post_meta( $post_id, 'uacf7_enable_track_order', true ) == 'on' ? 1 : get_post_meta( $post_id, 'uacf7_enable_track_order', true );
+                    //     $meta['auto_cart'] = $auto_cart;
+                    // }
+                // if($post_id == 128){
                     
-                    if($uacf7_enable_product_auto_cart == true){
-                        $auto_cart['uacf7_enable_product_auto_cart'] = $uacf7_enable_product_auto_cart;
-                        $auto_cart['uacf7_product_auto_cart_redirect_to'] = get_post_meta( $post_id, 'uacf7_product_auto_cart_redirect_to', true );
-                        $auto_cart['uacf7_enable_track_order'] =get_post_meta( $post_id, 'uacf7_enable_track_order', true ) == 'on' ? 1 : get_post_meta( $post_id, 'uacf7_enable_track_order', true );
-                        $meta['auto_cart'] = $auto_cart;
-                    }
-                    
-                    // uacf7_print_r($meta);
                      
-                }
+                // }
                
                     
                 // update_post_meta( $post_id, 'uacf7_form_opt', $meta ); 
@@ -1033,6 +1041,45 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
     		endwhile;
     		wp_reset_postdata();
     	endif; 
+
+        $old_option = get_option('uacf7_option_name');
+        $new_option = get_option('uacf7_settings');
+        $new_option['uacf7_enable_redirection'] = isset($old_option['uacf7_enable_redirection']) && $old_option['uacf7_enable_redirection'] == 'on' ? 1 : 0;
+        $new_option['uacf7_enable_conditional_field'] = isset($old_option['uacf7_enable_conditional_field']) && $old_option['uacf7_enable_conditional_field'] == 'on' ? 1 : 0;
+        $new_option['uacf7_enable_field_column'] = isset($old_option['uacf7_enable_field_column']) && $old_option['uacf7_enable_field_column'] == 'on' ? 1 : 0;
+        $new_option['uacf7_enable_placeholder'] = isset($old_option['uacf7_enable_placeholder']) && $old_option['uacf7_enable_placeholder'] == 'on' ? 1 : 0;
+        $new_option['uacf7_enable_uacf7style'] = isset($old_option['uacf7_enable_uacf7style']) && $old_option['uacf7_enable_uacf7style'] == 'on' ? 1 : 0;
+        $new_option['uacf7_enable_multistep'] = isset($old_option['uacf7_enable_multistep']) && $old_option['uacf7_enable_multistep'] == 'on' ? 1 : 0;
+        $new_option['uacf7_enable_booking_form'] = isset($old_option['uacf7_enable_booking_form']) && $old_option['uacf7_enable_booking_form'] == 'on' ? 1 : 0;
+        $new_option['uacf7_enable_post_submission'] = isset($old_option['uacf7_enable_post_submission']) && $old_option['uacf7_enable_post_submission'] == 'on' ? 1 : 0;
+        $new_option['uacf7_enable_mailchimp'] = isset($old_option['uacf7_enable_mailchimp']) && $old_option['uacf7_enable_mailchimp'] == 'on' ? 1 : 0;
+        $new_option['uacf7_enable_database_field'] = isset($old_option['uacf7_enable_database_field']) && $old_option['uacf7_enable_database_field'] == 'on' ? 1 : 0;
+        $new_option['uacf7_enable_pdf_generator_field'] = isset($old_option['uacf7_enable_pdf_generator_field']) && $old_option['uacf7_enable_pdf_generator_field'] == 'on' ? 1 : 0;
+        $new_option['uacf7_enable_conversational_form'] = isset($old_option['uacf7_enable_conversational_form']) && $old_option['uacf7_enable_conversational_form'] == 'on' ? 1 : 0;
+        $new_option['uacf7_enable_submission_id_field'] = isset($old_option['uacf7_enable_submission_id_field']) && $old_option['uacf7_enable_submission_id_field'] == 'on' ? 1 : 0;
+        $new_option['uacf7_enable_telegram_field'] = isset($old_option['uacf7_enable_telegram_field']) && $old_option['uacf7_enable_telegram_field'] == 'on' ? 1 : 0;
+        $new_option['uacf7_enable_dynamic_text'] = isset($old_option['uacf7_enable_dynamic_text']) && $old_option['uacf7_enable_dynamic_text'] == 'on' ? 1 : 0;
+        $new_option['uacf7_enable_pre_populate_field'] = isset($old_option['uacf7_enable_pre_populate_field']) && $old_option['uacf7_enable_pre_populate_field'] == 'on' ? 1 : 0;
+        $new_option['uacf7_enable_star_rating'] = isset($old_option['uacf7_enable_star_rating']) && $old_option['uacf7_enable_star_rating'] == 'on' ? 1 : 0;
+        $new_option['uacf7_enable_range_slider'] = isset($old_option['uacf7_enable_range_slider']) && $old_option['uacf7_enable_range_slider'] == 'on' ? 1 : 0;
+        $new_option['uacf7_enable_repeater_field'] = isset($old_option['uacf7_enable_repeater_field']) && $old_option['uacf7_enable_repeater_field'] == 'on' ? 1 : 0;
+        $new_option['uacf7_enable_country_dropdown_field'] = isset($old_option['uacf7_enable_country_dropdown_field']) && $old_option['uacf7_enable_country_dropdown_field'] == 'on' ? 1 : 0;
+        $new_option['uacf7_enable_ip_geo_fields'] = isset($old_option['uacf7_enable_ip_geo_fields']) && $old_option['uacf7_enable_ip_geo_fields'] == 'on' ? 1 : 0;
+        $new_option['uacf7_enable_product_dropdown'] = isset($old_option['uacf7_enable_product_dropdown']) && $old_option['uacf7_enable_product_dropdown'] == 'on' ? 1 : 0;
+        $new_option['uacf7_enable_product_auto_cart'] = isset($old_option['uacf7_enable_product_auto_cart']) && $old_option['uacf7_enable_product_auto_cart'] == 'on' ? 1 : 0;
+        $new_option['uacf7_booking_calendar_key'] = isset($old_option['uacf7_booking_calendar_key']) ? $old_option['uacf7_booking_calendar_key'] : '';
+        $new_option['uacf7_booking_calendar_id'] = isset($old_option['uacf7_booking_calendar_id']) ? $old_option['uacf7_booking_calendar_id'] : '';
+        
+        // Mailchim api key
+        $uacf7_mailchimp_option_name = get_option('uacf7_mailchimp_option_name');
+        $new_option['uacf7_mailchimp_api_key'] = isset($uacf7_mailchimp_option_name['uacf7_mailchimp_api_key']) ? $uacf7_mailchimp_option_name['uacf7_mailchimp_api_key'] : '';
+
+
+        // update_option('uacf7_settings', $new_option);
+
+        // uacf7_print_r($new_option);
+
+
     }
     // add_action( 'init', 'uacf7_form_option_Migration_callback' );
 

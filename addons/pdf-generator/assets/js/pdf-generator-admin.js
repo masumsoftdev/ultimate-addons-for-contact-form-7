@@ -1,9 +1,9 @@
 ;(function ($) {
     'use strict';
-    $ ( document ).ready(function() {  
-        wp.codeEditor.initialize($('#custom_pdf_css'), pdf_settings);
+    // $ ( document ).ready(function() {  
+    //     wp.codeEditor.initialize($('#custom_pdf_css'), pdf_settings);
 
-    });
+    // });
 
     $('#upload_image_button').click(function(e) {
         e.preventDefault();

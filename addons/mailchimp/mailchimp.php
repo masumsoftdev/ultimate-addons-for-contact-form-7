@@ -19,6 +19,7 @@ class UACF7_MAILCHIMP
     add_action("wpcf7_before_send_mail", array($this, 'send_data'));
     add_action('wpcf7_after_save', array($this, 'uacf7_save_contact_form'));
     add_filter( 'uacf7_post_meta_options', array($this, 'uacf7_post_meta_options_mailchimp'), 17, 2 );  
+    add_filter( 'uacf7_settings_options', array($this, 'uacf7_settings_options_mailchimp'), 17, 2 );  
     // add_filter( 'wpcf7_load_js', '__return_false' );
 
     $this->get_api_key();
@@ -26,8 +27,32 @@ class UACF7_MAILCHIMP
     require_once( 'inc/functions.php' );
   }
 
+  function uacf7_settings_options_mailchimp($value){ 
+    $status = $this->connection_status();
+    $mailchimp = array(
+        'title'  => __( 'Mailchimp API', 'ultimate-addons-cf7' ), 
+        'icon'   => 'fa fa-cog',
+        'parent' => 'api_integration',
+        'fields' => array(  
+            'uacf7_mailchimp_api_key' => array(
+                'id'        => 'uacf7_mailchimp_api_key',
+                'type'      => 'text',
+                'label'     => __( 'Mailchimp API', 'ultimate-addons-cf7' ),  
+            ), 
+            'uacf7_mailchimp_api_status' => array(
+              'id'        => 'uacf7_mailchimp_api_status',
+              'type'     => 'callback',
+              'function' => 'uacf7_mailchimp_api_status_callback',
+              'argument' => $status,
+          
+            ), 
+        ),
+    );
+    $value['mailchimp'] = $mailchimp; 
+    return $value;
+} 
 
-  function uacf7_post_meta_options_mailchimp( $value, $post_id){
+  public function uacf7_post_meta_options_mailchimp( $value, $post_id){
     $status = $this->connection_status();
 
     //get audience
@@ -212,10 +237,10 @@ class UACF7_MAILCHIMP
   /* Get mailchimp api key */
   public function get_api_key() {
     
-    $mailchimp_options = get_option('uacf7_mailchimp_option_name');
+    $uacf7_mailchimp_api_key = uacf7_settings('uacf7_mailchimp_api_key');
 
-    if( is_array($mailchimp_options) && !empty($mailchimp_options) ) {
-      return $this->mailchimp_api = $mailchimp_options['uacf7_mailchimp_api_key'];
+    if( $uacf7_mailchimp_api_key != false ) {
+      return $this->mailchimp_api = $uacf7_mailchimp_api_key;
     }
 
     $this->mailchimp_connection();
