@@ -164,11 +164,25 @@ class UACF7_PDF_GENERATOR {
         }
         
         $replace_key = [];
+        $repeaters = [];
+        $repeater_value = [];
         $replace_value = []; 
         $uploaded_files = [];
         
        $form_value =  json_decode($data->form_value); 
         foreach($form_value as $key => $value){
+            // Repeater value gate
+            if (strpos($key, '__') !== false) {
+                $name_parts = explode('__', $key); 
+                if(is_array($name_parts)){
+                    $repeater_value[$name_parts[0]][$name_parts[1]] = $name_parts[0];  
+                }
+            }
+
+            if(strpos($key,"_count") !== false){ 
+                $repeaters[] = str_replace('_count', '', $key) ;
+            }
+
             $replace_key[] = '['.$key.']';
             if( is_array($value)){
                 $data = '';
@@ -185,13 +199,19 @@ class UACF7_PDF_GENERATOR {
             }
             $replace_value[] = $value;
         }   
-        
-        $pdf_content = str_replace($replace_key, $replace_value, $customize_pdf);
 
+        // Repeater value
+        if(isset($repeaters) || is_array($repeaters)){
+            $repeater_data = apply_filters('uacf7_pdf_generator_replace_data', $repeater_value, $repeaters, $customize_pdf); 
+            $customize_pdf = str_replace($repeater_data['replace_re_key'], $repeater_data['replace_re_value'], $customize_pdf); 
+        }  
+
+        $pdf_content = str_replace($replace_key, $replace_value, $customize_pdf);
+ 
         $mpdf->SetTitle($uacf7_pdf_name);
 
         // PDF Footer Content
-        $mpdf->WriteHTML($pdf_style.'<div class="pdf-content">'.$pdf_content.'   </div>');
+        $mpdf->WriteHTML($pdf_style.'<div class="pdf-content">'.nl2br($pdf_content).'   </div>');
 
         $pdf_dir = $dir.'/uacf7-uploads/'.$uacf7_pdf_name.'_db_.pdf';
         $pdf_url = $url.'/uacf7-uploads/'.$uacf7_pdf_name.'_db_.pdf';
@@ -391,7 +411,7 @@ class UACF7_PDF_GENERATOR {
             $mpdf->WriteHTML($pdf_style.'<div class="pdf-content">'.nl2br($pdf_content).'   </div>');
 
             $pdf_url = $dir.'/uacf7-uploads/'.$uacf7_pdf_name.'.pdf';
-            $mpdf->Output($pdf_url, 'F'); // save to databaes 
+            $mpdf->Output($uacf7_pdf_name, 'F'); // save to databaes  
             $components['attachments'][] = $pdf_url; 
             
         }
