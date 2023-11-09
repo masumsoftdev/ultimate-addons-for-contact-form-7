@@ -11,6 +11,8 @@ class UACF7_SIGNATURE_PANEL{
   public $uacf7_signature_enable;
   public $uacf7_signature_bg_color;
   public $uacf7_signature_pen_color;
+  public $uacf7_signature_pad_width;
+  public $uacf7_signature_pad_height;
 
   public function __construct(){
     add_action( 'wpcf7_editor_panels', [$this, 'uacf7_signature_panel_add'] );
