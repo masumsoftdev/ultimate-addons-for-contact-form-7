@@ -130,6 +130,9 @@ class UACF7_SIGNATURE{
             $class .= ' wpcf7-not-valid';
         }
 
+        $canvas_width = 500;
+        $canvas_height = 500;
+
        
         $atts = array();
 
@@ -156,7 +159,7 @@ class UACF7_SIGNATURE{
             <input hidden type="file" id="img_id_special" <?php echo $atts; ?>  >
             <div>
               <div id="signature-pad">
-                <canvas id="signature-canvas"></canvas>
+              <canvas id="signature-canvas" width="<?php echo $canvas_width; ?>" height="<?php echo $canvas_height; ?>"></canvas>
               </div>
               <span id="confirm_message"></span>
               <div class="control_div">
