@@ -118,6 +118,8 @@ class UACF7_SIGNATURE{
        $uacf7_signature_enable = $uacf7_signature_settings['uacf7_signature_enable'];  
        $bg_color = $uacf7_signature_settings['uacf7_signature_bg_color']; 
        $pen_color = $uacf7_signature_settings['uacf7_signature_pen_color']; 
+       $canvas_width = $uacf7_signature_settings['uacf7_signature_pad_width']; 
+       $canvas_height = $uacf7_signature_settings['uacf7_signature_pad_height']; 
        
        if($uacf7_signature_enable != 'on' || $uacf7_signature_enable === ''){
            return;
@@ -130,8 +132,7 @@ class UACF7_SIGNATURE{
             $class .= ' wpcf7-not-valid';
         }
 
-        $canvas_width = 500;
-        $canvas_height = 500;
+
 
        
         $atts = array();
