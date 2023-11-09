@@ -98,37 +98,43 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 		 * @author Foysal
 		 */
 		public function tf_options() {
-			// add_menu_page(
-			// 	$this->option_title,
-			// 	$this->option_title,
-			// 	'manage_options',
-			// 	$this->option_id,
-			// 	array( $this, 'tf_options_page' ),
-			// 	$this->option_icon,
-			// 	$this->option_position
-			// );
+			add_menu_page(
+				$this->option_title,
+				$this->option_title,
+				'manage_options',
+				$this->option_id,
+				array( $this, 'tf_options_page' ),
+				$this->option_icon,
+				$this->option_position
+			);
 
 			add_submenu_page(
-				'wpcf7', //parent slug
+				$this->option_id, //parent slug
 				__($this->option_title,'ultimate-addons-cf7'), // page_title
 				__($this->option_title,'ultimate-addons-cf7'), // menu_title
 				'manage_options', // capability
-				$this->option_id, // menu_slug
+				$this->option_id. '#tab=general', // menu_slug
 				array( $this, 'tf_options_page' ) // function
 			); 
-
+			//Dashboard submenu
+			add_submenu_page(
+				$this->option_id,
+				__('Dashboard', 'ultimate-addons-cf7'),
+				__('Dashboard', 'ultimate-addons-cf7'),
+				'manage_options',
+				'tf_dashboard',
+				array( $this, 'uacf7_addons_page' ),
+			);
 			if ( class_exists('Ultimate_Addons_CF7_PRO') ) {
 				//License Info submenu
 				// add_submenu_page(
-				// 	$this->option_id,
-				// 	__('License Info', 'tourfic'),
-				// 	__('License Info', 'tourfic'),
+				// 	$this->option_id, 
 				// 	'manage_options',
 				// 	'tf_license_info',
 				// 	array( $this,'tf_license_info_callback'),
 				// );
 				add_submenu_page(
-					'wpcf7',
+					$this->option_id, //parent slug
 					__('UACF7 License', 'ultimate-addons-cf7'),
 					__('UACF7 License', 'ultimate-addons-cf7'),
 					'manage_options',
@@ -139,9 +145,9 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 			
 			//Get Help submenu
 			add_submenu_page(
-				'wpcf7',
-				__('Get Help', 'tourfic'),
-				__('Get Help', 'tourfic'),
+				$this->option_id, //parent slug
+				__('Get Help', 'ultimate-addons-cf7'),
+				__('Get Help', 'ultimate-addons-cf7'),
 				'manage_options',
 				'tf_get_help',
 				array( $this,'tf_get_help_callback'),
@@ -159,8 +165,8 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 		?>
 		<div class="tf-setting-top-bar">
 			<div class="version">
-				<img src="<?php // echo TF_ASSETS_APP_URL; ?>images/tourfic-logo.webp" alt="logo">
-				<span>v<?php echo esc_attr( '1.10' ); ?></span>
+				<img src="<?php echo UACF7_URL; ?>assets/img/uacf7-icon.png" alt="logo">
+				<span>v<?php echo esc_attr( UACF7_VERSION ); ?></span>
 			</div>
 			<div class="other-document">
 				<svg width="26" height="25" viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: #003c79;background: ;">
@@ -176,7 +182,7 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 							</svg>
 						<span><?php _e("Need Help?","tourfic"); ?></span>
 						</a>
-						<a href="https://themefic.com/docs/tourfic/" target="_blank">
+						<a href="https://themefic.com/docs/uacf7/" target="_blank">
 							<svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M16.1896 7.57803H13.5902C11.4586 7.57803 9.72274 5.84103 9.72274 3.70803V1.10703C9.72274 0.612031 9.318 0.207031 8.82332 0.207031H5.00977C2.23956 0.207031 0 2.00703 0 5.22003V13.194C0 16.407 2.23956 18.207 5.00977 18.207H12.0792C14.8494 18.207 17.089 16.407 17.089 13.194V8.47803C17.089 7.98303 16.6843 7.57803 16.1896 7.57803ZM8.09478 14.382H4.4971C4.12834 14.382 3.82254 14.076 3.82254 13.707C3.82254 13.338 4.12834 13.032 4.4971 13.032H8.09478C8.46355 13.032 8.76935 13.338 8.76935 13.707C8.76935 14.076 8.46355 14.382 8.09478 14.382ZM9.89363 10.782H4.4971C4.12834 10.782 3.82254 10.476 3.82254 10.107C3.82254 9.73803 4.12834 9.43203 4.4971 9.43203H9.89363C10.2624 9.43203 10.5682 9.73803 10.5682 10.107C10.5682 10.476 10.2624 10.782 9.89363 10.782Z" fill="#003c79"></path>
 							</svg>
@@ -466,7 +472,7 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 												$default = isset( $field['default'] ) ? $field['default'] : '';
 												$value   = isset( $tf_option_value[ $field['id'] ] ) ? $tf_option_value[ $field['id'] ] : $default;
 
-												$tf_option = new TF_Options();
+												$tf_option = new UACF7_Options();
 												$tf_option->field( $field, $value, $this->option_id );
 												
 											endforeach;

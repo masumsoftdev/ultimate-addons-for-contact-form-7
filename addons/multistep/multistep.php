@@ -64,12 +64,17 @@ class UACF7_MULTISTEP {
 			'title'  => __( 'Multistep', 'ultimate-addons-cf7' ),
 			'icon'   => 'fa-solid fa-stairs',
 			'fields' => array(
-				'placeholder_headding' => array(
+                'placeholder_headding' => array(
 					'id'    => 'placeholder_headding',
-					'type'  => 'heading',
+					'type'  => 'notice',
+					'notice' => 'info',
 					'label' => __( 'Multistep', 'ultimate-addons-cf7' ),
-					'sub_title' => __( 'This feature will help you to create the Multistep Form.', 'ultimate-addons-cf7' ),
-				),
+					'title' => __( 'This addon will help you to create the Multistep Form.', 'ultimate-addons-cf7' ),
+                    'content' => sprintf( 
+                        __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-multi-step-forms/" target="_blank">documentation</a>'
+                    )
+				),   
 				'uacf7_multistep_is_multistep' => array(
 					'id'        => 'uacf7_multistep_is_multistep',
 					'type'      => 'switch',

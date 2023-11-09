@@ -24,7 +24,7 @@
                 let services = $('input[name="tf-services[]"]:checked').length;
 
                 if (!services) {
-                    alert(tf_admin_params.i18n.no_services_selected);
+                    alert(uacf7_admin_params.i18n.no_services_selected);
                     return false;
                 }
 
@@ -110,7 +110,7 @@
             formData.append('action', 'tf_setup_wizard_submit');
 
             $.ajax({
-                url: tf_admin_params.ajax_url,
+                url: uacf7_admin_params.ajax_url,
                 type: 'POST',
                 data: formData,
                 processData: false,

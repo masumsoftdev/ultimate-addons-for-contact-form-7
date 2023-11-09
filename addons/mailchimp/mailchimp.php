@@ -76,12 +76,16 @@ class UACF7_MAILCHIMP
         'icon'   => 'fa-brands fa-mailchimp',
         'fields' => array(
             'uacf7_mailchimp_label' => array(
-                'id'    => 'uacf7_mailchimp_label',
-                'type'  => 'heading',
-                'label' => __( 'Mailchimp Form Settings', 'ultimate-addons-cf7' ),
-                'sub_title' => __( 'This feature will help you to Intergrate with Mailchimp.', 'ultimate-addons-cf7' ),
-            ),
-
+              'id'    => 'uacf7_mailchimp_label',
+              'type'  => 'notice',
+              'notice' => 'info',
+              'label' => __( 'Mailchimp Form Settings', 'ultimate-addons-cf7' ),
+              'title' => __( 'This addon will help you to Intergrate with Mailchimp.', 'ultimate-addons-cf7' ),
+              'content' => sprintf( 
+                  __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                  '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-mailchimp/" target="_blank">documentation</a>'
+              )
+          ),  
             'uacf7_mailchimp_form_enable' => array(
                 'id'        => 'uacf7_mailchimp_form_enable',
                 'type'      => 'switch',
@@ -148,12 +152,12 @@ class UACF7_MAILCHIMP
               'options'   => 'uacf7',
               'field_width' => '33'
           ),
-          'uacf7_mailchimp_custom_field_headding' => array(
-            'id'        => 'uacf7_mailchimp_custom_field_headding',
-            'type'      => 'heading',
-            'label'     => __( ' Custom Fields ', 'ultimate-addons-cf7' ),
+          // 'uacf7_mailchimp_custom_field_headding' => array(
+          //   'id'        => 'uacf7_mailchimp_custom_field_headding',
+          //   'type'      => 'heading',
+          //   'label'     => __( ' Custom Fields ', 'ultimate-addons-cf7' ),
   
-          ),
+          // ),
 
           'uacf7_mailchimp_merge_fields' => array(
             'id' => 'uacf7_mailchimp_merge_fields',

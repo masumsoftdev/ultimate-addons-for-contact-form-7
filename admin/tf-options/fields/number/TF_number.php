@@ -3,7 +3,7 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'TF_number' ) ) {
-	class TF_number extends TF_Fields {
+	class TF_number extends UACF7_Fields {
 
 		public function __construct( $field, $value = '', $settings_id = '', $parent_field = '', $section_key = '' ) {
 			parent::__construct( $field, $value, $settings_id, $parent_field, $section_key  );

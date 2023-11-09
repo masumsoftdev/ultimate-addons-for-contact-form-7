@@ -46,7 +46,7 @@ if ( ! class_exists( 'TF_Taxonomy_Metabox' ) ) {
 		public function load_fields() {
 
 			// Fields Class
-			require_once UACF7_PATH . 'admin/tf-options/fields/TF_Fields.php';
+			require_once UACF7_PATH . 'admin/tf-options/fields/UACF7_Fields.php';
 
 			$fields = glob( UACF7_PATH . 'admin/tf-options/fields/*/TF_*.php' );
 
@@ -94,7 +94,7 @@ if ( ! class_exists( 'TF_Taxonomy_Metabox' ) ) {
 								$default = isset( $field['default'] ) ? $field['default'] : '';
 								$value   = isset( $tf_taxonomy_value[ $field['id'] ] ) ? $tf_taxonomy_value[ $field['id'] ] : $default;
 
-								$tf_option = new TF_Options();
+								$tf_option = new UACF7_Options();
 								$tf_option->field( $field, $value, $this->taxonomy_id );
 							}
 							?>

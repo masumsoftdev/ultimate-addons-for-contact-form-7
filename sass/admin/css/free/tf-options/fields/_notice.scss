@@ -1,16 +1,19 @@
-// .tf-field-notice {
+.tf-field-notice {
+  // .tf-fieldset{
+  //   margin-top: 0;
+  // }
 
   .tf-field-notice-inner {
     @include flexbox();
     padding: 24px;
-    border: 1px solid $teal10;
+    border: 1px solid $blue5;
     border-radius: 8px;
-    background-color: $teal0;
+    background-color: $blue5;
 
     .tf-field-notice-icon {
       margin-right: 10px;
       font-size: 20px;
-      color: $teal60;
+      color: $blue60;
     }
 
     .tf-field-notice-content {
@@ -56,4 +59,4 @@
     }
 
   }
-// }
+}

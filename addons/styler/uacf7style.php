@@ -45,11 +45,16 @@ class UACF7_uacf7style {
             'icon'   => 'fa-solid fa-italic',
             'fields' => array(
                 'styler_headding' => array(
-                    'id'    => 'styler_headding',
-                    'type'  => 'heading',
-                    'label' => __( 'Form Styles', 'ultimate-addons-cf7' ),
-                    'sub_title' => __( 'This feature will help you to edit the Styles of your form. Note that, all below fields are optional. If any field is not needed, leave them blank.', 'ultimate-addons-cf7' ),
-                ),
+					'id'    => 'styler_headding',
+					'type'  => 'notice',
+					'notice' => 'info',
+					'label' => __( 'Form Styles', 'ultimate-addons-cf7' ),
+					'title' => __( 'This addon will help you to edit the Styles of your form. Note that, all below fields are optional. If any field is not needed, leave them blank.', 'ultimate-addons-cf7' ),
+                    'content' => sprintf( 
+                        __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-style/" target="_blank">documentation</a>'
+                    )
+				),  
                 'uacf7_enable_form_styles' => array(
                     'id'        => 'uacf7_enable_form_styles',
                     'type'      => 'switch',

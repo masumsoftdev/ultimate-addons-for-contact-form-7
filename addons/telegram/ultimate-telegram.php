@@ -34,13 +34,18 @@ class UACF7_TELEGRAM {
         'title'  => __( 'Telegram', 'ultimate-addons-cf7' ),
         'icon'   => 'fa-brands fa-telegram',
         'fields' => array(
+            
             'uacf7_telegram_heading' => array(
-                'id'    => 'uacf7_telegram_heading',
-                'type'  => 'heading',
-                'label' => __( 'Telegram', 'ultimate-addons-cf7' ),
-                'sub_title' => __( 'This feature will help you to track submission data into the database.', 'ultimate-addons-cf7' ),
+              'id'    => 'uacf7_telegram_heading',
+              'type'  => 'notice',
+              'notice' => 'info',
+              'label' => __( 'Telegram Settings', 'ultimate-addons-cf7' ),
+              'title' => __( 'This addon will help you to integrate telegram into you contact form 7.', 'ultimate-addons-cf7' ),
+              'content' => sprintf( 
+                  __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                  '<a href="https://themefic.com/docs/uacf7/free-addons/uacf7-telegram/" target="_blank">documentation</a>'
+              )
             ),
-
             'uacf7_telegram_enable_icon' => array(
               'id'        => 'uacf7_telegram_enable_icon',
               'type'     => 'callback',

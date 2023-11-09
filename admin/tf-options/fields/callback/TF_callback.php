@@ -3,7 +3,7 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'TF_callback' ) ) {
-	class TF_callback extends TF_Fields {
+	class TF_callback extends UACF7_Fields {
 
 		public function __construct( $field, $value = '', $settings_id = '', $parent_field = '') {
 			parent::__construct( $field, $value, $settings_id, $parent_field );

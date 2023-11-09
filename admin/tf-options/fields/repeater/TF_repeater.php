@@ -10,7 +10,7 @@
  *
  */
 if ( ! class_exists( 'TF_Repeater' ) ) {
-	class TF_Repeater extends TF_Fields {
+	class TF_Repeater extends UACF7_Fields {
 		public function __construct( $field, $value = '', $settings_id = '', $parent_field = '', $section_key = '' ) {
 			parent::__construct( $field, $value, $settings_id, $parent_field, $section_key  );
 		}
@@ -94,7 +94,7 @@ if ( ! class_exists( 'TF_Repeater' ) ) {
 											$value = sanitize_title(str_replace(' ', '_', strtolower($value)));
 										}
 
-										$tf_option = new TF_Options();
+										$tf_option = new UACF7_Options();
 										$tf_option->field( $re_field, $value, $this->settings_id, $parent_field, $this->section_key );
 									endforeach;
 									$num ++;
@@ -146,7 +146,7 @@ if ( ! class_exists( 'TF_Repeater' ) ) {
 									//remove special characters, replace space with underscore and convert to lowercase
 									$value = sanitize_title(str_replace(' ', '_', strtolower($value)));
 								}
-								$tf_option = new TF_Options();
+								$tf_option = new UACF7_Options();
 								$tf_option->field( $re_field, $value, '_____' . $this->settings_id, $parent, $this->section_key );
 							} ?>
                         </div>

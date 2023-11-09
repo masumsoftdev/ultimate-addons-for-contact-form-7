@@ -7,6 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Global Admin Get Option
  */
 if ( ! function_exists( 'uacf7_settings' ) ) {
+    add_filter('uacf7_settings', 'uacf7_settings', 10, 2);
     function uacf7_settings( $option = '') {
 
         $value = get_option( 'uacf7_settings' );

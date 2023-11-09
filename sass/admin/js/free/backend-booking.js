@@ -25,7 +25,7 @@
             if (from.length > 0 && to.length > 0) {
                 jQuery.ajax({
                     type: 'post',
-                    url: tf_admin_params.ajax_url,
+                    url: uacf7_admin_params.ajax_url,
                     data: {
                         action: 'tf_check_available_hotel',
                         from: from,
@@ -37,7 +37,7 @@
                     success: function (response) {
                         var select2 = $('[name="tf_available_hotels"]');
                         select2.empty();
-                        select2.append('<option value="">' + tf_admin_params.select_hotel + '</option>');
+                        select2.append('<option value="">' + uacf7_admin_params.select_hotel + '</option>');
                         $.each(response.data.hotels, function (key, value) {
                             select2.append('<option value="' + key + '">' + value + '</option>');
                         });
@@ -64,7 +64,7 @@
             if (hotel_id.length > 0) {
                 jQuery.ajax({
                     type: 'post',
-                    url: tf_admin_params.ajax_url,
+                    url: uacf7_admin_params.ajax_url,
                     data: {
                         action: 'tf_check_available_room',
                         hotel_id: hotel_id,
@@ -80,7 +80,7 @@
 
                         select2.removeAttr('disabled');
                         select2.empty();
-                        select2.append('<option value="">' + tf_admin_params.select_room + '</option>');
+                        select2.append('<option value="">' + uacf7_admin_params.select_room + '</option>');
                         $.each(response.data.rooms, function (key, value) {
                             select2.append('<option value="' + key + '">' + value + '</option>');
                         });
@@ -113,7 +113,7 @@
             if (room_id.length > 0) {
                 jQuery.ajax({
                     type: 'post',
-                    url: tf_admin_params.ajax_url,
+                    url: uacf7_admin_params.ajax_url,
                     data: {
                         action: 'tf_update_room_fields',
                         hotel_id: hotel_id,
@@ -157,7 +157,7 @@
 
             $.ajax({
                 type: 'post',
-                url: tf_admin_params.ajax_url,
+                url: uacf7_admin_params.ajax_url,
                 data: formData,
                 processData: false,
                 contentType: false,
@@ -278,7 +278,7 @@
             if (tourId.length > 0) {
                 jQuery.ajax({
                     type: 'post',
-                    url: tf_admin_params.ajax_url,
+                    url: uacf7_admin_params.ajax_url,
                     data: {
                         action: 'tf_tour_date_time_update',
                         tour_id: tourId,
@@ -416,7 +416,7 @@
 
             $.ajax({
                 type: 'post',
-                url: tf_admin_params.ajax_url,
+                url: uacf7_admin_params.ajax_url,
                 data: formData,
                 processData: false,
                 contentType: false,

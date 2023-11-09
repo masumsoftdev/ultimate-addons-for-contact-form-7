@@ -28,10 +28,10 @@
 
             $.ajax({
                 type: 'post',
-                url: tf_admin_params.ajax_url,
+                url: uacf7_admin_params.ajax_url,
                 data: data,
                 beforeSend: function (data) {
-                    notyf.success(tf_admin_params.deleting_old_review_fields);
+                    notyf.success(uacf7_admin_params.deleting_old_review_fields);
                 },
                 success: function (data) {
                     notyf.success(data.data);
@@ -66,7 +66,7 @@
                 url: ajaxurl,
                 data: data,
                 beforeSend: function (data) {
-                    notyf.success(tf_admin_params.deleting_room_order_ids);
+                    notyf.success(uacf7_admin_params.deleting_room_order_ids);
                 },
                 success: function (data) {
                     notyf.success(data.data);
@@ -88,7 +88,7 @@
             if ($('textarea[name="tf_tours_opt[text_location]"]').val().length === 0) {
                 e.preventDefault;
                 e.stopImmediatePropagation();
-                notyf.error(tf_admin_params.tour_location_required);
+                notyf.error(uacf7_admin_params.tour_location_required);
                 return false;
             }
         });
@@ -102,7 +102,7 @@
             if ($('textarea[name="tf_hotels_opt[address]"]').val().length === 0) {
                 e.preventDefault;
                 e.stopImmediatePropagation();
-                notyf.error(tf_admin_params.hotel_location_required);
+                notyf.error(uacf7_admin_params.hotel_location_required);
                 return false;
             }
         });
@@ -116,7 +116,7 @@
             if ($('[name="tf_apartment_opt[address]"]').val().length === 0) {
                 e.preventDefault;
                 e.stopImmediatePropagation();
-                notyf.error(tf_admin_params.apartment_location_required);
+                notyf.error(uacf7_admin_params.apartment_location_required);
                 return false;
             }
         });
@@ -132,21 +132,21 @@
             var current = $(this);
             var plugin_slug = current.attr("data-plugin-slug");
 
-            current.addClass('updating-message').text(tf_admin_params.installing);
+            current.addClass('updating-message').text(uacf7_admin_params.installing);
 
             var data = {
                 action: 'tf_ajax_install_plugin',
-                _ajax_nonce: tf_admin_params.tf_nonce,
+                _ajax_nonce: uacf7_admin_params.tf_nonce,
                 slug: plugin_slug,
             };
 
-            jQuery.post(tf_admin_params.ajax_url, data, function (response) {
+            jQuery.post(uacf7_admin_params.ajax_url, data, function (response) {
                 current.removeClass('updating-message');
-                current.addClass('updated-message').text(tf_admin_params.installed);
+                current.addClass('updated-message').text(uacf7_admin_params.installed);
                 current.attr("href", response.data.activateUrl);
             })
                 .fail(function () {
-                    current.removeClass('updating-message').text(tf_admin_params.install_failed);
+                    current.removeClass('updating-message').text(uacf7_admin_params.install_failed);
                 })
                 .always(function () {
                     current.removeClass('install-now updated-message').addClass('activate-now button-primary').text(tf_admin_params.activating);
@@ -202,7 +202,7 @@
                 $("#tf-booking-status-loader").addClass('show');
                 jQuery.ajax({
                     type: 'post',
-                    url: tf_admin_params.ajax_url,
+                    url: uacf7_admin_params.ajax_url,
                     data: {
                         action: 'tf_ticket_status_change',
                         status: "check in",
@@ -217,7 +217,7 @@
                 $("#tf-booking-status-loader").addClass('show');
                 jQuery.ajax({
                     type: 'post',
-                    url: tf_admin_params.ajax_url,
+                    url: uacf7_admin_params.ajax_url,
                     data: {
                         action: 'tf_ticket_status_change',
                         status: "",

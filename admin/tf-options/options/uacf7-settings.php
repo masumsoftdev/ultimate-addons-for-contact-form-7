@@ -10,7 +10,7 @@ if ( file_exists( UACF7_PATH . 'admin/tf-options/options/tf-menu-icon.php' ) ) {
 
 TF_Settings::option( 'uacf7_settings', array(
 	'title'    => __( 'Ultimate Addons', 'tourfic' ),
-	'icon'     => $menu_icon,
+	'icon'     => 'dashicons-palmtree',
 	'position' => 25,
 	'sections' => 
 		apply_filters('uacf7_settings_options', array(

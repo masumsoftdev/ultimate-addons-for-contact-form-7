@@ -3,7 +3,7 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'TF_text' ) ) {
-	class TF_tab extends TF_Fields {
+	class TF_tab extends UACF7_Fields {
 
 		public function __construct( $field, $value = '', $settings_id = '', $parent_field = '', $section_key = '' ) {
 			parent::__construct( $field, $value, $settings_id, $parent_field, $section_key  );
@@ -54,7 +54,7 @@ if ( ! class_exists( 'TF_text' ) ) {
 									// sanitize Wp Editor Field
 									$value = ( $field['type'] == 'editor' ) ? wp_kses_post($value) : $value;
 
-									$tf_option = new TF_Options();
+									$tf_option = new UACF7_Options();
 									$tf_option->field( $field, $value, $this->settings_id, $parent );
 								}
 								?>

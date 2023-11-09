@@ -3,10 +3,10 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'TF_select2' ) ) {
-	class TF_select2 extends TF_Fields {
+	class TF_select2 extends UACF7_Fields {
 
-		public function __construct( $field, $value = '', $settings_id = '', $parent_field = '' ) {
-			parent::__construct( $field, $value, $settings_id, $parent_field  );
+		public function __construct( $field, $value = '', $settings_id = '', $parent_field = '',  $section_key = ''  ) {
+			parent::__construct( $field, $value, $settings_id, $parent_field , $section_key );
 		}
 
 		public function render() {

@@ -3,7 +3,7 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'TF_notice' ) ) {
-	class TF_notice extends TF_Fields {
+	class TF_notice extends UACF7_Fields {
 
 		public function __construct( $field, $value = '', $settings_id = '', $parent_field = '', $section_key = '' ) {
 			parent::__construct( $field, $value, $settings_id, $parent_field, $section_key  );
@@ -25,7 +25,7 @@ if ( ! class_exists( 'TF_notice' ) ) {
 					<?php if ( ! empty( $this->field['title'] ) ): ?>
                         <h6><?php echo esc_html( $this->field['title'] ); ?></h6>
 					<?php endif; ?>
-					<?php echo wp_kses_post( $this->field['content'] ); ?>
+					<p><?php echo wp_kses_post( $this->field['content'] ); ?></p>
                 </div>
 
             </div>

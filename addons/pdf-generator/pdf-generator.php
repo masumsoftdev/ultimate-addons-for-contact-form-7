@@ -35,13 +35,18 @@ class UACF7_PDF_GENERATOR {
             'title'  => __( 'PDF Generator', 'ultimate-addons-cf7' ),
             'icon'   => 'fa-solid fa-file-pdf',
             'fields' => array(
-                'uacf7_mailchimp_label' => array(
-                    'id'    => 'uacf7_mailchimp_label',
-                    'type'  => 'heading',
+                 
+                'uacf7_pdf_label' => array(
+                    'id'    => 'uacf7_pdf_label',
+                    'type'  => 'notice',
+                    'notice' => 'info',
                     'label' => __( 'PDF Generator Settings', 'ultimate-addons-cf7' ),
-                    'sub_title' => __( 'This feature will help you to create PDF using form Data.', 'ultimate-addons-cf7' ),
-                ),
-             
+                    'title' => __( 'This addon will help you to create PDF using form Data.', 'ultimate-addons-cf7' ),
+                    'content' => sprintf( 
+                        __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-pdf-generator/" target="_blank">documentation</a>'
+                    )
+                ),  
                 'uacf7_enable_pdf_generator' => array(
                     'id'        => 'uacf7_enable_pdf_generator',
                     'type'      => 'switch',

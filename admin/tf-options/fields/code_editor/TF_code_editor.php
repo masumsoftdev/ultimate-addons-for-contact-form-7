@@ -3,7 +3,7 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'TF_code_editor' ) ) {
-	class TF_code_editor extends TF_Fields {
+	class TF_code_editor extends UACF7_Fields {
 
     public $version = '5.65.15';
     public $cdn_url = 'https://cdn.jsdelivr.net/npm/codemirror@';

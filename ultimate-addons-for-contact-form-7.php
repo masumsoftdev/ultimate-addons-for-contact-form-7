@@ -120,19 +120,19 @@ class Ultimate_Addons_CF7 {
         wp_enqueue_script( 'uacf7-admin-script', UACF7_URL . 'assets/js/admin-script.js', array('jquery'), null, true ); 
 
 		// Custom
-		wp_enqueue_style( 'tf-admin-sweet-alert', '//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css', '', UACF7_VERSION );
-		wp_enqueue_style( 'tf-admin', UACF7_URL . 'assets/admin/css/tourfic-admin.min.css', '', UACF7_VERSION );
-		wp_enqueue_script( 'tf-admin-sweet-alert', '//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js', array( 'jquery' ), UACF7_VERSION, true );
-		wp_enqueue_script( 'tf-admin', UACF7_URL . 'assets/admin/js/tourfic-admin-scripts.min.js', array( 'jquery', 'wp-data', 'wp-editor', 'wp-edit-post' ), UACF7_VERSION, true );
+		wp_enqueue_style( 'uacf7-admin-sweet-alert', '//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css', '', UACF7_VERSION );
+		wp_enqueue_style( 'uacf7-admin', UACF7_URL . 'assets/admin/css/tourfic-admin.min.css', '', UACF7_VERSION );
+		wp_enqueue_script( 'uacf7-admin-sweet-alert', '//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js', array( 'jquery' ), UACF7_VERSION, true );
+		wp_enqueue_script( 'uacf7-admin', UACF7_URL . 'assets/admin/js/tourfic-admin-scripts.min.js', array( 'jquery', 'wp-data', 'wp-editor', 'wp-edit-post' ), UACF7_VERSION, true );
 		 
        
-        wp_localize_script( 'tf-admin', 'tf_options', array(
+        wp_localize_script( 'uacf7-admin', 'uacf7_options', array(
             'ajax_url'          => admin_url( 'admin-ajax.php' ),
-            'nonce'             => wp_create_nonce( 'tf_options_nonce' ), 
+            'nonce'             => wp_create_nonce( 'uacf7_options_nonce' ), 
         ) );
-        wp_localize_script( 'tf-admin', 'tf_admin_params',
+        wp_localize_script( 'uacf7-admin', 'uacf7_admin_params',
 			array(
-				'tf_nonce'                         => wp_create_nonce( 'updates' ),
+				'uacf7_nonce'                         => wp_create_nonce( 'updates' ),
 				'ajax_url'                         => admin_url( 'admin-ajax.php' ),   
 			)
 		);
