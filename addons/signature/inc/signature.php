@@ -36,8 +36,8 @@ class UACF7_SIGNATURE_PANEL{
 
 
     if(!empty($uacf7_signature_settings)){
-      $this->uacf7_signature_enable = $uacf7_signature_settings['uacf7_signature_enable'] ?? '';
-      $this->uacf7_signature_bg_color = $uacf7_signature_settings['uacf7_signature_bg_color'] ?? '#dddddd';
+      $this->uacf7_signature_enable    = $uacf7_signature_settings['uacf7_signature_enable'] ?? '';
+      $this->uacf7_signature_bg_color  = $uacf7_signature_settings['uacf7_signature_bg_color'] ?? '#dddddd';
       $this->uacf7_signature_pen_color = $uacf7_signature_settings['uacf7_signature_pen_color'] ?? '#000000';
       
     } 
@@ -89,9 +89,9 @@ class UACF7_SIGNATURE_PANEL{
     }
 
     $uacf7_signature_settings = [
-      'uacf7_signature_enable' =>  sanitize_text_field($_POST['uacf7_signature_enable']),
-      'uacf7_signature_bg_color' =>  sanitize_text_field($_POST['uacf7_signature_bg_color']),
-      'uacf7_signature_pen_color' =>  sanitize_text_field($_POST['uacf7_signature_pen_color']),
+      'uacf7_signature_enable'    => sanitize_text_field($_POST['uacf7_signature_enable']),
+      'uacf7_signature_bg_color'  => sanitize_text_field($_POST['uacf7_signature_bg_color']),
+      'uacf7_signature_pen_color' => sanitize_text_field($_POST['uacf7_signature_pen_color']),
     ];
 
     update_post_meta( $form->id(), 'uacf7_signature_settings', $uacf7_signature_settings);

@@ -112,12 +112,12 @@ class UACF7_SIGNATURE{
 
 
        /** Enable / Disable Submission ID */
-       $wpcf7 = WPCF7_ContactForm::get_current(); 
-       $formid = $wpcf7->id();
-       $uacf7_signature_settings = get_post_meta( $formid, 'uacf7_signature_settings', true );  
-       $uacf7_signature_enable = $uacf7_signature_settings['uacf7_signature_enable'];  
-       $bg_color = $uacf7_signature_settings['uacf7_signature_bg_color']; 
-       $pen_color = $uacf7_signature_settings['uacf7_signature_pen_color']; 
+       $wpcf7                    = WPCF7_ContactForm::get_current();
+       $formid                   = $wpcf7->id();
+       $uacf7_signature_settings = get_post_meta( $formid, 'uacf7_signature_settings', true );
+       $uacf7_signature_enable   = $uacf7_signature_settings['uacf7_signature_enable'];
+       $bg_color                 = $uacf7_signature_settings['uacf7_signature_bg_color'];
+       $pen_color                = $uacf7_signature_settings['uacf7_signature_pen_color'];
        
        if($uacf7_signature_enable != 'on' || $uacf7_signature_enable === ''){
            return;
@@ -133,11 +133,11 @@ class UACF7_SIGNATURE{
        
         $atts = array();
 
-        $atts['class'] = $tag->get_class_option($class);
-        $atts['id'] = $tag->get_id_option();
+        $atts['class']     = $tag->get_class_option($class);
+        $atts['id']        = $tag->get_id_option();
         $atts['pen-color'] = esc_attr( $pen_color );
-        $atts['bg-color'] = esc_attr( $bg_color );
-        $atts['tabindex'] = $tag->get_option('tabindex', 'signed_int', true);
+        $atts['bg-color']  = esc_attr( $bg_color );
+        $atts['tabindex']  = $tag->get_option('tabindex', 'signed_int', true);
 
         if ($tag->is_required()) {
             $atts['aria-required'] = 'true';
