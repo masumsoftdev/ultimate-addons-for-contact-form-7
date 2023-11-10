@@ -10,7 +10,8 @@
         type: 'POST',
         data: {
             action: 'uacf7_update_submission_id',
-            form_id: form_id
+            form_id: form_id,
+            ajax_nonce: submission_id_obj.nonce,
         },
         success: function(data) {
   

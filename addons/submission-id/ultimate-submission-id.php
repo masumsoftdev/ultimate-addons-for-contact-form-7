@@ -35,6 +35,7 @@ class UACF7_SUBMISSION_ID{
         wp_enqueue_style('submission_id_public_css', UACF7_URL . '/addons/submission-id/assets/public/css/public-submission-id.css', [], 'UAFC7_VERSION', true, 'all');
         wp_localize_script( 'submission_id_public_js', 'submission_id_obj', [
             "ajaxurl" => admin_url( 'admin-ajax.php' ),
+            'nonce' => wp_create_nonce( 'uacf7-submission-id-nonce' ),
 
         ] );
     }
@@ -56,13 +57,18 @@ class UACF7_SUBMISSION_ID{
 
      public function uacf7_update_submission_id(){
 
- 
-            $form_id = $_POST['form_id'];
+        if ( !wp_verify_nonce($_POST['ajax_nonce'], 'uacf7-submission-id-nonce')) {
+            exit(esc_html__("Security error", 'ultimate-addons-cf7'));
+        } 
+
+        $form_id = $_POST['form_id']; 
+        if($form_id != 0){
             $meta_data = get_post_meta($form_id, 'uacf7_submission_id', true);
             echo wp_send_json( [
             'form_id' => $form_id,
             'meta_data' => $meta_data
-           ] );
+            ] );
+        } 
        
      }
 
