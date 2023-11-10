@@ -32,9 +32,9 @@ class UACF7_SUBMISSION_ID_PANEL{
 
    public function uacf7_create_uacf7submission_id_panel_fields($post){   
 
-    $uacf7_submission_id = get_post_meta( $post->id(), 'uacf7_submission_id', true ); 
-    $uacf7_submission_id_step = get_post_meta( $post->id(), 'uacf7_submission_id_step', true ); 
-    $uacf7_submission_id_enable = get_post_meta( $post->id(), 'uacf7_submission_id_enable', true ); 
+    $uacf7_submission_id        = get_post_meta( $post->id(), 'uacf7_submission_id', true );
+    $uacf7_submission_id_step   = get_post_meta( $post->id(), 'uacf7_submission_id_step', true );
+    $uacf7_submission_id_enable = get_post_meta( $post->id(), 'uacf7_submission_id_enable', true );
     
     ?> 
 
@@ -88,7 +88,7 @@ class UACF7_SUBMISSION_ID_PANEL{
       
       global $wpdb;
       $table_name = $wpdb->prefix.'uacf7_form';
-      $last_item = $wpdb->get_row(
+      $last_item  = $wpdb->get_row(
         $wpdb->prepare("SELECT * FROM $table_name WHERE form_id= %d  ORDER BY submission_id DESC ", $form->id() )
       ); 
       
