@@ -10,17 +10,17 @@ jQuery(document).ready(function($){
       $(form).find("#signature-pad").each(function(i, wrap){
 
 
-        var convertButton = $('.uacf7-form-'+formId).find("#convertButton");
+        var convertButton    = $('.uacf7-form-'+formId).find("#convertButton");
         var signature_canvas = $('.uacf7-form-'+formId).find("#signature-canvas");
-        var confirm_message = $('.uacf7-form-'+formId).find("#confirm_message");
-        var fileInput = $('.uacf7-form-'+formId).find('#img_id_special'); 
+        var confirm_message  = $('.uacf7-form-'+formId).find("#confirm_message");
+        var fileInput        = $('.uacf7-form-'+formId).find('#img_id_special');
             fileInput.css('display', 'none');
         var clearButton = $('.uacf7-form-'+formId).find("#clear-button");
         var control_div = $('.uacf7-form-'+formId).find(".control_div");
 
         var data;
         var pad_bg_color = fileInput.attr('bg-color');
-        var pen_color = fileInput.attr('pen-color');
+        var pen_color    = fileInput.attr('pen-color');
 
 
         var canvas = $(wrap).find('canvas').get(0);
@@ -71,10 +71,10 @@ jQuery(document).ready(function($){
                     const imagePreview = document.querySelector('.Uacf7UploadedImageForSign_'+formId);
                 
                     const dataUrl = imagePreview.src;
-                    const blob = dataURLtoBlob(dataUrl);
+                    const blob    = dataURLtoBlob(dataUrl);
                   
                     const fileName = 'signature.jpg';
-                    const file = new File([blob], fileName);
+                    const file     = new File([blob], fileName);
                   
                     const fileList = new DataTransfer();
                     fileList.items.add(file);

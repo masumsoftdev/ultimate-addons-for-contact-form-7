@@ -21,6 +21,7 @@
             type: 'post',
             data: {
                 action: 'uacf7_ajax_database_popup',
+                ajax_nonce: database_admin_url.nonce,
                 id: id,
             },
             success: function (data) {  
