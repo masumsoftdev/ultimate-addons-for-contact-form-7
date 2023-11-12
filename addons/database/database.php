@@ -55,6 +55,7 @@ class UACF7_DATABASE {
                 'admin_url' => get_admin_url().'/admin.php',
                 'ajaxurl' => admin_url( 'admin-ajax.php' ),
                 'plugin_dir_url' => plugin_dir_url( __FILE__ ),
+                'nonce' => wp_create_nonce( 'uacf7-form-database-admin-nonce' ),
             )
          );
     }
@@ -265,6 +266,11 @@ class UACF7_DATABASE {
     */
 
     public function uacf7_ajax_database_popup(){ 
+
+        if ( !wp_verify_nonce($_POST['ajax_nonce'], 'uacf7-form-database-admin-nonce')) {
+            exit(esc_html__("Security error", 'ultimate-addons-cf7'));
+        } 
+
         global $wpdb; 
         $id = intval($_POST['id']); // data id
         $upload_dir    = wp_upload_dir();
