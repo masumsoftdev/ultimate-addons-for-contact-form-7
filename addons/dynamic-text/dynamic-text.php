@@ -194,6 +194,7 @@ class UACF7_DYNAMIC_TEXT {
                                 <select  name="values" class="values" id="tag-generator-panel-dynamic-value">
                                     <option value=""><?php echo esc_html__( 'Select', 'ultimate-addons-cf7' ); ?></option> 
                                     <option value="UACF7_URL"><?php echo esc_html__( 'Current URL', 'ultimate-addons-cf7' ); ?></option> 
+                                    <option value="UACF7_URL_WITH_PERAMETERS"><?php echo esc_html__( 'Current URL with Perameters', 'ultimate-addons-cf7' ); ?></option> 
                                     <option value="UACF7_BLOGINFO"><?php echo esc_html__( 'Blog Info', 'ultimate-addons-cf7' ); ?></option> 
                                     <option value="UACF7_POSTINFO"><?php echo esc_html__( 'Current post info', 'ultimate-addons-cf7' ); ?></option> 
                                     <option value="UACF7_USERINFO"><?php echo esc_html__( 'Current User info', 'ultimate-addons-cf7' ); ?></option> 
