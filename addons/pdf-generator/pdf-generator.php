@@ -412,8 +412,7 @@ class UACF7_PDF_GENERATOR {
 
             $pdf_url = $dir.'/uacf7-uploads/'.$uacf7_pdf_name.'.pdf';
             $mpdf->Output($uacf7_pdf_name, 'F'); // save to databaes  
-            $components['attachments'][] = $pdf_url; 
-            
+            $components['attachments'][] = $pdf_url;
         }
         return $components;
       
