@@ -18,7 +18,7 @@ class UACF7_PDF_GENERATOR {
         add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_contact_form' ) );     
         
         add_filter( 'wpcf7_mail_components', array( $this, 'uacf7_wpcf7_mail_components' ), 10, 3 );    
-        // add_filter( 'wpcf7_load_js', '__return_false' );
+        add_filter( 'wpcf7_load_js', '__return_false' );
         add_action( 'wp_ajax_uacf7_get_generated_pdf', array( $this, 'uacf7_get_generated_pdf' ) );  
  
         
@@ -411,8 +411,9 @@ class UACF7_PDF_GENERATOR {
             $mpdf->WriteHTML($pdf_style.'<div class="pdf-content">'.nl2br($pdf_content).'   </div>');
 
             $pdf_url = $dir.'/uacf7-uploads/'.$uacf7_pdf_name.'.pdf';
-            $mpdf->Output($uacf7_pdf_name, 'F'); // save to databaes  
-            $components['attachments'][] = $pdf_url;
+            $mpdf->Output($pdf_url, 'F'); // save to databaes 
+           
+            $components['attachments'][] = $pdf_url; 
         }
         return $components;
       
