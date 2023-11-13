@@ -2188,6 +2188,15 @@ Steps
 .uacf7-metabox .tf-option-wrapper {
   margin: 16px !important;
 }
+.uacf7-metabox .tf-option-wrapper .tf-metabox-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.uacf7-metabox .tf-option-wrapper .tf-metabox-title h3 {
+  margin: 0;
+}
 
 .tf-shortcode-generator-section {
   background-color: #fff;
@@ -2377,6 +2386,171 @@ Steps
   justify-content: end;
   margin-bottom: 9px;
   padding-right: 10px;
+}
+
+.uacf7-addons-settings-page {
+  padding: 24px;
+  background-color: #fff;
+  border-radius: 4px;
+}
+.uacf7-addons-settings-page .uacf7-setting-title {
+  margin-bottom: 56px;
+  font-weight: 700;
+}
+.uacf7-addons-settings-page .uacf7-settings-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+  margin-bottom: 32px;
+}
+.uacf7-addons-settings-page .uacf7-settings-heading .uacf7-settings-heading-wrap {
+  width: 50%;
+}
+.uacf7-addons-settings-page .uacf7-settings-heading .uacf7-settings-heading-wrap .uacf7-addon-filter-search {
+  display: inline-block;
+  width: 100% !important;
+  height: 48px;
+  position: relative;
+}
+.uacf7-addons-settings-page .uacf7-settings-heading .uacf7-settings-heading-wrap .uacf7-addon-filter-search .uacf7-addon-filter-icon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  height: auto;
+  width: auto;
+  padding: 12px;
+}
+.uacf7-addons-settings-page .uacf7-settings-heading .uacf7-settings-heading-wrap .uacf7-addon-filter-search #uacf7-addon-filter {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100% !important;
+  font-size: 16px;
+  padding-left: 45px;
+  color: #D5D0E2;
+  border-radius: 8px;
+  border: 1px solid #D5D0E2;
+  box-shadow: 0px 4px 30px 0px rgba(6, 4, 12, 0.0784313725);
+  transition: 0.4s;
+}
+.uacf7-addons-settings-page .uacf7-settings-heading .uacf7-settings-heading-wrap .uacf7-addon-filter-search #uacf7-addon-filter:focus, .uacf7-addons-settings-page .uacf7-settings-heading .uacf7-settings-heading-wrap .uacf7-addon-filter-search #uacf7-addon-filter:hover {
+  outline: none;
+  border-color: #A9A1D5;
+  box-shadow: 0px 4px 30px 0px rgba(6, 4, 12, 0.0784313725);
+}
+.uacf7-addons-settings-page .uacf7-settings-heading .uacf7-settings-heading-wrap .uacf7-addon-filter-cta {
+  display: flex;
+  justify-content: right;
+  gap: 32px;
+}
+.uacf7-addons-settings-page .uacf7-settings-heading .uacf7-settings-heading-wrap .uacf7-addon-filter-cta .uacf7-addon-filter-button {
+  background-color: transparent;
+  border: none;
+  box-shadow: 0px 4px 30px 0px rgba(6, 4, 12, 0.0784313725);
+  padding: 8px 16px;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.uacf7-addons-settings-page .uacf7-settings-heading .uacf7-settings-heading-wrap .uacf7-addon-filter-cta .uacf7-addon-filter-button.active {
+  background-color: #382673;
+  color: #fff;
+}
+.uacf7-addons-settings-page .uacf7-addon-setting-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+}
+.uacf7-addons-settings-page .uacf7-addon-setting-content .uacf7-single-addon-setting {
+  background-color: #FCFBFE;
+  padding: 32px;
+  border-radius: 16px;
+  transition: 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+.uacf7-addons-settings-page .uacf7-addon-setting-content .uacf7-single-addon-setting:hover {
+  box-shadow: 0px 4px 30px 0px rgba(6, 4, 12, 0.0784313725);
+}
+.uacf7-addons-settings-page .uacf7-addon-setting-content .uacf7-single-addon-setting .addon-status {
+  position: absolute;
+  right: -30px;
+  top: 15px;
+  height: 26px;
+  width: 120px;
+  text-align: center;
+  background-color: #02C616;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 600;
+  color: #fff;
+  transform: rotate(45deg);
+}
+.uacf7-addons-settings-page .uacf7-addon-setting-content .uacf7-single-addon-setting .addon-status.pro {
+  background-color: #E74E4E;
+}
+.uacf7-addons-settings-page .uacf7-addon-setting-content .uacf7-single-addon-cta {
+  margin-top: 57px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.uacf7-addons-settings-page .uacf7-addon-setting-content .uacf7-single-addon-cta .uacf7-single-addon-btn {
+  color: #382673;
+  padding: 12px 16px;
+  text-decoration: none;
+  border: 1px solid #382673;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 700;
+  transition: 0.4s;
+}
+.uacf7-addons-settings-page .uacf7-addon-setting-content .uacf7-single-addon-cta .uacf7-single-addon-btn:hover {
+  background-color: #382673;
+  color: #fff;
+}
+.uacf7-addons-settings-page .uacf7-addon-setting-content .uacf7-single-addon-cta .uacf7-addon-toggle-wrap {
+  height: 32px;
+  width: 52px;
+}
+.uacf7-addons-settings-page .uacf7-addon-setting-content .uacf7-single-addon-cta .uacf7-addon-toggle-wrap .uacf7-addon-toggle-inner {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 100px;
+  background-color: #D5D0E2;
+  border: 2px solid #79757F;
+  position: relative;
+  transition: 0.4s;
+}
+.uacf7-addons-settings-page .uacf7-addon-setting-content .uacf7-single-addon-cta .uacf7-addon-toggle-wrap .uacf7-addon-toggle-inner .uacf7-addon-toggle-track {
+  position: absolute;
+  left: 0;
+  padding: 8px;
+  transition: 0.4s;
+}
+.uacf7-addons-settings-page .uacf7-addon-setting-content .uacf7-single-addon-cta .uacf7-addon-toggle-wrap .uacf7-addon-toggle__input {
+  display: none;
+}
+.uacf7-addons-settings-page .uacf7-addon-setting-content .uacf7-single-addon-cta .uacf7-addon-toggle-wrap .uacf7-addon-toggle__input:checked + .uacf7-addon-toggle-inner {
+  background-color: #382673;
+  border-color: #382673;
+  transition: 0.4s;
+}
+.uacf7-addons-settings-page .uacf7-addon-setting-content .uacf7-single-addon-cta .uacf7-addon-toggle-wrap .uacf7-addon-toggle__input:checked + .uacf7-addon-toggle-inner .uacf7-addon-toggle-track {
+  transition: 0.4s;
+  transform: translateX(20px);
+}
+.uacf7-addons-settings-page .uacf7-addon-setting-content .uacf7-single-addon-cta .uacf7-addon-toggle-wrap .uacf7-addon-toggle__input:checked + .uacf7-addon-toggle-inner .uacf7-addon-toggle-track svg {
+  transform: scale(1.2);
+}
+.uacf7-addons-settings-page .uacf7-addon-setting-content .uacf7-single-addon-cta .uacf7-addon-toggle-wrap .uacf7-addon-toggle__input:checked + .uacf7-addon-toggle-inner .uacf7-addon-toggle-track svg rect {
+  fill: #fff;
 }
 
 .tf-field {
@@ -2903,53 +3077,53 @@ Steps
   margin-bottom: 10px;
 }
 
-.tf-field-notice-inner {
+.tf-field-notice .tf-field-notice-inner {
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
   padding: 24px;
-  border: 1px solid #d1ebec;
+  border: 1px solid #ebf2ff;
   border-radius: 8px;
-  background-color: #f0fafa;
+  background-color: #ebf2ff;
 }
-.tf-field-notice-inner .tf-field-notice-icon {
+.tf-field-notice .tf-field-notice-inner .tf-field-notice-icon {
   margin-right: 10px;
   font-size: 20px;
-  color: #069697;
+  color: #2979ff;
 }
-.tf-field-notice-inner .tf-field-notice-content {
+.tf-field-notice .tf-field-notice-inner .tf-field-notice-content {
   color: #8997a9;
 }
-.tf-field-notice-inner .tf-field-notice-content h6 {
+.tf-field-notice .tf-field-notice-inner .tf-field-notice-content h6 {
   margin: 0;
   font-weight: 500;
   color: #363e4a;
   font-size: 16px;
 }
-.tf-field-notice-inner .tf-field-notice-content.has-content h6 {
+.tf-field-notice .tf-field-notice-inner .tf-field-notice-content.has-content h6 {
   margin-bottom: 5px;
 }
-.tf-field-notice-inner.tf-notice-success {
+.tf-field-notice .tf-field-notice-inner.tf-notice-success {
   border-color: #dceddd;
   background-color: #f5faf5;
 }
-.tf-field-notice-inner.tf-notice-success .tf-field-notice-icon {
+.tf-field-notice .tf-field-notice-inner.tf-notice-success .tf-field-notice-icon {
   color: #43a047;
 }
-.tf-field-notice-inner.tf-notice-warning {
+.tf-field-notice .tf-field-notice-inner.tf-notice-warning {
   border-color: #ffecb3;
   background-color: #fffdf6;
 }
-.tf-field-notice-inner.tf-notice-warning .tf-field-notice-icon {
+.tf-field-notice .tf-field-notice-inner.tf-notice-warning .tf-field-notice-icon {
   color: #ffbf00;
 }
-.tf-field-notice-inner.tf-notice-danger {
+.tf-field-notice .tf-field-notice-inner.tf-notice-danger {
   border-color: #fddcda;
   background-color: #fef2f1;
 }
-.tf-field-notice-inner.tf-notice-danger .tf-field-notice-icon {
+.tf-field-notice .tf-field-notice-inner.tf-notice-danger .tf-field-notice-icon {
   color: #f44336;
 }
 

@@ -9,14 +9,14 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 		public $option_title = null;
 		public $option_icon = null;
 		public $option_position = null;
-		public $option_sections = array();
+		public $option_sections = array(); 
 
 		public function __construct( $key, $params = array() ) {
 			$this->option_id       = $key;
 			$this->option_title    = ! empty( $params['title'] ) ? apply_filters( $key . '_title', $params['title'] ) : '';
 			$this->option_icon     = ! empty( $params['icon'] ) ? apply_filters( $key . '_icon', $params['icon'] ) : '';
 			$this->option_position = ! empty( $params['position'] ) ? apply_filters( $key . '_position', $params['position'] ) : 5;
-			$this->option_sections = ! empty( $params['sections'] ) ? apply_filters( $key . '_sections', $params['sections'] ) : array();
+			$this->option_sections = ! empty( $params['sections'] ) ? apply_filters( $key . '_sections', $params['sections'] ) : array(); 
 
 			// run only is admin panel options, avoid performance loss
 			$this->pre_tabs     = $this->pre_tabs( $this->option_sections );
@@ -209,6 +209,7 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 		 */
 
 		public function uacf7_addons_page(){
+			// uacf7_print_r($this->option_sections);
 			?>
 			<div class="uacf7-addons-settings-page">
 				<h1 class="uacf7-setting-title"><?php echo esc_html('Ultimate Addons for Contact Form 7 (UACF7) Settings', 'ultimate-addons-cf7') ?></h1>
@@ -234,115 +235,49 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 				</div>
 
 				<div class="uacf7-addon-setting-content"> 
+					<?php 
+					
+						foreach($this->option_sections as $section_key => $section): 
+							
+						if($section_key == 'general_addons' || $section_key == 'extra_fields_addons' || $section_key == 'wooCommerce_integration'):
+						
+						foreach ($section['fields'] as $field_key => $field ):
+							$id = $this->option_id.'['.$field['id'].']';
+					?>
+						<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr($field['id']) ?>" data-parent="<?php echo esc_attr($section_key) ?>" data-filter="<?php echo esc_attr( $field['label'] ) ?>">
+						<?php 
+							if(isset($field['is_pro'])){
+								echo '<span class="addon-status pro">'.esc_html('Pro').'</span>';
+							}else{
+								echo '<span class="addon-status">'.esc_html('Free').'</span>';
+							}
+						?>
+							
+							<img src="<?php echo UACF7_URL.'assets/admin/images/addons/Row.svg' ?>" alt="">
+							<h2 class="uacf7-single-addon-title"><?php echo esc_html( $field['label'] ) ?></h2>
+							<p class="uacf7-single-addon-desc"><?php echo isset($field['subtitle']) ?  $field['subtitle'] : '';  ?></p>
+							<div class="uacf7-single-addon-cta">
+								<a href="#" class="uacf7-single-addon-btn">View Demo</a>
 
-					<div class="uacf7-single-addon-setting">
-						<span class="addon-status ">Free</span>
-						<img src="<?php echo UACF7_URL.'assets/admin/images/addons/Row.svg' ?>" alt="">
-						<h2 class="uacf7-single-addon-title">Booking/Appointment Form</h2>
-						<p class="uacf7-single-addon-desc">Create a booking form for your business and let your customers book appointments online.</p>
-						<div class="uacf7-single-addon-cta">
-							<a href="#" class="uacf7-single-addon-btn">View Demo</a>
+								<div class="uacf7-addon-toggle-wrap">
+									<input type="checkbox" id="<?php echo esc_attr($field['id']) ?>" class="uacf7-addon-toggle__input" name="<?php echo esc_attr( $id ) ?>" id="uacf7_enable_redirection" >
+										
+									<label class="uacf7-addon-toggle-inner" for="<?php echo esc_attr($field['id']) ?>">
+										<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
+										</svg> 
+										</span>
+									</label>
+								</div>
+								
+							</div> 
+						</div>
 
-							<label class="uacf7-addon-toggle" for="uacf7_enable_redirection">
-								<input type="checkbox" class="uacf7-addon-toggle__input" name="uacf7_option_name[uacf7_enable_redirection]" id="uacf7_enable_redirection" checked="">
-								<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-								</svg> 
-								</span>
-							</label>
-						</div> 
-					</div>
-
-					<div class="uacf7-single-addon-setting">
-						<span class="addon-status pro">Pro</span>
-						<img src="<?php echo UACF7_URL.'assets/admin/images/addons/Row.svg' ?>" alt="">
-						<h2 class="uacf7-single-addon-title">Booking/Appointment Form</h2>
-						<p class="uacf7-single-addon-desc">Create a booking form for your business and let your customers book appointments online.</p>
-						<div class="uacf7-single-addon-cta">
-							<a href="#" class="uacf7-single-addon-btn">View Demo</a>
-
-							<label class="uacf7-addon-toggle" for="uacf7_enable_redirection">
-								<input type="checkbox" class="uacf7-addon-toggle__input" name="uacf7_option_name[uacf7_enable_redirection]" id="uacf7_enable_redirection" checked="">
-								<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-								</svg> 
-								</span>
-							</label>
-						</div> 
-					</div>
-
-					<div class="uacf7-single-addon-setting">
-						<span class="addon-status pro">Pro</span>
-						<img src="<?php echo UACF7_URL.'assets/admin/images/addons/Row.svg' ?>" alt="">
-						<h2 class="uacf7-single-addon-title">Booking/Appointment Form</h2>
-						<p class="uacf7-single-addon-desc">Create a booking form for your business and let your customers book appointments online.</p>
-						<div class="uacf7-single-addon-cta">
-							<a href="#" class="uacf7-single-addon-btn">View Demo</a>
-
-							<label class="uacf7-addon-toggle" for="uacf7_enable_redirection">
-								<input type="checkbox" class="uacf7-addon-toggle__input" name="uacf7_option_name[uacf7_enable_redirection]" id="uacf7_enable_redirection" checked="">
-								<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-								</svg> 
-								</span>
-							</label>
-						</div> 
-					</div>
-
-					<div class="uacf7-single-addon-setting">
-						<span class="addon-status pro">Pro</span>
-						<img src="<?php echo UACF7_URL.'assets/admin/images/addons/Row.svg' ?>" alt="">
-						<h2 class="uacf7-single-addon-title">Booking/Appointment Form</h2>
-						<p class="uacf7-single-addon-desc">Create a booking form for your business and let your customers book appointments online.</p>
-						<div class="uacf7-single-addon-cta">
-							<a href="#" class="uacf7-single-addon-btn">View Demo</a>
-
-							<label class="uacf7-addon-toggle" for="uacf7_enable_redirection">
-								<input type="checkbox" class="uacf7-addon-toggle__input" name="uacf7_option_name[uacf7_enable_redirection]" id="uacf7_enable_redirection" checked="">
-								<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-								</svg> 
-								</span>
-							</label>
-						</div> 
-					</div>
-
-					<div class="uacf7-single-addon-setting">
-						<span class="addon-status pro">Pro</span>
-						<img src="<?php echo UACF7_URL.'assets/admin/images/addons/Row.svg' ?>" alt="">
-						<h2 class="uacf7-single-addon-title">Booking/Appointment Form</h2>
-						<p class="uacf7-single-addon-desc">Create a booking form for your business and let your customers book appointments online.</p>
-						<div class="uacf7-single-addon-cta">
-							<a href="#" class="uacf7-single-addon-btn">View Demo</a>
-
-							<label class="uacf7-addon-toggle" for="uacf7_enable_redirection">
-								<input type="checkbox" class="uacf7-addon-toggle__input" name="uacf7_option_name[uacf7_enable_redirection]" id="uacf7_enable_redirection" checked="">
-								<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-								</svg> 
-								</span>
-							</label>
-						</div> 
-					</div>
-
-					<div class="uacf7-single-addon-setting">
-						<span class="addon-status pro">Pro</span>
-						<img src="<?php echo UACF7_URL.'assets/admin/images/addons/Row.svg' ?>" alt="">
-						<h2 class="uacf7-single-addon-title">Booking/Appointment Form</h2>
-						<p class="uacf7-single-addon-desc">Create a booking form for your business and let your customers book appointments online.</p>
-						<div class="uacf7-single-addon-cta">
-							<a href="#" class="uacf7-single-addon-btn">View Demo</a>
-
-							<label class="uacf7-addon-toggle" for="uacf7_enable_redirection">
-								<input type="checkbox" class="uacf7-addon-toggle__input" name="uacf7_option_name[uacf7_enable_redirection]" id="uacf7_enable_redirection" checked="">
-								<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-								</svg> 
-								</span>
-							</label>
-						</div> 
-					</div>
-
+					<?php 
+						endforeach;  
+						endif;
+						endforeach; 
+					?>
 				</div>
 			</div>
    

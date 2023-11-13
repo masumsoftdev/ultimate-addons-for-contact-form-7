@@ -30,6 +30,8 @@ TF_Settings::option( 'uacf7_settings', array(
 						'type'      => 'switch',
 						'label'     => __( ' Redirection ', 'ultimate-addons-cf7' ),
 						'subtitle' => __( 'Redirect users to a Thank you page or external page after form submission. Option to open in a new tab.', 'ultimate-addons-cf7' ),
+						'demo_link' => 'https://demo.brainstormforce.com/ultimate-addons-for-contact-form-7/redirection/', 
+						'documentation_link' => 'https://docs.brainstormforce.com/how-to-redirect-users-to-a-thank-you-page-after-form-submission/',
 						'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
 						'label_off' => __( 'No', 'ultimate-addons-cf7' ),
 						'default'   => false,
