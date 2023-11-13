@@ -119,10 +119,10 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 			//Dashboard submenu
 			add_submenu_page(
 				$this->option_id,
-				__('Dashboard', 'ultimate-addons-cf7'),
-				__('Dashboard', 'ultimate-addons-cf7'),
+				__('addons', 'ultimate-addons-cf7'),
+				__('addons', 'ultimate-addons-cf7'),
 				'manage_options',
-				'tf_dashboard',
+				'uacf7_addons',
 				array( $this, 'uacf7_addons_page' ),
 			);
 			if ( class_exists('Ultimate_Addons_CF7_PRO') ) {
@@ -202,6 +202,152 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 		<?php
 		}
 
+
+		/**
+		 * Get UAC7 Addon Page
+		 * @author Sydur Rahman
+		 */
+
+		public function uacf7_addons_page(){
+			?>
+			<div class="uacf7-addons-settings-page">
+				<h1 class="uacf7-setting-title"><?php echo esc_html('Ultimate Addons for Contact Form 7 (UACF7) Settings', 'ultimate-addons-cf7') ?></h1>
+
+				<div class="uacf7-settings-heading">
+					<div class="uacf7-settings-heading-wrap">
+						<label for="uacf7-addon-filter" class="uacf7-addon-filter-search">
+							<span class="uacf7-addon-filter-icon">
+								<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M17.5 17.5L14.5834 14.5833M16.6667 9.58333C16.6667 13.4954 13.4954 16.6667 9.58333 16.6667C5.67132 16.6667 2.5 13.4954 2.5 9.58333C2.5 5.67132 5.67132 2.5 9.58333 2.5C13.4954 2.5 16.6667 5.67132 16.6667 9.58333Z" stroke="#D5D0E2" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg> 
+							</span>
+							<input id="uacf7-addon-filter" type="text" name="uacf7_addon_filter">
+						</label>
+					</div>
+					<div class="uacf7-settings-heading-wrap">
+						<div class="uacf7-addon-filter-cta"> 
+							<button class="uacf7-addon-filter-button all">All (23)</button>
+							<button class="uacf7-addon-filter-button active">Active (09)</button>
+							<button class="uacf7-addon-filter-button deactive">Deactive (06)</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="uacf7-addon-setting-content"> 
+
+					<div class="uacf7-single-addon-setting">
+						<span class="addon-status ">Free</span>
+						<img src="<?php echo UACF7_URL.'assets/admin/images/addons/Row.svg' ?>" alt="">
+						<h2 class="uacf7-single-addon-title">Booking/Appointment Form</h2>
+						<p class="uacf7-single-addon-desc">Create a booking form for your business and let your customers book appointments online.</p>
+						<div class="uacf7-single-addon-cta">
+							<a href="#" class="uacf7-single-addon-btn">View Demo</a>
+
+							<label class="uacf7-addon-toggle" for="uacf7_enable_redirection">
+								<input type="checkbox" class="uacf7-addon-toggle__input" name="uacf7_option_name[uacf7_enable_redirection]" id="uacf7_enable_redirection" checked="">
+								<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
+								</svg> 
+								</span>
+							</label>
+						</div> 
+					</div>
+
+					<div class="uacf7-single-addon-setting">
+						<span class="addon-status pro">Pro</span>
+						<img src="<?php echo UACF7_URL.'assets/admin/images/addons/Row.svg' ?>" alt="">
+						<h2 class="uacf7-single-addon-title">Booking/Appointment Form</h2>
+						<p class="uacf7-single-addon-desc">Create a booking form for your business and let your customers book appointments online.</p>
+						<div class="uacf7-single-addon-cta">
+							<a href="#" class="uacf7-single-addon-btn">View Demo</a>
+
+							<label class="uacf7-addon-toggle" for="uacf7_enable_redirection">
+								<input type="checkbox" class="uacf7-addon-toggle__input" name="uacf7_option_name[uacf7_enable_redirection]" id="uacf7_enable_redirection" checked="">
+								<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
+								</svg> 
+								</span>
+							</label>
+						</div> 
+					</div>
+
+					<div class="uacf7-single-addon-setting">
+						<span class="addon-status pro">Pro</span>
+						<img src="<?php echo UACF7_URL.'assets/admin/images/addons/Row.svg' ?>" alt="">
+						<h2 class="uacf7-single-addon-title">Booking/Appointment Form</h2>
+						<p class="uacf7-single-addon-desc">Create a booking form for your business and let your customers book appointments online.</p>
+						<div class="uacf7-single-addon-cta">
+							<a href="#" class="uacf7-single-addon-btn">View Demo</a>
+
+							<label class="uacf7-addon-toggle" for="uacf7_enable_redirection">
+								<input type="checkbox" class="uacf7-addon-toggle__input" name="uacf7_option_name[uacf7_enable_redirection]" id="uacf7_enable_redirection" checked="">
+								<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
+								</svg> 
+								</span>
+							</label>
+						</div> 
+					</div>
+
+					<div class="uacf7-single-addon-setting">
+						<span class="addon-status pro">Pro</span>
+						<img src="<?php echo UACF7_URL.'assets/admin/images/addons/Row.svg' ?>" alt="">
+						<h2 class="uacf7-single-addon-title">Booking/Appointment Form</h2>
+						<p class="uacf7-single-addon-desc">Create a booking form for your business and let your customers book appointments online.</p>
+						<div class="uacf7-single-addon-cta">
+							<a href="#" class="uacf7-single-addon-btn">View Demo</a>
+
+							<label class="uacf7-addon-toggle" for="uacf7_enable_redirection">
+								<input type="checkbox" class="uacf7-addon-toggle__input" name="uacf7_option_name[uacf7_enable_redirection]" id="uacf7_enable_redirection" checked="">
+								<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
+								</svg> 
+								</span>
+							</label>
+						</div> 
+					</div>
+
+					<div class="uacf7-single-addon-setting">
+						<span class="addon-status pro">Pro</span>
+						<img src="<?php echo UACF7_URL.'assets/admin/images/addons/Row.svg' ?>" alt="">
+						<h2 class="uacf7-single-addon-title">Booking/Appointment Form</h2>
+						<p class="uacf7-single-addon-desc">Create a booking form for your business and let your customers book appointments online.</p>
+						<div class="uacf7-single-addon-cta">
+							<a href="#" class="uacf7-single-addon-btn">View Demo</a>
+
+							<label class="uacf7-addon-toggle" for="uacf7_enable_redirection">
+								<input type="checkbox" class="uacf7-addon-toggle__input" name="uacf7_option_name[uacf7_enable_redirection]" id="uacf7_enable_redirection" checked="">
+								<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
+								</svg> 
+								</span>
+							</label>
+						</div> 
+					</div>
+
+					<div class="uacf7-single-addon-setting">
+						<span class="addon-status pro">Pro</span>
+						<img src="<?php echo UACF7_URL.'assets/admin/images/addons/Row.svg' ?>" alt="">
+						<h2 class="uacf7-single-addon-title">Booking/Appointment Form</h2>
+						<p class="uacf7-single-addon-desc">Create a booking form for your business and let your customers book appointments online.</p>
+						<div class="uacf7-single-addon-cta">
+							<a href="#" class="uacf7-single-addon-btn">View Demo</a>
+
+							<label class="uacf7-addon-toggle" for="uacf7_enable_redirection">
+								<input type="checkbox" class="uacf7-addon-toggle__input" name="uacf7_option_name[uacf7_enable_redirection]" id="uacf7_enable_redirection" checked="">
+								<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
+								</svg> 
+								</span>
+							</label>
+						</div> 
+					</div>
+
+				</div>
+			</div>
+   
+			<?php
+		}
 	 
 		/**
 		 * Get Help Page

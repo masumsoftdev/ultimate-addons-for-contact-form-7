@@ -1,0 +1,160 @@
+.uacf7-addons-settings-page  {
+    padding: 24px;
+    background-color: #fff;
+    border-radius: 4px;
+    .uacf7-setting-title {
+
+        margin-bottom: 56px;
+        font-weight: 700;
+    }
+    
+    .uacf7-settings-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 50px;
+        margin-bottom: 32px;
+
+        .uacf7-settings-heading-wrap {
+            width: 50%;
+
+            .uacf7-addon-filter-search {
+                display: inline-block;
+                width: 100% !important;
+                height: 48px;
+                position: relative;
+
+
+                .uacf7-addon-filter-icon {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    z-index: 1;
+                    height: auto;
+                    width: auto;
+                    padding: 12px;
+                  } 
+
+                #uacf7-addon-filter {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    height: 100%;
+                    width: 100% !important;
+                    font-size: 16px;
+                    padding-left: 45px;
+                    color: #D5D0E2;
+                    border-radius: 8px;
+                    border: 1px solid #D5D0E2;
+                    box-shadow: 0px 4px 30px 0px #06040C14;
+                    transition: 0.4s;
+
+                    &:focus, &:hover {
+                        outline: none;
+                        border-color: #A9A1D5;
+                        box-shadow: 0px 4px 30px 0px #06040C14;
+                    } 
+                    
+                }
+            }
+
+            
+
+        .uacf7-addon-filter-cta {
+            display: flex;
+            justify-content: right;
+            gap: 32px;
+
+            .uacf7-addon-filter-button {
+                background-color: transparent;
+                border: none;
+                box-shadow: 0px 4px 30px 0px #06040C14;
+                padding: 8px 16px;
+                font-size: 16px;
+                line-height: 26px;
+                font-weight: 600;
+                border-radius: 6px;
+                cursor: pointer;
+
+                &.active{
+                    background-color: #382673;
+                    color: #fff;
+                }
+            }
+        }
+        }
+    }
+ 
+
+    
+    .uacf7-addon-setting-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 32px;
+
+        .uacf7-single-addon-setting { 
+            background-color: #FCFBFE;
+            padding: 32px;
+            border-radius: 16px;
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+
+            &:hover {
+                box-shadow: 0px 4px 30px 0px #06040C14;
+            }
+
+            .addon-status {
+                position: absolute;
+                right: -30px;
+                top: 15px;
+                height: 26px;
+                width: 120px;
+                text-align: center;
+                background-color: #02C616;
+                font-size: 14px;
+                line-height: 24px;
+                font-weight: 600;
+                color: #fff;
+                transform: rotate(45deg);
+
+                &.pro {
+                    background-color: #E74E4E;
+                }
+            }
+
+        }
+
+        .uacf7-single-addon-cta {
+            margin-top: 57px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .uacf7-single-addon-btn {
+                color: #382673;
+                padding: 12px 16px;
+                text-decoration: none;
+                border: 1px solid #382673;
+                border-radius: 4px;
+                font-size: 16px;
+                font-weight: 700;
+                transition: 0.4s;
+                &:hover{
+                    background-color: #382673;
+                    color: #fff;
+                }
+            }
+           
+        }
+         
+    }
+
+    
+
+   
+   
+ 
+}
+
+ 

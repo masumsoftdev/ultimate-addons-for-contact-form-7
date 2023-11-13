@@ -64,11 +64,14 @@ class UACF7_MAILCHIMP
 
           $response = json_decode($response, true);
           $x = 0;
-          foreach ($response['lists'] as $list) {
-            $audience[$list['id']] = $list['name'];
-              // echo '<option value="' . $list['id'] . '" ' . selected($audience, $list['id']) . '>' . $list['name'] . '</option>'; 
-              $x++;
+          if($response != null){
+            foreach ($response['lists'] as $list) {
+              $audience[$list['id']] = $list['name'];
+                // echo '<option value="' . $list['id'] . '" ' . selected($audience, $list['id']) . '>' . $list['name'] . '</option>'; 
+                $x++;
+            }
           }
+          
       } 
 
     $mailchimp = apply_filters('uacf7_post_meta_options_mailchimp_pro', $data = array(
