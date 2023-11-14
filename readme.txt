@@ -458,6 +458,7 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 - Fixed: Database addon export CSV access control vulnerability issue
 - Fixed: PDF generator file send issue
 - Fixed: Dynamic Text issue fixed with Current URL with parameters
+- Fixed: Multi-step settings save issue 
 
 =  3.2.6 – 11/11/2023  = 
 
