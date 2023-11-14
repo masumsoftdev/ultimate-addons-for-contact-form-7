@@ -227,7 +227,7 @@ class UACF7_MULTISTEP {
                    <div class="multistep_fields_row">
                        <h3><?php echo esc_attr( __( 'Multistep Progressbar', 'ultimate-addons-cf7' ) ); ?> </h3>
                        <label for="uacf7_enable_multistep_progressbar">
-                           <input id="uacf7_enable_multistep_progressbar" type="checkbox" name="uacf7_enable_multistep_progressbar" <?php checked( 'on', $uacf7_enable_multistep_progressbar ); ?>> Enable
+                           <input id="uacf7_enable_multistep_progressbar" type="checkbox" name="uacf7_enable_multistep_progressbar" <?php checked( 'on', $uacf7_enable_multistep_progressbar ); ?> > Enable
                        </label>
                    </div>
                    <!-- Pro Scroll To Top Feature -->
@@ -417,6 +417,8 @@ class UACF7_MULTISTEP {
 
         if(isset($_POST['uacf7_enable_multistep_progressbar'])){
             update_post_meta( $form->id(), 'uacf7_enable_multistep_progressbar', sanitize_text_field($_POST['uacf7_enable_multistep_progressbar']) );
+        }else{
+            update_post_meta( $form->id(), 'uacf7_enable_multistep_progressbar', '' );
         }
         
         if(isset($_POST['uacf7_progressbar_style'])){
