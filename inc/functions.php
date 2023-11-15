@@ -225,6 +225,7 @@ if(!function_exists('tf_black_friday_2023_admin_notice') && !class_exists('Ultim
                     padding: 7px;
                     position: relative;
                     z-index: 10;
+                    max-width: 825px;
                 } 
                 .tf_black_friday_20222_admin_notice button:before {
                     color: #fff !important;
@@ -264,9 +265,9 @@ if(!function_exists('tf_black_friday_2023_admin_notice') && !class_exists('Ultim
 		}
 		
 	} 
-	// if (strtotime('2023-12-01') > time()) {
-	// 	add_action( 'admin_notices', 'tf_black_friday_2023_admin_notice' );  
-	// }   
+	if (strtotime('2023-12-01') > time()) {
+		add_action( 'admin_notices', 'tf_black_friday_2023_admin_notice' );  
+	}   
 }
 
 if(!function_exists('tf_black_friday_notice_dismiss_callback')){
@@ -276,14 +277,14 @@ if(!function_exists('tf_black_friday_notice_dismiss_callback')){
 		setcookie($cookie_name, $cookie_value, strtotime('2023-12-01'), "/"); 
 		wp_die();
 	}
-	// add_action( 'wp_ajax_tf_black_friday_notice_dismiss_callback', 'tf_black_friday_notice_dismiss_callback' );
+	add_action( 'wp_ajax_tf_black_friday_notice_dismiss_callback', 'tf_black_friday_notice_dismiss_callback' );
 }
 
 if(!function_exists('uacf7_black_friday_2022_callback')){
 	 
-	// if (strtotime('2023-12-01') > time()) { 
-	// 	add_action( 'wpcf7_admin_misc_pub_section', 'uacf7_black_friday_2022_callback' );
-	// }    
+	if (strtotime('2023-12-01') > time()) { 
+		add_action( 'wpcf7_admin_misc_pub_section', 'uacf7_black_friday_2022_callback' );
+	}    
 	function uacf7_black_friday_2022_callback(){
 		$deal_link =sanitize_url('https://themefic.com/deals/');
 	?> 
@@ -312,7 +313,7 @@ if(!function_exists('uacf7_black_friday_2022_callback')){
 		 
 		</style>
         <?php if(!isset($_COOKIE['uacf7_dismiss_post_notice'])): ?>
-		<div class="back_friday_2022_preview" style="text-align: center; overflow: hidden;">
+		<div class="back_friday_2022_preview" style="text-align: center; overflow: hidden; margin: 10px;">
 			<a href="<?php echo $deal_link; ?>" target="_blank" >
 				<img  style="width: 100%;" src="<?php echo UACF7_URL ?>/assets/img/BLACK_FRIDAY_BACKGROUND_GRUNGE.png" alt="">
 			</a>  
@@ -347,7 +348,7 @@ if(!function_exists('uacf7_black_friday_2022_callback')){
         setcookie($cookie_name, $cookie_value, time() + (86400 * 3), "/"); 
         wp_die();
     }
-    // add_action( 'wp_ajax_uacf7_black_friday_notice_cf7_dismiss_callback', 'uacf7_black_friday_notice_cf7_dismiss_callback' );
+    add_action( 'wp_ajax_uacf7_black_friday_notice_cf7_dismiss_callback', 'uacf7_black_friday_notice_cf7_dismiss_callback' );
      
 }
 
