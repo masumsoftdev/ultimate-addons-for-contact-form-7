@@ -7,6 +7,12 @@
         margin-bottom: 56px;
         font-weight: 700;
     }
+
+    .tf-field-notice-inner{
+        font-size: 16px;
+        font-weight: 700;
+        text-align: center;
+    }
     
     .uacf7-settings-heading {
         display: flex;
@@ -53,6 +59,7 @@
                         outline: none;
                         border-color: #A9A1D5;
                         box-shadow: 0px 4px 30px 0px #06040C14;
+                        color: #000;
                     } 
                     
                 }
@@ -89,7 +96,7 @@
     
     .uacf7-addon-setting-content {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
         gap: 32px;
 
         .uacf7-single-addon-setting { 
@@ -121,6 +128,24 @@
                 &.pro {
                     background-color: #E74E4E;
                 }
+            }
+
+            .uacf7-single-addon-desc{
+                color: #4F4E52; 
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 24px; /* 150% */ 
+
+                a{
+                    color: #382673; 
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 24px;
+                    text-decoration-line: underline; 
+                }
+                
             }
 
         }
@@ -175,7 +200,7 @@
 
                 }
 
-                .uacf7-addon-toggle__input {
+                .uacf7-addon-input-field {
                     display: none;
                     &:checked + .uacf7-addon-toggle-inner {
                         background-color: #382673;
@@ -189,7 +214,7 @@
                                 rect{
                                     fill: #fff;
                                 }
-                            }
+                            } 
                         }
                     }
                 }

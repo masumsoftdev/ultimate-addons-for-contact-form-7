@@ -1,3 +1,5 @@
+const { divide } = require("lodash");
+
 (function ($) {
     'use strict';
     $(document).ready(function () {
@@ -450,9 +452,33 @@
 
             //remove active class
             iconLi.removeClass('active');
+        });
+
+        // Uacf7 Addon save data
+        $(document).on('change', '.uacf7-addon-filter', function () {
+            $(this).val(1); 
+            $(".tf-option-form.tf-ajax-save").submit();
         })
 
-
+        // Uacf7 Ultimate Innput Filter
+        $(document).on('keyup', '#uacf7-addon-filter', function () {
+            $('.uacf7-addons-settings-page').find('.tf-field-notice-inner').remove();
+            var filter_string = $(this).val().toLowerCase(); 
+            if(filter_string == ''){
+               
+                $('.uacf7-single-addon-setting').css('display', 'block');
+            }else{ 
+                $('.uacf7-single-addon-setting').css('display', 'none');
+                $('.uacf7-single-addon-setting[data-filter*="' + filter_string + '"]').css('display', 'block');
+                if($('.uacf7-single-addon-setting[data-filter*="' + filter_string + '"]').length == 0){
+                    $('.uacf7-addons-settings-page').append('<div class="tf-field-notice-inner tf-notice-danger" style="display: block;">No Addon Found ....</div>');
+                }else{
+                    $('.uacf7-addons-settings-page').find('.tf-field-notice-inner').remove();
+                }
+            }
+            
+           
+        });
         /*
         * Options ajax save
         * @author: Foysal

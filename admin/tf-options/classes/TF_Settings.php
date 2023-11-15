@@ -210,75 +210,88 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 
 		public function uacf7_addons_page(){
 			// uacf7_print_r($this->option_sections);
+			
 			?>
 			<div class="uacf7-addons-settings-page">
 				<h1 class="uacf7-setting-title"><?php echo esc_html('Ultimate Addons for Contact Form 7 (UACF7) Settings', 'ultimate-addons-cf7') ?></h1>
-
-				<div class="uacf7-settings-heading">
-					<div class="uacf7-settings-heading-wrap">
-						<label for="uacf7-addon-filter" class="uacf7-addon-filter-search">
-							<span class="uacf7-addon-filter-icon">
-								<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M17.5 17.5L14.5834 14.5833M16.6667 9.58333C16.6667 13.4954 13.4954 16.6667 9.58333 16.6667C5.67132 16.6667 2.5 13.4954 2.5 9.58333C2.5 5.67132 5.67132 2.5 9.58333 2.5C13.4954 2.5 16.6667 5.67132 16.6667 9.58333Z" stroke="#D5D0E2" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
-								</svg> 
-							</span>
-							<input id="uacf7-addon-filter" type="text" name="uacf7_addon_filter">
-						</label>
-					</div>
-					<div class="uacf7-settings-heading-wrap">
-						<div class="uacf7-addon-filter-cta"> 
-							<button class="uacf7-addon-filter-button all">All (23)</button>
-							<button class="uacf7-addon-filter-button active">Active (09)</button>
-							<button class="uacf7-addon-filter-button deactive">Deactive (06)</button>
+				<form method="post" action="" class="tf-option-form tf-ajax-save" enctype="multipart/form-data">
+					<div class="uacf7-settings-heading">
+						<div class="uacf7-settings-heading-wrap">
+							<label for="uacf7-addon-filter" class="uacf7-addon-filter-search">
+								<span class="uacf7-addon-filter-icon">
+									<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M17.5 17.5L14.5834 14.5833M16.6667 9.58333C16.6667 13.4954 13.4954 16.6667 9.58333 16.6667C5.67132 16.6667 2.5 13.4954 2.5 9.58333C2.5 5.67132 5.67132 2.5 9.58333 2.5C13.4954 2.5 16.6667 5.67132 16.6667 9.58333Z" stroke="#D5D0E2" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg> 
+								</span>
+								<input id="uacf7-addon-filter" type="text" name="uacf7_addon_filter">
+							</label>
+						</div>
+						<div class="uacf7-settings-heading-wrap">
+							<div class="uacf7-addon-filter-cta"> 
+								<button class="uacf7-addon-filter-button all">All ( <span class="uacf7-addon-filter-cta-count">23</span> )</button>
+								<button class="uacf7-addon-filter-button activete">Active ( <span class="uacf7-addon-filter-cta-count">23</span>)</button>
+								<button class="uacf7-addon-filter-button deactive">Deactive ( <span class="uacf7-addon-filter-cta-count">23</span> )</button>
+							</div>
 						</div>
 					</div>
-				</div>
 
-				<div class="uacf7-addon-setting-content"> 
-					<?php 
+					<div class="uacf7-addon-setting-content"> 
 					
-						foreach($this->option_sections as $section_key => $section): 
-							
-						if($section_key == 'general_addons' || $section_key == 'extra_fields_addons' || $section_key == 'wooCommerce_integration'):
-						
-						foreach ($section['fields'] as $field_key => $field ):
-							$id = $this->option_id.'['.$field['id'].']';
-					?>
-						<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr($field['id']) ?>" data-parent="<?php echo esc_attr($section_key) ?>" data-filter="<?php echo esc_attr( $field['label'] ) ?>">
 						<?php 
-							if(isset($field['is_pro'])){
-								echo '<span class="addon-status pro">'.esc_html('Pro').'</span>';
-							}else{
-								echo '<span class="addon-status">'.esc_html('Free').'</span>';
-							}
-						?>
-							
-							<img src="<?php echo UACF7_URL.'assets/admin/images/addons/Row.svg' ?>" alt="">
-							<h2 class="uacf7-single-addon-title"><?php echo esc_html( $field['label'] ) ?></h2>
-							<p class="uacf7-single-addon-desc"><?php echo isset($field['subtitle']) ?  $field['subtitle'] : '';  ?></p>
-							<div class="uacf7-single-addon-cta">
-								<a href="#" class="uacf7-single-addon-btn">View Demo</a>
+							$data = get_option( $this->option_id, true );
 
-								<div class="uacf7-addon-toggle-wrap">
-									<input type="checkbox" id="<?php echo esc_attr($field['id']) ?>" class="uacf7-addon-toggle__input" name="<?php echo esc_attr( $id ) ?>" id="uacf7_enable_redirection" >
-										
-									<label class="uacf7-addon-toggle-inner" for="<?php echo esc_attr($field['id']) ?>">
-										<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-										</svg> 
-										</span>
-									</label>
-								</div>
+
+							foreach($this->option_sections as $section_key => $section): 
 								
-							</div> 
-						</div>
+							if($section_key == 'general_addons' || $section_key == 'extra_fields_addons' || $section_key == 'wooCommerce_integration'):
+							
+							foreach ($section['fields'] as $field_key => $field ):
+								$id = $this->option_id.'['.$field['id'].']';
+						?>
+							<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr($field['id']) ?>" data-parent="<?php echo esc_attr($section_key) ?>" data-filter="<?php echo esc_html( strtolower($field['label']) ) ?>">
+							<?php 
+								if(isset($field['is_pro'])){
+									echo '<span class="addon-status pro">'.esc_html('Pro').'</span>';
+								}else{
+									echo '<span class="addon-status">'.esc_html('Free').'</span>';
+								}
+								$default = $field['default'] == true ? 'checked' : '';
+								$default = isset($data[$field['id']]) && $data[$field['id']] == 1  ? 'checked' : $default;
+								$value = isset($data[$field['id']]) ? $data[$field['id']] : 0;
+								$demo_link = isset($field['demo_link']) ? $field['demo_link'] : '#';
+								$documentation_link = isset($field['documentation_link']) ? $field['documentation_link'] : '#';
+								// echo $default;
+							?>
+								
+								<img src="<?php echo UACF7_URL.'assets/admin/images/addons/Row.svg' ?>" alt="">
+								<h2 class="uacf7-single-addon-title"><?php echo esc_html( $field['label'] ) ?></h2>
+								<p class="uacf7-single-addon-desc"><?php echo isset($field['subtitle']) ?  $field['subtitle'] : '';  ?> 
+								<?php echo '<a href="'.sanitize_url($documentation_link).'" target="_blank">'.__( 'Documentation', 'ultimate-addons-cf7' ) .'</a>' ?></p>
+								<div class="uacf7-single-addon-cta">
+									<a href="<?php echo sanitize_url($demo_link); ?>" target="_blank" class="uacf7-single-addon-btn">View Demo</a>
 
-					<?php 
-						endforeach;  
-						endif;
-						endforeach; 
-					?>
-				</div>
+									<div class="uacf7-addon-toggle-wrap">
+										<input type="checkbox" id="<?php echo esc_attr($field['id']) ?>" <?php echo esc_attr( $default ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( $id ) ?>" id="uacf7_enable_redirection" >
+											
+										<label class="uacf7-addon-toggle-inner" for="<?php echo esc_attr($field['id']) ?>">
+											<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
+											</svg> 
+											</span>
+										</label>
+									</div>
+									
+								</div> 
+							</div>
+
+						<?php 
+							endforeach;  
+							endif;
+							endforeach; 
+						?>
+					</div>
+					<?php wp_nonce_field( 'tf_option_nonce_action', 'tf_option_nonce' ); ?>
+				</form>
 			</div>
    
 			<?php
@@ -596,7 +609,7 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 			}
 
 			$tf_option_value = array();
-			$option_request  = ( ! empty( $_POST[ $this->option_id ] ) ) ? $_POST[ $this->option_id ] : array();
+			$option_request  = ( ! empty( $_POST[ $this->option_id ] ) ) ? $_POST[ $this->option_id ] : array(); 
 			if ( ! empty( $option_request ) && ! empty( $this->option_sections ) ) {
 				foreach ( $this->option_sections as $section ) {
 					if ( ! empty( $section['fields'] ) ) {
