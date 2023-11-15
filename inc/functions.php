@@ -225,7 +225,7 @@ if(!function_exists('tf_black_friday_2023_admin_notice') && !class_exists('Ultim
 		$deal_link =sanitize_url('https://themefic.com/deals/');
         $tf_display_admin_notice_time = get_option( 'tf_display_admin_notice_time' );
 		$get_current_screen = get_current_screen();  
-		if(!isset($_COOKIE['tf_dismiss_admin_notice']) && $get_current_screen->base == 'dashboard' && time() > $tf_display_admin_notice_time ){ 
+		if(!isset($_COOKIE['tf_dismiss_admin_notice']) && $get_current_screen->base == 'dashboard' && time() > $tf_display_admin_notice_time  ){ 
             ?>
             <style> 
                 .tf_black_friday_20222_admin_notice a:focus {
@@ -245,7 +245,7 @@ if(!function_exists('tf_black_friday_2023_admin_notice') && !class_exists('Ultim
                 }
             </style>
             <div class="notice notice-success tf_black_friday_20222_admin_notice"> 
-                <a href="<?php echo $deal_link; ?>" target="_blank" >
+                <a href="<?php echo $deal_link; ?>" style="display: block; line-height: 0;" target="_blank" >
                     <img  style="width: 100%;" src="<?php echo UACF7_URL ?>/assets/img/BLACK_FRIDAY_BACKGROUND_GRUNGE_notice.png" alt="">
                 </a> 
                 <button type="button" class="notice-dismiss tf_black_friday_notice_dismiss"><span class="screen-reader-text"><?php echo __('Dismiss this notice.', 'ultimate-addons-cf7' ) ?></span></button>
