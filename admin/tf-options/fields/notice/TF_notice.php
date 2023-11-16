@@ -25,7 +25,9 @@ if ( ! class_exists( 'TF_notice' ) ) {
 					<?php if ( ! empty( $this->field['title'] ) ): ?>
                         <h6><?php echo esc_html( $this->field['title'] ); ?></h6>
 					<?php endif; ?>
-					<p><?php echo wp_kses_post( $this->field['content'] ); ?></p>
+					<?php if(! empty($this->field['content'])): ?>
+						<p><?php echo wp_kses_post( $this->field['content'] ); ?></p>
+					<?php endif; ?>
                 </div>
 
             </div>

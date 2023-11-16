@@ -352,8 +352,27 @@ TF_Settings::option( 'uacf7_settings', array(
 				'title'  => __( 'API Integration', 'ultimate-addons-cf7' ), 
 				'icon'   => 'fa fa-cog',
 				'fields' => array( 
+					
 				),
 			), 
+			'mailchimp' => array(
+				'title'  => __( 'Mailchimp API', 'ultimate-addons-cf7' ), 
+				'icon'   => 'fa fa-cog',
+				'parent' => 'api_integration',
+				'fields' => array(  
+					'uacf7_mailchimp_api_key' => array(
+						'id'        => 'uacf7_mailchimp_api_key',
+						'type'      => 'text',
+						'label'     => __( 'Mailchimp API', 'ultimate-addons-cf7' ),  
+					), 
+					'uacf7_mailchimp_api_status' => array(
+						'id'    => 'uacf7_mailchimp_api_status',
+						'type'  => 'notice',
+						'notice' => 'info', 
+						'title' => __( 'To begin, you must enable the Mailchimp add-on.', 'ultimate-addons-cf7' ), 
+					),
+				),
+			)
 			
 			
 			/**

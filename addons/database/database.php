@@ -16,7 +16,7 @@ class UACF7_DATABASE {
         // add_action( 'wp_enqueue_scripts', array($this, 'wp_enqueue_script' ) );  
         add_action( 'admin_enqueue_scripts', array($this, 'wp_enqueue_admin_script' ) );       
         add_action( 'wpcf7_before_send_mail', array($this, 'uacf7_save_to_database' ) );     
-        add_action( 'admin_menu', array( $this, 'uacf7_add_db_menu' ) );   
+        add_action( 'admin_menu', array( $this, 'uacf7_add_db_menu' ), 11, 2 );   
         add_action( 'wp_ajax_uacf7_ajax_database_popup', array( $this, 'uacf7_ajax_database_popup' ) );  
         add_action( 'init', array( $this, 'uacf7_database_export_csv' ) );  
         add_action( 'admin_init', array( $this, 'uacf7_create_database_table' ) ); 
@@ -65,13 +65,13 @@ class UACF7_DATABASE {
 
     public function uacf7_add_db_menu(){
         add_submenu_page(
-            'wpcf7', //parent slug
-			__('Ultimate DB','ultimate-addons-cf7'), // page_title
-			__('Ultimate DB','ultimate-addons-cf7'), // menu_title
-			'manage_options', // capability
-			'ultimate-addons-db', // menu_slug
-			array( $this, 'uacf7_create_database_page' ) // function
-		);
+           'uacf7_settings',
+            __('Database', 'ultimate-addons-cf7'),
+            __('Database', 'ultimate-addons-cf7'),
+            'manage_options',
+            'ultimate-addons-db',
+            array( $this, 'uacf7_create_database_page' ),
+        );
     }
 
     /*

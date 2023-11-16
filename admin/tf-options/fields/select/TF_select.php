@@ -28,37 +28,41 @@ if ( ! class_exists( 'TF_select' ) ) {
 			}
 
 			if ( ! empty( $this->field['query_args'] ) && $this->field['options'] == 'uacf7' ) { 
-				$post_id                  = $this->field['query_args']['post_id']; 
-				$specific = isset($this->field['query_args']['specific']) ? $this->field['query_args']['specific'] : '';  
-				$ContactForm = WPCF7_ContactForm::get_instance($post_id); 
-				if($specific != ''){
-					$tags = $ContactForm->scan_form_tags(array('basetype'=> $specific));
-				}else{
-					$tags = $ContactForm->scan_form_tags(); 
-				} 
-				// uacf7_print_r($tags);
+				$post_id  = $this->field['query_args']['post_id']; 
 				$this->field['options'] = array(
 					'0' => 'Select Field'
 				);
-				$exclude = isset($this->field['query_args']['exclude']) ? $this->field['query_args']['exclude'] : array(); 
-				foreach ( $tags as $tag ) { 
-
-					if ($tag['type'] == '' || in_array($tag['basetype'], $exclude) ) continue; 
-
-					if( $tag['type'] == 'checkbox' ) {  
-						$tag_name = $tag['name'].'[]'; 
-					}else { 
-						$tag_name = $tag['name'];
-					}
-					if($tag['name'] == '' && $tag['type'] == 'uarepeater'){
-						$attrs = explode(' ', $tag['attr']); 
-						
-						$this->field['options'][ $attrs[0] ] =  esc_html($attrs[0]);  
+				if($post_id > 0){
+					$specific = isset($this->field['query_args']['specific']) ? $this->field['query_args']['specific'] : '';  
+					$ContactForm = WPCF7_ContactForm::get_instance($post_id); 
+					if($specific != ''){
+						$tags = $ContactForm->scan_form_tags(array('basetype'=> $specific));
 					}else{
+						$tags = $ContactForm->scan_form_tags(); 
+					} 
+					// uacf7_print_r($tags);
+					
+					$exclude = isset($this->field['query_args']['exclude']) ? $this->field['query_args']['exclude'] : array(); 
+					foreach ( $tags as $tag ) { 
 
-						$this->field['options'][ $tag_name ] =  esc_html($tag['name']); 
+						if ($tag['type'] == '' || in_array($tag['basetype'], $exclude) ) continue; 
+
+						if( $tag['type'] == 'checkbox' ) {  
+							$tag_name = $tag['name'].'[]'; 
+						}else { 
+							$tag_name = $tag['name'];
+						}
+						if($tag['name'] == '' && $tag['type'] == 'uarepeater'){
+							$attrs = explode(' ', $tag['attr']); 
+							
+							$this->field['options'][ $attrs[0] ] =  esc_html($attrs[0]);  
+						}else{
+
+							$this->field['options'][ $tag_name ] =  esc_html($tag['name']); 
+						}
 					}
-				}
+				}  
+				
 			}
 			if($this->field['options'] == 'post_types'){
 				$post_types = get_post_types();

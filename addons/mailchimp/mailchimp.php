@@ -29,26 +29,13 @@ class UACF7_MAILCHIMP
 
   function uacf7_settings_options_mailchimp($value){ 
     $status = $this->connection_status();
-    $mailchimp = array(
-        'title'  => __( 'Mailchimp API', 'ultimate-addons-cf7' ), 
-        'icon'   => 'fa fa-cog',
-        'parent' => 'api_integration',
-        'fields' => array(  
-            'uacf7_mailchimp_api_key' => array(
-                'id'        => 'uacf7_mailchimp_api_key',
-                'type'      => 'text',
-                'label'     => __( 'Mailchimp API', 'ultimate-addons-cf7' ),  
-            ), 
-            'uacf7_mailchimp_api_status' => array(
-              'id'        => 'uacf7_mailchimp_api_status',
-              'type'     => 'callback',
-              'function' => 'uacf7_mailchimp_api_status_callback',
-              'argument' => $status,
-          
-            ), 
-        ),
+    $value['mailchimp']['fields']['uacf7_mailchimp_api_status'] = array(
+      'id'        => 'uacf7_mailchimp_api_status',
+      'type'     => 'callback',
+      'function' => 'uacf7_mailchimp_api_status_callback',
+      'argument' => $status,
+  
     );
-    $value['mailchimp'] = $mailchimp; 
     return $value;
 } 
 

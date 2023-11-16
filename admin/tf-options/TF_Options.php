@@ -134,21 +134,12 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 		 */
 		public function tf_options_admin_enqueue_scripts( $screen ) {
 			global $post_type;
-			 
-
+			//  var_dump($screen);
+			// die();
 			$tf_options_screens   = array(
-				'toplevel_page_tf_settings',
+				'toplevel_page_uacf7_settings',
 				'toplevel_page_wpcf7',
-				'tourfic-settings_page_tf_get_help',
-				'tourfic-settings_page_tf_license_info',
-				'tourfic-settings_page_tf_dashboard',
-				'tourfic-settings_page_tf_shortcodes',
-				'tourfic-vendor_page_tf_vendor_reports',
-				'tourfic-vendor_page_tf_vendor_list',
-				'tourfic-vendor_page_tf_vendor_commissions',
-				'tourfic-vendor_page_tf_vendor_withdraw',
-				'tf_hotel_page_tf-hotel-backend-booking',
-				'tf_tours_page_tf-tour-backend-booking'
+				'contact_page_wpcf7-new', 
 			);
 			$tf_options_post_type = array( 'tf_hotel', 'tf_tours', 'tf_apartment' ); 
 			if("tourfic-settings_page_tf_dashboard"==$screen){
