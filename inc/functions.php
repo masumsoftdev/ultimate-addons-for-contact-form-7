@@ -246,7 +246,7 @@ if(!function_exists('tf_black_friday_2023_admin_notice') && !class_exists('Ultim
             </style>
             <div class="notice notice-success tf_black_friday_20222_admin_notice"> 
                 <a href="<?php echo $deal_link; ?>" style="display: block; line-height: 0;" target="_blank" >
-                    <img  style="width: 100%;" src="<?php echo UACF7_URL ?>/assets/img/BLACK_FRIDAY_BACKGROUND_GRUNGE_notice.png" alt="">
+                    <img  style="width: 100%;" src="<?php echo sanitize_url( 'https://themefic.com/wp-content/uploads/2023/11/Themefic_BlackFriday_rectangle_banner.png') ?>" alt="">
                 </a> 
                 <button type="button" class="notice-dismiss tf_black_friday_notice_dismiss"><span class="screen-reader-text"><?php echo __('Dismiss this notice.', 'ultimate-addons-cf7' ) ?></span></button>
             </div>
@@ -291,7 +291,7 @@ if(!function_exists('tf_black_friday_notice_dismiss_callback')){
 	add_action( 'wp_ajax_tf_black_friday_notice_dismiss_callback', 'tf_black_friday_notice_dismiss_callback' );
 }
 
-if(!function_exists('uacf7_black_friday_2022_callback')){
+if(!function_exists('uacf7_black_friday_2022_callback') && !class_exists('Ultimate_Addons_CF7_PRO')){
 	 
 	if (strtotime('2023-12-01') > time()) { 
 		add_action( 'wpcf7_admin_misc_pub_section', 'uacf7_black_friday_2022_callback' );
@@ -326,7 +326,7 @@ if(!function_exists('uacf7_black_friday_2022_callback')){
         <?php if(!isset($_COOKIE['uacf7_dismiss_post_notice'])): ?>
 		<div class="back_friday_2022_preview" style="text-align: center; overflow: hidden; margin: 10px;">
 			<a href="<?php echo $deal_link; ?>" target="_blank" >
-				<img  style="width: 100%;" src="<?php echo UACF7_URL ?>/assets/img/BLACK_FRIDAY_BACKGROUND_GRUNGE.png" alt="">
+				<img  style="width: 100%;" src="<?php echo sanitize_url( 'https://themefic.com/wp-content/uploads/2023/11/UACF7_BlackFriday_Square_banner.png' ) ?>" alt="">
 			</a>  
             <button type="button" class="notice-dismiss tf_black_friday_cf7_notice_dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button>
 		</div>
