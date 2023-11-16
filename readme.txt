@@ -4,7 +4,7 @@ Tags: contact form 7, contact form 7 addons, contact form 7 addon, contact form 
 Requires at least: 4.2
 Tested up to: 6.4
 Requires PHP: 7.4
-Stable tag: 3.2.9
+Stable tag: 3.2.10
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -296,7 +296,7 @@ The icon and banner used on this plugin are taken from <a href="https://www.icon
 
 1. Download and unzip the plugin. Upload the unzipped folder to the wp-contents/plugins folder of your WordPress installation.
 2. Active the plugin from the WordPress Plugins administration page.
-3. OR, Go to WP admin panel, click 'Plugins' -> 'Add new'. In the search input box, type 'Ultimate Addons for Contact form 7'.
+3. OR, Go to the WordPress admin panel, click 'Plugins' -> 'Add new'. In the search input box, type 'Ultimate Addons for Contact form 7'.
 4. Install and activate the plugin.
 5. Go to Plugin Settings (Dashboard -> Contact -> Ultimate Addons) and enable the addon you need.
 
@@ -322,7 +322,7 @@ You can do it easily with the Range Slider Addon of Ultimate Addons for Contact 
 
 You can do it easily with the Multi-Step Form Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-multi-step-forms/">article</a> to learn more.
 
-= How To style Placeholder Text in Contact Form 7 =
+= How to Style Placeholder Text in Contact Form 7 =
 
 You can do it easily with the Placeholder Styling Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-placeholder-styling/">article</a> to learn more.
 
@@ -334,7 +334,7 @@ You can do it easily with the WooCommerce Product Dropdown Addon of Ultimate Add
 
 You can do it easily with the Form Styler Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-style/">article</a> to learn more.
 
-= How to add Contact Form 7 Star Rating in Wordpress =
+= How to add Contact Form 7 Star Rating in WordPress =
 
 You can do it easily with the Star Rating Field Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-star-rating-field/">article</a> to learn more.
 
@@ -354,7 +354,7 @@ You can do it easily with the Dynamic Text Addon of Ultimate Addons for Contact 
 
 You can do it easily with the Dynamic Text Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-dynamic-text-extension/">article</a> to learn more.
 
-= Dynamicly populate Contact form 7 input fields =
+= Dynamically populate Contact form 7 input fields =
 
 You can do it easily with the Pre-populate Field Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-pre-populate-fields/">article</a> to learn more.
 
@@ -362,7 +362,7 @@ You can do it easily with the Pre-populate Field Addon of Ultimate Addons for Co
 
 You can do it easily with the Save to Database Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-database/">article</a> to learn more.
 
-= How to send downloadable pdf after submitting a form using contact form 7? =
+= How to send a downloadable PDF after submitting a form using contact form 7? =
 
 You can do it easily with the PDF Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-pdf-generator/">article</a> to learn more.
 
@@ -378,7 +378,7 @@ You can do it easily with the Frontend Post Submission Addon of Ultimate Addons 
 
 You can do it easily with the Booking Form Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/pro-addons/booking-or-appointment-form-for-contact-form-7/">article</a> to learn more.
 
-= How to Create a Appointment Booking Form in WordPress with Contact Form 7 =
+= How to Create an Appointment Booking Form in WordPress with Contact Form 7 =
 
 You can do it easily with the Booking Form Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/pro-addons/booking-or-appointment-form-for-contact-form-7/">article</a> to learn more.
 
@@ -386,11 +386,11 @@ You can do it easily with the Booking Form Addon of Ultimate Addons for Contact 
 
 You can do it easily with the Conditional Redirect Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/pro-addons/conditional-redirect-for-contact-form-7/">article</a> to learn more.
 
-= How to send Contact form 7 data to WhatsApp =
+= How to send Contact Form 7 data to WhatsApp =
 
 You can do it easily with the Conditional Pro Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/pro-addons/contact-form-7-whatsapp-integration-and-tag-support/">article</a> to learn more.
 
-= How to auto fill contact form 7 =
+= How to auto-fill contact form 7 =
 
 You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/pro-addons/contact-form-7-autocomplete/">article</a> to learn more.
 
@@ -451,6 +451,12 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 53. Range Slider Pro (Form Example)
 
 == Changelog ==
+
+= 3.2.10 – 16/11/2023 =
+
+- Improvement: System stability Improved
+- Updated: readme.txt
+- Updated: Black Friday Banner
 
 =  3.2.9 – 15/11/2023  = 
 
