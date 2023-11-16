@@ -356,7 +356,7 @@ if(!function_exists('uacf7_black_friday_2022_callback') && !class_exists('Ultima
     function uacf7_black_friday_notice_cf7_dismiss_callback() { 
         $cookie_name = "uacf7_dismiss_post_notice";
         $cookie_value = "1";
-        setcookie($cookie_name, $cookie_value, time() + (86400 * 3), "/"); 
+        setcookie($cookie_name, $cookie_value, time() + (86400 * 5), "/"); 
         wp_die();
     }
     add_action( 'wp_ajax_uacf7_black_friday_notice_cf7_dismiss_callback', 'uacf7_black_friday_notice_cf7_dismiss_callback' );
