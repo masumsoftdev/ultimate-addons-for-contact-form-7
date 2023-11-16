@@ -454,14 +454,47 @@ const { divide } = require("lodash");
             iconLi.removeClass('active');
         });
 
+        // uacf7 addone count activate and deactivate addon
+        function uacf7_addon_count() {
+          
+
+            var all = $('.uacf7-addon-input-field[type="checkbox"]').length; 
+            var activated = $('.uacf7-addon-input-field[type="checkbox"]:checked').length;  
+            var deactivate = $('.uacf7-addon-input-field[type="checkbox"]:not(:checked)').length;
+
+            $('.uacf7-addon-filter-button.all .uacf7-addon-filter-cta-count').text(all);
+            $('.uacf7-addon-filter-button.activete .uacf7-addon-filter-cta-count').text(activated);
+            $('.uacf7-addon-filter-button.deactive .uacf7-addon-filter-cta-count').text(deactivate);
+        } 
+        uacf7_addon_count();
+
+
         // Uacf7 Addon save data
-        $(document).on('change', '.uacf7-addon-filter', function () {
+        $(document).on('change', '.uacf7-addon-input-field', function () {
+            uacf7_addon_count();
             $(this).val(1); 
             $(".tf-option-form.tf-ajax-save").submit();
-        })
+            
+        });
+
+       
+        $(document).on('click', '.uacf7-addon-filter-button', function (e) {
+            e.preventDefault(); 
+            $(this).addClass('active').siblings().removeClass('active');
+            if($(this).hasClass('all')){
+                $('.uacf7-single-addon-setting').css('display', 'block');
+            }else if($(this).hasClass('activete')){
+                $('.uacf7-single-addon-setting').css('display', 'none');
+                $('.uacf7-single-addon-setting input[type="checkbox"]:checked').closest('.uacf7-single-addon-setting').css('display', 'block');
+            }else if($(this).hasClass('deactive')){
+                $('.uacf7-single-addon-setting').css('display', 'none');
+                $('.uacf7-single-addon-setting input[type="checkbox"]:not(:checked)').closest('.uacf7-single-addon-setting').css('display', 'block');
+            }
+        });
 
         // Uacf7 Ultimate Innput Filter
         $(document).on('keyup', '#uacf7-addon-filter', function () {
+            $('.uacf7-addon-filter-button.all').addClass('active').siblings().removeClass('active');
             $('.uacf7-addons-settings-page').find('.tf-field-notice-inner').remove();
             var filter_string = $(this).val().toLowerCase(); 
             if(filter_string == ''){
