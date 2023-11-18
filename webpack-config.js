@@ -2,20 +2,15 @@ const path = require('path');
 const glob = require('glob');
 const entryPoints = {};
 
-const freeAppJs = glob.sync('./sass/app/js/free/*.js');
+// const freeAppJs = glob.sync('./sass/app/js/free/*.js');
 const freeAdminJs = glob.sync('./sass/admin/js/free/*.js');
 
-//tourfic free
-entryPoints['ultimate-addons-for-contact-form-7/assets/app/js/tourfic-scripts'] = freeAppJs;
-entryPoints['ultimate-addons-for-contact-form-7/assets/app/js/tourfic-scripts.min'] = freeAppJs;
+//Uacf7  free 
 entryPoints['ultimate-addons-for-contact-form-7/assets/admin/js/tourfic-admin-scripts.min'] = freeAdminJs;
 
-//scss entry points
-const appScss = glob.sync('./sass/app/css/tourfic.scss');
+//scss entry points 
 const adminScss = glob.sync('./sass/admin/css/tourfic-admin.scss');
-//
-// entryPoints['app/css/tourfic-style'] = appScss;
-// entryPoints['admin/css/tourfic-admin'] = adminScss;
+// 
 
 const config = {
     entry: entryPoints,

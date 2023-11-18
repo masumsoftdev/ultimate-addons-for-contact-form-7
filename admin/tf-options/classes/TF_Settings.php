@@ -124,7 +124,7 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 				__('Integration','ultimate-addons-cf7'), // page_title
 				__('Integration','ultimate-addons-cf7'), // menu_title
 				'manage_options', // capability
-				$this->option_id, // menu_slug
+				$this->option_id.'#tab=mailchimp', // menu_slug
 				array( $this, 'tf_options_page' ) // function
 			); 
 			
@@ -146,16 +146,16 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 				);
 			}
 			
-			//Get Help submenu
-			add_submenu_page(
-				$this->option_id, //parent slug
-				__('Get Help', 'ultimate-addons-cf7'),
-				__('Get Help', 'ultimate-addons-cf7'),
-				'manage_options',
-				'tf_get_help',
-				array( $this,'tf_get_help_callback'),
-				10,
-			);
+			// //Get Help submenu
+			// add_submenu_page(
+			// 	$this->option_id, //parent slug
+			// 	__('Get Help', 'ultimate-addons-cf7'),
+			// 	__('Get Help', 'ultimate-addons-cf7'),
+			// 	'manage_options',
+			// 	'tf_get_help',
+			// 	array( $this,'tf_get_help_callback'),
+			// 	10,
+			// );
  
 
 			// remove first submenu
@@ -269,13 +269,17 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 									$demo_link = isset($field['demo_link']) ? $field['demo_link'] : '#';
 									$documentation_link = isset($field['documentation_link']) ? $field['documentation_link'] : '#';
 
-									// echo $default;
+									// echo $default; 
 								?>
-									
-									<img src="<?php echo UACF7_URL.'assets/admin/images/addons/Row.svg' ?>" alt="">
-									<h2 class="uacf7-single-addon-title"><?php echo esc_html( $field['label'] ) ?></h2>
-									<p class="uacf7-single-addon-desc"><?php echo isset($field['subtitle']) ?  $field['subtitle'] : '';  ?> 
-									<?php echo '<a href="'.sanitize_url($documentation_link).'" target="_blank">'.__( 'Documentation', 'ultimate-addons-cf7' ) .'</a>' ?></p>
+									<div class="uacf7-single-addons-wrap">
+										<?php if(isset($field['image_url']) && !empty($field['image_url'])): ?>
+											<img src="<?php echo esc_url($field['image_url']); ?>" alt="">
+										<?php endif; ?>
+										<h2 class="uacf7-single-addon-title"><?php echo esc_html( $field['label'] ) ?></h2>
+										<p class="uacf7-single-addon-desc"><?php echo isset($field['subtitle']) ?  $field['subtitle'] : '';  ?> 
+										<?php echo '<a href="'.sanitize_url($documentation_link).'" target="_blank">'.__( 'Documentation', 'ultimate-addons-cf7' ) .'</a>' ?></p>
+										
+									</div>
 									<div class="uacf7-single-addon-cta">
 										<a href="<?php echo sanitize_url($demo_link); ?>" target="_blank" class="uacf7-single-addon-btn">View Demo</a>
 

@@ -105,8 +105,26 @@ const { divide } = require("lodash");
         $(window).on('hashchange load', function () {
             let hash = window.location.hash;
             let query = window.location.search;
-            let slug = hash.replace('#tab=', '');
+            let slug = hash.replace('#tab=', ''); 
+            if (hash) {
+                let selectedTab = $('.tf-tablinks[data-tab="' + slug + '"]'),
+                    parentDiv = selectedTab.closest('.tf-admin-tab-item');
 
+                selectedTab.trigger('click');
+                parentDiv.trigger('click');
+            }
+
+            if (query.indexOf('dashboard') > -1) {
+                let submenu = $("#toplevel_page_tf_settings").find(".wp-submenu");
+                submenu.find("a").filter(function (a, e) {
+                    return e.href.indexOf(query) > -1;
+                }).parent().addClass("current");
+            }
+        });
+        $(document).ready(function () {
+            let hash = window.location.hash;
+            let query = window.location.search;
+            let slug = hash.replace('#tab=', ''); 
             if (hash) {
                 let selectedTab = $('.tf-tablinks[data-tab="' + slug + '"]'),
                     parentDiv = selectedTab.closest('.tf-admin-tab-item');
