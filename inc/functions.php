@@ -1075,8 +1075,20 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
         $uacf7_mailchimp_option_name = get_option('uacf7_mailchimp_option_name');
         $new_option['uacf7_mailchimp_api_key'] = isset($uacf7_mailchimp_option_name['uacf7_mailchimp_api_key']) ? $uacf7_mailchimp_option_name['uacf7_mailchimp_api_key'] : '';
 
+        //  golobal form style
+        $uacf7_global_form_style = get_option('uacf7_global_settings_styles');
+       
+        if(isset($uacf7_global_form_style) && !empty($uacf7_global_form_style)){
+            $uacf7_global_settings_styles_migrate = [];
+            foreach($uacf7_global_form_style as $key => $value){
+                $uacf7_global_settings_styles_migrate[$key] = $value;
+            }
+            $new_option = array_merge($new_option, $uacf7_global_settings_styles_migrate);
+           
+        }
+        // uacf7_print_r($new_option);
 
-        // update_option('uacf7_settings', $new_option);
+        update_option('uacf7_settings', $new_option);
 
         // uacf7_print_r($new_option);
 

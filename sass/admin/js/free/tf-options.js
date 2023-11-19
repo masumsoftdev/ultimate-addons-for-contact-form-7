@@ -490,7 +490,11 @@ const { divide } = require("lodash");
         // Uacf7 Addon save data
         $(document).on('change', '.uacf7-addon-input-field', function () {
             uacf7_addon_count();
-            $(this).val(1); 
+            if($(this).is(':checked')){
+                $(this).val(1); 
+            }else{
+                $(this).val(0);
+            } 
             $(".tf-option-form.tf-ajax-save").submit();
             
         });

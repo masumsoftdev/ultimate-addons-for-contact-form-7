@@ -235,7 +235,7 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 							<div class="uacf7-settings-heading-wrap">
 								<div class="uacf7-addon-filter-cta"> 
 									<button class="uacf7-addon-filter-button all">All ( <span class="uacf7-addon-filter-cta-count"></span> )</button>
-									<button class="uacf7-addon-filter-button activete">Active ( <span class="uacf7-addon-filter-cta-count"></span>)</button>
+									<button class="uacf7-addon-filter-button activete">Active ( <span class="uacf7-addon-filter-cta-count"></span> )</button>
 									<button class="uacf7-addon-filter-button deactive">Deactive ( <span class="uacf7-addon-filter-cta-count"></span> )</button>
 								</div>
 							</div>
@@ -532,11 +532,14 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 								$section_count = 0;
 								// uacf7_print_r($this->pre_tabs);
 								foreach ( $this->pre_tabs as $key => $section ) :
-									if(isset($section['sub_section']) && $key != 'addons_settings' ){
+									if(isset($section['sub_section']) && $key != 'addons_settings'){
 										
 										$parent_tab_key = ! empty( $section['fields'] ) ? $key : array_key_first( $section['sub_section'] );
+									}elseif( $key == 'addons_settings' ){
+										 continue;
+									
 									}else{
-										continue;
+										$parent_tab_key ='';
 									}
 									
 									?>
@@ -636,9 +639,15 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 			if ( ! wp_verify_nonce( $nonce_name, $nonce_action ) ) {
 				return;
 			}
-
-			$tf_option_value = array();
+			$option = get_option( $this->option_id, true );
+			if($option){
+				$tf_option_value = $option;
+			}else{ 
+				$tf_option_value = array();
+			} 
+		
 			$option_request  = ( ! empty( $_POST[ $this->option_id ] ) ) ? $_POST[ $this->option_id ] : array(); 
+			 
 			if ( ! empty( $option_request ) && ! empty( $this->option_sections ) ) {
 				foreach ( $this->option_sections as $section ) {
 					if ( ! empty( $section['fields'] ) ) {
@@ -651,6 +660,9 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 
                                 if($fieldClass == 'TF_tab'){
 	                                $data = isset( $option_request[ $field['id'] ] ) ? $option_request[ $field['id'] ] : '';
+									if($data == ''){
+										$data = isset( $tf_option_value[ $field['id'] ] ) ? $tf_option_value[ $field['id'] ] : '';
+									}
 	                                foreach ( $field['tabs'] as $tab ) {
 		                                foreach ( $tab['fields'] as $tab_fields ) {
                                             if($tab_fields['type'] == 'repeater') {
@@ -678,10 +690,19 @@ if ( ! class_exists( 'TF_Settings' ) ) {
                                     }
                                 } else {
 	                                $data = isset( $option_request[ $field['id'] ] ) ? $option_request[ $field['id'] ] : '';
+									if($data == ''){
+										$data = isset( $tf_option_value[ $field['id'] ] ) ? $tf_option_value[ $field['id'] ] : '';
+									}
                                 }
 
 								if($fieldClass != 'TF_file'){
-									$data       = $fieldClass == 'TF_repeater' || $fieldClass == 'TF_map'  || $fieldClass == 'TF_color' ? serialize( $data ) : $data;
+									$data       = $fieldClass == 'TF_repeater' || $fieldClass == 'TF_map' ? serialize( $data ) : $data;
+									if($data == ''){
+										$data = isset( $tf_option_value[ $field['id'] ] ) ? $tf_option_value[ $field['id'] ] : '';
+									}
+								}
+								if($fieldClass == 'TF_switch'){ 
+									$data = isset( $option_request[ $field['id'] ] ) ? $option_request[ $field['id'] ] : 0;
 								}
 								if(isset($_FILES) && !empty($_FILES['file'])){
 									$tf_upload_dir = wp_upload_dir();
@@ -709,8 +730,8 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 						}
 					}
 				}
-			}
-
+			} 
+			
 			if ( ! empty( $tf_option_value ) ) {
 //                tf_var_dump($tf_option_value);
 //                die();

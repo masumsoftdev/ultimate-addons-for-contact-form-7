@@ -116,6 +116,17 @@ TF_Settings::option( 'uacf7_settings', array(
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-style-addon/', 
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-style/',  
 					),
+					'uacf7_enable_uacf7style_global' => array(
+						'id'        => 'uacf7_enable_uacf7style_global',
+						'type'      => 'switch',
+						'label'     => __( ' Global Form Styler', 'ultimate-addons-cf7' ), 
+						'image_url' => UACF7_URL . 'assets/admin/images/addons/Global-Form-Styler@2x.png',
+						'default'   => false, 
+						'is_pro'   => true, 
+						'subtitle' => __( 'Completely style all your Forms without a single line of css code & from One Place.', 'ultimate-addons-cf7' ),
+						'demo_link' => 'https://cf7addons.com/preview/global-form-styler/', 
+						'documentation_link' => 'https://themefic.com/docs/uacf7/pro-addons/global-form-styler-for-contact-form-7/',  
+					),
 					'uacf7_enable_multistep' => array(
 						'id'        => 'uacf7_enable_multistep',
 						'type'      => 'switch',
@@ -390,7 +401,7 @@ TF_Settings::option( 'uacf7_settings', array(
 				'title'  => __( 'Mailchimp API', 'ultimate-addons-cf7' ), 
 				'icon'   => 'fa fa-cog',
 				'parent' => 'api_integration',
-				'fields' => array(  
+				'fields' => array(
 					'uacf7_mailchimp_api_key' => array(
 						'id'        => 'uacf7_mailchimp_api_key',
 						'type'      => 'text',
