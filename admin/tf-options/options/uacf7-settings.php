@@ -203,6 +203,17 @@ TF_Settings::option( 'uacf7_settings', array(
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-pdf-generator/', 
 						
 					),
+					'uacf7_enable_form_generator_ai_field' => array(
+						'id'        => 'uacf7_enable_form_generator_ai_field',
+						'type'      => 'switch',
+						'label'     => __( 'Form Generator AI', 'ultimate-addons-cf7' ),
+						'image_url' => UACF7_URL . 'assets/admin/images/addons/Generate-Al-Forms.png',
+						'default'   => false, 
+						'subtitle' => __( 'The Form Generator AI Addon streamlines the process of generating forms or tags with just a few simple steps.', 'ultimate-addons-cf7' ),
+						'demo_link' => 'https://themefic.com/docs/uacf7/free-addons/ai-form-generator/', 
+						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/ai-form-generator/', 
+						
+					),
 					'uacf7_enable_conversational_form' => array(
 						'id'        => 'uacf7_enable_conversational_form',
 						'type'      => 'switch',
