@@ -18,7 +18,7 @@ class UACF7_PDF_GENERATOR {
         add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_contact_form' ) );     
         
         add_filter( 'wpcf7_mail_components', array( $this, 'uacf7_wpcf7_mail_components' ), 10, 3 );    
-        add_filter( 'wpcf7_load_js', '__return_false' );
+        // add_filter( 'wpcf7_load_js', '__return_false' );
         add_action( 'wp_ajax_uacf7_get_generated_pdf', array( $this, 'uacf7_get_generated_pdf' ) );  
         add_filter( 'uacf7_post_meta_options', array($this, 'uacf7_post_meta_options_pdf_generator'), 18, 2 );  
 
@@ -384,11 +384,25 @@ class UACF7_PDF_GENERATOR {
         }
         
         $replace_key = [];
+        $repeaters = [];
+        $repeater_value = [];
         $replace_value = []; 
         $uploaded_files = [];
         
        $form_value =  json_decode($data->form_value); 
         foreach($form_value as $key => $value){
+            // Repeater value gate
+            if (strpos($key, '__') !== false) {
+                $name_parts = explode('__', $key); 
+                if(is_array($name_parts)){
+                    $repeater_value[$name_parts[0]][$name_parts[1]] = $name_parts[0];  
+                }
+            }
+
+            if(strpos($key,"_count") !== false){ 
+                $repeaters[] = str_replace('_count', '', $key) ;
+            }
+
             $replace_key[] = '['.$key.']';
             if( is_array($value)){
                 $data = '';
@@ -405,13 +419,19 @@ class UACF7_PDF_GENERATOR {
             }
             $replace_value[] = $value;
         }   
-        
-        $pdf_content = str_replace($replace_key, $replace_value, $customize_pdf);
 
+        // Repeater value
+        if(isset($repeaters) || is_array($repeaters)){
+            $repeater_data = apply_filters('uacf7_pdf_generator_replace_data', $repeater_value, $repeaters, $customize_pdf); 
+            $customize_pdf = str_replace($repeater_data['replace_re_key'], $repeater_data['replace_re_value'], $customize_pdf); 
+        }  
+
+        $pdf_content = str_replace($replace_key, $replace_value, $customize_pdf);
+ 
         $mpdf->SetTitle($uacf7_pdf_name);
 
         // PDF Footer Content
-        $mpdf->WriteHTML($pdf_style.'<div class="pdf-content">'.$pdf_content.'   </div>');
+        $mpdf->WriteHTML($pdf_style.'<div class="pdf-content">'.nl2br($pdf_content).'   </div>');
 
         $pdf_dir = $dir.'/uacf7-uploads/'.$uacf7_pdf_name.'_db_.pdf';
         $pdf_url = $url.'/uacf7-uploads/'.$uacf7_pdf_name.'_db_.pdf';
@@ -617,9 +637,8 @@ class UACF7_PDF_GENERATOR {
             $pdf_url = $dir.'/uacf7-uploads/'.$uacf7_pdf_name.'.pdf';
             
             $mpdf->Output($pdf_url, 'F'); // save to databaes 
-            exit;
+           
             $components['attachments'][] = $pdf_url; 
-            
         }
         return $components;
       
@@ -847,7 +866,7 @@ class UACF7_PDF_GENERATOR {
             update_post_meta( $form->id(), 'uacf7_pdf_name', sanitize_text_field($_POST['uacf7_pdf_name']) );
         }
         if(isset($_POST['customize_pdf'])){ 
-            update_post_meta( $form->id(), 'customize_pdf', wp_kses_post($_POST['customize_pdf']) );
+            update_post_meta( $form->id(), 'customize_pdf', $_POST['customize_pdf']) ;
         } 
         if(isset($_POST['pdf_send_to'])){ 
             update_post_meta( $form->id(), 'pdf_send_to', sanitize_text_field($_POST['pdf_send_to']) );
@@ -859,7 +878,7 @@ class UACF7_PDF_GENERATOR {
             update_post_meta( $form->id(), 'pdf_bg_upload_image', sanitize_text_field($_POST['pdf_bg_upload_image']) );
         }    
         if(isset($_POST['customize_pdf_header'])){ 
-            update_post_meta( $form->id(), 'customize_pdf_header', wp_kses_post($_POST['customize_pdf_header']) );
+            update_post_meta( $form->id(), 'customize_pdf_header', $_POST['customize_pdf_header']);
         }     
         if(isset($_POST['pdf_header_upload_image'])){ 
             update_post_meta( $form->id(), 'pdf_header_upload_image', sanitize_text_field($_POST['pdf_header_upload_image']) );
@@ -868,7 +887,7 @@ class UACF7_PDF_GENERATOR {
             update_post_meta( $form->id(), 'pdf_header_upload_image', sanitize_text_field($_POST['pdf_header_upload_image']) );
         }      
         if(isset($_POST['customize_pdf_footer'])){ 
-            update_post_meta( $form->id(), 'customize_pdf_footer', wp_kses_post($_POST['customize_pdf_footer']) );
+            update_post_meta( $form->id(), 'customize_pdf_footer', $_POST['customize_pdf_footer']);
         }      
         if(isset($_POST['custom_pdf_css'])){ 
             update_post_meta( $form->id(), 'custom_pdf_css', sanitize_text_field($_POST['custom_pdf_css']) );

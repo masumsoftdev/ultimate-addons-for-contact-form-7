@@ -2,9 +2,9 @@
 Contributors: themefic, raihan143, hasanet, mdrejon
 Tags: contact form 7, contact form 7 addons, contact form 7 addon, contact form 7 booking form, contact form 7 appointment form, contact form 7 placeholder, contact form 7 conditional fields, redirection for contact form 7, contact form 7 thank you page, contact form 7 columns, contact form 7 style, contact form 7 woocommerce, contact form 7 woocommerce product, multi step contact form 7, multi-step contact form, multi step form, post submission contact form 7, form to post contact form 7, contact form 7 to post, custom post contact form 7, contact form 7 custom post type, contact form 7 post submit, caldera forms, Star Rating, Star Rating contact form 7, range slider, range slider contact form 7, contact form 7 conditional redirect, contact form 7 column width, contact form 7 repeater, contact form 7 repeatable fields,  contact form 7 country dropdown, contact form 7 country flags, contact form, contact form 7 mailchimp, contact form 7 dynamic text, contact form 7 pre-populate fields, contact form 7 database, elementor
 Requires at least: 4.2
-Tested up to: 6.3.1
-Requires PHP: 5.4
-Stable tag: 3.2.2
+Tested up to: 6.4
+Requires PHP: 7.4
+Stable tag: 3.2.10
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -49,6 +49,9 @@ Packed with 25+ essential features, <strong>Ultimate Addons For Contact Form 7</
 * Form Tag Support & Whatsapp Integration (Pro)
 * Autocomplete Country, City, State, Zip Fields [IP Geolocation based)] (Pro)
 * Ultimate conversational form (Pro)
+* Telegram Integration
+* Generator Forms with AI
+* Digital Signature
 * More Coming soon
 
 ### How It works:
@@ -145,6 +148,18 @@ Send pdf for contact form 7. When someone will submit the Contact form then it w
 = 🎉  Contact Form 7 submission ID  = 
 
 Ultimate Addons for Contact Form 7’s Submission ID addon makes it possible to provide unique IDs for each submission of a contact form. <a href="https://cf7addons.com/preview/contact-form-7-unique-submission-id/">Click Here</a> to check live preview.
+
+= 🎉  Telegram Integration With Contact Form 7 = 
+
+It provides integration of Telegram with Contact Form 7 through UACF7. This enables your submission data to be effortlessly forwarded to your designated Telegram channel. <a href="https://cf7addons.com/preview/telegram-integration-with-contact-form-7/">Click Here</a> to check live preview.
+
+= 🎉  Generator Forms with AI in Contact Form 7 = 
+
+This feature allows you to create contact forms with AI prompts. With its intuitive interface, you can swiftly create and customize forms, along with Contact Form 7's tags. <a href="https://cf7addons.com/preview/best-ai-contact-form-generator-with-contact-form-7/">Click Here</a> to check live preview.
+
+= 🎉  Create Digital Signature form with Contact form 7 = 
+
+This feature Facilitates the creation of electronic signatures for individuals seeking to incorporate E-signatures into the system. <a href="https://cf7addons.com/preview/create-best-digital-signature-form-with-contact-form-7/">Click Here</a> to check live preview.
  
 = 🎉  Contact form 7 CSS = 
 
@@ -281,7 +296,7 @@ The icon and banner used on this plugin are taken from <a href="https://www.icon
 
 1. Download and unzip the plugin. Upload the unzipped folder to the wp-contents/plugins folder of your WordPress installation.
 2. Active the plugin from the WordPress Plugins administration page.
-3. OR, Go to WP admin panel, click 'Plugins' -> 'Add new'. In the search input box, type 'Ultimate Addons for Contact form 7'.
+3. OR, Go to the WordPress admin panel, click 'Plugins' -> 'Add new'. In the search input box, type 'Ultimate Addons for Contact form 7'.
 4. Install and activate the plugin.
 5. Go to Plugin Settings (Dashboard -> Contact -> Ultimate Addons) and enable the addon you need.
 
@@ -307,7 +322,7 @@ You can do it easily with the Range Slider Addon of Ultimate Addons for Contact 
 
 You can do it easily with the Multi-Step Form Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-multi-step-forms/">article</a> to learn more.
 
-= How To style Placeholder Text in Contact Form 7 =
+= How to Style Placeholder Text in Contact Form 7 =
 
 You can do it easily with the Placeholder Styling Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-placeholder-styling/">article</a> to learn more.
 
@@ -319,7 +334,7 @@ You can do it easily with the WooCommerce Product Dropdown Addon of Ultimate Add
 
 You can do it easily with the Form Styler Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-style/">article</a> to learn more.
 
-= How to add Contact Form 7 Star Rating in Wordpress =
+= How to add Contact Form 7 Star Rating in WordPress =
 
 You can do it easily with the Star Rating Field Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-star-rating-field/">article</a> to learn more.
 
@@ -339,7 +354,7 @@ You can do it easily with the Dynamic Text Addon of Ultimate Addons for Contact 
 
 You can do it easily with the Dynamic Text Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-dynamic-text-extension/">article</a> to learn more.
 
-= Dynamicly populate Contact form 7 input fields =
+= Dynamically populate Contact form 7 input fields =
 
 You can do it easily with the Pre-populate Field Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-pre-populate-fields/">article</a> to learn more.
 
@@ -347,7 +362,7 @@ You can do it easily with the Pre-populate Field Addon of Ultimate Addons for Co
 
 You can do it easily with the Save to Database Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-database/">article</a> to learn more.
 
-= How to send downloadable pdf after submitting a form using contact form 7? =
+= How to send a downloadable PDF after submitting a form using contact form 7? =
 
 You can do it easily with the PDF Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-pdf-generator/">article</a> to learn more.
 
@@ -363,7 +378,7 @@ You can do it easily with the Frontend Post Submission Addon of Ultimate Addons 
 
 You can do it easily with the Booking Form Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/pro-addons/booking-or-appointment-form-for-contact-form-7/">article</a> to learn more.
 
-= How to Create a Appointment Booking Form in WordPress with Contact Form 7 =
+= How to Create an Appointment Booking Form in WordPress with Contact Form 7 =
 
 You can do it easily with the Booking Form Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/pro-addons/booking-or-appointment-form-for-contact-form-7/">article</a> to learn more.
 
@@ -371,11 +386,11 @@ You can do it easily with the Booking Form Addon of Ultimate Addons for Contact 
 
 You can do it easily with the Conditional Redirect Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/pro-addons/conditional-redirect-for-contact-form-7/">article</a> to learn more.
 
-= How to send Contact form 7 data to WhatsApp =
+= How to send Contact Form 7 data to WhatsApp =
 
 You can do it easily with the Conditional Pro Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/pro-addons/contact-form-7-whatsapp-integration-and-tag-support/">article</a> to learn more.
 
-= How to auto fill contact form 7 =
+= How to auto-fill contact form 7 =
 
 You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/pro-addons/contact-form-7-autocomplete/">article</a> to learn more.
 
@@ -436,6 +451,57 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 53. Range Slider Pro (Form Example)
 
 == Changelog ==
+
+= 3.2.10 – 16/11/2023 =
+
+- Improvement: System stability Improved
+- Updated: readme.txt
+- Updated: Black Friday Banner
+
+=  3.2.9 – 15/11/2023  = 
+
+- Notice: Black Friday Announcements
+
+=  3.2.8 – 14/11/2023  = 
+
+- Updated: readme.txt
+
+=  3.2.7 – 14/11/2023  = 
+
+- Fixed: Database addon export CSV access control vulnerability issue
+- Fixed: PDF generator file send issue
+- Fixed: Dynamic Text issue fixed with Current URL with parameters
+- Fixed: Multi-step settings save issue 
+
+=  3.2.6 – 11/11/2023  = 
+
+- Fixed: Updated vulnerability issue
+- Improvement: Code Structure updated
+
+=  3.2.5 – 08/11/2023  = 
+
+- Fixed: Repeater field export PDF into DB addon issue
+- Updated: Doc details updated in admin menu 
+- Compatibility: Compatible with WordPress 6.4 
+
+=  3.2.4 – 03/11/2023  = 
+
+- New Feature: Digital Signature feature introduced
+- New Feature: Create contact forms with AI prompts feature introduced
+- Compatible: AI prompts with Ultimate conversational form(Pro)
+- Compatible: AI prompts with Ultimate repeater(Pro)
+- Compatible: AI prompts with Ultimate Post Submission(Pro)
+- Compatible: AI prompts with Ultimate Booking Form(Pro)
+- Fixed: After booking time hide date issue
+- Fixed: Submission ID Support Issue
+- Fixed: Conditional Issue Fixed with Exclusive Checkbox 
+
+=  3.2.3 – 04/10/2023  = 
+
+- Added: Telegram Integration with contact form 7.
+- Added: Dynamic Location Selection to IP Geolocation addon(Pro).
+- Improvement: Autocomplete Location User Permission updated(Pro).
+- Fixed: Conditional Fields issue in the mail
 
 =  3.2.2 – 24/09/2023  = 
 

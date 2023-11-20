@@ -59,11 +59,11 @@ class UACF7_TELEGRAM_TAG_PANEL{
     $this->form_id = $post->id();
 
     if (!empty($uacf7_telegram_settings) && isset($uacf7_telegram_settings['uacf7_telegram_enable'], $uacf7_telegram_settings['uacf7_telegram_bot_token'], $uacf7_telegram_settings['uacf7_telegram_chat_id'] , $uacf7_telegram_settings['uacf7_telegram_bot_name'], $uacf7_telegram_settings['uacf7_telegram_bot_username'], $uacf7_telegram_settings['uacf7_telegram_connection_error_message'], )) {
-      $this->uacf7_telegram_enable = $uacf7_telegram_settings['uacf7_telegram_enable'];
-      $this->uacf7_telegram_bot_token = $uacf7_telegram_settings['uacf7_telegram_bot_token'];
-      $this->uacf7_telegram_chat_id = $uacf7_telegram_settings['uacf7_telegram_chat_id'];
-      $this->uacf7_telegram_bot_name = $uacf7_telegram_settings['uacf7_telegram_bot_name'];
-      $this->uacf7_telegram_bot_username = $uacf7_telegram_settings['uacf7_telegram_bot_username'];
+      $this->uacf7_telegram_enable                   = $uacf7_telegram_settings['uacf7_telegram_enable'];
+      $this->uacf7_telegram_bot_token                = $uacf7_telegram_settings['uacf7_telegram_bot_token'];
+      $this->uacf7_telegram_chat_id                  = $uacf7_telegram_settings['uacf7_telegram_chat_id'];
+      $this->uacf7_telegram_bot_name                 = $uacf7_telegram_settings['uacf7_telegram_bot_name'];
+      $this->uacf7_telegram_bot_username             = $uacf7_telegram_settings['uacf7_telegram_bot_username'];
       $this->uacf7_telegram_connection_error_message = $uacf7_telegram_settings['uacf7_telegram_connection_error_message'];
     }
 
@@ -204,11 +204,11 @@ class UACF7_TELEGRAM_TAG_PANEL{
 
 
           $uacf7_telegram_settings = [
-            'uacf7_telegram_enable' => sanitize_text_field($_POST['uacf7_telegram_enable']),
-            'uacf7_telegram_bot_token' => sanitize_text_field($_POST['uacf7_telegram_bot_token']),
-            'uacf7_telegram_chat_id' => sanitize_text_field($_POST['uacf7_telegram_chat_id']),
-            'uacf7_telegram_bot_name' => sanitize_text_field($botName),
-            'uacf7_telegram_bot_username' => sanitize_text_field($botUsername),
+            'uacf7_telegram_enable'                   => sanitize_text_field($_POST['uacf7_telegram_enable']),
+            'uacf7_telegram_bot_token'                => sanitize_text_field($_POST['uacf7_telegram_bot_token']),
+            'uacf7_telegram_chat_id'                  => sanitize_text_field($_POST['uacf7_telegram_chat_id']),
+            'uacf7_telegram_bot_name'                 => sanitize_text_field($botName),
+            'uacf7_telegram_bot_username'             => sanitize_text_field($botUsername),
             'uacf7_telegram_connection_error_message' => sanitize_text_field($error_messages)
           ];
 

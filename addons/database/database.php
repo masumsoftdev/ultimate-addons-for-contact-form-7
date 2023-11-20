@@ -18,7 +18,7 @@ class UACF7_DATABASE {
         add_action( 'wpcf7_before_send_mail', array($this, 'uacf7_save_to_database' ) );     
         add_action( 'admin_menu', array( $this, 'uacf7_add_db_menu' ), 11, 2 );   
         add_action( 'wp_ajax_uacf7_ajax_database_popup', array( $this, 'uacf7_ajax_database_popup' ) );  
-        add_action( 'init', array( $this, 'uacf7_database_export_csv' ) );  
+        add_action( 'wp_ajax_uacf7_ajax_database_export_csv', array( $this, 'uacf7_ajax_database_export_csv' ) );   
         add_action( 'admin_init', array( $this, 'uacf7_create_database_table' ) ); 
         // add_filter( 'wpcf7_load_js', '__return_false' ); 
        
@@ -55,6 +55,7 @@ class UACF7_DATABASE {
                 'admin_url' => get_admin_url().'/admin.php',
                 'ajaxurl' => admin_url( 'admin-ajax.php' ),
                 'plugin_dir_url' => plugin_dir_url( __FILE__ ),
+                'nonce' => wp_create_nonce( 'uacf7-form-database-admin-nonce' ),
             )
          );
     }
@@ -80,14 +81,10 @@ class UACF7_DATABASE {
 
     public function uacf7_create_database_page(){
       
-        $form_id  = empty($_GET['form_id']) ? 0 : (int) $_GET['form_id']; 
-        $csv  = empty($_GET['csv']) ? 0 :  $_GET['csv']; 
+        $form_id  = empty($_GET['form_id']) ? 0 : (int) $_GET['form_id'];  
         $pdf  = empty($_GET['pdf']) ? 0 :  $_GET['pdf']; 
         $data_id  = empty($_GET['data_id']) ? 0 :  $_GET['data_id'];
- 
-        if(!empty($form_id) && $csv == true ){
-            $this->uacf7_database_export_csv($form_id,  $csv); // export as CSV
-        }  
+  
         
         if( !empty($form_id)){
             $uacf7_ListTable = new uacf7_form_List_Table();
@@ -265,6 +262,11 @@ class UACF7_DATABASE {
     */
 
     public function uacf7_ajax_database_popup(){ 
+
+        if ( !wp_verify_nonce($_POST['ajax_nonce'], 'uacf7-form-database-admin-nonce')) {
+            exit(esc_html__("Security error", 'ultimate-addons-cf7'));
+        } 
+
         global $wpdb; 
         $id = intval($_POST['id']); // data id
         $upload_dir    = wp_upload_dir();
@@ -328,102 +330,93 @@ class UACF7_DATABASE {
     * Export CSV 
     */
 
-    public function uacf7_database_export_csv(){
-        if( isset($_REQUEST['csv']) && ( $_REQUEST['csv'] == true && $_REQUEST['form_id'] !='' ) ) {
-            $today = date("Y-m-d");
-        
+    public function uacf7_ajax_database_export_csv(){
+        if ( !wp_verify_nonce($_POST['ajax_nonce'], 'uacf7-form-database-admin-nonce')) {
+            exit(esc_html__("Security error", 'ultimate-addons-cf7'));
+        } 
+ 
+        global $wpdb; 
+        $form_id = intval($_POST['form_id']); 
+        $today = date("Y-m-d");
+        $upload_dir    = wp_upload_dir();
+        $dir = $upload_dir['baseurl'];
+        $replace_dir = '/uacf7-uploads/';  
+        $file_name = get_the_title( $form_id); 
+        $file_name = str_replace(" ","-", $file_name);  
+        $form_data = $wpdb->get_results($wpdb->prepare("SELECT * FROM ".$wpdb->prefix."uacf7_form WHERE form_id = %d ", $form_id ));
+         
+        $list = []; 
+        $count = 0;
+       
+        foreach($form_data as $fkey => $fdata){ 
+            $ContactForm = WPCF7_ContactForm::get_instance( $fdata->form_id );
+            $form_fields = $ContactForm->scan_form_tags();
+            $fields = []; 
+            $data = json_decode($fdata->form_value);
+            foreach($form_fields as $field){
             
-            global $wpdb; 
-            $upload_dir    = wp_upload_dir();
-            $dir = $upload_dir['baseurl'];
-            $replace_dir = '/uacf7-uploads/';
-           
-            $form_id = intval($_REQUEST['form_id']);
-            $file_name = get_the_title( $_REQUEST['form_id']);
-            $file_name = str_replace(" ","-", $file_name); 
-           
-
-            $form_data = $wpdb->get_results($wpdb->prepare("SELECT * FROM ".$wpdb->prefix."uacf7_form WHERE form_id = %d ", $form_id ));
-
-           
-            $now = gmdate("D, d M Y H:i:s");
-            header("Expires: Tue, 03 Jul 2001 06:00:00 GMT");
-            header("Cache-Control: max-age=0, no-cache, must-revalidate, proxy-revalidate");
-            header("Last-Modified: {$now} GMT");
-            
-            // force download
-            header("Content-Description: File Transfer");
-            header("Content-Encoding: UTF-8");
-            header("Content-Type: text/csv; charset=UTF-8");
-            header("Content-Type: application/force-download");
-            header("Content-Type: application/octet-stream");
-            header("Content-Type: application/download");
-
-            // disposition / encoding on response body
-            header("Content-Disposition: attachment;filename=".$file_name."-".$today.".csv");
-            header("Content-Transfer-Encoding: binary");
-            ob_start();
-             
-            $list = []; 
-            $count = 0;
-           
-            foreach($form_data as $fkey => $fdata){ 
-                $ContactForm = WPCF7_ContactForm::get_instance( $fdata->form_id );
-                $form_fields = $ContactForm->scan_form_tags();
-                $fields = []; 
-                $data = json_decode($fdata->form_value);
-                foreach($form_fields as $field){
-                
-                    if($field['type'] != 'submit' && $field['type'] !='uacf7_step_start' && $field['type'] !='uacf7_step_end' && $field['type'] !='uarepeater'  && $field['type'] == 'uacf7_conversational_start' && $field['type'] == 'uacf7_conversational_end' ){
-                        $fields[$field['name']] = '';
-                    }
+                if($field['type'] != 'submit' && $field['type'] !='uacf7_step_start' && $field['type'] !='uacf7_step_end' && $field['type'] !='uarepeater'  && $field['type'] == 'uacf7_conversational_start' && $field['type'] == 'uacf7_conversational_end' ){
+                    $fields[$field['name']] = '';
                 }
-                foreach($data as $key => $value){  
-                    $fields[$key] = $value; 
-                } 
-                $list_head = [];
-                $list_data = [];
-                foreach($fields as $key => $value){
-                    if($fkey == 0){
-                        $list_head[] = $key;
-                    }
-                    if(is_array($value)){ 
-                        $value = implode(", ",$value);
-                    }
-                    if (strstr($value, $replace_dir)) { 
-                        $value = str_replace($replace_dir,"",$value);
-                        $value = $dir.$replace_dir.$value;
-                    } 
-                    $list_data[] = $value;
-                }
-                if($fkey == 0){
-                    $list_head[] = 'Date';
-                    $list[] = $list_head;
-                }
-                $list_data[] = $fdata->form_date;
-                $list[] = $list_data;
-                
-                
-            } 
-            $fp = fopen('php://output', 'w');
-            
-            foreach ($list as $fields) {
-                fputcsv($fp, $fields);
             }
-            echo ob_get_clean();
-            fclose($fp);
-            die();
-        }
+            foreach($data as $key => $value){  
+                $fields[$key] = $value; 
+            } 
+            $list_head = [];
+            $list_data = [];
+            foreach($fields as $key => $value){
+                if($fkey == 0){
+                    $list_head[] = $key;
+                }
+                if(is_array($value)){ 
+                    $value = implode(", ",$value);
+                }
+                if (strstr($value, $replace_dir)) { 
+                    $value = str_replace($replace_dir,"",$value);
+                    $value = $dir.$replace_dir.$value;
+                } 
+                $list_data[] = $value;
+            }
+            if($fkey == 0){
+                $list_head[] = 'Date';
+                $list[] = $list_head;
+            }
+            $list_data[] = $fdata->form_date;
+            $list[] = $list_data;
+            
+            
+        }  
+        // Set the headers
+        ob_start();
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="'.$file_name.'"');
+        $fp = fopen('php://output', 'w');
+            
+        foreach ($list as $fields) {
+            fputcsv($fp, $fields);
+        } 
+        fclose($fp);
+        $csv_data = ob_get_clean();
+        $data = [
+            'status' => true,
+            'file_name' => $file_name,
+            'csv' => $csv_data,
+        ];
+
+        wp_send_json($data); 
+        wp_die(); 
+                
     }
+ 
 }
 
-    /*
-    * WP_List_Table Class Call
-    */
+/*
+* WP_List_Table Class Call
+*/
 
-    if( ! class_exists( 'WP_List_Table' ) ) {
-        require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
-    }
+if( ! class_exists( 'WP_List_Table' ) ) {
+    require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
+}
 
 /*
 * extends uacf7_form_List_Table class will create the page to load the table
@@ -679,7 +672,7 @@ class uacf7_form_List_Table extends WP_List_Table{
 		echo "</select>\n";
 
 		submit_button( __( 'Apply' ), 'action', '', false, array( 'id' => "doaction $two" ) );
-        echo "<a href='".esc_html($_SERVER['REQUEST_URI'])."&csv=true' style=' margin-left:5px;' class='button'> Export CSV</a>"; 
+        echo "<button  style=' margin-left:5px;' class='button uacf7-db-export-csv'> Export CSV</button>"; 
 		echo "\n";
 	}
 

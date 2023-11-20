@@ -79,12 +79,33 @@ if( !function_exists( 'uacf7_addons_included' ) ) {
         //Addon - PDF Generator 
         if( isset($option['uacf7_enable_pdf_generator_field']) && $option['uacf7_enable_pdf_generator_field'] == true ){       
             require_once( 'pdf-generator/pdf-generator.php');
+        } 
+        
+        //Form Generator AI
+        if( uacf7_checked( 'uacf7_enable_form_generator_ai_field') != ''){
+            require_once( 'form-generator-ai/form-generator-ai.php');
+        }else{
+            $uacf7_options = get_option('uacf7_option_name');
+            $update_form_generator_ai = get_option('update_form_generator_ai'); 
+            if(!isset($uacf7_options['uacf7_enable_form_generator_ai_field'])  && $update_form_generator_ai == false){ 
+                $uacf7_options['uacf7_enable_form_generator_ai_field'] = 'on';
+                
+                update_option('uacf7_option_name', $uacf7_options);
+                update_option('update_form_generator_ai', 1);
+            } 
+           
         }
 
         //Addon - Submission ID
         if( isset($option['uacf7_enable_submission_id_field']) && $option['uacf7_enable_submission_id_field'] == true ){ 
             require_once( 'submission-id/ultimate-submission-id.php');
         }
+        
+         //Addon - Signature
+         if( uacf7_checked( 'uacf7_enable_signature_field') != ''){
+            require_once( 'signature/ultimate-signature.php');
+        }
+		
 
         //Addon - Telegram
         if( isset($option['uacf7_enable_telegram_field']) && $option['uacf7_enable_telegram_field'] == true ){  
