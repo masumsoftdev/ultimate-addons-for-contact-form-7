@@ -84,7 +84,7 @@ class Ultimate_Addons_CF7 {
         
      
         //Require ultimate functions
-        require_once( 'inc/functions.php' );
+        require_once( 'inc/functions.php' ); 
  
         //Enqueue admin scripts
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
