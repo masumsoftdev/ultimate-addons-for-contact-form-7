@@ -19,8 +19,7 @@
         var $this = $(this); 
         var title = $(this).html(); 
         // get form id form current url param "form_id"
-        var form_id = window.location.search.split('form_id=')[1]; 
-        var form_name = $(this).data("form_name");
+        var form_id = window.location.search.split('form_id=')[1];  
         $this.append('...');
         $.ajax({
             url: database_admin_url.ajaxurl,
@@ -28,8 +27,7 @@
             data: {
                 action: 'uacf7_ajax_database_export_csv',
                 ajax_nonce: database_admin_url.nonce,
-                form_id: form_id,
-                form_name: form_name,
+                form_id: form_id, 
             },
             success: function (response) {  
 
@@ -41,6 +39,11 @@
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
+               
+              }
+
+              if(response.status === false){
+                alert(response.message);
                
               }
               
