@@ -73,32 +73,35 @@ class UACF7_TELEGRAM {
      }
 
  
-      $bot_token = $uacf7_telegram_bot_token;
-      $chat_id   = $uacf7_telegram_chat_id;
 
-     if($uacf7_telegram_enable === 'on'){
+    $uacf7_telegram_enable = isset($uacf7_telegram_enable) ? $uacf7_telegram_enable : 'off';
+    $bot_token             = isset($uacf7_telegram_bot_token) ? $uacf7_telegram_bot_token : '';
+    $chat_id               = isset($uacf7_telegram_chat_id) ? $uacf7_telegram_chat_id : '';
+    
+    if ($uacf7_telegram_enable === 'on' && $bot_token && $chat_id) {
         $api_url = "https://api.telegram.org/bot$bot_token/sendMessage";
-     }
+
+
+        $args = array(
+          'chat_id' => $chat_id,
+          'text'    => $message,
+      );
+  
+  
+        $response = wp_remote_post($api_url, array(
+            'body'    => json_encode($args),
+            'headers' => array('Content-Type' => 'application/json'),
+        ));
+  
+     
+        if (is_wp_error($response)) {
+            error_log('Telegram API request failed: ' . $response->get_error_message());
+        }
+    }
+
+
 
    
-
-
-
-      $args = array(
-        'chat_id' => $chat_id,
-        'text'    => $message,
-    );
-
-
-      $response = wp_remote_post($api_url, array(
-          'body'    => json_encode($args),
-          'headers' => array('Content-Type' => 'application/json'),
-      ));
-
-   
-      if (is_wp_error($response)) {
-          error_log('Telegram API request failed: ' . $response->get_error_message());
-      }
         
   }
 
