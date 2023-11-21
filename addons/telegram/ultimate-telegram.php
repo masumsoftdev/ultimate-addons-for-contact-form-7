@@ -73,14 +73,14 @@ class UACF7_TELEGRAM {
      }
 
  
-      $bot_token = $uacf7_telegram_bot_token;
-      $chat_id   = $uacf7_telegram_chat_id;
 
-     if($uacf7_telegram_enable === 'on'){
+    $uacf7_telegram_enable = isset($uacf7_telegram_enable) ? $uacf7_telegram_enable : 'off';
+    $bot_token             = isset($uacf7_telegram_bot_token) ? $uacf7_telegram_bot_token : '';
+    $chat_id               = isset($uacf7_telegram_chat_id) ? $uacf7_telegram_chat_id : '';
+    
+    if ($uacf7_telegram_enable === 'on' && $bot_token && $chat_id) {
         $api_url = "https://api.telegram.org/bot$bot_token/sendMessage";
-     }
-
-   
+    }
 
 
 
