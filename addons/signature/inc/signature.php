@@ -11,6 +11,8 @@ class UACF7_SIGNATURE_PANEL{
   public $uacf7_signature_enable;
   public $uacf7_signature_bg_color;
   public $uacf7_signature_pen_color;
+  public $uacf7_signature_pad_width;
+  public $uacf7_signature_pad_height;
 
   public function __construct(){
     add_action( 'wpcf7_editor_panels', [$this, 'uacf7_signature_panel_add'] );
@@ -36,9 +38,11 @@ class UACF7_SIGNATURE_PANEL{
 
 
     if(!empty($uacf7_signature_settings)){
-      $this->uacf7_signature_enable    = $uacf7_signature_settings['uacf7_signature_enable'] ?? '';
-      $this->uacf7_signature_bg_color  = $uacf7_signature_settings['uacf7_signature_bg_color'] ?? '#dddddd';
+      $this->uacf7_signature_enable = $uacf7_signature_settings['uacf7_signature_enable'] ?? '';
+      $this->uacf7_signature_bg_color = $uacf7_signature_settings['uacf7_signature_bg_color'] ?? '#dddddd';
       $this->uacf7_signature_pen_color = $uacf7_signature_settings['uacf7_signature_pen_color'] ?? '#000000';
+      $this->uacf7_signature_pad_width = $uacf7_signature_settings['uacf7_signature_pad_width'] ?? '300';
+      $this->uacf7_signature_pad_height = $uacf7_signature_settings['uacf7_signature_pad_height'] ?? '100';
       
     } 
 
@@ -68,6 +72,16 @@ class UACF7_SIGNATURE_PANEL{
             <input type="text" id="uacf7_signature_pen_color" name="uacf7_signature_pen_color" class="uacf7-color-picker" value="<?php echo esc_attr_e($this->uacf7_signature_pen_color? $this->uacf7_signature_pen_color : '#000000'); ?>" placeholder="<?php echo esc_html__( 'Pen Color', 'ultimate-addons-cf7' ); ?>"><br>
     
             <small><?php _e(' E.g. Default is #000000', 'ultimate-addons-cf7' ) ?></small> 
+
+            <h3><?php _e('Signature Pad Width', 'ultimate-addons-cf7' ) ?></h3>
+            <input type="text" id="uacf7_signature_pad_width" name="uacf7_signature_pad_width" value="<?php echo esc_attr_e($this->uacf7_signature_pad_width? $this->uacf7_signature_pad_width : '300'); ?>" placeholder="<?php echo esc_html__( 'Pad Width', 'ultimate-addons-cf7' ); ?>"><br>
+    
+            <small><?php _e(' E.g. Do not use px or rem', 'ultimate-addons-cf7' ) ?></small> 
+
+            <h3><?php _e('Signature Pad Height', 'ultimate-addons-cf7' ) ?></h3>
+            <input type="text" id="uacf7_signature_pad_height" name="uacf7_signature_pad_height" value="<?php echo esc_attr_e($this->uacf7_signature_pad_height? $this->uacf7_signature_pad_height : '100'); ?>" placeholder="<?php echo esc_html__( 'Pad Height', 'ultimate-addons-cf7' ); ?>"><br>
+    
+            <small><?php _e(' E.g. Do not use px or rem', 'ultimate-addons-cf7' ) ?></small> 
         </fieldset> 
       </div>
      
@@ -89,9 +103,11 @@ class UACF7_SIGNATURE_PANEL{
     }
 
     $uacf7_signature_settings = [
-      'uacf7_signature_enable'    => sanitize_text_field($_POST['uacf7_signature_enable']),
-      'uacf7_signature_bg_color'  => sanitize_text_field($_POST['uacf7_signature_bg_color']),
-      'uacf7_signature_pen_color' => sanitize_text_field($_POST['uacf7_signature_pen_color']),
+      'uacf7_signature_enable' =>  sanitize_text_field($_POST['uacf7_signature_enable']),
+      'uacf7_signature_bg_color' =>  sanitize_text_field($_POST['uacf7_signature_bg_color']),
+      'uacf7_signature_pen_color' =>  sanitize_text_field($_POST['uacf7_signature_pen_color']),
+      'uacf7_signature_pad_width' =>  sanitize_text_field($_POST['uacf7_signature_pad_width']),
+      'uacf7_signature_pad_height' =>  sanitize_text_field($_POST['uacf7_signature_pad_height']),
     ];
 
     update_post_meta( $form->id(), 'uacf7_signature_settings', $uacf7_signature_settings);
