@@ -28,6 +28,14 @@ class UACF7_SIGNATURE{
 
         wp_enqueue_script('uacf7-signature-public-assets', UACF7_URL . '/addons/signature/assets/public/js/signature.js', ['jquery'], 'UACF7_VERSION', true);
         wp_enqueue_script('uacf7-sign-lib.min', UACF7_URL . '/addons/signature/assets/public/js/sign-lib.min.js', ['jquery'], 'UACF7_VERSION', true);
+       
+       
+        wp_localize_script( 'uacf7-signature-public-assets', 'uacf7_sign_obj', [
+          
+            'message_notice' => __('Please sign first and confirm your signature before form submission', 'ultimate-addons-cf7'),
+            'message_success' => __('Signature Confirmed', 'ultimate-addons-cf7'),
+          
+        ]);
 
     }
 
@@ -112,12 +120,14 @@ class UACF7_SIGNATURE{
 
 
        /** Enable / Disable Submission ID */
-       $wpcf7                    = WPCF7_ContactForm::get_current();
-       $formid                   = $wpcf7->id();
-       $uacf7_signature_settings = get_post_meta( $formid, 'uacf7_signature_settings', true );
-       $uacf7_signature_enable   = $uacf7_signature_settings['uacf7_signature_enable'];
-       $bg_color                 = $uacf7_signature_settings['uacf7_signature_bg_color'];
-       $pen_color                = $uacf7_signature_settings['uacf7_signature_pen_color'];
+       $wpcf7 = WPCF7_ContactForm::get_current(); 
+       $formid = $wpcf7->id();
+       $uacf7_signature_settings = get_post_meta( $formid, 'uacf7_signature_settings', true );  
+       $uacf7_signature_enable = $uacf7_signature_settings['uacf7_signature_enable'];  
+       $bg_color = $uacf7_signature_settings['uacf7_signature_bg_color']; 
+       $pen_color = $uacf7_signature_settings['uacf7_signature_pen_color']; 
+       $canvas_width = $uacf7_signature_settings['uacf7_signature_pad_width']; 
+       $canvas_height = $uacf7_signature_settings['uacf7_signature_pad_height']; 
        
        if($uacf7_signature_enable != 'on' || $uacf7_signature_enable === ''){
            return;
@@ -129,6 +139,8 @@ class UACF7_SIGNATURE{
         if ($validation_error) {
             $class .= ' wpcf7-not-valid';
         }
+
+
 
        
         $atts = array();
@@ -156,7 +168,7 @@ class UACF7_SIGNATURE{
             <input hidden type="file" id="img_id_special" <?php echo $atts; ?>  >
             <div>
               <div id="signature-pad">
-                <canvas id="signature-canvas"></canvas>
+              <canvas id="signature-canvas" width="<?php echo $canvas_width; ?>" height="<?php echo $canvas_height; ?>"></canvas>
               </div>
               <span id="confirm_message"></span>
               <div class="control_div">
