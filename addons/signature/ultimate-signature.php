@@ -193,14 +193,16 @@ class UACF7_SIGNATURE{
        /** Enable / Disable Submission ID */
        $wpcf7 = WPCF7_ContactForm::get_current(); 
        $formid = $wpcf7->id();
-       $uacf7_signature_settings = get_post_meta( $formid, 'uacf7_signature_settings', true );  
-       $uacf7_signature_enable = $uacf7_signature_settings['uacf7_signature_enable'];  
-       $bg_color = $uacf7_signature_settings['uacf7_signature_bg_color']; 
-       $pen_color = $uacf7_signature_settings['uacf7_signature_pen_color']; 
-       $canvas_width = $uacf7_signature_settings['uacf7_signature_pad_width']; 
-       $canvas_height = $uacf7_signature_settings['uacf7_signature_pad_height']; 
+       $uacf7_signature_settings = uacf7_get_form_option( $formid, 'signature' );
+
+
+       $uacf7_signature_enable   = $uacf7_signature_settings['uacf7_signature_enable'];
+       $bg_color                 = $uacf7_signature_settings['uacf7_signature_bg_color'];
+       $pen_color                = $uacf7_signature_settings['uacf7_signature_pen_color'];
+       $canvas_width             = $uacf7_signature_settings['uacf7_signature_pad_width'];
+       $canvas_height            = $uacf7_signature_settings['uacf7_signature_pad_height'];
        
-       if($uacf7_signature_enable != 'on' || $uacf7_signature_enable === ''){
+       if($uacf7_signature_enable != '1' || $uacf7_signature_enable === ''){
            return;
        }
         $validation_error = wpcf7_get_validation_error($tag->name);

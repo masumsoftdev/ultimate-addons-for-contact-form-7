@@ -1072,7 +1072,7 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                 
         
     		endwhile;
-    		// wp_reset_postdata();
+    		wp_reset_postdata();
     	endif; 
 
         // $old_option = get_option('uacf7_option_name');
