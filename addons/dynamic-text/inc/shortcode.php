@@ -7,8 +7,23 @@ if(!function_exists('UACF7_URL')){
         $data = get_permalink();
         return $data;
     }
+
     add_shortcode('UACF7_URL', 'UACF7_URL'); 
 }
+
+
+// Current url with Perameters Shortcode
+if(!function_exists('UACF7_URL_WITH_PERAMETERS')){
+  
+    function UACF7_URL_WITH_PERAMETERS($val){ 
+        $data = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        return $data;
+    }
+
+    add_shortcode('UACF7_URL_WITH_PERAMETERS', 'UACF7_URL_WITH_PERAMETERS'); 
+}
+
+
 
 // Blog Info Shortcode
 if(!function_exists('UACF7_BLOGINFO')){

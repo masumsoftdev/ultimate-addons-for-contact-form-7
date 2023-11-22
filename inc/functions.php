@@ -209,13 +209,23 @@ function uacf7_add_wrapper_to_cf7_form($properties, $cfform) {
 }
 
 /**
- * Black Friday Deals 2022
+ * Black Friday Deals 2023
  */
-if(!function_exists('uacf7_black_friday_20222_admin_notice')){
-	function uacf7_black_friday_20222_admin_notice(){
-		$deal_link =sanitize_url('https://themefic.com/go/uacf7-bf-deal');
-		// $get_current_screen = get_current_screen();  
-		if(!isset($_COOKIE['uacf7_dismiss_admin_notice']) && $get_current_screen->base == 'dashboard'){ 
+ 
+if(!function_exists('tf_black_friday_2023_admin_notice') && !class_exists('Ultimate_Addons_CF7_PRO')){
+	function tf_black_friday_2023_admin_notice(){ 
+        
+        // Set the expiration time to 3 hours from the current time
+        $expiration_time = time() + 3 * 60 * 60;  
+        $tf_display_admin_notice_time = get_option( 'tf_display_admin_notice_time' );
+        if($tf_display_admin_notice_time == ''){
+            update_option( 'tf_display_admin_notice_time', $expiration_time );
+        }
+
+		$deal_link =sanitize_url('https://themefic.com/deals/');
+        $tf_display_admin_notice_time = get_option( 'tf_display_admin_notice_time' );
+		$get_current_screen = get_current_screen();  
+		if(!isset($_COOKIE['tf_dismiss_admin_notice']) && $get_current_screen->base == 'dashboard' && time() > $tf_display_admin_notice_time  ){ 
             ?>
             <style> 
                 .tf_black_friday_20222_admin_notice a:focus {
@@ -225,10 +235,8 @@ if(!function_exists('uacf7_black_friday_20222_admin_notice')){
                     padding: 7px;
                     position: relative;
                     z-index: 10;
-                }
-                .tf_black_friday_20222_admin_notice { 
-						max-width: 585px;
-                }
+                    max-width: 825px;
+                } 
                 .tf_black_friday_20222_admin_notice button:before {
                     color: #fff !important;
                 }
@@ -237,8 +245,8 @@ if(!function_exists('uacf7_black_friday_20222_admin_notice')){
                 }
             </style>
             <div class="notice notice-success tf_black_friday_20222_admin_notice"> 
-                <a href="<?php echo $deal_link; ?>" target="_blank" >
-                    <img  style="width: 100%; height: 150px;" src="<?php echo UACF7_URL ?>/assets/img/BLACK_FRIDAY_BACKGROUND_GRUNGE_notice.png" alt="">
+                <a href="<?php echo $deal_link; ?>" style="display: block; line-height: 0;" target="_blank" >
+                    <img  style="width: 100%;" src="<?php echo sanitize_url( 'https://themefic.com/wp-content/uploads/2023/11/Themefic_BlackFriday_rectangle_banner.png') ?>" alt="">
                 </a> 
                 <button type="button" class="notice-dismiss tf_black_friday_notice_dismiss"><span class="screen-reader-text"><?php echo __('Dismiss this notice.', 'ultimate-addons-cf7' ) ?></span></button>
             </div>
@@ -247,7 +255,7 @@ if(!function_exists('uacf7_black_friday_20222_admin_notice')){
                     $(document).on('click', '.tf_black_friday_notice_dismiss', function( event ) {
                         jQuery('.tf_black_friday_20222_admin_notice').css('display', 'none')
                         data = {
-                            action : 'uacf7_black_friday_notice_dismiss_callback',
+                            action : 'tf_black_friday_notice_dismiss_callback',
                         };
 
                         $.ajax({
@@ -267,26 +275,29 @@ if(!function_exists('uacf7_black_friday_20222_admin_notice')){
 		}
 		
 	} 
-	if (strtotime('2022-12-01') > time()) {
-		add_action( 'admin_notices', 'uacf7_black_friday_20222_admin_notice' );  
+	if (strtotime('2023-12-01') > time()) {
+		add_action( 'admin_notices', 'tf_black_friday_2023_admin_notice' );  
 	}   
 }
 
-function uacf7_black_friday_notice_dismiss_callback() { 
-	$cookie_name = "uacf7_dismiss_admin_notice";
-	$cookie_value = "1";
-	setcookie($cookie_name, $cookie_value, time() + (86400 * 3), "/"); 
-	wp_die();
+if(!function_exists('tf_black_friday_notice_dismiss_callback')){
+	function tf_black_friday_notice_dismiss_callback() { 
+		$cookie_name = "tf_dismiss_admin_notice";
+		$cookie_value = "1"; 
+		setcookie($cookie_name, $cookie_value, strtotime('2023-12-01'), "/"); 
+        update_option( 'tf_display_admin_notice_time', '1' );
+		wp_die();
+	}
+	add_action( 'wp_ajax_tf_black_friday_notice_dismiss_callback', 'tf_black_friday_notice_dismiss_callback' );
 }
-add_action( 'wp_ajax_uacf7_black_friday_notice_dismiss_callback', 'uacf7_black_friday_notice_dismiss_callback' );
- 
-if(!function_exists('uacf7_black_friday_2022_callback')){
+
+if(!function_exists('uacf7_black_friday_2022_callback') && !class_exists('Ultimate_Addons_CF7_PRO')){
 	 
-	if (strtotime('2022-12-01') > time()) { 
+	if (strtotime('2023-12-01') > time()) { 
 		add_action( 'wpcf7_admin_misc_pub_section', 'uacf7_black_friday_2022_callback' );
 	}    
 	function uacf7_black_friday_2022_callback(){
-		$deal_link =sanitize_url('https://themefic.com/go/uacf7-bf-deal');
+		$deal_link =sanitize_url('https://themefic.com/deals/');
 	?> 
 		<style> 
 			.back_friday_2022_preview a:focus {
@@ -313,9 +324,9 @@ if(!function_exists('uacf7_black_friday_2022_callback')){
 		 
 		</style>
         <?php if(!isset($_COOKIE['uacf7_dismiss_post_notice'])): ?>
-		<div class="back_friday_2022_preview" style="text-align: center; overflow: hidden;">
+		<div class="back_friday_2022_preview" style="text-align: center; overflow: hidden; margin: 10px;">
 			<a href="<?php echo $deal_link; ?>" target="_blank" >
-				<img  style="width: 100%; transform: scale(1.3);" src="<?php echo UACF7_URL ?>/assets/img/BLACK_FRIDAY_BACKGROUND_GRUNGE.jpg" alt="">
+				<img  style="width: 100%;" src="<?php echo sanitize_url( 'https://themefic.com/wp-content/uploads/2023/11/UACF7_BlackFriday_Square_banner.png' ) ?>" alt="">
 			</a>  
             <button type="button" class="notice-dismiss tf_black_friday_cf7_notice_dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button>
 		</div>
@@ -345,7 +356,7 @@ if(!function_exists('uacf7_black_friday_2022_callback')){
     function uacf7_black_friday_notice_cf7_dismiss_callback() { 
         $cookie_name = "uacf7_dismiss_post_notice";
         $cookie_value = "1";
-        setcookie($cookie_name, $cookie_value, time() + (86400 * 3), "/"); 
+        setcookie($cookie_name, $cookie_value, time() + (86400 * 5), "/"); 
         wp_die();
     }
     add_action( 'wp_ajax_uacf7_black_friday_notice_cf7_dismiss_callback', 'uacf7_black_friday_notice_cf7_dismiss_callback' );

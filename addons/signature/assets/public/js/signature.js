@@ -9,18 +9,18 @@ jQuery(document).ready(function($){
 
       $(form).find("#signature-pad").each(function(i, wrap){
 
-        /** Convert Canvas to Image */
 
-        var convertButton = $('.uacf7-form-'+formId).find("#convertButton");
+        var convertButton    = $('.uacf7-form-'+formId).find("#convertButton");
         var signature_canvas = $('.uacf7-form-'+formId).find("#signature-canvas");
-        var confirm_message = $('.uacf7-form-'+formId).find("#confirm_message");
-        var fileInput = $('.uacf7-form-'+formId).find('#img_id_special'); 
+        var confirm_message  = $('.uacf7-form-'+formId).find("#confirm_message");
+        var fileInput        = $('.uacf7-form-'+formId).find('#img_id_special');
+            fileInput.css('display', 'none');
         var clearButton = $('.uacf7-form-'+formId).find("#clear-button");
         var control_div = $('.uacf7-form-'+formId).find(".control_div");
 
         var data;
         var pad_bg_color = fileInput.attr('bg-color');
-        var pen_color = fileInput.attr('pen-color');
+        var pen_color    = fileInput.attr('pen-color');
 
 
         var canvas = $(wrap).find('canvas').get(0);
@@ -51,7 +51,7 @@ jQuery(document).ready(function($){
 
           $(convertButton).click(function (e){
                 e.preventDefault();
-                confirm_message.text('Signature Confirmed');
+                confirm_message.text(uacf7_sign_obj.message_success);
                 confirm_message.css({'color':'#46B450', 'font-weight': '500'});
               
             
@@ -71,10 +71,10 @@ jQuery(document).ready(function($){
                     const imagePreview = document.querySelector('.Uacf7UploadedImageForSign_'+formId);
                 
                     const dataUrl = imagePreview.src;
-                    const blob = dataURLtoBlob(dataUrl);
+                    const blob    = dataURLtoBlob(dataUrl);
                   
                     const fileName = 'signature.jpg';
-                    const file = new File([blob], fileName);
+                    const file     = new File([blob], fileName);
                   
                     const fileList = new DataTransfer();
                     fileList.items.add(file);
@@ -112,13 +112,15 @@ jQuery(document).ready(function($){
                     signaturePad.clear();
                     signs = [];
                   
-                    confirm_message.text('Please sign first and confirm your signature before form submission');
+                    confirm_message.text(uacf7_sign_obj.message_notice);
                     confirm_message.css({'color': '#FFB900', 'font-weight': '500'});       
                     control_div.css('display', 'none');
                     $('.Uacf7UploadedImageForSign_'+formId).remove();
 
               });
 
+
+    
 
               // /** Make Empty the Signature Art Board after Form Submission */
 

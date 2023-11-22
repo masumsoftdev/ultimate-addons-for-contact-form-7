@@ -28,6 +28,14 @@ class UACF7_SIGNATURE{
 
         wp_enqueue_script('uacf7-signature-public-assets', UACF7_URL . '/addons/signature/assets/public/js/signature.js', ['jquery'], 'UACF7_VERSION', true);
         wp_enqueue_script('uacf7-sign-lib.min', UACF7_URL . '/addons/signature/assets/public/js/sign-lib.min.js', ['jquery'], 'UACF7_VERSION', true);
+       
+       
+        wp_localize_script( 'uacf7-signature-public-assets', 'uacf7_sign_obj', [
+          
+            'message_notice' => __('Please sign first and confirm your signature before form submission', 'ultimate-addons-cf7'),
+            'message_success' => __('Signature Confirmed', 'ultimate-addons-cf7'),
+          
+        ]);
 
     }
 
@@ -137,11 +145,11 @@ class UACF7_SIGNATURE{
        
         $atts = array();
 
-        $atts['class'] = $tag->get_class_option($class);
-        $atts['id'] = $tag->get_id_option();
+        $atts['class']     = $tag->get_class_option($class);
+        $atts['id']        = $tag->get_id_option();
         $atts['pen-color'] = esc_attr( $pen_color );
-        $atts['bg-color'] = esc_attr( $bg_color );
-        $atts['tabindex'] = $tag->get_option('tabindex', 'signed_int', true);
+        $atts['bg-color']  = esc_attr( $bg_color );
+        $atts['tabindex']  = $tag->get_option('tabindex', 'signed_int', true);
 
         if ($tag->is_required()) {
             $atts['aria-required'] = 'true';
