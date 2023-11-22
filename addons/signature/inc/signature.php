@@ -13,8 +13,9 @@ class UACF7_SIGNATURE_PANEL{
   public $uacf7_signature_pen_color;
 
   public function __construct(){
-    add_action( 'wpcf7_editor_panels', [$this, 'uacf7_signature_panel_add'] );
-    add_action( 'wpcf7_after_save', [$this, 'uacf7_signature_save_form'] );
+    // add_action( 'wpcf7_editor_panels', [$this, 'uacf7_signature_panel_add'] );
+    // add_action( 'wpcf7_after_save', [$this, 'uacf7_signature_save_form'] );
+    
   }
 
 
@@ -78,6 +79,10 @@ class UACF7_SIGNATURE_PANEL{
   }
 
   /** Form Save */
+
+  public function uacf7_post_meta_options_signature(){
+
+  }
 
   public function uacf7_signature_save_form($form){
     if ( ! isset( $_POST ) || empty( $_POST ) ) {

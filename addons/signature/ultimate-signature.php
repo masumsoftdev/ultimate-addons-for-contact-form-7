@@ -18,6 +18,8 @@ class UACF7_SIGNATURE{
         add_filter('wpcf7_validate_uacf7_signature', [$this, 'uacf7_signature_validation_filter'], 10, 2);
         add_filter('wpcf7_validate_uacf7_signature*', [$this, 'uacf7_signature_validation_filter'], 10, 2);
 
+        add_filter( 'uacf7_post_meta_options', array($this, 'uacf7_post_meta_options_signature'), 22, 2 ); 
+
         //  add_filter( 'wpcf7_load_js', '__return_false' );
     }
 
@@ -29,6 +31,50 @@ class UACF7_SIGNATURE{
         wp_enqueue_script('uacf7-signature-public-assets', UACF7_URL . '/addons/signature/assets/public/js/signature.js', ['jquery'], 'UACF7_VERSION', true);
         wp_enqueue_script('uacf7-sign-lib.min', UACF7_URL . '/addons/signature/assets/public/js/sign-lib.min.js', ['jquery'], 'UACF7_VERSION', true);
 
+    }
+
+
+
+    public function uacf7_post_meta_options_signature( $value, $post_id){
+
+        $telegram = apply_filters('uacf7_post_meta_options_signature_pro', $data = array(
+            'title'  => __( 'Signature', 'ultimate-addons-cf7' ),
+            'icon'   => 'fa-brands fa-sign',
+            'fields' => array(
+                
+                'uacf7_sign_heading' => array(
+                  'id'    => 'uacf7_sign_heading',
+                  'type'  => 'notice',
+                  'notice' => 'info',
+                  'label' => __( 'Signature Settings', 'ultimate-addons-cf7' ),
+                  'title' => __( 'This feature will help you to add the signature in form .', 'ultimate-addons-cf7' ),
+                  'content' => sprintf( 
+                      __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                      '<a href="https://themefic.com/docs/uacf7/free-addons/signature-field/" target="_blank">documentation</a>'
+                  )
+                ),
+             
+                'uacf7_signature_enable' => array(
+                    'id'        => 'uacf7_signature_enable',
+                    'type'      => 'switch',
+                    'label'     => __( ' Enable/Disable Signature', 'ultimate-addons-cf7' ),
+                    'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
+                    'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+                    'default'   => false
+                ),
+                'uacf7_telegram_bot_token' => array(
+                    'id'          => 'uacf7_telegram_bot_token',
+                    'type'        => 'color',
+                    'label'       => __( ' Signature Pad Background Color ', 'ultimate-addons-cf7' ),
+                ),
+    
+            ),
+                
+    
+        ), $post_id);
+    
+        $value['signature'] = $signature; 
+        return $value;
     }
 
 
