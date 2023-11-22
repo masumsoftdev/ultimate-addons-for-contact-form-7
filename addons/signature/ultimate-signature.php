@@ -45,9 +45,9 @@ class UACF7_SIGNATURE{
 
     public function uacf7_post_meta_options_signature( $value, $post_id){
 
-        $telegram = apply_filters('uacf7_post_meta_options_signature_pro', $data = array(
+        $signature = apply_filters('uacf7_post_meta_options_signature_pro', $data = array(
             'title'  => __( 'Signature', 'ultimate-addons-cf7' ),
-            'icon'   => 'fa-brands fa-sign',
+            'icon'   => 'fa-solid fa-signature',
             'fields' => array(
                 
                 'uacf7_sign_heading' => array(
@@ -71,6 +71,35 @@ class UACF7_SIGNATURE{
                     'default'   => false
                 ),
              
+                'uacf7_signature_bg_color' => array(
+                    'id'        => 'uacf7_signature_bg_color',
+                    'type'      => 'color',
+                    'label'     => __( 'Signature Pad Background Color', 'ultimate-addons-cf7' ),
+                    'description'     => __( 'E.g. Default is #dddddd', 'ultimate-addons-cf7' ),
+                    'default'   => '#dddddd'
+                ),
+                'uacf7_signature_pen_color' => array(
+                    'id'        => 'uacf7_signature_pen_color',
+                    'type'      => 'color',
+                    'label'     => __( 'Signature Pen Color', 'ultimate-addons-cf7' ),
+                    'description'     => __( 'E.g. Default is #000000', 'ultimate-addons-cf7' ),
+                    'default'   => '#000000'
+                ),
+
+                'uacf7_signature_pad_width' => array(
+                    'id'        => 'uacf7_signature_pad_width',
+                    'type'      => 'number',
+                    'label'     => __( 'Signature Pad Width', 'ultimate-addons-cf7' ),
+                    'description'     => __( 'E.g. Do not use px or rem', 'ultimate-addons-cf7' ),
+                    'default'   => '300'
+                ),
+                'uacf7_signature_pad_height' => array(
+                    'id'        => 'uacf7_signature_pad_height',
+                    'type'      => 'number',
+                    'label'     => __( 'Signature Pad Height', 'ultimate-addons-cf7' ),
+                    'description'     => __( 'E.g. Do not use px or rem', 'ultimate-addons-cf7' ),
+                    'default'   => '100'
+                ),
     
             ),
                 

@@ -15,8 +15,8 @@ class UACF7_SIGNATURE_PANEL{
   public $uacf7_signature_pad_height;
 
   public function __construct(){
-    // add_action( 'wpcf7_editor_panels', [$this, 'uacf7_signature_panel_add'] );
-    // add_action( 'wpcf7_after_save', [$this, 'uacf7_signature_save_form'] );
+    add_action( 'wpcf7_editor_panels', [$this, 'uacf7_signature_panel_add'] );
+    add_action( 'wpcf7_after_save', [$this, 'uacf7_signature_save_form'] );
     
   }
 
