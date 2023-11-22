@@ -247,6 +247,19 @@ TF_Settings::option( 'uacf7_settings', array(
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/uacf7-telegram/', 
 						
 					),
+
+
+					'uacf7_enable_signature_field' => array(
+						'id'                 => 'uacf7_enable_signature_field',
+						'type'               => 'switch',
+						'label'              => __( 'Digital Signature', 'ultimate-addons-cf7' ),
+						'image_url'          => UACF7_URL . 'assets/admin/images/addons/digital-signature.png',
+						'default'            => false,
+						'subtitle'           => __( 'This feature will help you to add the signature in form.', 'ultimate-addons-cf7' ),
+						'demo_link'          => 'https://cf7addons.com/preview/create-best-digital-signature-form-with-contact-form-7/',
+						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/signature-field//',
+						
+					),
 				),
 			), 
 			'extra_fields_addons' => array(
