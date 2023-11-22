@@ -80,10 +80,6 @@ class UACF7_SIGNATURE_PANEL{
 
   /** Form Save */
 
-  public function uacf7_post_meta_options_signature(){
-
-  }
-
   public function uacf7_signature_save_form($form){
     if ( ! isset( $_POST ) || empty( $_POST ) ) {
       return;

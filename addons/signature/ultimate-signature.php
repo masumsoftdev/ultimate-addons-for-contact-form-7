@@ -18,7 +18,7 @@ class UACF7_SIGNATURE{
         add_filter('wpcf7_validate_uacf7_signature', [$this, 'uacf7_signature_validation_filter'], 10, 2);
         add_filter('wpcf7_validate_uacf7_signature*', [$this, 'uacf7_signature_validation_filter'], 10, 2);
 
-        add_filter( 'uacf7_post_meta_options', array($this, 'uacf7_post_meta_options_signature'), 22, 2 ); 
+        add_filter( 'uacf7_post_meta_options', array($this, 'uacf7_post_meta_options_signature'), 30, 2 ); 
 
         //  add_filter( 'wpcf7_load_js', '__return_false' );
     }
@@ -62,11 +62,7 @@ class UACF7_SIGNATURE{
                     'label_off' => __( 'No', 'ultimate-addons-cf7' ),
                     'default'   => false
                 ),
-                'uacf7_telegram_bot_token' => array(
-                    'id'          => 'uacf7_telegram_bot_token',
-                    'type'        => 'color',
-                    'label'       => __( ' Signature Pad Background Color ', 'ultimate-addons-cf7' ),
-                ),
+             
     
             ),
                 
@@ -164,6 +160,13 @@ class UACF7_SIGNATURE{
        $uacf7_signature_enable   = $uacf7_signature_settings['uacf7_signature_enable'];
        $bg_color                 = $uacf7_signature_settings['uacf7_signature_bg_color'];
        $pen_color                = $uacf7_signature_settings['uacf7_signature_pen_color'];
+
+
+    //    echo "<pre>";
+    //    var_dump($uacf7_signature_enable);
+    //    echo "</pre>";
+
+    //    die();
        
        if($uacf7_signature_enable != 'on' || $uacf7_signature_enable === ''){
            return;
