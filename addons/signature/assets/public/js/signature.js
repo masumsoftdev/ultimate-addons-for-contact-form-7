@@ -51,7 +51,7 @@ jQuery(document).ready(function($){
 
           $(convertButton).click(function (e){
                 e.preventDefault();
-                confirm_message.text('Signature Confirmed');
+                confirm_message.text(uacf7_sign_obj.message_success);
                 confirm_message.css({'color':'#46B450', 'font-weight': '500'});
               
             
@@ -112,13 +112,15 @@ jQuery(document).ready(function($){
                     signaturePad.clear();
                     signs = [];
                   
-                    confirm_message.text('Please sign first and confirm your signature before form submission');
+                    confirm_message.text(uacf7_sign_obj.message_notice);
                     confirm_message.css({'color': '#FFB900', 'font-weight': '500'});       
                     control_div.css('display', 'none');
                     $('.Uacf7UploadedImageForSign_'+formId).remove();
 
               });
 
+
+    
 
               // /** Make Empty the Signature Art Board after Form Submission */
 
