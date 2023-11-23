@@ -152,7 +152,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 								</div>
 							</div>
 						</div>
-						<div class="uacf7-single-step-content chooes-addon active" data-step="2">
+						<div class="uacf7-single-step-content chooes-addon " data-step="2">
 							<div class="uacf7-single-step-content-wrap">
 								 <h2>Choose your addons</h2>
 
@@ -641,6 +641,44 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 								</div>
 							</div>
 						</div>
+						<div class="uacf7-single-step-content form-type active" data-step="3">
+							<div class="uacf7-single-step-content-wrap"> 
+								<div class="uacf7-single-step-content-inner">
+									 <div class="uacf7-form-generate">
+											<h3><b>Thank you!</b> Now create your <span>Form</span></h3>
+											<label for="uacf7-select-form">Describe your 
+												<select name="uacf7-select-form" id="uacf7-select-form">
+													<option value="0">Choose Form type</option>
+													<option value="0">Choose Form type</option>
+													<option value="0">Choose Form type</option>
+													<option value="0">Choose Form type</option>
+												</select>
+											</label> 
+									 </div>
+									 <button class="uacf7-generate-form uacf7-setup-widzard-btn" data-current-step="1" data-next-step="2">Generate with AI
+
+										<svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<g clip-path="url(#clip0_143_4913)">
+												<path d="M9.58008 3.39453L11.25 2.75L11.8652 1.10938C11.8945 0.962891 12.041 0.875 12.1875 0.875C12.3047 0.875 12.4512 0.962891 12.4805 1.10938L13.125 2.75L14.7656 3.39453C14.9121 3.42383 15 3.57031 15 3.6875C15 3.83398 14.9121 3.98047 14.7656 4.00977L13.125 4.625L12.4805 6.29492C12.4512 6.41211 12.3047 6.5 12.1875 6.5C12.041 6.5 11.8945 6.41211 11.8652 6.29492L11.25 4.625L9.58008 4.00977C9.43359 3.98047 9.375 3.83398 9.375 3.6875C9.375 3.57031 9.43359 3.42383 9.58008 3.39453ZM7.5293 6.38281L10.8691 7.90625C11.0449 7.99414 11.1621 8.16992 11.1621 8.3457C11.1621 8.52148 11.0449 8.69727 10.8691 8.78516L7.5293 10.3086L6.00586 13.6484C5.91797 13.8242 5.74219 13.9414 5.56641 13.9414C5.39062 13.9414 5.21484 13.8242 5.15625 13.6484L3.60352 10.3086L0.263672 8.78516C0.0878906 8.69727 0 8.52148 0 8.3457C0 8.16992 0.0878906 7.99414 0.263672 7.90625L3.60352 6.38281L5.15625 3.04297C5.21484 2.86719 5.39062 2.75 5.56641 2.75C5.74219 2.75 5.91797 2.86719 6.00586 3.04297L7.5293 6.38281ZM11.8652 10.4844C11.8945 10.3379 12.041 10.25 12.1875 10.25C12.3047 10.25 12.4512 10.3379 12.4805 10.4844L13.125 12.125L14.7656 12.7695C14.9121 12.7988 15 12.9453 15 13.0625C15 13.209 14.9121 13.3555 14.7656 13.3848L13.125 14L12.4805 15.6699C12.4512 15.7871 12.3047 15.875 12.1875 15.875C12.041 15.875 11.8945 15.7871 11.8652 15.6699L11.25 14L9.58008 13.3848C9.43359 13.3555 9.375 13.209 9.375 13.0625C9.375 12.9453 9.43359 12.7988 9.58008 12.7695L11.25 12.125L11.8652 10.4844Z" fill="white"/>
+											</g>
+											<defs>
+												<clipPath id="clip0_143_4913">
+												<rect width="15" height="16" fill="white"/>
+												</clipPath>
+											</defs>
+										</svg>
+									</button>
+								</div>
+								<div class="uacf7-single-step-content-inner">
+									 <!-- <img src="<?php echo UACF7_URL ?>assets/admin/images/quick-setup.svg" alt="quick-setup"> -->
+
+									<div class="uacf7-generated-template">
+										<textarea name="uacf7-generated-form" id="uacf7-generated-form" cols="30" rows="10"></textarea>
+										<button class="uacf7-generate-form uacf7-setup-widzard-btn uacf7-">Create your form</button>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 
 					<div class="uacf7-wizard-footer">
@@ -650,7 +688,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 							</div>
 
 							<div class="uacf7-wizard-footer-right">
-								<button class="uacf7-wizard-footer-right-button uacf7-next" data-current-step="1" data-next-step="2">Next
+								<button class="uacf7-wizard-footer-right-button uacf7-next uacf7-setup-widzard-btn" data-current-step="1" data-next-step="2">Next
 
 								<svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path d="M12.3337 4.99951L1.66699 4.99951" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
