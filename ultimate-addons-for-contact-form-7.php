@@ -95,10 +95,10 @@ class Ultimate_Addons_CF7 {
        
         
         //Require admin menu
-        require_once( 'admin/admin-menu.php' );
+        // require_once( 'admin/admin-menu.php' );
                 
         //Require ultimate addons
-        require_once( 'addons/addons.php' );
+        // require_once( 'addons/addons.php' );
         // require_once UACF7_PATH . 'admin/tf-options/TF_Optionss.php';
        
        
@@ -119,12 +119,7 @@ class Ultimate_Addons_CF7 {
         wp_enqueue_script( 'wp-color-picker' );
         wp_enqueue_script( 'uacf7-admin-script', UACF7_URL . 'assets/js/admin-script.js', array('jquery'), null, true ); 
 
-		// Custom
-		wp_enqueue_style( 'uacf7-admin-sweet-alert', '//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css', '', UACF7_VERSION );
-		wp_enqueue_style( 'uacf7-admin', UACF7_URL . 'assets/admin/css/tourfic-admin.min.css', '', UACF7_VERSION );
-		wp_enqueue_script( 'uacf7-admin-sweet-alert', '//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js', array( 'jquery' ), UACF7_VERSION, true );
-		wp_enqueue_script( 'uacf7-admin', UACF7_URL . 'assets/admin/js/tourfic-admin-scripts.min.js', array( 'jquery', 'wp-data', 'wp-editor', 'wp-edit-post' ), UACF7_VERSION, true );
-		 
+	
        
         wp_localize_script( 'uacf7-admin', 'uacf7_options', array(
             'ajax_url'          => admin_url( 'admin-ajax.php' ),
