@@ -98,7 +98,7 @@ class Ultimate_Addons_CF7 {
         // require_once( 'admin/admin-menu.php' );
                 
         //Require ultimate addons
-        // require_once( 'addons/addons.php' );
+        require_once( 'addons/addons.php' );
         // require_once UACF7_PATH . 'admin/tf-options/TF_Optionss.php';
        
        
