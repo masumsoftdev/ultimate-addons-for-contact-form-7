@@ -10,7 +10,8 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 
 		private static $instance = null;
 		private static $current_step = null;
-
+		
+		private $addons = [];
 		/**
 		 * Singleton instance
 		 * @since 1.0.0
@@ -25,12 +26,24 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 
 		public function __construct() {
 			add_action( 'admin_menu', [ $this, 'uacf7_wizard_menu' ], 100 );
+			add_filter( 'uacf7_settings_options', [ $this, 'uacf7_settings_options_wizard' ], 100 );
 			add_filter( 'woocommerce_enable_setup_wizard', '__return_false' );
 			add_action( 'admin_init', [ $this, 'tf_activation_redirect' ] );
 			add_action( 'wp_ajax_uacf7_setup_wizard_submit', [ $this, 'wp_ajax_uacf7_setup_wizard_submit' ] );
+			add_action( 'wp_ajax_uacf7_onclick_ajax_activate_plugin', [ $this, 'uacf7_onclick_ajax_activate_plugin' ] );
 			add_action( 'in_admin_header', [ $this, 'remove_notice' ], 1000 );
 
+			if(! is_plugin_active( 'woocommerce/woocommerce.php' )){
+				add_action('wp_ajax_woocommerce_ajax_install_plugin', 'wp_ajax_install_plugin');
+			}
+
 			self::$current_step = isset( $_GET['step'] ) ? sanitize_key( $_GET['step'] ) : 'welcome';
+		}
+		
+		public function uacf7_settings_options_wizard($option){
+			$this->addons = $option;
+
+			return $option;
 		}
 
 		/**
@@ -61,10 +74,46 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 			}
 		}
 
+
+		/**
+		 * One Click CF7 Plugin Install
+		 */
+		public function uacf7_onclick_ajax_activate_plugin() {  
+			
+			// check_ajax_referer('updates', '_ajax_nonce');
+			// Check user capabilities
+			if (!current_user_can('install_plugins')) {
+				wp_send_json_error('Permission denied');
+			}
+
+			// activate the plugin
+			$plugin_slug = sanitize_text_field( wp_unslash($_POST['slug']) );
+			$file_name = sanitize_text_field( wp_unslash($_POST['file_name']) );
+			$result = activate_plugin($plugin_slug.'/'.$file_name.'.php');
+
+			if (is_wp_error($result)) {
+				wp_send_json_error('Error: ' . $result->get_error_message());
+			} else {
+				wp_send_json_success('Plugin installed and activated successfully!');
+			}
+
+			wp_die();
+
+		}
+
 		/**
 		 * Setup wizard page
 		 */
 		public function uacf7_wizard_page() {
+			require_once ABSPATH.'wp-admin/includes/plugin.php';
+			$plugin_to_check =  'contact-form-7/wp-contact-form-7.php';
+
+			if(file_exists(WP_PLUGIN_DIR . '/' . $plugin_to_check)){
+				$uacf7_plugin_status = ( is_plugin_active( $plugin_to_check) ) ? 'activate' : 'not_active';
+			}else{
+				$uacf7_plugin_status = 'not_installed';
+			}
+			
 			?>
 				<div class="uacf7-setup-wizard">
 					<div class="uacf7-wizard-header">
@@ -76,7 +125,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 										<circle cx="12" cy="12" r="4" fill="#7F56D9"/>
 									</svg>  
 								</span>
-								<span class="step-item-title">Installation</span>
+								<span class="step-item-title"><?php echo esc_html('Installation') ?></span>
 							</div>
 							<div class="uacf7-single-step-item" data-step="2">
 								<span class="step-item-dots">
@@ -84,7 +133,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 										<circle cx="12" cy="12" r="4" fill="#EAECF0"/>
 									</svg> 
 								</span>
-								<span class="step-item-title">Choose addon </span>
+								<span class="step-item-title"><?php echo esc_html('Choose addon') ?> </span>
 							</div>
 							<div class="uacf7-single-step-item" data-step="3">
 								<span class="step-item-dots">
@@ -92,7 +141,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 										<circle cx="12" cy="12" r="4" fill="#EAECF0"/>
 									</svg>
 								</span>
-								<span class="step-item-title">Form type</span>
+								<span class="step-item-title"><?php echo esc_html( 'Form type' ) ?></span>
 							</div>
 							<div class="uacf7-single-step-item step-last" data-step="4">
 								<span class="step-item-dots">
@@ -100,12 +149,12 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 										<circle cx="12" cy="12" r="4" fill="#EAECF0"/>
 									</svg> 
 								</span>
-								<span class="step-item-title">Generate & Preview</span>
+								<span class="step-item-title"><?php echo esc_html('Generate & Preview') ?></span>
 							</div>
 						</div> 
 					</div>
 					<div class="uacf7-step-content-container">
-						<div class="uacf7-single-step-content installation" data-step="1">
+						<div class="uacf7-single-step-content installation active" data-step="1">
 							<div class="uacf7-single-step-content-wrap">
 								<span class="uacf7-wizard-logo">
 									<svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -134,19 +183,28 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 								</span>
 
 								<div class="uacf7-single-step-content-inner">
-									<h1>Welcome to UACF7</h1>
+									<h1><?php echo esc_html('Welcome to UACF7') ?></h1>
 
-									<p>UACF7 stands for Ultimate Addons for Contact Form 7. It's a WordPress plugin that contains over 25 features. It's developed by Themefic, a WordPress plugins and themes company</p>
+									<p><?php echo esc_html("UACF7 stands for Ultimate Addons for Contact Form 7. It's a WordPress plugin that contains over 25 features. It's developed by Themefic, a WordPress plugins and themes company") ?></p>
 
 									<div class="uacf7-step-plugin-required">
-										<p>To continue it requires Contact from 7 <br> to be install & activate</p>
+										<p>To continue it requires Contact from 7 <br> to be install & activate</p> 
+										<button class="required-plugin-button uacf7-setup-widzard-btn <?php  if($uacf7_plugin_status== 'activate' ){ echo 'disabled'; }?>" <?php  if($uacf7_plugin_status== 'activate' ){ echo 'disabled ="disabled"'; }?> data-plugin-status="<?php echo esc_attr( $uacf7_plugin_status ) ?>">
+										
+											<?php 
+												if('activate' == $uacf7_plugin_status){
+													echo esc_html('Activated');
+												}else if('not_installed' == $uacf7_plugin_status){
+													echo esc_html('Install & Activate');
+												}else{
+													echo esc_html('Activate');
+												}
+											?> 
 
-										<button class="required-plugin-button">Install now 
-
-											<svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<!-- <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
 												<path d="M12.3337 5L1.66699 5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 												<path d="M9.00051 8.33341C9.00051 8.33341 12.3338 5.87845 12.3338 5.00006C12.3338 4.12166 9.00049 1.66675 9.00049 1.66675" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-											</svg>
+											</svg> -->
 										</button>
 									</div>
 								</div>
@@ -155,493 +213,61 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 						<div class="uacf7-single-step-content chooes-addon " data-step="2">
 							<div class="uacf7-single-step-content-wrap">
 								 <h2>Choose your addons</h2>
-
 								 <div class="uacf7-addon-setting-content">  
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status pro">Pro</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status pro">Pro</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status pro">Pro</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status">Free</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status">Free</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status">Free</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status">Free</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status">Free</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status">Free</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status">Free</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status">Free</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status">Free</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status">Free</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status">Free</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status">Free</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status">Free</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status">Free</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status">Free</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status">Free</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status">Free</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status">Free</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status">Free</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status">Free</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status">Free</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status">Free</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status pro">Pro</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status pro">Pro</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status pro">Pro</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status pro">Pro</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr(0) ?>" data-parent="<?php echo esc_attr('') ?>" data-filter="<?php echo esc_html( strtolower('Booking/Appointment Form') ) ?>"> 
-										<div class="uacf7-single-addons-wrap"> 
-											<span class="addon-status pro">Pro</span>
-											<h2 class="uacf7-single-addon-title"><?php echo esc_html( 'Booking/Appointment Form' ) ?></h2>  
-											<div class="uacf7-addon-toggle-wrap">
-												<input type="checkbox" id="<?php echo esc_attr(0) ?>" <?php echo esc_attr( 0 ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( 0 ) ?>" id="uacf7_enable_redirection" >
-													
-												<label class="uacf7-addon-toggle-inner <?php echo esc_attr( 0 ) ?> " for="<?php echo esc_attr(0) ?>">
-													<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-													</svg> 
-													</span>
-												</label>
-											</div> 
-										</div> 
-									</div>
- 
+									
+									<?php 
+										$data = get_option( 'uacf7_settings', true );
+
+
+										foreach($this->addons as $section_key => $section): 
+											
+										if($section_key == 'general_addons' || $section_key == 'extra_fields_addons' || $section_key == 'wooCommerce_integration'):
+										
+										foreach ($section['fields'] as $field_key => $field ):
+											$id = 'uacf7_settings'.'['.$field['id'].']';
+									?> 
+									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr($field['id']) ?>" data-parent="<?php echo esc_attr($section_key) ?>" data-filter="<?php echo esc_html( strtolower($field['label']) ) ?>">
+										<?php 
+											$label_class = '';
+											if(isset($field['is_pro'])){
+												$label_class .= $field['is_pro'] == true ? 'tf-field-disable tf-field-pro' : '';
+												$badge = '<span class="addon-status pro">'.esc_html('Pro').'</span>';
+											}else{
+												$badge = '<span class="addon-status">'.esc_html('Free').'</span>';
+											}
+											$default = $field['default'] == true ? 'checked' : '';
+											$default = isset($data[$field['id']]) && $data[$field['id']] == 1  ? 'checked' : $default;
+											$value = isset($data[$field['id']]) ? $data[$field['id']] : 0;
+											$demo_link = isset($field['demo_link']) ? $field['demo_link'] : '#';
+											$documentation_link = isset($field['documentation_link']) ? $field['documentation_link'] : '#';
+
+											// echo $default; 
+										?>
+											<div class="uacf7-single-addons-wrap"> 
+												<?php echo $badge; ?>
+												<h2 class="uacf7-single-addon-title"><?php echo esc_html( $field['label'] ) ?></h2>
+												<div class="uacf7-addon-toggle-wrap">
+													<input type="checkbox" id="<?php echo esc_attr($field['id']) ?>" <?php echo esc_attr( $default ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( $id ) ?>" id="uacf7_enable_redirection" >
+														
+													<label class="uacf7-addon-toggle-inner <?php echo esc_attr( $label_class ) ?> " for="<?php echo esc_attr($field['id']) ?>">
+														<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+															<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
+														</svg> 
+														</span>
+													</label>
+												</div>
+											</div>  
+										</div>
+
+									<?php 
+										endforeach;  
+										endif;
+										endforeach; 
+									?>
 								</div>
 							</div>
 						</div>
-						<div class="uacf7-single-step-content form-type active" data-step="3">
+						<div class="uacf7-single-step-content form-type" data-step="3">
 							<div class="uacf7-single-step-content-wrap"> 
 								<div class="uacf7-single-step-content-inner">
 									 <div class="uacf7-form-generate">
@@ -688,7 +314,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 							</div>
 
 							<div class="uacf7-wizard-footer-right">
-								<button class="uacf7-wizard-footer-right-button uacf7-next uacf7-setup-widzard-btn" data-current-step="1" data-next-step="2">Next
+								<button class="uacf7-wizard-footer-right-button uacf7-next uacf7-setup-widzard-btn <?php  if($uacf7_plugin_status != 'activate' ){ echo 'disabled'; }?>" <?php  if($uacf7_plugin_status != 'activate' ){ echo 'disabled ="disabled"'; }?> data-current-step="1" data-next-step="2">Next
 
 								<svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path d="M12.3337 4.99951L1.66699 4.99951" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>

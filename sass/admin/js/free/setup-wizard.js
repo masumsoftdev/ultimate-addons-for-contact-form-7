@@ -1,137 +1,83 @@
 (function ($) {
     $(document).ready(function () {
+        var uacf_quick_preloader = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: none; display: block; shape-rendering: auto;" width="20x" height="20px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+        <path d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50" fill="#ffffff" stroke="none">
+          <animateTransform attributeName="transform" type="rotate" dur="1s" repeatCount="indefinite" keyTimes="0;1" values="0 50 51;360 50 51"></animateTransform>
+        </path>`;
 
-        //if body has class .admin_page_tf-setup-wizard then add background-color: #ecf5ff; to html
-        if ($('body').hasClass('admin_page_tf-setup-wizard')) {
-            $('html').css('padding', '0');
-        }
-
-        $(document).on('click', '.tf-setup-start-btn', function (e) {
-            e.preventDefault();
-            $('.tf-welcome-step').hide();
-            $('.tf-setup-step-1').show();
+        // One Click CF7 Plugin install and activate
+        $(document).on('click', '.required-plugin-button', function () {  
+            var plugin_status = $(this).attr('data-plugin-status');
+           if(plugin_status == 'not_installed'){
+                var plugin_slug = 'contact-form-7'; 
+                var button = $(this);
+                button.html('Installing...' ); 
+                $.ajax({
+                    url: uacf7_admin_params.ajax_url,
+                    type: 'post',
+                    data: {
+                        action: 'woocommerce_ajax_install_plugin', 
+                        _ajax_nonce: uacf7_admin_params.uacf7_nonce,
+                        slug: plugin_slug, 
+                    },
+                    success: function (response) {
+                        $('.required-plugin-button').attr('data-plugin-status', 'not_active');
+                        uacf7_onclick_ajax_activate_plugin()
+                    }
+                }); 
+           }else if(plugin_status ==  'not_active'){
+                
+                uacf7_onclick_ajax_activate_plugin();
+           }
+ 
         });
 
-        $(document).on('click', '.tf-setup-next-btn, .tf-setup-skip-btn', function (e) {
-            e.preventDefault();
-            let form = $('#tf-setup-wizard-form');
-            let skipSteps = form.find('input[name="tf-skip-steps"]').val();
-            let step = $(this).closest('.tf-setup-step-container').data('step');
-            let nextStep = step + 1;
-
-            //min one service required
-            if (step === 1 && $(this).hasClass('tf-setup-next-btn')) {
-                let services = $('input[name="tf-services[]"]:checked').length;
-
-                if (!services) {
-                    alert(uacf7_admin_params.i18n.no_services_selected);
-                    return false;
-                }
-
-                //if hotel service not checked, hide hotel settings
-                if (!$('input[name="tf-services[]"][value="hotel"]').is(':checked')) {
-                    $('.tf-hotel-setup-wizard').hide();
-                    $('.tf-add-new-hotel').hide();
-                } else {
-                    $('.tf-hotel-setup-wizard').show();
-                    $('.tf-add-new-hotel').show();
-                }
-
-                //if tour service not checked, hide tour settings
-                if (!$('input[name="tf-services[]"][value="tour"]').is(':checked')) {
-                    $('.tf-tour-setup-wizard').hide();
-                    $('.tf-add-new-tour').hide();
-                } else {
-                    $('.tf-tour-setup-wizard').show();
-                    $('.tf-add-new-tour').show();
-                }
-
-                //if apartment service not checked, hide apartment settings
-                if (!$('input[name="tf-services[]"][value="apartment"]').is(':checked')) {
-                    $('.tf-apartment-setup-wizard').hide();
-                    $('.tf-add-new-apartment').hide();
-                } else {
-                    $('.tf-apartment-setup-wizard').show();
-                    $('.tf-add-new-apartment').show();
-                }
-            }
-
-            //skip steps add to input[name="tf-skip-steps"]
-            if ($(this).hasClass('tf-setup-skip-btn')) {
-                skipSteps = !skipSteps ? step : skipSteps.indexOf(step) === -1 ? skipSteps + ',' + step : skipSteps;
-                form.find('input[name="tf-skip-steps"]').val(skipSteps);
-
-                if(step === 1){
-                    $('.tf-hotel-setup-wizard').show();
-                    $('.tf-tour-setup-wizard').show();
-                }
-            }
-
-            //remove skip steps from input[name="tf-skip-steps"] if user back to step and go to next step
-            if($(this).hasClass('tf-setup-next-btn') && skipSteps.indexOf(step) !== -1) {
-                skipSteps = skipSteps.replace(step, '');
-                form.find('input[name="tf-skip-steps"]').val(skipSteps);
-            }
-
-            //hide current step and show next step (if not last step)
-            if(!$(this).hasClass('tf-setup-submit-btn')) {
-                $('.tf-setup-step-' + step).fadeOut(300, function () {
-                    $('.tf-setup-step-' + nextStep).fadeIn(300);
-                });
-            }
-        });
-
-        $(document).on('click', '.tf-setup-prev-btn', function (e) {
-            e.preventDefault();
-            let step = $(this).closest('.tf-setup-step-container').data('step');
-            let prevStep = step - 1;
-            $('.tf-setup-step-' + step).fadeOut(300, function () {
-                $('.tf-setup-step-' + prevStep).fadeIn(300);
-            });
-        });
-
-        /*
-        * Setup Wizard form submit
-        * @author: Foysal
-        */
-        $(document).on('click', '.tf-setup-submit-btn', function (e) {
-            e.preventDefault();
-            let submitBtn = $('.tf-setup-submit-btn.tf-admin-btn');
-            let form = $(this).closest('#tf-setup-wizard-form');
-            let step = $(this).closest('.tf-setup-step-container').data('step');
-            let skipSteps = form.find('input[name="tf-skip-steps"]').val();
-
-            if($(this).hasClass('tf-admin-btn') && skipSteps.indexOf(step) !== -1) {
-                skipSteps = skipSteps.replace(step, '');
-                form.find('input[name="tf-skip-steps"]').val(skipSteps);
-            }
-
-            let formData = new FormData(form[0]);
-            formData.append('action', 'tf_setup_wizard_submit');
-
+        function uacf7_onclick_ajax_activate_plugin(){
+            var button = $('.required-plugin-button');
+            var plugin_slug = 'contact-form-7';
+            var file_name = 'wp-contact-form-7';
+            button.html('Activating...'); 
             $.ajax({
                 url: uacf7_admin_params.ajax_url,
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                beforeSend: function () {
-                    submitBtn.addClass('tf-btn-loading');
+                type: 'post',
+                data: {
+                    action: 'uacf7_onclick_ajax_activate_plugin', 
+                    _ajax_nonce: uacf7_admin_params.uacf7_nonce,
+                    slug: plugin_slug, 
+                    file_name: file_name, 
                 },
-                success: function (response) {
-                    let data = JSON.parse(response);
-                    submitBtn.removeClass('tf-btn-loading');
-                    if (data.success) {
-                        $('.tf-finish-step').show();
-                        $('.tf-setup-step-' + step).hide();
-                    }
-                },
-                error: function (error) {
-                    submitBtn.removeClass('tf-btn-loading');
-                    console.log(error);
+                success: function (response) { 
+                    button.html('Activated');
+                    $('.required-plugin-button').attr('data-plugin-status', 'activate');
+                    $('.required-plugin-button').attr('disabled', true);
+                    $('.uacf7-next').attr('disabled', false);
+                    $('.uacf7-next').removeClass('disabled');
+                    
                 }
             });
+        }
+
+
+ 
+        // Uacf7 Next Button
+        $(document).on('click', '.uacf7-next', function () {  
+             
+            var $this = $(this);
+            var current_step = $this.attr('data-current-step');
+            var next_step = $this.attr('data-next-step');
+           alert(next_step);
+            $('.uacf7-single-step-content[data-step='+current_step+']').removeClass('active');
+            $('.uacf7-single-step-content[data-step='+next_step+']').addClass('active');
+            $('.uacf7-single-step-item[data-step='+next_step+']').addClass('active');
+
+            $this.attr('data-current-step', next_step);
+            $this.attr('data-next-step',  parseInt(next_step) + 1);
+
+ 
         });
+
+
+  
 
     });
 
