@@ -14,6 +14,7 @@ jQuery(document).ready(function () {
 		jQuery(uacf7_step, this).each(function () {
 			var $this = jQuery(this); 
 			$this.attr('id', form_id+'step-' + uacf7_sid);
+			$this.attr('step-id', uacf7_sid);
 
 			if( uacf7_sid == 1 ) {
 				$this.addClass('step-start');
@@ -40,8 +41,9 @@ jQuery(document).ready(function () {
 
 
 
-    function uacf7_step_validation($this, uacf7_step, form_id, repeater_count) { 
+    function uacf7_step_validation($this, uacf7_step, form_id, repeater_count) {  
         var uacf7_current_step = jQuery($this).closest(uacf7_step); 
+        var uacf7_next_step =  1 + parseInt(uacf7_current_step.attr('step-id'));
       
         /*
         * Cheeck current step fields. Expect Checkbox, Radio button and hidden fields
@@ -157,7 +159,15 @@ jQuery(document).ready(function () {
                             curStepBtn = curStep.attr("id"),
                             nextStepWizard = jQuery('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a");
 
-                        nextStepWizard.removeAttr('disabled').trigger('click');
+                        // nextStepWizard.removeAttr('disabled').trigger('click');
+                        // nextStepWizard.removeAttr('disabled').trigger('click');
+                        jQuery('.steps-step').find('a[data-form-id="'+form_id+'"]').removeClass('uacf7-btn-active');
+                        uacf7_current_step.hide();
+                        uacf7_current_step.addClass('completed');
+                        jQuery('#'+form_id+'step-' + uacf7_next_step).show();
+                        var ua
+                        jQuery('.steps-step').find('a[href="#'+curStepBtn+'"]').addClass('completed');
+                        jQuery('.steps-step').find('a[href="#'+form_id+'step-' + uacf7_next_step+'"]').addClass('uacf7-btn-active');
      
                     } else {
 						

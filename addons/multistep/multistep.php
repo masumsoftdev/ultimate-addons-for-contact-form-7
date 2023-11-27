@@ -539,7 +539,7 @@ class UACF7_MULTISTEP {
                         foreach ($all_steps as $step) {
                             $content = $step;
                             ?>
-                            <div class="steps-step"><a title-id=".step-<?php echo esc_attr($step_id); ?>" data-form-id="<?php echo esc_attr($cfform->id()); ?>" href="#<?php echo esc_attr($cfform->id()); ?>step-<?php echo esc_attr($step_id); ?>" type="button"></a></div>
+                            <div class="steps-step"><a title-id=".step-<?php echo esc_attr($step_id); ?>" data-form-id="<?php echo esc_attr($cfform->id()); ?>" data-current-steps ='<?php echo esc_attr($step_id); ?>' href="#<?php echo esc_attr($cfform->id()); ?>step-<?php echo esc_attr($step_id); ?>" type="button"></a></div>
                             <?php
                             $step_id++;
                             $step_count++;
@@ -575,7 +575,7 @@ class UACF7_MULTISTEP {
                         $content = $step;
                         ?>
                         <div class="steps-step">
-                            <a title-id=".step-<?php echo esc_attr($step_id); ?>" data-form-id="<?php echo esc_attr($cfform->id()); ?>"   href="#<?php echo esc_attr($cfform->id()); ?>step-<?php echo esc_attr($step_id); ?>" type="button" class="btn <?php if( $step_id == 1 ) { echo esc_attr('uacf7-btn-active'); }else{ echo esc_attr('uacf7-btn-default'); } ?> btn-circle"><?php 
+                            <a title-id=".step-<?php echo esc_attr($step_id); ?>" data-current-steps ='<?php echo esc_attr($step_id); ?>' data-form-id="<?php echo esc_attr($cfform->id()); ?>"   href="#<?php echo esc_attr($cfform->id()); ?>step-<?php echo esc_attr($step_id); ?>" type="button" class="btn <?php if( $step_id == 1 ) { echo esc_attr('uacf7-btn-active'); }else{ echo esc_attr('uacf7-btn-default'); } ?> btn-circle"><?php 
                                 if(is_array($step_name)) {
                                     do_action( 'uacf7_progressbar_image', $step_name[$step_count] );
                                 }
