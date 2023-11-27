@@ -60,12 +60,11 @@
 
  
         // Uacf7 Next Button
-        $(document).on('click', '.uacf7-next', function () {  
+        $(document).on('click', '.uacf7-next', function (e) {  
              
             var $this = $(this);
             var current_step = $this.attr('data-current-step');
             var next_step = $this.attr('data-next-step');
-           alert(next_step);
             $('.uacf7-single-step-content[data-step='+current_step+']').removeClass('active');
             $('.uacf7-single-step-content[data-step='+next_step+']').addClass('active');
             $('.uacf7-single-step-item[data-step='+next_step+']').addClass('active');
@@ -73,11 +72,101 @@
             $this.attr('data-current-step', next_step);
             $this.attr('data-next-step',  parseInt(next_step) + 1);
 
+           if(current_step == '2'){
+            alert(current_step);
+            // $(".tf-option-form.tf-ajax-save").submit();
+                
+           }else{
+                
+           }
+            
+
  
         });
 
 
+        // Uacf7 Create Form
+        $(document).on('change', '#uacf7-select-form', function (e) {
+            if($(this).val() != ''){
+                $('.uacf7-setup-widzard-btn').show();
+            }else{
+                $('.uacf7-setup-widzard-btn').hide();
+            }
+        });
+
+        // Uacf7 Create Form
+        $(document).on('click', '.uacf7-create-form', function (e) {
+            e.preventDefault(); 
+            var $this = $(this);
+            var form_name = $('#uacf7-select-form').val();  
+            var form_value = $('#uacf7_ai_code_content').val();  
+            if(form_name.length <= 1){
+              alert('Please select form type');
+              return false;
+            }
+             
+            $.ajax({
+              url: uacf7_admin_params.ajax_url,
+              type: 'post',
+              data: {
+                action: 'uacf7_form_quick_create_form',
+                form_name: form_name, 
+                form_value: form_value, 
+                ajax_nonce: uacf7_admin_params.uacf7_nonce,
+              },
+              success: function (data) { 
+                // redirect to edit page
+                window.location.href = data.edit_url; 
+              }
+            });
+        });
+
+        // Uacf7 Generate Form
+        $(document).on('click', '.uacf7-generate-form', function (e) {
+            e.preventDefault(); 
+            var $this = $(this);
+            var searchValue = $('#uacf7-select-form').val();  
+            if(searchValue.length <= 1){
+              alert('Please select form type');
+              return false;
+            }
+             
+            $.ajax({
+              url: uacf7_admin_params.ajax_url,
+              type: 'post',
+              data: {
+                action: 'uacf7_form_generator_ai_quick_start',
+                searchValue: searchValue, 
+                ajax_nonce: uacf7_admin_params.uacf7_nonce,
+              },
+              success: function (data) { 
+                $('.uacf7-single-step-content-inner img').hide();
+                $('.uacf7-generated-template').show();
+                typeName(data.value, 0); 
+                
+                // $this.find('.uacf7_ai_loader').remove();
+                // $this.attr('disabled', false);
+              }
+            });
+        });
   
+        function typeName(data, iteration ) {
+            // Prevent our code executing if there are no letters left
+            if (iteration === data.length)
+              return;
+        
+            setTimeout(function () {
+              // Set the name to the current text + the next character
+              // whilst incrementing the iteration variable
+        
+              $('#uacf7_ai_code_content').val($('#uacf7_ai_code_content').val() + data[iteration++]);
+              // Re-trigger our function
+              typeName(data, iteration);
+              var textarea = $("#uacf7_ai_code_content");
+              textarea.scrollTop(textarea[0].scrollHeight);
+            }, 5);
+         
+          }
 
     });
 

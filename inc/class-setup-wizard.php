@@ -31,6 +31,8 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 			add_action( 'admin_init', [ $this, 'tf_activation_redirect' ] );
 			add_action( 'wp_ajax_uacf7_setup_wizard_submit', [ $this, 'wp_ajax_uacf7_setup_wizard_submit' ] );
 			add_action( 'wp_ajax_uacf7_onclick_ajax_activate_plugin', [ $this, 'uacf7_onclick_ajax_activate_plugin' ] );
+			add_action( 'wp_ajax_uacf7_form_generator_ai_quick_start', [ $this, 'uacf7_form_generator_ai_quick_start' ] );
+			add_action( 'wp_ajax_uacf7_form_quick_create_form', [ $this, 'uacf7_form_quick_create_form' ] );
 			add_action( 'in_admin_header', [ $this, 'remove_notice' ], 1000 );
 
 			if(! is_plugin_active( 'woocommerce/woocommerce.php' )){
@@ -102,6 +104,76 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 		}
 
 		/**
+		 * One Click Form Generator AI Plugin Install
+		 */
+		 public function uacf7_form_generator_ai_quick_start(){
+			// if ( !wp_verify_nonce($_POST['ajax_nonce'], 'uacf7-form-generator-ai-nonce')) {
+			// 	exit(esc_html__("Security error", 'ultimate-addons-cf7'));
+			// }
+			$vaue = '';
+			$uacf7_default[0] = 'form';  
+			$uacf7_default[1] = $_POST['searchValue'];  
+			
+			
+			if(count($uacf7_default) > 0 && $uacf7_default[0] == 'form' ){ 
+				
+				$value =  require_once  UACF7_PATH . 'addons/form-generator-ai/templates/uacf7-forms.php'; 
+			}  
+			$data = [
+				'status' => 'success',
+				'value' => $value,
+			];
+			echo wp_send_json($data);
+			die();
+		 }
+
+
+		/**
+		 * Create New Contact Form
+		 */
+		 public function uacf7_form_quick_create_form(){
+			// if ( !wp_verify_nonce($_POST['ajax_nonce'], 'uacf7-form-generator-ai-nonce')) {
+			// 	exit(esc_html__("Security error", 'ultimate-addons-cf7'));
+			// }
+			$vaue = '';
+			$form_name = $_POST['form_name'];
+			$form_value = $_POST['form_value']; 
+			
+			
+			if ( class_exists( 'WPCF7' ) ) {
+				
+				// Create a new form
+				$contact_form = WPCF7_ContactForm::get_template(
+					array(
+						'title' => $form_name,
+					)
+				);
+
+				$properties = $contact_form->get_properties();
+				$properties['form'] = $form_value;
+				$contact_form->set_properties($properties);
+				// $contact_form->save();
+			
+				
+				// Save the form
+				if ( $contact_form ) {
+					$contact_form->save();
+				} else {
+					echo 'Error creating the form.';
+				}
+			
+			
+			}
+			$data = [
+				'status' => 'success',
+				'form_id' => $contact_form->id(),
+				'edit_url' => admin_url( 'admin.php?page=wpcf7&post=' . $contact_form->id() . '&action=edit' ),
+			];
+			echo wp_send_json($data);
+			die();
+		 }
+
+		/**
 		 * Setup wizard page
 		 */
 		public function uacf7_wizard_page() {
@@ -113,6 +185,29 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 			}else{
 				$uacf7_plugin_status = 'not_installed';
 			}
+
+			$option_form = [
+				["value" => "multistep", "label" => "Multistep"],
+				apply_filters('uacf7_booking_ai_form_dropdown', ["value" => "booking", "label" => "Booking (Pro)"]),
+				["value" => "conditional", "label" => "Conditional"],
+				["value" => "subscription", "label" => "Subscription"],
+				apply_filters('uacf7_repeater_ai_form_dropdown', ["value" => "repeater", "label" => "Repeater (Pro)"]), 
+				apply_filters('uacf7_blog_submission_ai_form_dropdown', ["value" => "blog", "label" => "Blog Submission (Pro)"]),
+				["value" => "feedback", "label" => "Feedback"],
+				["value" => "application", "label" => "Application"],
+				["value" => "inquiry", "label" => "Inquiry"],
+				["value" => "survey", "label" => "Survey"],
+				["value" => "address", "label" => "Address"],
+				["value" => "event", "label" => "Event Registration"],
+				["value" => "newsletter", "label" => "Newsletter"],
+				["value" => "donation", "label" => "Donation"],
+				["value" => "product-review", "label" => "Product Review"],
+				apply_filters('uacf7_service_booking_form_dropdown', ["value" => "service-booking", "label" => "Service Booking (Pro)"]), 
+				apply_filters('uacf7_appointment_form_dropdown', ["value" => "appointment-form", "label" => "Appointment (Pro)"]), 
+				apply_filters('uacf7_conversational_appointment_form_dropdown', ["value" => "conversational-appointment-form", "label" => "Conversational Appointment Booking  (Pro)"]), 
+				apply_filters('uacf7_conversational_interview_form_dropdown', ["value" => "conversational-interview-form", "label" => "Conversational Interview Process (Pro)"]),  
+				["value" => "rating", "label" => "Rating"],
+			];
 			
 			?>
 				<div class="uacf7-setup-wizard">
@@ -213,58 +308,62 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 						<div class="uacf7-single-step-content chooes-addon " data-step="2">
 							<div class="uacf7-single-step-content-wrap">
 								 <h2>Choose your addons</h2>
-								 <div class="uacf7-addon-setting-content">  
-									
-									<?php 
-										$data = get_option( 'uacf7_settings', true );
+								<form method="post" action="" class="tf-option-form tf-ajax-save" enctype="multipart/form-data">
+									<div class="uacf7-addon-setting-content">  
+											<?php 
+												$data = get_option( 'uacf7_settings', true );
 
 
-										foreach($this->addons as $section_key => $section): 
-											
-										if($section_key == 'general_addons' || $section_key == 'extra_fields_addons' || $section_key == 'wooCommerce_integration'):
-										
-										foreach ($section['fields'] as $field_key => $field ):
-											$id = 'uacf7_settings'.'['.$field['id'].']';
-									?> 
-									<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr($field['id']) ?>" data-parent="<?php echo esc_attr($section_key) ?>" data-filter="<?php echo esc_html( strtolower($field['label']) ) ?>">
-										<?php 
-											$label_class = '';
-											if(isset($field['is_pro'])){
-												$label_class .= $field['is_pro'] == true ? 'tf-field-disable tf-field-pro' : '';
-												$badge = '<span class="addon-status pro">'.esc_html('Pro').'</span>';
-											}else{
-												$badge = '<span class="addon-status">'.esc_html('Free').'</span>';
-											}
-											$default = $field['default'] == true ? 'checked' : '';
-											$default = isset($data[$field['id']]) && $data[$field['id']] == 1  ? 'checked' : $default;
-											$value = isset($data[$field['id']]) ? $data[$field['id']] : 0;
-											$demo_link = isset($field['demo_link']) ? $field['demo_link'] : '#';
-											$documentation_link = isset($field['documentation_link']) ? $field['documentation_link'] : '#';
+												foreach($this->addons as $section_key => $section): 
+													
+												if($section_key == 'general_addons' || $section_key == 'extra_fields_addons' || $section_key == 'wooCommerce_integration'):
+												
+												foreach ($section['fields'] as $field_key => $field ):
+													$id = 'uacf7_settings'.'['.$field['id'].']';
+											?> 
+											<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr($field['id']) ?>" data-parent="<?php echo esc_attr($section_key) ?>" data-filter="<?php echo esc_html( strtolower($field['label']) ) ?>">
+												<?php 
+													$label_class = '';
+													if(isset($field['is_pro'])){
+														$label_class .= $field['is_pro'] == true ? 'tf-field-disable tf-field-pro' : '';
+														$badge = '<span class="addon-status pro">'.esc_html('Pro').'</span>';
+													}else{
+														$badge = '<span class="addon-status">'.esc_html('Free').'</span>';
+													}
+													$default = $field['default'] == true ? 'checked' : '';
+													$default = isset($data[$field['id']]) && $data[$field['id']] == 1  ? 'checked' : $default;
+													$value = isset($data[$field['id']]) ? $data[$field['id']] : 0;
+													$demo_link = isset($field['demo_link']) ? $field['demo_link'] : '#';
+													$documentation_link = isset($field['documentation_link']) ? $field['documentation_link'] : '#';
 
-											// echo $default; 
-										?>
-											<div class="uacf7-single-addons-wrap"> 
-												<?php echo $badge; ?>
-												<h2 class="uacf7-single-addon-title"><?php echo esc_html( $field['label'] ) ?></h2>
-												<div class="uacf7-addon-toggle-wrap">
-													<input type="checkbox" id="<?php echo esc_attr($field['id']) ?>" <?php echo esc_attr( $default ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( $id ) ?>" id="uacf7_enable_redirection" >
-														
-													<label class="uacf7-addon-toggle-inner <?php echo esc_attr( $label_class ) ?> " for="<?php echo esc_attr($field['id']) ?>">
-														<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-															<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
-														</svg> 
-														</span>
-													</label>
+													// echo $default; 
+												?>
+													<div class="uacf7-single-addons-wrap"> 
+														<?php echo $badge; ?>
+														<h2 class="uacf7-single-addon-title"><?php echo esc_html( $field['label'] ) ?></h2>
+														<div class="uacf7-addon-toggle-wrap">
+															<input type="checkbox" id="<?php echo esc_attr($field['id']) ?>" <?php echo esc_attr( $default ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( $id ) ?>" id="uacf7_enable_redirection" >
+																
+															<label class="uacf7-addon-toggle-inner <?php echo esc_attr( $label_class ) ?> " for="<?php echo esc_attr($field['id']) ?>">
+																<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+																	<rect y="0.5" width="16" height="16" rx="8" fill="#79757F"/>
+																</svg> 
+																</span>
+															</label>
+														</div>
+													</div>  
 												</div>
-											</div>  
-										</div>
 
-									<?php 
-										endforeach;  
-										endif;
-										endforeach; 
-									?>
-								</div>
+											<?php 
+												endforeach;  
+												endif;
+												endforeach; 
+											?>
+
+											
+									</div>
+								<?php wp_nonce_field( 'tf_option_nonce_action', 'tf_option_nonce' ); ?>
+								</form>
 							</div>
 						</div>
 						<div class="uacf7-single-step-content form-type" data-step="3">
@@ -272,16 +371,18 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 								<div class="uacf7-single-step-content-inner">
 									 <div class="uacf7-form-generate">
 											<h3><b>Thank you!</b> Now create your <span>Form</span></h3>
-											<label for="uacf7-select-form">Describe your 
-												<select name="uacf7-select-form" id="uacf7-select-form">
-													<option value="0">Choose Form type</option>
-													<option value="0">Choose Form type</option>
-													<option value="0">Choose Form type</option>
-													<option value="0">Choose Form type</option>
+											<label for="uacf7-select-form">Describe your <span>Form</span>
+												<select name="uacf7-select-form" id="uacf7-select-form"> 
+													<option value="">Choose Form type</option>
+													<?php 
+														foreach($option_form as $key => $form):
+													?>
+													<option value="<?php echo  esc_attr( $form['value'] ); ?>"><?php echo esc_attr( $form['label'] ) ?></option>
+													<?php endforeach; ?> 
 												</select>
 											</label> 
 									 </div>
-									 <button class="uacf7-generate-form uacf7-setup-widzard-btn" data-current-step="1" data-next-step="2">Generate with AI
+									 <button class="uacf7-generate-form uacf7-setup-widzard-btn" style="display:none;" data-current-step="1" data-next-step="2">Generate with AI
 
 										<svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<g clip-path="url(#clip0_143_4913)">
@@ -296,11 +397,11 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 									</button>
 								</div>
 								<div class="uacf7-single-step-content-inner">
-									 <!-- <img src="<?php echo UACF7_URL ?>assets/admin/images/quick-setup.svg" alt="quick-setup"> -->
+									 <img src="<?php echo UACF7_URL ?>assets/admin/images/quick-setup.svg" alt="quick-setup">
 
-									<div class="uacf7-generated-template">
-										<textarea name="uacf7-generated-form" id="uacf7-generated-form" cols="30" rows="10"></textarea>
-										<button class="uacf7-generate-form uacf7-setup-widzard-btn uacf7-">Create your form</button>
+									<div class="uacf7-generated-template" style="display:none">
+										<textarea name="uacf7-generated-form" id="uacf7_ai_code_content" cols="30" rows="10"></textarea>
+										<button class="uacf7-create-form uacf7-setup-widzard-btn ">Create your form</button>
 									</div>
 								</div>
 							</div>
