@@ -63,22 +63,22 @@
         $(document).on('click', '.uacf7-next', function (e) {  
              
             var $this = $(this);
-            var current_step = $this.attr('data-current-step');
+            var current_step = $this.attr('data-current-step'); 
             var next_step = $this.attr('data-next-step');
             $('.uacf7-single-step-content[data-step='+current_step+']').removeClass('active');
             $('.uacf7-single-step-content[data-step='+next_step+']').addClass('active');
             $('.uacf7-single-step-item[data-step='+next_step+']').addClass('active');
-
+            $('.uacf7-single-step-item[data-step='+current_step+'] .step-item-dots').html( `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M17.0965 7.39016L9.9365 14.3002L8.0365 12.2702C7.6865 11.9402 7.1365 11.9202 6.7365 12.2002C6.3465 12.4902 6.2365 13.0002 6.4765 13.4102L8.7265 17.0702C8.9465 17.4102 9.3265 17.6202 9.7565 17.6202C10.1665 17.6202 10.5565 17.4102 10.7765 17.0702C11.1365 16.6002 18.0065 8.41016 18.0065 8.41016C18.9065 7.49016 17.8165 6.68016 17.0965 7.38016V7.39016Z" fill="#7F56D9"/>
+            </svg> `);
+            $('.uacf7-single-step-item[data-step='+next_step+'] .step-item-dots').html( `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="24" height="24" rx="12" fill="#F9F5FF"/>
+            <circle cx="12" cy="12" r="4" fill="#7F56D9"/>
+            </svg>  `);
             $this.attr('data-current-step', next_step);
             $this.attr('data-next-step',  parseInt(next_step) + 1);
 
-           if(current_step == '2'){
-            alert(current_step);
-            // $(".tf-option-form.tf-ajax-save").submit();
-                
-           }else{
-                
-           }
+          
             
 
  
@@ -124,6 +124,14 @@
         // Uacf7 Generate Form
         $(document).on('click', '.uacf7-generate-form', function (e) {
             e.preventDefault(); 
+            $('.uacf7-single-step-item.step-last').addClass('active');
+            $('.uacf7-single-step-item[data-step="3"] .step-item-dots').html(`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M17.0965 7.39016L9.9365 14.3002L8.0365 12.2702C7.6865 11.9402 7.1365 11.9202 6.7365 12.2002C6.3465 12.4902 6.2365 13.0002 6.4765 13.4102L8.7265 17.0702C8.9465 17.4102 9.3265 17.6202 9.7565 17.6202C10.1665 17.6202 10.5565 17.4102 10.7765 17.0702C11.1365 16.6002 18.0065 8.41016 18.0065 8.41016C18.9065 7.49016 17.8165 6.68016 17.0965 7.38016V7.39016Z" fill="#7F56D9"/>
+            </svg>`);
+            $('.uacf7-single-step-item.step-last .step-item-dots').html(`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="24" height="24" rx="12" fill="#F9F5FF"/>
+            <circle cx="12" cy="12" r="4" fill="#7F56D9"/>
+            </svg>`);
             var $this = $(this);
             var searchValue = $('#uacf7-select-form').val();  
             if(searchValue.length <= 1){
@@ -150,6 +158,31 @@
             });
         });
   
+        $(document).on('click', '.uacf7-single-step-item', function (e) {
+          $this = $(this);
+          var current_step = $this.attr('data-step');
+          var currentnext_step_step = parseInt(current_step) + 1;
+          if(current_step != 4){
+            
+            $('.uacf7-single-step-item[data-step="'+current_step+'"]').nextAll('.uacf7-single-step-item').removeClass('active');
+            
+            $('.uacf7-single-step-item[data-step="'+current_step+'"]').prevAll('.uacf7-single-step-item').addClass('active');
+            $('.uacf7-single-step-item[data-step="'+current_step+'"]').addClass('active');
+            $('.uacf7-single-step-content').removeClass('active');
+            $('.uacf7-single-step-content[data-step="'+current_step+'"]').addClass('active');
+
+            $('.uacf7-next').attr('data-current-step', next_step);
+            $('.uacf7-next').attr('data-next-step',  parseInt(next_step) + 1);
+
+            if(current_step == '2'){ 
+              $('.uacf7-next').addClass('skip');
+              // only replace next to skip without svg icon
+              $('.uacf7-next').html('Skip'); 
+              // $(".tf-option-form.tf-ajax-save").submit();
+                  
+             }
+          }
+        });
         function typeName(data, iteration ) {
             // Prevent our code executing if there are no letters left
             if (iteration === data.length)

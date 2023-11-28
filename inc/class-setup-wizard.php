@@ -400,7 +400,10 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 									 <img src="<?php echo UACF7_URL ?>assets/admin/images/quick-setup.svg" alt="quick-setup">
 
 									<div class="uacf7-generated-template" style="display:none">
-										<textarea name="uacf7-generated-form" id="uacf7_ai_code_content" cols="30" rows="10"></textarea>
+										<!-- <textarea name="uacf7-generated-form" id="uacf7_ai_code_content" cols="30" rows="10"></textarea> -->
+										<div class="uacf7-ai-codeblock">  
+											<textarea name="uacf7-generated-form" id="uacf7_ai_code_content"></textarea>
+										</div>
 										<button class="uacf7-create-form uacf7-setup-widzard-btn ">Create your form</button>
 									</div>
 								</div>
@@ -434,9 +437,9 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 		 * redirect to set up wizard when active plugin
 		 */
 		public function tf_activation_redirect() {
-			if ( ! get_option( 'tf_setup_wizard' ) && ! get_option( 'tf_settings' ) ) {
+			if ( ! get_option( 'uacf7_setup_wizard' ) ) {
 				update_option( 'tf_setup_wizard', 'active' );
-				wp_redirect( admin_url( 'admin.php?page=tf-setup-wizard' ) );
+				wp_redirect( admin_url( 'admin.php?page=uacf7-setup-wizard' ) );
 				exit;
 			}
 		}

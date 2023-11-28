@@ -47,6 +47,10 @@ body.admin_page_uacf7-setup-wizard {
   &.disabled {
     opacity: 0.4; 
   }
+  &.skip{
+    color: #382673;
+    background-color: #fff;
+  }
 }
 
 .uacf7-setup-wizard {
@@ -223,30 +227,64 @@ body.admin_page_uacf7-setup-wizard {
           display: flex;
           justify-content: space-around;
           align-items: center;
+          gap: 50px;
         }     
         .uacf7-single-step-content-inner {
+
+          width: 100%;
   
           .uacf7-setup-widzard-btn{
             margin-top: 32px;
           }
   
-          
-          #uacf7-generated-form {
-            width: 100%;
-            padding: 32px;
-            height: 400px !important;
-            border-radius: 16px;
-            background: #161f35;
-            color: #FFF;
-            font-size: 16px;
-            font-weight: 400;
-            line-height: 21px;
-  
-            &:active, &:focus {
-              outline: none;
-              box-shadow: none;
+          .uacf7-ai-codeblock {
+            position: relative;
+            .uacf7-ai-navigation {
+              position: absolute;
+              left: 0;
+              top: 0;
+              background-color: rgba(52,53,65);
+              width: 100%;
+              color: rgba(217,217,227);
+              text-align: right;
+              border-radius: 4px 4px 0px 0px;
             }
-          } 
+            .uacf7-ai-navigation span {
+              padding: 8px 10px;
+              display: inline-block;
+              font-weight: 600;
+              cursor: pointer;
+            } 
+            #uacf7_ai_code_content {
+              
+              padding-top: 45px;
+              height: 320px;
+              width: auto;
+              padding: 16px;
+              min-height: 175px;
+              width: 100%;
+              border: 0;
+              background-color: #000;
+              color: #b9b7b7;
+              font-size: 16px;
+            }
+          }
+          // #uacf7-generated-form {
+          //   width: 100%;
+          //   padding: 32px;
+          //   height: 400px !important;
+          //   border-radius: 16px;
+          //   background: #161f35;
+          //   color: #FFF;
+          //   font-size: 16px;
+          //   font-weight: 400;
+          //   line-height: 21px;
+  
+          //   &:active, &:focus {
+          //     outline: none;
+          //     box-shadow: none;
+          //   }
+          // } 
           .uacf7-form-generate {
             h3, label {
               color: #06040C; 
@@ -338,6 +376,7 @@ body.admin_page_uacf7-setup-wizard {
               font-style: normal;
               font-weight: 700;
               line-height: 20px;
+              max-width: 80%;
             }
   
             .addon-status {
