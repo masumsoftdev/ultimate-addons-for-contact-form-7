@@ -138,10 +138,12 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 			// die();
 			$tf_options_screens   = array(
 				'toplevel_page_uacf7_settings',
+				'ultimate-addons_page_uacf7_addons',
 				'toplevel_page_wpcf7',
 				'contact_page_wpcf7-new', 
 			);
 			$tf_options_post_type = array( 'tf_hotel', 'tf_tours', 'tf_apartment' ); 
+
 			if("tourfic-settings_page_tf_dashboard"==$screen){
 				//Order Data Retrive
 				$tf_old_order_limit = new WC_Order_Query( array(
@@ -289,6 +291,8 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 			wp_enqueue_style( 'wp-color-picker' );
 			if ( in_array( $screen, $tf_options_screens ) || in_array( $post_type, $tf_options_post_type ) ) {
 
+				wp_enqueue_style( 'uacf7-admin-sweet-alert', '//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css', '', UACF7_VERSION );
+				wp_enqueue_style( 'uacf7-admin', UACF7_URL . 'assets/admin/css/tourfic-admin.min.css', '', UACF7_VERSION );
 				wp_enqueue_style( 'uacf7-fontawesome-4', '//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css', array(), $this->tf_options_version() );
 				wp_enqueue_style( 'uacf7-fontawesome-5', '//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css', array(), $this->tf_options_version() );
 				wp_enqueue_style( 'uacf7-fontawesome-6', '//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css', array(), $this->tf_options_version() );
@@ -299,6 +303,10 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 
 			//Js
 			if ( in_array( $screen, $tf_options_screens ) || in_array( $post_type, $tf_options_post_type ) ) {
+					// Custom
+				wp_enqueue_script( 'uacf7-admin-sweet-alert', '//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js', array( 'jquery' ), UACF7_VERSION, true );
+				wp_enqueue_script( 'uacf7-admin', UACF7_URL . 'assets/admin/js/tourfic-admin-scripts.min.js', array( 'jquery', 'wp-data', 'wp-editor', 'wp-edit-post' ), UACF7_VERSION, true );
+				
 				wp_enqueue_script( 'Chart-js', '//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js', array( 'jquery' ), '2.6.0', true );
 				wp_enqueue_script( 'uacf7-flatpickr', '//cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js', array( 'jquery' ), $this->tf_options_version(), true );
 				wp_enqueue_script( 'uacf7-select2', '//cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', array( 'jquery' ), $this->tf_options_version(), true );

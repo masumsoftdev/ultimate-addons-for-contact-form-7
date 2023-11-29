@@ -629,7 +629,7 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 			// Add nonce for security and authentication.
 			$nonce_name   = isset( $_POST['tf_option_nonce'] ) ? $_POST['tf_option_nonce'] : '';
 			$nonce_action = 'tf_option_nonce_action';
-
+		
 			// Check if a nonce is set.
 			if ( ! isset( $nonce_name ) ) {
 				return;
@@ -639,25 +639,26 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 			if ( ! wp_verify_nonce( $nonce_name, $nonce_action ) ) {
 				return;
 			}
-			$option = get_option( $this->option_id, true );
-			if($option){
+			$option = get_option( $this->option_id );
+			 
+		
+			$option_request  = ( ! empty( $_POST[ $this->option_id ] ) ) ? $_POST[ $this->option_id ] : array(); 
+			if($option && $option_request){
 				$tf_option_value = $option;
 			}else{ 
 				$tf_option_value = array();
 			} 
-		
-			$option_request  = ( ! empty( $_POST[ $this->option_id ] ) ) ? $_POST[ $this->option_id ] : array(); 
-			 
 			if ( ! empty( $option_request ) && ! empty( $this->option_sections ) ) {
+				
 				foreach ( $this->option_sections as $section ) {
 					if ( ! empty( $section['fields'] ) ) {
-
+						
 						foreach ( $section['fields'] as $field ) {
-
+						
 							if ( ! empty( $field['id'] ) ) {
 
 								$fieldClass = 'TF_' . $field['type'];
-
+								
                                 if($fieldClass == 'TF_tab'){
 	                                $data = isset( $option_request[ $field['id'] ] ) ? $option_request[ $field['id'] ] : '';
 									if($data == ''){
