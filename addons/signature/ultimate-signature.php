@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
 class UACF7_SIGNATURE{
 
     public function __construct(){
-        require_once 'inc/signature.php';
+        // require_once 'inc/signature.php';
         add_action('wp_enqueue_scripts', [$this, 'uacf7_signature_public_scripts']);
 
         add_action('admin_init', [$this, 'uacf7_signature_tag_generator']);
@@ -111,6 +111,88 @@ class UACF7_SIGNATURE{
     }
 
 
+     /** Add Signature Shortcode */
+
+     public function uacf7_signature_add_shortcodes()
+     {
+         wpcf7_add_form_tag(array('uacf7_signature', 'uacf7_signature*'),
+             array($this, 'uacf7_signature_tag_handler_callback'), array('name-attr' => true,
+                 'file-uploading' => true));
+     }
+ 
+     public function uacf7_signature_tag_handler_callback($tag)
+     {
+         if (empty($tag->name)) {
+             return '';
+         }
+ 
+        $wpcf7 = WPCF7_ContactForm::get_current(); 
+        $formid = $wpcf7->id();
+     
+        $uacf7_signature_settings = uacf7_get_form_option( $formid, 'signature' );
+ 
+        $uacf7_signature_enable = isset($uacf7_signature_settings['uacf7_signature_enable']) ? $uacf7_signature_settings['uacf7_signature_enable'] : '';
+        $bg_color               = isset($uacf7_signature_settings['uacf7_signature_bg_color']) ? $uacf7_signature_settings['uacf7_signature_bg_color'] : '';
+        $pen_color              = isset($uacf7_signature_settings['uacf7_signature_pen_color']) ? $uacf7_signature_settings['uacf7_signature_pen_color'] : '';
+        $canvas_width           = isset($uacf7_signature_settings['uacf7_signature_pad_width']) ? $uacf7_signature_settings['uacf7_signature_pad_width'] : '';
+        $canvas_height          = isset($uacf7_signature_settings['uacf7_signature_pad_height']) ? $uacf7_signature_settings['uacf7_signature_pad_height'] : '';
+        
+      
+        if($uacf7_signature_enable != '1' || $uacf7_signature_enable === ''){
+            return;
+        }
+         $validation_error = wpcf7_get_validation_error($tag->name);
+ 
+         $class = wpcf7_form_controls_class($tag->type);
+ 
+         if ($validation_error) {
+             $class .= ' wpcf7-not-valid';
+         }
+ 
+ 
+ 
+        
+         $atts = array();
+ 
+         $atts['class']     = $tag->get_class_option($class);
+         $atts['id']        = $tag->get_id_option();
+         $atts['pen-color'] = esc_attr( $pen_color );
+         $atts['bg-color']  = esc_attr( $bg_color );
+         $atts['tabindex']  = $tag->get_option('tabindex', 'signed_int', true);
+ 
+         if ($tag->is_required()) {
+             $atts['aria-required'] = 'true';
+         }
+ 
+         $atts['aria-invalid'] = $validation_error ? 'true' : 'false';
+ 
+         $atts['name'] = $tag->name;
+ 
+         $atts = wpcf7_format_atts($atts);
+ 
+         ob_start();
+ 
+         ?>
+         <span  class="wpcf7-form-control-wrap <?php echo sanitize_html_class($tag->name); ?>" data-name="<?php echo sanitize_html_class($tag->name); ?>">
+             <input hidden type="file" id="img_id_special" <?php echo $atts; ?>  >
+             <div>
+               <div id="signature-pad">
+               <canvas id="signature-canvas" width="<?php echo $canvas_width; ?>" height="<?php echo $canvas_height; ?>"></canvas>
+               </div>
+               <span id="confirm_message"></span>
+               <div class="control_div">
+                   <button id="clear-button">Clear</button>
+                   <button id="convertButton">Confirm Signature</button>
+               </div>
+             </div>
+         </span>
+ 
+        <?php
+         $signature_buffer = ob_get_clean();
+ 
+         return $signature_buffer;
+ 
+     }
 
     /** Signature Tag Generator */
 
@@ -174,89 +256,7 @@ class UACF7_SIGNATURE{
       <?php
 }
 
-    /** Add Signature Shortcode */
-
-    public function uacf7_signature_add_shortcodes()
-    {
-        wpcf7_add_form_tag(array('uacf7_signature', 'uacf7_signature*'),
-            array($this, 'uacf7_signature_tag_handler_callback'), array('name-attr' => true,
-                'file-uploading' => true));
-    }
-
-    public function uacf7_signature_tag_handler_callback($tag)
-    {
-        if (empty($tag->name)) {
-            return '';
-        }
-
-
-       /** Enable / Disable Submission ID */
-       $wpcf7 = WPCF7_ContactForm::get_current(); 
-       $formid = $wpcf7->id();
-    
-       $uacf7_signature_settings = uacf7_get_form_option( $formid, 'signature' );
-
-       $uacf7_signature_enable = isset($uacf7_signature_settings['uacf7_signature_enable']) ? $uacf7_signature_settings['uacf7_signature_enable'] : '';
-       $bg_color               = isset($uacf7_signature_settings['uacf7_signature_bg_color']) ? $uacf7_signature_settings['uacf7_signature_bg_color'] : '';
-       $pen_color              = isset($uacf7_signature_settings['uacf7_signature_pen_color']) ? $uacf7_signature_settings['uacf7_signature_pen_color'] : '';
-       $canvas_width           = isset($uacf7_signature_settings['uacf7_signature_pad_width']) ? $uacf7_signature_settings['uacf7_signature_pad_width'] : '';
-       $canvas_height          = isset($uacf7_signature_settings['uacf7_signature_pad_height']) ? $uacf7_signature_settings['uacf7_signature_pad_height'] : '';
-       
-       if($uacf7_signature_enable != '1' || $uacf7_signature_enable === ''){
-           return;
-       }
-        $validation_error = wpcf7_get_validation_error($tag->name);
-
-        $class = wpcf7_form_controls_class($tag->type);
-
-        if ($validation_error) {
-            $class .= ' wpcf7-not-valid';
-        }
-
-
-
-       
-        $atts = array();
-
-        $atts['class']     = $tag->get_class_option($class);
-        $atts['id']        = $tag->get_id_option();
-        $atts['pen-color'] = esc_attr( $pen_color );
-        $atts['bg-color']  = esc_attr( $bg_color );
-        $atts['tabindex']  = $tag->get_option('tabindex', 'signed_int', true);
-
-        if ($tag->is_required()) {
-            $atts['aria-required'] = 'true';
-        }
-
-        $atts['aria-invalid'] = $validation_error ? 'true' : 'false';
-
-        $atts['name'] = $tag->name;
-
-        $atts = wpcf7_format_atts($atts);
-
-        ob_start();
-
-        ?>
-        <span  class="wpcf7-form-control-wrap <?php echo sanitize_html_class($tag->name); ?>" data-name="<?php echo sanitize_html_class($tag->name); ?>">
-            <input hidden type="file" id="img_id_special" <?php echo $atts; ?>  >
-            <div>
-              <div id="signature-pad">
-              <canvas id="signature-canvas" width="<?php echo $canvas_width; ?>" height="<?php echo $canvas_height; ?>"></canvas>
-              </div>
-              <span id="confirm_message"></span>
-              <div class="control_div">
-                  <button id="clear-button">Clear</button>
-                  <button id="convertButton">Confirm Signature</button>
-              </div>
-            </div>
-        </span>
-
-       <?php
-        $signature_buffer = ob_get_clean();
-
-        return $signature_buffer;
-
-    }
+   
 
     /** Validation Callback */
 
