@@ -26,17 +26,15 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 
 		public function __construct() {
 			add_action( 'admin_menu', [ $this, 'uacf7_wizard_menu' ], 100 );
-			add_filter( 'uacf7_settings_options', [ $this, 'uacf7_settings_options_wizard' ], 100 );
-			add_filter( 'woocommerce_enable_setup_wizard', '__return_false' );
-			add_action( 'admin_init', [ $this, 'tf_activation_redirect' ] );
-			add_action( 'wp_ajax_uacf7_setup_wizard_submit', [ $this, 'wp_ajax_uacf7_setup_wizard_submit' ] );
+			add_filter( 'uacf7_settings_options', [ $this, 'uacf7_settings_options_wizard' ], 100 ); 
+			add_action( 'admin_init', [ $this, 'tf_activation_redirect' ] ); 
 			add_action( 'wp_ajax_uacf7_onclick_ajax_activate_plugin', [ $this, 'uacf7_onclick_ajax_activate_plugin' ] );
 			add_action( 'wp_ajax_uacf7_form_generator_ai_quick_start', [ $this, 'uacf7_form_generator_ai_quick_start' ] );
 			add_action( 'wp_ajax_uacf7_form_quick_create_form', [ $this, 'uacf7_form_quick_create_form' ] );
 			add_action( 'in_admin_header', [ $this, 'remove_notice' ], 1000 );
 
-			if(! is_plugin_active( 'woocommerce/woocommerce.php' )){
-				add_action('wp_ajax_woocommerce_ajax_install_plugin', 'wp_ajax_install_plugin');
+			if(! is_plugin_active( 'contact-form-7/wp-contact-form-7.php' )){
+				add_action('wp_ajax_contact_form_7_ajax_install_plugin', 'wp_ajax_install_plugin');
 			}
 
 			self::$current_step = isset( $_GET['step'] ) ? sanitize_key( $_GET['step'] ) : 'welcome';
@@ -82,7 +80,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 		 */
 		public function uacf7_onclick_ajax_activate_plugin() {  
 			
-			// check_ajax_referer('updates', '_ajax_nonce');
+			check_ajax_referer('updates', '_ajax_nonce');
 			// Check user capabilities
 			if (!current_user_can('install_plugins')) {
 				wp_send_json_error('Permission denied');
@@ -106,10 +104,14 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 		/**
 		 * One Click Form Generator AI Plugin Install
 		 */
-		 public function uacf7_form_generator_ai_quick_start(){
-			// if ( !wp_verify_nonce($_POST['ajax_nonce'], 'uacf7-form-generator-ai-nonce')) {
-			// 	exit(esc_html__("Security error", 'ultimate-addons-cf7'));
-			// }
+		 public function uacf7_form_generator_ai_quick_start(){ 
+
+			check_ajax_referer('updates', '_ajax_nonce');
+			// Check user capabilities
+			if (!current_user_can('install_plugins')) {
+				wp_send_json_error('Permission denied');
+			}
+
 			$vaue = '';
 			$uacf7_default[0] = 'form';  
 			$uacf7_default[1] = $_POST['searchValue'];  
@@ -132,13 +134,17 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 		 * Create New Contact Form
 		 */
 		 public function uacf7_form_quick_create_form(){
-			// if ( !wp_verify_nonce($_POST['ajax_nonce'], 'uacf7-form-generator-ai-nonce')) {
-			// 	exit(esc_html__("Security error", 'ultimate-addons-cf7'));
-			// }
+			check_ajax_referer('updates', '_ajax_nonce');
+			// Check user capabilities
+			if (!current_user_can('install_plugins')) {
+				wp_send_json_error('Permission denied');
+			}
+			
 			$vaue = '';
 			$form_name = $_POST['form_name'];
-			$form_value = $_POST['form_value']; 
-			
+			$form_value = str_replace("\\","" ,$_POST['form_value']) ; 
+			$message ='';
+			$status ='success';
 			
 			if ( class_exists( 'WPCF7' ) ) {
 				
@@ -147,9 +153,8 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 					array(
 						'title' => $form_name,
 					)
-				);
-
-				$properties = $contact_form->get_properties();
+				); 
+				$properties = $contact_form->get_properties(); 
 				$properties['form'] = $form_value;
 				$contact_form->set_properties($properties);
 				// $contact_form->save();
@@ -159,15 +164,17 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 				if ( $contact_form ) {
 					$contact_form->save();
 				} else {
-					echo 'Error creating the form.';
+					$message =  'Error creating the form.';
+					$status =  'error';
 				}
 			
 			
 			}
 			$data = [
-				'status' => 'success',
+				'status' => $status,
 				'form_id' => $contact_form->id(),
 				'edit_url' => admin_url( 'admin.php?page=wpcf7&post=' . $contact_form->id() . '&action=edit' ),
+				'message' => $message,
 			];
 			echo wp_send_json($data);
 			die();
@@ -283,23 +290,19 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 									<p><?php echo esc_html("UACF7 stands for Ultimate Addons for Contact Form 7. It's a WordPress plugin that contains over 25 features. It's developed by Themefic, a WordPress plugins and themes company") ?></p>
 
 									<div class="uacf7-step-plugin-required">
-										<p>To continue it requires Contact from 7 <br> to be install & activate</p> 
+										<p><?php echo esc_html('To continue it requires Contact from 7') ?> <br> to be <?php  if($uacf7_plugin_status== 'not_active' ){ echo '<strong>'.esc_html("install").'</strong> '.esc_html(" & activate", ).' '; }else{echo esc_html("install & activate");  }?>   </p> 
 										<button class="required-plugin-button uacf7-setup-widzard-btn <?php  if($uacf7_plugin_status== 'activate' ){ echo 'disabled'; }?>" <?php  if($uacf7_plugin_status== 'activate' ){ echo 'disabled ="disabled"'; }?> data-plugin-status="<?php echo esc_attr( $uacf7_plugin_status ) ?>">
 										
 											<?php 
 												if('activate' == $uacf7_plugin_status){
 													echo esc_html('Activated');
 												}else if('not_installed' == $uacf7_plugin_status){
-													echo esc_html('Install & Activate');
+													echo esc_html('Install & Activate now');
 												}else{
-													echo esc_html('Activate');
+													echo esc_html('Activate now');
 												}
 											?> 
-
-											<!-- <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path d="M12.3337 5L1.66699 5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-												<path d="M9.00051 8.33341C9.00051 8.33341 12.3338 5.87845 12.3338 5.00006C12.3338 4.12166 9.00049 1.66675 9.00049 1.66675" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-											</svg> -->
+ 
 										</button>
 									</div>
 								</div>
@@ -370,10 +373,17 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 							<div class="uacf7-single-step-content-wrap"> 
 								<div class="uacf7-single-step-content-inner">
 									 <div class="uacf7-form-generate">
-											<h3><b>Thank you!</b> Now create your <span>Form</span></h3>
-											<label for="uacf7-select-form">Describe your <span>Form</span>
+											<h3>
+												<?php echo sprintf( 
+														__( '<b>%1s</b> %2s <span>%2s</span>', 'ultimate-addons-cf7' ),
+														'Thank you!',
+														' Now create your',
+														'Form'
+												); ?>
+											</h3>
+											<label for="uacf7-select-form"><?php echo esc_html('Describe your', 'ultimate-addons-cf7') ?> <span><?php echo esc_html('Form', 'ultimate-addons-cf7') ?></span>
 												<select name="uacf7-select-form" id="uacf7-select-form"> 
-													<option value="">Choose Form type</option>
+													<option value=""><?php echo esc_html('Choose Form type', 'ultimate-addons-cf7') ?></option>
 													<?php 
 														foreach($option_form as $key => $form):
 													?>
@@ -382,7 +392,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 												</select>
 											</label> 
 									 </div>
-									 <button class="uacf7-generate-form uacf7-setup-widzard-btn" style="display:none;" data-current-step="1" data-next-step="2">Generate with AI
+									 <button class="uacf7-generate-form uacf7-setup-widzard-btn" style="display:none;" data-current-step="1" data-next-step="2"><?php echo esc_html('Generate with AI', 'ultimate-addons-cf7') ?>
 
 										<svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<g clip-path="url(#clip0_143_4913)">
@@ -404,7 +414,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 										<div class="uacf7-ai-codeblock">  
 											<textarea name="uacf7-generated-form" id="uacf7_ai_code_content"></textarea>
 										</div>
-										<button class="uacf7-create-form uacf7-setup-widzard-btn ">Create your form</button>
+										<button class="uacf7-create-form uacf7-setup-widzard-btn "><?php echo esc_html('Create your form', 'ultimate-addons-cf7') ?></button>
 									</div>
 								</div>
 							</div>
@@ -414,11 +424,11 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 					<div class="uacf7-wizard-footer">
 						<div class="uacf7-wizard-footer-inner">
 							<div class="uacf7-wizard-footer-left">
-								<a href="#" class="uacf7-wizard-footer-left-link uacf7-back-dashboard">Back to dashboard</a>
+								<a href="<?php echo esc_url(admin_url() )  ?>" class="uacf7-wizard-footer-left-link uacf7-back-dashboard"><?php echo esc_html('Back to dashboard', 'ultimate-addons-cf7') ?></a>
 							</div>
 
 							<div class="uacf7-wizard-footer-right">
-								<button class="uacf7-wizard-footer-right-button uacf7-next uacf7-setup-widzard-btn <?php  if($uacf7_plugin_status != 'activate' ){ echo 'disabled'; }?>" <?php  if($uacf7_plugin_status != 'activate' ){ echo 'disabled ="disabled"'; }?> data-current-step="1" data-next-step="2">Next
+								<button class="uacf7-wizard-footer-right-button uacf7-next uacf7-setup-widzard-btn <?php  if($uacf7_plugin_status != 'activate' ){ echo 'disabled'; }?>" <?php  if($uacf7_plugin_status != 'activate' ){ echo 'disabled ="disabled"'; }?> data-current-step="1" data-next-step="2"> Next
 
 								<svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path d="M12.3337 4.99951L1.66699 4.99951" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -436,40 +446,21 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 		/**
 		 * redirect to set up wizard when active plugin
 		 */
-		public function tf_activation_redirect() {
+		public function tf_activation_redirect($screen) {  
 			if ( ! get_option( 'uacf7_setup_wizard' ) ) {
-				update_option( 'tf_setup_wizard', 'active' );
-				wp_redirect( admin_url( 'admin.php?page=uacf7-setup-wizard' ) );
+				update_option( 'uacf7_setup_wizard', 'active' ); 
+				if (is_network_admin()) {
+					$url = network_admin_url('admin.php?page=uacf7-setup-wizard');
+				} else {
+					$url = admin_url('admin.php?page=uacf7-setup-wizard');
+				}
+	
+				wp_redirect( $url );
 				exit;
 			}
 		}
  
-
-		function uacf7_setup_wizard_submit() {
-
-			// Add nonce for security and authentication.
-			$nonce_name   = isset( $_POST['tf_setup_wizard_nonce'] ) ? $_POST['tf_setup_wizard_nonce'] : '';
-			$nonce_action = 'tf_setup_wizard_action';
-
-			// Check if a nonce is set.
-			if ( ! isset( $nonce_name ) ) {
-				return;
-			}
-
-			// Check if a nonce is valid.
-			if ( ! wp_verify_nonce( $nonce_name, $nonce_action ) ) {
-				return;
-			}
-
-			 
-			$response = [
-				'success'      => true,
-				'redirect_url' => esc_url( admin_url( 'admin.php?page=tf_settings' ) )
-			];
-
-			echo json_encode( $response );
-			wp_die();
-		}
+ 
 	}
 }
 

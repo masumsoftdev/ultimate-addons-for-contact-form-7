@@ -16,7 +16,7 @@
                     url: uacf7_admin_params.ajax_url,
                     type: 'post',
                     data: {
-                        action: 'woocommerce_ajax_install_plugin', 
+                        action: 'contact_form_7_ajax_install_plugin', 
                         _ajax_nonce: uacf7_admin_params.uacf7_nonce,
                         slug: plugin_slug, 
                     },
@@ -50,6 +50,7 @@
                     button.html('Activated');
                     $('.required-plugin-button').attr('data-plugin-status', 'activate');
                     $('.required-plugin-button').attr('disabled', true);
+                    $('.required-plugin-button').addClass('disabled');
                     $('.uacf7-next').attr('disabled', false);
                     $('.uacf7-next').removeClass('disabled');
                     
@@ -78,7 +79,25 @@
             $this.attr('data-current-step', next_step);
             $this.attr('data-next-step',  parseInt(next_step) + 1);
 
-          
+            if(current_step == '2'){ 
+              $this.hide();
+              $this.addClass('skip');
+              // only replace next to skip without svg icon
+              $this.html('Skip' + `<svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12.3337 4.99951L1.66699 4.99951" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9.00051 8.33317C9.00051 8.33317 12.3338 5.87821 12.3338 4.99981C12.3338 4.12141 9.00049 1.6665 9.00049 1.6665" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>`); 
+              // $(".tf-option-form.tf-ajax-save").submit();
+                  
+             }else{
+              $this.show();
+              $this.removeClass('skip');
+              // only replace next to skip without svg icon
+              $this.html('Next' + `<svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.3337 4.99951L1.66699 4.99951" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9.00051 8.33317C9.00051 8.33317 12.3338 5.87821 12.3338 4.99981C12.3338 4.12141 9.00049 1.6665 9.00049 1.6665" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>`); 
+             }
             
 
  
@@ -88,9 +107,9 @@
         // Uacf7 Create Form
         $(document).on('change', '#uacf7-select-form', function (e) {
             if($(this).val() != ''){
-                $('.uacf7-setup-widzard-btn').show();
+                $('.uacf7-generate-form').show();
             }else{
-                $('.uacf7-setup-widzard-btn').hide();
+                $('.uacf7-generate-form').hide();
             }
         });
 
@@ -112,11 +131,15 @@
                 action: 'uacf7_form_quick_create_form',
                 form_name: form_name, 
                 form_value: form_value, 
-                ajax_nonce: uacf7_admin_params.uacf7_nonce,
+                _ajax_nonce: uacf7_admin_params.uacf7_nonce,
               },
               success: function (data) { 
-                // redirect to edit page
-                window.location.href = data.edit_url; 
+                if(data.status == 'success'){
+                  // redirect to edit page
+                  // window.location.href = data.edit_url; 
+                }else{
+                  console.log(data.message)
+                }
               }
             });
         });
@@ -145,15 +168,13 @@
               data: {
                 action: 'uacf7_form_generator_ai_quick_start',
                 searchValue: searchValue, 
-                ajax_nonce: uacf7_admin_params.uacf7_nonce,
+                _ajax_nonce: uacf7_admin_params.uacf7_nonce,
               },
               success: function (data) { 
                 $('.uacf7-single-step-content-inner img').hide();
                 $('.uacf7-generated-template').show();
                 typeName(data.value, 0); 
                 
-                // $this.find('.uacf7_ai_loader').remove();
-                // $this.attr('disabled', false);
               }
             });
         });
@@ -161,7 +182,7 @@
         $(document).on('click', '.uacf7-single-step-item', function (e) {
           $this = $(this);
           var current_step = $this.attr('data-step');
-          var currentnext_step_step = parseInt(current_step) + 1;
+          var next_step = parseInt(current_step) + 1;
           if(current_step != 4){
             
             $('.uacf7-single-step-item[data-step="'+current_step+'"]').nextAll('.uacf7-single-step-item').removeClass('active');
@@ -171,18 +192,31 @@
             $('.uacf7-single-step-content').removeClass('active');
             $('.uacf7-single-step-content[data-step="'+current_step+'"]').addClass('active');
 
-            $('.uacf7-next').attr('data-current-step', next_step);
-            $('.uacf7-next').attr('data-next-step',  parseInt(next_step) + 1);
+            $('.uacf7-next').attr('data-current-step', current_step);
+            $('.uacf7-next').attr('data-next-step',  parseInt(current_step) + 1);
 
-            if(current_step == '2'){ 
+            if(current_step == '3'){ 
+              alert(1);
               $('.uacf7-next').addClass('skip');
               // only replace next to skip without svg icon
-              $('.uacf7-next').html('Skip'); 
+              $('.uacf7-next').html('Skip' + `<svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12.3337 4.99951L1.66699 4.99951" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9.00051 8.33317C9.00051 8.33317 12.3338 5.87821 12.3338 4.99981C12.3338 4.12141 9.00049 1.6665 9.00049 1.6665" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>`); 
               // $(".tf-option-form.tf-ajax-save").submit();
                   
+             }else{
+           
+              $('.uacf7-next').removeClass('skip');
+              // only replace next to skip without svg icon
+              $('.uacf7-next').html('Next' + `<svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.3337 4.99951L1.66699 4.99951" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9.00051 8.33317C9.00051 8.33317 12.3338 5.87821 12.3338 4.99981C12.3338 4.12141 9.00049 1.6665 9.00049 1.6665" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>`); 
              }
           }
         });
+
         function typeName(data, iteration ) {
             // Prevent our code executing if there are no letters left
             if (iteration === data.length)
@@ -199,7 +233,7 @@
               textarea.scrollTop(textarea[0].scrollHeight);
             }, 5);
          
-          }
+        }
 
     });
 
