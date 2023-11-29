@@ -1,137 +1,239 @@
 (function ($) {
     $(document).ready(function () {
+        var uacf_quick_preloader = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: none; display: block; shape-rendering: auto;" width="20x" height="20px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+        <path d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50" fill="#ffffff" stroke="none">
+          <animateTransform attributeName="transform" type="rotate" dur="1s" repeatCount="indefinite" keyTimes="0;1" values="0 50 51;360 50 51"></animateTransform>
+        </path>`;
 
-        //if body has class .admin_page_tf-setup-wizard then add background-color: #ecf5ff; to html
-        if ($('body').hasClass('admin_page_tf-setup-wizard')) {
-            $('html').css('padding', '0');
-        }
-
-        $(document).on('click', '.tf-setup-start-btn', function (e) {
-            e.preventDefault();
-            $('.tf-welcome-step').hide();
-            $('.tf-setup-step-1').show();
+        // One Click CF7 Plugin install and activate
+        $(document).on('click', '.required-plugin-button', function () {  
+            var plugin_status = $(this).attr('data-plugin-status');
+           if(plugin_status == 'not_installed'){
+                var plugin_slug = 'contact-form-7'; 
+                var button = $(this);
+                button.html('Installing...' ); 
+                $.ajax({
+                    url: uacf7_admin_params.ajax_url,
+                    type: 'post',
+                    data: {
+                        action: 'contact_form_7_ajax_install_plugin', 
+                        _ajax_nonce: uacf7_admin_params.uacf7_nonce,
+                        slug: plugin_slug, 
+                    },
+                    success: function (response) {
+                        $('.required-plugin-button').attr('data-plugin-status', 'not_active');
+                        uacf7_onclick_ajax_activate_plugin()
+                    }
+                }); 
+           }else if(plugin_status ==  'not_active'){
+                
+                uacf7_onclick_ajax_activate_plugin();
+           }
+ 
         });
 
-        $(document).on('click', '.tf-setup-next-btn, .tf-setup-skip-btn', function (e) {
-            e.preventDefault();
-            let form = $('#tf-setup-wizard-form');
-            let skipSteps = form.find('input[name="tf-skip-steps"]').val();
-            let step = $(this).closest('.tf-setup-step-container').data('step');
-            let nextStep = step + 1;
-
-            //min one service required
-            if (step === 1 && $(this).hasClass('tf-setup-next-btn')) {
-                let services = $('input[name="tf-services[]"]:checked').length;
-
-                if (!services) {
-                    alert(uacf7_admin_params.i18n.no_services_selected);
-                    return false;
-                }
-
-                //if hotel service not checked, hide hotel settings
-                if (!$('input[name="tf-services[]"][value="hotel"]').is(':checked')) {
-                    $('.tf-hotel-setup-wizard').hide();
-                    $('.tf-add-new-hotel').hide();
-                } else {
-                    $('.tf-hotel-setup-wizard').show();
-                    $('.tf-add-new-hotel').show();
-                }
-
-                //if tour service not checked, hide tour settings
-                if (!$('input[name="tf-services[]"][value="tour"]').is(':checked')) {
-                    $('.tf-tour-setup-wizard').hide();
-                    $('.tf-add-new-tour').hide();
-                } else {
-                    $('.tf-tour-setup-wizard').show();
-                    $('.tf-add-new-tour').show();
-                }
-
-                //if apartment service not checked, hide apartment settings
-                if (!$('input[name="tf-services[]"][value="apartment"]').is(':checked')) {
-                    $('.tf-apartment-setup-wizard').hide();
-                    $('.tf-add-new-apartment').hide();
-                } else {
-                    $('.tf-apartment-setup-wizard').show();
-                    $('.tf-add-new-apartment').show();
-                }
-            }
-
-            //skip steps add to input[name="tf-skip-steps"]
-            if ($(this).hasClass('tf-setup-skip-btn')) {
-                skipSteps = !skipSteps ? step : skipSteps.indexOf(step) === -1 ? skipSteps + ',' + step : skipSteps;
-                form.find('input[name="tf-skip-steps"]').val(skipSteps);
-
-                if(step === 1){
-                    $('.tf-hotel-setup-wizard').show();
-                    $('.tf-tour-setup-wizard').show();
-                }
-            }
-
-            //remove skip steps from input[name="tf-skip-steps"] if user back to step and go to next step
-            if($(this).hasClass('tf-setup-next-btn') && skipSteps.indexOf(step) !== -1) {
-                skipSteps = skipSteps.replace(step, '');
-                form.find('input[name="tf-skip-steps"]').val(skipSteps);
-            }
-
-            //hide current step and show next step (if not last step)
-            if(!$(this).hasClass('tf-setup-submit-btn')) {
-                $('.tf-setup-step-' + step).fadeOut(300, function () {
-                    $('.tf-setup-step-' + nextStep).fadeIn(300);
-                });
-            }
-        });
-
-        $(document).on('click', '.tf-setup-prev-btn', function (e) {
-            e.preventDefault();
-            let step = $(this).closest('.tf-setup-step-container').data('step');
-            let prevStep = step - 1;
-            $('.tf-setup-step-' + step).fadeOut(300, function () {
-                $('.tf-setup-step-' + prevStep).fadeIn(300);
-            });
-        });
-
-        /*
-        * Setup Wizard form submit
-        * @author: Foysal
-        */
-        $(document).on('click', '.tf-setup-submit-btn', function (e) {
-            e.preventDefault();
-            let submitBtn = $('.tf-setup-submit-btn.tf-admin-btn');
-            let form = $(this).closest('#tf-setup-wizard-form');
-            let step = $(this).closest('.tf-setup-step-container').data('step');
-            let skipSteps = form.find('input[name="tf-skip-steps"]').val();
-
-            if($(this).hasClass('tf-admin-btn') && skipSteps.indexOf(step) !== -1) {
-                skipSteps = skipSteps.replace(step, '');
-                form.find('input[name="tf-skip-steps"]').val(skipSteps);
-            }
-
-            let formData = new FormData(form[0]);
-            formData.append('action', 'tf_setup_wizard_submit');
-
+        function uacf7_onclick_ajax_activate_plugin(){
+            var button = $('.required-plugin-button');
+            var plugin_slug = 'contact-form-7';
+            var file_name = 'wp-contact-form-7';
+            button.html('Activating...'); 
             $.ajax({
                 url: uacf7_admin_params.ajax_url,
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                beforeSend: function () {
-                    submitBtn.addClass('tf-btn-loading');
+                type: 'post',
+                data: {
+                    action: 'uacf7_onclick_ajax_activate_plugin', 
+                    _ajax_nonce: uacf7_admin_params.uacf7_nonce,
+                    slug: plugin_slug, 
+                    file_name: file_name, 
                 },
-                success: function (response) {
-                    let data = JSON.parse(response);
-                    submitBtn.removeClass('tf-btn-loading');
-                    if (data.success) {
-                        $('.tf-finish-step').show();
-                        $('.tf-setup-step-' + step).hide();
-                    }
-                },
-                error: function (error) {
-                    submitBtn.removeClass('tf-btn-loading');
-                    console.log(error);
+                success: function (response) { 
+                    button.html('Activated');
+                    $('.required-plugin-button').attr('data-plugin-status', 'activate');
+                    $('.required-plugin-button').attr('disabled', true);
+                    $('.required-plugin-button').addClass('disabled');
+                    $('.uacf7-next').attr('disabled', false);
+                    $('.uacf7-next').removeClass('disabled');
+                    
                 }
             });
+        }
+
+
+ 
+        // Uacf7 Next Button
+        $(document).on('click', '.uacf7-next', function (e) {  
+             
+            var $this = $(this);
+            var current_step = $this.attr('data-current-step'); 
+            var next_step = $this.attr('data-next-step');
+            $('.uacf7-single-step-content[data-step='+current_step+']').removeClass('active');
+            $('.uacf7-single-step-content[data-step='+next_step+']').addClass('active');
+            $('.uacf7-single-step-item[data-step='+next_step+']').addClass('active');
+            $('.uacf7-single-step-item[data-step='+current_step+'] .step-item-dots').html( `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M17.0965 7.39016L9.9365 14.3002L8.0365 12.2702C7.6865 11.9402 7.1365 11.9202 6.7365 12.2002C6.3465 12.4902 6.2365 13.0002 6.4765 13.4102L8.7265 17.0702C8.9465 17.4102 9.3265 17.6202 9.7565 17.6202C10.1665 17.6202 10.5565 17.4102 10.7765 17.0702C11.1365 16.6002 18.0065 8.41016 18.0065 8.41016C18.9065 7.49016 17.8165 6.68016 17.0965 7.38016V7.39016Z" fill="#7F56D9"/>
+            </svg> `);
+            $('.uacf7-single-step-item[data-step='+next_step+'] .step-item-dots').html( `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="24" height="24" rx="12" fill="#F9F5FF"/>
+            <circle cx="12" cy="12" r="4" fill="#7F56D9"/>
+            </svg>  `);
+            $this.attr('data-current-step', next_step);
+            $this.attr('data-next-step',  parseInt(next_step) + 1);
+
+            if(current_step == '2'){ 
+              $this.hide();
+              $this.addClass('skip');
+              // only replace next to skip without svg icon
+              $this.html('Skip' + `<svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12.3337 4.99951L1.66699 4.99951" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9.00051 8.33317C9.00051 8.33317 12.3338 5.87821 12.3338 4.99981C12.3338 4.12141 9.00049 1.6665 9.00049 1.6665" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>`); 
+              // $(".tf-option-form.tf-ajax-save").submit();
+                  
+             }else{
+              $this.show();
+              $this.removeClass('skip');
+              // only replace next to skip without svg icon
+              $this.html('Next' + `<svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.3337 4.99951L1.66699 4.99951" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9.00051 8.33317C9.00051 8.33317 12.3338 5.87821 12.3338 4.99981C12.3338 4.12141 9.00049 1.6665 9.00049 1.6665" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>`); 
+             }
+            
+
+ 
         });
+
+
+        // Uacf7 Create Form
+        $(document).on('change', '#uacf7-select-form', function (e) {
+            if($(this).val() != ''){
+                $('.uacf7-generate-form').show();
+            }else{
+                $('.uacf7-generate-form').hide();
+            }
+        });
+
+        // Uacf7 Create Form
+        $(document).on('click', '.uacf7-create-form', function (e) {
+            e.preventDefault(); 
+            var $this = $(this);
+            var form_name = $('#uacf7-select-form').val();  
+            var form_value = $('#uacf7_ai_code_content').val();  
+            if(form_name.length <= 1){
+              alert('Please select form type');
+              return false;
+            }
+             
+            $.ajax({
+              url: uacf7_admin_params.ajax_url,
+              type: 'post',
+              data: {
+                action: 'uacf7_form_quick_create_form',
+                form_name: form_name, 
+                form_value: form_value, 
+                _ajax_nonce: uacf7_admin_params.uacf7_nonce,
+              },
+              success: function (data) { 
+                if(data.status == 'success'){
+                  // redirect to edit page
+                  // window.location.href = data.edit_url; 
+                }else{
+                  console.log(data.message)
+                }
+              }
+            });
+        });
+
+        // Uacf7 Generate Form
+        $(document).on('click', '.uacf7-generate-form', function (e) {
+            e.preventDefault(); 
+            $('.uacf7-single-step-item.step-last').addClass('active');
+            $('.uacf7-single-step-item[data-step="3"] .step-item-dots').html(`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M17.0965 7.39016L9.9365 14.3002L8.0365 12.2702C7.6865 11.9402 7.1365 11.9202 6.7365 12.2002C6.3465 12.4902 6.2365 13.0002 6.4765 13.4102L8.7265 17.0702C8.9465 17.4102 9.3265 17.6202 9.7565 17.6202C10.1665 17.6202 10.5565 17.4102 10.7765 17.0702C11.1365 16.6002 18.0065 8.41016 18.0065 8.41016C18.9065 7.49016 17.8165 6.68016 17.0965 7.38016V7.39016Z" fill="#7F56D9"/>
+            </svg>`);
+            $('.uacf7-single-step-item.step-last .step-item-dots').html(`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="24" height="24" rx="12" fill="#F9F5FF"/>
+            <circle cx="12" cy="12" r="4" fill="#7F56D9"/>
+            </svg>`);
+            var $this = $(this);
+            var searchValue = $('#uacf7-select-form').val();  
+            if(searchValue.length <= 1){
+              alert('Please select form type');
+              return false;
+            }
+             
+            $.ajax({
+              url: uacf7_admin_params.ajax_url,
+              type: 'post',
+              data: {
+                action: 'uacf7_form_generator_ai_quick_start',
+                searchValue: searchValue, 
+                _ajax_nonce: uacf7_admin_params.uacf7_nonce,
+              },
+              success: function (data) { 
+                $('.uacf7-single-step-content-inner img').hide();
+                $('.uacf7-generated-template').show();
+                typeName(data.value, 0); 
+                
+              }
+            });
+        });
+  
+        $(document).on('click', '.uacf7-single-step-item', function (e) {
+          $this = $(this);
+          var current_step = $this.attr('data-step');
+          var next_step = parseInt(current_step) + 1;
+          if(current_step != 4){
+            
+            $('.uacf7-single-step-item[data-step="'+current_step+'"]').nextAll('.uacf7-single-step-item').removeClass('active');
+            
+            $('.uacf7-single-step-item[data-step="'+current_step+'"]').prevAll('.uacf7-single-step-item').addClass('active');
+            $('.uacf7-single-step-item[data-step="'+current_step+'"]').addClass('active');
+            $('.uacf7-single-step-content').removeClass('active');
+            $('.uacf7-single-step-content[data-step="'+current_step+'"]').addClass('active');
+
+            $('.uacf7-next').attr('data-current-step', current_step);
+            $('.uacf7-next').attr('data-next-step',  parseInt(current_step) + 1);
+
+            if(current_step == '3'){ 
+              alert(1);
+              $('.uacf7-next').addClass('skip');
+              // only replace next to skip without svg icon
+              $('.uacf7-next').html('Skip' + `<svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12.3337 4.99951L1.66699 4.99951" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9.00051 8.33317C9.00051 8.33317 12.3338 5.87821 12.3338 4.99981C12.3338 4.12141 9.00049 1.6665 9.00049 1.6665" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>`); 
+              // $(".tf-option-form.tf-ajax-save").submit();
+                  
+             }else{
+           
+              $('.uacf7-next').removeClass('skip');
+              // only replace next to skip without svg icon
+              $('.uacf7-next').html('Next' + `<svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.3337 4.99951L1.66699 4.99951" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9.00051 8.33317C9.00051 8.33317 12.3338 5.87821 12.3338 4.99981C12.3338 4.12141 9.00049 1.6665 9.00049 1.6665" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>`); 
+             }
+          }
+        });
+
+        function typeName(data, iteration ) {
+            // Prevent our code executing if there are no letters left
+            if (iteration === data.length)
+              return;
+        
+            setTimeout(function () {
+              // Set the name to the current text + the next character
+              // whilst incrementing the iteration variable
+        
+              $('#uacf7_ai_code_content').val($('#uacf7_ai_code_content').val() + data[iteration++]);
+              // Re-trigger our function
+              typeName(data, iteration);
+              var textarea = $("#uacf7_ai_code_content");
+              textarea.scrollTop(textarea[0].scrollHeight);
+            }, 5);
+         
+        }
 
     });
 
