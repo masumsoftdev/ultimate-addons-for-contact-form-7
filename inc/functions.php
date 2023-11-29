@@ -3,6 +3,14 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+ /**
+ * Include Classes  
+ */
+if ( file_exists( UACF7_PATH . 'inc/class-setup-wizard.php' ) ) {
+    require_once UACF7_PATH . 'inc/class-setup-wizard.php';
+} 
+
  /**
  * Global Admin Get Option
  */
@@ -24,6 +32,7 @@ if ( ! function_exists( 'uacf7_settings' ) ) {
         }
     }
 }
+
 
 /*
 Function: uacf7_checked
