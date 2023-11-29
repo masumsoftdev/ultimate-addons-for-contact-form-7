@@ -1014,6 +1014,21 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
 
                     }
 
+                      //Signature Addon 
+                    $telegram = isset($meta['signature']) ? $meta['signature'] : array();
+                    $uacf7_signature_settings = get_post_meta($post_id, 'uacf7_signature_settings', true);
+                    $uacf7_signature_enable = is_array($uacf7_signature_settings) && isset($uacf7_signature_settings['uacf7_signature_enable']) ? $uacf7_signature_settings['uacf7_signature_enable'] : 0;
+
+                    if($uacf7_signature_enable == true){ 
+                        $uacf7_signature_bg_color = isset($uacf7_signature_settings['uacf7_signature_bg_color']) ? $uacf7_signature_settings['uacf7_signature_bg_color'] : '';
+                        $uacf7_signature_bg_color = isset($uacf7_signature_settings['uacf7_signature_bg_color']) ? $uacf7_signature_settings['uacf7_signature_bg_color'] : '';
+                        $telegram['uacf7_telegram_enable'] = $uacf7_telegram_enable;
+                        $telegram['uacf7_telegram_bot_token'] = $uacf7_telegram_bot_token;
+                        $telegram['uacf7_telegram_chat_id'] = $uacf7_telegram_chat_id;
+                        $meta['telegram'] = $telegram; 
+
+                    }
+
                     // Pre Populate addon Migration
                     $pre_populated = isset($meta['pre_populated']) ? $meta['pre_populated'] : array(); 
                         
@@ -1084,6 +1099,7 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
             $new_option['uacf7_enable_conversational_form'] = isset($old_option['uacf7_enable_conversational_form']) && $old_option['uacf7_enable_conversational_form'] == 'on' ? 1 : 0;
             $new_option['uacf7_enable_submission_id_field'] = isset($old_option['uacf7_enable_submission_id_field']) && $old_option['uacf7_enable_submission_id_field'] == 'on' ? 1 : 0;
             $new_option['uacf7_enable_telegram_field'] = isset($old_option['uacf7_enable_telegram_field']) && $old_option['uacf7_enable_telegram_field'] == 'on' ? 1 : 0;
+            $new_option['uacf7_enable_signature_field'] = isset($old_option['uacf7_enable_signature_field']) && $old_option['uacf7_enable_signature_field'] == 'on' ? 1 : 0;
             $new_option['uacf7_enable_dynamic_text'] = isset($old_option['uacf7_enable_dynamic_text']) && $old_option['uacf7_enable_dynamic_text'] == 'on' ? 1 : 0;
             $new_option['uacf7_enable_pre_populate_field'] = isset($old_option['uacf7_enable_pre_populate_field']) && $old_option['uacf7_enable_pre_populate_field'] == 'on' ? 1 : 0;
             $new_option['uacf7_enable_star_rating'] = isset($old_option['uacf7_enable_star_rating']) && $old_option['uacf7_enable_star_rating'] == 'on' ? 1 : 0;
@@ -1121,7 +1137,7 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
         
   
     }
-    add_action( 'admin_init', 'uacf7_form_option_Migration_callback' );
+    // add_action( 'admin_init', 'uacf7_form_option_Migration_callback' );
 
 }
 

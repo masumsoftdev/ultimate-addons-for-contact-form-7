@@ -34,7 +34,7 @@ class UACF7_Redirection {
     }
 	
     public function uacf7_post_meta_options_redirection($value, $post_id) {
-
+		
 		$redirection = apply_filters('uacf7_post_meta_options_redirection_pro', $data = array(
 			'title'  => __( 'Redirection', 'ultimate-addons-cf7' ),
 			'icon'   => 'fa-solid fa-viruses',
@@ -148,6 +148,8 @@ class UACF7_Redirection {
 			),
 		), $post_id);
 		$value['redirection'] = $redirection; 
+		var_dump($value);
+		exit;
 		return $value;
 	}
    

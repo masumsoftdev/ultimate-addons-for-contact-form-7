@@ -4,10 +4,11 @@ if( !function_exists( 'uacf7_addons_included' ) ) {
 
     function uacf7_addons_included(){
         $option = uacf7_settings();
-        // uacf7_print_r($option);
+        
     
         //Addon - Ultimate redirect
         if( isset($option['uacf7_enable_redirection']) && $option['uacf7_enable_redirection'] == true ){
+            
             require_once( 'redirection/redirect.php' );
         }
 
@@ -102,7 +103,7 @@ if( !function_exists( 'uacf7_addons_included' ) ) {
         }
 
          //Addon - Signature
-         if( uacf7_checked( 'uacf7_enable_signature_field') != ''){
+         if( isset($option['uacf7_enable_signature_field']) && $option['uacf7_enable_signature_field'] == true ){  
             require_once( 'signature/ultimate-signature.php');
         }
 		
