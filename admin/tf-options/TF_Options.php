@@ -135,12 +135,14 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 		public function tf_options_admin_enqueue_scripts( $screen ) {
 			global $post_type;
 			//  var_dump($screen);
+			//  exit;
 			// die();
 			$tf_options_screens   = array(
 				'toplevel_page_uacf7_settings',
 				'ultimate-addons_page_uacf7_addons',
 				'toplevel_page_wpcf7',
 				'contact_page_wpcf7-new', 
+				'admin_page_uacf7-setup-wizard', 
 			);
 			$tf_options_post_type = array( 'tf_hotel', 'tf_tours', 'tf_apartment' ); 
 

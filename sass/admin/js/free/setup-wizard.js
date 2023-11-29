@@ -118,7 +118,7 @@
             e.preventDefault(); 
             var $this = $(this);
             var form_name = $('#uacf7-select-form').val();  
-            var form_value = $('#uacf7_ai_code_content').val();  
+            var form_value = $('#uacf7_ai_code_content').val();   
             if(form_name.length <= 1){
               alert('Please select form type');
               return false;
@@ -128,7 +128,7 @@
               url: uacf7_admin_params.ajax_url,
               type: 'post',
               data: {
-                action: 'uacf7_form_quick_create_form',
+                action: 'uacf7_form_quick_create_form', 
                 form_name: form_name, 
                 form_value: form_value, 
                 _ajax_nonce: uacf7_admin_params.uacf7_nonce,
@@ -195,8 +195,7 @@
             $('.uacf7-next').attr('data-current-step', current_step);
             $('.uacf7-next').attr('data-next-step',  parseInt(current_step) + 1);
 
-            if(current_step == '3'){ 
-              alert(1);
+            if(current_step == '3'){  
               $('.uacf7-next').addClass('skip');
               // only replace next to skip without svg icon
               $('.uacf7-next').html('Skip' + `<svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">

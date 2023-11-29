@@ -20,4 +20,5 @@ UACF7_Metabox::metabox( 'uacf7_form_opt', array(
 	'post_type' => 'uacf7',
  
 	'sections'  =>    apply_filters('uacf7_post_meta_options', $value = array( ), $post_id), 
+	
 ) );

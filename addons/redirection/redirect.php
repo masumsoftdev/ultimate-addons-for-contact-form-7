@@ -147,9 +147,7 @@ class UACF7_Redirection {
 				
 			),
 		), $post_id);
-		$value['redirection'] = $redirection; 
-		var_dump($value);
-		exit;
+		$value['redirection'] = $redirection;  
 		return $value;
 	}
    
