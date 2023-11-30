@@ -52,7 +52,8 @@ class UACF7_SUBMISSION_ID{
                     'label'     => __( ' Enable/Disable Submission ID', 'ultimate-addons-cf7' ),
                     'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
                     'label_off' => __( 'No', 'ultimate-addons-cf7' ),
-                    'default'   => false
+                    'default'   => false, 
+                    'field_width' => 33,
                 ),
                 'uacf7_submission_id' => array(
                     'id'        => 'uacf7_submission_id',
@@ -60,6 +61,7 @@ class UACF7_SUBMISSION_ID{
                     'label'     => __( ' Submission ID Starts from ', 'ultimate-addons-cf7' ),
                     'placeholder'     => __( ' 1 ', 'ultimate-addons-cf7' ),
                     'description'     => __( ' E.g. default 1 ', 'ultimate-addons-cf7' ),
+                    'field_width' => 33,
                 ),
                 'uacf7_submission_id_step' => array(
                     'id'        => 'uacf7_submission_id_step',
@@ -67,6 +69,7 @@ class UACF7_SUBMISSION_ID{
                     'label'     => __( ' Submission ID Step Increament ', 'ultimate-addons-cf7' ),
                     'placeholder'     => __( ' 1 ', 'ultimate-addons-cf7' ),
                     'description'     => __( ' E.g. default 1 ', 'ultimate-addons-cf7' ),
+                    'field_width' => 33,
                 ), 
             ),
             

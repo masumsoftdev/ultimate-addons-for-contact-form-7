@@ -76,14 +76,16 @@ class UACF7_SIGNATURE{
                     'type'      => 'color',
                     'label'     => __( 'Signature Pad Background Color', 'ultimate-addons-cf7' ),
                     'description'     => __( 'E.g. Default is #dddddd', 'ultimate-addons-cf7' ),
-                    'default'   => '#dddddd'
+                    'default'   => '#dddddd',
+                    'field_width' => 50,
                 ),
                 'uacf7_signature_pen_color' => array(
                     'id'        => 'uacf7_signature_pen_color',
                     'type'      => 'color',
                     'label'     => __( 'Signature Pen Color', 'ultimate-addons-cf7' ),
                     'description'     => __( 'E.g. Default is #000000', 'ultimate-addons-cf7' ),
-                    'default'   => '#000000'
+                    'default'   => '#000000',
+                    'field_width' => 50,
                 ),
 
                 'uacf7_signature_pad_width' => array(
@@ -91,14 +93,16 @@ class UACF7_SIGNATURE{
                     'type'      => 'number',
                     'label'     => __( 'Signature Pad Width', 'ultimate-addons-cf7' ),
                     'description'     => __( 'E.g. Do not use px or rem', 'ultimate-addons-cf7' ),
-                    'default'   => '300'
+                    'default'   => '300',
+                    'field_width' => 50,
                 ),
                 'uacf7_signature_pad_height' => array(
                     'id'        => 'uacf7_signature_pad_height',
                     'type'      => 'number',
                     'label'     => __( 'Signature Pad Height', 'ultimate-addons-cf7' ),
                     'description'     => __( 'E.g. Do not use px or rem', 'ultimate-addons-cf7' ),
-                    'default'   => '100'
+                    'default'   => '100',
+                    'field_width' => 50,
                 ),
     
             ),

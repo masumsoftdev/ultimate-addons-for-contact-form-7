@@ -109,7 +109,9 @@ class UACF7_Redirection {
 						'uacf7_cr_tn' => array(
 							'id' => 'uacf7_cr_tn',
 							'label' => 'Select field',
+							'subtitle' => 'Select form tag',
 							'type' => 'select', 
+							'field_width' => 30,
 						 ),
 						array(
 							'id' => 'uacf7_cr_field_val',
@@ -117,6 +119,7 @@ class UACF7_Redirection {
 							'type' => 'text',
 							'subtitle' => 'Enter your Conditional Value',
 							'placeholder' => 'value', 
+							'field_width' => 30,
 						 ),
 						array(
 							'id' => 'uacf7_cr_redirect_to_url',
@@ -124,6 +127,7 @@ class UACF7_Redirection {
 							'type' => 'text',
 							'subtitle' => 'Enter your Redirect UR',
 							'placeholder' => 'Redirect URL', 
+							'field_width' => 30,
 						 ),
 					 ),
 				),
@@ -133,7 +137,8 @@ class UACF7_Redirection {
 					'label'     => __( 'Open page in a new tab', 'ultimate-addons-cf7' ),
 					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
 					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
-					'default'   => false
+					'default'   => false,
+					'field_width' => 50,
 				),
 				'uacf7_redirect_tag_support' => array(
 					'id'        => 'uacf7_redirect_tag_support',
@@ -143,6 +148,7 @@ class UACF7_Redirection {
 					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
 					'default'   => false,
 					'is_pro' => true,
+					'field_width' => 50,
 				),
 				
 			),

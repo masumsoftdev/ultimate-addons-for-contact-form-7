@@ -56,19 +56,22 @@ class UACF7_PRE_POPULATE {
                     'label'     => __( ' Pre-Populate', 'ultimate-addons-cf7' ),
                     'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
                     'label_off' => __( 'No', 'ultimate-addons-cf7' ),
-                    'default'   => false
+                    'default'   => false,
+                    'field_width' => 33,
                 ),
                 'data_redirect_url' => array(
                     'id'        => 'data_redirect_url',
                     'type'      => 'text',
                     'label'     => __( ' Redirect URL ', 'ultimate-addons-cf7' ),
                     'placeholder'     => __( ' Redirect URL ', 'ultimate-addons-cf7' ),
+                    'field_width' => 33,
                 ),
                 'pre_populate_form' => array(
                   'id'        => 'pre_populate_form',
                   'type'      => 'select',
                   'label'     => __( ' Select Pre-Populate Form', 'ultimate-addons-cf7' ),
-                  'options'     => $all_forms
+                  'options'     => $all_forms,
+                  'field_width' => 33,
               ),
 
               'pre_populate_passing_field' => array(

@@ -73,6 +73,7 @@ class UACF7_Placeholder {
 						'normal'      => 'Normal',
 						'italic' => "Italic",
 					), 
+                    'field_width' => 50,
 				),
                 'uacf7_placeholder_fontweight' => array(
 					'id'        => 'uacf7_placeholder_fontweight',
@@ -86,6 +87,7 @@ class UACF7_Placeholder {
 						'700' => "700",
 						'900' => "900",
 					), 
+                    'field_width' => 50,
 				), 
 				'uacf7_placeholder_fontsize' => array(
 					'id'        => 'uacf7_placeholder_fontsize',
@@ -93,6 +95,7 @@ class UACF7_Placeholder {
 					'label'     => __( 'Font Size (in px)', 'ultimate-addons-cf7' ),  
 					'subtitle'     => __( 'E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ),  
                     'placeholder'     => __( 'Enter Placeholder Font Size (in px)', 'ultimate-addons-cf7' ), 
+                    'field_width' => 50,
 				),
 				'uacf7_placeholder_fontfamily' => array(
 					'id'        => 'uacf7_placeholder_fontfamily',
@@ -100,14 +103,15 @@ class UACF7_Placeholder {
 					'label'     => __( 'Font Name ', 'ultimate-addons-cf7' ),  
 					'subtitle'     => __( " E.g. Roboto, sans-serif (Do not add special characters like '' or ; ) ", "ultimate-addons-cf7" ),  
                     'placeholder'     => __( 'Enter Placeholder Font Name ', 'ultimate-addons-cf7' ), 
+                    'field_width' => 50,
 				),
-                array(
-                    'id' => 'uacf7_placeholder_notice',
-                    'type' => 'notice',
-                    'content' => __( " Need more placeholder or other options? Let us know here . ", "ultimate-addons-cf7" ),  
-                    'class' => 'tf-field-class',   
-                    'notice' => 'info',
-                )  
+                // array(
+                //     'id' => 'uacf7_placeholder_notice',
+                //     'type' => 'notice',
+                //     'content' => __( " Need more placeholder or other options? Let us know here . ", "ultimate-addons-cf7" ),  
+                //     'class' => 'tf-field-class',   
+                //     'notice' => 'info',
+                // )  
 			),
 		), $post_id);
 		$value['placeholder'] = $redirection; 

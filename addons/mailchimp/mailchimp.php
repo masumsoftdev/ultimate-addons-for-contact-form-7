@@ -98,7 +98,7 @@ class UACF7_MAILCHIMP
               'label'     => __( ' Type of Form ', 'ultimate-addons-cf7' ),
               'options' => array(
                 'subscribe' => 'Subscribe Form',
-                'unsubscribe' => 'Unsubscribe Form',
+                // 'unsubscribe' => 'Unsubscribe Form',
               ),
               'default'   => 'subscribe',
               'inline'  => true

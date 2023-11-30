@@ -647,7 +647,8 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 				$tf_option_value = $option;
 			}else{ 
 				$tf_option_value = array();
-			} 
+			}
+			
 			if ( ! empty( $option_request ) && ! empty( $this->option_sections ) ) {
 				
 				foreach ( $this->option_sections as $section ) {
@@ -704,6 +705,9 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 								}
 								if($fieldClass == 'TF_switch'){ 
 									$data = isset( $option_request[ $field['id'] ] ) ? $option_request[ $field['id'] ] : 0;
+									if($data == 0){
+										$data = isset( $tf_option_value[ $field['id'] ] ) ? $tf_option_value[ $field['id'] ] : 0;
+									}
 								}
 								if(isset($_FILES) && !empty($_FILES['file'])){
 									$tf_upload_dir = wp_upload_dir();
@@ -731,8 +735,7 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 						}
 					}
 				}
-			} 
-			
+			}  
 			if ( ! empty( $tf_option_value ) ) {
 //                tf_var_dump($tf_option_value);
 //                die();

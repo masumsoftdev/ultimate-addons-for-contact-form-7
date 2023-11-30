@@ -160,7 +160,7 @@
          */
         $(document).on('click', '.tf-pro', function (e) {
             e.preventDefault();
-            window.open('https://tourfic.com/');
+            window.open('https://cf7addons.com/');
         });
 
         $(window).on('load', function () {
@@ -169,7 +169,7 @@
 
         $(document).on('click', '.tf-field-pro', function (e) {
             e.preventDefault();
-            window.open('https://tourfic.com/');
+            window.open('https://cf7addons.com/');
         });
 
         /**

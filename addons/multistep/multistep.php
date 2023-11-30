@@ -81,7 +81,8 @@ class UACF7_MULTISTEP {
 					'label'     => __( ' Is It Multistep Form? ', 'ultimate-addons-cf7' ),
 					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
 					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
-					'default'   => false
+					'default'   => false,
+                    'field_width' => 50,
                 ),
                 'uacf7_enable_multistep_progressbar' => array(
 					'id'        => 'uacf7_enable_multistep_progressbar',
@@ -89,7 +90,8 @@ class UACF7_MULTISTEP {
 					'label'     => __( ' Multistep Progressbar ', 'ultimate-addons-cf7' ),
 					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
 					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
-					'default'   => false
+					'default'   => false,
+                    'field_width' => 50,
 				),
                 'uacf7_enable_multistep_scroll' => array(
 					'id'        => 'uacf7_enable_multistep_scroll',
@@ -100,7 +102,17 @@ class UACF7_MULTISTEP {
 					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
 					'default'   => false,
                     'is_pro' => true,
+                    'field_width' => 50,
 				),
+                'uacf7_multistep_use_step_labels' => array(
+                    'id'        => 'uacf7_multistep_use_step_labels',
+                    'type'      => 'switch',
+                    'label'     => __( ' Hide Progressbar Labels ', 'ultimate-addons-cf7' ),
+                    'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
+                    'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+                    'default'   => false,
+                    'field_width' => 50,
+                ),
                 'uacf7_progressbar_style' => array(
 					'id'        => 'uacf7_progressbar_style',
                     'type'     => 'imageselect',
@@ -146,14 +158,7 @@ class UACF7_MULTISTEP {
               
                     ),
 
-                'uacf7_multistep_use_step_labels' => array(
-                    'id'        => 'uacf7_multistep_use_step_labels',
-                    'type'      => 'switch',
-                    'label'     => __( ' Hide Progressbar Labels ', 'ultimate-addons-cf7' ),
-                    'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
-                    'label_off' => __( 'No', 'ultimate-addons-cf7' ),
-                    'default'   => false
-                ),
+                
 
                 'uacf7_multistep_progressbar_color_option' => array(
                     'id' => 'uacf7_multistep_progressbar_color_option',
@@ -185,7 +190,7 @@ class UACF7_MULTISTEP {
                     'type'      => 'number',
                     'label'     => __( ' Circle Width', 'ultimate-addons-cf7' ),   
                     'placeholder'     => __( 'width', 'ultimate-addons-cf7' ), 
-                    'field_width' => 20,
+                    'field_width' => 25,
                 ),
 
                 'uacf7_multistep_circle_height' => array(
@@ -193,21 +198,21 @@ class UACF7_MULTISTEP {
                     'type'      => 'number',
                     'label'     => __( ' Circle Height', 'ultimate-addons-cf7' ),   
                     'placeholder'     => __( 'height', 'ultimate-addons-cf7' ), 
-                    'field_width' => 20,
+                    'field_width' => 25,
                 ),
                 'uacf7_multistep_font_size' => array(
                     'id'        => 'uacf7_multistep_font_size',
                     'type'      => 'number',
                     'label'     => __( ' Circle Font Size', 'ultimate-addons-cf7' ),   
                     'placeholder'     => __( 'font size', 'ultimate-addons-cf7' ), 
-                    'field_width' => 20,
+                    'field_width' => 25,
                 ),
                 'uacf7_multistep_circle_border_radious' => array(
                     'id'        => 'uacf7_multistep_circle_border_radious',
                     'type'      => 'number',
                     'label'     => __( ' Circle Border Radious', 'ultimate-addons-cf7' ),   
                     'placeholder'     => __( 'border radious', 'ultimate-addons-cf7' ), 
-                    'field_width' => 20,
+                    'field_width' => 25,
                 ),
                 'uacf7_progressbar_button_style' => array(
                     'id' => 'uacf7_progressbar_button_style',
@@ -220,14 +225,14 @@ class UACF7_MULTISTEP {
                     'type'      => 'number',
                     'label'     => __( ' Padding ( Top - Bottom )', 'ultimate-addons-cf7' ),   
                     'placeholder'     => __( 'y axis padding', 'ultimate-addons-cf7' ), 
-                    'field_width' => 40,
+                    'field_width' => 50,
                 ),
                 'uacf7_multistep_button_padding_lr' => array(
                     'id'        => 'uacf7_multistep_button_padding_lr',
                     'type'      => 'number',
                     'label'     => __( ' Padding ( Left - Right )', 'ultimate-addons-cf7' ),   
                     'placeholder'     => __( 'x axis padding', 'ultimate-addons-cf7' ), 
-                    'field_width' => 40,
+                    'field_width' => 50,
                 ), 
                 'uacf7_multistep_next_prev_style' => array(
                     'id' => 'uacf7_multistep_next_prev_style',
@@ -636,8 +641,7 @@ class UACF7_MULTISTEP {
          wp_nonce_field( 'uacf7_multistep_nonce_action', 'uacf7_multistep_nonce' );
     }
     
-    public function uacf7_post_meta_options_multistep_pro($value, $post_id){ 
-        
+    public function uacf7_post_meta_options_multistep_pro($value, $post_id){  
         $fields = $value['fields'];
         // uacf7_print_r($value); 
         if($post_id != 0){
