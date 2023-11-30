@@ -793,7 +793,7 @@ class UACF7_CF {
 
         if ($submission && is_array($uacf7_conditions) && !empty($uacf7_conditions)){
             $posted_data = $submission->get_posted_data();
-            $form_tags = $submission->get_contact_form()->form_scan_shortcode();
+            $form_tags = $submission->get_contact_form()->scan_form_tags();
 
             // Set the email body in the mail properties
             $properties = $submission->get_contact_form()->get_properties();

@@ -99,7 +99,7 @@ class UACF7_TELEGRAM {
 
           $posted_data = $submission->get_posted_data();
 
-          $form_tags = $submission->get_contact_form()->form_scan_shortcode();
+          $form_tags = $submission->get_contact_form()->scan_form_tags();
    
           $properties = $submission->get_contact_form()->get_properties();
       
