@@ -242,7 +242,7 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 						</div>
 
 						<div class="uacf7-addon-setting-content"> 
-						
+							<input type="hidden" name="uacf7_current_page" value="uacf7_addons_page">
 							<?php 
 								$data = get_option( $this->option_id, true );
 
@@ -643,12 +643,14 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 			 
 		
 			$option_request  = ( ! empty( $_POST[ $this->option_id ] ) ) ? $_POST[ $this->option_id ] : array(); 
+			$uacf7_current_page  = ( ! empty( $_POST[ 'uacf7_current_page' ] ) ) ? $_POST[ 'uacf7_current_page' ] : ''; 
+		 
 			if($option && $option_request){
 				$tf_option_value = $option;
 			}else{ 
 				$tf_option_value = array();
 			}
-			
+			 
 			if ( ! empty( $option_request ) && ! empty( $this->option_sections ) ) {
 				
 				foreach ( $this->option_sections as $section ) {
@@ -704,8 +706,8 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 									}
 								}
 								if($fieldClass == 'TF_switch'){ 
-									$data = isset( $option_request[ $field['id'] ] ) ? $option_request[ $field['id'] ] : 0;
-									if($data == 0){
+									$data = isset( $option_request[ $field['id'] ] ) ? $option_request[ $field['id'] ] : '';
+									if($data == '' && $uacf7_current_page != 'uacf7_addons_page'){ 
 										$data = isset( $tf_option_value[ $field['id'] ] ) ? $tf_option_value[ $field['id'] ] : 0;
 									}
 								}
@@ -736,9 +738,7 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 					}
 				}
 			}  
-			if ( ! empty( $tf_option_value ) ) {
-//                tf_var_dump($tf_option_value);
-//                die();
+			if ( ! empty( $tf_option_value ) ) { 
 				update_option( $this->option_id, $tf_option_value );
 			} else {
 				delete_option( $this->option_id );
