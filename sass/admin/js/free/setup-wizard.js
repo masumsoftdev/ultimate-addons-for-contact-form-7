@@ -136,12 +136,12 @@
               success: function (data) { 
                 if(data.status == 'success'){
                   // redirect to edit page
-                  // window.location.href = data.edit_url; 
+                  window.location.href = data.edit_url; 
                 }else{
                   console.log(data.message)
                 }
               }
-            });
+            }); 
         });
 
         // Uacf7 Generate Form
