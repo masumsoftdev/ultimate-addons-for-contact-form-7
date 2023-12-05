@@ -84,6 +84,9 @@ class Ultimate_Addons_CF7 {
         //Require ultimate functions
         require_once( 'inc/functions.php' );
         
+        //Require ultimate Promo Notice
+        require_once( 'inc/class-promo-notice.php' );
+        
         //Enqueue admin scripts
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'uacf7_frontend_scripts' ) );
