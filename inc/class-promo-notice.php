@@ -6,8 +6,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class UACF7_PROMO_NOTICE {
 
-    private $api_url = 'https://api.themefic.com/plugin/uacf7';
-    // private $api_url = 'http://localhost:9090/plugin/uacf7';
+    // private $api_url = 'http://uacf7-api.test/';
+    private $api_url = 'https://api.themefic.com/';
     private $args = array();
     private $responsed = false; 
     private $uacf7_promo_option = false; 
@@ -16,31 +16,26 @@ class UACF7_PROMO_NOTICE {
     public function __construct() {
 
  
-        $this->uacf7_get_api_response();
- 
         
-        
-        add_filter('cron_schedules', array($this, 'my_custom_cron_interval'));
-      
-        // Schedule the task to run daily at a specific time (e.g., 3:00 AM)
+        add_filter('cron_schedules', array($this, 'uacf7_custom_cron_interval'));
+       
         if (!wp_next_scheduled('my_custom_task__schudle')) {
             wp_schedule_event(time(), 'every_day', 'uacf7_promo__schudle');
         }
         
         add_action('uacf7_promo__schudle', array($this, 'uacf7_promo__schudle_callback'));
         
-       
+        
         if(get_option( 'uacf7_promo__schudle_option' )){
             $this->uacf7_promo_option = get_option( 'uacf7_promo__schudle_option' );
         }
-        echo '<pre>';
-        print_r($this->uacf7_promo_option);
-        echo '</pre>';
+        
         // Admin Notice 
         if(is_array($this->uacf7_promo_option) && strtotime($this->uacf7_promo_option['end_date']) > time() && strtotime($this->uacf7_promo_option['start_date']) < time()){
             add_action( 'admin_notices', array( $this, 'tf_black_friday_2023_admin_notice' ) );
             add_action( 'wp_ajax_tf_black_friday_notice_dismiss_callback', array($this, 'tf_black_friday_notice_dismiss_callback') );
         }
+        
         // side Notice 
         if(is_array($this->uacf7_promo_option) && strtotime($this->uacf7_promo_option['end_date']) > time() && strtotime($this->uacf7_promo_option['start_date']) < time()){ 
             add_action( 'wpcf7_admin_misc_pub_section', array( $this, 'uacf7_black_friday_2022_callback' ) );
@@ -51,13 +46,12 @@ class UACF7_PROMO_NOTICE {
 
     public function uacf7_get_api_response(){
         $query_params = array(
-            'param1' => 'value1',
-            'param2' => 'value2',
+            'plugin' => 'uacf7', 
         );
-        $api_url = add_query_arg($query_params, $this->api_url);
-            // Send the GET request
-        $response = wp_remote_get($api_url);
-
+        $response = wp_remote_post($this->api_url, array(
+            'body'    => json_encode($query_params),
+            'headers' => array('Content-Type' => 'application/json'),
+        )); 
         if (is_wp_error($response)) {
             // Handle API request error
             $this->responsed = false;
@@ -66,23 +60,25 @@ class UACF7_PROMO_NOTICE {
         } else {
             // API request successful, handle the response content
             $data = wp_remote_retrieve_body($response);
+           
             $this->responsed = json_decode($data, true); 
+            
         } 
     }
 
     // Define the custom interval
-    public function my_custom_cron_interval($schedules) {
+    public function uacf7_custom_cron_interval($schedules) {
         $schedules['every_day'] = array(
-            // 'interval' => 86400, // Every 24 hours
-            'interval' => 5, // Every 24 hours
+            'interval' => 86400, // Every 24 hours
+            // 'interval' => 5, // Every 24 hours
             'display' => __('Every 24 hours')
         );
         return $schedules;
     }
-    public function uacf7_promo__schudle_callback() {
-        // Your code to be executed periodically
-        // This can be any custom functionality you want to run on schedule
-        // error_log('Scheduled task executed at ' . current_time('mysql'));
+
+    public function uacf7_promo__schudle_callback() {  
+        $this->uacf7_get_api_response();
+
         update_option( 'uacf7_promo__schudle_option', $this->responsed);
     }
  
@@ -154,8 +150,15 @@ class UACF7_PROMO_NOTICE {
 
     public function tf_black_friday_notice_dismiss_callback() { 
 		$cookie_name = "tf_dismiss_admin_notice";
-		$cookie_value = "1"; 
-		setcookie($cookie_name, $cookie_value, strtotime($this->uacf7_promo_option['end_date']), "/"); 
+		$cookie_value = "1";  
+        $uacf7_promo_option = get_option( 'uacf7_promo__schudle_option' );
+        $restart = isset($uacf7_promo_option['dasboard_restart']) && $uacf7_promo_option['dasboard_restart'] != false ? $uacf7_promo_option['dasboard_restart'] : false;
+        if($restart == false){
+            
+            setcookie($cookie_name, $cookie_value, strtotime($uacf7_promo_option['end_date']), "/"); 
+        }else{
+            setcookie($cookie_name, $cookie_value, strtotime($uacf7_promo_option['start_date']) + (86400 * $restart), "/"); 
+        }
         update_option( 'tf_display_admin_notice_time', '1' );
 		wp_die();
 	}
@@ -227,7 +230,11 @@ class UACF7_PROMO_NOTICE {
     public  function uacf7_black_friday_notice_cf7_dismiss_callback() { 
         $cookie_name = "uacf7_dismiss_post_notice";
         $cookie_value = "1";
-        setcookie($cookie_name, $cookie_value, time() + (86400 * 5), "/"); 
+        $uacf7_promo_option = get_option( 'uacf7_promo__schudle_option' );
+        $start_date = isset($uacf7_promo_option['start_date']) ? strtotime($uacf7_promo_option['start_date']) : time();
+        $restart = isset($uacf7_promo_option['side_restart']) && $uacf7_promo_option['side_restart'] != false ? $uacf7_promo_option['side_restart'] : 5;
+  
+        setcookie($cookie_name, $cookie_value, time() + (86400 * $restart), "/"); 
         wp_die();
     }
 }
