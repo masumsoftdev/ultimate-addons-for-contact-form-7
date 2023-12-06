@@ -640,8 +640,8 @@ class UACF7_MULTISTEP {
         $count = '1';
         for ($x = 0; $x < count($validation_fields); $x++) {
             $field = explode(':', $validation_fields[$x]); 
-            $name = $field[1];
-            $name_array =  explode("__",$field[1]); 
+            $name = isset($field[1]) ? $field[1] : '';
+            $name_array =  explode("__",$name); 
             $replace = '__'.$count.''; 
             $tag_name[] =  $name_array[0];
             $tag_validation[$field[0].$x] =  $name;
@@ -721,6 +721,8 @@ class UACF7_MULTISTEP {
         } 
         if(!empty($invalid_fields)){
             $is_valid = false;
+        }else{
+            $invalid_fields = false;
         }
         echo(json_encode( array(
                     'is_valid' => $is_valid,
