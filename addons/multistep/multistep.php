@@ -40,11 +40,12 @@ class UACF7_MULTISTEP {
 
     // Steps Name: uacf7_multistep_steps_names
     function uacf7_multistep_steps_names($steps_name, $all_steps){
-        $steps_name = array();
+        $step_names = array();
         foreach ($all_steps as $step) { 
             $step_names[] = !empty($step->name) ? $step->name : '';
     
         }
+         
         return $step_names;
     }
     // Steps Name: uacf7_multistep_steps_names
@@ -871,26 +872,30 @@ class UACF7_MULTISTEP {
                 }
                 $next_prev_style = '<style>.uacf7-prev, .uacf7-next, .wpcf7-submit{'.$padding_top.' '.$padding_bottom.' '.$padding_left.' '.$padding_right.'}  </style>';
                 echo $next_prev_style;
-               
+
+
+                if(!empty($all_steps)):
 			?> 
-			<div class="uacf7-steps steps-form" style="display:none">
-                <div class="steps-row setup-panel">
-                    <?php
-                        $step_id = 1;
-                        $step_count = 0;
-                
-                        $step_name = apply_filters('uacf7_multistep_steps_names', array(), $all_steps);
-                        foreach ($all_steps as $step) {
-                            $content = $step;
-                            ?>
-                            <div class="steps-step"><a title-id=".step-<?php echo esc_attr($step_id); ?>" data-form-id="<?php echo esc_attr($cfform->id()); ?>" href="#<?php echo esc_attr($cfform->id()); ?>step-<?php echo esc_attr($step_id); ?>" type="button"></a></div>
-                            <?php
-                            $step_id++;
-                            $step_count++;
-                        }
-                    ?>
+                <div class="uacf7-steps steps-form" style="display:none">
+                    <div class="steps-row setup-panel">
+                        <?php
+                            $step_id = 1;
+                            $step_count = 0;
+                    
+                            $step_name = apply_filters('uacf7_multistep_steps_names', array(), $all_steps);
+                            foreach ($all_steps as $step) {
+                                $content = $step;
+                                ?>
+                                <div class="steps-step"><a title-id=".step-<?php echo esc_attr($step_id); ?>" data-form-id="<?php echo esc_attr($cfform->id()); ?>" href="#<?php echo esc_attr($cfform->id()); ?>step-<?php echo esc_attr($step_id); ?>" type="button"></a></div>
+                                <?php
+                                $step_id++;
+                                $step_count++;
+                            }
+                        ?>
+                    </div>
                 </div>
-            </div>
+            <?php endif; ?>
+
             <?php 
             if( $uacf7_enable_multistep_progressbar == true ) {
                 $uacf7_progressbar_style = $multistep_meta['uacf7_progressbar_style'];
@@ -909,46 +914,48 @@ class UACF7_MULTISTEP {
                 } 
             </style>
             <?php endif; ?>
-            <div class="uacf7-steps steps-form <?php if($uacf7_progressbar_style == 'style-1'){echo 'progressbar-style-1';} ?>">
-                <div class="steps-row setup-panel">
-                <?php
-                    $step_id = 1;
-                    $step_count = 0;
-                    $step_name = apply_filters('uacf7_multistep_steps_names', '', $all_steps);
-                
-                    foreach ($all_steps as $step) {
-                        $content = $step->values[0];
-                        ?>
-                        <div class="steps-step">
-                            <a title-id=".step-<?php echo esc_attr($step_id); ?>" data-form-id="<?php echo esc_attr($cfform->id()); ?>"   href="#<?php echo esc_attr($cfform->id()); ?>step-<?php echo esc_attr($step_id); ?>" type="button" class="btn <?php if( $step_id == 1 ) { echo esc_attr('uacf7-btn-active'); }else{ echo esc_attr('uacf7-btn-default'); } ?> btn-circle"><?php 
-                                if(is_array($step_name)) {
-                                    do_action( 'uacf7_progressbar_image', $step_name[$step_count] );
-                                }
-                                if( $uacf7_progressbar_style == 'style-1' ){
-                                    if( $uacf7_multistep_use_step_labels != true ) {
-                                        echo $content;
-                                    }else { 
-                                        echo esc_attr($step_id);
-                                    }
-                                }else {
-                                    echo esc_attr($step_id);
-                                } ?>
-                            </a>
-                            <?php 
-                                if( $uacf7_multistep_use_step_labels != true && $uacf7_progressbar_style != 'style-1' && $uacf7_progressbar_style != 'style-4' ) { 
-                                    echo '<p>'.esc_html($content).'</p>'; 
-                                } 
+            <?php if(!empty($all_steps)): ?>
+                <div class="uacf7-steps steps-form <?php if($uacf7_progressbar_style == 'style-1'){echo 'progressbar-style-1';} ?>">
+                    <div class="steps-row setup-panel">
+                    <?php
+                        $step_id = 1;
+                        $step_count = 0;
+                        $step_name = apply_filters('uacf7_multistep_steps_names', '', $all_steps);
+                    
+                        foreach ($all_steps as $step) {
+                            $content = $step->values[0];
                             ?>
-                        </div>
-                        <?php
-                        $step_id++;
-                        $step_count++; 
-                    }
-                    // uacf7_print_r($step_name);
-                  
-                    ?>
+                            <div class="steps-step">
+                                <a title-id=".step-<?php echo esc_attr($step_id); ?>" data-form-id="<?php echo esc_attr($cfform->id()); ?>"   href="#<?php echo esc_attr($cfform->id()); ?>step-<?php echo esc_attr($step_id); ?>" type="button" class="btn <?php if( $step_id == 1 ) { echo esc_attr('uacf7-btn-active'); }else{ echo esc_attr('uacf7-btn-default'); } ?> btn-circle"><?php 
+                                    if(is_array($step_name)) {
+                                        do_action( 'uacf7_progressbar_image', $step_name[$step_count] );
+                                    }
+                                    if( $uacf7_progressbar_style == 'style-1' ){
+                                        if( $uacf7_multistep_use_step_labels != true ) {
+                                            echo $content;
+                                        }else { 
+                                            echo esc_attr($step_id);
+                                        }
+                                    }else {
+                                        echo esc_attr($step_id);
+                                    } ?>
+                                </a>
+                                <?php 
+                                    if( $uacf7_multistep_use_step_labels != true && $uacf7_progressbar_style != 'style-1' && $uacf7_progressbar_style != 'style-4' ) { 
+                                        echo '<p>'.esc_html($content).'</p>'; 
+                                    } 
+                                ?>
+                            </div>
+                            <?php
+                            $step_id++;
+                            $step_count++; 
+                        }
+                        // uacf7_print_r($step_name);
+                    
+                        ?>
+                    </div>
                 </div>
-            </div>
+            <?php endif; ?>
             <?php
 			}
             

@@ -400,7 +400,7 @@ class UACF7_uacf7style {
                     'colors' => array(
                         'uacf7_uacf7style_btn_color' => 'Color',
                         'uacf7_uacf7style_btn_color_hover' => 'Color (hover)', 
-                        'uacf7_uacf7style_btn_background_color' => 'Background Color (hover)', 
+                        'uacf7_uacf7style_btn_background_color' => 'Background Color', 
                         'uacf7_uacf7style_btn_background_color_hover' => 'Background Color (hover)', 
                     ),  
                 ),
@@ -1037,7 +1037,7 @@ class UACF7_uacf7style {
                 $label_font_family = $form_meta['uacf7_uacf7style_label_font_family'];
                 $label_font_style = $form_meta['uacf7_uacf7style_label_font_style'];
                 $label_font_weight = $form_meta['uacf7_uacf7style_label_font_weight'];
-                // $label_padding_top = $form_meta['uacf7_uacf7style_label_padding_top'];
+                $label_padding_top = $form_meta['uacf7_uacf7style_label_padding_top'];
                 $label_padding_right = $form_meta['uacf7_uacf7style_label_padding_right'];
                 $label_padding_bottom = $form_meta['uacf7_uacf7style_label_padding_bottom'];
                 $label_padding_left = $form_meta['uacf7_uacf7style_label_padding_left'];
