@@ -82,8 +82,8 @@ class UACF7_PROMO_NOTICE {
     // Define the custom interval
     public function uacf7_custom_cron_interval($schedules) {
         $schedules['every_day'] = array(
-            // 'interval' => 86400, // Every 24 hours
-            'interval' => 7200, // Every 24 hours
+            'interval' => 86400, // Every 24 hours
+            // 'interval' => 7200, // Every 24 hours
             'display' => __('Every 24 hours')
         );
         return $schedules;
