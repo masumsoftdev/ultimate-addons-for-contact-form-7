@@ -4,6 +4,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+//Require ultimate Promo Notice
+if(file_exists( __DIR__ . '/class-promo-notice.php')){
+   
+    require_once( 'class-promo-notice.php' ); 
+} 
+
 /*
 Function: uacf7_checked
 Return: checked

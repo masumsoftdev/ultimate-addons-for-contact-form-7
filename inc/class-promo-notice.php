@@ -13,34 +13,39 @@ class UACF7_PROMO_NOTICE {
     private $uacf7_promo_option = false; 
     private $error_message = ''; 
 
+    private $months = ['January', 'June', 'November', 'December'];
+
     public function __construct() {
 
- 
+        if(in_array(date('F'), $this->months)){
+
+            add_filter('cron_schedules', array($this, 'uacf7_custom_cron_interval'));
         
-        add_filter('cron_schedules', array($this, 'uacf7_custom_cron_interval'));
-       
-        if (!wp_next_scheduled('my_custom_task__schudle')) {
-            wp_schedule_event(time(), 'every_day', 'uacf7_promo__schudle');
+            if (!wp_next_scheduled('uacf7_promo__schudle')) {
+                wp_schedule_event(time(), 'every_day', 'uacf7_promo__schudle');
+            }
+            
+            add_action('uacf7_promo__schudle', array($this, 'uacf7_promo__schudle_callback'));
+             
+            if(get_option( 'uacf7_promo__schudle_option' )){
+                $this->uacf7_promo_option = get_option( 'uacf7_promo__schudle_option' );
+            } 
+
+
+            // Admin Notice 
+            if(is_array($this->uacf7_promo_option) && strtotime($this->uacf7_promo_option['end_date']) > time() && strtotime($this->uacf7_promo_option['start_date']) < time()){
+                add_action( 'admin_notices', array( $this, 'tf_black_friday_2023_admin_notice' ) );
+                add_action( 'wp_ajax_tf_black_friday_notice_dismiss_callback', array($this, 'tf_black_friday_notice_dismiss_callback') );
+            }
+            
+            // side Notice 
+            if(is_array($this->uacf7_promo_option) && strtotime($this->uacf7_promo_option['end_date']) > time() && strtotime($this->uacf7_promo_option['start_date']) < time()){ 
+                add_action( 'wpcf7_admin_misc_pub_section', array( $this, 'uacf7_black_friday_2022_callback' ) );
+                add_action( 'wp_ajax_uacf7_black_friday_notice_cf7_dismiss_callback', array($this, 'uacf7_black_friday_notice_cf7_dismiss_callback') ); 
+            } 
         }
+
         
-        add_action('uacf7_promo__schudle', array($this, 'uacf7_promo__schudle_callback'));
-        
-        
-        if(get_option( 'uacf7_promo__schudle_option' )){
-            $this->uacf7_promo_option = get_option( 'uacf7_promo__schudle_option' );
-        }
-        
-        // Admin Notice 
-        if(is_array($this->uacf7_promo_option) && strtotime($this->uacf7_promo_option['end_date']) > time() && strtotime($this->uacf7_promo_option['start_date']) < time()){
-            add_action( 'admin_notices', array( $this, 'tf_black_friday_2023_admin_notice' ) );
-            add_action( 'wp_ajax_tf_black_friday_notice_dismiss_callback', array($this, 'tf_black_friday_notice_dismiss_callback') );
-        }
-        
-        // side Notice 
-        if(is_array($this->uacf7_promo_option) && strtotime($this->uacf7_promo_option['end_date']) > time() && strtotime($this->uacf7_promo_option['start_date']) < time()){ 
-            add_action( 'wpcf7_admin_misc_pub_section', array( $this, 'uacf7_black_friday_2022_callback' ) );
-            add_action( 'wp_ajax_uacf7_black_friday_notice_cf7_dismiss_callback', array($this, 'uacf7_black_friday_notice_cf7_dismiss_callback') ); 
-        }
        
     }
 
@@ -62,6 +67,14 @@ class UACF7_PROMO_NOTICE {
             $data = wp_remote_retrieve_body($response);
            
             $this->responsed = json_decode($data, true); 
+
+            $uacf7_promo__schudle_option = get_option( 'uacf7_promo__schudle_option' ); 
+            if($uacf7_promo__schudle_option['notice_name'] != $this->responsed['notice_name']){ 
+                // Unset the cookie variable in the current script
+                update_option( 'tf_dismiss_admin_notice', 1);
+                update_option( 'uacf7_dismiss_post_notice', 1); 
+            }
+            update_option( 'uacf7_promo__schudle_option', $this->responsed);
             
         } 
     }
@@ -77,9 +90,9 @@ class UACF7_PROMO_NOTICE {
     }
 
     public function uacf7_promo__schudle_callback() {  
+
         $this->uacf7_get_api_response();
 
-        update_option( 'uacf7_promo__schudle_option', $this->responsed);
     }
  
 
@@ -92,9 +105,9 @@ class UACF7_PROMO_NOTICE {
         $image_url = isset($this->uacf7_promo_option['dasboard_url']) ? esc_url($this->uacf7_promo_option['dasboard_url']) : '';
         $deal_link = isset($this->uacf7_promo_option['promo_url']) ? esc_url($this->uacf7_promo_option['promo_url']) : ''; 
 
-        $tf_display_admin_notice_time = get_option( 'tf_display_admin_notice_time' );
+        $tf_dismiss_admin_notice = get_option( 'tf_dismiss_admin_notice' );
         $get_current_screen = get_current_screen();  
-        if(!isset($_COOKIE['tf_dismiss_admin_notice']) && $get_current_screen->base == 'dashboard'   ){ 
+        if(($tf_dismiss_admin_notice == 1  || time() >  $tf_dismiss_admin_notice ) && $get_current_screen->base == 'dashboard'   ){ 
             ?>
             <style> 
                 .tf_black_friday_20222_admin_notice a:focus {
@@ -148,18 +161,15 @@ class UACF7_PROMO_NOTICE {
     } 
 
 
-    public function tf_black_friday_notice_dismiss_callback() { 
-		$cookie_name = "tf_dismiss_admin_notice";
-		$cookie_value = "1";  
+    public function tf_black_friday_notice_dismiss_callback() {  
+
         $uacf7_promo_option = get_option( 'uacf7_promo__schudle_option' );
-        $restart = isset($uacf7_promo_option['dasboard_restart']) && $uacf7_promo_option['dasboard_restart'] != false ? $uacf7_promo_option['dasboard_restart'] : false;
+        $restart = isset($uacf7_promo_option['dasboard_restart']) && $uacf7_promo_option['dasboard_restart'] != false ? $uacf7_promo_option['dasboard_restart'] : false; 
         if($restart == false){
-            
-            setcookie($cookie_name, $cookie_value, strtotime($uacf7_promo_option['end_date']), "/"); 
+            update_option( 'tf_dismiss_admin_notice', strtotime($uacf7_promo_option['end_date']) ); 
         }else{
-            setcookie($cookie_name, $cookie_value, strtotime($uacf7_promo_option['start_date']) + (86400 * $restart), "/"); 
-        }
-        update_option( 'tf_display_admin_notice_time', '1' );
+            update_option( 'tf_dismiss_admin_notice', time() + (86400 * $restart) );  
+        } 
 		wp_die();
 	}
 
@@ -167,8 +177,9 @@ class UACF7_PROMO_NOTICE {
     public function uacf7_black_friday_2022_callback(){
         $image_url = isset($this->uacf7_promo_option['side_url']) ? esc_url($this->uacf7_promo_option['side_url']) : '';
         $deal_link = isset($this->uacf7_promo_option['promo_url']) ? esc_url($this->uacf7_promo_option['promo_url']) : ''; 
-
+        $uacf7_dismiss_post_notice = get_option( 'uacf7_dismiss_post_notice' );
         ?> 
+         <?php if($uacf7_dismiss_post_notice == 1  || time() >  $uacf7_dismiss_post_notice ): ?>
             <style> 
                 .back_friday_2022_preview a:focus {
                     box-shadow: none;
@@ -193,7 +204,8 @@ class UACF7_PROMO_NOTICE {
                 }
             
             </style>
-            <?php if(!isset($_COOKIE['uacf7_dismiss_post_notice'])): ?>
+            
+           
             <div class="back_friday_2022_preview" style="text-align: center; overflow: hidden; margin: 10px;">
                 <a href="<?php echo esc_attr($deal_link); ?>" target="_blank" >
                     <img  style="width: 100%;" src="<?php echo esc_attr($image_url); ?>" alt="">
@@ -227,14 +239,11 @@ class UACF7_PROMO_NOTICE {
         <?php
 	}
 
-    public  function uacf7_black_friday_notice_cf7_dismiss_callback() { 
-        $cookie_name = "uacf7_dismiss_post_notice";
-        $cookie_value = "1";
+    public  function uacf7_black_friday_notice_cf7_dismiss_callback() {   
         $uacf7_promo_option = get_option( 'uacf7_promo__schudle_option' );
         $start_date = isset($uacf7_promo_option['start_date']) ? strtotime($uacf7_promo_option['start_date']) : time();
         $restart = isset($uacf7_promo_option['side_restart']) && $uacf7_promo_option['side_restart'] != false ? $uacf7_promo_option['side_restart'] : 5;
-  
-        setcookie($cookie_name, $cookie_value, time() + (86400 * $restart), "/"); 
+        update_option( 'uacf7_dismiss_post_notice', time() + (86400 * $restart) );  
         wp_die();
     }
 }
