@@ -456,7 +456,7 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 
 Fixed: PHP 8.0 Compatibility issue
 Fixed: Multistep progress bar validation issue
-Updated: Black Friday Notice Update
+Updated: Extended Notice( Black Friday )
 
 = 3.2.12 – 22/11/2023 =
 
