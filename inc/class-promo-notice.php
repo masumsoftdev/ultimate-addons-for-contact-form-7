@@ -13,12 +13,12 @@ class UACF7_PROMO_NOTICE {
     private $uacf7_promo_option = false; 
     private $error_message = ''; 
 
-    private $months = ['January', 'June', 'November', 'December'];
+    private $months = ['January', 'June', 'November', 'December']; 
+    private $plugins_existes = ['ins', 'tf', 'beaf', 'ebef'];
 
     public function __construct() {
 
-        if(in_array(date('F'), $this->months)){
-
+        if(in_array(date('F'), $this->months)){ 
             add_filter('cron_schedules', array($this, 'uacf7_custom_cron_interval'));
         
             if (!wp_next_scheduled('uacf7_promo__schudle')) {
@@ -29,11 +29,12 @@ class UACF7_PROMO_NOTICE {
              
             if(get_option( 'uacf7_promo__schudle_option' )){
                 $this->uacf7_promo_option = get_option( 'uacf7_promo__schudle_option' );
-            } 
+            }
 
-
+            $tf_existes = get_option( 'tf_promo_notice_exists' );
+             
             // Admin Notice 
-            if(is_array($this->uacf7_promo_option) && strtotime($this->uacf7_promo_option['end_date']) > time() && strtotime($this->uacf7_promo_option['start_date']) < time()){
+            if( ! in_array($tf_existes, $this->plugins_existes) && is_array($this->uacf7_promo_option) && strtotime($this->uacf7_promo_option['end_date']) > time() && strtotime($this->uacf7_promo_option['start_date']) < time()){
                 add_action( 'admin_notices', array( $this, 'tf_black_friday_2023_admin_notice' ) );
                 add_action( 'wp_ajax_tf_black_friday_notice_dismiss_callback', array($this, 'tf_black_friday_notice_dismiss_callback') );
             }
@@ -43,6 +44,9 @@ class UACF7_PROMO_NOTICE {
                 add_action( 'wpcf7_admin_misc_pub_section', array( $this, 'uacf7_black_friday_2022_callback' ) );
                 add_action( 'wp_ajax_uacf7_black_friday_notice_cf7_dismiss_callback', array($this, 'uacf7_black_friday_notice_cf7_dismiss_callback') ); 
             } 
+
+
+            register_deactivation_hook( UACF7_PATH . 'ultimate-addons-for-contact-form-7.php', array($this, 'uacf7_promo_notice_deactivation_hook') );
         }
 
         
@@ -69,7 +73,7 @@ class UACF7_PROMO_NOTICE {
             $this->responsed = json_decode($data, true); 
 
             $uacf7_promo__schudle_option = get_option( 'uacf7_promo__schudle_option' ); 
-            if($uacf7_promo__schudle_option['notice_name'] != $this->responsed['notice_name']){ 
+            if(isset($ins_promo__schudle_option['notice_name']) || $uacf7_promo__schudle_option['notice_name'] != $this->responsed['notice_name']){ 
                 // Unset the cookie variable in the current script
                 update_option( 'tf_dismiss_admin_notice', 1);
                 update_option( 'uacf7_dismiss_post_notice', 1); 
@@ -83,7 +87,7 @@ class UACF7_PROMO_NOTICE {
     public function uacf7_custom_cron_interval($schedules) {
         $schedules['every_day'] = array(
             'interval' => 86400, // Every 24 hours
-            // 'interval' => 7200, // Every 24 hours
+            // 'interval' => 5, // Every 24 hours
             'display' => __('Every 24 hours')
         );
         return $schedules;
@@ -108,7 +112,11 @@ class UACF7_PROMO_NOTICE {
         $tf_dismiss_admin_notice = get_option( 'tf_dismiss_admin_notice' );
         $get_current_screen = get_current_screen();  
         if(($tf_dismiss_admin_notice == 1  || time() >  $tf_dismiss_admin_notice ) && $get_current_screen->base == 'dashboard'   ){ 
-            ?>
+          
+         // if very fist time then set the dismiss for our other plugins
+           update_option( 'tf_promo_notice_exists', 'uacf7' );
+           
+           ?>
             <style> 
                 .tf_black_friday_20222_admin_notice a:focus {
                     box-shadow: none;
@@ -246,6 +254,15 @@ class UACF7_PROMO_NOTICE {
         update_option( 'uacf7_dismiss_post_notice', time() + (86400 * $restart) );  
         wp_die();
     }
+
+     // Deactivation Hook
+     public function uacf7_promo_notice_deactivation_hook() {
+        wp_clear_scheduled_hook('uacf7_promo__schudle'); 
+
+        delete_option('uacf7_promo__schudle_option');
+        delete_option('tf_promo_notice_exists');
+    }
+ 
 }
 
 new UACF7_PROMO_NOTICE();
