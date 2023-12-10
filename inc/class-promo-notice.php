@@ -18,7 +18,7 @@ class UACF7_PROMO_NOTICE {
 
     public function __construct() {
 
-        if(in_array(date('F'), $this->months)){ 
+        if(in_array(date('F'), $this->months) && !class_exists('Ultimate_Addons_CF7_PRO')){ 
             add_filter('cron_schedules', array($this, 'uacf7_custom_cron_interval'));
         
             if (!wp_next_scheduled('uacf7_promo__schudle')) {
