@@ -13,7 +13,7 @@ class UACF7_PDF_GENERATOR {
     */
     public function __construct() {
         
-        add_action( 'admin_enqueue_scripts', array($this, 'wp_enqueue_admin_script' ) );    
+        // add_action( 'admin_enqueue_scripts', array($this, 'wp_enqueue_admin_script' ) );    
         // add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_panel' ) );     
         add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_contact_form' ) );     
         
@@ -60,8 +60,8 @@ class UACF7_PDF_GENERATOR {
                 'uacf7_pdf_name' => array(
                     'id'        => 'uacf7_pdf_name',
                     'type'      => 'text',
-                    'label'     => __( 'PDF Title ', 'ultimate-addons-cf7' ),
-                    'placeholder'     => __( 'PDF Title ', 'ultimate-addons-cf7' ),
+                    'label'     => __( 'PDF Name ', 'ultimate-addons-cf7' ),
+                    'placeholder'     => __( 'Ex: pdf-name ', 'ultimate-addons-cf7' ),
                     'field_width' => 50,
             
                 ),
@@ -176,7 +176,7 @@ class UACF7_PDF_GENERATOR {
                     'inline' => true,   
                 ),
                 'customize_pdf_header' => array(
-                    'id'        => 'uacf7_editor_for_pdf_header',
+                    'id'        => 'customize_pdf_header',
                     'type'      => 'editor',
 
                 ),
