@@ -8,7 +8,7 @@ if ( file_exists( UACF7_PATH . 'options/tf-menu-icon.php' ) ) {
 	$menu_icon = 'dashicons-palmtree';
 }
 
-TF_Settings::option( 'uacf7_settings', array(
+UACF7_Settings::option( 'uacf7_settings', array(
 	'title'    => __( 'Ultimate Addons', 'tourfic' ),
 	'icon'     => 'dashicons-palmtree',
 	'position' => 25,
@@ -438,7 +438,7 @@ TF_Settings::option( 'uacf7_settings', array(
 						'title' => __( 'To begin, you must enable the Mailchimp add-on.', 'ultimate-addons-cf7' ), 
 					),
 				),
-			)
+			),
 			
 			
 			/**
@@ -446,17 +446,24 @@ TF_Settings::option( 'uacf7_settings', array(
 			 *
 			 * Main menu
 			 */
-			// 'import_export' => array(
-			// 	'title' => __( 'Import/Export', 'tourfic' ),
-			// 	'icon' => 'fas fa-hdd',
-			// 	'fields' => array(
-			// 		array(
-			// 			'id' => 'backup',
-			// 			'type' => 'backup',
-			// 		),  
+			'uacf7_import_export_data'	=> array(
+				'title'  => __( 'Import/Export', 'tourfic' ),
+				'icon'   => 'fa fa-cog',
+				'fields' => array( 
+				),
+			),
+			'uacf7_import_export' => array(
+				'title' => __( 'Import/Export', 'tourfic' ),
+				'parent' => 'uacf7_import_export_data',
+				'icon' => 'fas fa-hdd',
+				'fields' => array( 
+					array(
+						'id' => 'backup',
+						'type' => 'backup',
+					),  
 
-			// 	),
-			// ),
+				),
+			),
 		),
 	) 
 ) );

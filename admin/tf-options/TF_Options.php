@@ -35,6 +35,10 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 			//enqueue scripts
 			add_action( 'admin_enqueue_scripts', array( $this, 'tf_options_admin_enqueue_scripts' ),9 );
 			add_action( 'wp_enqueue_scripts', array( $this, 'tf_options_wp_enqueue_scripts' ) );
+
+			// Import Export
+			add_action( 'wp_ajax_uacf7_option_import', array($this, 'uacf7_option_import_callback') );
+			
 		}
 
 		public function tf_options_version() {
@@ -47,6 +51,20 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 
 		public function tf_options_file_url( $file_url = '' ) {
 			return plugin_dir_url( __FILE__ ) . $file_url;
+		}
+
+		/**
+		 * Import Export Callback
+		 * @author Sydur Rahman
+		 */
+		public function uacf7_option_import_callback(){
+			if ( !wp_verify_nonce($_POST['ajax_nonce'], 'tf_options_nonce')) {
+				exit(esc_html__("Security error", 'ultimate-addons-cf7'));
+			} 
+			$imported_data = stripslashes( $_POST['tf_import_option'] );
+    		$imported_data = unserialize( $imported_data );
+			update_option( 'uacf7_settings', $imported_data );
+    		wp_send_json_success($imported_data);
 		}
 
 		/**
@@ -340,6 +358,11 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 				'tf_complete_order' => isset( $tf_complete_orders ) ? $tf_complete_orders : '',
 				'tf_cancel_orders'  => isset( $tf_cancel_orders ) ? $tf_cancel_orders : '',
 				'tf_chart_enable'   => isset( $tf_chart_enable ) ? $tf_chart_enable : '', 
+				'tf_export_import_msg' => array(
+					'imported'       => __( 'Imported successfully!', 'tourfic' ),
+					'import_confirm' => __( 'Are you sure you want to import this data?', 'tourfic' ),
+					'import_empty'   => __( 'Import Data cannot be empty!', 'tourfic' ),
+				)
 			) );
 		}
 

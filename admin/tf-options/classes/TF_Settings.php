@@ -2,8 +2,8 @@
 // don't load directly
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'TF_Settings' ) ) {
-	class TF_Settings {
+if ( ! class_exists( 'UACF7_Settings' ) ) {
+	class UACF7_Settings {
 
 		public $option_id = null;
 		public $option_title = null;
