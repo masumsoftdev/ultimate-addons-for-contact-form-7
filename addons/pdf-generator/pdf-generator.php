@@ -916,6 +916,9 @@ class UACF7_PDF_GENERATOR {
         if ( isset( $imported_data['pdf_generator'] ) && function_exists('uacf7_import_export_file_upload') ) {
             $imported_data['pdf_generator']['pdf_bg_upload_image'] = uacf7_import_export_file_upload( $imported_data['pdf_generator']['pdf_bg_upload_image'] );
         } 
+        if ( isset( $imported_data['pdf_generator'] ) && function_exists('uacf7_import_export_file_upload') ) {
+            $imported_data['pdf_generator']['pdf_header_upload_image'] = uacf7_import_export_file_upload( $imported_data['pdf_generator']['pdf_header_upload_image'] );
+        } 
         return $imported_data;
     }
    
