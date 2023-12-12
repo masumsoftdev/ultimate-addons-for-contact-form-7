@@ -21,6 +21,7 @@ class UACF7_PDF_GENERATOR {
         // add_filter( 'wpcf7_load_js', '__return_false' );
         add_action( 'wp_ajax_uacf7_get_generated_pdf', array( $this, 'uacf7_get_generated_pdf' ) );  
         add_filter( 'uacf7_post_meta_options', array($this, 'uacf7_post_meta_options_pdf_generator'), 18, 2 );  
+        add_filter( 'uacf7_post_meta_import_export', array($this, 'uacf7_post_meta_import_export_pdf_generator'), 18, 2 );  
 
         require_once( 'inc/functions.php' );
  
@@ -908,6 +909,14 @@ class UACF7_PDF_GENERATOR {
             update_post_meta( $form->id(), 'pdf_footer_bg_color', sanitize_text_field($_POST['pdf_footer_bg_color']) );
         }
          
+    }
+
+    // Import Export 
+    public function uacf7_post_meta_import_export_pdf_generator( $imported_data, $form_id ) {
+        if ( isset( $imported_data['pdf_generator'] ) && function_exists('uacf7_import_export_file_upload') ) {
+            $imported_data['pdf_generator']['pdf_bg_upload_image'] = uacf7_import_export_file_upload( $imported_data['pdf_generator']['pdf_bg_upload_image'] );
+        } 
+        return $imported_data;
     }
    
      

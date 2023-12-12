@@ -1037,7 +1037,10 @@
 
             // Get the import URL from the button's href attribute 
             // Get the import data from the textarea
-            var importData = $('textarea[name="tf_import_option"]').val().trim();
+
+            var textarea = $('textarea[name="tf_import_option"]');
+            var form_id = textarea.attr('data-form-id'); 
+            var importData = textarea.val().trim();
             if (importData == '') {
                 alert(tf_options.tf_export_import_msg.import_empty);
                 let importField = $('textarea[name="tf_import_option"]');
@@ -1056,6 +1059,7 @@
                     data: {
                         action: 'uacf7_option_import',
                         tf_import_option: importData,
+                        form_id: form_id,
                         ajax_nonce: tf_options.nonce,
                     },
                     beforeSend: function () {
@@ -1063,7 +1067,7 @@
                         $('.tf-import-btn').attr('disabled', 'disabled');
                     },
                     success: function (response) {
-                        if (response.success) {
+                        if (response.success) { 
                             alert(tf_options.tf_export_import_msg.imported);
                             $('.tf-import-btn').html('Imported');
                             window.location.reload();

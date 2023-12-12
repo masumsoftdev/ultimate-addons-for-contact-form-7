@@ -457,8 +457,8 @@ UACF7_Settings::option( 'uacf7_settings', array(
 				'parent' => 'uacf7_import_export_data',
 				'icon' => 'fas fa-hdd',
 				'fields' => array( 
-					array(
-						'id' => 'backup',
+					'uacf7_import_export_backup' => array(
+						'id' => 'uacf7_import_export_backup',
 						'type' => 'backup',
 					),  
 

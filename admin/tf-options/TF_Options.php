@@ -62,8 +62,16 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 				exit(esc_html__("Security error", 'ultimate-addons-cf7'));
 			} 
 			$imported_data = stripslashes( $_POST['tf_import_option'] );
-    		$imported_data = unserialize( $imported_data );
-			update_option( 'uacf7_settings', $imported_data );
+			$form_id = stripslashes( $_POST['form_id'] );
+			if($form_id != 0){
+				$imported_data = unserialize( $imported_data ); 
+				$imported_data = apply_filters( 'uacf7_post_meta_import_export', $imported_data, $form_id);
+				update_post_meta( $form_id, 'uacf7_form_opt', $imported_data );
+			}else{
+				$imported_data = unserialize( $imported_data );
+				update_option( 'uacf7_settings', $imported_data );
+			}
+    		
     		wp_send_json_success($imported_data);
 		}
 

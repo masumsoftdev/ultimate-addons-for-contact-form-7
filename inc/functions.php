@@ -13,6 +13,78 @@ if ( file_exists( UACF7_PATH . 'inc/class-setup-wizard.php' ) ) {
 
 
 
+// Import export
+add_filter( 'uacf7_post_meta_options', 'uacf7_post_meta_options_import_export', 100, 2 );
+function uacf7_post_meta_options_import_export($value, $post_id){
+    if(!empty($value)){ 
+
+        $import_export = apply_filters('uacf7_post_meta_options_import_export_pro', $data = array(
+			'title'  => __( 'Import/Export', 'ultimate-addons-cf7' ),
+			'icon'   => 'fa-solid fa-italic',
+			'fields' => array(
+                'placeholder_headding' => array(
+					'id'    => 'placeholder_headding',
+					'type'  => 'notice',
+					'notice' => 'info',
+					'label' => __( 'Import/Export', 'ultimate-addons-cf7' ),
+					'title' => __( 'This addon will help you to Import and export your existing form settings.', 'ultimate-addons-cf7' ),
+					'content' => sprintf( 
+                        __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-import-export/" target="_blank">documentation</a>'
+                    )
+				), 
+				'uacf7_import_export_backup' => array(
+                    'id' => 'uacf7_import_export_backup',
+                    'type' => 'backup',
+                    'form_id' => $post_id,
+                ),     
+			),
+		), $post_id);
+		$value['import_export'] = $import_export; 
+		return $value; 
+    }
+}
+
+// Uacf7 Import Export File Upload
+if(!function_exists('uacf7_import_export_file_upload')){
+    function uacf7_import_export_file_upload($imported_file){
+        // Download the image file
+        $qr_logo_image_data = file_get_contents( $imported_file );
+    
+        // Create a unique filename for the image
+        $qr_logo_filename   = basename( $imported_file );
+        $qr_logo_upload_dir = wp_upload_dir();
+        $qr_logo_image_path = $qr_logo_upload_dir['path'] . '/' . $qr_logo_filename;
+
+        // Save the image file to the uploads directory
+        file_put_contents( $qr_logo_image_path, $qr_logo_image_data );
+        // Check if the image was downloaded successfully.
+        if (file_exists($qr_logo_image_path)) {
+            // Create the attachment for the uploaded image
+            $qr_logo_attachment = array(
+                'guid'           => $qr_logo_upload_dir['url'] . '/' . $qr_logo_filename,
+                'post_mime_type' => 'image/jpeg',
+                'post_title'     => preg_replace( '/\.[^.]+$/', '', $qr_logo_filename ),
+                'post_content'   => '',
+                'post_status'    => 'inherit'
+            );
+            // Insert the attachment
+            $qr_logo_attachment_id = wp_insert_attachment( $qr_logo_attachment, $qr_logo_image_path );                       
+
+            // Include the necessary file for media_handle_sideload().
+            require_once(ABSPATH . 'wp-admin/includes/image.php');
+
+            // Generate the attachment metadata
+            $qr_logo_attachment_data = wp_generate_attachment_metadata( $qr_logo_attachment_id, $qr_logo_image_path );
+            wp_update_attachment_metadata( $qr_logo_attachment_id, $qr_logo_attachment_data );
+
+            $imported_file = wp_get_attachment_url($qr_logo_attachment_id);
+        }
+
+        return $imported_file ;
+    }
+}
+
  /**
  * Global Admin Get Option
  */
