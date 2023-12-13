@@ -238,14 +238,16 @@ function uacf7_multistep_pro_features_demo( $all_steps, $form_id ){
 */
 add_action( 'uacf7_multistep_before_form', 'uacf7_multistep_progressbar_style', 10 );
 function uacf7_multistep_progressbar_style( $form_id ) {
-    $uacf7_multistep_circle_width = get_post_meta( $form_id, 'uacf7_multistep_circle_width', true ); 
-    $uacf7_multistep_circle_height = get_post_meta( $form_id, 'uacf7_multistep_circle_height', true ); 
-    $uacf7_multistep_circle_bg_color = get_post_meta( $form_id, 'uacf7_multistep_circle_bg_color', true ); 
-    $uacf7_multistep_circle_font_color = get_post_meta( $form_id, 'uacf7_multistep_circle_font_color', true ); 
-    $uacf7_multistep_circle_border_radious = get_post_meta( $form_id, 'uacf7_multistep_circle_border_radious', true ); 
-    $uacf7_multistep_font_size = get_post_meta( $form_id, 'uacf7_multistep_font_size', true ); 
-    $uacf7_multistep_circle_active_color = get_post_meta( $form_id, 'uacf7_multistep_circle_active_color', true );
-    $uacf7_multistep_progress_line_color = get_post_meta( $form_id, 'uacf7_multistep_progress_line_color', true );
+    $meta = uacf7_get_form_option(  $form_id, 'multistep' );
+    $uacf7_multistep_progressbar_color_option = isset($meta['uacf7_multistep_progressbar_color_option']) ? $meta['uacf7_multistep_progressbar_color_option'] : '';
+    $uacf7_multistep_circle_width = isset($meta['uacf7_multistep_circle_width']) ? $meta['uacf7_multistep_circle_width'] : ''; 
+    $uacf7_multistep_circle_height = isset($meta['uacf7_multistep_circle_height']) ? $meta['uacf7_multistep_circle_height'] : '';  
+    $uacf7_multistep_circle_bg_color = isset($uacf7_multistep_progressbar_color_option['uacf7_multistep_circle_bg_color']) ? $uacf7_multistep_progressbar_color_option['uacf7_multistep_circle_bg_color'] : '';     
+    $uacf7_multistep_circle_font_color = isset($uacf7_multistep_progressbar_color_option['uacf7_multistep_circle_font_color']) ? $uacf7_multistep_progressbar_color_option['uacf7_multistep_circle_font_color'] : '';      
+    $uacf7_multistep_circle_border_radious = isset($meta['uacf7_multistep_circle_border_radious']) ? $meta['uacf7_multistep_circle_border_radious'] : ''; 
+    $uacf7_multistep_font_size = isset($meta['uacf7_multistep_font_size']) ? $meta['uacf7_multistep_font_size'] : '';  
+    $uacf7_multistep_circle_active_color = isset($uacf7_multistep_progressbar_color_option['uacf7_multistep_circle_active_color']) ? $uacf7_multistep_progressbar_color_option['uacf7_multistep_circle_active_color'] : '';   
+    $uacf7_multistep_progress_line_color = isset($uacf7_multistep_progressbar_color_option['uacf7_multistep_progress_line_color']) ? $uacf7_multistep_progressbar_color_option['uacf7_multistep_progress_line_color'] : '';    
     ?>
     <style>
     .steps-form .steps-row .steps-step .btn-circle {

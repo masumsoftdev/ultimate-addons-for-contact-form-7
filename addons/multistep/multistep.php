@@ -173,6 +173,7 @@ class UACF7_MULTISTEP {
                         'uacf7_multistep_circle_bg_color' => ' Circle Background Color', 
                         'uacf7_multistep_circle_active_color' => 'Circle Active Color', 
                         'uacf7_multistep_circle_font_color' => 'Circle Font Color', 
+                        'uacf7_multistep_progress_bg_color' => 'Progressbar Background Color ', 
                         'uacf7_multistep_progress_line_color' => 'Progressbar Line Color ', 
                         'uacf7_multistep_step_title_color' => ' Step Title Color', 
                         'uacf7_multistep_progressbar_title_color' => 'Progressbar Title Color',  
@@ -186,6 +187,16 @@ class UACF7_MULTISTEP {
                     'content' => __( ' E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ), 
                 ),
 
+                'uacf7_multistep_step_height' => array(
+                    'id'        => 'uacf7_multistep_step_height',
+                    'type'      => 'select',
+                    'label'     => __( 'Progressbar Height', 'ultimate-addons-cf7' ),   
+                    // 'placeholder'     => __( 'width', 'ultimate-addons-cf7' ),  
+                    'options' => array(
+                        'default' => 'Default',
+                        'equal-height' => 'Equal height'
+                    )
+                ),
                 'uacf7_multistep_circle_width' => array(
                     'id'        => 'uacf7_multistep_circle_width',
                     'type'      => 'number',
@@ -317,7 +328,7 @@ class UACF7_MULTISTEP {
 					?>
 					<div class="steps-step"><a href="#step-<?php echo esc_attr($step_id); ?>" type="button" class="btn <?php if( $step_id == 1 ) { echo esc_attr('uacf7-btn-active'); }else{ echo esc_attr('uacf7-btn-default'); } ?> btn-circle"><?php 
 					if(is_array($step_name)) {
-						do_action( 'uacf7_progressbar_image', $step_name[$step_count] );
+						do_action( 'uacf7_progressbar_image', $step_name[$step_count], $form_current->id() );
 					}
 					echo apply_filters( 'uacf7_progressbar_step', esc_attr($step_id), $uacf7_multistep_use_step_labels, $content ); ?></a><p><?php if( $uacf7_multistep_use_step_labels != 'on' ) { echo $content; } ?></p></div>
 					<?php
@@ -644,8 +655,8 @@ class UACF7_MULTISTEP {
     
     public function uacf7_post_meta_options_multistep_pro($value, $post_id){  
         $fields = $value['fields'];
-        // uacf7_print_r($value); 
-        if($post_id != 0){
+         
+        if($post_id != 0){ 
             // Current Contact Form tags
             $form_current = WPCF7_ContactForm::get_instance($post_id);
                     
@@ -666,6 +677,17 @@ class UACF7_MULTISTEP {
                         'label' => __( 'Step '.$step_count.'', 'ultimate-addons-cf7' ), 
                         'is_pro' => true,
                     );
+                    
+                    $fields['uacf7_progressbar_image_'.$step->name.''] = array(
+                        'id'        => 'uacf7_progressbar_image_'.$step->name.'',
+                        'type' => 'image',
+                        'label'     => __( 'Add progressbar image for this step', 'ultimate-addons-cf7' ),  
+                        'class' => 'tf-field-class', 
+                        'multiple' => false,
+                        'inline' => true, 
+                        'is_pro' => true,
+                    );
+                   
                     if($step_count == 1){
                         $fields['next_btn_'.$step->name.''] = array(
                             'id'        => 'next_btn_'.$step->name.'',
@@ -700,16 +722,6 @@ class UACF7_MULTISTEP {
                             );
                         }
                     }
-                    $fields['uacf7_progressbar_image_'.$step->name.''] = array(
-                        'id'        => 'uacf7_progressbar_image_'.$step->name.'',
-                        'type' => 'color',
-                        'label'     => __( 'Add progressbar image for this step', 'ultimate-addons-cf7' ),  
-                        'class' => 'tf-field-class', 
-                        'multiple' => false,
-                        'inline' => true, 
-                        'field_width' => 50,
-                        'is_pro' => true,
-                    );
                     $fields['desc_title_'.$step->name.''] = array(
                         'id'        => 'desc_title_'.$step->name.'',
                         'type'      => 'text',
@@ -928,7 +940,7 @@ class UACF7_MULTISTEP {
                             <div class="steps-step">
                                 <a title-id=".step-<?php echo esc_attr($step_id); ?>" data-form-id="<?php echo esc_attr($cfform->id()); ?>"   href="#<?php echo esc_attr($cfform->id()); ?>step-<?php echo esc_attr($step_id); ?>" type="button" class="btn <?php if( $step_id == 1 ) { echo esc_attr('uacf7-btn-active'); }else{ echo esc_attr('uacf7-btn-default'); } ?> btn-circle"><?php 
                                     if(is_array($step_name)) {
-                                        do_action( 'uacf7_progressbar_image', $step_name[$step_count] );
+                                        do_action( 'uacf7_progressbar_image', $step_name[$step_count], $cfform->id() );
                                     }
                                     if( $uacf7_progressbar_style == 'style-1' ){
                                         if( $uacf7_multistep_use_step_labels != true ) {

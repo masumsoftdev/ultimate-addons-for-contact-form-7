@@ -451,15 +451,16 @@ class UACF7_range_Slider {
         if ( !is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
             $form = $properties['form'];
 
-            ob_start();
-            $range_slider = uacf7_get_form_option( $cf->id(), 'range_slider' );
-            $selection_color = isset( $range_silder['uacf7_range_selection_color'] ) ? $range_silder['uacf7_range_selection_color'] : "#1e90ff";
-            $handle_width = isset( $range_silder['uacf7_range_handle_width'] ) ? $range_silder['uacf7_range_handle_width'] : '24';
-            $handle_height = isset( $range_silder['uacf7_range_handle_height']) ? $range_silder['uacf7_range_handle_height']: '24';
-            $handle_border_radius = isset( $range_silder['uacf7_range_handle_border_radius'] ) ? $range_silder['uacf7_range_handle_border_radius'] : '24';
-            $handle_color = isset( $range_slider['uacf7_range_handle_color'] ) ? $range_slider['uacf7_range_handle_color'] : '#3498db';
-            $range_slider_height = isset( $range_silder['uacf7_range_slider_height'] ) ? $range_silder['uacf7_range_slider_height'] : 9;
-            $handle_dynamic_position = ( $handle_height / 2 - $range_slider_height / 2 ) + 1;
+            ob_start(); 
+            $range_slider = uacf7_get_form_option( $cf->id(), 'range_slider' ); 
+            $selection_color = isset( $range_slider['uacf7_range_selection_color'] ) && !empty($range_slider['uacf7_range_selection_color']) ? $range_slider['uacf7_range_selection_color'] : "#1e90ff";
+            $handle_width = isset( $range_slider['uacf7_range_handle_width'] ) && !empty($range_slider['uacf7_range_handle_width']) ? $range_slider['uacf7_range_handle_width'] : '24';
+            $handle_height = isset( $range_slider['uacf7_range_handle_height']) && !empty($range_slider['uacf7_range_handle_height']) ? $range_slider['uacf7_range_handle_height']: '24';
+            $handle_border_radius = isset( $range_slider['uacf7_range_handle_border_radius'] ) && !empty($range_slider['uacf7_range_handle_border_radius']) ? $range_slider['uacf7_range_handle_border_radius'] : '24';
+            $handle_color = isset( $range_slider['uacf7_range_handle_color'] ) && !empty($range_slider['uacf7_range_handle_color']) ? $range_slider['uacf7_range_handle_color'] : '#3498db';
+            $range_slider_height = isset( $range_slider['uacf7_range_slider_height'] ) && !empty($range_slider['uacf7_range_slider_height']) ? $range_slider['uacf7_range_slider_height'] : 9; 
+            $handle_dynamic_position = ( intval($handle_height) / 2 - intval($range_slider_height) / 2 ) + 1;
+ 
             ?>
             <style>
                 :root {

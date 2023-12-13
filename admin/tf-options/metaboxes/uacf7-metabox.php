@@ -8,13 +8,11 @@ defined( 'ABSPATH' ) || exit;
  * @since 1.7.0
  */
  
-if(isset($_GET['post']) && isset($_GET['page']) && $_GET['page'] == 'wpcf7' ){
+if(isset($_GET['post']) && !is_array($_GET['post']) && isset($_GET['page']) && $_GET['page'] == 'wpcf7' ){
 	 $post_id = $_GET['post'];
 } else{
 	$post_id = 0;
-}
- 
-// exit;
+}  
 UACF7_Metabox::metabox( 'uacf7_form_opt', array(
 	'title'     => __( 'Tour Setting', 'tourfic' ),
 	'post_type' => 'uacf7',
