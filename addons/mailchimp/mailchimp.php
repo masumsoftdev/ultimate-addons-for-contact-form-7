@@ -11,11 +11,8 @@ class UACF7_MAILCHIMP
 
   public function __construct()
   {
-    require_once('inc/functions.php');
-    // add_action('wpcf7_editor_panels', array($this, 'uacf7_cf_add_panel'));
-    add_action('uacf7_admin_tab_button', array($this, 'add_mailchimp_tab'), 10);
-    add_action('uacf7_admin_tab_content', array($this, 'add_mailchimp_tab_content'));
-    add_action('admin_enqueue_scripts', array($this, 'admin_scripts'));
+    require_once('inc/functions.php'); 
+  
     add_action("wpcf7_before_send_mail", array($this, 'send_data'));
     add_action('wpcf7_after_save', array($this, 'uacf7_save_contact_form'));
     add_filter( 'uacf7_post_meta_options', array($this, 'uacf7_post_meta_options_mailchimp'), 17, 2 );  
@@ -190,31 +187,8 @@ class UACF7_MAILCHIMP
 }
 
 
-  /* Mailchimp tab */
-  public function add_mailchimp_tab()
-  {
-  ?>
-    <a class="tablinks" onclick="uacf7_settings_tab(event, 'uacf7_mailchimp')"><?php echo esc_html__( 'Mailchimp', 'ultimate-addons-cf7' ); ?></a>
-  <?php
-  }
-
-  /* Mailchimp tab content */
-  public function add_mailchimp_tab_content()
-  {
-  ?>
-    <div id="uacf7_mailchimp" class="uacf7-tabcontent uacf7-mailchimp">
-
-      <form method="post" action="options.php">
-        <?php
-        settings_fields('uacf7_mailchimp_option');
-        do_settings_sections('ultimate-mailchimp-admin');
-        submit_button();
-        ?>
-      </form>
-
-    </div>
-  <?php
-  }
+ 
+ 
 
   /* Check Internet connection */
   public static function is_internet_connected()
@@ -323,22 +297,8 @@ class UACF7_MAILCHIMP
     return $status;
   }
 
-  /* Create tab panel */
-  public function uacf7_cf_add_panel($panels)
-  {
-
-    $panels['uacf7-mailchimp-panel'] = array(
-      'title'    => __('UACF7 Mailchimp', 'ultimate-addons-cf7'),
-      'callback' => array($this, 'uacf7_create_mailchimp_panel_fields'),
-    );
-    return $panels;
-  }
-
-  /* Mailchimp form settings fields */
-  public function uacf7_create_mailchimp_panel_fields($post)
-  {
-    require_once( 'inc/template/form-fields.php' );
-  }
+ 
+ 
 
   /* Save form data */
   public function uacf7_save_contact_form($post)
@@ -479,10 +439,6 @@ class UACF7_MAILCHIMP
     } 
   }
 
-  /* Enqueue admin scripts */
-  public function admin_scripts()
-  {
-    wp_enqueue_style('mailchimp-css', UACF7_ADDONS . '/mailchimp/assets/css/admin-style.css');
-  }
+ 
 }
 new UACF7_MAILCHIMP();

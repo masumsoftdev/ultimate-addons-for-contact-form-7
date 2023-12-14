@@ -395,6 +395,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'label'     => __( 'WooCommerce Product Dropdown (Pro)', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Woo-Categorized-Product@2x.png',
 						'default'   => false, 
+						'is_pro' => true,
 						'subtitle' => __( ' Add specific WooCommerce Product as Dropdown. Add the Products based on Product ID. Connect with Cart/Checkout If Needed. Show product Drop-down field based on specific WooCommerce Category. Option to Show Product based on ID. Ability to choose Multiple WooCommerce Product from the Dropdown Field. Option to Show Product based on ID.', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/woocommerce-product-dropdown/', 
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-woocommerce/', 

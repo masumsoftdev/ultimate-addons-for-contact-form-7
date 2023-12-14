@@ -12,8 +12,7 @@ class UACF7_DATABASE {
 	 * Construct function
 	 */
 	public function __construct() {
-
-		// add_action( 'wp_enqueue_scripts', array($this, 'wp_enqueue_script' ) );  
+ 
 		add_action( 'admin_enqueue_scripts', array( $this, 'wp_enqueue_admin_script' ) );
 		add_action( 'wpcf7_before_send_mail', array( $this, 'uacf7_save_to_database' ) );
 		add_action( 'admin_menu', array( $this, 'uacf7_add_db_menu' ), 11, 2 );
