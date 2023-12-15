@@ -73,7 +73,7 @@ class UACF7_PROMO_NOTICE {
             $this->responsed = json_decode($data, true); 
 
             $uacf7_promo__schudle_option = get_option( 'uacf7_promo__schudle_option' ); 
-            if(isset($ins_promo__schudle_option['notice_name']) || $uacf7_promo__schudle_option['notice_name'] != $this->responsed['notice_name']){ 
+            if(isset($ins_promo__schudle_option['notice_name']) && $uacf7_promo__schudle_option['notice_name'] != $this->responsed['notice_name']){ 
                 // Unset the cookie variable in the current script
                 update_option( 'tf_dismiss_admin_notice', 1);
                 update_option( 'uacf7_dismiss_post_notice', 1); 
