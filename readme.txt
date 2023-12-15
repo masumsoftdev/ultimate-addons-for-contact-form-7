@@ -454,7 +454,7 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 
 = 3.2.15 – 15/12/2023 =
 
-- Fixed: PHP Error fixed
+- Fixed: PHP Error Fixing
 - Fixed: Minor Bugs
 
 = 3.2.14 – 10/12/2023 =
