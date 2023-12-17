@@ -3,30 +3,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class UACF7_Placeholder {
+class UACF7_WEB_HOOK {
 
 	/*
 	 * Construct function
 	 */
 	public function __construct() {
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_placeholder_style' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_webhook_style' ) );
 		add_filter( 'wpcf7_contact_form_properties', array( $this, 'uacf7_properties' ), 10, 2 );
 		add_filter( 'uacf7_post_meta_options', array( $this, 'uacf7_post_meta_options_placeholder' ), 12, 2 );
 	}
 
-	// public function admin_enqueue_placeholder_styles() {
-	//     wp_enqueue_style( 'uacf7-placeholder-style', UACF7_URL . 'addons/', array(), null, true );
-	// } 
 
-	public function enqueue_placeholder_style() {
-		wp_enqueue_style( 'uacf7-placeholder', UACF7_ADDONS . '/placeholder/css/placeholder-style.css' );
-		wp_enqueue_script( 'uacf7-placeholder-script', UACF7_ADDONS . '/placeholder/js/color-pickr.js', array( 'jquery', 'wp-color-picker' ), '', true );
+	public function enqueue_webhook_style() {
+		wp_enqueue_style( 'uacf7-web-hook', UACF7_ADDONS . '/web-hook/css/web-hook-style.css' );
+		wp_enqueue_script( 'uacf7-web-hook-script', UACF7_ADDONS . '/web-hook/js/web-hook.js', array( 'jquery' ), '', true );
 	}
 
 	// Add Placeholder Options
 	public function uacf7_post_meta_options_placeholder( $value, $post_id ) {
 		$redirection = apply_filters( 'uacf7_post_meta_options_placeholder_pro', $data = array(
-			'title' => __( 'Placeholder', 'ultimate-addons-cf7' ),
+			'title' => __( 'Web Hook', 'ultimate-addons-cf7' ),
 			'icon' => 'fa-solid fa-italic',
 			'fields' => array(
 				'placeholder_headding' => array(
@@ -103,13 +100,6 @@ class UACF7_Placeholder {
 					'placeholder' => __( 'Enter Placeholder Font Name ', 'ultimate-addons-cf7' ),
 					'field_width' => 50,
 				),
-				// array(
-				//     'id' => 'uacf7_placeholder_notice',
-				//     'type' => 'notice',
-				//     'content' => __( " Need more placeholder or other options? Let us know here . ", "ultimate-addons-cf7" ),  
-				//     'class' => 'tf-field-class',   
-				//     'notice' => 'info',
-				// )  
 			),
 		), $post_id );
 		$value['placeholder'] = $redirection;
@@ -226,4 +216,4 @@ class UACF7_Placeholder {
 	}
 
 }
-new UACF7_Placeholder();
+new UACF7_WEB_HOOK();
