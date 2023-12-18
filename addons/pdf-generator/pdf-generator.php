@@ -148,14 +148,14 @@ class UACF7_PDF_GENERATOR {
                 'pdf_header_upload_image' => array(
                     'id'        => 'pdf_header_upload_image',
                     'type'      => 'image',
-                    'label'     => __( 'PDF Header Background Image ', 'ultimate-addons-cf7' ),
+                    'label'     => __( 'Header Image ', 'ultimate-addons-cf7' ),
 
                 ),
  
                 'pdf_header_color' => array(
                     'id'        => 'pdf_header_color',
                     'type'      => 'color',
-                    'label'     => __( 'PDF Header Content Color ', 'ultimate-addons-cf7' ),
+                    'label'     => __( 'PDF Header Color ', 'ultimate-addons-cf7' ),
                     'field_width' => 50,
                     'class' => 'tf-field-class',
                     // 'default' => '#ffffff',
