@@ -1,3 +1,14 @@
 .clear {
   clear: both;
 }
+
+
+
+/* uacf7_web_hook_field_group */
+.uacf7_web_hook_field_group{
+  padding: 20px;
+}
+
+.uacf7_web_hook_field_group .tf-field-wrap{
+  padding: 0 !important;
+}
