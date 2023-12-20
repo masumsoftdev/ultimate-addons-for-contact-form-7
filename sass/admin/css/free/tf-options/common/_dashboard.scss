@@ -597,6 +597,9 @@
             .tf-admin-tab {
                 min-width: 280px;
                 @include transition(all, 0.3s, ease);
+                @media #{$max1200}{
+                    min-width: 200px;
+                }
                 @media #{$max991}{
                     display: none;
                 }

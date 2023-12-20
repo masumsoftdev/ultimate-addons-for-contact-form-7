@@ -142,7 +142,7 @@ if ( ! class_exists( 'UACF7_Metabox' ) ) {
 								<div class="tf-tab-wrapper">
 									<?php $content_count = 0;
 									foreach ( $this->metabox_sections as $key => $section ) : ?>
-										<div id="<?php echo esc_attr( $key ) ?>" class="tf-tab-content <?php echo $content_count == 0 ? 'active' : ''; ?>">
+										<div id="<?php echo esc_attr( $key ) ?>" class="tf-tab-content tf-container <?php echo $content_count == 0 ? 'active' : ''; ?>">
 
 											<?php
 											if ( ! empty( $section['fields'] ) ):

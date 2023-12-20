@@ -1,10 +1,11 @@
-.tf-field-heading {
-  padding: 16px 24px;
+.tf-field-heading { 
   margin: 0 -24px;
-  background-color: $slate5;
+  background-color: $green5 !important;
+  border: 1px solid $green5 !important;
+  border-radius: 8px !important; 
 
   .tf-field-heading-inner {
-    @include flexbox();
+    @include flexbox(); 
 
     .tf-field-heading-icon {
       margin-right: 10px;

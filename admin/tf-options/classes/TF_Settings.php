@@ -17,7 +17,7 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 			$this->option_icon     = ! empty( $params['icon'] ) ? apply_filters( $key . '_icon', $params['icon'] ) : '';
 			$this->option_position = ! empty( $params['position'] ) ? apply_filters( $key . '_position', $params['position'] ) : 5;
 			$this->option_sections = ! empty( $params['sections'] ) ? apply_filters( $key . '_sections', $params['sections'] ) : array(); 
-
+			// echo $this->option_icon;
 			// run only is admin panel options, avoid performance loss
 			$this->pre_tabs     = $this->pre_tabs( $this->option_sections );
 			$this->pre_fields   = $this->pre_fields( $this->option_sections );
@@ -168,7 +168,7 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 		?>
 		<div class="tf-setting-top-bar">
 			<div class="version">
-				<img src="<?php echo UACF7_URL; ?>assets/img/uacf7-icon.png" alt="logo">
+				<img style="height:60px; width:60px;" src="<?php echo UACF7_URL; ?>assets/img/uacf7-icon.png" alt="logo">
 				<span>v<?php echo esc_attr( UACF7_VERSION ); ?></span>
 			</div>
 			<div class="other-document">

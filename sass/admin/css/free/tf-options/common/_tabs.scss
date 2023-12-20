@@ -41,6 +41,10 @@
     background-color: $slate0;
     min-width: 280px;
     @include transition(all, 0.3s, ease);
+    @media #{$max1200} {
+      min-width: 200px !important;
+    }
+    
     @media #{$max991}{
       display: none;
     }
@@ -160,6 +164,9 @@
     @include flex(0 0 calc(100% - 280px));
     @media #{$max991}{
       flex: 0 0 calc(100% - 0px);
+    }
+    @media #{$max1200}{
+      flex: 0 0 calc(100% - 200px);
     }
 
 
