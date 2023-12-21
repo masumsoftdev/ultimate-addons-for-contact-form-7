@@ -121,8 +121,8 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 			// 
 			add_submenu_page(
 				$this->option_id, //parent slug
-				__('Integration','ultimate-addons-cf7'), // page_title
-				__('Integration','ultimate-addons-cf7'), // menu_title
+				__('Options','ultimate-addons-cf7'), // page_title
+				__('Options','ultimate-addons-cf7'), // menu_title
 				'manage_options', // capability
 				$this->option_id.'#tab=mailchimp', // menu_slug
 				array( $this, 'tf_options_page' ) // function
