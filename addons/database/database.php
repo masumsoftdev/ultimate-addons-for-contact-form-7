@@ -569,9 +569,10 @@ class uacf7_form_List_Table extends WP_List_Table {
 			$field_data = json_decode( $fdata->form_value );
 			$repetar_value = '';
 			$repetar_key = '';
-			$enable_pdf = ! empty( get_post_meta( $fdata->form_id, 'uacf7_enable_pdf_generator', true ) ) ? get_post_meta( $fdata->form_id, 'uacf7_enable_pdf_generator', true ) : '';
-
-			if ( $enable_pdf == 'on' && uacf7_checked( 'uacf7_enable_pdf_generator_field' ) != '' ) {
+			$pdf_post_meta = uacf7_get_form_option( $fdata->form_id, 'pdf_generator' );
+			$enable_pdf = isset($pdf_post_meta['uacf7_enable_pdf_generator']) ? $pdf_post_meta['uacf7_enable_pdf_generator']: false;
+			$uacf7_enable_pdf_generator_field = uacf7_settings( 'uacf7_enable_pdf_generator_field' );
+			if ( $enable_pdf == true && $uacf7_enable_pdf_generator_field = true ) {
 				$pdf_btn = "<button data-form-id='" . esc_attr( $fdata->form_id ) . "' data-id='" . esc_attr( $fdata->id ) . "' data-value='" . esc_html( $fdata->form_value ) . "' class='button-primary uacf7-db-pdf'> Export as PDF</button>";
 			} else {
 				$pdf_btn = '';

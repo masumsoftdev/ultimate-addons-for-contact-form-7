@@ -129,13 +129,7 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 			); 
 			
 			if ( class_exists('Ultimate_Addons_CF7_PRO') ) {
-				//License Info submenu
-				// add_submenu_page(
-				// 	$this->option_id, 
-				// 	'manage_options',
-				// 	'tf_license_info',
-				// 	array( $this,'tf_license_info_callback'),
-				// );
+				//License Info submenu 
 				add_submenu_page(
 					$this->option_id, //parent slug
 					__('License', 'ultimate-addons-cf7'),
