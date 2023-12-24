@@ -12,6 +12,8 @@ class UACF7_WEB_HOOK {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_webhook_style' ) );
 		// add_filter( 'wpcf7_contact_form_properties', array( $this, 'uacf7_properties' ), 10, 2 );
 		add_filter( 'uacf7_post_meta_options', array( $this, 'uacf7_post_meta_options_placeholder' ), 12, 2 );
+
+		add_action( 'wpcf7_before_send_mail', array( $this, 'uacf7_send_data_by_web_hook' ) );
 	}
 
 
@@ -26,14 +28,16 @@ class UACF7_WEB_HOOK {
 		// $form_id = $_POST['form_id'];
 		// $ContactForm = WPCF7_ContactForm::get_instance( $form_id );
 		// $tags = $ContactForm->scan_form_tags();
+		// $wpcf7 = WPCF7_ContactForm::get_current();
+		// $submission = WPCF7_Submission::get_instance();
 
-		var_dump($post_id);
+		// var_dump($post_id);
 
-		$redirection = apply_filters( 'uacf7_post_meta_options_placeholder_pro', $data = array(
+		$WebHook = apply_filters( 'uacf7_post_meta_options_placeholder_pro', $data = array(
 			'title' => __( 'Web Hook', 'ultimate-addons-cf7' ),
 			'icon' => 'fa-solid fa-italic',
-			'fields' => array(
-				'uacf7_Web_hook_headding' => array(
+			'fields' => [
+				'uacf7_Web_hook_headding' => [
 					'id' => 'uacf7_web_hook_headding',
 					'type' => 'notice',
 					'notice' => 'info',
@@ -43,15 +47,15 @@ class UACF7_WEB_HOOK {
 						__( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
 						'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-placeholder-styling/" target="_blank">documentation</a>'
 					)
-				),
-				'uacf7_enable_web_hook' => array(
+				],
+				'uacf7_enable_web_hook' => [
 					'id' => 'uacf7_enable_web_hook',
 					'type' => 'switch',
 					'label' => __( ' Enable Web Hook ', 'ultimate-addons-cf7' ),
 					'label_on' => __( 'Yes', 'ultimate-addons-cf7' ),
 					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
 					'default' => false
-				),
+				],
 
 				'uacf7_web_hook_init' => [ 
 					'id' => 'uacf7_web_hook_init',
@@ -161,14 +165,12 @@ class UACF7_WEB_HOOK {
 
 					]
 				]
-			),
+			],
 		), $post_id );
 
-		$value['Web_hook'] = $redirection;
+		$value['Web_hook'] = $WebHook;
 		return $value;
 	}
-
-
 
 
 	public function uacf7_properties( $properties, $cfform ) {
@@ -277,7 +279,18 @@ class UACF7_WEB_HOOK {
 		return $properties;
 	}
 
-	public function uacf7_send_data_by_web_hook(){
+	public function uacf7_send_data_by_web_hook($form){
+
+		$submission = WPCF7_Submission::get_instance();
+		$ContactForm = WPCF7_ContactForm::get_instance( $form->id() );
+
+		$contact_form_data = $submission->get_posted_data();
+		$tags = $ContactForm->scan_form_tags();
+
+		var_dump($contact_form_data);
+		var_dump($tags);
+
+		// die();
 		$api_endpoint = '';
 		$request_method = '';
 
@@ -299,17 +312,17 @@ class UACF7_WEB_HOOK {
 		);
 
 		// Make the POST request
-		$response = wp_remote_request($api_endpoint, $request_args);
+		// $response = wp_remote_request($api_endpoint, $request_args);
 
-		// Check if the request was successful
-		if (is_wp_error($response)) {
-			// Handle error
-			echo 'Error: ' . $response->get_error_message();
-		} else {
-			// Request was successful, and $response contains the API response
-			$api_response = wp_remote_retrieve_body($response);
-			echo 'API Response: ' . $api_response;
-		}
+		// // Check if the request was successful
+		// if (is_wp_error($response)) {
+		// 	// Handle error
+		// 	echo 'Error: ' . $response->get_error_message();
+		// } else {
+		// 	// Request was successful, and $response contains the API response
+		// 	$api_response = wp_remote_retrieve_body($response);
+		// 	echo 'API Response: ' . $api_response;
+		// }
 	}
 
 }
