@@ -369,7 +369,7 @@ class UACF7_uacf7style {
                 'uacf7_uacf7style_btn_color_option' => array(
                     'id' => 'uacf7_uacf7style_btn_color_option',
                     'type' => 'color',
-                    'label'     => __( 'Border Color', 'ultimate-addons-cf7' ),  
+                    'label'     => __( 'Button Color', 'ultimate-addons-cf7' ),  
                     'class' => 'tf-field-class',
                     // 'default' => '#ffffff',
                     'multiple' => true,

@@ -2,15 +2,15 @@
 // don't load directly
 defined( 'ABSPATH' ) || exit;
 
-if ( file_exists( UACF7_PATH . 'options/tf-menu-icon.php' ) ) {
-	require_once UACF7_PATH . 'options/tf-menu-icon.php';
+if ( file_exists( UACF7_PATH . 'admin/tf-options/options/tf-menu-icon.php' ) ) {
+	
+	require_once UACF7_PATH . 'admin/tf-options/options/tf-menu-icon.php';
 } else {
 	$menu_icon = 'dashicons-palmtree';
-}
-
+} 
 UACF7_Settings::option( 'uacf7_settings', array(
 	'title'    => __( 'Ultimate Addons', 'tourfic' ),
-	'icon'     => 'dashicons-palmtree',
+	'icon'     => $menu_icon,
 	'position' => 25,
 	'sections' => 
 		apply_filters('uacf7_settings_options', array(

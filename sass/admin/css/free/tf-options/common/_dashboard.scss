@@ -555,12 +555,12 @@
     .tf-setting-license-field {
         background-color: #fff;
         border-radius: 8px;
-        padding: 0px 20px;
+        padding:12px 20px;
     }
 }
 
 .tf-setting-wrapper {
-    max-width: 100%;
+    max-width: 100%; 
     margin: 30px 20px 30px 0px;
     background-color: #fff;
     border-radius: 10px;
@@ -597,6 +597,9 @@
             .tf-admin-tab {
                 min-width: 280px;
                 @include transition(all, 0.3s, ease);
+                @media #{$max1200}{
+                    min-width: 200px;
+                }
                 @media #{$max991}{
                     display: none;
                 }
