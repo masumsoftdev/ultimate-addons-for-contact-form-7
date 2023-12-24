@@ -45,7 +45,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 			return '1.0.0';
 		}
 
-		public function tf_options_file_path( $file_path = '' ) {
+		public function uacf7_options_file_path( $file_path = '' ) {
 			return plugin_dir_path( __FILE__ ) . $file_path;
 		}
 
@@ -81,13 +81,13 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 		 */
 		public function load_files() {
 			// Metaboxes Class
-			require_once $this->tf_options_file_path( 'classes/TF_Metabox.php' );
+			require_once $this->uacf7_options_file_path( 'classes/UACF7_Metabox.php' );
 			// Settings Class
-			require_once $this->tf_options_file_path( 'classes/TF_Settings.php' );
+			require_once $this->uacf7_options_file_path( 'classes/UACF7_Settings.php' );
 			//Shortcodes Class
-			require_once $this->tf_options_file_path( 'classes/TF_Shortcodes.php' );
+			require_once $this->uacf7_options_file_path( 'classes/UACF7_Shortcodes.php' );
 			//Taxonomy Class
-			require_once $this->tf_options_file_path( 'classes/TF_Taxonomy_Metabox.php' );
+			require_once $this->uacf7_options_file_path( 'classes/UACF7_Taxonomy_Metabox.php' );
 
 		}
 
@@ -97,7 +97,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 		 */
 		public function load_metaboxes() {
 			
-			$metaboxes = glob( $this->tf_options_file_path( 'metaboxes/*.php' ) );
+			$metaboxes = glob( $this->uacf7_options_file_path( 'metaboxes/*.php' ) );
 
 			/*if( !empty( $pro_metaboxes ) ) {
 				$metaboxes = array_merge( $metaboxes, $pro_metaboxes );
@@ -117,7 +117,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 		 */
 		public function load_options() {
 			
-			$options = glob( $this->tf_options_file_path( 'options/*.php' ) );
+			$options = glob( $this->uacf7_options_file_path( 'options/*.php' ) );
 
 			if ( ! empty( $options ) ) {
 				foreach ( $options as $option ) {
@@ -134,7 +134,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 		 */
 		public function load_taxonomy() {
 			
-			$taxonomies = glob( $this->tf_options_file_path( 'taxonomies/*.php' ) );
+			$taxonomies = glob( $this->uacf7_options_file_path( 'taxonomies/*.php' ) );
 
 			if ( ! empty( $taxonomies ) ) {
 				foreach ( $taxonomies as $taxonomy ) {
@@ -164,145 +164,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 			);
 			$tf_options_post_type = array( 'tf_hotel', 'tf_tours', 'tf_apartment' ); 
 
-			if("tourfic-settings_page_tf_dashboard"==$screen){
-				//Order Data Retrive
-				$tf_old_order_limit = new WC_Order_Query( array(
-					'limit'   => - 1,
-					'orderby' => 'date',
-					'order'   => 'ASC',
-					'return'  => 'ids',
-				) );
-				$order              = $tf_old_order_limit->get_orders();
-				// Booking Month
-				$tf_co1  = 0;
-				$tf_co2  = 0;
-				$tf_co3  = 0;
-				$tf_co4  = 0;
-				$tf_co5  = 0;
-				$tf_co6  = 0;
-				$tf_co7  = 0;
-				$tf_co8  = 0;
-				$tf_co9  = 0;
-				$tf_co10 = 0;
-				$tf_co11 = 0;
-				$tf_co12 = 0;
-				// Booking Cancel Month
-				$tf_cr1  = 0;
-				$tf_cr2  = 0;
-				$tf_cr3  = 0;
-				$tf_cr4  = 0;
-				$tf_cr5  = 0;
-				$tf_cr6  = 0;
-				$tf_cr7  = 0;
-				$tf_cr8  = 0;
-				$tf_cr9  = 0;
-				$tf_cr10 = 0;
-				$tf_cr11 = 0;
-				$tf_cr12 = 0;
-				foreach ( $order as $item_id => $item ) {
-					$itemmeta         = wc_get_order( $item );
-					$tf_ordering_date = $itemmeta->get_date_created();
-					if ( $tf_ordering_date->date( 'n-y' ) == '1-' . date( 'y' ) ) {
-						if ( "completed" == $itemmeta->get_status() ) {
-							$tf_co1 += 1;
-						}
-						if ( "cancelled" == $itemmeta->get_status() || "refunded" == $itemmeta->get_status() ) {
-							$tf_cr1 += 1;
-						}
-					}
-					if ( $tf_ordering_date->date( 'n-y' ) == '2-' . date( 'y' ) ) {
-						if ( "completed" == $itemmeta->get_status() ) {
-							$tf_co2 += 1;
-						}
-						if ( "cancelled" == $itemmeta->get_status() || "refunded" == $itemmeta->get_status() ) {
-							$tf_cr2 += 1;
-						}
-					}
-					if ( $tf_ordering_date->date( 'n-y' ) == '3-' . date( 'y' ) ) {
-						if ( "completed" == $itemmeta->get_status() ) {
-							$tf_co3 += 1;
-						}
-						if ( "cancelled" == $itemmeta->get_status() || "refunded" == $itemmeta->get_status() ) {
-							$tf_cr3 += 1;
-						}
-					}
-					if ( $tf_ordering_date->date( 'n-y' ) == '4-' . date( 'y' ) ) {
-						if ( "completed" == $itemmeta->get_status() ) {
-							$tf_co4 += 1;
-						}
-						if ( "cancelled" == $itemmeta->get_status() || "refunded" == $itemmeta->get_status() ) {
-							$tf_cr4 += 1;
-						}
-					}
-					if ( $tf_ordering_date->date( 'n-y' ) == '5-' . date( 'y' ) ) {
-						if ( "completed" == $itemmeta->get_status() ) {
-							$tf_co5 += 1;
-						}
-						if ( "cancelled" == $itemmeta->get_status() || "refunded" == $itemmeta->get_status() ) {
-							$tf_cr5 += 1;
-						}
-					}
-					if ( $tf_ordering_date->date( 'n-y' ) == '6-' . date( 'y' ) ) {
-						if ( "completed" == $itemmeta->get_status() ) {
-							$tf_co6 += 1;
-						}
-						if ( "cancelled" == $itemmeta->get_status() || "refunded" == $itemmeta->get_status() ) {
-							$tf_cr6 += 1;
-						}
-					}
-					if ( $tf_ordering_date->date( 'n-y' ) == '7-' . date( 'y' ) ) {
-						if ( "completed" == $itemmeta->get_status() ) {
-							$tf_co7 += 1;
-						}
-						if ( "cancelled" == $itemmeta->get_status() || "refunded" == $itemmeta->get_status() ) {
-							$tf_cr7 += 1;
-						}
-					}
-					if ( $tf_ordering_date->date( 'n-y' ) == '8-' . date( 'y' ) ) {
-						if ( "completed" == $itemmeta->get_status() ) {
-							$tf_co8 += 1;
-						}
-						if ( "cancelled" == $itemmeta->get_status() || "refunded" == $itemmeta->get_status() ) {
-							$tf_cr8 += 1;
-						}
-					}
-					if ( $tf_ordering_date->date( 'n-y' ) == '9-' . date( 'y' ) ) {
-						if ( "completed" == $itemmeta->get_status() ) {
-							$tf_co9 += 1;
-						}
-						if ( "cancelled" == $itemmeta->get_status() || "refunded" == $itemmeta->get_status() ) {
-							$tf_cr9 += 1;
-						}
-					}
-					if ( $tf_ordering_date->date( 'n-y' ) == '10-' . date( 'y' ) ) {
-						if ( "completed" == $itemmeta->get_status() ) {
-							$tf_co10 += 1;
-						}
-						if ( "cancelled" == $itemmeta->get_status() || "refunded" == $itemmeta->get_status() ) {
-							$tf_cr10 += 1;
-						}
-					}
-					if ( $tf_ordering_date->date( 'n-y' ) == '11-' . date( 'y' ) ) {
-						if ( "completed" == $itemmeta->get_status() ) {
-							$tf_co11 += 1;
-						}
-						if ( "cancelled" == $itemmeta->get_status() || "refunded" == $itemmeta->get_status() ) {
-							$tf_cr11 += 1;
-						}
-					}
-					if ( $tf_ordering_date->date( 'n-y' ) == '12-' . date( 'y' ) ) {
-						if ( "completed" == $itemmeta->get_status() ) {
-							$tf_co12 += 1;
-						}
-						if ( "cancelled" == $itemmeta->get_status() || "refunded" == $itemmeta->get_status() ) {
-							$tf_cr12 += 1;
-						}
-					}
-				}
-				$tf_complete_orders = [ $tf_co1, $tf_co2, $tf_co3, $tf_co4, $tf_co5, $tf_co6, $tf_co7, $tf_co8, $tf_co9, $tf_co10, $tf_co11, $tf_co12 ];
-				$tf_cancel_orders   = [ $tf_cr1, $tf_cr2, $tf_cr3, $tf_cr4, $tf_cr5, $tf_cr6, $tf_cr7, $tf_cr8, $tf_cr9, $tf_cr10, $tf_cr11, $tf_cr12 ];
-				$tf_chart_enable    = 1;
-			}
+			 
 
 
 			//Css
@@ -398,6 +260,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 				$id = $settings_id . '[' . $field['id'] . ']';
 			}
 
+			// uacf7_print_r($field);
 			$class = isset( $field['class'] ) ? $field['class'] : '';
 
 			$is_pro   = isset( $field['is_pro'] ) ? $field['is_pro'] : '';
@@ -476,8 +339,8 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 					<?php endif; ?>
 
 					<div class="tf-fieldset">
-						<?php
-						$fieldClass = 'TF_' . $field['type'];
+						<?php 
+						$fieldClass = 'UACF7_' . $field['type'];
 						if ( class_exists( $fieldClass ) ) {
 							$_field = new $fieldClass( $field, $value, $settings_id, $parent, $section_key );
 							$_field->render();
