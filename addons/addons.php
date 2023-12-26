@@ -23,9 +23,9 @@ if ( ! function_exists( 'uacf7_addons_included' ) ) {
 		}
 
 		//Addon - Ultimate Web-Hook
-		// if( isset($option['uacf7_enable_placeholder']) && $option['uacf7_enable_placeholder'] == true ){  
-		require_once( 'web-hook/web-hook.php' );
-		// }
+		if ( isset( $option['uacf7_enable_opt_web_hook'] ) && $option['uacf7_enable_opt_web_hook'] == true ) {
+			require_once( 'web-hook/web-hook.php' );
+		}
 
 		//Addon - Ultimate Placeholder
 		if ( isset( $option['uacf7_enable_placeholder'] ) && $option['uacf7_enable_placeholder'] == true ) {
