@@ -712,13 +712,13 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                             $uacf7_placeholder_color = get_post_meta( get_the_ID(), 'uacf7_placeholder_color', true );
                             $uacf7_placeholder_background_color = get_post_meta( get_the_ID(), 'uacf7_placeholder_background_color', true );
 
-                            $meta['uacf7_enable_placeholder_styles'] = $uacf7_enable_placeholder_styles;
-                            $meta['uacf7_placeholder_fontsize'] = $uacf7_placeholder_fontsize;
-                            $meta['uacf7_placeholder_fontstyle'] = $uacf7_placeholder_fontstyle;
-                            $meta['uacf7_placeholder_fontfamily'] = $uacf7_placeholder_fontfamily;
-                            $meta['uacf7_placeholder_fontweight'] = $uacf7_placeholder_fontweight;
-                            $meta['uacf7_placeholder_color_option']['uacf7_placeholder_color'] = $uacf7_placeholder_color;
-                            $meta['uacf7_placeholder_color_option']['uacf7_placeholder_background_color'] = $uacf7_placeholder_background_color;
+                            $meta['placeholder']['uacf7_enable_placeholder_styles'] = $uacf7_enable_placeholder_styles;
+                            $meta['placeholder']['uacf7_placeholder_fontsize'] = $uacf7_placeholder_fontsize;
+                            $meta['placeholder']['uacf7_placeholder_fontstyle'] = $uacf7_placeholder_fontstyle;
+                            $meta['placeholder']['uacf7_placeholder_fontfamily'] = $uacf7_placeholder_fontfamily;
+                            $meta['placeholder']['uacf7_placeholder_fontweight'] = $uacf7_placeholder_fontweight;
+                            $meta['placeholder']['uacf7_placeholder_color_option']['uacf7_placeholder_color'] = $uacf7_placeholder_color;
+                            $meta['placeholder']['uacf7_placeholder_color_option']['uacf7_placeholder_background_color'] = $uacf7_placeholder_background_color;
                         }
 
 
