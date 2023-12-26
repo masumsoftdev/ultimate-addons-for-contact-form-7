@@ -614,8 +614,7 @@ if(!function_exists('uacf7_review_notice_callback')){
 if(!function_exists('uacf7_form_option_Migration_callback')){
    
     function uacf7_form_option_Migration_callback(){
-        $migration_status = get_option('uacf7_settings_migration_status');
-
+        $migration_status = get_option('uacf7_settings_migration_status'); 
         if($migration_status != true){
            
             // Meta settings_migration migration 
@@ -636,10 +635,11 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                         // $uacf7_redirect_tag_support = get_post_meta( get_the_ID(), 'uacf7_redirect_tag_support', true );
                         // $meta = uacf7_get_form_option($post_id, '');  
                     
-                    // Current Contact Form tags
-                    $form_current = WPCF7_ContactForm::get_instance($post_id);
-                                    
-                    $meta =  get_post_meta( $post_id, 'uacf7_form_opt', true ) !='' ? get_post_meta( $post_id, 'uacf7_form_opt', true ) : array();
+                        // Current Contact Form tags
+                        $form_current = WPCF7_ContactForm::get_instance($post_id);
+                                        
+                        $meta =  get_post_meta( $post_id, 'uacf7_form_opt', true ) !='' ? get_post_meta( $post_id, 'uacf7_form_opt', true ) : array();
+                        
 
                         //  Redirection addon Migration
                         $uacf7_redirect_enable = get_post_meta( get_the_ID(), 'uacf7_redirect_enable', true ) == 'yes' ? 1 : 0;
@@ -652,19 +652,19 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                             $uacf7_redirect_type = get_post_meta( get_the_ID(), 'uacf7_redirect_type', true ) == 'yes' ? 1 : 0;
                             $uacf7_redirect_tag_support = get_post_meta( get_the_ID(), 'uacf7_redirect_tag_support', true ) == 'on' ? 1 : 0; 
                         
-                            $meta['uacf7_redirect_enable'] = $uacf7_redirect_enable;
-                            $meta['uacf7_redirect_to_type'] = $uacf7_redirect_uacf7_redirect_to_type;
-                            $meta['page_id'] = $uacf7_redirect_page_id;
-                            $meta['external_url'] = $uacf7_redirect_external_url;
-                            $meta['target'] = $uacf7_redirect_target;
-                            $meta['uacf7_redirect_type'] = $uacf7_redirect_type;
-                            $meta['uacf7_redirect_tag_support'] = $uacf7_redirect_tag_support;
+                            $meta['redirection']['uacf7_redirect_enable'] = $uacf7_redirect_enable;
+                            $meta['redirection']['uacf7_redirect_to_type'] = $uacf7_redirect_uacf7_redirect_to_type;
+                            $meta['redirection']['page_id'] = $uacf7_redirect_page_id;
+                            $meta['redirection']['external_url'] = $uacf7_redirect_external_url;
+                            $meta['redirection']['target'] = $uacf7_redirect_target;
+                            $meta['redirection']['uacf7_redirect_type'] = $uacf7_redirect_type;
+                            $meta['redirection']['uacf7_redirect_tag_support'] = $uacf7_redirect_tag_support;
                             $i = 0;
                             if($uacf7_redirect_type == 1){
                                 foreach( $uacf7_conditional_redirect_conditions['uacf7_cr_tn'] as $key => $value ){ 
-                                    $meta['conditional_redirect'][$i]['uacf7_cr_tn'] = $uacf7_conditional_redirect_conditions['uacf7_cr_tn'][$i];
-                                    $meta['conditional_redirect'][$i]['uacf7_cr_field_val'] = $uacf7_conditional_redirect_conditions['uacf7_cr_field_val'][$i];
-                                    $meta['conditional_redirect'][$i]['uacf7_cr_redirect_to_url'] = $uacf7_conditional_redirect_conditions['uacf7_cr_redirect_to_url'][$i];
+                                    $meta['redirection']['conditional_redirect'][$i]['uacf7_cr_tn'] = $uacf7_conditional_redirect_conditions['uacf7_cr_tn'][$i];
+                                    $meta['redirection']['conditional_redirect'][$i]['uacf7_cr_field_val'] = $uacf7_conditional_redirect_conditions['uacf7_cr_field_val'][$i];
+                                    $meta['redirection']['conditional_redirect'][$i]['uacf7_cr_redirect_to_url'] = $uacf7_conditional_redirect_conditions['uacf7_cr_redirect_to_url'][$i];
         
                                     $i++; 
                                 
@@ -1117,11 +1117,14 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
 
                         $pre_populate_passing_field = get_post_meta( $post_id, 'pre_populate_passing_field', true );  
                         $count = 0;
-                        foreach($pre_populate_passing_field as $field_key => $field_value){
-                            // $pre_populated['pre_populate_passing_field'][$count] = $field_value;  
-                            $pre_populated['pre_populate_passing_field'][$count]['field_name'] = $field_value;  
-                            $count++;
+                        if(is_array($pre_populate_passing_field)){
+                            foreach($pre_populate_passing_field as $field_key => $field_value){
+                                // $pre_populated['pre_populate_passing_field'][$count] = $field_value;  
+                                $pre_populated['pre_populate_passing_field'][$count]['field_name'] = $field_value;  
+                                $count++;
+                            }
                         }
+                        
                         $meta['pre_populated'] = $pre_populated;
 
                     }
@@ -1208,12 +1211,12 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
             update_option('uacf7_settings', $new_option);
 
             // update migration status
-            update_option( 'uacf7_settings_migration_status', true );
+            // update_option( 'uacf7_settings_migration_status', true );
         }
         
   
     }
-    // add_action( 'admin_init', 'uacf7_form_option_Migration_callback' );
+    add_action( 'admin_init', 'uacf7_form_option_Migration_callback' );
 
 }
 
