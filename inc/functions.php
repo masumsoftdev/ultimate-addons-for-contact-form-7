@@ -892,7 +892,7 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
 
                             $step_count = 1;
                             foreach( $all_steps as $step ) {  
-                                
+
                                 if($step_count == 1){ 
                                     $meta['multistep']['next_btn_'.$step->name.''] = get_post_meta( $post_id, 'next_btn_'.$step->name.'', true );
                                 }else{
@@ -1210,7 +1210,7 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
             update_option('uacf7_settings', $new_option);
 
             // update migration status
-            // update_option( 'uacf7_settings_migration_status', true );
+            update_option( 'uacf7_settings_migration_status', true );
         }
         
   
