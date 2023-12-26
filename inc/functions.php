@@ -891,7 +891,7 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                             $all_steps = $form_current->scan_form_tags( array('type'=>'uacf7_step_start') );
 
                             $step_count = 1;
-                            foreach( $all_steps as $step ) { 
+                            foreach( $all_steps as $step ) {  
                                 
                                 if($step_count == 1){ 
                                     $meta['multistep']['next_btn_'.$step->name.''] = get_post_meta( $post_id, 'next_btn_'.$step->name.'', true );
@@ -904,7 +904,7 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                                     }
                                 }
                                 
-                                $meta['multistep']['uacf7_progressbar_image_'.$step->name.''] = get_post_meta( $post_id, 'uacf7_progressbar_image_'.$step->name.'', true );
+                                $meta['multistep']['uacf7_progressbar_image_'.$step->name.''] = get_option( 'uacf7_progressbar_image_'.$step->name.'', true );
                                 $meta['multistep']['desc_title_'.$step->name.''] = get_post_meta( $post_id, 'desc_title_'.$step->name.'', true );
                                 $meta['multistep']['step_desc_'.$step->name.''] = get_post_meta( $post_id, 'step_desc_'.$step->name.'', true );
                                 
