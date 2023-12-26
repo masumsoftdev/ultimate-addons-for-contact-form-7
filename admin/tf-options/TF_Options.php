@@ -162,7 +162,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 				'admin_page_uacf7-setup-wizard', 
 				'ultimate-addons_page_uacf7_license_info', 
 			);
-			$tf_options_post_type = array( 'tf_hotel', 'tf_tours', 'tf_apartment' ); 
+			$tf_options_post_type = array( '' ); 
 
 			 
 
@@ -231,9 +231,9 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 		 * Dequeue scripts
 		 */
 		public function tf_options_admin_dequeue_scripts( $screen ) { 
-			$tf_options_post_type = array( 'tf_hotel', 'tf_tours', 'tf_apartment' );
+			$tf_options_post_type = array(  );
 
-			if ( $screen == 'toplevel_page_tf_settings' || in_array( $post_type, $tf_options_post_type ) ) {
+			if ( $screen == 'toplevel_page_uacf7_settings' || in_array( $post_type, $tf_options_post_type ) ) {
 				wp_dequeue_script( 'theplus-admin-js-pro' );
 			}
 		}
