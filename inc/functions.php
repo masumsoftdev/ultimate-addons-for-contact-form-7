@@ -679,16 +679,16 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                         if(is_array($condition)){
                             $count = 0 ;
                             foreach($condition as $value){
-                                $meta['conditional_repeater'][$count]['uacf7_cf_group'] = $value['uacf7_cf_group']; 
-                                $meta['conditional_repeater'][$count]['uacf7_cf_hs'] = $value['uacf7_cf_hs']; 
-                                $meta['conditional_repeater'][$count]['uacf_cf_condition_for'] = $value['uacf_cf_condition_for']; 
+                                $meta['conditional']['conditional_repeater'][$count]['uacf7_cf_group'] = $value['uacf7_cf_group']; 
+                                $meta['conditional']['conditional_repeater'][$count]['uacf7_cf_hs'] = $value['uacf7_cf_hs']; 
+                                $meta['conditional']['conditional_repeater'][$count]['uacf_cf_condition_for'] = $value['uacf_cf_condition_for']; 
 
                                 if(!empty($value['uacf7_cf_conditions']) && isset($value['uacf7_cf_conditions'])){
                                     $i = 0;
                                     foreach($value['uacf7_cf_conditions']['uacf7_cf_tn'] as $cf_key => $cf_value ){
-                                        $meta['conditional_repeater'][$count]['uacf7_cf_conditions'][$i]['uacf7_cf_tn'] = $value['uacf7_cf_conditions']['uacf7_cf_tn'][$i];
-                                        $meta['conditional_repeater'][$count]['uacf7_cf_conditions'][$i]['uacf7_cf_operator'] = $value['uacf7_cf_conditions']['uacf7_cf_operator'][$i];
-                                        $meta['conditional_repeater'][$count]['uacf7_cf_conditions'][$i]['uacf7_cf_val'] = $value['uacf7_cf_conditions']['uacf7_cf_val'][$i];
+                                        $meta['conditional']['conditional_repeater'][$count]['uacf7_cf_conditions'][$i]['uacf7_cf_tn'] = $value['uacf7_cf_conditions']['uacf7_cf_tn'][$i];
+                                        $meta['conditional']['conditional_repeater'][$count]['uacf7_cf_conditions'][$i]['uacf7_cf_operator'] = $value['uacf7_cf_conditions']['uacf7_cf_operator'][$i];
+                                        $meta['conditional']['conditional_repeater'][$count]['uacf7_cf_conditions'][$i]['uacf7_cf_val'] = $value['uacf7_cf_conditions']['uacf7_cf_val'][$i];
 
                                         $i++;
                                     }
@@ -788,66 +788,66 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
 
 
                         //     //  Migration 
-                            $meta['uacf7_enable_form_styles'] = $uacf7_enable_form_styles;
-                            $meta['uacf7_uacf7style_label_color_option']['uacf7_uacf7style_label_color'] = $uacf7_uacf7style_label_color;
-                            $meta['uacf7_uacf7style_label_color_option']['uacf7_uacf7style_label_background_color'] = $uacf7_uacf7style_label_background_color;
-                            $meta['uacf7_uacf7style_label_font_style'] = $uacf7_uacf7style_label_font_style;
-                            $meta['uacf7_uacf7style_label_font_weight'] = $uacf7_uacf7style_label_font_weight;
-                            $meta['uacf7_uacf7style_label_font_size'] = $uacf7_uacf7style_label_font_size;
-                            $meta['uacf7_uacf7style_label_font_family'] = $uacf7_uacf7style_label_font_family; 
-                            $meta['uacf7_uacf7style_label_padding_top'] = $uacf7_uacf7style_label_padding_top;
-                            $meta['uacf7_uacf7style_label_padding_right'] = $uacf7_uacf7style_label_padding_right;
-                            $meta['uacf7_uacf7style_label_padding_bottom'] = $uacf7_uacf7style_label_padding_bottom;
-                            $meta['uacf7_uacf7style_label_padding_left'] = $uacf7_uacf7style_label_padding_left;
-                            $meta['uacf7_uacf7style_label_margin_top'] = $uacf7_uacf7style_label_margin_top;
-                            $meta['uacf7_uacf7style_label_margin_right'] = $uacf7_uacf7style_label_margin_right;
-                            $meta['uacf7_uacf7style_label_margin_bottom'] = $uacf7_uacf7style_label_margin_bottom;
-                            $meta['uacf7_uacf7style_label_margin_left'] = $uacf7_uacf7style_label_margin_left;
+                            $meta['styler']['uacf7_enable_form_styles'] = $uacf7_enable_form_styles;
+                            $meta['styler']['uacf7_uacf7style_label_color_option']['uacf7_uacf7style_label_color'] = $uacf7_uacf7style_label_color;
+                            $meta['styler']['uacf7_uacf7style_label_color_option']['uacf7_uacf7style_label_background_color'] = $uacf7_uacf7style_label_background_color;
+                            $meta['styler']['uacf7_uacf7style_label_font_style'] = $uacf7_uacf7style_label_font_style;
+                            $meta['styler']['uacf7_uacf7style_label_font_weight'] = $uacf7_uacf7style_label_font_weight;
+                            $meta['styler']['uacf7_uacf7style_label_font_size'] = $uacf7_uacf7style_label_font_size;
+                            $meta['styler']['uacf7_uacf7style_label_font_family'] = $uacf7_uacf7style_label_font_family; 
+                            $meta['styler']['uacf7_uacf7style_label_padding_top'] = $uacf7_uacf7style_label_padding_top;
+                            $meta['styler']['uacf7_uacf7style_label_padding_right'] = $uacf7_uacf7style_label_padding_right;
+                            $meta['styler']['uacf7_uacf7style_label_padding_bottom'] = $uacf7_uacf7style_label_padding_bottom;
+                            $meta['styler']['uacf7_uacf7style_label_padding_left'] = $uacf7_uacf7style_label_padding_left;
+                            $meta['styler']['uacf7_uacf7style_label_margin_top'] = $uacf7_uacf7style_label_margin_top;
+                            $meta['styler']['uacf7_uacf7style_label_margin_right'] = $uacf7_uacf7style_label_margin_right;
+                            $meta['styler']['uacf7_uacf7style_label_margin_bottom'] = $uacf7_uacf7style_label_margin_bottom;
+                            $meta['styler']['uacf7_uacf7style_label_margin_left'] = $uacf7_uacf7style_label_margin_left;
 
 
-                            $meta['uacf7_uacf7style_input_color_option']['uacf7_uacf7style_input_color'] = $uacf7_uacf7style_input_color;
-                            $meta['uacf7_uacf7style_input_color_option']['uacf7_uacf7style_input_background_color'] = $uacf7_uacf7style_input_background_color;
-                            $meta['uacf7_uacf7style_input_font_style'] = $uacf7_uacf7style_input_font_style;
-                            $meta['uacf7_uacf7style_input_font_weight'] = $uacf7_uacf7style_input_font_weight;
-                            $meta['uacf7_uacf7style_input_font_size'] = $uacf7_uacf7style_input_font_size;
-                            $meta['uacf7_uacf7style_input_font_family'] = $uacf7_uacf7style_input_font_family;
-                            $meta['uacf7_uacf7style_input_height'] = $uacf7_uacf7style_input_height;
-                            $meta['uacf7_uacf7style_textarea_input_height'] = $uacf7_uacf7style_textarea_input_height; 
-                            $meta['uacf7_uacf7style_input_padding_top'] = $uacf7_uacf7style_input_padding_top;
-                            $meta['uacf7_uacf7style_input_padding_right'] = $uacf7_uacf7style_input_padding_right;
-                            $meta['uacf7_uacf7style_input_padding_bottom'] = $uacf7_uacf7style_input_padding_bottom;
-                            $meta['uacf7_uacf7style_input_padding_left'] = $uacf7_uacf7style_input_padding_left;
-                            $meta['uacf7_uacf7style_input_margin_top'] = $uacf7_uacf7style_input_margin_top;
-                            $meta['uacf7_uacf7style_input_margin_right'] = $uacf7_uacf7style_input_margin_right;
-                            $meta['uacf7_uacf7style_input_margin_bottom'] = $uacf7_uacf7style_input_margin_bottom;
-                            $meta['uacf7_uacf7style_input_margin_left'] = $uacf7_uacf7style_input_margin_left; 
-                            $meta['uacf7_uacf7style_input_border_width'] = $uacf7_uacf7style_input_border_width; 
-                            $meta['uacf7_uacf7style_input_border_style'] = $uacf7_uacf7style_input_border_style;
-                            $meta['uacf7_uacf7style_input_border_radius'] = $uacf7_uacf7style_input_border_radius;
-                            $meta['uacf7_uacf7style_input_border_color'] = $uacf7_uacf7style_input_border_color;
-                            $meta['uacf7_uacf7style_btn_color_option']['uacf7_uacf7style_btn_color'] = $uacf7_uacf7style_btn_color;
-                            $meta['uacf7_uacf7style_btn_color_option']['uacf7_uacf7style_btn_background_color'] = $uacf7_uacf7style_btn_background_color;
-                            $meta['uacf7_uacf7style_btn_color_option']['uacf7_uacf7style_btn_color_hover'] = $uacf7_uacf7style_btn_color_hover;
-                            $meta['uacf7_uacf7style_btn_color_option']['uacf7_uacf7style_btn_background_color_hover'] = $uacf7_uacf7style_btn_background_color_hover;
+                            $meta['styler']['uacf7_uacf7style_input_color_option']['uacf7_uacf7style_input_color'] = $uacf7_uacf7style_input_color;
+                            $meta['styler']['uacf7_uacf7style_input_color_option']['uacf7_uacf7style_input_background_color'] = $uacf7_uacf7style_input_background_color;
+                            $meta['styler']['uacf7_uacf7style_input_font_style'] = $uacf7_uacf7style_input_font_style;
+                            $meta['styler']['uacf7_uacf7style_input_font_weight'] = $uacf7_uacf7style_input_font_weight;
+                            $meta['styler']['uacf7_uacf7style_input_font_size'] = $uacf7_uacf7style_input_font_size;
+                            $meta['styler']['uacf7_uacf7style_input_font_family'] = $uacf7_uacf7style_input_font_family;
+                            $meta['styler']['uacf7_uacf7style_input_height'] = $uacf7_uacf7style_input_height;
+                            $meta['styler']['uacf7_uacf7style_textarea_input_height'] = $uacf7_uacf7style_textarea_input_height; 
+                            $meta['styler']['uacf7_uacf7style_input_padding_top'] = $uacf7_uacf7style_input_padding_top;
+                            $meta['styler']['uacf7_uacf7style_input_padding_right'] = $uacf7_uacf7style_input_padding_right;
+                            $meta['styler']['uacf7_uacf7style_input_padding_bottom'] = $uacf7_uacf7style_input_padding_bottom;
+                            $meta['styler']['uacf7_uacf7style_input_padding_left'] = $uacf7_uacf7style_input_padding_left;
+                            $meta['styler']['uacf7_uacf7style_input_margin_top'] = $uacf7_uacf7style_input_margin_top;
+                            $meta['styler']['uacf7_uacf7style_input_margin_right'] = $uacf7_uacf7style_input_margin_right;
+                            $meta['styler']['uacf7_uacf7style_input_margin_bottom'] = $uacf7_uacf7style_input_margin_bottom;
+                            $meta['styler']['uacf7_uacf7style_input_margin_left'] = $uacf7_uacf7style_input_margin_left; 
+                            $meta['styler']['uacf7_uacf7style_input_border_width'] = $uacf7_uacf7style_input_border_width; 
+                            $meta['styler']['uacf7_uacf7style_input_border_style'] = $uacf7_uacf7style_input_border_style;
+                            $meta['styler']['uacf7_uacf7style_input_border_radius'] = $uacf7_uacf7style_input_border_radius;
+                            $meta['styler']['uacf7_uacf7style_input_border_color'] = $uacf7_uacf7style_input_border_color;
+                            $meta['styler']['uacf7_uacf7style_btn_color_option']['uacf7_uacf7style_btn_color'] = $uacf7_uacf7style_btn_color;
+                            $meta['styler']['uacf7_uacf7style_btn_color_option']['uacf7_uacf7style_btn_background_color'] = $uacf7_uacf7style_btn_background_color;
+                            $meta['styler']['uacf7_uacf7style_btn_color_option']['uacf7_uacf7style_btn_color_hover'] = $uacf7_uacf7style_btn_color_hover;
+                            $meta['styler']['uacf7_uacf7style_btn_color_option']['uacf7_uacf7style_btn_background_color_hover'] = $uacf7_uacf7style_btn_background_color_hover;
 
-                            $meta['uacf7_uacf7style_btn_font_size'] = $uacf7_uacf7style_btn_font_size;
-                            $meta['uacf7_uacf7style_btn_font_style'] = $uacf7_uacf7style_btn_font_style;
-                            $meta['uacf7_uacf7style_btn_font_weight'] = $uacf7_uacf7style_btn_font_weight;
-                            $meta['uacf7_uacf7style_btn_width'] = $uacf7_uacf7style_btn_width;
-                            $meta['uacf7_uacf7style_btn_border_style'] = $uacf7_uacf7style_btn_border_style;
-                            $meta['uacf7_uacf7style_btn_border_color'] = $uacf7_uacf7style_btn_border_color;
-                            $meta['uacf7_uacf7style_btn_border_color_hover'] = $uacf7_uacf7style_btn_border_color_hover;
-                            $meta['uacf7_uacf7style_btn_border_width'] = $uacf7_uacf7style_btn_border_width;
-                            $meta['uacf7_uacf7style_btn_border_radius'] = $uacf7_uacf7style_btn_border_radius; 
-                            $meta['uacf7_uacf7style_btn_padding_top'] = $uacf7_uacf7style_btn_padding_top;
-                            $meta['uacf7_uacf7style_btn_padding_right'] = $uacf7_uacf7style_btn_padding_right;
-                            $meta['uacf7_uacf7style_btn_padding_bottom'] = $uacf7_uacf7style_btn_padding_bottom;
-                            $meta['uacf7_uacf7style_btn_padding_left'] = $uacf7_uacf7style_btn_padding_left;
-                            $meta['uacf7_uacf7style_btn_margin_top'] = $uacf7_uacf7style_btn_margin_top;
-                            $meta['uacf7_uacf7style_btn_margin_right'] = $uacf7_uacf7style_btn_margin_right;
-                            $meta['uacf7_uacf7style_btn_margin_bottom'] = $uacf7_uacf7style_btn_margin_bottom;
-                            $meta['uacf7_uacf7style_btn_margin_left'] = $uacf7_uacf7style_btn_margin_left;
-                            $meta['uacf7_uacf7style_ua_custom_css'] = $uacf7_uacf7style_ua_custom_css; 
+                            $meta['styler']['uacf7_uacf7style_btn_font_size'] = $uacf7_uacf7style_btn_font_size;
+                            $meta['styler']['uacf7_uacf7style_btn_font_style'] = $uacf7_uacf7style_btn_font_style;
+                            $meta['styler']['uacf7_uacf7style_btn_font_weight'] = $uacf7_uacf7style_btn_font_weight;
+                            $meta['styler']['uacf7_uacf7style_btn_width'] = $uacf7_uacf7style_btn_width;
+                            $meta['styler']['uacf7_uacf7style_btn_border_style'] = $uacf7_uacf7style_btn_border_style;
+                            $meta['styler']['uacf7_uacf7style_btn_border_color'] = $uacf7_uacf7style_btn_border_color;
+                            $meta['styler']['uacf7_uacf7style_btn_border_color_hover'] = $uacf7_uacf7style_btn_border_color_hover;
+                            $meta['styler']['uacf7_uacf7style_btn_border_width'] = $uacf7_uacf7style_btn_border_width;
+                            $meta['styler']['uacf7_uacf7style_btn_border_radius'] = $uacf7_uacf7style_btn_border_radius; 
+                            $meta['styler']['uacf7_uacf7style_btn_padding_top'] = $uacf7_uacf7style_btn_padding_top;
+                            $meta['styler']['uacf7_uacf7style_btn_padding_right'] = $uacf7_uacf7style_btn_padding_right;
+                            $meta['styler']['uacf7_uacf7style_btn_padding_bottom'] = $uacf7_uacf7style_btn_padding_bottom;
+                            $meta['styler']['uacf7_uacf7style_btn_padding_left'] = $uacf7_uacf7style_btn_padding_left;
+                            $meta['styler']['uacf7_uacf7style_btn_margin_top'] = $uacf7_uacf7style_btn_margin_top;
+                            $meta['styler']['uacf7_uacf7style_btn_margin_right'] = $uacf7_uacf7style_btn_margin_right;
+                            $meta['styler']['uacf7_uacf7style_btn_margin_bottom'] = $uacf7_uacf7style_btn_margin_bottom;
+                            $meta['styler']['uacf7_uacf7style_btn_margin_left'] = $uacf7_uacf7style_btn_margin_left;
+                            $meta['styler']['uacf7_uacf7style_ua_custom_css'] = $uacf7_uacf7style_ua_custom_css; 
                         }
 
                         
@@ -855,37 +855,36 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
 
                         // Multistep addon Migration
                         $uacf7_multistep_is_multistep = get_post_meta( $post_id, 'uacf7_multistep_is_multistep', true ) == 'on' ? 1 : 0;
-                        if($uacf7_multistep_is_multistep == true){
-                            $multistep = $meta['multistep'];
-                            $multistep['uacf7_multistep_is_multistep'] = $uacf7_multistep_is_multistep;
-                            $multistep['uacf7_enable_multistep_progressbar'] = get_post_meta( $post_id, 'uacf7_enable_multistep_progressbar', true ) == 'on' ? 1 : 0;
-                            $multistep['uacf7_enable_multistep_scroll'] = get_post_meta( $post_id, 'uacf7_enable_multistep_scroll', true ) == 'on' ? 1 : 0;
-                            $multistep['uacf7_progressbar_style'] = get_post_meta( $post_id, 'uacf7_progressbar_style', true ); 
-                            $multistep['uacf7_multistep_use_step_labels'] = get_post_meta( $post_id, 'uacf7_multistep_use_step_labels', true ) == 'on' ? 1 : 0;
-                            $multistep['uacf7_multistep_circle_width'] = get_post_meta( $post_id, 'uacf7_multistep_circle_width', true ) ;
-                            $multistep['uacf7_multistep_circle_height'] = get_post_meta( $post_id, 'uacf7_multistep_circle_height', true ) ;
-                            $multistep['uacf7_multistep_circle_bg_color'] = get_post_meta( $post_id, 'uacf7_multistep_circle_bg_color', true ) ;
-                            $multistep['uacf7_multistep_circle_font_color'] = get_post_meta( $post_id, 'uacf7_multistep_circle_font_color', true ) ;
-                            $multistep['uacf7_multistep_circle_border_radious'] = get_post_meta( $post_id, 'uacf7_multistep_circle_border_radious', true ) ;
-                            $multistep['uacf7_multistep_font_size'] = get_post_meta( $post_id, 'uacf7_multistep_font_size', true ) ;
-                            $multistep['uacf7_multistep_progressbar_color_option']['uacf7_multistep_circle_bg_color'] = get_post_meta( $post_id, 'uacf7_multistep_circle_bg_color', true ) ;
-                            $multistep['uacf7_multistep_progressbar_color_option']['uacf7_multistep_circle_active_color'] = get_post_meta( $post_id, 'uacf7_multistep_circle_active_color', true ) ;
-                            $multistep['uacf7_multistep_progressbar_color_option']['uacf7_multistep_circle_font_color'] = get_post_meta( $post_id, 'uacf7_multistep_circle_font_color', true ) ;
-                            $multistep['uacf7_multistep_progressbar_color_option']['uacf7_multistep_progress_bg_color'] = get_post_meta( $post_id, 'uacf7_multistep_progress_bg_color', true ) ;
-                            $multistep['uacf7_multistep_progressbar_color_option']['uacf7_multistep_progress_line_color'] = get_post_meta( $post_id, 'uacf7_multistep_progress_line_color', true ) ;
-                            $multistep['uacf7_multistep_progressbar_color_option']['uacf7_multistep_step_title_color'] = get_post_meta( $post_id, 'uacf7_multistep_step_title_color', true ) ;
-                            $multistep['uacf7_multistep_progressbar_color_option']['uacf7_multistep_progressbar_title_color'] = get_post_meta( $post_id, 'uacf7_multistep_progressbar_title_color', true ) ;
-                            $multistep['uacf7_multistep_progressbar_color_option']['uacf7_multistep_step_description_color'] = get_post_meta( $post_id, 'uacf7_multistep_step_description_color', true ) ;
-                            $multistep['uacf7_multistep_step_height'] = get_post_meta( $post_id, 'uacf7_multistep_step_height', true ) ;
-                            $multistep['uacf7_multistep_button_padding_tb'] = get_post_meta( $post_id, 'uacf7_multistep_button_padding_tb', true ) ;
-                            $multistep['uacf7_multistep_button_padding_lr'] = get_post_meta( $post_id, 'uacf7_multistep_button_padding_lr', true ) ;
-                            $multistep['uacf7_multistep_next_prev_option']['uacf7_multistep_button_bg'] = get_post_meta( $post_id, 'uacf7_multistep_button_bg', true ) ;
-                            $multistep['uacf7_multistep_next_prev_option']['uacf7_multistep_button_color'] = get_post_meta( $post_id, 'uacf7_multistep_button_color', true ) ;
-                            $multistep['uacf7_multistep_next_prev_option']['uacf7_multistep_button_border_color'] = get_post_meta( $post_id, 'uacf7_multistep_button_border_color', true ) ;
-                            $multistep['uacf7_multistep_next_prev_option']['uacf7_multistep_button_hover_bg'] = get_post_meta( $post_id, 'uacf7_multistep_button_hover_bg', true ) ;
-                            $multistep['uacf7_multistep_next_prev_option']['uacf7_multistep_button_hover_color'] = get_post_meta( $post_id, 'uacf7_multistep_button_hover_color', true ) ;
-                            $multistep['uacf7_multistep_next_prev_option']['uacf7_multistep_button_border_hover_color'] = get_post_meta( $post_id, 'uacf7_multistep_button_border_hover_color', true ) ;
-                            $multistep['uacf7_multistep_button_border_radius'] = get_post_meta( $post_id, 'uacf7_multistep_button_border_radius', true ) ; 
+                        if($uacf7_multistep_is_multistep == true){ 
+                            $meta['multistep']['uacf7_multistep_is_multistep'] = $uacf7_multistep_is_multistep;
+                            $meta['multistep']['uacf7_enable_multistep_progressbar'] = get_post_meta( $post_id, 'uacf7_enable_multistep_progressbar', true ) == 'on' ? 1 : 0;
+                            $meta['multistep']['uacf7_enable_multistep_scroll'] = get_post_meta( $post_id, 'uacf7_enable_multistep_scroll', true ) == 'on' ? 1 : 0;
+                            $meta['multistep']['uacf7_progressbar_style'] = get_post_meta( $post_id, 'uacf7_progressbar_style', true ); 
+                            $meta['multistep']['uacf7_multistep_use_step_labels'] = get_post_meta( $post_id, 'uacf7_multistep_use_step_labels', true ) == 'on' ? 1 : 0;
+                            $meta['multistep']['uacf7_multistep_circle_width'] = get_post_meta( $post_id, 'uacf7_multistep_circle_width', true ) ;
+                            $meta['multistep']['uacf7_multistep_circle_height'] = get_post_meta( $post_id, 'uacf7_multistep_circle_height', true ) ;
+                            $meta['multistep']['uacf7_multistep_circle_bg_color'] = get_post_meta( $post_id, 'uacf7_multistep_circle_bg_color', true ) ;
+                            $meta['multistep']['uacf7_multistep_circle_font_color'] = get_post_meta( $post_id, 'uacf7_multistep_circle_font_color', true ) ;
+                            $meta['multistep']['uacf7_multistep_circle_border_radious'] = get_post_meta( $post_id, 'uacf7_multistep_circle_border_radious', true ) ;
+                            $meta['multistep']['uacf7_multistep_font_size'] = get_post_meta( $post_id, 'uacf7_multistep_font_size', true ) ;
+                            $meta['multistep']['uacf7_multistep_progressbar_color_option']['uacf7_multistep_circle_bg_color'] = get_post_meta( $post_id, 'uacf7_multistep_circle_bg_color', true ) ;
+                            $meta['multistep']['uacf7_multistep_progressbar_color_option']['uacf7_multistep_circle_active_color'] = get_post_meta( $post_id, 'uacf7_multistep_circle_active_color', true ) ;
+                            $meta['multistep']['uacf7_multistep_progressbar_color_option']['uacf7_multistep_circle_font_color'] = get_post_meta( $post_id, 'uacf7_multistep_circle_font_color', true ) ;
+                            $meta['multistep']['uacf7_multistep_progressbar_color_option']['uacf7_multistep_progress_bg_color'] = get_post_meta( $post_id, 'uacf7_multistep_progress_bg_color', true ) ;
+                            $meta['multistep']['uacf7_multistep_progressbar_color_option']['uacf7_multistep_progress_line_color'] = get_post_meta( $post_id, 'uacf7_multistep_progress_line_color', true ) ;
+                            $meta['multistep']['uacf7_multistep_progressbar_color_option']['uacf7_multistep_step_title_color'] = get_post_meta( $post_id, 'uacf7_multistep_step_title_color', true ) ;
+                            $meta['multistep']['uacf7_multistep_progressbar_color_option']['uacf7_multistep_progressbar_title_color'] = get_post_meta( $post_id, 'uacf7_multistep_progressbar_title_color', true ) ;
+                            $meta['multistep']['uacf7_multistep_progressbar_color_option']['uacf7_multistep_step_description_color'] = get_post_meta( $post_id, 'uacf7_multistep_step_description_color', true ) ;
+                            $meta['multistep']['uacf7_multistep_step_height'] = get_post_meta( $post_id, 'uacf7_multistep_step_height', true ) ;
+                            $meta['multistep']['uacf7_multistep_button_padding_tb'] = get_post_meta( $post_id, 'uacf7_multistep_button_padding_tb', true ) ;
+                            $meta['multistep']['uacf7_multistep_button_padding_lr'] = get_post_meta( $post_id, 'uacf7_multistep_button_padding_lr', true ) ;
+                            $meta['multistep']['uacf7_multistep_next_prev_option']['uacf7_multistep_button_bg'] = get_post_meta( $post_id, 'uacf7_multistep_button_bg', true ) ;
+                            $meta['multistep']['uacf7_multistep_next_prev_option']['uacf7_multistep_button_color'] = get_post_meta( $post_id, 'uacf7_multistep_button_color', true ) ;
+                            $meta['multistep']['uacf7_multistep_next_prev_option']['uacf7_multistep_button_border_color'] = get_post_meta( $post_id, 'uacf7_multistep_button_border_color', true ) ;
+                            $meta['multistep']['uacf7_multistep_next_prev_option']['uacf7_multistep_button_hover_bg'] = get_post_meta( $post_id, 'uacf7_multistep_button_hover_bg', true ) ;
+                            $meta['multistep']['uacf7_multistep_next_prev_option']['uacf7_multistep_button_hover_color'] = get_post_meta( $post_id, 'uacf7_multistep_button_hover_color', true ) ;
+                            $meta['multistep']['uacf7_multistep_next_prev_option']['uacf7_multistep_button_border_hover_color'] = get_post_meta( $post_id, 'uacf7_multistep_button_border_hover_color', true ) ;
+                            $meta['multistep']['uacf7_multistep_button_border_radius'] = get_post_meta( $post_id, 'uacf7_multistep_button_border_radius', true ) ; 
 
 
                         
@@ -895,19 +894,19 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                             foreach( $all_steps as $step ) { 
                                 
                                 if($step_count == 1){ 
-                                    $multistep['next_btn_'.$step->name.''] = get_post_meta( $post_id, 'next_btn_'.$step->name.'', true );
+                                    $meta['multistep']['next_btn_'.$step->name.''] = get_post_meta( $post_id, 'next_btn_'.$step->name.'', true );
                                 }else{
                                     if( count($all_steps) == $step_count ) {
-                                        $multistep['prev_btn_'.$step->name.''] = get_post_meta( $post_id, 'prev_btn_'.$step->name.'', true );
+                                        $meta['multistep']['prev_btn_'.$step->name.''] = get_post_meta( $post_id, 'prev_btn_'.$step->name.'', true );
                                     }else{
-                                        $multistep['next_btn_'.$step->name.''] = get_post_meta( $post_id, 'next_btn_'.$step->name.'', true );
-                                        $multistep['prev_btn_'.$step->name.''] = get_post_meta( $post_id, 'prev_btn_'.$step->name.'', true );
+                                        $meta['multistep']['next_btn_'.$step->name.''] = get_post_meta( $post_id, 'next_btn_'.$step->name.'', true );
+                                        $meta['multistep']['prev_btn_'.$step->name.''] = get_post_meta( $post_id, 'prev_btn_'.$step->name.'', true );
                                     }
                                 }
                                 
-                                $multistep['uacf7_progressbar_image_'.$step->name.''] = get_post_meta( $post_id, 'uacf7_progressbar_image_'.$step->name.'', true );
-                                $multistep['desc_title_'.$step->name.''] = get_post_meta( $post_id, 'desc_title_'.$step->name.'', true );
-                                $multistep['step_desc_'.$step->name.''] = get_post_meta( $post_id, 'step_desc_'.$step->name.'', true );
+                                $meta['multistep']['uacf7_progressbar_image_'.$step->name.''] = get_post_meta( $post_id, 'uacf7_progressbar_image_'.$step->name.'', true );
+                                $meta['multistep']['desc_title_'.$step->name.''] = get_post_meta( $post_id, 'desc_title_'.$step->name.'', true );
+                                $meta['multistep']['step_desc_'.$step->name.''] = get_post_meta( $post_id, 'step_desc_'.$step->name.'', true );
                                 
                                 $step_count++;
                             }
