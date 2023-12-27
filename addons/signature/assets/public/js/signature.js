@@ -18,13 +18,14 @@ jQuery(document).ready(function($){
     var data = [];
     var pad_bg_color = fileInput.attr('bg-color');
     var pen_color    = fileInput.attr('pen-color');
+    var signaturePad;
 
 
       $(form).find(".signature-pad").each(function(i, wrap){
 
 
           var canvas = $(wrap).find('canvas').get(0);
-          var signaturePad = new SignaturePad(canvas, {
+          signaturePad = new SignaturePad(canvas, {
             includeBackgroundColor: true,
             backgroundColor : pad_bg_color,
             penColor: pen_color,
@@ -50,7 +51,6 @@ jQuery(document).ready(function($){
             
                 const dataUrl = imagePreview.src;
 
-                console.log(dataUrl)
                 const blob    = dataURLtoBlob(dataUrl);
               
                 const fileName = 'signature'+field_id+'.jpg';
@@ -99,38 +99,44 @@ jQuery(document).ready(function($){
 
 
 
-           // Clear Canvas
-
-           clearButton.click(function (e) {
+       
+          $('.clear-button').click(function (e) {
             e.preventDefault();
-              
-            fileInput.val('');
-            signaturePad.clear();
-            signs = [];
-          
-            confirm_message.text(uacf7_sign_obj.message_notice);
-            confirm_message.css({'color': '#FFB900', 'font-weight': '500'});       
-            control_div.css('display', 'none');
-            $('.Uacf7UploadedImageForSign_'+formId).remove();
 
+            // Find the nearest signature pad within the same container
+            var signature_canvas = $(this).closest('.wpcf7-form-control-wrap').find('.signature-pad').find('canvas').get(0);
+
+
+            var signaturePadInstance = new SignaturePad(signature_canvas, {
+              includeBackgroundColor: true,
+              backgroundColor : pad_bg_color,
+              penColor: pen_color,
             });
+            signaturePadInstance.clear();
+
+
+
+            fileInput.val('');
+            signs = [];
+
+          });
 
             
+
             // /** Make Empty the Signature Art Board after Form Submission */
 
             $('.uacf7-form-'+formId).find('.wpcf7-submit').click(function (){
-              signaturePad.clear();
-              signs = [];
-              confirm_message.text('');
-            });
+            signaturePad.clear();
+            signs = [];
+            confirm_message.text('');
+          });
 
-            /** Preventing file system opening */
+          /** Preventing file system opening */
 
             $('.uacf7-form-'+formId).find('.img_id_special').click(function (e){
               e.preventDefault();
             });
-
-            
+    
             
 
             
@@ -138,12 +144,3 @@ jQuery(document).ready(function($){
       }); 
 
   });
-
-
-
-
-
-
-
-
-
