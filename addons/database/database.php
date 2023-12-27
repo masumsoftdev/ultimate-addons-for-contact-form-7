@@ -12,14 +12,14 @@ class UACF7_DATABASE {
 	 * Construct function
 	 */
 	public function __construct() {
- 
+
 		add_action( 'admin_enqueue_scripts', array( $this, 'wp_enqueue_admin_script' ) );
 		add_action( 'wpcf7_before_send_mail', array( $this, 'uacf7_save_to_database' ) );
 		add_action( 'admin_menu', array( $this, 'uacf7_add_db_menu' ), 11, 2 );
 		add_action( 'wp_ajax_uacf7_ajax_database_popup', array( $this, 'uacf7_ajax_database_popup' ) );
 		add_action( 'wp_ajax_uacf7_ajax_database_export_csv', array( $this, 'uacf7_ajax_database_export_csv' ) );
 		add_action( 'admin_init', array( $this, 'uacf7_create_database_table' ) );
-		// add_filter( 'wpcf7_load_js', '__return_false' ); 
+		add_filter( 'wpcf7_load_js', '__return_false' );
 
 	}
 
@@ -114,7 +114,7 @@ class UACF7_DATABASE {
 					</div>
 				</div>
 			</section>
-		<?php
+			<?php
 		} else {
 
 			global $wpdb;
@@ -177,20 +177,40 @@ class UACF7_DATABASE {
 		// echo ob_get_clean();
 	}
 
+	public function encrypt_file( $inputFile, $outputFile, $key ) {
+		$inputData = file_get_contents( $inputFile );
+
+		// Generate an Initialization Vector (IV)
+		$iv = openssl_random_pseudo_bytes( openssl_cipher_iv_length( 'aes-256-cbc' ) );
+
+		// Encrypt the data
+		$encryptedData = openssl_encrypt( $inputData, 'aes-256-cbc', $key, 0, $iv );
+
+		// Combine IV and encrypted data
+		$encryptedFileContent = $iv . $encryptedData;
+
+		// Save the encrypted content to the output file
+		file_put_contents( $outputFile, $encryptedFileContent );
+	}
+
 	/*
 	 * Ultimate form save into the database
 	 */
-
 	public function uacf7_save_to_database( $form ) {
 		require_once( ABSPATH . 'wp-admin/includes/file.php' );
 		global $wpdb;
+		$encryptionKey = 'AES-256-CBC';
 		$table_name = $wpdb->prefix . 'uacf7_form';
 
 		$submission = WPCF7_Submission::get_instance();
 		$ContactForm = WPCF7_ContactForm::get_instance( $form->id() );
 		$tags = $ContactForm->scan_form_tags();
 		$skip_tag_insert = [];
+		$uacf7_signature_tag = [];
 		foreach ( $tags as $tag ) {
+			if ( $tag->type == 'uacf7_signature*' || $tag->type == 'uacf7_signature' ) {
+				$uacf7_signature_tag[] = $tag->name;
+			}
 			if ( $tag->type == 'uacf7_step_start' || $tag->type == 'uacf7_step_end' || $tag->type == 'uarepeater' || $tag->type == 'conditional' || $tag->type == 'uacf7_conversational_start' || $tag->type == 'uacf7_conversational_end' ) {
 				if ( $tag->name != '' ) {
 					$skip_tag_insert[] = $tag->name;
@@ -198,6 +218,8 @@ class UACF7_DATABASE {
 
 			}
 		}
+
+
 
 		$contact_form_data = $submission->get_posted_data();
 		$files = $submission->uploaded_files();
@@ -215,13 +237,21 @@ class UACF7_DATABASE {
 			array_push( $uploaded_files, $file_key );
 		}
 
-
 		foreach ( $files as $file_key => $file ) {
 			if ( ! empty( $file ) ) {
 				if ( in_array( $file_key, $uploaded_files ) ) {
+					// var_dump( $file_key );
+					// exit;
 					$file = is_array( $file ) ? reset( $file ) : $file;
 					$dir_link = '/uacf7-uploads/' . $time_now . '-' . $file_key . '-' . basename( $file );
-					copy( $file, $dir . $dir_link );
+					if ( in_array( $file_key, $uacf7_signature_tag ) ) {
+
+						$this->encrypt_file( $file, $dir . $dir_link, $encryptionKey );
+
+					} else {
+						copy( $file, $dir . $dir_link );
+
+					}
 					array_push( $data_file, [ $file_key => $dir_link ] );
 				}
 			}
@@ -235,10 +265,11 @@ class UACF7_DATABASE {
 				} else {
 					$data_file = $data_file[0][ $file_key ];
 				}
-				;
 				$contact_form_data[ $key ] = $data_file;
 			}
 		}
+
+
 		$data = [ 
 			'status' => 'unread',
 		];
@@ -570,7 +601,7 @@ class uacf7_form_List_Table extends WP_List_Table {
 			$repetar_value = '';
 			$repetar_key = '';
 			$pdf_post_meta = uacf7_get_form_option( $fdata->form_id, 'pdf_generator' );
-			$enable_pdf = isset($pdf_post_meta['uacf7_enable_pdf_generator']) ? $pdf_post_meta['uacf7_enable_pdf_generator']: false;
+			$enable_pdf = isset( $pdf_post_meta['uacf7_enable_pdf_generator'] ) ? $pdf_post_meta['uacf7_enable_pdf_generator'] : false;
 			$uacf7_enable_pdf_generator_field = uacf7_settings( 'uacf7_enable_pdf_generator_field' );
 			if ( $enable_pdf == true && $uacf7_enable_pdf_generator_field = true ) {
 				$pdf_btn = "<button data-form-id='" . esc_attr( $fdata->form_id ) . "' data-id='" . esc_attr( $fdata->id ) . "' data-value='" . esc_html( $fdata->form_value ) . "' class='button-primary uacf7-db-pdf'> Export as PDF</button>";
