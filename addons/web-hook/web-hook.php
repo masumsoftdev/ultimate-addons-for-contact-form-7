@@ -1,0 +1,245 @@
+<?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+class UACF7_WEB_HOOK {
+
+	/*
+	 * Construct function
+	 */
+	public function __construct() {
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_webhook_style' ) );
+
+		add_filter( 'uacf7_post_meta_options', array( $this, 'uacf7_post_meta_options_webhook' ), 12, 2 );
+
+		add_action( 'wpcf7_before_send_mail', array( $this, 'uacf7_send_data_by_web_hook' ) );
+		// add_filter( 'wpcf7_load_js', '__return_false' );
+	}
+
+
+	public function enqueue_webhook_style() {
+		wp_enqueue_style( 'uacf7-web-hook', UACF7_ADDONS . '/web-hook/css/web-hook.css' );
+		wp_enqueue_script( 'uacf7-web-hook-script', UACF7_ADDONS . '/web-hook/js/web-hook.js', array( 'jquery' ), '', true );
+	}
+
+	// Add Web Hook Options
+	public function uacf7_post_meta_options_webhook( $value, $post_id ) {
+
+		$WebHook = apply_filters( 'uacf7_post_meta_options_webhook', $data = array(
+			'title' => __( 'Web Hook', 'ultimate-addons-cf7' ),
+			'icon' => 'fa-solid fa-code-compare',
+			'fields' => [ 
+				'uacf7_Web_hook_headding' => [ 
+					'id' => 'uacf7_web_hook_headding',
+					'type' => 'notice',
+					'notice' => 'info',
+					'label' => __( 'Web Hook', 'ultimate-addons-cf7' ),
+					'title' => __( 'This addon will help you to add the web hook of your form. Note that, all below fields are optional. If any field is not needed, leave them blank.', 'ultimate-addons-cf7' ),
+					'content' => sprintf(
+						__( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+						'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-placeholder-styling/" target="_blank">documentation</a>'
+					)
+				],
+				'uacf7_enable_web_hook' => [ 
+					'id' => 'uacf7_enable_web_hook',
+					'type' => 'switch',
+					'label' => __( ' Enable Web Hook ', 'ultimate-addons-cf7' ),
+					'label_on' => __( 'Yes', 'ultimate-addons-cf7' ),
+					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+					'default' => false
+				],
+
+				'uacf7_web_hook_api' => [ 
+					'id' => 'uacf7_web_hook_api',
+					'type' => 'text',
+					'label' => __( 'Request URL', 'ultimate-addons-cf7' ),
+					'placeholder' => __( 'Enter a Request URL', 'ultimate-addons-cf7' ),
+					'dependency' => [ 'uacf7_enable_web_hook', '==', 1 ],
+				],
+
+				// 'uacf7_web_hook_api_secret' => [ 
+				// 	'id' => 'uacf7_web_hook_api_secret',
+				// 	'type' => 'text',
+				// 	'label' => __( 'Secrct', 'ultimate-addons-cf7' ),
+				// 	'subtitle' => __( "API key value or Secrct value", "ultimate-addons-cf7" ),
+				// 	'placeholder' => __( 'Enter a key value', 'ultimate-addons-cf7' ),
+				// 	'field_width' => 70,
+				// ],
+
+				'uacf7_web_hook_request_method' => [ 
+					'id' => 'uacf7_web_hook_request_method',
+					'type' => 'select',
+					'label' => __( 'Request Method', 'ultimate-addons-cf7' ),
+					'options' => array(
+						'GET' => 'GET',
+						'POST' => 'POST',
+						'PUT' => 'PUT',
+						'DELETE' => 'DELETE',
+						'PATCH' => 'PATCH',
+					),
+					'field_width' => 50,
+					'dependency' => [ 'uacf7_enable_web_hook', '==', 1 ],
+				],
+
+				'uacf7_web_hook_request_format' => [ 
+					'id' => 'uacf7_web_hook_request_format',
+					'type' => 'select',
+					'label' => __( 'Request Format', 'ultimate-addons-cf7' ),
+					'options' => array(
+						'json' => 'JSON',
+						'formdata' => 'FORMDATA',
+					),
+					'field_width' => 50,
+					'dependency' => [ 'uacf7_enable_web_hook', '==', 1 ],
+				],
+
+				'uacf7_web_hook_header_request' => [ 
+					'id' => 'uacf7_web_hook_header_request',
+					'type' => 'repeater',
+					'label' => __( 'Request Headers', 'ultimate-addons-cf7' ),
+					'dependency' => [ 'uacf7_enable_web_hook', '==', 1 ],
+					'fields' => [ 
+						'uacf7_web_hook_header_request_value' => [ 
+							'id' => 'uacf7_web_hook_header_request_value',
+							'type' => 'text',
+							'placeholder' => __( 'Enter a parameter key', 'ultimate-addons-cf7' ),
+							'field_width' => 50,
+						],
+
+						'uacf7_web_hook_header_request_parameter' => [ 
+							'id' => 'uacf7_web_hook_header_request_parameter',
+							'type' => 'select',
+							// 'label' => __( 'Request Format', 'ultimate-addons-cf7' ),
+							'options' => 'uacf7',
+							'query_args' => array(
+								'post_id' => $post_id,
+								'exclude' => [ 'submit', 'conditional' ],
+							),
+							'field_width' => 50,
+						],
+					]
+
+				],
+
+				'uacf7_web_hook_body_request' => [ 
+					'id' => 'uacf7_web_hook_body_request',
+					'type' => 'repeater',
+					'label' => __( 'Request Body', 'ultimate-addons-cf7' ),
+					'dependency' => [ 'uacf7_enable_web_hook', '==', 1 ],
+					'fields' => [ 
+						'uacf7_web_hook_body_request_value' => [ 
+							'id' => 'uacf7_web_hook_body_request_value',
+							'type' => 'text',
+							'placeholder' => __( 'Enter a parameter key', 'ultimate-addons-cf7' ),
+							'field_width' => 50,
+						],
+
+						'uacf7_web_hook_body_request_parameter' => [ 
+							'id' => 'uacf7_web_hook_body_request_parameter',
+							'type' => 'select',
+							// 'label' => __( 'Request Format', 'ultimate-addons-cf7' ),
+							'options' => 'uacf7',
+							'query_args' => array(
+								'post_id' => $post_id,
+								'exclude' => [ 'submit', 'conditional' ],
+							),
+							'field_width' => 50,
+						],
+					]
+
+				]
+			],
+		), $post_id );
+
+		$value['Web_hook'] = $WebHook;
+		return $value;
+	}
+
+	public function uacf7_send_data_by_web_hook( $form ) {
+
+		$submission = WPCF7_Submission::get_instance();
+		$contact_form_data = $submission->get_posted_data();
+		$Web_hook = uacf7_get_form_option( $form->id(), 'Web_hook' );
+
+
+		//Admin Option
+		$web_hook_enable = isset( $Web_hook['uacf7_enable_web_hook'] ) ? $Web_hook['uacf7_enable_web_hook'] : false;
+		$request_api = isset( $Web_hook['uacf7_web_hook_api'] ) ? $Web_hook['uacf7_web_hook_api'] : '';
+		$request_method = isset( $Web_hook['uacf7_web_hook_request_method'] ) ? $Web_hook['uacf7_web_hook_request_method'] : '';
+		$request_format = isset( $Web_hook['uacf7_web_hook_request_format'] ) ? $Web_hook['uacf7_web_hook_request_format'] : '';
+		$header_request = isset( $Web_hook['uacf7_web_hook_header_request'] ) ? $Web_hook['uacf7_web_hook_header_request'] : '';
+		$body_request = isset( $Web_hook['uacf7_web_hook_body_request'] ) ? $Web_hook['uacf7_web_hook_body_request'] : '';
+
+		$api_endpoint = $request_api;
+		$api_request_method = $request_method;
+
+		// Return if not enable
+		if ( ! $web_hook_enable ) {
+			return;
+		}
+		// Return API Not Fill
+		if ( empty( $api_endpoint ) ) {
+			return;
+		}
+		// Return If post type not seleted
+		if ( empty( $api_request_method ) ) {
+			return;
+		}
+
+		// Define the data to send in the POST request
+		$post_data = array();
+
+
+		// Check if $header_request is an array
+		if ( is_array( $header_request ) ) {
+			// Loop through each item in the array
+			foreach ( $header_request as $header ) {
+				// Access individual values using keys
+				$header_value = $header['uacf7_web_hook_header_request_value'];
+				$header_parameter = $contact_form_data[ $header['uacf7_web_hook_header_request_parameter'] ];
+
+				// Add data to the $post_data array
+				$post_data[ $header_value ] = $header_parameter;
+			}
+		}
+
+		// Check if $body_request is an array
+		if ( is_array( $body_request ) ) {
+			// Loop through each item in the array
+			foreach ( $body_request as $body ) {
+				// Access individual values using keys
+				$body_value = $body['uacf7_web_hook_body_request_value'];
+				$body_parameter = $contact_form_data[ $body['uacf7_web_hook_body_request_parameter'] ];
+
+				// Add data to the $post_data array
+				$post_data[ $body_value ] = $body_parameter;
+			}
+		}
+
+		// Set up the request arguments
+		$request_args = array(
+			'body' => json_encode( $post_data ),
+			'headers' => array(
+				//Need loop for additional input
+				'Content-Type' => 'application/json',
+			),
+			'method' => $api_request_method,
+		);
+
+		// Make the POST request
+		$response = wp_remote_request( $api_endpoint, $request_args );
+
+		// Check if the request was successful
+		if ( is_wp_error( $response ) ) {
+			// Handle error
+			//echo 'Error: ' . $response->get_error_message();
+		} else {
+			// Request was successful, and $response contains the API response
+			$api_response = wp_remote_retrieve_body( $response );
+			//echo 'API Response: ' . $api_response;
+		}
+	}
+
+}
+new UACF7_WEB_HOOK();
