@@ -1214,7 +1214,7 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
             update_option('uacf7_settings', $new_option);
 
             // update migration status
-            // update_option( 'uacf7_settings_migration_status', true );
+            update_option( 'uacf7_settings_migration_status', true );
         }
         
   
