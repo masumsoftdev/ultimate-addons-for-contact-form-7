@@ -916,9 +916,10 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                     // Booking addon Migration
                     $bf_enable = get_post_meta( $post_id, 'bf_enable', true ) == 'on' ? 1: get_post_meta( $post_id, 'bf_enable', true );
                     $booking = isset($meta['booking']) ? $meta['booking'] : array();  
+                   
                     if($bf_enable == true){
                         $booking['bf_enable'] = $bf_enable;
-                        $booking['bf_duplicate_status'] = get_post_meta( $post_id, 'bf_duplicate_status', true ) == 'on' ? 1 : 0;
+                        $booking['bf_duplicate_status'] = get_post_meta( $post_id, 'bf_duplicate_status', true ) == '1' ? 1 : 0;
                         $booking['calendar_event_enable'] = get_post_meta( $post_id, 'calendar_event_enable', true ) == 'on' ? 1 : 0;
                         $booking['event_email'] = get_post_meta( $post_id, 'event_email', true );
                         $booking['event_summary'] = get_post_meta( $post_id, 'event_summary', true );
@@ -963,8 +964,8 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                         $booking['bf_product'] = get_post_meta( $post_id, 'bf_product', true );
                         $booking['bf_product_id'] = get_post_meta( $post_id, 'bf_product_id', true );
                         $booking['bf_product_name'] = get_post_meta( $post_id, 'bf_product_name', true );
-                        $booking['bf_product_price'] = get_post_meta( $post_id, 'bf_product_name', true );  
-                        $meta['booking'] = $booking;
+                        $booking['bf_product_price'] = get_post_meta( $post_id, 'bf_product_price', true );  
+                        $meta['booking'] = $booking; 
                     }
 
                     // Post Submission addon Migration
@@ -1210,7 +1211,7 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
             update_option('uacf7_settings', $new_option);
 
             // update migration status
-            update_option( 'uacf7_settings_migration_status', true );
+            // update_option( 'uacf7_settings_migration_status', true );
         }
         
   

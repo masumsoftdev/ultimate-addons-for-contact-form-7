@@ -214,7 +214,7 @@
                         dateFormat: format,
                         minDate: minDate,
                         altInput: true,
-                        altFormat: uacf7_options.tf_admin_date_format,
+                        // altFormat: uacf7_options.tf_admin_date_format,
                         onChange: function (selectedDates, dateStr, instance) {
                             endDate.set('minDate', dateStr);
                         }
@@ -223,7 +223,7 @@
                         dateFormat: format,
                         minDate: minDate,
                         altInput: true,
-                        altFormat: uacf7_options.tf_admin_date_format,
+                        // altFormat: uacf7_options.tf_admin_date_format,
                         onChange: function (selectedDates, dateStr, instance) {
                             startDate.set('maxDate', dateStr);
                         }
@@ -233,7 +233,7 @@
                         dateFormat: format,
                         minDate: minDate,
                         altInput: true,
-                        altFormat: uacf7_options.tf_admin_date_format,
+                        // altFormat: uacf7_options.tf_admin_date_format,
                         mode: multiple ? 'multiple' : 'single',
                     });
                 }

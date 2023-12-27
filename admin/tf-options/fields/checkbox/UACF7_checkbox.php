@@ -2,8 +2,8 @@
 // don't load directly
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'TF_checkbox' ) ) {
-	class TF_checkbox extends UACF7_Fields {
+if ( ! class_exists( 'UACF7_checkbox' ) ) {
+	class UACF7_checkbox extends UACF7_Fields {
 
 		public function __construct( $field, $value = '', $settings_id = '', $parent_field = '', $section_key = '' ) {
 			parent::__construct( $field, $value, $settings_id, $parent_field, $section_key  );
