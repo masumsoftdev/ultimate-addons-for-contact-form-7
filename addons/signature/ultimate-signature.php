@@ -123,11 +123,11 @@ class UACF7_SIGNATURE{
        $wpcf7 = WPCF7_ContactForm::get_current(); 
        $formid = $wpcf7->id();
        $uacf7_signature_settings = get_post_meta( $formid, 'uacf7_signature_settings', true );  
-       $uacf7_signature_enable = isset($uacf7_signature_settings['uacf7_signature_enable']) ? $uacf7_signature_settings['uacf7_signature_enable'] : '';
-       $bg_color = isset($uacf7_signature_settings['uacf7_signature_bg_color']) ? $uacf7_signature_settings['uacf7_signature_bg_color'] : '';
-       $pen_color = isset($uacf7_signature_settings['uacf7_signature_pen_color']) ? $uacf7_signature_settings['uacf7_signature_pen_color'] : '';
-       $canvas_width = isset($uacf7_signature_settings['uacf7_signature_pad_width']) ? $uacf7_signature_settings['uacf7_signature_pad_width'] : '';
-       $canvas_height = isset($uacf7_signature_settings['uacf7_signature_pad_height']) ? $uacf7_signature_settings['uacf7_signature_pad_height'] : '';
+       $uacf7_signature_enable = $uacf7_signature_settings['uacf7_signature_enable'];  
+       $bg_color = $uacf7_signature_settings['uacf7_signature_bg_color']; 
+       $pen_color = $uacf7_signature_settings['uacf7_signature_pen_color']; 
+       $canvas_width = $uacf7_signature_settings['uacf7_signature_pad_width']; 
+       $canvas_height = $uacf7_signature_settings['uacf7_signature_pad_height']; 
        
        if($uacf7_signature_enable != 'on' || $uacf7_signature_enable === ''){
            return;
@@ -165,15 +165,14 @@ class UACF7_SIGNATURE{
 
         ?>
         <span  class="wpcf7-form-control-wrap <?php echo sanitize_html_class($tag->name); ?>" data-name="<?php echo sanitize_html_class($tag->name); ?>">
-            <input hidden type="file" id="img_id_special" <?php echo $atts; ?>  >
+            <input hidden type="file" class="img_id_special" <?php echo $atts; ?>  >
             <div>
-              <div id="signature-pad">
-              <canvas id="signature-canvas" width="<?php echo $canvas_width; ?>" height="<?php echo $canvas_height; ?>"></canvas>
+              <div id="signature-pad" class="signature-pad" data-field-name="<?php echo sanitize_html_class($tag->name); ?>">
+                <canvas id="<?php echo sanitize_html_class($tag->name); ?>" data-field-name="<?php echo sanitize_html_class($tag->name); ?>" width="<?php echo $canvas_width; ?>" height="<?php echo $canvas_height; ?>"></canvas>
               </div>
               <span id="confirm_message"></span>
               <div class="control_div">
-                  <button id="clear-button">Clear</button>
-                  <button id="convertButton">Confirm Signature</button>
+                  <button data-field-name="<?php echo sanitize_html_class($tag->name); ?>" class="clear-button">Clear</button>
               </div>
             </div>
         </span>
