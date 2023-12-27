@@ -102,7 +102,7 @@ jQuery(document).ready(function($){
           $('.clear-button').click(function (e) {
               e.preventDefault();
               var signature_canvas = $(this).closest('.wpcf7-form-control-wrap').find('.signature-pad').find('canvas').get(0);
-              var canvas_file_input_field = $(this).closest('.wpcf7-form-control-wrap').find('.signature-pad').find('#img_id_special');
+              var canvas_file_input_field = $(this).closest('.wpcf7-form-control-wrap').find('input[type="file"]');
 
               canvas_file_input_field.val('');
 
@@ -119,7 +119,6 @@ jQuery(document).ready(function($){
           });
 
             
-
           /** Preventing file system opening */
 
             $('.uacf7-form-'+formId).find('.img_id_special').click(function (e){

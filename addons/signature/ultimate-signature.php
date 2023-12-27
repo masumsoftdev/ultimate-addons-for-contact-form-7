@@ -167,10 +167,9 @@ class UACF7_SIGNATURE{
         <span  class="wpcf7-form-control-wrap <?php echo sanitize_html_class($tag->name); ?>" data-name="<?php echo sanitize_html_class($tag->name); ?>">
             <input hidden type="file" class="img_id_special" <?php echo $atts; ?>  >
             <div>
-              <div id="signature-pad" class="signature-pad" data-field-name="<?php echo sanitize_html_class($tag->name); ?>">
+              <div  class="signature-pad" data-field-name="<?php echo sanitize_html_class($tag->name); ?>">
                 <canvas id="<?php echo sanitize_html_class($tag->name); ?>" data-field-name="<?php echo sanitize_html_class($tag->name); ?>" width="<?php echo $canvas_width; ?>" height="<?php echo $canvas_height; ?>"></canvas>
               </div>
-              <span id="confirm_message"></span>
               <div class="control_div">
                   <button data-field-name="<?php echo sanitize_html_class($tag->name); ?>" class="clear-button">Clear</button>
               </div>
