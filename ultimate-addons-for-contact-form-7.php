@@ -28,7 +28,7 @@ class Ultimate_Addons_CF7 {
         define( 'UACF7_URL', plugin_dir_url( __FILE__ ) );
         define( 'UACF7_ADDONS', UACF7_URL.'addons' );
         define( 'UACF7_PATH', plugin_dir_path( __FILE__ ) );
-        define( 'UACF7_VERSION', '3.2.16' );
+        define( 'UACF7_VERSION', '3.2.0' );
 
         
         if ( ! class_exists( 'Appsero\Client' ) ) {
@@ -104,7 +104,12 @@ class Ultimate_Addons_CF7 {
                 
         //Require ultimate addons
         require_once( 'addons/addons.php' );
-        // require_once UACF7_PATH . 'admin/tf-options/TF_Optionss.php';
+
+        //  Update UACF7 Plugin Version
+        if(UACF7_VERSION !=  get_option( 'uacf7_version' ) ){
+            update_option( 'uacf7_version', UACF7_VERSION );
+        }
+      
       
        
        
