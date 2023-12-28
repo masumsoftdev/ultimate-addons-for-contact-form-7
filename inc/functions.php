@@ -1166,7 +1166,8 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
 
             // Option Migration
             $old_option = get_option('uacf7_option_name');
-            $new_option = get_option('uacf7_settings');
+            $new_option = get_option('uacf7_settings') != '' ? get_option('uacf7_settings') : array();
+             
             $new_option['uacf7_enable_redirection'] = isset($old_option['uacf7_enable_redirection']) && $old_option['uacf7_enable_redirection'] == 'on' ? 1 : 0;
             $new_option['uacf7_enable_conditional_field'] = isset($old_option['uacf7_enable_conditional_field']) && $old_option['uacf7_enable_conditional_field'] == 'on' ? 1 : 0;
             $new_option['uacf7_enable_field_column'] = isset($old_option['uacf7_enable_field_column']) && $old_option['uacf7_enable_field_column'] == 'on' ? 1 : 0;
