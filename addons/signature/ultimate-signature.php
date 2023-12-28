@@ -29,14 +29,6 @@ class UACF7_SIGNATURE{
         wp_enqueue_script('uacf7-signature-public-assets', UACF7_URL . '/addons/signature/assets/public/js/signature.js', ['jquery'], 'UACF7_VERSION', true);
         wp_enqueue_script('uacf7-sign-lib.min', UACF7_URL . '/addons/signature/assets/public/js/sign-lib.min.js', ['jquery'], 'UACF7_VERSION', true);
        
-       
-        wp_localize_script( 'uacf7-signature-public-assets', 'uacf7_sign_obj', [
-          
-            'message_notice' => __('Please sign first and confirm your signature before form submission', 'ultimate-addons-cf7'),
-            'message_success' => __('Signature Confirmed', 'ultimate-addons-cf7'),
-          
-        ]);
-
     }
 
 
