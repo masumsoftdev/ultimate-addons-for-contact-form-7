@@ -193,6 +193,34 @@ class UACF7_DATABASE {
 		file_put_contents( $outputFile, $encryptedFileContent );
 	}
 
+	public function decrypt_and_display($inputFile, $key) {
+
+		if (!file_exists($inputFile)) {
+			die("Error: The file does not exist.");
+		}
+
+		// Read the encrypted content
+		$encryptedFileContent = file_get_contents($inputFile);
+
+		if ($encryptedFileContent === false) {
+			die("Error: Unable to read file content.");
+		}
+	
+		// Extract IV
+		$ivSize = openssl_cipher_iv_length('aes-256-cbc');
+		$iv = substr($encryptedFileContent, 0, $ivSize);
+	
+		// Extract encrypted data
+		$encryptedData = substr($encryptedFileContent, $ivSize);
+	
+		// Decrypt the data
+		$decryptedData = openssl_decrypt($encryptedData, 'aes-256-cbc', $key, 0, $iv);
+	
+		// Output the decrypted data directly
+		header('Content-Type: image/jpg'); // Adjust content type based on your file type
+		return $decryptedData;
+	}
+
 	/*
 	 * Ultimate form save into the database
 	 */
@@ -219,8 +247,6 @@ class UACF7_DATABASE {
 			}
 		}
 
-
-
 		$contact_form_data = $submission->get_posted_data();
 		$files = $submission->uploaded_files();
 		$upload_dir = wp_upload_dir();
@@ -243,7 +269,7 @@ class UACF7_DATABASE {
 					// var_dump( $file_key );
 					// exit;
 					$file = is_array( $file ) ? reset( $file ) : $file;
-					$dir_link = '/uacf7-uploads/' . $time_now . '-' . $file_key . '-' . basename( $file );
+					$dir_link = '/uacf7-uploads/' . $time_now . '-' . $file_key . '-' . basename( $file ). '.enc';
 					if ( in_array( $file_key, $uacf7_signature_tag ) ) {
 
 						$this->encrypt_file( $file, $dir . $dir_link, $encryptionKey );
@@ -322,6 +348,7 @@ class UACF7_DATABASE {
 		}
 
 		global $wpdb;
+		$encryptionKey = 'AES-256-CBC';
 		$id = intval( $_POST['id'] ); // data id
 		$upload_dir = wp_upload_dir();
 		$dir = $upload_dir['baseurl'];
@@ -331,32 +358,70 @@ class UACF7_DATABASE {
 		$form_fields = $ContactForm->scan_form_tags();
 		$data = json_decode( $form_data->form_value );
 
+		$signaturepath = $upload_dir['basedir'];
+		$uacf7_signature_tag = [];
 		$fields = [];
-		foreach ( $form_fields as $field ) {
 
+		// var_dump($signaturepath);
+		// var_dump($dir);
+		// var_dump();
+
+		foreach ( $form_fields as $field ) {
 			if ( $field['type'] != 'submit' && $field['type'] != 'uacf7_step_start' && $field['type'] != 'uacf7_step_end' && $field['type'] != 'uarepeater' && $field['type'] == 'uacf7_conversational_start' && $field['type'] == 'uacf7_conversational_end' ) {
 				$fields[ $field['name'] ] = '';
 			}
+			if ( $field->type == 'uacf7_signature*' || $field->type == 'uacf7_signature' ) {
+				$uacf7_signature_tag[] = $field->name;
+			}
 		}
+
 		foreach ( $data as $key => $value ) {
 			$fields[ $key ] = $value;
 		}
+
 		$html = '<div class="db-view-wrap"> 
                     <h3>' . get_the_title( $form_data->form_id ) . '</h3>
                     <span>' . esc_html( $form_data->form_date ) . '</span>
                     <table class="wp-list-table widefat fixed striped table-view-list">';
 		$html .= '<tr> <th><strong>Fields</strong></th><th><strong>Values</strong> </th> </tr>';
 		foreach ( $fields as $key => $value ) {
+			// var_dump($value);
 			if ( $key != 'status' ) {
 				if ( is_array( $value ) ) {
 					$value = implode( ", ", $value );
 				}
-				if ( strstr( $value, $replace_dir ) ) {
-					$value = str_replace( $replace_dir, "", $value );
-					$html .= '<tr> <td><strong>' . esc_attr( $key ) . '</strong></td> <td><a href="' . esc_url( $dir . $replace_dir . $value ) . '" target="_blank">' . esc_html( $value ) . '</a></td> </tr>';
+				if ( in_array( $key, $uacf7_signature_tag ) ){
+					$decryptedData = $this->decrypt_and_display($signaturepath . $value, $encryptionKey);
+					
+					if ($decryptedData !== null){
+						$imageData = 'data:image/jpeg;base64,' . base64_encode($decryptedData);
+					}
+
+					// href="' . esc_url( $dir . $replace_dir . $value ) . '"
+					$html .= '
+					<tr> 
+						<td>
+							<strong>' . esc_attr( $key ) . '</strong>
+						</td> 
+						<td>
+							<button id="signature_view_btn">' . esc_html( 'View' ) . '</button>
+						</td>
+					</tr>
+					<div class="signature_view_pops">
+						<img src="' . $imageData . '" />
+					</div>
+					';
+					
+
 				} else {
-					$html .= '<tr> <td><strong>' . esc_attr( $key ) . '</strong></td> <td>' . esc_html( $value ) . '</td> </tr>';
+					if ( strstr( $value, $replace_dir ) ) {
+						$value = str_replace( $replace_dir, "", $value );
+						$html .= '<tr> <td><strong>' . esc_attr( $key ) . '</strong></td> <td><a href="' . esc_url( $dir . $replace_dir . $value ) . '" target="_blank">' . esc_html( $value ) . '</a></td> </tr>';
+					} else {
+						$html .= '<tr> <td><strong>' . esc_attr( $key ) . '</strong></td> <td>' . esc_html( $value ) . '</td> </tr>';
+					}
 				}
+				
 			}
 		}
 		$html .= '</table></div>';
