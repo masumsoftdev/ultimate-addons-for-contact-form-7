@@ -172,7 +172,6 @@ class UACF7_DATABASE {
 				<!--Tab Addons end-->
 			</div>
 			<?php
-
 		}
 		// echo ob_get_clean();
 	}
@@ -193,31 +192,31 @@ class UACF7_DATABASE {
 		file_put_contents( $outputFile, $encryptedFileContent );
 	}
 
-	public function decrypt_and_display($inputFile, $key) {
+	public function decrypt_and_display( $inputFile, $key ) {
 
-		if (!file_exists($inputFile)) {
-			die("Error: The file does not exist.");
+		if ( ! file_exists( $inputFile ) ) {
+			die( "Error: The file does not exist." );
 		}
 
 		// Read the encrypted content
-		$encryptedFileContent = file_get_contents($inputFile);
+		$encryptedFileContent = file_get_contents( $inputFile );
 
-		if ($encryptedFileContent === false) {
-			die("Error: Unable to read file content.");
+		if ( $encryptedFileContent === false ) {
+			die( "Error: Unable to read file content." );
 		}
-	
+
 		// Extract IV
-		$ivSize = openssl_cipher_iv_length('aes-256-cbc');
-		$iv = substr($encryptedFileContent, 0, $ivSize);
-	
+		$ivSize = openssl_cipher_iv_length( 'aes-256-cbc' );
+		$iv = substr( $encryptedFileContent, 0, $ivSize );
+
 		// Extract encrypted data
-		$encryptedData = substr($encryptedFileContent, $ivSize);
-	
+		$encryptedData = substr( $encryptedFileContent, $ivSize );
+
 		// Decrypt the data
-		$decryptedData = openssl_decrypt($encryptedData, 'aes-256-cbc', $key, 0, $iv);
-	
+		$decryptedData = openssl_decrypt( $encryptedData, 'aes-256-cbc', $key, 0, $iv );
+
 		// Output the decrypted data directly
-		header('Content-Type: image/jpg'); // Adjust content type based on your file type
+		header( 'Content-Type: image/jpg' ); // Adjust content type based on your file type
 		return $decryptedData;
 	}
 
@@ -243,7 +242,6 @@ class UACF7_DATABASE {
 				if ( $tag->name != '' ) {
 					$skip_tag_insert[] = $tag->name;
 				}
-
 			}
 		}
 
@@ -266,17 +264,12 @@ class UACF7_DATABASE {
 		foreach ( $files as $file_key => $file ) {
 			if ( ! empty( $file ) ) {
 				if ( in_array( $file_key, $uploaded_files ) ) {
-					// var_dump( $file_key );
-					// exit;
 					$file = is_array( $file ) ? reset( $file ) : $file;
-					$dir_link = '/uacf7-uploads/' . $time_now . '-' . $file_key . '-' . basename( $file ). '.enc';
+					$dir_link = '/uacf7-uploads/' . $time_now . '-' . $file_key . '-' . basename( $file ) . '.enc';
 					if ( in_array( $file_key, $uacf7_signature_tag ) ) {
-
 						$this->encrypt_file( $file, $dir . $dir_link, $encryptionKey );
-
 					} else {
 						copy( $file, $dir . $dir_link );
-
 					}
 					array_push( $data_file, [ $file_key => $dir_link ] );
 				}
@@ -362,10 +355,6 @@ class UACF7_DATABASE {
 		$uacf7_signature_tag = [];
 		$fields = [];
 
-		// var_dump($signaturepath);
-		// var_dump($dir);
-		// var_dump();
-
 		foreach ( $form_fields as $field ) {
 			if ( $field['type'] != 'submit' && $field['type'] != 'uacf7_step_start' && $field['type'] != 'uacf7_step_end' && $field['type'] != 'uarepeater' && $field['type'] == 'uacf7_conversational_start' && $field['type'] == 'uacf7_conversational_end' ) {
 				$fields[ $field['name'] ] = '';
@@ -390,14 +379,14 @@ class UACF7_DATABASE {
 				if ( is_array( $value ) ) {
 					$value = implode( ", ", $value );
 				}
-				if ( in_array( $key, $uacf7_signature_tag ) ){
-					$decryptedData = $this->decrypt_and_display($signaturepath . $value, $encryptionKey);
-					
-					if ($decryptedData !== null){
-						$imageData = 'data:image/jpeg;base64,' . base64_encode($decryptedData);
+				if ( in_array( $key, $uacf7_signature_tag ) ) {
+					$token = md5( uniqid() );
+					$decryptedData = $this->decrypt_and_display( $signaturepath . $value, $encryptionKey );
+
+					if ( $decryptedData !== null ) {
+						$imageData = 'data:image/jpeg;base64,' . base64_encode( $decryptedData );
 					}
 
-					// href="' . esc_url( $dir . $replace_dir . $value ) . '"
 					$html .= '
 					<tr> 
 						<td>
@@ -405,13 +394,16 @@ class UACF7_DATABASE {
 						</td> 
 						<td>
 							<button id="signature_view_btn">' . esc_html( 'View' ) . '</button>
+							<a class="" href="' . $imageData . '" download="decrypted_image.jpg">
+								<button class="signature_bownload_btn">Download</button>
+							</a>
 						</td>
 					</tr>
 					<div class="signature_view_pops">
-						<img src="' . $imageData . '" />
+						<img class="signature_view_pops_img" src="' . $imageData . '" />
 					</div>
 					';
-					
+
 
 				} else {
 					if ( strstr( $value, $replace_dir ) ) {
@@ -421,7 +413,7 @@ class UACF7_DATABASE {
 						$html .= '<tr> <td><strong>' . esc_attr( $key ) . '</strong></td> <td>' . esc_html( $value ) . '</td> </tr>';
 					}
 				}
-				
+
 			}
 		}
 		$html .= '</table></div>';
