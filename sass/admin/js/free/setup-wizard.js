@@ -53,7 +53,7 @@
                     $('.required-plugin-button').addClass('disabled');
                     $('.uacf7-next').attr('disabled', false);
                     $('.uacf7-next').removeClass('disabled');
-                    
+                    $('.uacf7-next').trigger('click');
                 }
             });
         }

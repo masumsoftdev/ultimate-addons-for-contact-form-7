@@ -83,9 +83,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 			// Metaboxes Class
 			require_once $this->uacf7_options_file_path( 'classes/UACF7_Metabox.php' );
 			// Settings Class
-			require_once $this->uacf7_options_file_path( 'classes/UACF7_Settings.php' );
-			//Shortcodes Class
-			require_once $this->uacf7_options_file_path( 'classes/UACF7_Shortcodes.php' );
+			require_once $this->uacf7_options_file_path( 'classes/UACF7_Settings.php' ); 
 			//Taxonomy Class
 			require_once $this->uacf7_options_file_path( 'classes/UACF7_Taxonomy_Metabox.php' );
 
@@ -234,9 +232,9 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 				'tf_cancel_orders'  => isset( $tf_cancel_orders ) ? $tf_cancel_orders : '',
 				'tf_chart_enable'   => isset( $tf_chart_enable ) ? $tf_chart_enable : '', 
 				'tf_export_import_msg' => array(
-					'imported'       => __( 'Imported successfully!', 'tourfic' ),
-					'import_confirm' => __( 'Are you sure you want to import this data?', 'tourfic' ),
-					'import_empty'   => __( 'Import Data cannot be empty!', 'tourfic' ),
+					'imported'       => __( 'Imported successfully!', 'ultimate-addons-cf7' ),
+					'import_confirm' => __( 'Are you sure you want to import this data?', 'ultimate-addons-cf7' ),
+					'import_empty'   => __( 'Import Data cannot be empty!', 'ultimate-addons-cf7' ),
 				)
 			) );
 		}
@@ -247,7 +245,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 		public function tf_options_admin_dequeue_scripts( $screen ) { 
 			$tf_options_post_type = array(  );
 
-			if ( $screen == 'toplevel_page_uacf7_settings' || in_array( $post_type, $tf_options_post_type ) ) {
+			if ( $screen == 'toplevel_page_uacf7_settings' ) {
 				wp_dequeue_script( 'theplus-admin-js-pro' );
 			}
 		}
@@ -340,10 +338,10 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 						<label for="<?php echo esc_attr( $id ) ?>" class="tf-field-label">
 							<?php echo esc_html( $field['label'] ) ?>
 							<?php if ( $is_pro ): ?>
-								<div class="tf-csf-badge"><span class="tf-pro"><?php _e( "Pro", "tourfic" ); ?></span></div>
+								<div class="tf-csf-badge"><span class="tf-pro"><?php _e( "Pro", "ultimate-addons-cf7" ); ?></span></div>
 							<?php endif; ?>
 							<?php if ( $badge_up ): ?>
-								<div class="tf-csf-badge"><span class="tf-upcoming"><?php _e( "Upcoming", "tourfic" ); ?></span></div>
+								<div class="tf-csf-badge"><span class="tf-upcoming"><?php _e( "Upcoming", "ultimate-addons-cf7" ); ?></span></div>
 							<?php endif; ?>
 						</label>
 					<?php endif; ?>
@@ -359,7 +357,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 							$_field = new $fieldClass( $field, $value, $settings_id, $parent, $section_key );
 							$_field->render();
 						} else {
-							echo '<p>' . __( 'Field not found!', 'tourfic' ) . '</p>';
+							echo '<p>' . __( 'Field not found!', 'ultimate-addons-cf7' ) . '</p>';
 						}
 						?>
 					</div>

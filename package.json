@@ -1,8 +1,8 @@
 {
-  "name": "tourfic",
+  "name": "uacf7",
   "version": "2.9.5",
-  "description": "Tourfic - Travel and Hotel Booking Solution for WooCommerce",
-  "main": "tourfic.js",
+  "description": "UACF7 - Ultimate Addons for Contact Form 7",
+  "main": "uacf7.js",
   "babel": {
     "presets": [
       "@babel/preset-env"

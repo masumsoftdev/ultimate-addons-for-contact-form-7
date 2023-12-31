@@ -9,19 +9,19 @@ if ( file_exists( UACF7_PATH . 'admin/tf-options/options/tf-menu-icon.php' ) ) {
 	$menu_icon = 'dashicons-palmtree';
 }
 UACF7_Settings::option( 'uacf7_settings', array(
-	'title' => __( 'Ultimate Addons', 'tourfic' ),
+	'title' => __( 'Ultimate Addons', 'ultimate-addons-cf7' ),
 	'icon' => $menu_icon,
 	'position' => 25,
 	'sections' =>
 		apply_filters( 'uacf7_settings_options', array(
 			'addons_settings' => array(
-				'title' => __( 'Addons Settings', 'tourfic' ),
+				'title' => __( 'Addons Settings', 'ultimate-addons-cf7' ),
 				'icon' => 'fa fa-cog',
 				'fields' => array(
 				),
 			),
 			'general_addons' => array(
-				'title' => __( 'General Addons', 'tourfic' ),
+				'title' => __( 'General Addons', 'ultimate-addons-cf7' ),
 				'parent' => 'addons_settings',
 				'icon' => 'fa fa-cog',
 				'fields' => array(
@@ -459,13 +459,13 @@ UACF7_Settings::option( 'uacf7_settings', array(
 			 * Main menu
 			 */
 			'uacf7_import_export_data' => array(
-				'title' => __( 'Import/Export', 'tourfic' ),
+				'title' => __( 'Import/Export', 'ultimate-addons-cf7' ),
 				'icon' => 'fa fa-cog',
 				'fields' => array(
 				),
 			),
 			'uacf7_import_export' => array(
-				'title' => __( 'Import/Export', 'tourfic' ),
+				'title' => __( 'Import/Export', 'ultimate-addons-cf7' ),
 				'parent' => 'uacf7_import_export_data',
 				'icon' => 'fas fa-hdd',
 				'fields' => array(

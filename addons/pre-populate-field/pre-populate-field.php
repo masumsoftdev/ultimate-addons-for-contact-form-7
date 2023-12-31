@@ -37,10 +37,9 @@ class UACF7_PRE_POPULATE {
                 
                 'uacf7_pre_populated_heading' => array(
                     'id'    => 'uacf7_pre_populated_heading',
-                    'type'  => 'notice',
-                    'notice' => 'info',
+                    'type'  => 'heading', 
                     'label' => __( 'Pre Populated Settings', 'ultimate-addons-cf7' ),
-                    'title' => __( 'This addon will help you form pre-populate.', 'ultimate-addons-cf7' ),
+                    'subtitle' => __( 'This addon will help you form pre-populate.', 'ultimate-addons-cf7' ),
                     'content' => sprintf( 
                         __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
                         '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-pre-populate-fields/" target="_blank">documentation</a>'

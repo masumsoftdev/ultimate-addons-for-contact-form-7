@@ -183,10 +183,10 @@ body.admin_page_uacf7-setup-wizard {
               color: #06040c;
               text-align: center;
               font-family: Segoe UI;
-              font-size: 48px;
+              font-size: 40px;
               font-style: normal;
-              font-weight: 400;
-              line-height: 40px;
+              font-weight: 700;
+              line-height: 50px;
               @media only screen and (max-width: $x-small-screen) { 
                 font-size: 32px;
               }
@@ -424,15 +424,16 @@ body.admin_page_uacf7-setup-wizard {
               height: 26px;
               width: 115px;
               text-align: center;
-              background-color: #02c616;
+              background-color: #00A58C1A;
               font-size: 12px;
               line-height: 24px;
               font-weight: 600;
-              color: #fff;
+              color: #00A58C;
               transform: rotate(-45deg);
                 
               &.pro {
-                background-color: #e74e4e;
+                background-color: #F15A9E1A;
+                color: #F15A9E;
               }
      
               

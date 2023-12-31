@@ -24,10 +24,9 @@ function uacf7_post_meta_options_import_export($value, $post_id){
 			'fields' => array(
                 'placeholder_headding' => array(
 					'id'    => 'placeholder_headding',
-					'type'  => 'notice',
-					'notice' => 'info',
+					'type'  => 'heading', 
 					'label' => __( 'Import/Export', 'ultimate-addons-cf7' ),
-					'title' => __( 'This addon will help you to Import and export your existing form settings.', 'ultimate-addons-cf7' ),
+					'subtitle' => __( 'This feature will help you to Import and export your existing form settings option.', 'ultimate-addons-cf7' ),
 					'content' => sprintf( 
                         __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
                         '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-import-export/" target="_blank">documentation</a>'

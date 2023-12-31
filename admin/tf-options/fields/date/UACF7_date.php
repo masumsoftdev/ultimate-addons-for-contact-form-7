@@ -16,9 +16,9 @@ if ( ! class_exists( 'UACF7_date' ) ) {
 				'range'       => false,
 				'multiple'    => false,
 				'minDate'     => '',
-				'label_from'  => esc_html__( 'From', 'tourfic' ),
-				'label_to'    => esc_html__( 'To', 'tourfic' ),
-				'placeholder' => esc_html__( 'Select Date', 'tourfic' ),
+				'label_from'  => esc_html__( 'From', 'ultimate-addons-cf7' ),
+				'label_to'    => esc_html__( 'To', 'ultimate-addons-cf7' ),
+				'placeholder' => esc_html__( 'Select Date', 'ultimate-addons-cf7' ),
 			) );
 
 			$value = wp_parse_args( $this->value, array(
@@ -29,7 +29,7 @@ if ( ! class_exists( 'UACF7_date' ) ) {
 			$format      = ( ! empty( $args['format'] ) ) ? $args['format'] : 'Y-m-d';
 			$range       = ( ! empty( $args['range'] ) ) ? $args['range'] : false;
 			$multiple    = ( ! empty( $args['multiple'] ) ) ? $args['multiple'] : false;
-			$placeholder = ( ! empty( $args['placeholder'] ) ) ? $args['placeholder'] : esc_html__( 'Select Date', 'tourfic' );
+			$placeholder = ( ! empty( $args['placeholder'] ) ) ? $args['placeholder'] : esc_html__( 'Select Date', 'ultimate-addons-cf7' );
             $minDate     = ( ! empty( $args['minDate'] ) ) ? $args['minDate'] : '';
 
 			if ( $range ): ?>

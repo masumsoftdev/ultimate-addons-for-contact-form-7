@@ -35,10 +35,9 @@ class UACF7_Redirection {
 			'fields' => array( 
 				'redirection_headding' => array(
 					'id'    => 'redirection_headding',
-					'type'  => 'notice',
-					'notice' => 'info',
+					'type'  => 'heading', 
 					'label' => __( 'UACF7 Redirection Settings', 'ultimate-addons-cf7' ),
-					'title' => __( 'This addon will help you to redirect contact form 7 after submission. You can Redirect users to a Thank you page or External page after user fills up the form. ', 'ultimate-addons-cf7' ),
+					'subtitle' => __( 'This addon will help you to redirect contact form 7 after submission. You can Redirect users to a Thank you page or External page after user fills up the form. ', 'ultimate-addons-cf7' ),
 					'content' => sprintf( 
                         __( 'Not sure how to set this? Check our step by step documentation on  %1s, %2s and %3s .', 'ultimate-addons-cf7' ),
                         '<a href="https://themefic.com/docs/uacf7/free-addons/redirection-for-contact-form-7/" target="_blank">Redirect to a Page or External URL</a>',
@@ -68,7 +67,7 @@ class UACF7_Redirection {
 				),
 				'page_id' => array(
 					'id'        => 'page_id',
-					'type'      => 'select2',
+					'type'      => 'select',
 					'label'     => __( 'Select a page to redirect ', 'ultimate-addons-cf7' ),  
 					'options'     => 'posts', 
 					'query_args'  => array(

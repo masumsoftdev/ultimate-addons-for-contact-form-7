@@ -63,10 +63,9 @@ class UACF7_CF {
 			'fields' => array(
 				'conditional_headding' => array(
 					'id' => 'conditional_headding',
-					'type' => 'notice',
-					'notice' => 'info',
+					'type' => 'heading', 
 					'label' => __( 'Conditional Fields Settings', 'ultimate-addons-cf7' ),
-					'title' => __( 'With this addon, you can show or hide form fields depending on Contact form 7 Conditional Logic. You can check this video to learn more.', 'ultimate-addons-cf7' ),
+					'subtitle' => __( 'With this addon, you can show or hide form fields depending on Contact form 7 Conditional Logic. You can check this video to learn more.', 'ultimate-addons-cf7' ),
 					'content' => sprintf(
 						__( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
 						'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-conditional-fields/" target="_blank">documentation</a>'
