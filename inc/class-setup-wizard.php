@@ -12,6 +12,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 		private static $current_step = null;
 		
 		private $addons = [];
+
 		/**
 		 * Singleton instance
 		 * @since 1.0.0
@@ -415,7 +416,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 												); ?>
 											</h3>
 											<label for="uacf7-select-form"><?php echo esc_html('Describe your', 'ultimate-addons-cf7') ?> <span><?php echo esc_html('Form', 'ultimate-addons-cf7') ?></span>
-												<select name="uacf7-select-form" id="uacf7-select-form"> 
+												<select name="uacf7-select-form" class="tf-select2" id="uacf7-select-form"> 
 													<option value=""><?php echo esc_html('Choose Form type', 'ultimate-addons-cf7') ?></option>
 													<?php 
 														foreach($option_form as $key => $form):

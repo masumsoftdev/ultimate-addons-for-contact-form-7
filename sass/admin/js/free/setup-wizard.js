@@ -59,6 +59,13 @@
         }
 
 
+        // select 2
+        $('#select2').select2({
+            placeholder: 'Select a form type',
+            allowClear: true,
+            width: '100%',
+            minimumResultsForSearch: -1,
+        });
  
         // Uacf7 Next Button
         $(document).on('click', '.uacf7-next', function (e) {  
