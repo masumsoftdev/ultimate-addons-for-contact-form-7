@@ -14,7 +14,7 @@ class UACF7_WEB_HOOK {
 		add_filter( 'uacf7_post_meta_options', array( $this, 'uacf7_post_meta_options_webhook' ), 12, 2 );
 
 		add_action( 'wpcf7_before_send_mail', array( $this, 'uacf7_send_data_by_web_hook' ) );
-		// add_filter( 'wpcf7_load_js', '__return_false' );
+		add_filter( 'wpcf7_load_js', '__return_false' );
 	}
 
 
@@ -57,15 +57,6 @@ class UACF7_WEB_HOOK {
 					'dependency' => [ 'uacf7_enable_web_hook', '==', 1 ],
 				],
 
-				// 'uacf7_web_hook_api_secret' => [ 
-				// 	'id' => 'uacf7_web_hook_api_secret',
-				// 	'type' => 'text',
-				// 	'label' => __( 'Secrct', 'ultimate-addons-cf7' ),
-				// 	'subtitle' => __( "API key value or Secrct value", "ultimate-addons-cf7" ),
-				// 	'placeholder' => __( 'Enter a key value', 'ultimate-addons-cf7' ),
-				// 	'field_width' => 70,
-				// ],
-
 				'uacf7_web_hook_request_method' => [ 
 					'id' => 'uacf7_web_hook_request_method',
 					'type' => 'select',
@@ -99,8 +90,23 @@ class UACF7_WEB_HOOK {
 					'label' => __( 'Request Headers', 'ultimate-addons-cf7' ),
 					'dependency' => [ 'uacf7_enable_web_hook', '==', 1 ],
 					'fields' => [ 
+
+						'uacf7_web_hook_header_request_custom' => [ 
+							'id' => 'uacf7_web_hook_header_request_custom',
+							'type' => 'radio',
+							'class' => 'padding-bottom0',
+							'label' => __( 'Enable Custom Value', 'ultimate-addons-cf7' ),
+							'options' => [ 
+								'form' => 'Form Data',
+								'custom' => 'Custom Value',
+							],
+							'default' => 'form',
+							'inline' => true,
+						],
+
 						'uacf7_web_hook_header_request_value' => [ 
 							'id' => 'uacf7_web_hook_header_request_value',
+							'class' => 'padding-top0',
 							'type' => 'text',
 							'placeholder' => __( 'Enter a parameter key', 'ultimate-addons-cf7' ),
 							'field_width' => 50,
@@ -108,6 +114,7 @@ class UACF7_WEB_HOOK {
 
 						'uacf7_web_hook_header_request_parameter' => [ 
 							'id' => 'uacf7_web_hook_header_request_parameter',
+							'class' => 'padding-top0',
 							'type' => 'select',
 							// 'label' => __( 'Request Format', 'ultimate-addons-cf7' ),
 							'options' => 'uacf7',
@@ -115,6 +122,17 @@ class UACF7_WEB_HOOK {
 								'post_id' => $post_id,
 								'exclude' => [ 'submit', 'conditional' ],
 							),
+							'dependency' => array( 'uacf7_web_hook_header_request_custom', '==', 'form' ),
+							'field_width' => 50,
+						],
+
+						'uacf7_web_hook_header_request_parameter_custom' => [ 
+							'id' => 'uacf7_web_hook_header_request_parameter_custom',
+							'class' => 'padding-top0',
+							'type' => 'text',
+							'placeholder' => __( 'Custom value', 'ultimate-addons-cf7' ),
+							// 'label' => __( 'Request Format', 'ultimate-addons-cf7' ),
+							'dependency' => array( 'uacf7_web_hook_header_request_custom', '==', 'custom' ),
 							'field_width' => 50,
 						],
 					]
@@ -187,7 +205,8 @@ class UACF7_WEB_HOOK {
 		}
 
 		// Define the data to send in the POST request
-		$post_data = array();
+		$header_data = array();
+		$body_data = array();
 
 
 		// Check if $header_request is an array
@@ -195,11 +214,18 @@ class UACF7_WEB_HOOK {
 			// Loop through each item in the array
 			foreach ( $header_request as $header ) {
 				// Access individual values using keys
-				$header_value = $header['uacf7_web_hook_header_request_value'];
-				$header_parameter = $contact_form_data[ $header['uacf7_web_hook_header_request_parameter'] ];
-
+				if ( $header['uacf7_web_hook_header_request_custom'] === 'custom' ) {
+					$customKey = $header['uacf7_web_hook_header_request_parameter_custom'];
+					if ( isset( $customKey ) ) {
+						$header_value = $header['uacf7_web_hook_header_request_value'];
+						$header_parameter = $customKey;
+					}
+				} else {
+					$header_value = $header['uacf7_web_hook_header_request_value'];
+					$header_parameter = $contact_form_data[ $header['uacf7_web_hook_header_request_parameter'] ];
+				}
 				// Add data to the $post_data array
-				$post_data[ $header_value ] = $header_parameter;
+				$header_data[ $header_value ] = $header_parameter;
 			}
 		}
 
@@ -211,17 +237,18 @@ class UACF7_WEB_HOOK {
 				$body_value = $body['uacf7_web_hook_body_request_value'];
 				$body_parameter = $contact_form_data[ $body['uacf7_web_hook_body_request_parameter'] ];
 
-				// Add data to the $post_data array
-				$post_data[ $body_value ] = $body_parameter;
+				// Add data to the $body_data array
+				$body_data[ $body_value ] = $body_parameter;
 			}
 		}
 
 		// Set up the request arguments
 		$request_args = array(
-			'body' => json_encode( $post_data ),
-			'headers' => array(
+			'body' => json_encode( $body_data ),
+			'headers' => array_merge(
 				//Need loop for additional input
-				'Content-Type' => 'application/json',
+				[ 'Content-Type' => 'application/json' ],
+				$header_data,
 			),
 			'method' => $api_request_method,
 		);
@@ -235,7 +262,7 @@ class UACF7_WEB_HOOK {
 			//echo 'Error: ' . $response->get_error_message();
 		} else {
 			// Request was successful, and $response contains the API response
-			$api_response = wp_remote_retrieve_body( $response );
+			//$api_response = wp_remote_retrieve_body( $response );
 			//echo 'API Response: ' . $api_response;
 		}
 	}
