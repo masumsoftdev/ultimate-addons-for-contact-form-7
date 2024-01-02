@@ -29,14 +29,6 @@ class UACF7_SIGNATURE{
         wp_enqueue_script('uacf7-signature-public-assets', UACF7_URL . '/addons/signature/assets/public/js/signature.js', ['jquery'], 'UACF7_VERSION', true);
         wp_enqueue_script('uacf7-sign-lib.min', UACF7_URL . '/addons/signature/assets/public/js/sign-lib.min.js', ['jquery'], 'UACF7_VERSION', true);
        
-       
-        wp_localize_script( 'uacf7-signature-public-assets', 'uacf7_sign_obj', [
-          
-            'message_notice' => __('Please sign first and confirm your signature before form submission', 'ultimate-addons-cf7'),
-            'message_success' => __('Signature Confirmed', 'ultimate-addons-cf7'),
-          
-        ]);
-
     }
 
 
@@ -165,15 +157,13 @@ class UACF7_SIGNATURE{
 
         ?>
         <span  class="wpcf7-form-control-wrap <?php echo sanitize_html_class($tag->name); ?>" data-name="<?php echo sanitize_html_class($tag->name); ?>">
-            <input hidden type="file" id="img_id_special" <?php echo $atts; ?>  >
+            <input hidden type="file" class="img_id_special" <?php echo $atts; ?>  >
             <div>
-              <div id="signature-pad">
-              <canvas id="signature-canvas" width="<?php echo $canvas_width; ?>" height="<?php echo $canvas_height; ?>"></canvas>
+              <div  class="signature-pad" data-field-name="<?php echo sanitize_html_class($tag->name); ?>">
+                <canvas id="<?php echo sanitize_html_class($tag->name); ?>" data-field-name="<?php echo sanitize_html_class($tag->name); ?>" width="<?php echo $canvas_width; ?>" height="<?php echo $canvas_height; ?>"></canvas>
               </div>
-              <span id="confirm_message"></span>
               <div class="control_div">
-                  <button id="clear-button">Clear</button>
-                  <button id="convertButton">Confirm Signature</button>
+                  <button data-field-name="<?php echo sanitize_html_class($tag->name); ?>" class="clear-button">Clear</button>
               </div>
             </div>
         </span>
