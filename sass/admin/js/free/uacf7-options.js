@@ -5,34 +5,34 @@
     $(document).ready(function () {
 
         // get UACF7_metabox and get te append into the form tag
-        if($('.uacf7-metabox').length > 0){
-            $('.uacf7-metabox').each(function(){
-                var $this_clone = $(this).clone(); 
+        if ($('.uacf7-metabox.uacf7').length > 0) {
+            $('.uacf7-metabox.uacf7').each(function () {
+                var $this_clone = $(this).clone();
                 $('#contact-form-editor').append($this_clone);
-                $('#contact-form-editor').find('.uacf7-metabox').css('display','block');
+                $('#contact-form-editor').find('.uacf7-metabox').css('display', 'block');
                 $(this).remove();
             });
         }
 
-       
 
-       // Field: code_editor
 
-       var TF = TF || {};
+        // Field: code_editor
 
-       TF.funcs = {};
+        var TF = TF || {};
 
-       TF.vars = {
-           onloaded: false,
-           $body: $('body'),
-           $window: $(window),
-           $document: $(document),
-           $form_warning: null,
-           is_confirm: false,
-           form_modified: false,
-           code_themes: [],
-           is_rtl: $('body').hasClass('rtl'),
-       };
+        TF.funcs = {};
+
+        TF.vars = {
+            onloaded: false,
+            $body: $('body'),
+            $window: $(window),
+            $document: $(document),
+            $form_warning: null,
+            is_confirm: false,
+            form_modified: false,
+            code_themes: [],
+            is_rtl: $('body').hasClass('rtl'),
+        };
 
         $(document).ready(function () {
             $(".tf-field-code-editor").each(function () {
@@ -40,7 +40,7 @@
                 // console.log("working");
                 // return false;
                 var $this =
-                 $(this),
+                    $(this),
                     $textarea = $this.find('textarea'),
                     $inited = $this.find('.CodeMirror'),
                     data_editor = $textarea.data('editor');
@@ -63,7 +63,7 @@
 
                             $cssLink.attr({
                                 rel: 'stylesheet',
-                                id: 'tf-codemirror-' + data_editor.theme + '-css', 
+                                id: 'tf-codemirror-' + data_editor.theme + '-css',
                                 href: data_editor.cdnURL + '/theme/' + data_editor.theme + '.min.css',
                                 type: 'text/css',
                                 media: 'all'
@@ -96,8 +96,8 @@
                 x: 'right',
                 y: 'top',
             },
-        }); 
-        
+        });
+
         /*
         * window url on change tab click
         * @author: Foysal
@@ -105,7 +105,7 @@
         $(window).on('hashchange load', function () {
             let hash = window.location.hash;
             let query = window.location.search;
-            let slug = hash.replace('#tab=', ''); 
+            let slug = hash.replace('#tab=', '');
             if (hash) {
                 let selectedTab = $('.tf-tablinks[data-tab="' + slug + '"]'),
                     parentDiv = selectedTab.closest('.tf-admin-tab-item');
@@ -124,7 +124,7 @@
         $(document).ready(function () {
             let hash = window.location.hash;
             let query = window.location.search;
-            let slug = hash.replace('#tab=', ''); 
+            let slug = hash.replace('#tab=', '');
             if (hash) {
                 let selectedTab = $('.tf-tablinks[data-tab="' + slug + '"]'),
                     parentDiv = selectedTab.closest('.tf-admin-tab-item');
@@ -255,9 +255,9 @@
                     enableTime: true,
                     noCalendar: true,
                     dateFormat: format,
-                    minuteIncrement: 30, 
+                    minuteIncrement: 30,
                 });
-            }); 
+            });
         }
         tfTimeInt('.tf-field-time');
 
@@ -474,41 +474,41 @@
 
         // uacf7 addone count activate and deactivate addon
         function uacf7_addon_count() {
-          
 
-            var all = $('.uacf7-addon-input-field[type="checkbox"]').length; 
-            var activated = $('.uacf7-addon-input-field[type="checkbox"]:checked').length;  
+
+            var all = $('.uacf7-addon-input-field[type="checkbox"]').length;
+            var activated = $('.uacf7-addon-input-field[type="checkbox"]:checked').length;
             var deactivate = $('.uacf7-addon-input-field[type="checkbox"]:not(:checked)').length;
 
             $('.uacf7-addon-filter-button.all .uacf7-addon-filter-cta-count').text(all);
             $('.uacf7-addon-filter-button.activete .uacf7-addon-filter-cta-count').text(activated);
             $('.uacf7-addon-filter-button.deactive .uacf7-addon-filter-cta-count').text(deactivate);
-        } 
+        }
         uacf7_addon_count();
 
 
         // Uacf7 Addon save data
         $(document).on('change', '.uacf7-addon-input-field', function () {
             uacf7_addon_count();
-            if($(this).is(':checked')){
-                $(this).val(1); 
-            }else{
+            if ($(this).is(':checked')) {
+                $(this).val(1);
+            } else {
                 $(this).val(0);
-            } 
+            }
             $(".tf-option-form.tf-ajax-save").submit();
-            
+
         });
 
-       
+
         $(document).on('click', '.uacf7-addon-filter-button', function (e) {
-            e.preventDefault(); 
+            e.preventDefault();
             $(this).addClass('active').siblings().removeClass('active');
-            if($(this).hasClass('all')){
+            if ($(this).hasClass('all')) {
                 $('.uacf7-single-addon-setting').css('display', 'block');
-            }else if($(this).hasClass('activete')){
+            } else if ($(this).hasClass('activete')) {
                 $('.uacf7-single-addon-setting').css('display', 'none');
                 $('.uacf7-single-addon-setting input[type="checkbox"]:checked').closest('.uacf7-single-addon-setting').css('display', 'block');
-            }else if($(this).hasClass('deactive')){
+            } else if ($(this).hasClass('deactive')) {
                 $('.uacf7-single-addon-setting').css('display', 'none');
                 $('.uacf7-single-addon-setting input[type="checkbox"]:not(:checked)').closest('.uacf7-single-addon-setting').css('display', 'block');
             }
@@ -518,21 +518,21 @@
         $(document).on('keyup', '#uacf7-addon-filter', function () {
             $('.uacf7-addon-filter-button.all').addClass('active').siblings().removeClass('active');
             $('.uacf7-addons-settings-page').find('.tf-field-notice-inner').remove();
-            var filter_string = $(this).val().toLowerCase(); 
-            if(filter_string == ''){
-               
+            var filter_string = $(this).val().toLowerCase();
+            if (filter_string == '') {
+
                 $('.uacf7-single-addon-setting').css('display', 'block');
-            }else{ 
+            } else {
                 $('.uacf7-single-addon-setting').css('display', 'none');
                 $('.uacf7-single-addon-setting[data-filter*="' + filter_string + '"]').css('display', 'block');
-                if($('.uacf7-single-addon-setting[data-filter*="' + filter_string + '"]').length == 0){
+                if ($('.uacf7-single-addon-setting[data-filter*="' + filter_string + '"]').length == 0) {
                     $('.uacf7-addons-settings-page').append('<div class="tf-field-notice-inner tf-notice-danger" style="display: block;">No Addon Found ....</div>');
-                }else{
+                } else {
                     $('.uacf7-addons-settings-page').find('.tf-field-notice-inner').remove();
                 }
             }
-            
-           
+
+
         });
         /*
         * Options ajax save
@@ -543,12 +543,12 @@
             let $this = $(this),
                 submitBtn = $this.find('.tf-submit-btn'),
                 data = new FormData(this);
-                var fontsfile = $('.itinerary-fonts-file').prop("files");
-                if(typeof fontsfile !== "undefined"){
-                    for(var i=0; i<fontsfile.length; i++) {
+            var fontsfile = $('.itinerary-fonts-file').prop("files");
+            if (typeof fontsfile !== "undefined") {
+                for (var i = 0; i < fontsfile.length; i++) {
                     data.append('file[]', fontsfile[i]);
-                    }
                 }
+            }
             data.append('action', 'tf_options_save');
 
             $.ajax({
@@ -610,7 +610,7 @@
                     toolbar2: 'styleselect,strikethrough,hr,forecolor,pastetext,removeformat,charmap,outdent,indent,undo,redo,wp_help',
                     //   textarea_rows : 20
                 },
-                quicktags: {buttons: 'strong,em,link,block,del,ins,img,ul,ol,li,code,more,close'},
+                quicktags: { buttons: 'strong,em,link,block,del,ins,img,ul,ol,li,code,more,close' },
                 mediaButtons: false,
             });
         }
@@ -631,7 +631,7 @@
                 $('.tf-repeater-wrap .tf-single-repeater-book-confirm-field').each(function () {
                     let $this = $(this);
                     let repeaterCount = $this.find('input[name="tf_repeater_count"]').val();
-                    if(0==repeaterCount || 1==repeaterCount || 2==repeaterCount){
+                    if (0 == repeaterCount || 1 == repeaterCount || 2 == repeaterCount) {
                         $this.find('.tf_hidden_fields').hide();
                         $this.find('.tf-repeater-icon-clone').hide();
                         $this.find('.tf-repeater-icon-delete').hide();
@@ -671,11 +671,11 @@
             let repeatDateField = add_value.find('.tf-field-date');
             if (repeatDateField.length > 0) {
                 repeatDateField.find('input').each(function () {
-                    
-                    if($(this).attr('name') == '' || typeof $(this).attr('name') === "undefined"){ 
-                     $(this).remove()
+
+                    if ($(this).attr('name') == '' || typeof $(this).attr('name') === "undefined") {
+                        $(this).remove()
                     }
-                 });
+                });
                 tfDateInt(repeatDateField);
             }
 
@@ -687,16 +687,16 @@
             let repeatColorField = add_value.find('.tf-field-color');
             if (repeatColorField.length > 0) {
                 repeatColorField.find('input.tf-color').each(function () {
-                    var color_field =  $(this).clone(); 
+                    var color_field = $(this).clone();
 
-                    if($(this).closest('li').length > 0){
+                    if ($(this).closest('li').length > 0) {
                         $(this).closest('li').append(color_field);
-                    }else{
+                    } else {
                         $(this).closest('.tf-fieldset').append(color_field);
                     }
                     $(this).closest('.wp-picker-container').remove();
-                 });
-                
+                });
+
                 tfColorInt(repeatColorField);
             }
 
@@ -754,14 +754,14 @@
                 }
             });
 
-             // Replace Old editor
-             add_value.find('.wp-editor-wrap').each(function () {
+            // Replace Old editor
+            add_value.find('.wp-editor-wrap').each(function () {
                 var textarea = $(this).find('.tf_wp_editor').show();
                 // Get content of a specific editor:
-                var tf_editor_ex_data = $('#'+textarea.attr('id')+'').val();
-                if(tf_editor_ex_data && typeof tf_editor_ex_data !== "undefined"){
+                var tf_editor_ex_data = $('#' + textarea.attr('id') + '').val();
+                if (tf_editor_ex_data && typeof tf_editor_ex_data !== "undefined") {
                     var textarea_content = tinymce.get(textarea.attr('id')).getContent();
-                }else{
+                } else {
                     var textarea_content = '';
                 }
                 textarea.val(textarea_content);
@@ -776,9 +776,9 @@
 
             // replace new editor
             add_value.find('textarea.parent_wp_editor').each(function () {
-                var count =  Math.random().toString(36).substring(3,9) + 1 ;
+                var count = Math.random().toString(36).substring(3, 9) + 1;
                 // this.id = this.id.replace('' + current_field + '__00', '' + current_field + '__' + count + '');
-                $(this).attr('id', current_field+count);
+                $(this).attr('id', current_field + count);
                 $(this).attr('data-count-id', count);
                 var parent_repeater_id = $(this).attr('id');
                 TF_wp_editor(parent_repeater_id);
@@ -791,7 +791,7 @@
                 var $this = $(this);
                 tfSelect2Int($this);
             });
-            
+
             // repeater dependency repeater
             TF_dependency();
 
@@ -843,11 +843,11 @@
             let repeatDateField = clone_value.find('.tf-field-date');
 
             if (repeatDateField.length > 0) {
-                repeatDateField.find('input').each(function () {  
-                    if($(this).attr('name') == '' || typeof $(this).attr('name') === "undefined"){  
-                     $(this).remove();
+                repeatDateField.find('input').each(function () {
+                    if ($(this).attr('name') == '' || typeof $(this).attr('name') === "undefined") {
+                        $(this).remove();
                     }
-                 }); 
+                });
                 tfDateInt(repeatDateField);
             }
 
@@ -859,24 +859,24 @@
             let repeatColorField = clone_value.find('.tf-field-color');
             if (repeatColorField.length > 0) {
                 repeatColorField.find('input.tf-color').each(function () {
-                    var color_field =  $(this).clone(); 
+                    var color_field = $(this).clone();
 
-                    if($(this).closest('li').length > 0){
+                    if ($(this).closest('li').length > 0) {
                         $(this).closest('li').append(color_field);
-                    }else{
+                    } else {
                         $(this).closest('.tf-fieldset').append(color_field);
                     }
                     $(this).closest('.wp-picker-container').remove();
-                 }); 
-                
+                });
+
                 tfColorInt(repeatColorField);
             }
             if (parent_field == '') {
                 // Replace input id and name
                 clone_value.find(':input').each(function () {
-                    if($(this).closest('.tf-single-repeater-clone').length == 0){
-                    this.name = this.name.replace('_____', '').replace('[' + current_field + '][' + repeater_count + ']', '[' + current_field + '][' + count + ']');
-                    this.id = this.id.replace('_____', '').replace('[' + current_field + '][' + repeater_count + ']', '[' + current_field + '][' + count + ']');
+                    if ($(this).closest('.tf-single-repeater-clone').length == 0) {
+                        this.name = this.name.replace('_____', '').replace('[' + current_field + '][' + repeater_count + ']', '[' + current_field + '][' + count + ']');
+                        this.id = this.id.replace('_____', '').replace('[' + current_field + '][' + repeater_count + ']', '[' + current_field + '][' + count + ']');
                     }
                 });
                 var update_paren = clone_value.find('.tf-repeater input[name="tf_parent_field"]').val();
@@ -886,13 +886,13 @@
                 clone_value.find('.tf-repeater input[name="tf_parent_field"]').val(update_paren);
 
             } else {
-                    // Replace input id and name
-                    clone_value.find(':input').each(function () {
-                        if($(this).closest('.tf-single-repeater-clone').length == 0){
+                // Replace input id and name
+                clone_value.find(':input').each(function () {
+                    if ($(this).closest('.tf-single-repeater-clone').length == 0) {
                         this.name = this.name.replace('_____', '').replace('[' + current_field + '][' + repeater_count + ']', '[' + current_field + '][' + count + ']');
                         this.id = this.id.replace('_____', '').replace('[' + current_field + '][' + repeater_count + ']', '[' + current_field + '][' + count + ']');
-                        }
-                    });
+                    }
+                });
             }
             clone_value.find('label').each(function () {
                 var for_value = $(this).attr("for");
@@ -933,12 +933,12 @@
             clone_value.find('.wp-editor-wrap').each(function () {
                 var textarea = $(this).find('.tf_wp_editor').show();
                 // Get content of a specific editor:
-                var tf_editor_ex_data = $('#'+textarea.attr('id')+'').val();
+                var tf_editor_ex_data = $('#' + textarea.attr('id') + '').val();
                 var textarea_id = textarea.attr('id');
-                if(textarea_id != '' && typeof textarea_id !== "undefined"){
+                if (textarea_id != '' && typeof textarea_id !== "undefined") {
                     // var textarea_content = tinymce.get(textarea.attr('id')).getContent();
                     var textarea_content = tinymce.editors[textarea_id].getContent();
-                }else{
+                } else {
                     var textarea_content = '';
                 }
                 textarea.val(textarea_content);
@@ -965,8 +965,8 @@
 
             // Clone Wp Editor
             clone_value.find('textarea.parent_wp_editor, textarea.wp_editor').each(function () {
-                var count =  Math.random().toString(36).substring(3,9) + 1 ;
-                $(this).attr('id', current_field+count);
+                var count = Math.random().toString(36).substring(3, 9) + 1;
+                $(this).attr('id', current_field + count);
                 $(this).attr('data-count-id', count);
                 var parent_repeater_id = $(this).attr('id');
                 TF_wp_editor(parent_repeater_id);
@@ -986,12 +986,12 @@
         // Repeater show hide
         $(document).on('click', '.tf-repeater-title, .tf-repeater-icon-collapse', function () {
             var tf_repater_fieldname = $(this).closest('.tf-single-repeater').find('input[name=tf_current_field]').val();
-            $(this).closest('.tf-single-repeater-'+tf_repater_fieldname+'').find('.tf-repeater-content-wrap').slideToggle();
-            $(this).closest('.tf-single-repeater-'+tf_repater_fieldname+'').children('.tf-repeater-content-wrap').toggleClass('hide');
-            if ($(this).closest('.tf-single-repeater-'+tf_repater_fieldname+'').children('.tf-repeater-content-wrap').hasClass('hide')== true) {
-                $(this).closest('.tf-single-repeater-'+tf_repater_fieldname+' .tf-repeater-header').children('.tf-repeater-icon-collapse').html('<i class="fa-solid fa-angle-down"></i>');
+            $(this).closest('.tf-single-repeater-' + tf_repater_fieldname + '').find('.tf-repeater-content-wrap').slideToggle();
+            $(this).closest('.tf-single-repeater-' + tf_repater_fieldname + '').children('.tf-repeater-content-wrap').toggleClass('hide');
+            if ($(this).closest('.tf-single-repeater-' + tf_repater_fieldname + '').children('.tf-repeater-content-wrap').hasClass('hide') == true) {
+                $(this).closest('.tf-single-repeater-' + tf_repater_fieldname + ' .tf-repeater-header').children('.tf-repeater-icon-collapse').html('<i class="fa-solid fa-angle-down"></i>');
             } else {
-                $(this).closest('.tf-single-repeater-'+tf_repater_fieldname+' .tf-repeater-header').children('.tf-repeater-icon-collapse').html('<i class="fa-solid fa-angle-up"></i>');
+                $(this).closest('.tf-single-repeater-' + tf_repater_fieldname + ' .tf-repeater-header').children('.tf-repeater-icon-collapse').html('<i class="fa-solid fa-angle-up"></i>');
             }
         });
 
@@ -1039,7 +1039,7 @@
             // Get the import data from the textarea
 
             var textarea = $('textarea[name="tf_import_option"]');
-            var form_id = textarea.attr('data-form-id'); 
+            var form_id = textarea.attr('data-form-id');
             var importData = textarea.val().trim();
             if (importData == '') {
                 alert(tf_options.tf_export_import_msg.import_empty);
@@ -1067,7 +1067,7 @@
                         $('.tf-import-btn').attr('disabled', 'disabled');
                     },
                     success: function (response) {
-                        if (response.success) { 
+                        if (response.success) {
                             alert(tf_options.tf_export_import_msg.imported);
                             $('.tf-import-btn').html('Imported');
                             window.location.reload();
@@ -1091,7 +1091,7 @@
             var textareaValue = textarea.val();
 
             // Create a blob with the textarea value
-            var blob = new Blob([textareaValue], {type: 'text/plain'});
+            var blob = new Blob([textareaValue], { type: 'text/plain' });
 
             // Create a temporary URL for the blob
             var url = window.URL.createObjectURL(blob);
@@ -1099,7 +1099,7 @@
             // Create a temporary link element
             var link = document.createElement('a');
             link.href = url;
-            link.download = option_name+'.txt';  
+            link.download = option_name + '.txt';
 
             // Programmatically click the link to initiate the file download
             link.click();
@@ -1128,7 +1128,7 @@ function openTab(evt, tabName) {
 }
 
 var frame, gframe;
-(function ($) { 
+(function ($) {
     // Single Image remove
     $(document).on("click", ".tf-image-close", function (e) {
         e.preventDefault();
@@ -1136,7 +1136,7 @@ var frame, gframe;
         var fieldname = $(this).attr("tf-field-name");
         var tf_preview_class = fieldname.replace(/[.[\]_-]/g, '_');
 
-        $this.parent().parent().find('input').val(''); 
+        $this.parent().parent().find('input').val('');
         $this.parent().html('');
 
     });
@@ -1159,7 +1159,7 @@ var frame, gframe;
         // Single Image Upload
 
         $('body').on('click', '.tf-media-upload', function (e) {
-            var $this = $(this); 
+            var $this = $(this);
             var fieldname = $(this).attr("tf-field-name");
             var tf_preview_class = fieldname.replace(/[.[\]_-]/g, '_');
 
@@ -1246,13 +1246,13 @@ var frame, gframe;
                 var value = $this.val('');
             }
         });
-  
-  
+
+
 
         $('.tf-mobile-tabs').click(function (e) {
             e.preventDefault();
             $(".tf-admin-tab").toggleClass('active');
-        }); 
+        });
 
 
         $('.tf-faq-title').click(function () {
@@ -1526,18 +1526,18 @@ var frame, gframe;
  * @author Abu Hena
  * @since 2.9.3
  */
-(function ($){
+(function ($) {
     //get each of the field value
     $(document).on('click', '.tf-generate-tour .tf-btn', function (event) {
         event.preventDefault();
         var arr = [];
-    
+
         $(this).parents('.tf-shortcode-generator-single').find(".tf-sg-field-wrap").each(function () {
             var $this = $(this);
             var data = $this.find('.tf-setting-field').val();
             var option_name = $this.find('.tf-setting-field').attr('data-term');
             var post_count = $this.find('.post-count').attr('data-count');
-    
+
             if (option_name != undefined && option_name != '') {
                 data = option_name + '=' + (data.length ? data : '""');
             }
@@ -1545,11 +1545,11 @@ var frame, gframe;
                 data = post_count + '=' + (data.length ? data : '""');
             }
             arr.push(data);
-        });        
-        
+        });
+
         var allData = arr.filter(Boolean);
         var shortcode = "[" + allData.join(' ') + "]";
-    
+
         $(this).parents('.tf-shortcode-generator-single').find('.tf-shortcode-value').val(shortcode);
         $(this).parents('.tf-shortcode-generator-single').find('.tf-copy-item').slideDown();
     });
@@ -1561,7 +1561,7 @@ var frame, gframe;
     $(document).on('click', '.tf-shortcode-btn', function (event) {
         var $this = $(this);
         $this.parents('.tf-shortcode-generator-single').find('.tf-sg-form-wrapper').fadeIn();
-  
+
         $this.parents('.tf-shortcode-generator-single').mouseup(function (e) {
             var container = $(this).find(".tf-shortcode-generator-form");
             var container_parent = container.parent(".tf-sg-form-wrapper");
@@ -1569,11 +1569,11 @@ var frame, gframe;
                 container_parent.fadeOut();
             }
         });
-  
+
     });
 
     //Copy the shortcode value
-    $(document).on('click','.tf-copy-btn',function(){
+    $(document).on('click', '.tf-copy-btn', function () {
         var fieldIdValue = $(this).parent('.tf-shortcode-field').find('#tf-shortcode');
         if (fieldIdValue) {
             fieldIdValue.select();
@@ -1581,8 +1581,8 @@ var frame, gframe;
         }
         //show the copied message
         $(this).parents('.tf-copy-item').append('<div><span class="tf-copied-msg">Copied<span></div>');
-        $("span.tf-copied-msg").animate({ opacity: 0 }, 1000, function(){
-            $(this).slideUp('slow',function(){
+        $("span.tf-copied-msg").animate({ opacity: 0 }, 1000, function () {
+            $(this).slideUp('slow', function () {
                 $(this).remove();
             });
         });

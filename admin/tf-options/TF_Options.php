@@ -33,12 +33,12 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 			$this->load_taxonomy();
 
 			//enqueue scripts
-			add_action( 'admin_enqueue_scripts', array( $this, 'tf_options_admin_enqueue_scripts' ),9 );
+			add_action( 'admin_enqueue_scripts', array( $this, 'tf_options_admin_enqueue_scripts' ), 9 );
 			add_action( 'wp_enqueue_scripts', array( $this, 'tf_options_wp_enqueue_scripts' ) );
 
 			// Import Export
-			add_action( 'wp_ajax_uacf7_option_import', array($this, 'uacf7_option_import_callback') );
-			
+			add_action( 'wp_ajax_uacf7_option_import', array( $this, 'uacf7_option_import_callback' ) );
+
 		}
 
 		public function tf_options_version() {
@@ -57,22 +57,22 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 		 * Import Export Callback
 		 * @author Sydur Rahman
 		 */
-		public function uacf7_option_import_callback(){
-			if ( !wp_verify_nonce($_POST['ajax_nonce'], 'tf_options_nonce')) {
-				exit(esc_html__("Security error", 'ultimate-addons-cf7'));
-			} 
+		public function uacf7_option_import_callback() {
+			if ( ! wp_verify_nonce( $_POST['ajax_nonce'], 'tf_options_nonce' ) ) {
+				exit( esc_html__( "Security error", 'ultimate-addons-cf7' ) );
+			}
 			$imported_data = stripslashes( $_POST['tf_import_option'] );
 			$form_id = stripslashes( $_POST['form_id'] );
-			if($form_id != 0){
-				$imported_data = unserialize( $imported_data ); 
-				$imported_data = apply_filters( 'uacf7_post_meta_import_export', $imported_data, $form_id);
+			if ( $form_id != 0 ) {
+				$imported_data = unserialize( $imported_data );
+				$imported_data = apply_filters( 'uacf7_post_meta_import_export', $imported_data, $form_id );
 				update_post_meta( $form_id, 'uacf7_form_opt', $imported_data );
-			}else{
+			} else {
 				$imported_data = unserialize( $imported_data );
 				update_option( 'uacf7_settings', $imported_data );
 			}
-    		
-    		wp_send_json_success($imported_data);
+
+			wp_send_json_success( $imported_data );
 		}
 
 		/**
@@ -83,7 +83,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 			// Metaboxes Class
 			require_once $this->uacf7_options_file_path( 'classes/UACF7_Metabox.php' );
 			// Settings Class
-			require_once $this->uacf7_options_file_path( 'classes/UACF7_Settings.php' ); 
+			require_once $this->uacf7_options_file_path( 'classes/UACF7_Settings.php' );
 			//Taxonomy Class
 			require_once $this->uacf7_options_file_path( 'classes/UACF7_Taxonomy_Metabox.php' );
 
@@ -94,12 +94,12 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 		 * @author Foysal
 		 */
 		public function load_metaboxes() {
-			
+
 			$metaboxes = glob( $this->uacf7_options_file_path( 'metaboxes/*.php' ) );
 
 			/*if( !empty( $pro_metaboxes ) ) {
-				$metaboxes = array_merge( $metaboxes, $pro_metaboxes );
-			}*/
+															 $metaboxes = array_merge( $metaboxes, $pro_metaboxes );
+														 }*/
 			if ( ! empty( $metaboxes ) ) {
 				foreach ( $metaboxes as $metabox ) {
 					if ( file_exists( $metabox ) ) {
@@ -114,7 +114,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 		 * @author Foysal
 		 */
 		public function load_options() {
-			
+
 			$options = glob( $this->uacf7_options_file_path( 'options/*.php' ) );
 
 			if ( ! empty( $options ) ) {
@@ -131,7 +131,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 		 * @author Foysal
 		 */
 		public function load_taxonomy() {
-			
+
 			$taxonomies = glob( $this->uacf7_options_file_path( 'taxonomies/*.php' ) );
 
 			if ( ! empty( $taxonomies ) ) {
@@ -149,26 +149,25 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 		 */
 		public function tf_options_admin_enqueue_scripts( $screen ) {
 			global $post_type;
-			//  var_dump($screen);
-			//  exit;
+
 			// die();
-			$tf_options_screens   = array(
+			$tf_options_screens = array(
 				'toplevel_page_uacf7_settings',
 				'ultimate-addons_page_uacf7_addons',
 				'toplevel_page_wpcf7',
-				'contact_page_wpcf7-new', 
-				'admin_page_uacf7-setup-wizard', 
-				'ultimate-addons_page_uacf7_license_info', 
+				'contact_page_wpcf7-new',
+				'admin_page_uacf7-setup-wizard',
+				'ultimate-addons_page_uacf7_license_info',
 			);
-			$tf_options_post_type = array( '' ); 
+			$tf_options_post_type = array( 'uacf7_review' );
 
-			 
+
 
 
 			//Css
 
 			//Color-Picker Css
-			
+
 			if ( in_array( $screen, $tf_options_screens ) || in_array( $post_type, $tf_options_post_type ) ) {
 
 				wp_enqueue_style( 'uacf7-admin-sweet-alert', '//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css', '', UACF7_VERSION );
@@ -183,10 +182,10 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 
 			//Js
 			if ( in_array( $screen, $tf_options_screens ) || in_array( $post_type, $tf_options_post_type ) ) {
-					// Custom
+				// Custom
 				wp_enqueue_script( 'uacf7-admin-sweet-alert', '//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js', array( 'jquery' ), UACF7_VERSION, true );
 				wp_enqueue_script( 'uacf7-admin', UACF7_URL . 'assets/admin/js/uacf7-admin-scripts.min.js', array( 'jquery', 'wp-data', 'wp-editor', 'wp-edit-post' ), UACF7_VERSION, true );
-				
+
 				wp_enqueue_script( 'Chart-js', '//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js', array( 'jquery' ), '2.6.0', true );
 				wp_enqueue_script( 'uacf7-flatpickr', '//cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js', array( 'jquery' ), $this->tf_options_version(), true );
 				wp_enqueue_script( 'uacf7-select2', '//cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', array( 'jquery' ), $this->tf_options_version(), true );
@@ -207,7 +206,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 			}
 
 			// Check if wp-color-picker script is enqueued
-			if (wp_script_is('wp-color-picker', 'enqueued')) {
+			if ( wp_script_is( 'wp-color-picker', 'enqueued' ) ) {
 				wp_dequeue_script( 'wp-color-picker' );
 				wp_enqueue_script( 'wp-color-picker' );
 			} else {
@@ -215,26 +214,26 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 			}
 
 			// Check if wp-color-picker style is enqueued
-			if (wp_style_is('wp-color-picker', 'enqueued')) {
+			if ( wp_style_is( 'wp-color-picker', 'enqueued' ) ) {
 				wp_dequeue_style( 'wp-color-picker' );
 				wp_enqueue_style( 'wp-color-picker' );
-				
+
 			} else {
 				wp_enqueue_style( 'wp-color-picker' );
 			}
 
 			$tf_google_map = function_exists( 'is_tf_pro' ) && is_tf_pro() && ! empty( tfopt( 'google-page-option' ) ) ? tfopt( 'google-page-option' ) : "false";
 			wp_localize_script( 'uacf7-admin', 'tf_options', array(
-				'ajax_url'          => admin_url( 'admin-ajax.php' ),
-				'nonce'             => wp_create_nonce( 'tf_options_nonce' ),
-				'gmaps'             => $tf_google_map,
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
+				'nonce' => wp_create_nonce( 'tf_options_nonce' ),
+				'gmaps' => $tf_google_map,
 				'tf_complete_order' => isset( $tf_complete_orders ) ? $tf_complete_orders : '',
-				'tf_cancel_orders'  => isset( $tf_cancel_orders ) ? $tf_cancel_orders : '',
-				'tf_chart_enable'   => isset( $tf_chart_enable ) ? $tf_chart_enable : '', 
+				'tf_cancel_orders' => isset( $tf_cancel_orders ) ? $tf_cancel_orders : '',
+				'tf_chart_enable' => isset( $tf_chart_enable ) ? $tf_chart_enable : '',
 				'tf_export_import_msg' => array(
-					'imported'       => __( 'Imported successfully!', 'ultimate-addons-cf7' ),
+					'imported' => __( 'Imported successfully!', 'ultimate-addons-cf7' ),
 					'import_confirm' => __( 'Are you sure you want to import this data?', 'ultimate-addons-cf7' ),
-					'import_empty'   => __( 'Import Data cannot be empty!', 'ultimate-addons-cf7' ),
+					'import_empty' => __( 'Import Data cannot be empty!', 'ultimate-addons-cf7' ),
 				)
 			) );
 		}
@@ -242,8 +241,8 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 		/**
 		 * Dequeue scripts
 		 */
-		public function tf_options_admin_dequeue_scripts( $screen ) { 
-			$tf_options_post_type = array(  );
+		public function tf_options_admin_dequeue_scripts( $screen ) {
+			$tf_options_post_type = array( 'uacf7_review' );
 
 			if ( $screen == 'toplevel_page_uacf7_settings' ) {
 				wp_dequeue_script( 'theplus-admin-js-pro' );
@@ -275,7 +274,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 			// uacf7_print_r($field);
 			$class = isset( $field['class'] ) ? $field['class'] : '';
 
-			$is_pro   = isset( $field['is_pro'] ) ? $field['is_pro'] : '';
+			$is_pro = isset( $field['is_pro'] ) ? $field['is_pro'] : '';
 			$badge_up = isset( $field['badge_up'] ) ? $field['badge_up'] : '';
 
 			if ( function_exists( 'is_tf_pro' ) && is_tf_pro() ) {
@@ -293,25 +292,25 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 			$depend = '';
 			if ( ! empty( $field['dependency'] ) ) {
 
-				$dependency      = $field['dependency'];
-				$depend_visible  = '';
+				$dependency = $field['dependency'];
+				$depend_visible = '';
 				$data_controller = '';
-				$data_condition  = '';
-				$data_value      = '';
-				$data_global     = '';
+				$data_condition = '';
+				$data_value = '';
+				$data_global = '';
 
 				if ( is_array( $dependency[0] ) ) {
 					$data_controller = implode( '|', array_column( $dependency, 0 ) );
-					$data_condition  = implode( '|', array_column( $dependency, 1 ) );
-					$data_value      = implode( '|', array_column( $dependency, 2 ) );
-					$data_global     = implode( '|', array_column( $dependency, 3 ) );
-					$depend_visible  = implode( '|', array_column( $dependency, 4 ) );
+					$data_condition = implode( '|', array_column( $dependency, 1 ) );
+					$data_value = implode( '|', array_column( $dependency, 2 ) );
+					$data_global = implode( '|', array_column( $dependency, 3 ) );
+					$depend_visible = implode( '|', array_column( $dependency, 4 ) );
 				} else {
 					$data_controller = ( ! empty( $dependency[0] ) ) ? $dependency[0] : '';
-					$data_condition  = ( ! empty( $dependency[1] ) ) ? $dependency[1] : '';
-					$data_value      = ( ! empty( $dependency[2] ) ) ? $dependency[2] : '';
-					$data_global     = ( ! empty( $dependency[3] ) ) ? $dependency[3] : '';
-					$depend_visible  = ( ! empty( $dependency[4] ) ) ? $dependency[4] : '';
+					$data_condition = ( ! empty( $dependency[1] ) ) ? $dependency[1] : '';
+					$data_value = ( ! empty( $dependency[2] ) ) ? $dependency[2] : '';
+					$data_global = ( ! empty( $dependency[3] ) ) ? $dependency[3] : '';
+					$depend_visible = ( ! empty( $dependency[4] ) ) ? $dependency[4] : '';
 				}
 
 				$depend .= ' data-controller="' . esc_attr( $data_controller ) . '' . $parent . '"';
@@ -331,27 +330,33 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 			}
 			?>
 
-            <div class="tf-field tf-field-<?php echo esc_attr( $field['type'] ); ?> <?php echo esc_attr( $class ); ?> <?php echo ! empty( $visible ) ? $visible : ''; ?>" <?php echo ! empty( $depend ) ? $depend : ''; ?>
-                 style="<?php echo esc_attr( $field_style ); ?>">
+			<div class="tf-field tf-field-<?php echo esc_attr( $field['type'] ); ?> <?php echo esc_attr( $class ); ?> <?php echo ! empty( $visible ) ? $visible : ''; ?>"
+				<?php echo ! empty( $depend ) ? $depend : ''; ?> style="<?php echo esc_attr( $field_style ); ?>">
 				<div class="tf-field-wrap">
-					<?php if ( ! empty( $field['label'] ) ): ?>
+					<?php if ( ! empty( $field['label'] ) ) : ?>
 						<label for="<?php echo esc_attr( $id ) ?>" class="tf-field-label">
 							<?php echo esc_html( $field['label'] ) ?>
-							<?php if ( $is_pro ): ?>
-								<div class="tf-csf-badge"><span class="tf-pro"><?php _e( "Pro", "ultimate-addons-cf7" ); ?></span></div>
+							<?php if ( $is_pro ) : ?>
+								<div class="tf-csf-badge"><span class="tf-pro">
+										<?php _e( "Pro", "ultimate-addons-cf7" ); ?>
+									</span></div>
 							<?php endif; ?>
-							<?php if ( $badge_up ): ?>
-								<div class="tf-csf-badge"><span class="tf-upcoming"><?php _e( "Upcoming", "ultimate-addons-cf7" ); ?></span></div>
+							<?php if ( $badge_up ) : ?>
+								<div class="tf-csf-badge"><span class="tf-upcoming">
+										<?php _e( "Upcoming", "ultimate-addons-cf7" ); ?>
+									</span></div>
 							<?php endif; ?>
 						</label>
 					<?php endif; ?>
 
 					<?php if ( ! empty( $field['subtitle'] ) ) : ?>
-						<span class="tf-field-sub-title"><?php echo wp_kses_post( $field['subtitle'] ) ?></span>
+						<span class="tf-field-sub-title">
+							<?php echo wp_kses_post( $field['subtitle'] ) ?>
+						</span>
 					<?php endif; ?>
 
 					<div class="tf-fieldset">
-						<?php 
+						<?php
 						$fieldClass = 'UACF7_' . $field['type'];
 						if ( class_exists( $fieldClass ) ) {
 							$_field = new $fieldClass( $field, $value, $settings_id, $parent, $section_key );
@@ -361,17 +366,19 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 						}
 						?>
 					</div>
-					<?php if ( ! empty( $field['description'] ) ): ?>
-						<p class="description"><?php echo wp_kses_post( $field['description'] ) ?></p>
+					<?php if ( ! empty( $field['description'] ) ) : ?>
+						<p class="description">
+							<?php echo wp_kses_post( $field['description'] ) ?>
+						</p>
 					<?php endif; ?>
 				</div>
-				
-            </div>
+
+			</div>
 			<?php
 		}
 
 		public function is_uacf7_pro_active() {
-			if ( is_plugin_active( 'ultimate-addons-for-contact-form-7-pro/ultimate-addons-for-contact-form-7-pro.php' )  ) {
+			if ( is_plugin_active( 'ultimate-addons-for-contact-form-7-pro/ultimate-addons-for-contact-form-7-pro.php' ) ) {
 				return true;
 			}
 
