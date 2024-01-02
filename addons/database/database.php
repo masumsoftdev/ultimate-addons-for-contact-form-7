@@ -265,8 +265,9 @@ class UACF7_DATABASE {
 			if ( ! empty( $file ) ) {
 				if ( in_array( $file_key, $uploaded_files ) ) {
 					$file = is_array( $file ) ? reset( $file ) : $file;
-					$dir_link = '/uacf7-uploads/' . $time_now . '-' . $file_key . '-' . basename( $file ) . '.enc';
+					$dir_link = '/uacf7-uploads/' . $time_now . '-' . $file_key . '-' . basename( $file );
 					if ( in_array( $file_key, $uacf7_signature_tag ) ) {
+						$dir_link = '/uacf7-uploads/' . $time_now . '-' . $file_key . '-' . basename( $file ) . '.enc';
 						$this->encrypt_file( $file, $dir . $dir_link, $encryptionKey );
 					} else {
 						copy( $file, $dir . $dir_link );
@@ -374,17 +375,26 @@ class UACF7_DATABASE {
                     <table class="wp-list-table widefat fixed striped table-view-list">';
 		$html .= '<tr> <th><strong>Fields</strong></th><th><strong>Values</strong> </th> </tr>';
 		foreach ( $fields as $key => $value ) {
-			// var_dump($value);
 			if ( $key != 'status' ) {
 				if ( is_array( $value ) ) {
 					$value = implode( ", ", $value );
 				}
 				if ( in_array( $key, $uacf7_signature_tag ) ) {
+					$pathInfo = pathinfo( $value );
+					$extension = strtolower( $pathInfo['extension'] );
+
+					// Image Loaded
 					$token = md5( uniqid() );
 					$decryptedData = $this->decrypt_and_display( $signaturepath . $value, $encryptionKey );
-
 					if ( $decryptedData !== null ) {
 						$imageData = 'data:image/jpeg;base64,' . base64_encode( $decryptedData );
+					}
+
+					// Check old data
+					if ( $extension == 'enc' ) {
+						$srcAttribute = 'src="' . $imageData . '"';  // Set to empty or another value if needed
+					} else {
+						$srcAttribute = 'src="' . $value . '"';
 					}
 
 					$html .= '
@@ -394,13 +404,13 @@ class UACF7_DATABASE {
 						</td> 
 						<td>
 							<button id="signature_view_btn">' . esc_html( 'View' ) . '</button>
-							<a class="" href="' . $imageData . '" download="decrypted_image.jpg">
+							<a class="" href="' . $srcAttribute . '" download="decrypted_image.jpg">
 								<button class="signature_bownload_btn">Download</button>
 							</a>
 						</td>
 					</tr>
 					<div class="signature_view_pops">
-						<img class="signature_view_pops_img" src="' . $imageData . '" />
+						<img class="signature_view_pops_img" ' . $srcAttribute . '/>
 					</div>
 					';
 
