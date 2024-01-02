@@ -19,7 +19,7 @@ class UACF7_DATABASE {
 		add_action( 'wp_ajax_uacf7_ajax_database_popup', array( $this, 'uacf7_ajax_database_popup' ) );
 		add_action( 'wp_ajax_uacf7_ajax_database_export_csv', array( $this, 'uacf7_ajax_database_export_csv' ) );
 		add_action( 'admin_init', array( $this, 'uacf7_create_database_table' ) );
-		add_filter( 'wpcf7_load_js', '__return_false' );
+		// add_filter( 'wpcf7_load_js', '__return_false' );
 
 	}
 
@@ -277,13 +277,13 @@ class UACF7_DATABASE {
 			}
 
 		}
-		
+
 		$key_count = 0;
 		foreach ( $contact_form_data as $key => $value ) {
-			if ( in_array( $key, $uploaded_files ) ) { 
-				if ( !empty( $data_file ) && is_array($data_file) ) {
-					$contact_form_data[ $key ] = $data_file[$key_count][ $key ]; 
-				} 
+			if ( in_array( $key, $uploaded_files ) ) {
+				if ( ! empty( $data_file ) && is_array( $data_file ) ) {
+					$contact_form_data[ $key ] = $data_file[ $key_count ][ $key ];
+				}
 
 				$key_count++;
 			}
@@ -606,7 +606,7 @@ class uacf7_form_List_Table extends WP_List_Table {
 			$count_i = 0;
 
 			for ( $x = 0; $x < $count; $x++ ) {
-				if ( $form_fields[ $x ]['type'] != 'submit' && $form_fields[ $x ]['type'] != 'uacf7_step_start' && $form_fields[ $x ]['type'] != 'uacf7_step_end' && $form_fields[ $x ]['type'] != 'uarepeater' && $form_fields[ $x ]['type'] != 'conditional' && $form_fields[ $x ]['type'] != 'uacf7_conversational_start' && $form_fields[ $x ]['type'] != 'uacf7_conversational_end' ) {
+				if ( $form_fields[ $x ]['type'] != 'submit' && $form_fields[ $x ]['type'] != 'uacf7_step_start' && $form_fields[ $x ]['type'] != 'uacf7_step_end' && $form_fields[ $x ]['type'] != 'uarepeater' && $form_fields[ $x ]['type'] != 'conditional' && $form_fields[ $x ]['type'] != 'uacf7_conversational_start' && $form_fields[ $x ]['type'] != 'uacf7_conversational_end' && $form_fields[ $x ]['type'] != 'uacf7_signature' && $form_fields[ $x ]['type'] != 'uacf7_signature*' ) {
 
 					if ( $count_i == $count_item ) {
 						break;

@@ -14,7 +14,7 @@ class UACF7_WEB_HOOK {
 		add_filter( 'uacf7_post_meta_options', array( $this, 'uacf7_post_meta_options_webhook' ), 12, 2 );
 
 		add_action( 'wpcf7_before_send_mail', array( $this, 'uacf7_send_data_by_web_hook' ) );
-		add_filter( 'wpcf7_load_js', '__return_false' );
+		// add_filter( 'wpcf7_load_js', '__return_false' );
 	}
 
 
@@ -32,7 +32,7 @@ class UACF7_WEB_HOOK {
 			'fields' => [ 
 				'uacf7_Web_hook_headding' => [ 
 					'id' => 'uacf7_web_hook_headding',
-					'type' => 'heading', 
+					'type' => 'heading',
 					'label' => __( 'Web Hook', 'ultimate-addons-cf7' ),
 					'subtitle' => __( 'This addon will help you to add the web hook of your form. Note that, all below fields are optional. If any field is not needed, leave them blank.', 'ultimate-addons-cf7' ),
 					'content' => sprintf(
