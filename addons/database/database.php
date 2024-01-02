@@ -277,15 +277,15 @@ class UACF7_DATABASE {
 			}
 
 		}
-
+		
+		$key_count = 0;
 		foreach ( $contact_form_data as $key => $value ) {
-			if ( in_array( $key, $uploaded_files ) ) {
-				if ( empty( $data_file ) ) {
-					$data_file = '';
-				} else {
-					$data_file = $data_file[0][ $file_key ];
-				}
-				$contact_form_data[ $key ] = $data_file;
+			if ( in_array( $key, $uploaded_files ) ) { 
+				if ( !empty( $data_file ) && is_array($data_file) ) {
+					$contact_form_data[ $key ] = $data_file[$key_count][ $key ]; 
+				} 
+
+				$key_count++;
 			}
 		}
 

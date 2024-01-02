@@ -13,11 +13,11 @@ if ( ! class_exists( 'UACF7_time' ) ) {
 
 			$args = wp_parse_args( $this->field, array(
 				'format' => 'h:i K',
-				'placeholder' => esc_html__( 'Select Time', 'tourfic' ),
+				'placeholder' => esc_html__( 'Select Time', 'ultimate-addons-cf7' ),
 			) );
 
 			$format = ( ! empty( $args['format'] ) ) ? $args['format'] : 'Y-m-d';
-			$placeholder  = ( ! empty( $args['placeholder'] ) ) ? $args['placeholder'] : esc_html__( 'Select Date', 'tourfic' );
+			$placeholder  = ( ! empty( $args['placeholder'] ) ) ? $args['placeholder'] : esc_html__( 'Select Date', 'ultimate-addons-cf7' );
 			?>
 			<input type="text" name="<?php echo esc_attr( $this->field_name() ); ?>" placeholder="<?php echo esc_attr( $placeholder ) ?>" value="<?php echo esc_attr( $this->value ); ?>" class="flatpickr " data-format="<?php echo esc_attr( $format ); ?>" <?php echo $this->field_attributes() ?>/>
             <i class="fa-regular fa-clock"></i>

@@ -37,7 +37,7 @@ if ( ! class_exists( 'UACF7_repeater' ) ) {
 									$tf_repater_default_value = $value['title'];
 								}
                                 if($this->field['id']=="amenities"){
-                                    $tf_repater_default_value = __('Amenity', 'tourfic');
+                                    $tf_repater_default_value = __('Amenity', 'ultimate-addons-cf7');
                                 }
 							?>
                             <div class="tf-single-repeater tf-single-repeater-<?php echo $this->field['id'];?>">

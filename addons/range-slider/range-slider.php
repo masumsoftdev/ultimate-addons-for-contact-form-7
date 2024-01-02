@@ -32,10 +32,9 @@ class UACF7_range_Slider {
                  
                 'uacf7_range_slider_heading' => array(
                     'id'    => 'uacf7_range_slider_heading',
-                    'type'  => 'notice',
-                    'notice' => 'info',
+                    'type'  => 'heading', 
                     'label' => __( 'Range Slider Settings', 'ultimate-addons-cf7' ),
-                    'title' => __( 'This addon will help you to edit the Styles of Range Slider of your form. Note that, all below fields are optional. If any field is not needed, leave them blank.', 'ultimate-addons-cf7' ),
+                    'subtitle' => __( 'This addon will help you to edit the Styles of Range Slider of your form. Note that, all below fields are optional. If any field is not needed, leave them blank.', 'ultimate-addons-cf7' ),
                     'content' => sprintf( 
                         __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
                         '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-range-slider/" target="_blank">documentation</a>'
@@ -59,7 +58,7 @@ class UACF7_range_Slider {
                 'uacf7_range_handle_width' => array(
                     'id'        => 'uacf7_range_handle_width',
                     'type'      => 'number',
-                    'label'     => __( ' Slider Handle Height', 'ultimate-addons-cf7' ),
+                    'label'     => __( ' Slider Handle Width', 'ultimate-addons-cf7' ),
                     'placeholder'     => __( ' px', 'ultimate-addons-cf7' ),
                     'field_width' => 50
         

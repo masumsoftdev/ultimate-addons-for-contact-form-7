@@ -53,12 +53,19 @@
                     $('.required-plugin-button').addClass('disabled');
                     $('.uacf7-next').attr('disabled', false);
                     $('.uacf7-next').removeClass('disabled');
-                    
+                    $('.uacf7-next').trigger('click');
                 }
             });
         }
 
 
+        // select 2
+        $('#select2').select2({
+            placeholder: 'Select a form type',
+            allowClear: true,
+            width: '100%',
+            minimumResultsForSearch: -1,
+        });
  
         // Uacf7 Next Button
         $(document).on('click', '.uacf7-next', function (e) {  

@@ -21,7 +21,9 @@ if ( ! class_exists( 'UACF7_select' ) ) {
 
 			if ( ! empty( $this->field['query_args'] ) && $this->field['options'] == 'posts' ) {
 				$posts                  = get_posts( $this->field['query_args'] );
-				$this->field['options'] = array();
+				$this->field['options'] = array(
+					'0' => 'Select Field'
+				);
 				foreach ( $posts as $post ) {
 					$this->field['options'][ $post->ID ] = ( empty( $post->post_title ) ) ? 'No title (' . $post->ID . ')' : $post->post_title;
 				}

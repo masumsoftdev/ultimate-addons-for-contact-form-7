@@ -21,10 +21,10 @@ if ( ! class_exists( 'UACF7_Backup' ) ) {
           
             $placeholder = ( ! empty( $this->field['placeholder'] ) ) ? 'placeholder="' . $this->field['placeholder'] . '"' : '';
             echo '<textarea class="tf-exp-imp-field" cols="50" rows="15" data-form-id="'.esc_attr( $form_id ).'" name="tf_import_option" id="' . esc_attr( $this->field_name() ) . '"' . $placeholder . ' '. $this->field_attributes() .'> </textarea>';
-            echo '<a href="#" class="tf-import-btn button button-primary">' . __( 'Import', 'tourfic' ) . '</a>';
+            echo '<a href="#" class="tf-import-btn button button-primary">' . __( 'Import', 'ultimate-addons-cf7' ) . '</a>';
             echo '<hr>';
             echo '<textarea cols="50" rows="15" class="tf-exp-imp-field"  data-option="'.esc_attr( $this->settings_id ).'" name="tf_export_option" id="' . esc_attr( $this->field_name() ) . '"' . $placeholder . ' '. $this->field_attributes() .'disabled >' . $current_settings . '</textarea>';
-            echo '<a href="#" class="tf-export-btn button button-primary">' . __( 'Export', 'tourfic' ) . '</a>';
+            echo '<a href="#" class="tf-export-btn button button-primary">' . __( 'Export', 'ultimate-addons-cf7' ) . '</a>';
 
         }
     }

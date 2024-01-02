@@ -52,10 +52,9 @@ class UACF7_SIGNATURE{
                 
                 'uacf7_sign_heading' => array(
                   'id'    => 'uacf7_sign_heading',
-                  'type'  => 'notice',
-                  'notice' => 'info',
+                  'type'  => 'heading', 
                   'label' => __( 'Signature Settings', 'ultimate-addons-cf7' ),
-                  'title' => __( 'This feature will help you to add the signature in form .', 'ultimate-addons-cf7' ),
+                  'subtitle' => __( 'This feature will help you to add the signature in form .', 'ultimate-addons-cf7' ),
                   'content' => sprintf( 
                       __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
                       '<a href="https://themefic.com/docs/uacf7/free-addons/signature-field/" target="_blank">documentation</a>'

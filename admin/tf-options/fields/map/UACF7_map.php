@@ -19,9 +19,9 @@ if ( ! class_exists( 'UACF7_map' ) ) {
               }
             endif;
             $args              = wp_parse_args( $this->field, array(
-                'placeholder'    => esc_html__( 'Search Address...', 'tourfic' ),
-                'latitude_text'  => esc_html__( 'Latitude', 'tourfic' ),
-                'longitude_text' => esc_html__( 'Longitude', 'tourfic' ),
+                'placeholder'    => esc_html__( 'Search Address...', 'ultimate-addons-cf7' ),
+                'latitude_text'  => esc_html__( 'Latitude', 'ultimate-addons-cf7' ),
+                'longitude_text' => esc_html__( 'Longitude', 'ultimate-addons-cf7' ),
                 'address_field'  => '',
                 'height'         => '250',
               ) );

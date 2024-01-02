@@ -163,15 +163,16 @@ $x-large-screen: 1400px;
         height: 26px;
         width: 120px;
         text-align: center;
-        background-color: #02c616;
+        background-color: #00A58C1A;
         font-size: 14px;
         line-height: 24px;
         font-weight: 600;
-        color: #fff;
+        color: #00A58C;
         transform: rotate(45deg);
 
         &.pro {
-          background-color: #e74e4e;
+          background-color: #F15A9E1A;
+          color: #F15A9E;
         }
       }
 

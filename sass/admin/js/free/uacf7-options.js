@@ -94,7 +94,7 @@
             dismissable: true,
             position: {
                 x: 'right',
-                y: 'bottom',
+                y: 'top',
             },
         }); 
         

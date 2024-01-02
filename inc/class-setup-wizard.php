@@ -12,6 +12,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 		private static $current_step = null;
 		
 		private $addons = [];
+
 		/**
 		 * Singleton instance
 		 * @since 1.0.0
@@ -54,8 +55,8 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 			if ( current_user_can( 'manage_options' ) ) {
 				add_submenu_page(
 					'',
-					esc_html__( 'TF Setup Wizard', 'tourfic' ),
-					esc_html__( 'TF Setup Wizard', 'tourfic' ),
+					esc_html__( 'UACF7 Setup Wizard', 'ultimate-addons-cf7' ),
+					esc_html__( 'UACF7 Setup Wizard', 'ultimate-addons-cf7' ),
 					'manage_options',
 					'uacf7-setup-wizard',
 					[ $this, 'uacf7_wizard_page' ],
@@ -193,6 +194,14 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 				$uacf7_plugin_status = 'not_installed';
 			}
 
+			if($uacf7_plugin_status == 'activate'){
+				$data_current_step = 2;
+				$data_next_step = 3;
+			}else{
+				$data_current_step = 1;
+				$data_next_step = 2;
+			}
+
 			$option_form = [
 				["value" => "multistep", "label" => "Multistep"],
 				apply_filters('uacf7_booking_ai_form_dropdown', ["value" => "booking", "label" => "Booking (Pro)"]),
@@ -222,18 +231,43 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 						<div class="uacf7-step-items-container">
 							<div class="uacf7-single-step-item step-first  active" data-step="1">
 								<span class="step-item-dots ">
-									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<rect width="24" height="24" rx="12" fill="#F9F5FF"/>
-										<circle cx="12" cy="12" r="4" fill="#7F56D9"/>
-									</svg>  
+									<?php if($uacf7_plugin_status =='activate') { 
+										?>
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path fill-rule="evenodd" clip-rule="evenodd" d="M17.0965 7.39016L9.9365 14.3002L8.0365 12.2702C7.6865 11.9402 7.1365 11.9202 6.7365 12.2002C6.3465 12.4902 6.2365 13.0002 6.4765 13.4102L8.7265 17.0702C8.9465 17.4102 9.3265 17.6202 9.7565 17.6202C10.1665 17.6202 10.5565 17.4102 10.7765 17.0702C11.1365 16.6002 18.0065 8.41016 18.0065 8.41016C18.9065 7.49016 17.8165 6.68016 17.0965 7.38016V7.39016Z" fill="#7F56D9"/>
+										</svg>
+										<?php 
+									}else{
+										?>
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<rect width="24" height="24" rx="12" fill="#F9F5FF"/>
+											<circle cx="12" cy="12" r="4" fill="#7F56D9"/>
+										</svg>  
+										<?php
+
+									}  ?>
+									
 								</span>
 								<span class="step-item-title"><?php echo esc_html('Installation') ?></span>
 							</div>
-							<div class="uacf7-single-step-item" data-step="2">
+							<div class="uacf7-single-step-item <?php if($uacf7_plugin_status =='activate') {echo esc_attr('active');}  ?>" data-step="2">
 								<span class="step-item-dots">
-									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<circle cx="12" cy="12" r="4" fill="#EAECF0"/>
-									</svg> 
+								<?php if($uacf7_plugin_status =='activate') { 
+										?>
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<rect width="24" height="24" rx="12" fill="#F9F5FF"/>
+											<circle cx="12" cy="12" r="4" fill="#7F56D9"/>
+										</svg>
+										<?php 
+									}else{
+										?>
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<circle cx="12" cy="12" r="4" fill="#EAECF0"/>
+										</svg>   
+										<?php
+
+									}  ?>
+									
 								</span>
 								<span class="step-item-title"><?php echo esc_html('Choose addon') ?> </span>
 							</div>
@@ -256,7 +290,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 						</div> 
 					</div>
 					<div class="uacf7-step-content-container">
-						<div class="uacf7-single-step-content installation active" data-step="1">
+						<div class="uacf7-single-step-content installation <?php if($uacf7_plugin_status !='activate') {echo esc_attr('active');} ?>" data-step="1">
 							<div class="uacf7-single-step-content-wrap">
 								<span class="uacf7-wizard-logo">
 									<svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -285,9 +319,9 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 								</span>
 
 								<div class="uacf7-single-step-content-inner">
-									<h1><?php echo esc_html('Welcome to UACF7') ?></h1>
+									<h1><?php echo _e('Welcome to Ultimate Addons for Contact Form 7', 'ultimate-addons-cf7') ?></h1>
 
-									<p><?php echo esc_html("UACF7 stands for Ultimate Addons for Contact Form 7. It's a WordPress plugin that contains over 25 features. It's developed by Themefic, a WordPress plugins and themes company") ?></p>
+									<p><?php echo _e("The easiest and best Contact Form 7 Addons Plugins for WordPress. Packed With 28+ essential features, this All-in-One Contact form 7 addons plugin consists almost all the basic to advanced options which you may need for your WordPress site’s Contact form.", 'ultimate-addons-cf7') ?></p>
 
 									<div class="uacf7-step-plugin-required">
 										<p><?php echo esc_html('To continue it requires Contact from 7') ?> <br> to be <?php  if($uacf7_plugin_status== 'not_active' ){ echo '<strong>'.esc_html("install").'</strong> '.esc_html(" & activate", ).' '; }else{echo esc_html("install & activate");  }?>   </p> 
@@ -308,7 +342,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 								</div>
 							</div>
 						</div>
-						<div class="uacf7-single-step-content chooes-addon " data-step="2">
+						<div class="uacf7-single-step-content chooes-addon <?php if($uacf7_plugin_status =='activate') {echo esc_attr('active');} ?> " data-step="2">
 							<div class="uacf7-single-step-content-wrap">
 								 <h2>Choose your addons</h2>
 								<form method="post" action="" class="tf-option-form tf-ajax-save" enctype="multipart/form-data">
@@ -382,7 +416,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 												); ?>
 											</h3>
 											<label for="uacf7-select-form"><?php echo esc_html('Describe your', 'ultimate-addons-cf7') ?> <span><?php echo esc_html('Form', 'ultimate-addons-cf7') ?></span>
-												<select name="uacf7-select-form" id="uacf7-select-form"> 
+												<select name="uacf7-select-form" class="tf-select2" id="uacf7-select-form"> 
 													<option value=""><?php echo esc_html('Choose Form type', 'ultimate-addons-cf7') ?></option>
 													<?php 
 														foreach($option_form as $key => $form):
@@ -428,7 +462,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 							</div>
 
 							<div class="uacf7-wizard-footer-right">
-								<button class="uacf7-wizard-footer-right-button uacf7-next uacf7-setup-widzard-btn <?php  if($uacf7_plugin_status != 'activate' ){ echo 'disabled'; }?>" <?php  if($uacf7_plugin_status != 'activate' ){ echo 'disabled ="disabled"'; }?> data-current-step="1" data-next-step="2"> Next
+								<button class="uacf7-wizard-footer-right-button uacf7-next uacf7-setup-widzard-btn <?php  if($uacf7_plugin_status != 'activate' ){ echo 'disabled'; }?>" <?php  if($uacf7_plugin_status != 'activate' ){ echo 'disabled ="disabled"'; }?> data-current-step="<?php echo esc_attr($data_current_step)?>" data-next-step="<?php echo esc_attr($data_next_step)?>"> Next
 
 								<svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path d="M12.3337 4.99951L1.66699 4.99951" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>

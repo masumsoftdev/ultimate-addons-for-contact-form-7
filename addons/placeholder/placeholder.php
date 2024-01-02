@@ -31,10 +31,9 @@ class UACF7_Placeholder {
 			'fields' => array(
 				'placeholder_headding' => array(
 					'id' => 'placeholder_headding',
-					'type' => 'notice',
-					'notice' => 'info',
+					'type' => 'heading', 
 					'label' => __( 'Placeholder Styles', 'ultimate-addons-cf7' ),
-					'title' => __( 'This addon will help you to edit the Styles of Placeholder of your form. Note that, all below fields are optional. If any field is not needed, leave them blank.', 'ultimate-addons-cf7' ),
+					'subtitle' => __( 'This addon will help you to edit the Styles of Placeholder of your form. Note that, all below fields are optional. If any field is not needed, leave them blank.', 'ultimate-addons-cf7' ),
 					'content' => sprintf(
 						__( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
 						'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-placeholder-styling/" target="_blank">documentation</a>'
@@ -125,7 +124,7 @@ class UACF7_Placeholder {
 
 			$form = $properties['form'];
 
-			$form_meta = uacf7_get_form_option( $cfform->id(), 'placeholder' );
+			$form_meta = uacf7_get_form_option( $cfform->id(), 'placeholder' ); 
 
 			$placeholder_styles = isset( $form_meta['uacf7_enable_placeholder_styles'] ) ? $form_meta['uacf7_enable_placeholder_styles'] : false;
 
@@ -141,9 +140,7 @@ class UACF7_Placeholder {
 				$background_color = isset( $form_meta['uacf7_placeholder_color_option'] ) ? $form_meta['uacf7_placeholder_color_option']['uacf7_placeholder_background_color'] : '';
 				?>
 				<style>
-					.uacf7-form-
-
-					<?php esc_attr_e( $cfform->id() ); ?>
+					.uacf7-form-<?php esc_attr_e( $cfform->id() ); ?>
 					::placeholder {
 						color:
 							<?php echo esc_attr_e( $color ); ?>

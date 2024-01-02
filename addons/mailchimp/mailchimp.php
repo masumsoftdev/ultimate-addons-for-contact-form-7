@@ -64,10 +64,9 @@ class UACF7_MAILCHIMP
         'fields' => array(
             'uacf7_mailchimp_label' => array(
               'id'    => 'uacf7_mailchimp_label',
-              'type'  => 'notice',
-              'notice' => 'info',
+              'type'  => 'heading', 
               'label' => __( 'Mailchimp Form Settings', 'ultimate-addons-cf7' ),
-              'title' => __( 'This addon will help you to Intergrate with Mailchimp.', 'ultimate-addons-cf7' ),
+              'subtitle' => __( 'This addon will help you to Intergrate with Mailchimp.', 'ultimate-addons-cf7' ),
               'content' => sprintf( 
                   __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
                   '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-mailchimp/" target="_blank">documentation</a>'

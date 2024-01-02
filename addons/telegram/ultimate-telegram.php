@@ -36,10 +36,9 @@ class UACF7_TELEGRAM {
             
             'uacf7_telegram_heading' => array(
               'id'    => 'uacf7_telegram_heading',
-              'type'  => 'notice',
-              'notice' => 'info',
+              'type'  => 'heading', 
               'label' => __( 'Telegram Settings', 'ultimate-addons-cf7' ),
-              'title' => __( 'This addon will help you to integrate telegram into you contact form 7.', 'ultimate-addons-cf7' ),
+              'subtitle' => __( 'This addon will help you to integrate telegram into you contact form 7.', 'ultimate-addons-cf7' ),
               'content' => sprintf( 
                   __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
                   '<a href="https://themefic.com/docs/uacf7/free-addons/uacf7-telegram/" target="_blank">documentation</a>'
