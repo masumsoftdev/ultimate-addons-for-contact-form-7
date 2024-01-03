@@ -9,6 +9,19 @@ $x-large-screen: 1400px;
 //hide wp menu and admin bar
 body.admin_page_uacf7-setup-wizard {
   background-color: #fff;
+  .select2-dropdown {
+    border: 1px solid #EAECF0 !important;
+    padding: 5px !important;
+    border-top: 1px solid #EAECF0 !important;
+
+    .select2-search__field {
+      border: 1px solid #EAECF0 !important;
+    }
+    .select2-results ul li {
+      font-size: 16px !important;
+    }
+    
+  }
 }
 .admin_page_uacf7-setup-wizard #wpcontent {
   margin-left: 0 !important;
@@ -30,6 +43,7 @@ body.admin_page_uacf7-setup-wizard {
 .admin_page_uacf7-setup-wizard div#wpfooter {
   display: none;
 }
+
 
 .uacf7-setup-widzard-btn {
   color: #fff;
@@ -314,11 +328,16 @@ body.admin_page_uacf7-setup-wizard {
             @media only screen and (max-width: $x-small-screen) {
               text-align: center;
             }
-
+          
             .select2-selection.select2-selection--single {
               display: inline-block;
               height: auto;
-              padding: 11px;
+              // padding: 11px;
+              border: none;
+              min-width: 350px !important;
+            }
+            .select2-selection.select2-selection--single > span {
+               line-height: 32px;
             }
 
             .select2-selection__clear {
@@ -327,9 +346,9 @@ body.admin_page_uacf7-setup-wizard {
 
             .select2-selection__arrow {
               position: absolute !important;
-              right: 5px !important;
-              top: 31% !important;
-            }
+              right: -4px !important;
+              top: 22% !important;
+            } 
             h3,
             label {
               color: #06040c;

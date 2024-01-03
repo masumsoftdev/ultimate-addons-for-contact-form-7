@@ -149,8 +149,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 		 */
 		public function tf_options_admin_enqueue_scripts( $screen ) {
 			global $post_type;
-
-			// die();
+ 
 			$tf_options_screens = array(
 				'toplevel_page_uacf7_settings',
 				'ultimate-addons_page_uacf7_addons',
