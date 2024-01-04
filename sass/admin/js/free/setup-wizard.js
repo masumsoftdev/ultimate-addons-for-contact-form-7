@@ -180,6 +180,7 @@
               success: function (data) { 
                 $('.uacf7-single-step-content-inner img').hide();
                 $('.uacf7-generated-template').show();
+                $('#uacf7_ai_code_content').val('');
                 typeName(data.value, 0); 
                 
               }
@@ -190,20 +191,35 @@
           $this = $(this);
           var current_step = $this.attr('data-step');
           var next_step = parseInt(current_step) + 1;
+          var preb_step = parseInt(current_step) - 1;
           if(current_step != 4){
             
+             if(current_step == '2'){  
+                if ($(".required-plugin-button").hasClass('disabled') == false){
+                  $(".required-plugin-button").trigger('click');
+                  return; 
+                }
+              
+             } 
+
             $('.uacf7-single-step-item[data-step="'+current_step+'"]').nextAll('.uacf7-single-step-item').removeClass('active');
             
             $('.uacf7-single-step-item[data-step="'+current_step+'"]').prevAll('.uacf7-single-step-item').addClass('active');
             $('.uacf7-single-step-item[data-step="'+current_step+'"]').addClass('active');
             $('.uacf7-single-step-content').removeClass('active');
             $('.uacf7-single-step-content[data-step="'+current_step+'"]').addClass('active');
-
+            $('.uacf7-single-step-item[data-step='+preb_step+'] .step-item-dots').html( `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M17.0965 7.39016L9.9365 14.3002L8.0365 12.2702C7.6865 11.9402 7.1365 11.9202 6.7365 12.2002C6.3465 12.4902 6.2365 13.0002 6.4765 13.4102L8.7265 17.0702C8.9465 17.4102 9.3265 17.6202 9.7565 17.6202C10.1665 17.6202 10.5565 17.4102 10.7765 17.0702C11.1365 16.6002 18.0065 8.41016 18.0065 8.41016C18.9065 7.49016 17.8165 6.68016 17.0965 7.38016V7.39016Z" fill="#7F56D9"/>
+            </svg> `);
+            $('.uacf7-single-step-item[data-step='+current_step+'] .step-item-dots').html( `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="24" height="24" rx="12" fill="#F9F5FF"/>
+            <circle cx="12" cy="12" r="4" fill="#7F56D9"/>
+            </svg>  `);
             $('.uacf7-next').attr('data-current-step', current_step);
             $('.uacf7-next').attr('data-next-step',  parseInt(current_step) + 1);
 
             if(current_step == '3'){  
-              $('.uacf7-next').addClass('skip');
+              $('.uacf7-next').hide();
               // only replace next to skip without svg icon
               $('.uacf7-next').html('Skip' + `<svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12.3337 4.99951L1.66699 4.99951" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
