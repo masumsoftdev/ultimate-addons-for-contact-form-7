@@ -119,6 +119,10 @@ class UACF7_MULTISTEP {
                     'multiple' 		=> true,
                     'inline'   		=> true,
                     'options' => array(
+                        'default' 				=> array(
+                            'title'			=> 'Default',
+                            'url' 			=> UACF7_ADDONS."/multistep/assets/img/default.png", 
+                        ), 
                         'style-1' 				=> array(
                             'title'			=> 'Style 1',
                             'url' 			=> UACF7_ADDONS."/multistep/assets/img/skin-1.png", 
