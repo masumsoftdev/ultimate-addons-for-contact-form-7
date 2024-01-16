@@ -321,10 +321,10 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 								<div class="uacf7-single-step-content-inner">
 									<h1><?php echo _e('Welcome to Ultimate Addons for Contact Form 7', 'ultimate-addons-cf7') ?></h1>
 
-									<p><?php echo _e("The easiest and best Contact Form 7 Addons Plugins for WordPress. Packed With 28+ essential features, this All-in-One Contact form 7 addons plugin consists almost all the basic to advanced options which you may need for your WordPress site’s Contact form.", 'ultimate-addons-cf7') ?></p>
+									<p><?php echo _e("The easiest and best Contact Form 7 Addons Plugin for WordPress. Packed with 28+ essential features, this All-in-One Contact form 7 addon plugin consists almost all the basic to advanced options that you may need for your WordPress site’s Contact form.", 'ultimate-addons-cf7') ?></p>
 
 									<div class="uacf7-step-plugin-required">
-										<p><?php echo esc_html('To continue it requires Contact from 7') ?> <br> to be <?php  if($uacf7_plugin_status== 'not_active' ){ echo '<strong>'.esc_html("install").'</strong> '.esc_html(" & activate", ).' '; }else{echo esc_html("install & activate");  }?>   </p> 
+										<p><?php echo esc_html('To continue, the plugin requires Contact Form 7') ?> <br> to be <?php  if($uacf7_plugin_status== 'not_active' ){ echo '<strong>'.esc_html("installed").'</strong> '.esc_html(" & activated.", ).' '; }else{echo esc_html("installed & activated.");  }?>   </p> 
 										<button class="required-plugin-button uacf7-setup-widzard-btn <?php  if($uacf7_plugin_status== 'activate' ){ echo 'disabled'; }?>" <?php  if($uacf7_plugin_status== 'activate' ){ echo 'disabled ="disabled"'; }?> data-plugin-status="<?php echo esc_attr( $uacf7_plugin_status ) ?>">
 										
 											<?php 
@@ -344,18 +344,26 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 						</div>
 						<div class="uacf7-single-step-content chooes-addon <?php if($uacf7_plugin_status =='activate') {echo esc_attr('active');} ?> " data-step="2">
 							<div class="uacf7-single-step-content-wrap">
-								 <h2>Choose your addons</h2>
+							<h2>Activate your addons</h2>
+								 <p>Please activate only the addons you need. This helps avoid loading unnecessary assets (JS, CSS). Both Free and Pro addons are available here, organized <strong>Alphabetically</strong>.</p>
 								<form method="post" action="" class="tf-option-form tf-ajax-save" enctype="multipart/form-data">
 									<div class="uacf7-addon-setting-content">  
 											<?php 
 												$data = get_option( 'uacf7_settings', true );
 
+												$fields = [];
+												foreach($this->addons as $section_key => $section):  
+													if($section_key == 'general_addons' || $section_key == 'extra_fields_addons' || $section_key == 'wooCommerce_integration'):
+													 
+														$fields = array_merge($fields, $section['fields']); 
 
-												foreach($this->addons as $section_key => $section): 
-													
-												if($section_key == 'general_addons' || $section_key == 'extra_fields_addons' || $section_key == 'wooCommerce_integration'):
-												
-												foreach ($section['fields'] as $field_key => $field ):
+													endif;
+												endforeach;   
+
+												//  Short as Alphabetically
+												usort($fields, array($this, 'uacf7_setup_wizard_sorting'));
+
+												foreach ($fields as $field_key => $field ):
 													$id = 'uacf7_settings'.'['.$field['id'].']';
 											?> 
 											<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr($field['id']) ?>" data-parent="<?php echo esc_attr($section_key) ?>" data-filter="<?php echo esc_html( strtolower($field['label']) ) ?>">
@@ -392,8 +400,6 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 												</div>
 
 											<?php 
-												endforeach;  
-												endif;
 												endforeach; 
 											?>
 
@@ -407,15 +413,11 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 							<div class="uacf7-single-step-content-wrap"> 
 								<div class="uacf7-single-step-content-inner">
 									 <div class="uacf7-form-generate">
-											<h3>
+									 		<h3>
 												<?php echo sprintf( 
-														__( '<b>%1s</b> %2s <span>%2s</span>', 'ultimate-addons-cf7' ),
-														'Thank you!',
-														' Now create your',
-														'Form'
-												); ?>
+														__( 'AI Form Generator<span>Our AI Form Generator creates a basic form for you, based on your selected category from the dropdown menu below. You can then customize this form to suit your specific requirements.</span>', 'ultimate-addons-cf7' )); ?>
 											</h3>
-											<label for="uacf7-select-form"><?php echo esc_html('Describe your', 'ultimate-addons-cf7') ?> <span><?php echo esc_html('Form', 'ultimate-addons-cf7') ?></span>
+											<label for="uacf7-select-form">
 												<select name="uacf7-select-form" class="tf-select2" id="uacf7-select-form"> 
 													<option value=""><?php echo esc_html('Choose Form type', 'ultimate-addons-cf7') ?></option>
 													<?php 
@@ -458,7 +460,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 					<div class="uacf7-wizard-footer">
 						<div class="uacf7-wizard-footer-inner">
 							<div class="uacf7-wizard-footer-left">
-								<a href="<?php echo esc_url(admin_url() )  ?>" class="uacf7-wizard-footer-left-link uacf7-back-dashboard"><?php echo esc_html('Back to dashboard', 'ultimate-addons-cf7') ?></a>
+								<a href="<?php echo esc_url(admin_url() )  ?>" class="uacf7-wizard-footer-left-link uacf7-back-dashboard"><?php echo esc_html('Back to Dashboard', 'ultimate-addons-cf7') ?></a>
 							</div>
 
 							<div class="uacf7-wizard-footer-right">
@@ -476,6 +478,10 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 			<?php
 		}
  
+		// Custom comparison function based on 'label' value
+		public function uacf7_setup_wizard_sorting($a, $b) {
+			return strcmp($a['label'], $b['label']);
+		}
 
 		/**
 		 * redirect to set up wizard when active plugin

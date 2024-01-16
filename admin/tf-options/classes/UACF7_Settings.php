@@ -240,12 +240,18 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 							<?php 
 								$data = get_option( $this->option_id, true );
 
+								$fields = [];
 
 								foreach($this->option_sections as $section_key => $section): 
 									
 								if($section_key == 'general_addons' || $section_key == 'extra_fields_addons' || $section_key == 'wooCommerce_integration'):
-								
-								foreach ($section['fields'] as $field_key => $field ):
+									$fields = array_merge($fields, $section['fields']); 
+								endif;
+								endforeach;  
+							
+								//  Short as Alphabetically
+								usort($fields, array($this, 'uacf7_setup_wizard_sorting'));
+								foreach ($fields as $field_key => $field ):
 									$id = $this->option_id.'['.$field['id'].']';
 							?>
 								<div class="uacf7-single-addon-setting uacf7-fields-<?php echo esc_attr($field['id']) ?>" data-parent="<?php echo esc_attr($section_key) ?>" data-filter="<?php echo esc_html( strtolower($field['label']) ) ?>">
@@ -292,8 +298,6 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 								</div>
 
 							<?php 
-								endforeach;  
-								endif;
 								endforeach; 
 							?>
 						</div>
@@ -306,7 +310,12 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 			
 			<?php
 		}
-	 
+
+		// Custom comparison function based on 'label' value
+		public function uacf7_setup_wizard_sorting($a, $b) {
+			return strcmp($a['label'], $b['label']);
+		}
+
 		/**
 		 * Get Help Page
 		 * @author Jahid
