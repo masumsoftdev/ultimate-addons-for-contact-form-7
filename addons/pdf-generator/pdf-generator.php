@@ -48,17 +48,24 @@ class UACF7_PDF_GENERATOR {
             'title'  => __( 'PDF Generator', 'ultimate-addons-cf7' ),
             'icon'   => 'fa-solid fa-file-pdf',
             'fields' => array(
-                 
                 'uacf7_pdf_label' => array(
-                    'id'    => 'uacf7_pdf_label',
-                    'type'  => 'heading', 
-                    'label' => __( 'PDF Generator Settings', 'ultimate-addons-cf7' ),
-                    'subtitle' => __( 'This addon will help you to create PDF using form Data.', 'ultimate-addons-cf7' ),
+                'id'    => 'uacf7_pdf_label',
+                'type'  => 'heading', 
+                'label' => __( 'PDF Generator Settings', 'ultimate-addons-cf7' ),
+                'subtitle' => sprintf(
+                    __( 'Generate a PDF from submissions and send it to admin and the submitter\'s email. See Demo %1s.', 'ultimate-addons-cf7' ),
+                        '<a href="https://cf7addons.com/preview/contact-form-7-pdf-generator/" target="_blank" rel="noopener">Example</a>'
+                                )
+                ),
+                array(
+                    'id'      => 'pdf-generator-docs',
+                    'type'    => 'notice',
+                    'style'   => 'success',
                     'content' => sprintf( 
                         __( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
-                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-pdf-generator/" target="_blank">documentation</a>'
+                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-pdf-generator/" target="_blank" rel="noopener">PDF Generator</a>'
                     )
-                ),  
+                ),
                 'uacf7_enable_pdf_generator' => array(
                     'id'        => 'uacf7_enable_pdf_generator',
                     'type'      => 'switch',

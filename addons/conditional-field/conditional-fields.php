@@ -83,43 +83,46 @@ class UACF7_CF {
 				'conditional_repeater' => array(
 					'id' => 'conditional_repeater',
 					'type' => 'repeater',
-					'label' => __( 'Conditional Rule', 'ultimate-addons-cf7' ),
-					'subtitle' => __( 'Add Rule', 'ultimate-addons-cf7' ),
+					'label' => __( 'Setup your Conditional Logic', 'ultimate-addons-cf7' ),
+					'subtitle' => __( "The process involves selecting a field and determining its visibility (either visible or hidden) based on whether any or all specified conditions are met. These conditions are triggered by the conditional value you establish for another field.", 'ultimate-addons-cf7' ),
 					'class' => 'tf-field-class',
 					'fields' => array(
 						'uacf7_cf_group' => array(
 							'id' => 'uacf7_cf_group',
 							'type' => 'select',
-							'label' => __( 'Following Field', 'ultimate-addons-cf7' ),
+							'label' => __( 'Choose Field', 'ultimate-addons-cf7' ),
+							'subtitle' => "Wrap a field with this shortcode: [conditional conditional-123][/conditional]. Replace 'conditional-123' with your specific ID.",
 							'class' => 'tf-field-class',
 							'options' => 'uacf7',
 							'query_args' => array(
 								'post_id' => $post_id,
 								'specific' => 'conditional',
 							),
-							'field_width' => '33',
+							'field_width' => '100',
 						),
 						'uacf7_cf_hs' => array(
 							'id' => 'uacf7_cf_hs',
 							'type' => 'select',
 							'label' => __( 'Visibility', 'ultimate-addons-cf7' ),
+							'subtitle' => "Select whether this field should be visible or hidden when the condition below is met.",
 							'class' => 'tf-field-class',
 							'options' => array(
 								'show' => 'Show',
 								'hide' => 'Hide',
 							),
-							'field_width' => '33',
+							'field_width' => '50',
 						),
 						'uacf7_cf_condition_for' => array(
 							'id' => 'uacf7_cf_condition_for',
 							'type' => 'select',
 							'label' => __( 'If', 'ultimate-addons-cf7' ),
+							'subtitle' => "Choose the trigger for the condition: it should activate if 'any' one of the conditions is met or when 'all' conditions.",
 							'class' => 'tf-field-class',
 							'options' => array(
 								'any' => 'Any',
 								'all' => 'All',
 							),
-							'field_width' => '33',
+							'field_width' => '50',
 
 						),
 						'uacf7_cf_conditions' => array(
@@ -132,7 +135,7 @@ class UACF7_CF {
 								'uacf7_cf_tn' => array(
 									'id' => 'uacf7_cf_tn',
 									'type' => 'select',
-									'label' => __( 'Coditional Field', 'ultimate-addons-cf7' ),
+									'label' => __( 'Conditional Field', 'ultimate-addons-cf7' ),
 									'class' => 'tf-field-class',
 									'options' => 'uacf7',
 									'query_args' => array(
@@ -144,7 +147,7 @@ class UACF7_CF {
 								'uacf7_cf_operator' => array(
 									'id' => 'uacf7_cf_operator',
 									'type' => 'select',
-									'label' => __( 'If', 'ultimate-addons-cf7' ),
+									'label' => __( 'is', 'ultimate-addons-cf7' ),
 									'class' => 'tf-field-class',
 									'options' => array(
 										'equal' => 'equal',
@@ -160,6 +163,7 @@ class UACF7_CF {
 									'id' => 'uacf7_cf_val',
 									'type' => 'text',
 									'label' => 'Conditional Value',
+									'subtitle' => 'Input the specific value that will trigger the condition.',
 									'description' => '',
 									'class' => 'tf-field-class',
 								)

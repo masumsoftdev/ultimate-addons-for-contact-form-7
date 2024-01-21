@@ -26,11 +26,7 @@ function uacf7_post_meta_options_import_export($value, $post_id){
 					'id'    => 'placeholder_heading',
 					'type'  => 'heading', 
 					'label' => __( 'Import/Export', 'ultimate-addons-cf7' ),
-					'subtitle' => __( 'This feature will help you to Import and export your existing form settings option.', 'ultimate-addons-cf7' ),
-					'content' => sprintf( 
-                        __( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
-                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-import-export/" target="_blank">documentation</a>'
-                    )
+					'subtitle' => __( 'Import and export current form settings option.', 'ultimate-addons-cf7' )
 				), 
 				'uacf7_import_export_backup' => array(
                     'id' => 'uacf7_import_export_backup',
@@ -537,7 +533,7 @@ if(!function_exists('uacf7_review_notice')){
                     <li><a target="_blank" href="<?php echo esc_url('https://wordpress.org/plugins/ultimate-addons-for-contact-form-7/#reviews') ?>" class=""><span class="dashicons dashicons-external"></span><?php _e(' Ok, you deserve it!', 'ultimate-addons-cf7' ) ?></a></li>
                     <li><a href="#" class="already_done" data-status="already"><span class="dashicons dashicons-smiley"></span> <?php _e('I already did', 'ultimate-addons-cf7') ?></a></li>
                     <li><a href="#" class="later" data-status="later"><span class="dashicons dashicons-calendar-alt"></span> <?php _e('Maybe Later', 'ultimate-addons-cf7') ?></a></li>
-                    <li><a target="_blank"  href="<?php echo esc_url('https://themefic.com/docs/ultimate-addons-for-contact-form-7/') ?>" class=""><span class="dashicons dashicons-sos"></span> <?php _e('I need help', 'ultimate-addons-cf7') ?></a></li>
+                    <li><a target="_blank"  href="<?php echo esc_url('https://themefic.com/docs/') ?>" class=""><span class="dashicons dashicons-sos"></span> <?php _e('I need help', 'ultimate-addons-cf7') ?></a></li>
                     <li><a href="#" class="never" data-status="never"><span class="dashicons dashicons-dismiss"></span><?php _e('Never show again', 'ultimate-addons-cf7') ?> </a></li> 
                 </ul>
                 <button type="button" class="notice-dismiss review_notice_dismiss"><span class="screen-reader-text"><?php _e('Dismiss this notice.', 'ultimate-addons-cf7') ?></span></button>

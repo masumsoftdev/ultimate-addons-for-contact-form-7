@@ -46,7 +46,7 @@ class UACF7_SIGNATURE{
     public function uacf7_post_meta_options_signature( $value, $post_id){
 
         $signature = apply_filters('uacf7_post_meta_options_signature_pro', $data = array(
-            'title'  => __( 'Signature', 'ultimate-addons-cf7' ),
+            'title'  => __( 'Digital Signature', 'ultimate-addons-cf7' ),
             'icon'   => 'fa-solid fa-signature',
             'fields' => array(
                 
@@ -54,17 +54,25 @@ class UACF7_SIGNATURE{
                   'id'    => 'uacf7_sign_heading',
                   'type'  => 'heading', 
                   'label' => __( 'Signature Settings', 'ultimate-addons-cf7' ),
-                  'subtitle' => __( 'This feature will help you to add the signature in form .', 'ultimate-addons-cf7' ),
-                  'content' => sprintf( 
-                      __( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
-                      '<a href="https://themefic.com/docs/uacf7/free-addons/signature-field/" target="_blank">documentation</a>'
-                  )
-                ),
+                  'subtitle' => sprintf(
+                    __( 'Add a digital signature feature to your forms. See Demo %1s.', 'ultimate-addons-cf7' ),
+                     '<a href="https://cf7addons.com/preview/contact-form-7-signature-addon/" target="_blank" rel="noopener">Example</a>'
+                              )
+                  ),
+                  array(
+                    'id'      => 'signature-docs',
+                    'type'    => 'notice',
+                    'style'   => 'success',
+                    'content' => sprintf( 
+                        __( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
+                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-signature-addon/" target="_blank" rel="noopener">Digital Signature</a>'
+                    )
+                  ),
              
                 'uacf7_signature_enable' => array(
                     'id'        => 'uacf7_signature_enable',
                     'type'      => 'switch',
-                    'label'     => __( ' Enable/Disable Signature', 'ultimate-addons-cf7' ),
+                    'label'     => __( ' Enable Signature', 'ultimate-addons-cf7' ),
                     'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
                     'label_off' => __( 'No', 'ultimate-addons-cf7' ),
                     'default'   => false
@@ -91,7 +99,7 @@ class UACF7_SIGNATURE{
                     'id'        => 'uacf7_signature_pad_width',
                     'type'      => 'number',
                     'label'     => __( 'Signature Pad Width', 'ultimate-addons-cf7' ),
-                    'description'     => __( 'E.g. Do not use px or rem', 'ultimate-addons-cf7' ),
+                    'description'     => __( 'E.g. There is no need to include units such as "px" or "rem".', 'ultimate-addons-cf7' ),
                     'default'   => '300',
                     'field_width' => 50,
                 ),
@@ -99,7 +107,7 @@ class UACF7_SIGNATURE{
                     'id'        => 'uacf7_signature_pad_height',
                     'type'      => 'number',
                     'label'     => __( 'Signature Pad Height', 'ultimate-addons-cf7' ),
-                    'description'     => __( 'E.g. Do not use px or rem', 'ultimate-addons-cf7' ),
+                    'description'     => __( 'E.g. There is no need to include units such as "px" or "rem".', 'ultimate-addons-cf7' ),
                     'default'   => '100',
                     'field_width' => 50,
                 ),

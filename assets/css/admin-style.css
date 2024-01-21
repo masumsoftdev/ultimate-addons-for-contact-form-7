@@ -666,6 +666,20 @@
   padding-top: 0;
 }
 
+.tf-setting-dashboard .tf-setting-top-bar .other-document .dropdown,
+.uacf7-metabox .tf-setting-top-bar .other-document .dropdown {
+  top: 30px;
+}
+
+.tf-admin-btn.tf-btn-secondary,
+.tf-license-activate p.submit input {
+  background-color: #382673 !important;
+  border-color: #382673 !important;
+}
+
+.license-email {
+  margin-top: 20px;
+}
 /* .uacf7-setup-wizard
   .uacf7-step-content-container
   .uacf7-single-step-content.installation

@@ -37,13 +37,21 @@ class UACF7_TELEGRAM {
             'uacf7_telegram_heading' => array(
               'id'    => 'uacf7_telegram_heading',
               'type'  => 'heading', 
-              'label' => __( 'Telegram Settings', 'ultimate-addons-cf7' ),
-              'subtitle' => __( 'This addon will help you to integrate telegram into you contact form 7.', 'ultimate-addons-cf7' ),
-              'content' => sprintf( 
-                  __( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
-                  '<a href="https://themefic.com/docs/uacf7/free-addons/uacf7-telegram/" target="_blank">documentation</a>'
-              )
-            ),
+              'label' => __( 'Telegram Integration', 'ultimate-addons-cf7' ),
+              'subtitle' => sprintf(
+                __( 'Forward form submission data to Telegram automatically. See Demo %1s.', 'ultimate-addons-cf7' ),
+                 '<a href="https://cf7addons.com/preview/contact-form-7-telegram/" target="_blank" rel="noopener">Example</a>'
+                          )
+              ),
+              array(
+                'id'      => 'telegram-docs',
+                'type'    => 'notice',
+                'style'   => 'success',
+                'content' => sprintf( 
+                    __( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
+                    '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-telegram/" target="_blank" rel="noopener">Telegram Integration</a>'
+                )
+              ),
             'uacf7_telegram_enable' => array(
               'id'        => 'uacf7_telegram_enable',
               'type'      => 'switch',

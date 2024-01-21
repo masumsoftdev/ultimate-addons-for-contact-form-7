@@ -77,12 +77,12 @@ class UACF7_SIGNATURE_PANEL{
             <h3><?php _e('Signature Pad Width', 'ultimate-addons-cf7' ) ?></h3>
             <input type="text" id="uacf7_signature_pad_width" name="uacf7_signature_pad_width" value="<?php echo esc_attr_e($this->uacf7_signature_pad_width? $this->uacf7_signature_pad_width : '300'); ?>" placeholder="<?php echo esc_html__( 'Pad Width', 'ultimate-addons-cf7' ); ?>"><br>
     
-            <small><?php _e(' E.g. Do not use px or rem', 'ultimate-addons-cf7' ) ?></small> 
+            <small><?php _e(' E.g. There is no need to include units such as "px" or "rem".', 'ultimate-addons-cf7' ) ?></small> 
 
             <h3><?php _e('Signature Pad Height', 'ultimate-addons-cf7' ) ?></h3>
             <input type="text" id="uacf7_signature_pad_height" name="uacf7_signature_pad_height" value="<?php echo esc_attr_e($this->uacf7_signature_pad_height? $this->uacf7_signature_pad_height : '100'); ?>" placeholder="<?php echo esc_html__( 'Pad Height', 'ultimate-addons-cf7' ); ?>"><br>
     
-            <small><?php _e(' E.g. Do not use px or rem', 'ultimate-addons-cf7' ) ?></small> 
+            <small><?php _e(' E.g. There is no need to include units such as "px" or "rem".', 'ultimate-addons-cf7' ) ?></small> 
         </fieldset> 
       </div>
      

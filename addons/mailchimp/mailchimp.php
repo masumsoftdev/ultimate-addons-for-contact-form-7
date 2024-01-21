@@ -65,13 +65,21 @@ class UACF7_MAILCHIMP
             'uacf7_mailchimp_label' => array(
               'id'    => 'uacf7_mailchimp_label',
               'type'  => 'heading', 
-              'label' => __( 'Mailchimp Form Settings', 'ultimate-addons-cf7' ),
-              'subtitle' => __( 'This addon will help you to Intergrate with Mailchimp.', 'ultimate-addons-cf7' ),
-              'content' => sprintf( 
-                  __( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
-                  '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-mailchimp/" target="_blank">documentation</a>'
-              )
-          ),  
+              'label' => __( 'Mailchimp Integration', 'ultimate-addons-cf7' ),
+              'subtitle' => sprintf(
+                __( 'Send form submissions to your Mailchimp lists automatically. See Demo %1s.', 'ultimate-addons-cf7' ),
+                 '<a href="https://cf7addons.com/preview/mailchimp-for-contact-form-7/" target="_blank" rel="noopener">Example</a>'
+                          )
+              ),
+              array(
+                'id'      => 'mailchimp-docs',
+                'type'    => 'notice',
+                'style'   => 'success',
+                'content' => sprintf( 
+                    __( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
+                    '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-mailchimp/" target="_blank" rel="noopener">Mailchimp Integration</a>'
+                )
+              ),
             'uacf7_mailchimp_form_enable' => array(
                 'id'        => 'uacf7_mailchimp_form_enable',
                 'type'      => 'switch',
@@ -290,7 +298,7 @@ class UACF7_MAILCHIMP
         $status .= '<span class="status-details status-error">' . esc_html($response->detail) . '</span>';
       }
     } else {
-      $status .= '<span class="status-details">' . esc_html('Please enter your Mailchimp API key.', 'ultimate-addons-cf7') . '</span>';
+      $status .= '<span class="status-details">' . esc_html('', 'ultimate-addons-cf7') . '</span>';
     }
 
     return $status;

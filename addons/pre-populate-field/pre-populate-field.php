@@ -31,21 +31,27 @@ class UACF7_PRE_POPULATE {
             $all_forms[$form->ID] = $form->post_title; 
         }
         $pre_populated = apply_filters('uacf7_post_meta_options_pre_populated_pro', $data = array(
-            'title'  => __( 'Pre Populated', 'ultimate-addons-cf7' ),
+            'title'  => __( 'Pre-populate Field', 'ultimate-addons-cf7' ),
             'icon'   => 'fa-solid fa-arrow-up-right-dots',
             'fields' => array(
-                
                 'uacf7_pre_populated_heading' => array(
                     'id'    => 'uacf7_pre_populated_heading',
                     'type'  => 'heading', 
-                    'label' => __( 'Pre Populated Settings', 'ultimate-addons-cf7' ),
-                    'subtitle' => __( 'This addon will help you form pre-populate.', 'ultimate-addons-cf7' ),
-                    'content' => sprintf( 
-                        __( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
-                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-pre-populate-fields/" target="_blank">documentation</a>'
-                    )
-                ),
-             
+                    'label' => __( 'Pre-populate Field Settings', 'ultimate-addons-cf7' ),
+                    'subtitle' => sprintf(
+                        __( 'The pre-populate field sends data from one form to another, redirecting after the first form submission. See Demo %1s.', 'ultimate-addons-cf7' ),
+                         '<a href="https://cf7addons.com/preview/contact-form-7-pre-populate-fields/" target="_blank" rel="noopener">Example</a>'
+                                  )
+                      ),
+                      array(
+                        'id'      => 'pre-populate-docs',
+                        'type'    => 'notice',
+                        'style'   => 'success',
+                        'content' => sprintf( 
+                            __( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
+                            '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-pre-populate-fields/" target="_blank" rel="noopener">Pre-populate Field</a>'
+                        )
+                      ),
                 'pre_populate_enable' => array(
                     'id'        => 'pre_populate_enable',
                     'type'      => 'switch',
