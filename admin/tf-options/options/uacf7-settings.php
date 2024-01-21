@@ -30,9 +30,9 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'type' => 'switch',
 						'label' => __( 'Redirection ', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Redirection@2x.png',
-						'subtitle' => __( 'Redirect users to a Thank You or external page post form submission, with an option to open in a new tab.', 'ultimate-addons-cf7' ),
+						'subtitle' => __( 'Redirect users to a Thank You or external page based on form submission, with an option to open in a new tab.', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/redirection-for-contact-form-7/',
-						'documentation_link' => 'https://themefic.com/docs/ultimate-addons-for-contact-form-7/redirection-for-contact-form-7/',
+						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/redirection-for-contact-form-7/',
 						'default' => false,
 
 					),

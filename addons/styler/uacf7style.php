@@ -18,20 +18,28 @@ class UACF7_uacf7style {
     // Add Placeholder Options
     public function uacf7_post_meta_options_styler($value, $post_id){
         $redirection = apply_filters('uacf7_post_meta_options_styler_pro', $data = array(
-            'title'  => __( 'Form Styles', 'ultimate-addons-cf7' ),
-            'icon'   => 'fa-solid fa-italic',
+            'title'  => __( 'Form Styler', 'ultimate-addons-cf7' ),
+            'icon'   => 'fa-solid fa-mortar-pestle',
             'fields' => array(
-                'styler_headding' => array(
-					'id'    => 'styler_headding',
-					'type'  => 'notice',
-					'notice' => 'info',
-					'label' => __( 'Form Styles', 'ultimate-addons-cf7' ),
-					'title' => __( 'This addon will help you to edit the Styles of your form. Note that, all below fields are optional. If any field is not needed, leave them blank.', 'ultimate-addons-cf7' ),
-                    'content' => sprintf( 
-                        __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
-                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-style/" target="_blank">documentation</a>'
+                'styler_heading' => array(
+					'id'    => 'styler_heading',
+					'type' => 'heading',
+					'label' => __( 'Single Form Styler Settings', 'ultimate-addons-cf7' ),
+                    'subtitle' => sprintf(
+                        __( 'Style your entire form without any CSS coding, including colors, margins, button styles, and font sizes. These options overrides Global Form Styler Settings. See Demo %1s.', 'ultimate-addons-cf7' ),
+                         '<a href="https://cf7addons.com/preview/contact-form-7-style-addon/" target="_blank">Example</a>'
                     )
-				),  
+				),
+                array(
+					'id'      => 'styler-docs',
+					'type'    => 'notice',
+					'style'   => 'success',
+					'content' => sprintf( 
+                        __( 'Confused? Check our Documentation on  %1s and %2s.', 'ultimate-addons-cf7' ),
+                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-style/" target="_blank">Single Form Styler</a>',
+                        '<a href="https://themefic.com/docs/uacf7/pro-addons/global-form-styler-for-contact-form-7/" target="_blank">Global Form Styler</a>'
+                    )
+				),
                 'uacf7_enable_form_styles' => array(
                     'id'        => 'uacf7_enable_form_styles',
                     'type'      => 'switch',
@@ -40,8 +48,8 @@ class UACF7_uacf7style {
                     'label_off' => __( 'No', 'ultimate-addons-cf7' ),
                     'default'   => false
                 ),
-                'styler_headding_label' => array(
-                    'id'    => 'styler_headding_label',
+                'styler_heading_label' => array(
+                    'id'    => 'styler_heading_label',
                     'type'  => 'heading',
                     'label' => __( 'Label Options', 'ultimate-addons-cf7' ), 
                 ),
@@ -100,8 +108,8 @@ class UACF7_uacf7style {
                     'placeholder'     => __( 'Enter Placeholder Font Name ', 'ultimate-addons-cf7' ),
                     'field_width' => 50, 
                 ),
-                'styler_headding_label_padding' => array(
-                    'id'    => 'styler_headding_label_padding',
+                'styler_heading_label_padding' => array(
+                    'id'    => 'styler_heading_label_padding',
                     'type'  => 'heading',
                     'title' => __( 'Padding (in px)', 'ultimate-addons-cf7' ), 
                     'content' => __( ' E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ), 
@@ -134,8 +142,8 @@ class UACF7_uacf7style {
                     'placeholder'     => __( 'Left', 'ultimate-addons-cf7' ), 
                     'field_width' => 25,
                 ), 
-                'styler_headding_label_margin' => array(
-                    'id'    => 'styler_headding_label_margin',
+                'styler_heading_label_margin' => array(
+                    'id'    => 'styler_heading_label_margin',
                     'type'  => 'heading',
                     'title' => __( 'Margin (in px)', 'ultimate-addons-cf7' ), 
                     'content' => __( ' E.g. 16(Do not add px or em ). ', 'ultimate-addons-cf7' ), 
@@ -168,8 +176,8 @@ class UACF7_uacf7style {
                     'placeholder'     => __( 'Left', 'ultimate-addons-cf7' ), 
                     'field_width' => 25,
                 ),  
-                'styler_headding_input' => array(
-                    'id'    => 'styler_headding_label',
+                'styler_heading_input' => array(
+                    'id'    => 'styler_heading_label',
                     'type'  => 'heading',
                     'label' => __( 'Input Field Options', 'ultimate-addons-cf7' ), 
                 ),
@@ -245,8 +253,8 @@ class UACF7_uacf7style {
                     'placeholder'     => __( 'Enter Textarea Height', 'ultimate-addons-cf7' ),
                     'field_width' => 50,
                 ),
-                'styler_headding_input_padding' => array(
-                    'id'    => 'styler_headding_input_padding',
+                'styler_heading_input_padding' => array(
+                    'id'    => 'styler_heading_input_padding',
                     'type'  => 'heading',
                     'title' => __( 'Padding (in px)', 'ultimate-addons-cf7' ), 
                     'content' => __( ' E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ), 
@@ -279,8 +287,8 @@ class UACF7_uacf7style {
                     'placeholder'     => __( 'Left', 'ultimate-addons-cf7' ), 
                     'field_width' => 25,
                 ), 
-                'styler_headding_input_margin' => array(
-                    'id'    => 'styler_headding_input_margin',
+                'styler_heading_input_margin' => array(
+                    'id'    => 'styler_heading_input_margin',
                     'type'  => 'heading',
                     'title' => __( 'Margin (in px)', 'ultimate-addons-cf7' ), 
                     'content' => __( ' E.g. 16(Do not add px or em ). ', 'ultimate-addons-cf7' ), 
@@ -313,8 +321,8 @@ class UACF7_uacf7style {
                     'placeholder'     => __( 'Left', 'ultimate-addons-cf7' ), 
                     'field_width' => 25,
                 ), 
-                'styler_headding_input_border' => array(
-                    'id'    => 'styler_headding_input_border',
+                'styler_heading_input_border' => array(
+                    'id'    => 'styler_heading_input_border',
                     'type'  => 'heading',
                     'title' => __( 'Border ', 'ultimate-addons-cf7' ),  
                 ),
@@ -362,8 +370,8 @@ class UACF7_uacf7style {
                     //     'uacf7_uacf7style_label_background_color' => 'Background Color', 
                     // ), 
                 ), 
-                'styler_headding_button' => array(
-                    'id'    => 'styler_headding_label',
+                'styler_heading_button' => array(
+                    'id'    => 'styler_heading_label',
                     'type'  => 'heading',
                     'label' => __( 'Submit Button Options', 'ultimate-addons-cf7' ), 
                 ),

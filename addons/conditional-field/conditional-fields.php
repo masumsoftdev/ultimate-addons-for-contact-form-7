@@ -58,18 +58,27 @@ class UACF7_CF {
 
 
 		$conditional = apply_filters( 'uacf7_post_meta_options_conditional_field_pro', $data = array(
-			'title' => __( 'Conditional Field', 'ultimate-addons-cf7' ),
+			'title' => __( 'Conditional Fields', 'ultimate-addons-cf7' ),
 			'icon' => 'fa-solid fa-fan',
 			'fields' => array(
-				'conditional_headding' => array(
-					'id' => 'conditional_headding',
+				'conditional_heading' => array(
+					'id' => 'conditional_heading',
 					'type' => 'heading', 
 					'label' => __( 'Conditional Fields Settings', 'ultimate-addons-cf7' ),
-					'subtitle' => __( 'With this addon, you can show or hide form fields depending on Contact form 7 Conditional Logic. You can check this video to learn more.', 'ultimate-addons-cf7' ),
-					'content' => sprintf(
-						__( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
-						'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-conditional-fields/" target="_blank">documentation</a>'
-					)
+					'subtitle' => sprintf(
+                        __( 'Show or hide Contact Form 7 fields based on Conditional Logic. See Demo %1s.', 'ultimate-addons-cf7' ),
+                         '<a href="https://cf7addons.com/preview/contact-form-7-conditional-fields/" target="_blank">Example</a>'
+                    )
+				),
+				array(
+					'id'      => 'conditional-field-docs',
+					'type'    => 'notice',
+					'style'   => 'success',
+					'content' => sprintf( 
+                        __( 'Confused? Check our Documentation on  %1s and %2s.', 'ultimate-addons-cf7' ),
+                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-conditional-fields/" target="_blank">Conditional Fields</a>',
+                        '<a href="https://themefic.com/docs/uacf7/pro-addons/contact-form-7-conditional-fields-pro/" target="_blank">Conditional Fields (Pro)</a>'
+                    )
 				),
 				'conditional_repeater' => array(
 					'id' => 'conditional_repeater',
@@ -212,7 +221,7 @@ class UACF7_CF {
 			<fieldset>
 				<div class="uacf7-doc-notice">
 					<?php echo sprintf(
-						__( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+						__( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
 						'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-conditional-fields/" target="_blank">documentation</a>'
 					); ?>
 				</div>

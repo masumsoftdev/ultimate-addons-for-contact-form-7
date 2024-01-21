@@ -27,23 +27,31 @@ class UACF7_WEB_HOOK {
 	public function uacf7_post_meta_options_webhook( $value, $post_id ) {
 
 		$WebHook = apply_filters( 'uacf7_post_meta_options_webhook', $data = array(
-			'title' => __( 'Web Hook', 'ultimate-addons-cf7' ),
+			'title' => __( 'Webhook', 'ultimate-addons-cf7' ),
 			'icon' => 'fa-solid fa-code-compare',
 			'fields' => [ 
-				'uacf7_Web_hook_headding' => [ 
-					'id' => 'uacf7_web_hook_headding',
+				'uacf7_Web_hook_heading' => [ 
+					'id' => 'uacf7_web_hook_heading',
 					'type' => 'heading',
-					'label' => __( 'Web Hook', 'ultimate-addons-cf7' ),
-					'subtitle' => __( 'This addon will help you to add the web hook of your form. Note that, all below fields are optional. If any field is not needed, leave them blank.', 'ultimate-addons-cf7' ),
-					'content' => sprintf(
-						__( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
-						'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-placeholder-styling/" target="_blank">documentation</a>'
-					)
+					'label' => __( 'Webhook (Pabbly/Zapier) Settings', 'ultimate-addons-cf7' ),
+					'subtitle' => sprintf(
+                        __( 'Transfer form data to third-party services like Pabbly or Zapier via webhooks. See Demo %1s.', 'ultimate-addons-cf7' ),
+                         '<a href="#" target="_blank">Example</a>'
+                    )
 				],
+				array(
+					'id'      => 'webhook-docs',
+					'type'    => 'notice',
+					'style'   => 'success',
+					'content' => sprintf( 
+                        __( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
+                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-webhook/" target="_blank">Webhook Setup</a>'
+                    )
+				),
 				'uacf7_enable_web_hook' => [ 
 					'id' => 'uacf7_enable_web_hook',
 					'type' => 'switch',
-					'label' => __( ' Enable Web Hook ', 'ultimate-addons-cf7' ),
+					'label' => __( ' Enable Webhook ', 'ultimate-addons-cf7' ),
 					'label_on' => __( 'Yes', 'ultimate-addons-cf7' ),
 					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
 					'default' => false

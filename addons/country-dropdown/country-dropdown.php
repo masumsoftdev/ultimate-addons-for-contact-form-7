@@ -246,7 +246,7 @@ class UACF7_COUNTRY_DROPDOWN {
             </fieldset>
             <div class="uacf7-doc-notice"> 
                 <?php echo sprintf( 
-                    __( 'Not sure how to set this? Check our step by step  %1s .', 'ultimate-addons-cf7' ),
+                    __( 'Confused? Check our Documentation on  %1s .', 'ultimate-addons-cf7' ),
                     '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-country-dropdown-with-flag/" target="_blank">documentation</a>'
                 ); ?> 
             </div>

@@ -31,15 +31,23 @@ class UACF7_Redirection {
 		
 		$redirection = apply_filters('uacf7_post_meta_options_redirection_pro', $data = array(
 			'title'  => __( 'Redirection', 'ultimate-addons-cf7' ),
-			'icon'   => 'fa-solid fa-viruses',
+			'icon'   => 'fa-solid fa-diamond-turn-right',
 			'fields' => array( 
-				'redirection_headding' => array(
-					'id'    => 'redirection_headding',
+				'redirection_heading' => array(
+					'id'    => 'redirection_heading',
 					'type'  => 'heading', 
-					'label' => __( 'UACF7 Redirection Settings', 'ultimate-addons-cf7' ),
-					'subtitle' => __( 'This addon will help you to redirect contact form 7 after submission. You can Redirect users to a Thank you page or External page after user fills up the form. ', 'ultimate-addons-cf7' ),
+					'label' => __( 'Redirection Settings', 'ultimate-addons-cf7' ),
+					'subtitle' => sprintf(
+                        __( 'Redirect users to a Thank You or external page based on form submission, with an option to open in a new tab. See Demo %1s.', 'ultimate-addons-cf7' ),
+                         '<a href="https://cf7addons.com/preview/redirection-for-contact-form-7/" target="_blank">Example</a>'
+                    )
+				),
+				array(
+					'id'      => 'redirection-docs',
+					'type'    => 'notice',
+					'style'   => 'success',
 					'content' => sprintf( 
-                        __( 'Not sure how to set this? Check our step by step documentation on  %1s, %2s and %3s .', 'ultimate-addons-cf7' ),
+                        __( 'Confused? Check our Documentation on  %1s, %2s and %3s .', 'ultimate-addons-cf7' ),
                         '<a href="https://themefic.com/docs/uacf7/free-addons/redirection-for-contact-form-7/" target="_blank">Redirect to a Page or External URL</a>',
                         '<a href="https://themefic.com/docs/uacf7/pro-addons/conditional-redirect-for-contact-form-7/" target="_blank">Conditional Redirect</a>',
                         '<a href="https://themefic.com/docs/uacf7/pro-addons/contact-form-7-whatsapp-integration-and-tag-support/" target="_blank">Tag Support</a>'
@@ -48,7 +56,7 @@ class UACF7_Redirection {
 				'uacf7_redirect_enable' => array(
 					'id'        => 'uacf7_redirect_enable',
 					'type'      => 'switch',
-					'label'     => __( ' Enable redirection', 'ultimate-addons-cf7' ),
+					'label'     => __( ' Enable Redirection', 'ultimate-addons-cf7' ),
 					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
 					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
 					'default'   => false
@@ -58,8 +66,8 @@ class UACF7_Redirection {
 					'type'      => 'radio',
 					'label'     => __( 'Redirect to', 'ultimate-addons-cf7' ),
 					'options' => array(
-						'to_page' => 'Redirect to page ',
-						'to_url' => 'Redirect to external URL ',
+						'to_page' => 'Redirect to Internal Page ',
+						'to_url' => 'Redirect to External URL ',
 					 ),
 					 'default' => 'to_page',
 					 'inline' => true,
@@ -68,7 +76,7 @@ class UACF7_Redirection {
 				'page_id' => array(
 					'id'        => 'page_id',
 					'type'      => 'select',
-					'label'     => __( 'Select a page to redirect ', 'ultimate-addons-cf7' ),  
+					'label'     => __( 'Select the Redirection Page ', 'ultimate-addons-cf7' ),  
 					'options'     => 'posts', 
 					'query_args'  => array(
 						'post_type'      => 'page',
@@ -80,13 +88,14 @@ class UACF7_Redirection {
 				'external_url' => array(
 					'id'        => 'external_url',
 					'type'      => 'text',
-					'label'     => __( 'External URL', 'ultimate-addons-cf7' ),   
+					'label'     => __( 'Insert Any URL', 'ultimate-addons-cf7' ),   
 					'dependency' => array(array( 'uacf7_redirect_to_type', '==', 'to_url' ), array( 'uacf7_redirect_type', '==', false )),
 				),
 				'uacf7_redirect_type' => array(
 					'id'        => 'uacf7_redirect_type',
 					'type'      => 'switch',
 					'label'     => __( 'Conditional Redirect', 'ultimate-addons-cf7' ),
+					'subtitle' => __( 'Redirect users to different webpages based on specific conditions. For example, if Condition A is met, the user is redirected to abc.com, while Condition B leads the user to xyz.com.', 'ultimate-addons-cf7' ),
 					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
 					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
 					'default'   => false,
@@ -128,6 +137,7 @@ class UACF7_Redirection {
 					'id'        => 'target',
 					'type'      => 'switch',
 					'label'     => __( 'Open page in a new tab', 'ultimate-addons-cf7' ),
+					'subtitle' => __( 'Enable this to open the redirection page in a new tab.', 'ultimate-addons-cf7' ),
 					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
 					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
 					'default'   => false,
@@ -136,7 +146,8 @@ class UACF7_Redirection {
 				'uacf7_redirect_tag_support' => array(
 					'id'        => 'uacf7_redirect_tag_support',
 					'type'      => 'switch',
-					'label'     => __( 'Tags support to redirect URL', 'ultimate-addons-cf7' ),
+					'label'     => __( 'Whatsapp or Tags Support', 'ultimate-addons-cf7' ),
+					'subtitle' => __( 'Add tags on URL / Pass data to Whatsapp.', 'ultimate-addons-cf7' ),
 					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
 					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
 					'default'   => false,

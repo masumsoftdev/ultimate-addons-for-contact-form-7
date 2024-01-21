@@ -56,7 +56,7 @@ class UACF7_SIGNATURE{
                   'label' => __( 'Signature Settings', 'ultimate-addons-cf7' ),
                   'subtitle' => __( 'This feature will help you to add the signature in form .', 'ultimate-addons-cf7' ),
                   'content' => sprintf( 
-                      __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                      __( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
                       '<a href="https://themefic.com/docs/uacf7/free-addons/signature-field/" target="_blank">documentation</a>'
                   )
                 ),
@@ -223,7 +223,7 @@ class UACF7_SIGNATURE{
                   <tbody>
                         <div class="uacf7-doc-notice">
                             <?php echo sprintf(
-                                  __('Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7'),
+                                  __('Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7'),
                                   '<a href="https://themefic.com/docs/uacf7/free-addons/signature-field/" target="_blank">documentation</a>'
                               ); ?>
                         </div>
