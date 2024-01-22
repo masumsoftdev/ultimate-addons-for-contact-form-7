@@ -554,8 +554,8 @@
 
 /**** Mirza CSS added on 12 January 2024. Please move them to the designated files. Please remove all the !important tags after moving **/
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
-
+/* @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"); */
+/* 
 .tf-field-notice-inner.tf-notice-info {
   padding: 10px 25px;
   border-radius: 4px;
@@ -679,7 +679,7 @@
 
 .license-email {
   margin-top: 20px;
-}
+} */
 /* .uacf7-setup-wizard
   .uacf7-step-content-container
   .uacf7-single-step-content.installation

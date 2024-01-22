@@ -42,7 +42,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'id' => 'uacf7_enable_redirection_pro',
 						'child_field' => 'uacf7_enable_redirection',
 						'type' => 'switch',
-						'label' => __( 'Conditional Redirect + Whatsapp Integration + CF7 Tag Support ', 'ultimate-addons-cf7' ),
+						'label' => __( 'Redirection ( Conditional Redirect + Whatsapp Integration)', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Conditional-Redirect@2x.png',
 						'subtitle' => __( 'Redirect users after submission based on conditions, with CF7 fields tag support for redirect URLs and Whatsapp data transfer.', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/conditional-redirect-for-contact-form-7/',

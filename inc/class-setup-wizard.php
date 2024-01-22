@@ -344,8 +344,8 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 						</div>
 						<div class="uacf7-single-step-content chooes-addon <?php if($uacf7_plugin_status =='activate') {echo esc_attr('active');} ?> " data-step="2">
 							<div class="uacf7-single-step-content-wrap">
-							<h2>Activate your addons</h2>
-								 <p>Please activate only the addons you need. This helps avoid loading unnecessary assets (JS, CSS). Both Free and Pro addons are available here, organized <strong>Alphabetically</strong>.</p>
+								<h2><?php echo _e('Activate your addons', 'ultimate-addons-cf7') ?></h2>
+								 <p><?php echo _e('Please activate only the addons you need. This helps avoid loading unnecessary assets (JS, CSS). Both Free and Pro addons are available here, organized ',  'ultimate-addons-cf7') ?><strong><?php echo _e('Alphabetically', 'ultimate-addons-cf7') ?></strong>.</p>
 								<form method="post" action="" class="tf-option-form tf-ajax-save" enctype="multipart/form-data">
 									<div class="uacf7-addon-setting-content">  
 											<?php 
@@ -375,6 +375,8 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 													}else{
 														$badge = '<span class="addon-status">'.esc_html('Free').'</span>';
 													}
+													$child = isset($field['child_field']) ? $field['child_field'] : '';
+													$is_pro = isset($field['is_pro']) ? 'pro' : '';
 													$default = $field['default'] == true ? 'checked' : '';
 													$default = isset($data[$field['id']]) && $data[$field['id']] == 1  ? 'checked' : $default;
 													$value = isset($data[$field['id']]) ? $data[$field['id']] : 0;
@@ -387,7 +389,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 														<?php echo $badge; ?>
 														<h2 class="uacf7-single-addon-title"><?php echo esc_html( $field['label'] ) ?></h2>
 														<div class="uacf7-addon-toggle-wrap">
-															<input type="checkbox" id="<?php echo esc_attr($field['id']) ?>" <?php echo esc_attr( $default ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( $id ) ?>" id="uacf7_enable_redirection" >
+															<input type="checkbox" id="<?php echo esc_attr($field['id']) ?>" data-child="<?php echo esc_attr($child) ?>" data-is-pro="<?php echo esc_attr($is_pro) ?>" <?php echo esc_attr( $default ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( $id ) ?>" id="uacf7_enable_redirection" >
 																
 															<label class="uacf7-addon-toggle-inner <?php echo esc_attr( $label_class ) ?> " for="<?php echo esc_attr($field['id']) ?>">
 																<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -480,7 +482,9 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
  
 		// Custom comparison function based on 'label' value
 		public function uacf7_setup_wizard_sorting($a, $b) {
-			return strcmp($a['label'], $b['label']);
+			$labelA = $a['label'][0];
+    		$labelB = $b['label'][0];
+			return strcmp($labelA, $labelB);
 		}
 
 		/**

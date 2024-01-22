@@ -195,6 +195,7 @@
           if(current_step != 4){
             
              if(current_step == '2'){  
+              
                 if ($(".required-plugin-button").hasClass('disabled') == false){
                   $(".required-plugin-button").trigger('click');
                   return; 
@@ -229,6 +230,7 @@
                   
              }else{
            
+              $('.uacf7-next').show();
               $('.uacf7-next').removeClass('skip');
               // only replace next to skip without svg icon
               $('.uacf7-next').html('Next' + `<svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">

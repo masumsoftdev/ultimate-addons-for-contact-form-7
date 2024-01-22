@@ -27,11 +27,15 @@ body.admin_page_uacf7-setup-wizard {
     font-weight: 700 !important;
     color: #382673 !important;
   }
-
+  .select2.select2-container.select2-container--default {
+    border: 1px solid #ccc !important;
+    padding-top: 6px;
+    border-radius: 3px;
+  }
   .select2-dropdown {
-    border: 1px solid #EAECF0 !important;
-    padding: 5px !important;
-    border-top: 1px solid #EAECF0 !important;
+    // border: 1px solid #EAECF0 !important;
+    // padding: 5px !important;
+    // border-top: 1px solid #EAECF0 !important;
 
     .select2-search__field {
       border: 1px solid #EAECF0 !important;
@@ -472,11 +476,11 @@ body.admin_page_uacf7-setup-wizard {
 
             .uacf7-single-addon-title {
               margin: 0;
-              color: #06040c;
-              font-weight: 400; 
+              color: #06040c !important;
+              font-weight: 400 !important; 
               font-size: 16px;
               font-style: normal; 
-              line-height: 20px;
+              line-height: 20px !important;
               max-width: 80%;
             }
 
