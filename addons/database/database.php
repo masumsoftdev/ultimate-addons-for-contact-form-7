@@ -128,13 +128,14 @@ class UACF7_DATABASE {
 				<h1>
 					<?php echo esc_html__( 'Ultimate Database Addon', 'ultimate-addons-cf7' ); ?>
 				</h1>
+				<p><?php echo esc_html__( 'The Database addon helps store form data, view data in the admin backend, and export data in CSV format.', 'ultimate-addons-cf7' ); ?></p>
 				<br>
 				<?php settings_errors(); ?>
 
 				<!--Tab buttons start-->
 				<div class="uacf7-tab">
 					<a class="tablinks active" onclick="uacf7_settings_tab(event, 'uacf7_addons')">
-						<?php echo esc_html__( 'Ultimate Database', 'ultimate-addons-cf7' ); ?>
+						<?php echo esc_html__( 'Contact Form 7 Database', 'ultimate-addons-cf7' ); ?>
 					</a>
 				</div>
 				<!--Tab buttons end-->

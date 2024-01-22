@@ -109,7 +109,7 @@ if ( ! class_exists( 'UACF7_Metabox' ) ) {
 						?>
 						<div class="tf-metabox-title">
 							<h3>
-								<?php echo esc_html( 'UACF7 Options', 'ultimate-addons-cf7' ) ?>
+								<?php echo esc_html( 'Ultimate Addons for CF7 Options', 'ultimate-addons-cf7' ) ?>
 							</h3>
 
 							<span>

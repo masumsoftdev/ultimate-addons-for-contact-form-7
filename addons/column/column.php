@@ -81,7 +81,7 @@ class UACF7_COLUMN {
                    <p><?php echo esc_html__('You can easily create two columns, three Columns even Four columns form with Contact form 7 using this feature. Just insert tag you need from below list.','ultimate-addons-cf7'); ?></p>
                    <div class="uacf7-doc-notice"> 
                         <?php echo sprintf( 
-                            __( 'Not sure how to set this? Check our step by step  %1s .', 'ultimate-addons-cf7' ),
+                            __( 'Confused? Check our Documentation on  %1s .', 'ultimate-addons-cf7' ),
                             '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-columns/" target="_blank">documentation</a>'
                         ); ?> 
                     </div>
@@ -159,7 +159,7 @@ class UACF7_COLUMN {
                 </table>
                 <div class="uacf7-doc-notice">
                 <?php echo sprintf( 
-                        __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                        __( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
                         '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-columns/" target="_blank">documentation</a>'
                     ); ?>  
                 </div>

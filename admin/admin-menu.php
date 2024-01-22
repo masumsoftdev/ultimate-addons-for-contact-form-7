@@ -344,10 +344,6 @@ class UACF7_Admin_Menu {
 			'ultimate-mailchimp-admin', // page
 			'uacf7_mailchimp_setting_section'
 		);
-
-
-
-
 		do_action( 'uacf7_settings_field' );
 	}
 

@@ -26,18 +26,26 @@ class UACF7_Placeholder {
 	// Add Placeholder Options
 	public function uacf7_post_meta_options_placeholder( $value, $post_id ) {
 		$redirection = apply_filters( 'uacf7_post_meta_options_placeholder_pro', $data = array(
-			'title' => __( 'Placeholder', 'ultimate-addons-cf7' ),
+			'title' => __( 'Placeholder Styler', 'ultimate-addons-cf7' ),
 			'icon' => 'fa-solid fa-italic',
 			'fields' => array(
-				'placeholder_headding' => array(
-					'id' => 'placeholder_headding',
+				'placeholder_heading' => array(
+					'id' => 'placeholder_heading',
 					'type' => 'heading', 
-					'label' => __( 'Placeholder Styles', 'ultimate-addons-cf7' ),
-					'subtitle' => __( 'This addon will help you to edit the Styles of Placeholder of your form. Note that, all below fields are optional. If any field is not needed, leave them blank.', 'ultimate-addons-cf7' ),
-					'content' => sprintf(
-						__( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
-						'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-placeholder-styling/" target="_blank">documentation</a>'
-					)
+					'label' => __( 'Placeholder Styler Settings', 'ultimate-addons-cf7' ),
+					'subtitle' => sprintf(
+                        __( 'Style form placeholders, like text color and background color, without writing any CSS. See Demo %1s.', 'ultimate-addons-cf7' ),
+                         '<a href="https://cf7addons.com/preview/contact-form-7-placeholder-styling/" target="_blank">Example</a>'
+                    )
+				),
+				array(
+					'id'      => 'placeholder-docs',
+					'type'    => 'notice',
+					'style'   => 'success',
+					'content' => sprintf( 
+                        __( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
+                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-placeholder-styling/" target="_blank">Placeholder Styling</a>'
+                    )
 				),
 				'uacf7_enable_placeholder_styles' => array(
 					'id' => 'uacf7_enable_placeholder_styles',

@@ -111,8 +111,8 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 			//Addons submenu
 			add_submenu_page(
 				$this->option_id,
-				__('Add-ons', 'ultimate-addons-cf7'),
-				__('Add-ons', 'ultimate-addons-cf7'),
+				__('All Addons', 'ultimate-addons-cf7'),
+				__('All Addons', 'ultimate-addons-cf7'),
 				'manage_options',
 				'uacf7_addons',
 				array( $this, 'uacf7_addons_page' ),
@@ -121,8 +121,8 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 			// 
 			add_submenu_page(
 				$this->option_id, //parent slug
-				__('Options','ultimate-addons-cf7'), // page_title
-				__('Options','ultimate-addons-cf7'), // menu_title
+				__('Settings','ultimate-addons-cf7'), // page_title
+				__('Settings','ultimate-addons-cf7'), // menu_title
 				'manage_options', // capability
 				$this->option_id.'#tab=mailchimp', // menu_slug
 				array( $this, 'tf_options_page' ) // function
@@ -132,8 +132,8 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 				//License Info submenu 
 				add_submenu_page(
 					$this->option_id, //parent slug
-					__('License', 'ultimate-addons-cf7'),
-					__('License', 'ultimate-addons-cf7'),
+					__('Pro License', 'ultimate-addons-cf7'),
+					__('Pro License', 'ultimate-addons-cf7'),
 					'manage_options',
 					'uacf7_license_info',
 					array( $this,'uacf7_license_info_callback'),

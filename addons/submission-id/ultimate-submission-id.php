@@ -33,17 +33,24 @@ class UACF7_SUBMISSION_ID{
             'title'  => __( 'Submission ID', 'ultimate-addons-cf7' ),
             'icon'   => 'fa-solid fa-fingerprint',
             'fields' => array(
-                
                 'uacf7_submission_id_heading' => array(
                     'id'    => 'uacf7_submission_id_heading',
                     'type'  => 'heading', 
                     'label' => __( 'Unique Submission ID Settings', 'ultimate-addons-cf7' ),
-                    'subtitle' => __( 'This addon will help you to track submission data into the database.', 'ultimate-addons-cf7' ),
-                    'content' => sprintf( 
-                        __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
-                        '<a href="https://themefic.com/docs/uacf7/free-addons/unique-submission-id/" target="_blank">documentation</a>'
-                    )
-                ),
+                    'subtitle' => sprintf(
+                        __( 'Add an unique id to every form submission. The ID can be added on the "Subject Line" of your form. See Demo %1s.', 'ultimate-addons-cf7' ),
+                         '<a href="https://cf7addons.com/preview/unique-id-for-contact-form-7/" target="_blank" rel="noopener">Example</a>'
+                                  )
+                      ),
+                      array(
+                        'id'      => 'submission-id-docs',
+                        'type'    => 'notice',
+                        'style'   => 'success',
+                        'content' => sprintf( 
+                            __( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
+                            '<a href="https://themefic.com/docs/uacf7/free-addons/unique-id-for-contact-form-7/" target="_blank" rel="noopener">Submission ID</a>'
+                        )
+                      ),
              
                 'uacf7_submission_id_enable' => array(
                     'id'        => 'uacf7_submission_id_enable',
@@ -283,7 +290,7 @@ public static function tg_pane_submission_id($contact_form, $args = ''){
                <tbody>
                     <div class="uacf7-doc-notice"> 
                         <?php echo sprintf( 
-                            __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
+                            __( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
                             '<a href="https://themefic.com/docs/uacf7/free-addons/unique-submission-id/" target="_blank">documentation</a>'
                         ); ?> 
                     </div>
