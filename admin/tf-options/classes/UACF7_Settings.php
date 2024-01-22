@@ -228,9 +228,9 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 							</div>
 							<div class="uacf7-settings-heading-wrap">
 								<div class="uacf7-addon-filter-cta"> 
-									<button class="uacf7-addon-filter-button all active">All ( <span class="uacf7-addon-filter-cta-count"></span> )</button>
-									<button class="uacf7-addon-filter-button activete">Active ( <span class="uacf7-addon-filter-cta-count"></span> )</button>
-									<button class="uacf7-addon-filter-button deactive">Deactive ( <span class="uacf7-addon-filter-cta-count"></span> )</button>
+									<button class="uacf7-addon-filter-button all active"><?php echo _e('All', 'ultimate-addons-cf7') ?> ( <span class="uacf7-addon-filter-cta-count"></span> )</button>
+									<button class="uacf7-addon-filter-button activete"><?php echo _e('Active', 'ultimate-addons-cf7') ?> ( <span class="uacf7-addon-filter-cta-count"></span> )</button>
+									<button class="uacf7-addon-filter-button deactive"><?php echo _e('Deactive', 'ultimate-addons-cf7') ?> ( <span class="uacf7-addon-filter-cta-count"></span> )</button>
 								</div>
 							</div>
 						</div>
@@ -263,6 +263,8 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 									}else{
 										echo '<span class="addon-status">'.esc_html('Free').'</span>';
 									}
+									$child = isset($field['child_field']) ? $field['child_field'] : '';
+									$is_pro = isset($field['is_pro']) ? 'pro' : '';
 									$default = $field['default'] == true ? 'checked' : '';
 									$default = isset($data[$field['id']]) && $data[$field['id']] == 1  ? 'checked' : $default;
 									$value = isset($data[$field['id']]) ? $data[$field['id']] : 0;
@@ -284,7 +286,7 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 										<a href="<?php echo sanitize_url($demo_link); ?>" target="_blank" class="uacf7-single-addon-btn">View Demo</a>
 
 										<div class="uacf7-addon-toggle-wrap">
-											<input type="checkbox" id="<?php echo esc_attr($field['id']) ?>" <?php echo esc_attr( $default ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( $id ) ?>" id="uacf7_enable_redirection" >
+											<input type="checkbox" data-child="<?php echo esc_attr($child) ?>" data-is-pro="<?php echo esc_attr($is_pro) ?>" id="<?php echo esc_attr($field['id']) ?>" <?php echo esc_attr( $default ) ?> value="<?php echo esc_html($value); ?>" class="uacf7-addon-input-field" name="<?php echo esc_attr( $id ) ?>" id="uacf7_enable_redirection" >
 												
 											<label class="uacf7-addon-toggle-inner <?php echo esc_attr( $label_class ) ?> " for="<?php echo esc_attr($field['id']) ?>">
 												<span class="uacf7-addon-toggle-track"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">

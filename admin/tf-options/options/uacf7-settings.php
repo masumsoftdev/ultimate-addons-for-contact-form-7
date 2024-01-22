@@ -27,6 +27,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 				'fields' => array(
 					'uacf7_enable_redirection' => array(
 						'id' => 'uacf7_enable_redirection',
+						'child_field' => 'uacf7_enable_redirection_pro',
 						'type' => 'switch',
 						'label' => __( 'Redirection ', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Redirection@2x.png',
@@ -35,9 +36,11 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/redirection-for-contact-form-7/',
 						'default' => false,
 
+
 					),
 					'uacf7_enable_redirection_pro' => array(
 						'id' => 'uacf7_enable_redirection_pro',
+						'child_field' => 'uacf7_enable_redirection',
 						'type' => 'switch',
 						'label' => __( 'Conditional Redirect + Whatsapp Integration + CF7 Tag Support ', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Conditional-Redirect@2x.png',
@@ -50,6 +53,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 					),
 					'uacf7_enable_conditional_field' => array(
 						'id' => 'uacf7_enable_conditional_field',
+						'child_field' => 'uacf7_enable_conditional_field_pro',
 						'type' => 'switch',
 						'label' => __( 'Conditional Field', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Conditional-Field@2x.png',
@@ -61,6 +65,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 					),
 					'uacf7_enable_conditional_field_pro' => array(
 						'id' => 'uacf7_enable_conditional_field_pro',
+						'child_field' => 'uacf7_enable_conditional_field',
 						'type' => 'switch',
 						'label' => __( 'Conditional Field (Pro)', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Conditional-Field@2x.png',
@@ -73,6 +78,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 					),
 					'uacf7_enable_field_column' => array(
 						'id' => 'uacf7_enable_field_column',
+						'child_field' => 'uacf7_enable_field_column_pro',
 						'type' => 'switch',
 						'label' => __( 'Column or Grid', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Column-or-Grid-Layout@2x.png',
@@ -86,6 +92,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 					),
 					'uacf7_enable_field_column_pro' => array(
 						'id' => 'uacf7_enable_field_column_pro',
+						'child_field' => 'uacf7_enable_field_column',
 						'type' => 'switch',
 						'label' => __( 'Column - Custom Width', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Custom-Column-Width@2x.png',
@@ -129,6 +136,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 					),
 					'uacf7_enable_multistep' => array(
 						'id' => 'uacf7_enable_multistep',
+						'child_field' => 'uacf7_enable_multistep_pro',
 						'type' => 'switch',
 						'label' => __( 'Multi-step Form', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Multi-Step-Form@2x.png',
@@ -139,6 +147,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 					),
 					'uacf7_enable_multistep_pro' => array(
 						'id' => 'uacf7_enable_multistep_pro',
+						'child_field' => 'uacf7_enable_multistep',
 						'type' => 'switch',
 						'label' => __( 'Multi-step Form (Pro)', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Multi-Step-Form-Pro-Skins@2x.png',
@@ -299,6 +308,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 					),
 					'uacf7_enable_star_rating' => array(
 						'id' => 'uacf7_enable_star_rating',
+						'child_field' => 'uacf7_enable_star_rating_pro',
 						'type' => 'switch',
 						'label' => __( 'Star Rating', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Star-Rating-Field@2x.png',
@@ -310,6 +320,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 					),
 					'uacf7_enable_star_rating_pro' => array(
 						'id' => 'uacf7_enable_star_rating_pro',
+						'child_field' => 'uacf7_enable_star_rating',
 						'type' => 'switch',
 						'label' => __( 'Star Rating Field (Pro)', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Star-Rating-Field-Pro@2x.png',
@@ -322,6 +333,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 					),
 					'uacf7_enable_range_slider' => array(
 						'id' => 'uacf7_enable_range_slider',
+						'child_field' => 'uacf7_enable_range_slider_pro',
 						'type' => 'switch',
 						'label' => __( 'Range Slider', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Range-Slider@2x.png',
@@ -332,7 +344,8 @@ UACF7_Settings::option( 'uacf7_settings', array(
 
 					),
 					'uacf7_enable_range_slider_pro' => array(
-						'id' => 'uacf7_enable_range_slider_pro',
+						'id' => 'uacf7_enable_range_slider_pro', 
+						'child_field' => 'uacf7_enable_range_slider',
 						'type' => 'switch',
 						'label' => __( 'Range Slider (Pro)', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Range-Slider-Pro@2x.png',
@@ -356,6 +369,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 					),
 					'uacf7_enable_country_dropdown_field' => array(
 						'id' => 'uacf7_enable_country_dropdown_field',
+						'child_field' => 'uacf7_enable_ip_geo_fields',
 						'type' => 'switch',
 						'label' => __( 'Country Dropdown Field', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/All-Country-List-with-Flag@2x.png',
@@ -367,6 +381,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 					),
 					'uacf7_enable_ip_geo_fields' => array(
 						'id' => 'uacf7_enable_ip_geo_fields',
+						'child_field' => 'uacf7_enable_country_dropdown_field',
 						'type' => 'switch',
 						'label' => __( 'IP Geo Fields (Autocomplete Country, City, State, Zip Fields)', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/IP-Geolocation@2x.png',
@@ -385,6 +400,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 				'fields' => array(
 					'uacf7_enable_product_dropdown' => array(
 						'id' => 'uacf7_enable_product_dropdown',
+						'child_field' => 'uacf7_enable_product_dropdown_pro',
 						'type' => 'switch',
 						'label' => __( 'WooCommerce Product Dropdown', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Woocomerce-Product-Dropdown@2x.png',
@@ -397,6 +413,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 					),
 					'uacf7_enable_product_dropdown_pro' => array(
 						'id' => 'uacf7_enable_product_dropdown_pro',
+						'child_field' => 'uacf7_enable_product_dropdown',
 						'type' => 'switch',
 						'label' => __( 'WooCommerce Product Dropdown (Pro)', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Woo-Categorized-Product@2x.png',
