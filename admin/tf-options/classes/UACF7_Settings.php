@@ -228,7 +228,7 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 							</div>
 							<div class="uacf7-settings-heading-wrap">
 								<div class="uacf7-addon-filter-cta"> 
-									<button class="uacf7-addon-filter-button all">All ( <span class="uacf7-addon-filter-cta-count"></span> )</button>
+									<button class="uacf7-addon-filter-button all active">All ( <span class="uacf7-addon-filter-cta-count"></span> )</button>
 									<button class="uacf7-addon-filter-button activete">Active ( <span class="uacf7-addon-filter-cta-count"></span> )</button>
 									<button class="uacf7-addon-filter-button deactive">Deactive ( <span class="uacf7-addon-filter-cta-count"></span> )</button>
 								</div>

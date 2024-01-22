@@ -11,7 +11,7 @@ if ( file_exists( UACF7_PATH . 'admin/tf-options/options/tf-menu-icon.php' ) ) {
 UACF7_Settings::option( 'uacf7_settings', array(
 	'title' => __( 'Ultimate Addons', 'ultimate-addons-cf7' ),
 	'icon' => $menu_icon,
-	'position' => 25,
+	'position' => 50,
 	'sections' =>
 		apply_filters( 'uacf7_settings_options', array(
 			'addons_settings' => array(
