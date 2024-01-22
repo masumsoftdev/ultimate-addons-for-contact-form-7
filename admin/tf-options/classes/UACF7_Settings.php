@@ -318,7 +318,9 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 
 		// Custom comparison function based on 'label' value
 		public function uacf7_setup_wizard_sorting($a, $b) {
-			return strcmp($a['label'], $b['label']);
+			$labelA = $a['label'][0];
+    		$labelB = $b['label'][0];
+			return strcmp($labelA, $labelB);
 		}
 
 		/**
