@@ -703,6 +703,12 @@
     width: 80%;
     text-align: center;
   }
+
+  .uacf7_new_updated_anno
+    .uacf7_new_updated_anno_banner_url
+    .uacf7_new_updated_anno_button {
+    padding: 40px 0;
+  }
 }
 
 @media screen and (max-width: 1200px) {
@@ -721,13 +727,5 @@
     .uacf7_new_updated_anno_banner_url
     .uacf7_new_updated_anno_button {
     padding: 16px 20px;
-  }
-}
-
-@media screen and (max-width: 991px) {
-  .uacf7_new_updated_anno
-    .uacf7_new_updated_anno_banner_url
-    .uacf7_new_updated_anno_button {
-    padding: 40px 0;
   }
 }
