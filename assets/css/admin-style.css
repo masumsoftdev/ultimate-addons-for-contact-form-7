@@ -655,6 +655,41 @@
   text-decoration: none;
 }
 
+/* Plugin page update notice  */
+.update-message.notice-warning p:last-child::before,
+.uacf7_plugin_page_notices p::before {
+  content: none !important;
+}
+
+.uacf7_plugin_page_notices {
+  margin: 0px -12px;
+}
+
+.uacf7_plugin_page_notices .uacf7_info_wrap {
+  padding: 0 12px;
+  border-bottom: 4px solid #dba617;
+}
+
+.uacf7_plugin_page_notices .uacf7_compa_wrap {
+  padding: 0 12px;
+}
+
+.uacf7_plugin_page_notices .uacf7_info_wrap h3 {
+  font-family: "Inter", sans-serif;
+  margin: 0 10px 0;
+  color: #382673;
+  font-size: 20px;
+}
+
+.uacf7_plugin_page_notices .uacf7_info_wrap p {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  width: 70%;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+/* Media query for responsive */
 @media screen and (max-width: 991px) {
   /* Your styles for screens up to 991px wide */
   .uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url {
@@ -667,5 +702,32 @@
     .uacf7_new_updated_anno_info_wrap {
     width: 80%;
     text-align: center;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  /* Your styles for screens up to 1200px wide */
+  .uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url {
+    padding: 40px 12px;
+  }
+}
+
+@media screen and (max-width: 1069px) {
+  /* Your styles for screens up to 1069px wide */
+  .uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url {
+    padding: 40px 12px;
+  }
+  .uacf7_new_updated_anno
+    .uacf7_new_updated_anno_banner_url
+    .uacf7_new_updated_anno_button {
+    padding: 16px 20px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .uacf7_new_updated_anno
+    .uacf7_new_updated_anno_banner_url
+    .uacf7_new_updated_anno_button {
+    padding: 40px 0;
   }
 }

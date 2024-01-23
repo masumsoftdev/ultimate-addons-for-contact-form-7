@@ -477,3 +477,42 @@ if ( ! function_exists( 'uacf7_review_announcement_callback' ) ) {
 
 }
 
+$plugin_file = 'ultimate-addons-for-contact-form-7/ultimate-addons-for-contact-form-7.php';
+add_filter( "in_plugin_update_message-{$plugin_file}", 'my_plugin_update_message', 10, 2 );
+
+function my_plugin_update_message( $plugin_data, $response ) {
+	// $new_version = $response->new_version;
+	if ( is_object( $response ) && isset( $response->new_version ) ) {
+		// If $response is an object
+		$new_version = $response->new_version;
+	} elseif ( is_array( $response ) && isset( $response['new_version'] ) ) {
+		// If $response is an array
+		$new_version = $response['new_version'];
+	} else {
+		// Handle other cases or throw an error
+		$new_version = '';
+	}
+
+	// var_dump( $response );
+	// var_dump( $new_version );
+
+	if ( isset( $new_version ) && version_compare( $new_version, $plugin_data['Version'], '>' ) ) {
+		echo sprintf(
+			__( '
+				<div class="uacf7_plugin_page_notices" >
+					<div class="uacf7_info_wrap">
+						<h3>Heads up, Please backup upgrade!</h3>
+						<p>The latest update includes some substantial changes across different areas of the plugin. We highly recommend you <b>backup your site before upgrading</b>, and make sure you first update in a staging environment.</p>
+					</div>
+					<div class="uacf7_compa_wrap">
+						<p><b>Compatibility Alert</b> - Please ensure that your Contact Form 7 plugin is updated to version <b>5.8.5</b> or higher. </p>
+					</div>
+				</div>
+				', 'instantio' ),
+			'Instantio'
+		);
+	}
+
+	return $plugin_data;
+
+}
