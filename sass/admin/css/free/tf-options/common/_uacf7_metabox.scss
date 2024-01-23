@@ -1,19 +1,35 @@
+.uacf7-metabox {
+  .tf-option-wrapper {
+    margin: 20px 20px 0 0 !important;
+  }
 
-.tf-field-notice-inner.tf-notice-info {
+  .uacf7-metabox {
+    padding: 0;
+  }
+
+  .tf-option-wrapper .tf-metabox-title {
+    margin-left: 20px;
+    margin-bottom: 20px;
+  }
+  .tf-field-notice-inner.tf-notice-info {
     padding: 10px 25px;
     border-radius: 4px;
   }
-  
-  .tf-setting-wrapper .tf-option-form .tf-option .tf-tab-wrapper .tf-tab-content {
+
+  .tf-setting-wrapper
+    .tf-option-form
+    .tf-option
+    .tf-tab-wrapper
+    .tf-tab-content {
     padding: 0;
     background: #fff;
     border-radius: 0;
   }
-  
+
   .tf-setting-wrapper .tf-option-form .tf-option .tf-admin-tab a.tf-tablinks {
     padding: 15px 20px;
   }
-  
+
   .tf-setting-wrapper
     .tf-option-form
     .tf-option
@@ -22,7 +38,7 @@
     .tf-sec-icon {
     color: #fff;
   }
-  
+
   .tf-setting-wrapper
     .tf-option-form
     .tf-option
@@ -32,7 +48,7 @@
     color: #fff;
     border-radius: 0;
   }
-  
+
   .tf-setting-wrapper
     .tf-option-form
     .tf-option
@@ -50,7 +66,7 @@
     margin-top: -5px;
     content: "";
   }
-  
+
   .tf-setting-wrapper
     .tf-option-form
     .tf-option
@@ -58,20 +74,7 @@
     a.tf-tablinks.active::after {
     content: none;
   }
-  
-  .uacf7-metabox .tf-option-wrapper {
-    margin: 20px 20px 0 0 !important;
-  }
-  
-  .uacf7-metabox {
-    padding: 0;
-  }
-  
-  .uacf7-metabox .tf-option-wrapper .tf-metabox-title {
-    margin-left: 20px;
-    margin-bottom: 20px;
-  }
-  
+
   .tf-field-heading {
     margin: 0 -22px !important;
     border-radius: 0 !important;
@@ -79,7 +82,7 @@
     background-color: #f0f2f4 !important;
     border-bottom: 1px solid #e1e5ea !important;
   }
-  
+
   .tf-setting-wrapper
     .tf-option-form
     .tf-option
@@ -89,37 +92,37 @@
     .tf-field-wrap {
     padding: 20px 13px;
   }
-  
+
   .tf-field.tf-field-notice .tf-fieldset {
     margin-top: 0;
   }
-  
+
   .tf-field.tf-field-notice .tf-field-wrap {
     padding-left: 0 !important;
     padding-right: 0 !important;
     padding-bottom: 5px !important;
   }
-  
+
   #redirection .tf-field:nth-child(4) .tf-field-wrap {
     padding-bottom: 0;
   }
-  
+
   #redirection .tf-field:nth-child(5) .tf-field-wrap,
   #redirection .tf-field:nth-child(6) .tf-field-wrap {
     padding-top: 0;
   }
-  
+
   .tf-setting-dashboard .tf-setting-top-bar .other-document .dropdown,
   .uacf7-metabox .tf-setting-top-bar .other-document .dropdown {
     top: 30px;
   }
-  
-  .tf-admin-btn.tf-btn-secondary,
-  .tf-license-activate p.submit input {
-    background-color: #382673 !important;
-    border-color: #382673 !important;
-  }
-  
-  .license-email {
-    margin-top: 20px;
-  }
+}
+.tf-admin-btn.tf-btn-secondary,
+.tf-license-activate p.submit input {
+  background-color: #382673 !important;
+  border-color: #382673 !important;
+}
+
+.license-email {
+  margin-top: 20px;
+}
