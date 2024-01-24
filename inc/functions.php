@@ -418,9 +418,9 @@ if ( ! function_exists( 'uacf7_new_updated_announcement' ) ) {
 							</svg>
 						</button>
 					</a>
-                    ', 'instantio' ),
+                    ', 'ultimate-addons-cf7' ),
 				$current_user->user_login, $imgurl,
-				'Instantio'
+				'ultimate-addons-cf7'
 			); ?>
 
 			<a class="uacf7_new_updated_anno_close uacf7_never" href="#" data-status="uacf7_never">
@@ -480,9 +480,9 @@ if ( ! function_exists( 'uacf7_review_announcement_callback' ) ) {
 }
 
 $plugin_file = 'ultimate-addons-for-contact-form-7/ultimate-addons-for-contact-form-7.php';
-add_filter( "in_plugin_update_message-{$plugin_file}", 'my_plugin_update_message', 10, 2 );
+add_filter( "in_plugin_update_message-{$plugin_file}", 'uacf7_plugin_update_message', 10, 2 );
 
-function my_plugin_update_message( $plugin_data, $response ) {
+function uacf7_plugin_update_message( $plugin_data, $response ) {
 	// $new_version = $response->new_version;
 	if ( is_object( $response ) && isset( $response->new_version ) ) {
 		// If $response is an object
@@ -510,8 +510,8 @@ function my_plugin_update_message( $plugin_data, $response ) {
 						<p><b>Compatibility Alert</b> - Please ensure that your Contact Form 7 plugin is updated to version <b>5.8.5</b> or higher. </p>
 					</div>
 				</div>
-				', 'instantio' ),
-			'Instantio'
+				', 'ultimate-addons-cf7' ),
+			'ultimate-addons-cf7'
 		);
 	}
 
