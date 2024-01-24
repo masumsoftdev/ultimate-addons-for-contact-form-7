@@ -1,10 +1,10 @@
 === Ultimate Addons for Contact Form 7 ===
 Contributors: themefic, raihan143, hasanet, mdrejon
-Tags: contact form 7, contact form 7 addons, contact form 7 addon, contact form 7 booking form, contact form 7 appointment form, contact form 7 placeholder, contact form 7 conditional fields, redirection for contact form 7, contact form 7 thank you page, contact form 7 columns, contact form 7 style, contact form 7 woocommerce, contact form 7 woocommerce product, multi step contact form 7, multi-step contact form, multi step form, post submission contact form 7, form to post contact form 7, contact form 7 to post, custom post contact form 7, contact form 7 custom post type, contact form 7 post submit, caldera forms, Star Rating, Star Rating contact form 7, range slider, range slider contact form 7, contact form 7 conditional redirect, contact form 7 column width, contact form 7 repeater, contact form 7 repeatable fields,  contact form 7 country dropdown, contact form 7 country flags, contact form, contact form 7 mailchimp, contact form 7 dynamic text, contact form 7 pre-populate fields, contact form 7 database, elementor, telegram integration, digital signature, electronic signature
+Tags: contact form 7, contact form 7 addons, contact form 7 addon, contact form 7 booking form, contact form 7 appointment form, contact form 7 placeholder, contact form 7 conditional fields, redirection for contact form 7, contact form 7 thank you page, contact form 7 columns, contact form 7 style, contact form 7 woocommerce, contact form 7 woocommerce product, multi step contact form 7, multi-step contact form, multi step form, post submission contact form 7, form to post contact form 7, contact form 7 to post, custom post contact form 7, contact form 7 custom post type, contact form 7 post submit, caldera forms, Star Rating, Star Rating contact form 7, range slider, range slider contact form 7, contact form 7 conditional redirect, contact form 7 column width, contact form 7 repeater, contact form 7 repeatable fields,  contact form 7 country dropdown, contact form 7 country flags, contact form, contact form 7 mailchimp, contact form 7 dynamic text, contact form 7 pre-populate fields, contact form 7 database, import and export form data,  elementor, telegram integration, digital signature, electronic signature, Send PDF using Contact Form 7, Generate PDF for Contact Form 7
 Requires at least: 4.2
 Tested up to: 6.4
 Requires PHP: 7.4
-Stable tag: 3.2.18
+Stable tag: 3.2.19
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -451,6 +451,11 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 53. Range Slider Pro (Form Example)
 
 == Changelog ==
+
+= 3.2.19 – 24/01/2024 =
+
+- Updated: readme.txt
+- Updated: backup notice for v3.3.0
 
 = 3.2.18 – 22/01/2024 =
 

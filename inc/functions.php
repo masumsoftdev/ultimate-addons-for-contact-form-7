@@ -6,7 +6,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 //Require ultimate Promo Notice
 if ( file_exists( __DIR__ . '/class-promo-notice.php' ) ) {
-
 	require_once( 'class-promo-notice.php' );
 }
 
@@ -273,8 +272,6 @@ function uacf7_add_wrapper_to_cf7_form( $properties, $cfform ) {
 	return $properties;
 }
 
-
-
 // Themefic Plugin Set Admin Notice Status
 if ( ! function_exists( 'uacf7_review_activation_status' ) ) {
 
@@ -407,13 +404,23 @@ if ( ! function_exists( 'uacf7_new_updated_announcement' ) ) {
 		<div class="notice themefic_review_notice uacf7_new_updated_anno">
 			<?php echo sprintf(
 				__( '
-                        <p>
-                            Hey %1$s 👋 
-                        </p>
-                        <a class="uacf7_new_updated_anno_banner_url" target="_blank" href="https://themefic.com/uacf7-revamped-plugin-installation-and-options/"><img class="uacf7_new_updated_anno_banner" src="%2$s/uacf7_new_updated_anno.png" /></a>
-                    ', 'instantio' ),
+                    <a style="background-image: url(%2$s/uacf7_new_updated_anno.png)" class="uacf7_new_updated_anno_banner_url" target="_blank" href="https://themefic.com/uacf7-revamped-plugin-installation-and-options/">
+						<div class="uacf7_new_updated_anno_info_wrap">
+							<h3>
+								Introducing Ultimate Addons For Contact Form 7 v3.3.0!
+							</h3>
+							<p>Get ready for an exciting announcement! We will soon unveil the highly anticipated release of <b>Ultimate Addon Contact Form 7 v3.3.0</b>. Your user experience will be enhanced, and we recommend backing up your site before updating for a smooth transition</p>
+						</div>
+						<button class="uacf7_new_updated_anno_button">
+							Explore What’s New
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M16.0032 9.41421L7.39663 18.0208L5.98242 16.6066L14.589 8H7.00324V6H18.0032V17H16.0032V9.41421Z" fill="#382673"/>
+							</svg>
+						</button>
+					</a>
+                    ', 'ultimate-addons-cf7' ),
 				$current_user->user_login, $imgurl,
-				'Instantio'
+				'ultimate-addons-cf7'
 			); ?>
 
 			<a class="uacf7_new_updated_anno_close uacf7_never" href="#" data-status="uacf7_never">
@@ -472,3 +479,42 @@ if ( ! function_exists( 'uacf7_review_announcement_callback' ) ) {
 
 }
 
+$plugin_file = 'ultimate-addons-for-contact-form-7/ultimate-addons-for-contact-form-7.php';
+add_filter( "in_plugin_update_message-{$plugin_file}", 'uacf7_plugin_update_message', 10, 2 );
+
+function uacf7_plugin_update_message( $plugin_data, $response ) {
+	// $new_version = $response->new_version;
+	if ( is_object( $response ) && isset( $response->new_version ) ) {
+		// If $response is an object
+		$new_version = $response->new_version;
+	} elseif ( is_array( $response ) && isset( $response['new_version'] ) ) {
+		// If $response is an array
+		$new_version = $response['new_version'];
+	} else {
+		// Handle other cases or throw an error
+		$new_version = '';
+	}
+
+	// var_dump( $response );
+	// var_dump( $new_version );
+
+	if ( isset( $new_version ) && version_compare( $new_version, $plugin_data['Version'], '>' ) && $new_version === '3.3.0' ) {
+		echo sprintf(
+			__( '
+				<div class="uacf7_plugin_page_notices" >
+					<div class="uacf7_info_wrap">
+						<h3>Heads up, Please backup upgrade!</h3>
+						<p>The latest update includes some substantial changes across different areas of the plugin. We highly recommend <b> backing up your site </b> before proceeding with the upgrade.</p>
+					</div>
+					<div class="uacf7_compa_wrap">
+						<p><b>Compatibility Alert</b> - Please ensure that your Contact Form 7 plugin is updated to version <b>5.8.5</b> or higher. </p>
+					</div>
+				</div>
+				', 'ultimate-addons-cf7' ),
+			'ultimate-addons-cf7'
+		);
+	}
+
+	return $plugin_data;
+
+}

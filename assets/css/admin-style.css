@@ -1,3 +1,6 @@
+/* inter Font input form google fonts for admin noties banner  */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap");
+
 /* Style the uacf7-tab */
 .contact_page_ultimate-addons #wpcontent {
   background: #fff;
@@ -556,24 +559,94 @@
 
 /* uacf7 new updated announcement */
 .themefic_review_notice.uacf7_new_updated_anno {
-  border-color: #382673;
-  border-style: dashed;
   position: relative;
+  padding: 0;
+  margin: 16px 0;
+  border-radius: 4px;
+  border-color: #473080;
+  border-style: dashed;
 }
 
 .uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url {
-  display: block;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  justify-content: space-evenly;
+  padding: 40px 0;
 }
+
 .uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url:focus,
 .uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url:hover {
-  color: transparent;
   border-color: transparent;
   box-shadow: none;
   outline: 1px solid transparent;
 }
 
-.uacf7_new_updated_anno .uacf7_new_updated_anno_banner {
-  width: 100%;
+.uacf7_new_updated_anno
+  .uacf7_new_updated_anno_banner_url
+  .uacf7_new_updated_anno_info_wrap {
+  width: 70%;
+}
+
+.uacf7_new_updated_anno
+  .uacf7_new_updated_anno_banner_url
+  .uacf7_new_updated_anno_info_wrap
+  h3 {
+  font-family: "Inter", sans-serif;
+  color: #382673;
+  font-weight: 800;
+  font-size: 32px;
+  line-height: 41.6px;
+  margin: 0 0 24px 0;
+}
+
+.uacf7_new_updated_anno
+  .uacf7_new_updated_anno_banner_url
+  .uacf7_new_updated_anno_info_wrap
+  p {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  color: #646464;
+  font-weight: 400;
+  line-height: 24px;
+  font-family: "Inter", sans-serif;
+}
+
+.uacf7_new_updated_anno
+  .uacf7_new_updated_anno_banner_url
+  .uacf7_new_updated_anno_info_wrap
+  p
+  b {
+  font-weight: 700;
+}
+
+.uacf7_new_updated_anno
+  .uacf7_new_updated_anno_banner_url
+  .uacf7_new_updated_anno_button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  color: #382673;
+  border: none;
+  background-color: #fec632;
+  border-radius: 100px;
+  padding: 16px 32px;
+  box-shadow: 0px 8px 30px 0px #8c660033;
+}
+
+.uacf7_new_updated_anno
+  .uacf7_new_updated_anno_banner_url
+  .uacf7_new_updated_anno_button
+  svg {
+  margin-left: 8px;
 }
 
 .uacf7_new_updated_anno_close {
@@ -581,4 +654,79 @@
   top: 5px;
   right: 8px;
   text-decoration: none;
+}
+
+/* Plugin page update notice  */
+.update-message.notice-warning p:last-child::before,
+.uacf7_plugin_page_notices p::before {
+  content: none !important;
+}
+
+.uacf7_plugin_page_notices {
+  margin: 0px -12px;
+}
+
+.uacf7_plugin_page_notices .uacf7_info_wrap {
+  padding: 0 12px;
+  border-bottom: 2px solid #dba617;
+}
+
+.uacf7_plugin_page_notices .uacf7_compa_wrap {
+  padding: 0 12px;
+}
+
+.uacf7_plugin_page_notices .uacf7_info_wrap h3 {
+  font-family: "Inter", sans-serif;
+  margin: 20px 0px 10px;
+  color: #382673;
+  font-size: 20px;
+}
+
+.uacf7_plugin_page_notices .uacf7_info_wrap p {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  width: 70%;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+/* Media query for responsive */
+@media screen and (max-width: 991px) {
+  /* Your styles for screens up to 991px wide */
+  .uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .uacf7_new_updated_anno
+    .uacf7_new_updated_anno_banner_url
+    .uacf7_new_updated_anno_info_wrap {
+    width: 80%;
+    text-align: center;
+  }
+
+  .uacf7_new_updated_anno
+    .uacf7_new_updated_anno_banner_url
+    .uacf7_new_updated_anno_button {
+    padding: 40px 0;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  /* Your styles for screens up to 1200px wide */
+  .uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url {
+    padding: 40px 12px;
+  }
+}
+
+@media screen and (max-width: 1069px) {
+  /* Your styles for screens up to 1069px wide */
+  .uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url {
+    padding: 40px 12px;
+  }
+  .uacf7_new_updated_anno
+    .uacf7_new_updated_anno_banner_url
+    .uacf7_new_updated_anno_button {
+    padding: 16px 20px;
+  }
 }
