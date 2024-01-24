@@ -627,6 +627,7 @@
 .uacf7_new_updated_anno
   .uacf7_new_updated_anno_banner_url
   .uacf7_new_updated_anno_button {
+  cursor: pointer;
   display: flex;
   align-items: center;
   font-family: "Inter", sans-serif;
@@ -667,7 +668,7 @@
 
 .uacf7_plugin_page_notices .uacf7_info_wrap {
   padding: 0 12px;
-  border-bottom: 4px solid #dba617;
+  border-bottom: 2px solid #dba617;
 }
 
 .uacf7_plugin_page_notices .uacf7_compa_wrap {

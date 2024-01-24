@@ -406,7 +406,9 @@ if ( ! function_exists( 'uacf7_new_updated_announcement' ) ) {
 				__( '
                     <a style="background-image: url(%2$s/uacf7_new_updated_anno.png)" class="uacf7_new_updated_anno_banner_url" target="_blank" href="https://themefic.com/uacf7-revamped-plugin-installation-and-options/">
 						<div class="uacf7_new_updated_anno_info_wrap">
-							<h3>Introducing UACF7 v3.3.0!</h3>
+							<h3>
+								Introducing Ultimate Addons For Contact Form 7 v3.3.0!
+							</h3>
 							<p>Get ready for an exciting announcement! We will soon unveil the highly anticipated release of <b>Ultimate Addon Contact Form 7 v3.3.0</b>. Your user experience will be enhanced, and we recommend backing up your site before updating for a smooth transition</p>
 						</div>
 						<button class="uacf7_new_updated_anno_button">
@@ -496,13 +498,13 @@ function my_plugin_update_message( $plugin_data, $response ) {
 	// var_dump( $response );
 	// var_dump( $new_version );
 
-	if ( isset( $new_version ) && version_compare( $new_version, $plugin_data['Version'], '>' ) ) {
+	if ( isset( $new_version ) && version_compare( $new_version, $plugin_data['Version'], '>' ) && $new_version === '3.3.0' ) {
 		echo sprintf(
 			__( '
 				<div class="uacf7_plugin_page_notices" >
 					<div class="uacf7_info_wrap">
 						<h3>Heads up, Please backup upgrade!</h3>
-						<p>The latest update includes some substantial changes across different areas of the plugin. We highly recommend you <b>backup your site before upgrading</b>, and make sure you first update in a staging environment.</p>
+						<p>The latest update includes some substantial changes across different areas of the plugin. We highly recommend <b> backing up your site </b> before proceeding with the upgrade.</p>
 					</div>
 					<div class="uacf7_compa_wrap">
 						<p><b>Compatibility Alert</b> - Please ensure that your Contact Form 7 plugin is updated to version <b>5.8.5</b> or higher. </p>
