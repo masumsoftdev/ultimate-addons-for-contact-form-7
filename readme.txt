@@ -457,6 +457,10 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 - Updated: readme.txt
 - Updated: backup notice for v3.3.0
 
+= 3.2.18 – 22/01/2024 =
+
+- Update Notice: Discover the latest features and improvements that are going to be released in version 3.3.0
+
 = 3.2.17 – 13/01/2024 =
 
 - Update Notice: We are preparing to release version 3.3.0 soon, featuring a new options panel and several enhancements. As a precautionary measure, we recommend taking a backup before proceeding with the update. 
