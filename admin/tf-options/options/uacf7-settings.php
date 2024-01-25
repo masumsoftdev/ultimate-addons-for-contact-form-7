@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) || exit;
 
 if ( file_exists( UACF7_PATH . 'admin/tf-options/options/tf-menu-icon.php' ) ) {
 
-	require_once UACF7_PATH . 'admin/tf-options/options/tf-menu-icon.php';
+	$menu_icon = UACF7_URL . 'assets/admin/images/icon.png'; 
 } else {
 	$menu_icon = 'dashicons-palmtree';
 }
