@@ -1,7 +1,6 @@
 <?php
 // don't load directly
 defined( 'ABSPATH' ) || exit;
-
 if ( ! class_exists( 'UACF7_heading' ) ) {
 	class UACF7_heading extends UACF7_Fields {
 

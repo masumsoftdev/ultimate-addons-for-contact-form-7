@@ -66,7 +66,7 @@ class UACF7_range_Slider {
                     'id'        => 'uacf7_range_handle_width',
                     'type'      => 'number',
                     'label'     => __( ' Slider Handle Width', 'ultimate-addons-cf7' ),
-                    'placeholder'     => __( ' px', 'ultimate-addons-cf7' ),
+                    'placeholder'     => __( 'E.g. 5 (Do not add px or em)', 'ultimate-addons-cf7' ),
                     'field_width' => 50
         
                 ),
@@ -74,7 +74,7 @@ class UACF7_range_Slider {
                     'id'        => 'uacf7_range_handle_height',
                     'type'      => 'number',
                     'label'     => __( ' Slider Handle Height', 'ultimate-addons-cf7' ),
-                    'placeholder'     => __( ' px', 'ultimate-addons-cf7' ),
+                    'placeholder'     => __( 'E.g. 10 (Do not add px or em)', 'ultimate-addons-cf7' ),
                     'field_width' => 50
         
                 ),
@@ -83,7 +83,7 @@ class UACF7_range_Slider {
                     'id'        => 'uacf7_range_handle_border_radius',
                     'type'      => 'number',
                     'label'     => __( ' Handle Border Radius', 'ultimate-addons-cf7' ),
-                    'placeholder'     => __( ' px', 'ultimate-addons-cf7' ),
+                    'placeholder'     => __( 'E.g. 8 (Do not add px or em)', 'ultimate-addons-cf7' ),
                     'field_width' => 50
         
                 ),
@@ -91,7 +91,7 @@ class UACF7_range_Slider {
                     'id'        => 'uacf7_range_slider_height',
                     'type'      => 'number',
                     'label'     => __( ' Slider Height (px)', 'ultimate-addons-cf7' ),
-                    'placeholder'     => __( ' px', 'ultimate-addons-cf7' ),
+                    'placeholder'     => __( 'E.g. 20 (Do not add px or em)', 'ultimate-addons-cf7' ),
                     'field_width' => 50
         
                 ),

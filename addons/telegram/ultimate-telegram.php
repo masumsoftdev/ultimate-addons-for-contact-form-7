@@ -55,7 +55,7 @@ class UACF7_TELEGRAM {
             'uacf7_telegram_enable' => array(
               'id'        => 'uacf7_telegram_enable',
               'type'      => 'switch',
-              'label'     => __( ' Enable/Disable Telegram', 'ultimate-addons-cf7' ),
+              'label'     => __( ' Enable Telegram Integration', 'ultimate-addons-cf7' ),
               'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
               'label_off' => __( 'No', 'ultimate-addons-cf7' ),
               'default'   => false,
@@ -74,7 +74,7 @@ class UACF7_TELEGRAM {
                 'type'      => 'text',
                 'label'     => __( ' Telegram BOT Token ', 'ultimate-addons-cf7' ),
                 'placeholder'     => __( ' Paste here Telegram BOT TOKEN..... ', 'ultimate-addons-cf7' ),
-                'description'     => __( 'You need to create your own Telegram-Bot. Learn how to create & get Token <a href="https://core.telegram.org/bots#3-how-do-i-create-a-bot">here</a>.', 'ultimate-addons-cf7' ),
+                'description'     => __( '<a target="_blank" href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-telegram/#creating-a-bot-with-botfather">Click here</a> to learn how to get BOT Token.', 'ultimate-addons-cf7' ),
                 'field_width' => 50,
             ),
             'uacf7_telegram_chat_id' => array(
@@ -82,7 +82,7 @@ class UACF7_TELEGRAM {
               'type'      => 'text',
               'label'     => __( ' Telegram Chat ID ', 'ultimate-addons-cf7' ),
               'placeholder'     => __( ' Paste here Telegram Chat ID..... ', 'ultimate-addons-cf7' ),
-              'description'     => __( 'You need to create your own Telegram-Chat ID. Learn how to get  <a href="https://www.google.com/search?q=%22how+to+get+telegram+chat+id">here</a>.', 'ultimate-addons-cf7' ),
+              'description'     => __( '<a target="_blank" href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-telegram/#getting-the-user-chat-id">Click here</a> to learn how to get Chat ID.', 'ultimate-addons-cf7' ),
               'field_width' => 50,
           ),
 

@@ -554,6 +554,26 @@
 
 /**** Mirza CSS added on 12 January 2024. Please move them to the designated files. Please remove all the !important tags after moving **/
 
+.uacf7-metabox .tf-field-heading.heading-inner {
+  background: #fff !important;
+  margin: 0 !important;
+  border-bottom: none !important;
+}
+.tf-field-heading.heading-inner
+  .tf-field-heading-inner
+  .tf-field-heading-content {
+  font-weight: 400 !important;
+  color: #87888b;
+}
+.heading-inner .tf-field-wrap h3 {
+  font-size: 16px !important;
+  margin-bottom: 5px !important;
+}
+.heading-inner .tf-field-wrap {
+  padding-bottom: 0 !important;
+  padding-left: 5px !important;
+}
+
 /* @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"); */
 /* 
 .tf-field-notice-inner.tf-notice-info {

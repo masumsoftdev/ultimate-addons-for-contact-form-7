@@ -31,15 +31,15 @@ class UACF7_PRE_POPULATE {
             $all_forms[$form->ID] = $form->post_title; 
         }
         $pre_populated = apply_filters('uacf7_post_meta_options_pre_populated_pro', $data = array(
-            'title'  => __( 'Pre-populate Field', 'ultimate-addons-cf7' ),
+            'title'  => __( 'Pre-Populate Field', 'ultimate-addons-cf7' ),
             'icon'   => 'fa-solid fa-arrow-up-right-dots',
             'fields' => array(
                 'uacf7_pre_populated_heading' => array(
                     'id'    => 'uacf7_pre_populated_heading',
                     'type'  => 'heading', 
-                    'label' => __( 'Pre-populate Field Settings', 'ultimate-addons-cf7' ),
+                    'label' => __( 'Pre-Populate Field Settings', 'ultimate-addons-cf7' ),
                     'subtitle' => sprintf(
-                        __( 'The pre-populate field sends data from one form to another, redirecting after the first form submission. See Demo %1s.', 'ultimate-addons-cf7' ),
+                        __( 'Sends data from one form to another, after the first form submission. See Demo %1s.', 'ultimate-addons-cf7' ),
                          '<a href="https://cf7addons.com/preview/contact-form-7-pre-populate-fields/" target="_blank" rel="noopener">Example</a>'
                                   )
                       ),
@@ -55,31 +55,34 @@ class UACF7_PRE_POPULATE {
                 'pre_populate_enable' => array(
                     'id'        => 'pre_populate_enable',
                     'type'      => 'switch',
-                    'label'     => __( ' Pre-Populate', 'ultimate-addons-cf7' ),
+                    'label'     => __( ' Enable Pre-Populate Field', 'ultimate-addons-cf7' ),
                     'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
                     'label_off' => __( 'No', 'ultimate-addons-cf7' ),
                     'default'   => false,
+                    'field_width' => 33,
+                ),
+                'pre_populate_form' => array(
+                    'id'        => 'pre_populate_form',
+                    'type'      => 'select',
+                    'label'     => __( ' Select Other Form', 'ultimate-addons-cf7' ),
+                    'subtitle'     => __( 'The data will be sent to this form.', 'ultimate-addons-cf7' ),
+                    'options'     => $all_forms,
                     'field_width' => 33,
                 ),
                 'data_redirect_url' => array(
                     'id'        => 'data_redirect_url',
                     'type'      => 'text',
                     'label'     => __( ' Redirect URL ', 'ultimate-addons-cf7' ),
+                    'subtitle'     => __( 'Insert the Page URL of the Other Form.', 'ultimate-addons-cf7' ),
                     'placeholder'     => __( ' Redirect URL ', 'ultimate-addons-cf7' ),
                     'field_width' => 33,
                 ),
-                'pre_populate_form' => array(
-                  'id'        => 'pre_populate_form',
-                  'type'      => 'select',
-                  'label'     => __( ' Select Pre-Populate Form', 'ultimate-addons-cf7' ),
-                  'options'     => $all_forms,
-                  'field_width' => 33,
-              ),
 
               'pre_populate_passing_field' => array(
                 'id' => 'pre_populate_passing_field',
                 'type' => 'repeater',
                 'label' => 'Select Pre-Populate Field',
+                'subtitle'     => __( 'The data inserted on these fields will be forwarded to the other form.', 'ultimate-addons-cf7' ),
                 'class' => 'tf-field-class',
                 'fields' => array(
                     'field_name' => array(

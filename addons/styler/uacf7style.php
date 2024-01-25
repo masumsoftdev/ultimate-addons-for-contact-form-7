@@ -51,13 +51,14 @@ class UACF7_uacf7style {
                 'styler_heading_label' => array(
                     'id'    => 'styler_heading_label',
                     'type'  => 'heading',
-                    'label' => __( 'Label Options', 'ultimate-addons-cf7' ), 
+                    'label' => __( 'Label Options', 'ultimate-addons-cf7' ),
+                    'subtitle'     => __( 'All changes on this section are applicable to the "Label" items. Ensure each label is enclosed within a <label></label> tag.', 'ultimate-addons-cf7' ), //Sydur fix the html here
                 ),
                 'uacf7_uacf7style_label_color_option' => array(
                     'id' => 'uacf7_uacf7style_label_color_option',
                     'type' => 'color',
                     'label'     => __( 'Color Options', 'ultimate-addons-cf7' ), 
-                    'subtitle'     => __( 'Customize Placeholder Color Options', 'ultimate-addons-cf7' ), 
+                    'subtitle'     => __( 'Change the text and background colors of the labels.', 'ultimate-addons-cf7' ), 
                     'class' => 'tf-field-class',
                     // 'default' => '#ffffff',
                     'multiple' => true,
@@ -70,8 +71,7 @@ class UACF7_uacf7style {
                 'uacf7_uacf7style_label_font_style' => array(
                     'id'        => 'uacf7_uacf7style_label_font_style',
                     'type'      => 'select',
-                    'label'     => __( 'Font Style', 'ultimate-addons-cf7' ),  
-                    'subtitle'     => __( 'Select form style', 'ultimate-addons-cf7' ),  
+                    'label'     => __( 'Font Style', 'ultimate-addons-cf7' ), 
                     'options'     => array(
                         'normal'      => 'Normal',
                         'italic' => "Italic",
@@ -81,8 +81,7 @@ class UACF7_uacf7style {
                 'uacf7_uacf7style_label_font_weight' => array(
                     'id'        => 'uacf7_uacf7style_label_font_weight',
                     'type'      => 'select',
-                    'label'     => __( 'Font Weight ', 'ultimate-addons-cf7' ),  
-                    'subtitle'     => __( 'Select form Weight', 'ultimate-addons-cf7' ),  
+                    'label'     => __( 'Font Weight ', 'ultimate-addons-cf7' ),    
                     'options'     => array(
                         'normal'      => 'Normal / 400',
                         '300' => "300",
@@ -96,7 +95,7 @@ class UACF7_uacf7style {
                     'id'        => 'uacf7_uacf7style_label_font_size',
                     'type'      => 'number',
                     'label'     => __( 'Font Size (in px)', 'ultimate-addons-cf7' ),  
-                    'subtitle'     => __( 'E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ),  
+                    'subtitle'     => __( 'E.g. 16 (Do not add px or em).', 'ultimate-addons-cf7' ),  
                     'placeholder'     => __( 'Enter Placeholder Font Size (in px)', 'ultimate-addons-cf7' ),
                     'field_width' => 50,
                 ),
@@ -104,15 +103,16 @@ class UACF7_uacf7style {
                     'id'        => 'uacf7_uacf7style_label_font_family',
                     'type'      => 'text',
                     'label'     => __( 'Font Name ', 'ultimate-addons-cf7' ),  
-                    'subtitle'     => __( " E.g. Roboto, sans-serif (Do not add special characters like '' or ; ) ", "ultimate-addons-cf7" ),  
+                    'subtitle'     => __( " E.g. Roboto, sans-serif (Do not add special characters like '' or ;) ", "ultimate-addons-cf7" ),  
                     'placeholder'     => __( 'Enter Placeholder Font Name ', 'ultimate-addons-cf7' ),
                     'field_width' => 50, 
                 ),
                 'styler_heading_label_padding' => array(
                     'id'    => 'styler_heading_label_padding',
                     'type'  => 'heading',
+                    'class'  => 'heading-inner',
                     'title' => __( 'Padding (in px)', 'ultimate-addons-cf7' ), 
-                    'content' => __( ' E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ), 
+                    'content' => __( ' E.g. 16 (Do not add px or em).', 'ultimate-addons-cf7' ), 
                 ),
                 'uacf7_uacf7style_label_padding_top' => array(
                     'id'        => 'uacf7_uacf7style_label_padding_top',
@@ -144,9 +144,10 @@ class UACF7_uacf7style {
                 ), 
                 'styler_heading_label_margin' => array(
                     'id'    => 'styler_heading_label_margin',
+                    'class'  => 'heading-inner',
                     'type'  => 'heading',
                     'title' => __( 'Margin (in px)', 'ultimate-addons-cf7' ), 
-                    'content' => __( ' E.g. 16(Do not add px or em ). ', 'ultimate-addons-cf7' ), 
+                    'content' => __( ' E.g. 16 (Do not add px or em). ', 'ultimate-addons-cf7' ), 
                 ),
                 'uacf7_uacf7style_label_margin_top' => array(
                     'id'        => 'uacf7_uacf7style_label_margin_top',
@@ -180,12 +181,13 @@ class UACF7_uacf7style {
                     'id'    => 'styler_heading_label',
                     'type'  => 'heading',
                     'label' => __( 'Input Field Options', 'ultimate-addons-cf7' ), 
+                    'subtitle'     => __( 'All modifications in this section are applicable to "Input" fields, such as text, textarea, dropdown, email, etc.', 'ultimate-addons-cf7' ),
                 ),
                 'uacf7_uacf7style_input_color_option' => array(
                     'id' => 'uacf7_uacf7style_input_color_option',
                     'type' => 'color',
                     'label'     => __( 'Color Options', 'ultimate-addons-cf7' ), 
-                    'subtitle'     => __( 'Customize Placeholder Color Options', 'ultimate-addons-cf7' ), 
+                    'subtitle'     => __( 'Change the text and background colors of the input fields.', 'ultimate-addons-cf7' ),
                     'class' => 'tf-field-class',
                     // 'default' => '#ffffff',
                     'multiple' => true,
@@ -199,7 +201,6 @@ class UACF7_uacf7style {
                     'id'        => 'uacf7_uacf7style_input_font_style',
                     'type'      => 'select',
                     'label'     => __( 'Font Style', 'ultimate-addons-cf7' ),  
-                    'subtitle'     => __( 'Select form style', 'ultimate-addons-cf7' ),  
                     'options'     => array(
                         'normal'      => 'Normal',
                         'italic' => "Italic",
@@ -209,8 +210,7 @@ class UACF7_uacf7style {
                 'uacf7_uacf7style_input_font_weight' => array(
                     'id'        => 'uacf7_uacf7style_input_font_weight',
                     'type'      => 'select',
-                    'label'     => __( 'Font Weight ', 'ultimate-addons-cf7' ),  
-                    'subtitle'     => __( 'Select form Weight', 'ultimate-addons-cf7' ),  
+                    'label'     => __( 'Font Weight ', 'ultimate-addons-cf7' ),
                     'options'     => array(
                         'normal'      => 'Normal / 400',
                         '300' => "300",
@@ -224,7 +224,7 @@ class UACF7_uacf7style {
                     'id'        => 'uacf7_uacf7style_input_font_size',
                     'type'      => 'number',
                     'label'     => __( 'Font Size (in px)', 'ultimate-addons-cf7' ),  
-                    'subtitle'     => __( 'E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ),  
+                    'subtitle'     => __( 'E.g. 16 (Do not add px or em).', 'ultimate-addons-cf7' ),  
                     'placeholder'     => __( 'Enter Input Font Size', 'ultimate-addons-cf7' ),
                     'field_width' => 50,
                 ),
@@ -232,7 +232,7 @@ class UACF7_uacf7style {
                     'id'        => 'uacf7_uacf7style_input_font_family',
                     'type'      => 'text',
                     'label'     => __( 'Font Name ', 'ultimate-addons-cf7' ),  
-                    'subtitle'     => __( " E.g. Roboto, sans-serif (Do not add special characters like '' or ; ) ", "ultimate-addons-cf7" ),  
+                    'subtitle'     => __( " E.g. Roboto, sans-serif (Do not add special characters like '' or ;) ", "ultimate-addons-cf7" ),  
                     'placeholder'     => __( 'Enter Input Font Name ', 'ultimate-addons-cf7' ), 
                     'field_width' => 50,
                 ),
@@ -240,7 +240,7 @@ class UACF7_uacf7style {
                     'id'        => 'uacf7_uacf7style_input_height',
                     'type'      => 'number',
                     'label'     => __( 'Input Height (in px)', 'ultimate-addons-cf7' ),  
-                    'subtitle'     => __( 'E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ),  
+                    'subtitle'     => __( 'E.g. 16 (Do not add px or em).', 'ultimate-addons-cf7' ),  
                     'placeholder'     => __( 'Enter Input Height', 'ultimate-addons-cf7' ), 
                     'field_width' => 50,
                 ),
@@ -249,15 +249,16 @@ class UACF7_uacf7style {
                     'id'        => 'uacf7_uacf7style_textarea_input_height',
                     'type'      => 'number',
                     'label'     => __( 'Input (Textarea) Height (in px)', 'ultimate-addons-cf7' ),  
-                    'subtitle'     => __( 'E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ),  
+                    'subtitle'     => __( 'E.g. 16 (Do not add px or em).', 'ultimate-addons-cf7' ),  
                     'placeholder'     => __( 'Enter Textarea Height', 'ultimate-addons-cf7' ),
                     'field_width' => 50,
                 ),
                 'styler_heading_input_padding' => array(
                     'id'    => 'styler_heading_input_padding',
                     'type'  => 'heading',
+                    'class'  => 'heading-inner',
                     'title' => __( 'Padding (in px)', 'ultimate-addons-cf7' ), 
-                    'content' => __( ' E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ), 
+                    'content' => __( ' E.g. 16 (Do not add px or em).', 'ultimate-addons-cf7' ), 
                 ),
                 'uacf7_uacf7style_input_padding_top' => array(
                     'id'        => 'uacf7_uacf7style_input_padding_top',
@@ -289,9 +290,10 @@ class UACF7_uacf7style {
                 ), 
                 'styler_heading_input_margin' => array(
                     'id'    => 'styler_heading_input_margin',
+                    'class'  => 'heading-inner',
                     'type'  => 'heading',
                     'title' => __( 'Margin (in px)', 'ultimate-addons-cf7' ), 
-                    'content' => __( ' E.g. 16(Do not add px or em ). ', 'ultimate-addons-cf7' ), 
+                    'content' => __( ' E.g. 16 (Do not add px or em). ', 'ultimate-addons-cf7' ), 
                 ),
                 'uacf7_uacf7style_input_margin_top' => array(
                     'id'        => 'uacf7_uacf7style_input_margin_top',
@@ -323,6 +325,7 @@ class UACF7_uacf7style {
                 ), 
                 'styler_heading_input_border' => array(
                     'id'    => 'styler_heading_input_border',
+                    'class'  => 'heading-inner',
                     'type'  => 'heading',
                     'title' => __( 'Border ', 'ultimate-addons-cf7' ),  
                 ),
@@ -332,7 +335,7 @@ class UACF7_uacf7style {
                     'label'     => __( 'Border Width (in px)', 'ultimate-addons-cf7' ),   
                     'placeholder'     => __( 'Enter input border width', 'ultimate-addons-cf7' ), 
                     'content' => __( ' E.g. 16(Do not add px or em ). ', 'ultimate-addons-cf7' ), 
-                    'field_width' => 33,
+                    'field_width' => 25,
                 ), 
                 'uacf7_uacf7style_input_border_style' => array(
                     'id'        => 'uacf7_uacf7style_input_border_style',
@@ -346,7 +349,7 @@ class UACF7_uacf7style {
                         'solid' => "Solid",
                         'double' => "Double",
                     ),
-                    'field_width' => 33,
+                    'field_width' => 25,
                 ), 
                 'uacf7_uacf7style_input_border_radius' => array(
                     'id'        => 'uacf7_uacf7style_input_border_radius',
@@ -354,11 +357,12 @@ class UACF7_uacf7style {
                     'label'     => __( 'Border Radius (in px)', 'ultimate-addons-cf7' ),   
                     'placeholder'     => __( 'Enter input border radius', 'ultimate-addons-cf7' ), 
                     'content' => __( ' E.g. 16(Do not add px or em ). ', 'ultimate-addons-cf7' ), 
-                    'field_width' => 33,
+                    'field_width' => 25,
                 ),
                 'uacf7_uacf7style_input_border_color' => array(
                     'id' => 'uacf7_uacf7style_input_border_color',
                     'type' => 'color',
+                    'field_width' => 25,
                     'label'     => __( 'Border Color', 'ultimate-addons-cf7' ), 
                     // 'subtitle'     => __( 'Customize Placeholder Color Options', 'ultimate-addons-cf7' ), 
                     'class' => 'tf-field-class',
@@ -373,7 +377,8 @@ class UACF7_uacf7style {
                 'styler_heading_button' => array(
                     'id'    => 'styler_heading_label',
                     'type'  => 'heading',
-                    'label' => __( 'Submit Button Options', 'ultimate-addons-cf7' ), 
+                    'label' => __( 'Submit Button Options', 'ultimate-addons-cf7' ),
+                    'subtitle'     => __( 'All modifications in this section are applicable to the "Submit" button of the form.', 'ultimate-addons-cf7' ),
                 ),
                 'uacf7_uacf7style_btn_color_option' => array(
                     'id' => 'uacf7_uacf7style_btn_color_option',
@@ -440,7 +445,7 @@ class UACF7_uacf7style {
                         'solid' => "Solid",
                         'double' => "Double",
                     ),
-                    'field_width' => 50,
+                    'field_width' => 33,
                 ),
                 'uacf7_uacf7style_btn_border_width' => array(
                     'id'        => 'uacf7_uacf7style_btn_border_width',
@@ -448,7 +453,7 @@ class UACF7_uacf7style {
                     'label'     => __( 'Border Width (in px)', 'ultimate-addons-cf7' ),   
                     'placeholder'     => __( 'Enter Button border width', 'ultimate-addons-cf7' ), 
                     'content' => __( ' E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ), 
-                    'field_width' => 50,
+                    'field_width' => 33,
                 ), 
                 'uacf7_uacf7style_btn_border_radius' => array(
                     'id'        => 'uacf7_uacf7style_btn_border_radius',
@@ -456,7 +461,7 @@ class UACF7_uacf7style {
                     'label'     => __( 'Border Radius (in px)', 'ultimate-addons-cf7' ),   
                     'placeholder'     => __( 'Enter Button border radius', 'ultimate-addons-cf7' ), 
                     'content' => __( ' E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ), 
-                    'field_width' => 50,
+                    'field_width' => 33,
                 ), 
                 'uacf7_uacf7style_btn_border_color' => array(
                     'id' => 'uacf7_uacf7style_btn_border_color',
@@ -493,8 +498,9 @@ class UACF7_uacf7style {
                 'uacf7_uacf7style_btn_padding' => array(
                     'id'    => 'uacf7_uacf7style_btn_padding',
                     'type'  => 'heading',
+                    'class'  => 'heading-inner',
                     'title' => __( 'Padding (in px)', 'ultimate-addons-cf7' ), 
-                    'content' => __( ' E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ), 
+                    'content' => __( ' E.g. 16 (Do not add px or em).', 'ultimate-addons-cf7' ), 
                 ),
                 'uacf7_uacf7style_btn_padding_top' => array(
                     'id'        => 'uacf7_uacf7style_btn_padding_top',
@@ -526,9 +532,10 @@ class UACF7_uacf7style {
                 ), 
                 'uacf7_uacf7style_btn_margin' => array(
                     'id'    => 'uacf7_uacf7style_btn_margin',
+                    'class'  => 'heading-inner',
                     'type'  => 'heading',
                     'title' => __( 'Margin (in px)', 'ultimate-addons-cf7' ), 
-                    'content' => __( ' E.g. 16(Do not add px or em ). ', 'ultimate-addons-cf7' ), 
+                    'content' => __( ' E.g. 16 (Do not add px or em). ', 'ultimate-addons-cf7' ), 
                 ),
                 'uacf7_uacf7style_btn_margin_top' => array(
                     'id'        => 'uacf7_uacf7style_btn_margin_top',

@@ -83,25 +83,25 @@ class UACF7_MAILCHIMP
             'uacf7_mailchimp_form_enable' => array(
                 'id'        => 'uacf7_mailchimp_form_enable',
                 'type'      => 'switch',
-                'label'     => __( ' Enable/Disable Mailchimp ', 'ultimate-addons-cf7' ),
+                'label'     => __( ' Enable Mailchimp ', 'ultimate-addons-cf7' ),
                 'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
                 'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+                'field_width' => '50',
+                'subtitle' => sprintf( 
+                  __( 'Before enabling, ensure you have added your Mailchimp API key %1s.', 'ultimate-addons-cf7' ),
+                  '<a href="admin.php?page=uacf7_settings#tab=mailchimp" target="_blank" rel="noopener">here</a>'
+                ),
                 'default'   => false
             ),
             
-            'uacf7_mailchimp_api_status' => array(
-              'id'        => 'uacf7_mailchimp_api_status',
-              'type'     => 'callback',
-              'function' => 'uacf7_mailchimp_api_status_callback',
-              'argument' => $status,
-          
-            ), 
+           
             'uacf7_mailchimp_form_type' => array(
               'id'        => 'uacf7_mailchimp_form_type',
               'type'      => 'radio',
-              'label'     => __( ' Type of Form ', 'ultimate-addons-cf7' ),
+              'label'     => __( 'Type of Form', 'ultimate-addons-cf7' ),
+              'field_width' => '50',
               'options' => array(
-                'subscribe' => 'Subscribe Form',
+                'subscribe' => 'Subscription Form',
                 // 'unsubscribe' => 'Unsubscribe Form',
               ),
               'default'   => 'subscribe',
@@ -110,7 +110,8 @@ class UACF7_MAILCHIMP
             'uacf7_mailchimp_audience' => array(
               'id'        => 'uacf7_mailchimp_audience',
               'type'      => 'select',
-              'label'     => __( ' Select Audience ', 'ultimate-addons-cf7' ),
+              'label'     => __( ' Select Mailchimp Audience ', 'ultimate-addons-cf7' ),
+              'field_width' => '25',
               'options' => $audience,
             ),
             'uacf7_mailchimp_subscriber_email' => array(
@@ -122,7 +123,7 @@ class UACF7_MAILCHIMP
                 'specific'      => 'email', 
               ), 
               'options'   => 'uacf7',
-              'field_width' => '33'
+              'field_width' => '25'
             ),
             'uacf7_mailchimp_subscriber_fname' => array(
               'id'        => 'uacf7_mailchimp_subscriber_fname',
@@ -133,7 +134,7 @@ class UACF7_MAILCHIMP
                 'specific'      => 'text', 
               ), 
               'options'   => 'uacf7',
-              'field_width' => '33'
+              'field_width' => '25'
           ),
             'uacf7_mailchimp_subscriber_lname' => array(
               'id'        => 'uacf7_mailchimp_subscriber_lname',
@@ -144,7 +145,7 @@ class UACF7_MAILCHIMP
                 'specific'      => 'text', 
               ), 
               'options'   => 'uacf7',
-              'field_width' => '33'
+              'field_width' => '25'
           ),
           // 'uacf7_mailchimp_custom_field_heading' => array(
           //   'id'        => 'uacf7_mailchimp_custom_field_heading',
@@ -157,6 +158,7 @@ class UACF7_MAILCHIMP
             'id' => 'uacf7_mailchimp_merge_fields',
             'type' => 'repeater',
             'label' => 'Add New Custom Field',
+            'subtitle' => 'Use this option to send your additional field data to Mailchimp, excluding Email and Name.',
             'class' => 'tf-field-class',
             'fields' => array(
                'mailtag' =>  array(
@@ -178,10 +180,15 @@ class UACF7_MAILCHIMP
         
                  ),
              ),
-        )
+            ),
                 
           
-
+        'uacf7_mailchimp_api_status' => array(
+          'id'        => 'uacf7_mailchimp_api_status',
+          'type'     => 'callback',
+          'function' => 'uacf7_mailchimp_api_status_callback',
+          'argument' => $status,
+        ), 
 
 
         ),

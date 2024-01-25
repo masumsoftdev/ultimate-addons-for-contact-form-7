@@ -50,7 +50,7 @@ class UACF7_Placeholder {
 				'uacf7_enable_placeholder_styles' => array(
 					'id' => 'uacf7_enable_placeholder_styles',
 					'type' => 'switch',
-					'label' => __( ' Enable Placeholder ', 'ultimate-addons-cf7' ),
+					'label' => __( ' Enable Placeholder Styling', 'ultimate-addons-cf7' ),
 					'label_on' => __( 'Yes', 'ultimate-addons-cf7' ),
 					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
 					'default' => false
@@ -59,7 +59,7 @@ class UACF7_Placeholder {
 					'id' => 'uacf7_placeholder_color_option',
 					'type' => 'color',
 					'label' => __( 'Color Options', 'ultimate-addons-cf7' ),
-					'subtitle' => __( 'Customize Placeholder Color Options', 'ultimate-addons-cf7' ),
+					'subtitle' => __( 'Change the Text Color & Background Color of Placeholders.', 'ultimate-addons-cf7' ),
 					'class' => 'tf-field-class',
 					'default' => '#ffffff',
 					'multiple' => true,
@@ -73,7 +73,6 @@ class UACF7_Placeholder {
 					'id' => 'uacf7_placeholder_fontstyle',
 					'type' => 'select',
 					'label' => __( 'Font Style', 'ultimate-addons-cf7' ),
-					'subtitle' => __( 'Select form style', 'ultimate-addons-cf7' ),
 					'options' => array(
 						'normal' => 'Normal',
 						'italic' => "Italic",
@@ -84,7 +83,6 @@ class UACF7_Placeholder {
 					'id' => 'uacf7_placeholder_fontweight',
 					'type' => 'select',
 					'label' => __( 'Font Weight ', 'ultimate-addons-cf7' ),
-					'subtitle' => __( 'Select form Weight', 'ultimate-addons-cf7' ),
 					'options' => array(
 						'normal' => 'Normal / 400',
 						'300' => "300",
@@ -98,7 +96,7 @@ class UACF7_Placeholder {
 					'id' => 'uacf7_placeholder_fontsize',
 					'type' => 'number',
 					'label' => __( 'Font Size (in px)', 'ultimate-addons-cf7' ),
-					'subtitle' => __( 'E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ),
+					'subtitle' => __( 'E.g. 16 (Do not add px or em).', 'ultimate-addons-cf7' ),
 					'placeholder' => __( 'Enter Placeholder Font Size (in px)', 'ultimate-addons-cf7' ),
 					'field_width' => 50,
 				),
@@ -106,7 +104,7 @@ class UACF7_Placeholder {
 					'id' => 'uacf7_placeholder_fontfamily',
 					'type' => 'text',
 					'label' => __( 'Font Name ', 'ultimate-addons-cf7' ),
-					'subtitle' => __( " E.g. Roboto, sans-serif (Do not add special characters like '' or ; ) ", "ultimate-addons-cf7" ),
+					'subtitle' => __( " E.g. Roboto, sans-serif (Do not add special characters like '' or ;) ", "ultimate-addons-cf7" ),
 					'placeholder' => __( 'Enter Placeholder Font Name ', 'ultimate-addons-cf7' ),
 					'field_width' => 50,
 				),

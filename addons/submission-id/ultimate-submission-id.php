@@ -38,7 +38,7 @@ class UACF7_SUBMISSION_ID{
                     'type'  => 'heading', 
                     'label' => __( 'Unique Submission ID Settings', 'ultimate-addons-cf7' ),
                     'subtitle' => sprintf(
-                        __( 'Add an unique id to every form submission. The ID can be added on the "Subject Line" of your form. See Demo %1s.', 'ultimate-addons-cf7' ),
+                        __( 'Add an unique id to every form submission to keep a record of each submission. The ID can be added on the "Subject Line" of your form. See Demo %1s.', 'ultimate-addons-cf7' ),
                          '<a href="https://cf7addons.com/preview/unique-id-for-contact-form-7/" target="_blank" rel="noopener">Example</a>'
                                   )
                       ),
@@ -55,27 +55,26 @@ class UACF7_SUBMISSION_ID{
                 'uacf7_submission_id_enable' => array(
                     'id'        => 'uacf7_submission_id_enable',
                     'type'      => 'switch',
-                    'label'     => __( ' Enable/Disable Submission ID', 'ultimate-addons-cf7' ),
+                    'label'     => __( ' Enable Submission ID', 'ultimate-addons-cf7' ),
                     'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
                     'label_off' => __( 'No', 'ultimate-addons-cf7' ),
-                    'default'   => false, 
-                    'field_width' => 33,
+                    'default'   => false,
                 ),
                 'uacf7_submission_id' => array(
                     'id'        => 'uacf7_submission_id',
                     'type'      => 'number',
                     'label'     => __( ' Submission ID Starts from ', 'ultimate-addons-cf7' ),
                     'placeholder'     => __( ' 1 ', 'ultimate-addons-cf7' ),
-                    'description'     => __( ' E.g. default 1 ', 'ultimate-addons-cf7' ),
-                    'field_width' => 33,
+                    'description'     => __( 'Enter the starting number for the countdown, for example, 101. The default setting is 1.', 'ultimate-addons-cf7' ),
+                    'field_width' => 50,
                 ),
                 'uacf7_submission_id_step' => array(
                     'id'        => 'uacf7_submission_id_step',
                     'type'      => 'number',
-                    'label'     => __( ' Submission ID Step Increament ', 'ultimate-addons-cf7' ),
+                    'label'     => __( 'ID Step Increment ', 'ultimate-addons-cf7' ),
                     'placeholder'     => __( ' 1 ', 'ultimate-addons-cf7' ),
-                    'description'     => __( ' E.g. default 1 ', 'ultimate-addons-cf7' ),
-                    'field_width' => 33,
+                    'description'     => __( ' Set how much the number will increase with each submission. For instance, if you set it to 2 and the ID starts from 101, the number will increment in the following sequence with each submission: 101, 103, 105, and so on. The default setting is 1.', 'ultimate-addons-cf7' ),
+                    'field_width' => 50,
                 ), 
             ),
             
