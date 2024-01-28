@@ -6,6 +6,8 @@ if (!defined('ABSPATH')) {
     exit();
 }
 
+
+
 class UACF7_SUBMISSION_ID{
 
     public function __construct(){
@@ -13,11 +15,11 @@ class UACF7_SUBMISSION_ID{
 
         add_action('admin_init', [$this, 'submission_tag_generator']);
         add_action('wpcf7_init', [$this, 'submission_id_add_shortcodes']);
-
         add_action( 'wp_ajax_uacf7_update_submission_id', [$this, 'uacf7_update_submission_id'] );
         add_action( 'wp_ajax_nopriv_uacf7_update_submission_id', [$this, 'uacf7_update_submission_id'] );
         
         add_filter('wpcf7_mail_sent', [$this, 'submission_id_update']);
+        add_filter('wpcf7_mail_components', [$this, 'submission_id_custom_cf7_mail_subject'], 10, 2);
 
         // Submission ID Update into Database
         add_action('uacf7_submission_id_insert', [$this, 'uacf7_submission_id_insert_callback'], 10, 4);
@@ -26,6 +28,7 @@ class UACF7_SUBMISSION_ID{
         require_once 'inc/submission-id.php';
 
     }
+    
 
     function uacf7_post_meta_options_submission_id( $value, $post_id){
 
@@ -61,6 +64,7 @@ class UACF7_SUBMISSION_ID{
                     'default'   => false, 
                     'field_width' => 33,
                 ),
+           
                 'uacf7_submission_id' => array(
                     'id'        => 'uacf7_submission_id',
                     'type'      => 'number',
@@ -77,6 +81,28 @@ class UACF7_SUBMISSION_ID{
                     'description'     => __( ' E.g. default 1 ', 'ultimate-addons-cf7' ),
                     'field_width' => 33,
                 ), 
+                'uacf7_submission_id_send_to_sub_line' => array(
+                    'id'        => 'uacf7_submission_id_send_to_sub_line',
+                    'type'      => 'switch',
+                    'label'     => __( 'Send Submission ID to the Mail Subject Line', 'ultimate-addons-cf7' ),
+                    'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
+                    'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+                    'default'   => false, 
+                    'field_width' => 50,
+                ),
+                'uacf7_submission_id_place' => array(
+                    'id'        => 'uacf7_submission_id_place',
+                    'type'      => 'select',
+                    'label'     => __( 'Show to Subject\'s Text', 'ultimate-addons-cf7' ),
+                    'options'  => array( 
+                        'left' => 'Left',
+                        'right' => 'Right',
+                        'only_sub_id' => 'Show only Submission ID, skip Subject Text'
+                     ),
+                    'default'   => 'left', 
+                    'field_width' => 50,
+                    'dependency' => array( 'uacf7_submission_id_send_to_sub_line', '==', true ),
+                ),
             ),
             
     
@@ -98,12 +124,7 @@ public function submission_id_public_assets_loading(){
 
     ] );
 }
- 
-
-
-
 /** Ends Loading Essential JS & CSS */
-
 
 
 /**
@@ -153,8 +174,6 @@ public function uacf7_submission_id_insert_callback( $uacf7_db_id, $form_id, $in
     }
     
 }
-
-
 
 public function submission_id_update($form){
 
@@ -317,5 +336,36 @@ public static function tg_pane_submission_id($contact_form, $args = ''){
   <?php
 }
 
+public function submission_id_custom_cf7_mail_subject($components, $form) {
+
+    $form_id = $form->id();
+    $submission = uacf7_get_form_option( $form_id, 'submission_id' );
+    $meta_data = isset($submission['uacf7_submission_id']) ? $submission['uacf7_submission_id'] : 0;
+    $uacf7_submission_id_enable = isset($submission['uacf7_submission_id_enable']) ? $submission['uacf7_submission_id_enable'] : false; 
+    $uacf7_submission_id_send_to_sub_line = isset($submission['uacf7_submission_id_send_to_sub_line']) ? $submission['uacf7_submission_id_send_to_sub_line'] : false; 
+    $uacf7_submission_id_place = isset($submission['uacf7_submission_id_place']) ? $submission['uacf7_submission_id_place'] : false; 
+    
+    if($uacf7_submission_id_enable == true && $uacf7_submission_id_send_to_sub_line == true){
+        if($uacf7_submission_id_place === 'left'){
+            $components['subject'] = $meta_data . ' ' . $components['subject'];
+        }elseif($uacf7_submission_id_place === 'right'){
+            $components['subject'] =$components['subject'] . ' ' .$meta_data ;
+        }elseif($uacf7_submission_id_place === 'only_sub_id'){
+            $components['subject'] = $meta_data ;
+        }
+    }
+    return $components;
+}
+
 } 
 new UACF7_SUBMISSION_ID();
+
+
+
+
+
+
+
+
+
+
