@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) || exit;
 
 if ( file_exists( UACF7_PATH . 'admin/tf-options/options/tf-menu-icon.php' ) ) {
 
-	$menu_icon = UACF7_URL . 'assets/admin/images/icon.png'; 
+	$menu_icon = UACF7_URL . 'assets/admin/images/icon.png';
 } else {
 	$menu_icon = 'dashicons-palmtree';
 }
@@ -199,8 +199,20 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'subtitle' => __( 'The Database addon helps store form data, view data in the admin backend, and export data in CSV format. ', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-database/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-database/',
+					),
+					// Added by M Hemel Hasan
+					'uacf7_enable_star_database_pro' => array(
+						'id' => 'uacf7_enable_star_database_pro',
+						'type' => 'switch',
+						'label' => __( 'Database Pro', 'ultimate-addons-cf7' ),
+						'image_url' => UACF7_URL . 'assets/admin/images/addons/Save-to-Database.png',
+						'default' => false,
+						'subtitle' => __( 'The Database Pro addon helps store form data, view data in the admin backend, and export data in CSV format. ', 'ultimate-addons-cf7' ),
+						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-database/',
+						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-database/',
 
 					),
+
 					'uacf7_enable_pdf_generator_field' => array(
 						'id' => 'uacf7_enable_pdf_generator_field',
 						'type' => 'switch',
@@ -344,7 +356,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 
 					),
 					'uacf7_enable_range_slider_pro' => array(
-						'id' => 'uacf7_enable_range_slider_pro', 
+						'id' => 'uacf7_enable_range_slider_pro',
 						'child_field' => 'uacf7_enable_range_slider',
 						'type' => 'switch',
 						'label' => __( 'Range Slider (Pro)', 'ultimate-addons-cf7' ),
@@ -453,7 +465,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'label' => __( 'Mailchimp API', 'ultimate-addons-cf7' ),
 						'subtitle' => sprintf(
 							__( 'Please enter your Mailchimp API key. If you are not sure how to get the API Key, follow this %1s.', 'ultimate-addons-cf7' ),
-							 '<a href="https://mailchimp.com/help/about-api-keys/" target="_blank" rel="noopener">article</a>'
+							'<a href="https://mailchimp.com/help/about-api-keys/" target="_blank" rel="noopener">article</a>'
 						)
 					),
 					'uacf7_mailchimp_api_status' => array(
