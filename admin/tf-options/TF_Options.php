@@ -350,7 +350,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 
 					<?php if ( ! empty( $field['subtitle'] ) ) : ?>
 						<span class="tf-field-sub-title">
-							<?php echo wp_kses_post( $field['subtitle'] ) ?>
+							<?php echo esc_html( $field['subtitle'] ) ?>
 						</span>
 					<?php endif; ?>
 
