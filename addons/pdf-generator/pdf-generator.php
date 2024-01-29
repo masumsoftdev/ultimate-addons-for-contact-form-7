@@ -346,6 +346,14 @@ class UACF7_PDF_GENERATOR {
                 padding: 20px;
                 height: 100%;
             }
+            .pdf-content table{  
+                width: 100%; 
+                border-collapse: collapse; 
+            }
+            .pdf-content tr td{   
+                border: 1px solid !importent;  
+                padding: 5px;
+            } 
             .header-logo{
                 text-align: '.esc_attr( $pdf_header_img_aline ).'; 
                 float: left; 
@@ -534,6 +542,14 @@ class UACF7_PDF_GENERATOR {
                     padding: 20px;
                     height: 100%;
                 }
+                .pdf-content table{  
+                    width: 100%; 
+                    border-collapse: collapse; 
+                }
+                .pdf-content table td{   
+                    border: 1px solid !importent;  
+                    padding: 5px;
+                } 
                 .header-logo{
                     text-align: '.esc_attr( $pdf_header_img_aline ).'; 
                     float: left; 
