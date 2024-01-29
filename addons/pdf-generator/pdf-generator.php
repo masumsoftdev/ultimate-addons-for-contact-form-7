@@ -349,10 +349,14 @@ class UACF7_PDF_GENERATOR {
             .pdf-content table{  
                 width: 100%; 
                 border-collapse: collapse; 
+                border-left: 1px solid ;
+                border-bottom: 1px solid;
             }
             .pdf-content tr td{   
-                border: 1px solid !importent;  
+                border-top: 1px solid;
+                border-right: 1px solid;
                 padding: 5px;
+                text-align: center;
             } 
             .header-logo{
                 text-align: '.esc_attr( $pdf_header_img_aline ).'; 
@@ -545,10 +549,14 @@ class UACF7_PDF_GENERATOR {
                 .pdf-content table{  
                     width: 100%; 
                     border-collapse: collapse; 
+                    border-left: 1px solid ;
+                    border-bottom: 1px solid;
                 }
-                .pdf-content table td{   
-                    border: 1px solid !importent;  
+                .pdf-content tr td{   
+                    border-top: 1px solid;
+                    border-right: 1px solid;
                     padding: 5px;
+                    text-align: center;
                 } 
                 .header-logo{
                     text-align: '.esc_attr( $pdf_header_img_aline ).'; 

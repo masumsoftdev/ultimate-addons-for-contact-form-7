@@ -349,8 +349,14 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 					<?php endif; ?>
 
 					<?php if ( ! empty( $field['subtitle'] ) ) : ?>
-						<span class="tf-field-sub-title">
-							<?php echo esc_html( $field['subtitle'] ) ?>
+						<span class="tf-field-sub-title"> 
+							<?php 
+								if($field['id'] == 'styler_heading_label'){ 
+									echo esc_html( $field['subtitle'] );
+								}else{
+									echo wp_kses_post( $field['subtitle'] );
+								} 
+							?>
 						</span>
 					<?php endif; ?>
 
