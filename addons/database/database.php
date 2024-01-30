@@ -128,7 +128,9 @@ class UACF7_DATABASE {
 				<h1>
 					<?php echo esc_html__( 'Ultimate Database Addon', 'ultimate-addons-cf7' ); ?>
 				</h1>
-				<p><?php echo esc_html__( 'The Database addon helps store form data, view data in the admin backend, and export data in CSV format.', 'ultimate-addons-cf7' ); ?></p>
+				<p>
+					<?php echo esc_html__( 'The Database addon helps store form data, view data in the admin backend, and export data in CSV format.', 'ultimate-addons-cf7' ); ?>
+				</p>
 				<br>
 				<?php settings_errors(); ?>
 
@@ -226,6 +228,11 @@ class UACF7_DATABASE {
 	 */
 	public function uacf7_save_to_database( $form ) {
 		require_once( ABSPATH . 'wp-admin/includes/file.php' );
+
+		if ( ! is_plugin_active( 'ultimate-addons-for-contact-form-7-pro/ultimate-addons-for-contact-form-7-pro.php' ) ) {
+			require_once( UACF7_PRO_PATH_ADDONS . '/database-pro/functions.php' );
+		}
+
 		global $wpdb;
 		$encryptionKey = 'AES-256-CBC';
 		$table_name = $wpdb->prefix . 'uacf7_form';
@@ -307,6 +314,12 @@ class UACF7_DATABASE {
 				}
 			}
 		}
+
+		if ( function_exists( 'uacf7dp_add_more_fields' ) ) {
+			$extra_fields_data = uacf7dp_add_more_fields( $inserts_data, $submission, );
+		}
+
+		apply_filters( 'uacf7dp_send_form_data_before_insert', $insert_data, $extra_fields_data );
 
 		$insert_data = json_encode( $insert_data );
 
