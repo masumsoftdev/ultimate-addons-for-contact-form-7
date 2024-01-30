@@ -368,7 +368,7 @@ You can do it easily with the PDF Addon of Ultimate Addons for Contact Form 7. P
 
 = How to add repeatable groups of fields to Contact Form 7 =
 
-You can do it easily with the Repeater Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/pro-addons/repeater-field-for-contact-form-7/">article</a> to learn more.
+You can do it easily with the Repeater Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/pro-addons/contact-form-7-repeatable-fields/">article</a> to learn more.
 
 = How To Use Contact Form 7 To Get WordPress Post Submissions (Posts, Pages, & CPTs) =
 

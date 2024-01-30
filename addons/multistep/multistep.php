@@ -124,7 +124,7 @@ class UACF7_MULTISTEP {
 					'id'        => 'uacf7_progressbar_style',
                     'type'     => 'imageselect',
 					'label'     => __( 'Choose Form Layout / Style', 'ultimate-addons-cf7' ),
-					'description'     => __( 'See live demo examples here: <a href="https://cf7addons.com/preview/contact-form-7-multi-step-forms/pro/" target="_blank">Live demo</a>.', 'ultimate-addons-cf7' ),
+					'description'     => __( 'See live demo examples <a href="https://cf7addons.com/preview/contact-form-7-multi-step-forms/pro/" target="_blank">here</a>.', 'ultimate-addons-cf7' ),
                     'multiple' 		=> true,
                     'inline'   		=> true,
                     'options' => array(
@@ -169,7 +169,7 @@ class UACF7_MULTISTEP {
                     'id' => 'uacf7_progressbar_styler',
                     'type'  => 'heading',
                     'label'     => __( 'Progressbar Styler', 'ultimate-addons-cf7' ), 
-                    'content' => __( 'All modifications in this section are applicable to the "Progressbar" of the form.', 'ultimate-addons-cf7' ), 
+                    'subtitle' => __( 'All modifications in this section are applicable to the "Progressbar" of the form.', 'ultimate-addons-cf7' ), 
                 ),
 
                 'uacf7_multistep_step_height' => array(
@@ -206,7 +206,7 @@ class UACF7_MULTISTEP {
                     'type'  => 'heading',
                     'class'  => 'heading-inner',
                     'label'     => __( 'Size Options', 'ultimate-addons-cf7' ), 
-                    'content' => __( ' E.g. 16 (Do not add px or em).', 'ultimate-addons-cf7' ), 
+                    'subtitle' => __( ' E.g. 16 (Do not add px or em).', 'ultimate-addons-cf7' ), 
                 ),
 
                 
@@ -243,7 +243,7 @@ class UACF7_MULTISTEP {
                     'id' => 'uacf7_progressbar_button_style',
                     'type'  => 'heading',
                     'label'     => __( 'Next and Previous Button Style', 'ultimate-addons-cf7' ), 
-                    'content' => __( 'All modifications in this section are applicable to the "Button" of the form.', 'ultimate-addons-cf7' ), 
+                    'subtitle' => __( 'All modifications in this section are applicable to the "Button" of the form.', 'ultimate-addons-cf7' ), 
                 ),
                 'uacf7_multistep_button_padding_tb' => array(
                     'id'        => 'uacf7_multistep_button_padding_tb',
@@ -368,7 +368,7 @@ class UACF7_MULTISTEP {
         );
 
         wpcf7_add_tag_generator('uacf7_step_end',
-            __('Multistep end', 'ultimate-addons-cf7'),
+            __('Multistep End', 'ultimate-addons-cf7'),
             'wpcf7-tg-pane-step-end',
             array($this, 'tg_pane_step_end')
         );
@@ -398,14 +398,14 @@ class UACF7_MULTISTEP {
                     </tbody>
                 </table>
                 <div class="uacf7-doc-notice uacf7-guide">
-                <?php echo esc_html( __( 'You need to enable the form from the "UACF7 Multistep Form" tab. The tab also includes additional necessary settings. Make sure you set those, otherwise the form submission may not work correctly.', 'ultimate-addons-cf7' ) ); ?>
+                <?php echo esc_html( __( 'To activate the form, enable it from the "Multi-step Form" tab located under the Ultimate Addons for CF7 Options. This tab also contains additional settings.', 'ultimate-addons-cf7' ) ); ?>
                   
                     
                 </div>
                 <div class="uacf7-doc-notice">
                      <?php echo sprintf( 
                         __( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
-                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-multi-step-forms/" target="_blank">documentation</a>'
+                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-multi-step-forms/" target="_blank">Multi-step Form</a>'
                     ); ?> 
                 </div>
             </fieldset>

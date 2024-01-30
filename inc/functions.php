@@ -26,7 +26,7 @@ function uacf7_post_meta_options_import_export($value, $post_id){
 					'id'    => 'placeholder_heading',
 					'type'  => 'heading', 
 					'label' => __( 'Import/Export', 'ultimate-addons-cf7' ),
-					'subtitle' => __( 'Import and export current form settings option.', 'ultimate-addons-cf7' )
+					'subtitle' => __( 'Import and export all addon settings associated with this form. Please save the form in order to generate the export file.', 'ultimate-addons-cf7' )
 				), 
 				'uacf7_import_export_backup' => array(
                     'id' => 'uacf7_import_export_backup',

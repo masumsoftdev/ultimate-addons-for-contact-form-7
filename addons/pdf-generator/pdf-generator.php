@@ -69,36 +69,17 @@ class UACF7_PDF_GENERATOR {
                 'uacf7_enable_pdf_generator' => array(
                     'id'        => 'uacf7_enable_pdf_generator',
                     'type'      => 'switch',
-                    'label'     => __( ' Enable/Disable PDF Generator ', 'ultimate-addons-cf7' ),
+                    'label'     => __( ' Enable PDF Generator ', 'ultimate-addons-cf7' ),
                     'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
                     'label_off' => __( 'No', 'ultimate-addons-cf7' ),
                     'default'   => false,
                     'field_width' => 50,
                 ),
-              
-                'uacf7_pdf_name' => array(
-                    'id'        => 'uacf7_pdf_name',
-                    'type'      => 'text',
-                    'label'     => __( 'PDF Name ', 'ultimate-addons-cf7' ),
-                    'placeholder'     => __( 'Ex: pdf-name ', 'ultimate-addons-cf7' ),
-                    'field_width' => 50,
-            
-                ),
-                'pdf_send_to' => array(
-                    'id'        => 'pdf_send_to',
-                    'type'      => 'select',
-                    'label'     => __( 'PDF Send To ', 'ultimate-addons-cf7' ),
-                    'options'   => array(
-                        'option 1' => 'Default',
-                        'option 2' => 'Mail 1',
-                        'option 3' => 'Mail 2',
-                    ),
-                    'field_width' => '50'
-                ),
+
                 'uacf7_pdf_disable_header_footer' => array(
                     'id'        => 'uacf7_pdf_disable_header_footer',
                     'type'      => 'checkbox',
-                    'label'     => __( 'Disable Header and Footer ', 'ultimate-addons-cf7' ),
+                    'label'     => __( 'Disable Header and Footer of PDF', 'ultimate-addons-cf7' ),
                     'options'   => array(
                         'header' => 'Disable Header',
                         'footer' => 'Disable Footer'
@@ -106,57 +87,33 @@ class UACF7_PDF_GENERATOR {
                     'field_width' => '50',
                     'inline'      => true
                 ),
-                'uacf7_customize_pdf_body' => array(
-                    'id'        => 'uacf7_customize_pdf_body',
-                    'type'      => 'heading',
-                    'label'     => __( ' Customize PDF Body', 'ultimate-addons-cf7' ),
-                ),
-
-                'pdf_bg_upload_image' => array(
-                    'id'        => 'pdf_bg_upload_image',
-                    'type'      => 'image',
-                    'label'     => __( 'PDF Background Image ', 'ultimate-addons-cf7' ),
-
-                ), 
-                'pdf_content_bg_color' => array(
-                    'id'        => 'pdf_content_bg_color',
-                    'type'      => 'color',
-                    'label'     => __( 'PDF Background Color ', 'ultimate-addons-cf7' ),
+              
+                'uacf7_pdf_name' => array(
+                    'id'        => 'uacf7_pdf_name',
+                    'type'      => 'text',
+                    'label'     => __( 'PDF Name ', 'ultimate-addons-cf7' ),
+                    'subtitle'     => __( "For instance, if you enter 'website-submission' as the file name, the resulting PDF will be named 'website-submission.pdf'.", 'ultimate-addons-cf7' ),
+                    'placeholder'     => __( 'E.g. website-submission', 'ultimate-addons-cf7' ),
                     'field_width' => 50,
-                    'class' => 'tf-field-class',
-                    // 'default' => '#ffffff',
-                    'multiple' => false,
-                    'inline' => true,   
+            
                 ),
-                'pdf_content_color' => array(
-                    'id'        => 'pdf_content_color',
-                    'type'      => 'color',
-                    'label'     => __( 'PDF Content Color ', 'ultimate-addons-cf7' ),
-                    'field_width' => 50,
-                    'class' => 'tf-field-class',
-                    // 'default' => '#ffffff',
-                    'multiple' => false,
-                    'inline' => true,   
-                ),
-                
-                'uacf7_pdf_form_tags' => array(
-                    'id'        => 'uacf7_pdf_form_tags',
-                    'type'     => 'callback', 
-                    'function' => 'uacf7_pdf_form_tags_callback',
-                    'argument' => $post_id,
-                
-                ),  
-                'customize_pdf' => array(
-                    'id'        => 'customize_pdf',
-                    'label'        => __( 'Customize PDF Content ', 'ultimate-addons-cf7' ),
-                    'type'      => 'editor',
-
+                'pdf_send_to' => array(
+                    'id'        => 'pdf_send_to',
+                    'type'      => 'select',
+                    'label'     => __( 'PDF Send To ', 'ultimate-addons-cf7' ),
+                    'subtitle'     => __( 'Choose whether you want both Mail 1 and Mail 2 users to receive the PDF as an attachment, or just one of them.', 'ultimate-addons-cf7' ),
+                    'options'   => array(
+                        'option 1' => 'Both',
+                        'option 2' => 'Mail 1',
+                        'option 3' => 'Mail 2',
+                    ),
+                    'field_width' => '50'
                 ),
                 'uacf7_customize_pdf_header' => array(
                     'id'        => 'uacf7_customize_pdf_header',
                     'type'      => 'heading',
-                    'label'     => __( ' Customize PDF Header', 'ultimate-addons-cf7' ),
-                    'sub_title' => __( ' header and footer page numbers & date Tags : {PAGENO}, {DATE j-m-Y}, {nb}, {nbpg} ', 'ultimate-addons-cf7' ),
+                    'label'     => __( 'PDF Header Settings', 'ultimate-addons-cf7' ),
+                    
                 ),
                 // 'uacf7_pdf_generator_mpdf_tags' => array(
                 //     'id'        => 'uacf7_pdf_generator_mpdf_tags',
@@ -177,7 +134,7 @@ class UACF7_PDF_GENERATOR {
                 'pdf_header_color' => array(
                     'id'        => 'pdf_header_color',
                     'type'      => 'color',
-                    'label'     => __( 'PDF Header Color ', 'ultimate-addons-cf7' ),
+                    'label'     => __( 'Header Content Color ', 'ultimate-addons-cf7' ),
                     'field_width' => 50,
                     'class' => 'tf-field-class',
                     // 'default' => '#ffffff',
@@ -187,7 +144,7 @@ class UACF7_PDF_GENERATOR {
                 'pdf_header_bg_color' => array(
                     'id'        => 'pdf_header_bg_color',
                     'type'      => 'color',
-                    'label'     => __( 'PDF Header Background Color ', 'ultimate-addons-cf7' ),
+                    'label'     => __( 'Header Background Color ', 'ultimate-addons-cf7' ),
                     'field_width' => 50,
                     'class' => 'tf-field-class',
                     // 'default' => '#ffffff',
@@ -196,13 +153,65 @@ class UACF7_PDF_GENERATOR {
                 ),
                 'customize_pdf_header' => array(
                     'id'        => 'customize_pdf_header',
+                    'label'     => __( 'Header Content', 'ultimate-addons-cf7' ),
+                    'subtitle' => __( 'Some tags you can use - Page numbers & date Tags : {PAGENO}, {DATE j-m-Y}, {nb}, {nbpg}.', 'ultimate-addons-cf7' ),
                     'type'      => 'editor',
 
                 ),
+                'uacf7_customize_pdf_body' => array(
+                    'id'        => 'uacf7_customize_pdf_body',
+                    'type'      => 'heading',
+                    'label'     => __( 'PDF Body Settings', 'ultimate-addons-cf7' ),
+                ),
+
+                'pdf_bg_upload_image' => array(
+                    'id'        => 'pdf_bg_upload_image',
+                    'type'      => 'image',
+                    'label'     => __( 'Body Background Image ', 'ultimate-addons-cf7' ),
+
+                ), 
+                'pdf_content_color' => array(
+                    'id'        => 'pdf_content_color',
+                    'type'      => 'color',
+                    'label'     => __( 'Body Content Color ', 'ultimate-addons-cf7' ),
+                    'field_width' => 50,
+                    'class' => 'tf-field-class',
+                    // 'default' => '#ffffff',
+                    'multiple' => false,
+                    'inline' => true,   
+                ),
+                'pdf_content_bg_color' => array(
+                    'id'        => 'pdf_content_bg_color',
+                    'type'      => 'color',
+                    'label'     => __( 'Body Background Color ', 'ultimate-addons-cf7' ),
+                    'field_width' => 50,
+                    'class' => 'tf-field-class',
+                    // 'default' => '#ffffff',
+                    'multiple' => false,
+                    'inline' => true,   
+                ),
+               
+                
+                 
+                'customize_pdf' => array(
+                    'id'        => 'customize_pdf',
+                    'label'        => __( 'Body Content ', 'ultimate-addons-cf7' ),
+                    'subtitle' => __( 'If you wish to include extra content in the body of the PDF.', 'ultimate-addons-cf7' ),
+                    'type'      => 'editor',
+
+                ),
+                'uacf7_pdf_form_tags' => array(
+                    'id'        => 'uacf7_pdf_form_tags',
+                    'type'     => 'callback', 
+                    'function' => 'uacf7_pdf_form_tags_callback',
+                    'argument' => $post_id,
+                
+                ), 
+               
                 'uacf7_customize_pdf_footer' => array(
                     'id'        => 'uacf7_customize_pdf_footer',
                     'type'      => 'heading',
-                    'label'     => __( ' Customize PDF Footer', 'ultimate-addons-cf7' ),
+                    'label'     => __( 'PDF Footer Settings', 'ultimate-addons-cf7' ),
                 ),
 
                 // 'uacf7_pdf_footer_background_image' => array(
@@ -216,7 +225,7 @@ class UACF7_PDF_GENERATOR {
                 'pdf_footer_color' => array(
                     'id'        => 'pdf_footer_color',
                     'type'      => 'color',
-                    'label'     => __( 'PDF footer Content Color ', 'ultimate-addons-cf7' ), 
+                    'label'     => __( 'Footer Content Color ', 'ultimate-addons-cf7' ), 
                     'class' => 'tf-field-class',
                     // 'default' => '#ffffff',
                     'multiple' => false,
@@ -227,7 +236,7 @@ class UACF7_PDF_GENERATOR {
                 'pdf_footer_bg_color' => array(
                     'id'        => 'pdf_footer_bg_color',
                     'type'      => 'color',
-                    'label'     => __( 'PDF footer Background Color ', 'ultimate-addons-cf7' ),
+                    'label'     => __( 'Footer Background Color ', 'ultimate-addons-cf7' ),
                     'field_width' => 50,
                     'class' => 'tf-field-class',
                     // 'default' => '#ffffff',
@@ -237,13 +246,15 @@ class UACF7_PDF_GENERATOR {
 
                 'customize_pdf_footer' => array(
                     'id'        => 'customize_pdf_footer',
+                    'label'     => __( 'Footer Content', 'ultimate-addons-cf7' ),
+                    'subtitle' => __( 'Some tags you can use - Page numbers & date Tags : {PAGENO}, {DATE j-m-Y}, {nb}, {nbpg}.', 'ultimate-addons-cf7' ),
                     'type'      => 'editor',
 
                 ),
                 'uacf7_pdf_custom_css' => array(
                     'id'        => 'uacf7_pdf_custom_css',
                     'type'      => 'heading',
-                    'label'     => __( 'PDF Custom CSS', 'ultimate-addons-cf7' ),
+                    'label'     => __( 'Custom CSS for PDF', 'ultimate-addons-cf7' ),
                 ),
                 'custom_pdf_css' => array(
                     'id'        => 'custom_pdf_css',

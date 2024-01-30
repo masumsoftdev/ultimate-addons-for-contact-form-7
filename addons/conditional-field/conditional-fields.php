@@ -223,12 +223,7 @@ class UACF7_CF {
 		?>
 		<div class="control-box">
 			<fieldset>
-				<div class="uacf7-doc-notice">
-					<?php echo sprintf(
-						__( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
-						'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-conditional-fields/" target="_blank">documentation</a>'
-					); ?>
-				</div>
+
 				<legend>
 					<?php echo esc_html__( "Generate a conditional tag to wrap the elements that can be shown conditionally.", "ultimate-addons-cf7" ); ?>
 				</legend>
@@ -244,8 +239,10 @@ class UACF7_CF {
 					</tbody>
 				</table>
 				<div class="uacf7-doc-notice uacf7-guide">
-					<?php echo esc_html__( "There are additional settings on the 'UACF7 Conditional Fields' tab. Make sure you set those, otherwise the conditions may not work correctly.", "ultimate-addons-cf7" ); ?>
+					<?php echo esc_html__( 'Check "Conditional Fields" tab located under the Ultimate Addons for CF7 Options for additional settings. Make sure to set those, otherwise the conditions may not work correctly.', "ultimate-addons-cf7" ); ?>
+					
 				</div>
+				<div class="uacf7-doc-notice">Confused? Check our Documentation on <a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-conditional-fields/" target="_blank">Conditional Fields</a>.</div>
 			</fieldset>
 		</div>
 

@@ -83,7 +83,7 @@ class UACF7_SUBMISSION_ID{
                 'uacf7_submission_id_send_to_sub_line' => array(
                     'id'        => 'uacf7_submission_id_send_to_sub_line',
                     'type'      => 'switch',
-                    'label'     => __( 'Send Submission ID to the Mail Subject Line', 'ultimate-addons-cf7' ),
+                    'label'     => __( 'Show Submission ID on the Mail Subject Line', 'ultimate-addons-cf7' ),
                     'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
                     'label_off' => __( 'No', 'ultimate-addons-cf7' ),
                     'default'   => false, 
@@ -92,7 +92,7 @@ class UACF7_SUBMISSION_ID{
                 'uacf7_submission_id_place' => array(
                     'id'        => 'uacf7_submission_id_place',
                     'type'      => 'select',
-                    'label'     => __( 'Show to Subject\'s Text', 'ultimate-addons-cf7' ),
+                    'label'     => __( 'ID Placement on the Subject Line', 'ultimate-addons-cf7' ),
                     'options'  => array( 
                         'left' => 'Left',
                         'right' => 'Right',

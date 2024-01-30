@@ -137,7 +137,7 @@ class UACF7_Redirection {
 				'target' => array(
 					'id'        => 'target',
 					'type'      => 'switch',
-					'label'     => __( 'Open page in a new tab', 'ultimate-addons-cf7' ),
+					'label'     => __( 'Open Page in a New Tab', 'ultimate-addons-cf7' ),
 					'subtitle' => __( 'Enable this to open the redirection page in a new tab.', 'ultimate-addons-cf7' ),
 					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
 					'label_off' => __( 'No', 'ultimate-addons-cf7' ),

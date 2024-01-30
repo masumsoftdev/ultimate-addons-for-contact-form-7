@@ -554,6 +554,11 @@
 
 /**** Mirza CSS added on 12 January 2024. Please move them to the designated files. Please remove all the !important tags after moving **/
 
+.el-license-active-btn p.submit input {
+  background-color: #382673 !important;
+  border-color: #382673 !important;
+}
+
 /* .uacf7-metabox .tf-field-heading.heading-inner {
   background: #fff !important;
   margin: 0 !important;
