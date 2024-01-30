@@ -101,6 +101,7 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 		 * @author Foysal
 		 */
 		public function tf_options() {
+			
 			add_menu_page(
 				$this->option_title,
 				$this->option_title,
@@ -110,7 +111,24 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 				$this->option_icon,
 				$this->option_position
 			);
-			
+			// All Forms
+			add_submenu_page(
+				$this->option_id,
+				__( 'All Forms', 'ultimate-addons-cf7' ),
+				__( 'All Forms', 'ultimate-addons-cf7' ),
+				'manage_options',
+				'admin.php?page=wpcf7',
+				// array( $this, 'uacf7_create_database_page' ),
+			);  
+			// All Forms
+			add_submenu_page(
+				$this->option_id,
+				__( 'Add New Form', 'ultimate-addons-cf7' ),
+				__( 'Add New Form', 'ultimate-addons-cf7' ),
+				'manage_options',
+				'admin.php?page=wpcf7-new',
+				// array( $this, 'uacf7_create_database_page' ),
+			);  
 			//Addons submenu
 			add_submenu_page(
 				$this->option_id,

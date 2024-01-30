@@ -140,8 +140,22 @@
 .tf-license-activate p.submit input {
   background-color: #382673 !important;
   border-color: #382673 !important;
-}
+} 
 
 .license-email {
   margin-top: 20px;
+}
+
+.uacf7-settings-addon-btn {
+  position: absolute;
+  top: 30px;
+  right: 20px;
+} 
+#form-panel { 
+  position: relative;
+}
+.uacf7-metabox.uacf7_review {
+	margin: 0;
+	border: none;
+	padding: 0;
 }

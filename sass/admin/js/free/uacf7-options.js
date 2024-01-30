@@ -10,9 +10,20 @@
                 var $this_clone = $(this).clone();
                 $('#contact-form-editor').append($this_clone);
                 $('#contact-form-editor').find('.uacf7-metabox').css('display', 'block');
-                $(this).remove();
+                $(this).remove(); 
+                $('#form-panel').append('<button class="tf-admin-btn tf-btn-secondary uacf7-settings-addon-btn">Ultimate Addons Settings</button>');
+            }); 
+            // scroll to uacf7-metabox gap 50px
+          
+            $('.uacf7-settings-addon-btn').on('click', function (e) {
+                e.preventDefault();
+                $('html, body').animate({
+                    scrollTop: $(".uacf7-metabox").offset().top - 50
+                }, 1000);
             });
+           
         }
+        
 
 
 
@@ -21,7 +32,7 @@
         var TF = TF || {};
 
         TF.funcs = {};
-
+ 
         TF.vars = {
             onloaded: false,
             $body: $('body'),

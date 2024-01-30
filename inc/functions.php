@@ -280,55 +280,7 @@ function uacf7_multistep_progressbar_style( $form_id ) {
 }
 
 
-//Dispal repeater pro feature
-
-if( !function_exists('uacf7_tg_pane_repeater') ) {
-    add_action( 'admin_init', 'uacf7_repeater_pro_tag_generator' );
-}
-
-function uacf7_repeater_pro_tag_generator() {
-    if (! function_exists( 'wpcf7_add_tag_generator'))
-        return;
-
-    wpcf7_add_tag_generator('repeater',
-        __('Ultimate Repeater (pro)', 'ultimate-addons-cf7'),
-        'uacf7-tg-pane-repeater',
-        'uacf7_tg_pane_repeater_pro'
-    );
-
-}
-
-function uacf7_tg_pane_repeater_pro( $contact_form, $args = '' ) {
-    $args = wp_parse_args( $args, array() );
-    $uacf7_field_type = 'repeater';
-    ?>
-    <div class="control-box">
-        <fieldset>
-            <legend>
-                <?php echo esc_html__( "This is a Pro feature of Ultimate Addons for contact form 7. You can add repeatable field and repeatable fields group with this addon.", "ultimate-addons-cf7" ); ?> <a href="https://cf7addons.com/preview/repeater-field/" target="_blank">Check Preview</a>
-            </legend>
-            <table class="form-table">
-                <tbody>
-                    <tr>
-                        <th scope="row"><label for="<?php echo esc_attr( $args['content'] . '-name' ); ?>"><?php echo esc_html( __( 'Name', 'ultimate-addons-cf7' ) ); ?></label></th>
-                        <td><input type="text" name="name" class="tg-name oneline" id="<?php echo esc_attr( $args['content'] . '-name' ); ?>" /></td>
-                    </tr>
-                    <tr>
-                    	<th scope="row"><label for="tag-generator-panel-text-values"><?php echo __('Add Button Text', 'ultimate-addons-cf7' ) ?></label></th>
-                    	<td><input type="text" name="" class="tg-name oneline uarepeater-add" value="Add more" id="tag-generator-panel-uarepeater-nae"></td>
-                	</tr>
-                	<tr>
-                    	<th scope="row"><label for="tag-generator-panel-text-values-remove"><?php echo __('Remove Button Text', 'ultimate-addons-cf7' ) ?></label></th>
-                    	<td><input type="text" name="" class="tg-name oneline uarepeater-remove" value="Remove" id="tag-generator-panel-uarepeater-n"></td>
-                	</tr>
-                    
-                </tbody>
-            </table>
-        </fieldset>
-    </div>
-    <?php
-}
-
+ 
 //Add wrapper to contact form 7
 add_filter( 'wpcf7_contact_form_properties', 'uacf7_add_wrapper_to_cf7_form', 10, 2 );
 function uacf7_add_wrapper_to_cf7_form($properties, $cfform) {
