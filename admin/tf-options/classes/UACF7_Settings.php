@@ -111,6 +111,16 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 				$this->option_icon,
 				$this->option_position
 			);
+			//Addons submenu
+			add_submenu_page(
+				$this->option_id,
+				__('All Addons', 'ultimate-addons-cf7'),
+				__('All Addons', 'ultimate-addons-cf7'),
+				'manage_options',
+				'uacf7_addons',
+				array( $this, 'uacf7_addons_page' ),
+			);
+			
 			// All Forms
 			add_submenu_page(
 				$this->option_id,
@@ -129,15 +139,7 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 				'admin.php?page=wpcf7-new',
 				// array( $this, 'uacf7_create_database_page' ),
 			);  
-			//Addons submenu
-			add_submenu_page(
-				$this->option_id,
-				__('All Addons', 'ultimate-addons-cf7'),
-				__('All Addons', 'ultimate-addons-cf7'),
-				'manage_options',
-				'uacf7_addons',
-				array( $this, 'uacf7_addons_page' ),
-			);
+			
 			
 			// 
 			add_submenu_page(

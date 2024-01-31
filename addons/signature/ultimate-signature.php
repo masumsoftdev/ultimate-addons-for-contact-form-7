@@ -232,7 +232,7 @@ class UACF7_SIGNATURE{
                         <div class="uacf7-doc-notice">
                             <?php echo sprintf(
                                   __('Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7'),
-                                  '<a href="https://themefic.com/docs/uacf7/free-addons/signature-field/" target="_blank">documentation</a>'
+                                  '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-signature-addon/" target="_blank">Digital Signature</a>'
                               ); ?>
                         </div>
                         <tr>

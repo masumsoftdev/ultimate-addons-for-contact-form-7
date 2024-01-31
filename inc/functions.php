@@ -167,7 +167,7 @@ function uacf7_multistep_pro_features_demo( $all_steps, $form_id ){
     $step_count = 1;
     foreach( $all_steps as $step ) {
         ?>
-        <h3><strong>Step <?php echo $step_count; ?> <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a></strong></h3>
+        <h3><strong>Step <?php echo $step_count; ?> <a style="color:red" target="_blank" href="https://cf7addons.com/pricing/">(Pro)</a></strong></h3>
         <?php
         if( $step_count == 1 ){
             ?>

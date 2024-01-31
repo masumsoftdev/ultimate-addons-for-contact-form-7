@@ -554,6 +554,25 @@
 
 /**** Mirza CSS added on 12 January 2024. Please move them to the designated files. Please remove all the !important tags after moving **/
 
+.uacf7-spacer {
+  height: 15px;
+}
+
+.tag-generator-panel .control-box textarea.values {
+  width: 90%;
+}
+
+.tag-generator-panel .insert-box input.tag {
+  width: 75%;
+}
+
+.tag-generator-panel .control-box {
+  padding-bottom: 40px;
+}
+
+.tag-generator-panel {
+  height: auto;
+}
 /* .el-license-active-btn p.submit input {
   background-color: #382673 !important;
   border-color: #382673 !important;

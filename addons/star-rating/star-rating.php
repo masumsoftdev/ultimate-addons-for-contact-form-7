@@ -187,7 +187,7 @@ class UACF7_STAR_RATING {
             <div class="uacf7-doc-notice">
                 <?php echo sprintf( 
                     __( 'Confused? Check our Documentation on %1s.', 'ultimate-addons-cf7' ),
-                    '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-star-rating-field/" target="_blank">documentation</a>'
+                    '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-star-rating-field/" target="_blank">Star Rating</a>'
                 ); ?>  
             </div>               
                 <table class="form-table">
@@ -247,10 +247,9 @@ class UACF7_STAR_RATING {
                         ?>
                        
                         <tr>
-                            <th scope="row"><label for="tag-generator-panel-text-selected"><?php _e( 'Default Selected Star', 'ultimate-addons-cf7' );?></label></th>
+                            <th scope="row"><label for="tag-generator-panel-text-selected"><?php _e( 'Default Star Rating', 'ultimate-addons-cf7' );?></label></th>
                             <td>
                             <input name="selected" id="tag-generator-panel-text-selected" class="tg-name oneline option" placeholder="5" />
-                            <br>
                             <br>
                             <p><?php _e( 'Change the values of star. Default value: 1,2,3,4,5', 'ultimate-addons-cf7' );?></p>
                             </td>

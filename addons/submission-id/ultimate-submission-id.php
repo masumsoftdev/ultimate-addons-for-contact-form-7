@@ -309,7 +309,7 @@ public static function tg_pane_submission_id($contact_form, $args = ''){
                     <div class="uacf7-doc-notice"> 
                         <?php echo sprintf( 
                             __( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
-                            '<a href="https://themefic.com/docs/uacf7/free-addons/unique-submission-id/" target="_blank">documentation</a>'
+                            '<a href="https://themefic.com/docs/uacf7/free-addons/unique-id-for-contact-form-7/" target="_blank">Unique Submission ID</a>'
                         ); ?> 
                     </div>
                     <tr>

@@ -249,7 +249,7 @@ With Pro, you can also show product based on WooCommerce Category. <a href="http
 
 = 🎉  Contact form 7 Product Grid View with Thumbnails =
 
-Show your Products with a Stunning Grid View. Products can be added based on ID/Category/Tags. <a href="https://cf7addons.com/preview/product-grid-view-with-thumbnails/">Click Here</a> to check live preview.
+Show your Products with a Stunning Grid View. Products can be added based on ID/Category/Tags. <a href="https://cf7addons.com/pricing/duct-grid-view-with-thumbnails/">Click Here</a> to check live preview.
 
 = 🎉  Contact form 7 Range Slider Pro =
 
