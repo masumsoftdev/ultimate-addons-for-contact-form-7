@@ -564,7 +564,17 @@ class UACF7_uacf7style {
                     'label'     => __( 'Left', 'ultimate-addons-cf7' ),   
                     'placeholder'     => __( 'Left', 'ultimate-addons-cf7' ), 
                     'field_width' => 25,
-                ), 
+                ),
+                'uacf7_uacf7style_ua_custom_header' => array(
+                    'id'        => 'uacf7_uacf7style_ua_custom_header',
+                    'type'      => 'heading',
+                    'label'     => __( 'Custom CSS', 'ultimate-addons-cf7' ),
+                ),
+                'uacf7_uacf7style_ua_custom_css' => array(
+                    'id'        => 'uacf7_uacf7style_ua_custom_css',
+                    'type'      => 'code_editor',
+
+                ),
                 // array(
                 //     'id' => 'tf-editor',
                 //     'type' => 'editor',
@@ -653,7 +663,7 @@ class UACF7_uacf7style {
                 $btn_margin_bottom = $form_meta['uacf7_uacf7style_btn_margin_bottom'];
                 $btn_margin_left = $form_meta['uacf7_uacf7style_btn_margin_left'];
                 
-                // $ua_custom_css = $form_meta['uacf7_uacf7style_ua_custom_css'];
+                $ua_custom_css = $form_meta['uacf7_uacf7style_ua_custom_css'];
                 ?>
                 <style>
                     .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> label {

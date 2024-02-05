@@ -562,8 +562,7 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
    
     function uacf7_form_option_Migration_callback(){
         $migration_status = get_option('uacf7_settings_migration_status'); 
-        if($migration_status != true){
-           
+        if($migration_status != true){ 
             // Meta settings_migration migration 
             $args  = array(
                 'post_type'        => 'wpcf7_contact_form',
@@ -607,15 +606,18 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                             $meta['redirection']['uacf7_redirect_type'] = $uacf7_redirect_type;
                             $meta['redirection']['uacf7_redirect_tag_support'] = $uacf7_redirect_tag_support;
                             $i = 0;
-                            if($uacf7_redirect_type == 1){
-                                foreach( $uacf7_conditional_redirect_conditions['uacf7_cr_tn'] as $key => $value ){ 
-                                    $meta['redirection']['conditional_redirect'][$i]['uacf7_cr_tn'] = $uacf7_conditional_redirect_conditions['uacf7_cr_tn'][$i];
-                                    $meta['redirection']['conditional_redirect'][$i]['uacf7_cr_field_val'] = $uacf7_conditional_redirect_conditions['uacf7_cr_field_val'][$i];
-                                    $meta['redirection']['conditional_redirect'][$i]['uacf7_cr_redirect_to_url'] = $uacf7_conditional_redirect_conditions['uacf7_cr_redirect_to_url'][$i];
-        
-                                    $i++; 
+                            if($uacf7_redirect_type == 1){ 
+                                 if(!empty($uacf7_conditional_redirect_conditions)){
+                                    foreach( $uacf7_conditional_redirect_conditions['uacf7_cr_tn'] as $key => $value ){ 
+                                        $meta['redirection']['conditional_redirect'][$i]['uacf7_cr_tn'] = $uacf7_conditional_redirect_conditions['uacf7_cr_tn'][$i];
+                                        $meta['redirection']['conditional_redirect'][$i]['uacf7_cr_field_val'] = $uacf7_conditional_redirect_conditions['uacf7_cr_field_val'][$i];
+                                        $meta['redirection']['conditional_redirect'][$i]['uacf7_cr_redirect_to_url'] = $uacf7_conditional_redirect_conditions['uacf7_cr_redirect_to_url'][$i];
+            
+                                        $i++; 
+                                    
+                                    }
+                                 }
                                 
-                                }
                             }
                             
                         }
@@ -999,12 +1001,16 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                         $conversational['custom_conv_css'] = get_post_meta( $post_id, 'custom_conv_css', true );
 
                         $uacf7_conversational_field = get_post_meta( $post_id, 'uacf7_conversational_field', true );
+                       
                         $count = 0;
-                        foreach($uacf7_conversational_field as $field_key => $field_value){
-                            $conversational['uacf7_conversational_steps'][$count] = $field_value;  
-                            $conversational['uacf7_conversational_steps'][$count]['steps_name'] = $field_key;  
-                            $count++;
+                        if(!empty($uacf7_conversational_field)){
+                            foreach($uacf7_conversational_field as $field_key => $field_value){
+                                $conversational['uacf7_conversational_steps'][$count] = $field_value;  
+                                $conversational['uacf7_conversational_steps'][$count]['steps_name'] = $field_key;  
+                                $count++;
+                            }
                         }
+                        
 
                         $meta['conversational_form'] = $conversational; 
                     }
@@ -1042,19 +1048,20 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                     $uacf7_signature_settings = get_post_meta($post_id, 'uacf7_signature_settings', true);
                     $uacf7_signature_enable = is_array($uacf7_signature_settings) && isset($uacf7_signature_settings['uacf7_signature_enable']) ? $uacf7_signature_settings['uacf7_signature_enable'] : 0;
 
-                    if($uacf7_signature_enable == true){ 
+                    
+                    if($uacf7_signature_enable == true){  
                         $uacf7_signature_bg_color = isset($uacf7_signature_settings['uacf7_signature_bg_color']) ? $uacf7_signature_settings['uacf7_signature_bg_color'] : '';
                         $uacf7_signature_pen_color = isset($uacf7_signature_settings['uacf7_signature_pen_color']) ? $uacf7_signature_settings['uacf7_signature_pen_color'] : '';
+                        $signature['uacf7_signature_enable'] = $uacf7_signature_enable == 'on' ? 1 : 0;
                         $signature['uacf7_signature_bg_color'] = $uacf7_signature_bg_color;
                         $signature['uacf7_signature_pen_color'] = $uacf7_signature_pen_color;
-                        $signature['uacf7_signature_pad_width'] = isset($uacf7_signature_settings['uacf7_signature_pad_width']) ? $uacf7_signature_settings['uacf7_signature_pad_width'] : '';
-                        $signature['uacf7_signature_pad_height'] = isset($uacf7_signature_settings['uacf7_signature_pad_height']) ? $uacf7_signature_settings['uacf7_signature_pad_height'] : '';
+                        $signature['uacf7_signature_pad_width'] = isset($uacf7_signature_settings['uacf7_signature_pad_width']) ? $uacf7_signature_settings['uacf7_signature_pad_width'] : '300';
+                        $signature['uacf7_signature_pad_height'] = isset($uacf7_signature_settings['uacf7_signature_pad_height']) ? $uacf7_signature_settings['uacf7_signature_pad_height'] : '100';
                         $meta['signature'] = $signature; 
-                        
-
+                         
                     }
                     
-                  
+                   
                     // Pre Populate addon Migration
                     $pre_populated = isset($meta['pre_populated']) ? $meta['pre_populated'] : array(); 
                         
@@ -1156,11 +1163,9 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                 }
                 $new_option = array_merge($new_option, $uacf7_global_settings_styles_migrate);
             
-            } 
-
+            }  
             // update migration option
-            update_option('uacf7_settings', $new_option);
-
+            update_option('uacf7_settings', $new_option); 
             // update migration status
             update_option( 'uacf7_settings_migration_status', true );
         }

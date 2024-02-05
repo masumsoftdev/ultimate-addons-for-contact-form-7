@@ -58,24 +58,21 @@ class UACF7_PRE_POPULATE {
                     'label'     => __( ' Enable Pre-Populate Field', 'ultimate-addons-cf7' ),
                     'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
                     'label_off' => __( 'No', 'ultimate-addons-cf7' ),
-                    'default'   => false,
-                    'field_width' => 33,
+                    'default'   => false, 
                 ),
                 'pre_populate_form' => array(
                     'id'        => 'pre_populate_form',
                     'type'      => 'select',
                     'label'     => __( ' Select Other Form', 'ultimate-addons-cf7' ),
                     'subtitle'     => __( 'The data will be sent to this form.', 'ultimate-addons-cf7' ),
-                    'options'     => $all_forms,
-                    'field_width' => 33,
+                    'options'     => $all_forms, 
                 ),
                 'data_redirect_url' => array(
                     'id'        => 'data_redirect_url',
                     'type'      => 'text',
                     'label'     => __( ' Redirect URL ', 'ultimate-addons-cf7' ),
                     'subtitle'     => __( 'Insert the Page URL of the Other Form.', 'ultimate-addons-cf7' ),
-                    'placeholder'     => __( ' Redirect URL ', 'ultimate-addons-cf7' ),
-                    'field_width' => 33,
+                    'placeholder'     => __( ' Redirect URL ', 'ultimate-addons-cf7' ), 
                 ),
 
               'pre_populate_passing_field' => array(

@@ -44,6 +44,7 @@ class Ultimate_Addons_CF7 {
 
 		// Initialize the appsero
 		$this->appsero_init_tracker_ultimate_addons_for_contact_form_7();
+		 
 	}
 
 	/*

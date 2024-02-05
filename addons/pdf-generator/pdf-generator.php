@@ -452,9 +452,14 @@ class UACF7_PDF_GENERATOR {
 
         // PDF Footer Content
         $mpdf->WriteHTML($pdf_style.'<div class="pdf-content">'.nl2br($pdf_content).'   </div>');
-        
+        // 
+        // make directory 
+        if ( ! file_exists( $dir.'/uacf7-uploads' ) ) {
+            wp_mkdir_p( $dir.'/uacf7-uploads' ); 
+        }
         $pdf_dir = $dir.'/uacf7-uploads/'.$uacf7_pdf_name.'_db_.pdf';
         $pdf_url = $url.'/uacf7-uploads/'.$uacf7_pdf_name.'_db_.pdf';
+        
         $mpdf->Output($pdf_dir, 'F'); // Dwonload
         
         wp_send_json( 
