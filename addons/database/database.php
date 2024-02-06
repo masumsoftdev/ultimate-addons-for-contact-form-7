@@ -315,13 +315,10 @@ class UACF7_DATABASE {
 			}
 		}
 
-		$data_emty = [ 
-			'form_id' => $form->id(),
-		];
-
 		if ( function_exists( 'uacf7dp_add_more_fields' ) ) {
-			$extra_fields_data = uacf7dp_add_more_fields( $data_emty, $submission, );
+			$extra_fields_data = uacf7dp_add_more_fields( $submission, );
 		}
+
 
 		apply_filters( 'uacf7dp_send_form_data_before_insert', $insert_data, $extra_fields_data );
 
