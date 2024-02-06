@@ -1,4 +1,7 @@
 .uacf7-metabox {
+  .tf-tab-wrapper{
+    max-width: calc(100% - 280px) !important;
+  }
   .tf-field-heading.heading-inner {
     background: #fff !important;
     margin: 0 !important;

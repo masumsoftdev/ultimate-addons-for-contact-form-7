@@ -970,13 +970,14 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
 
                     // Conversation form addon Migration
                     $conversational = isset($meta['conversational_form']) ? $meta['conversational_form'] : array();
-                    $uacf7_conversation_form_enable = get_post_meta( $post_id, 'uacf7_is_conversational', true ) == 'on' ? 1 : get_post_meta( $post_id, 'uacf7_is_conversational', true );
+                    $uacf7_conversation_form_enable = get_post_meta( $post_id, 'uacf7_is_conversational', true ) == 'on' ? 1 : 0;
+                    
                     if($uacf7_conversation_form_enable == true){
                         $conversational['uacf7_is_conversational'] = $uacf7_conversation_form_enable;
-                        $conversational['uacf7_full_screen'] = get_post_meta( $post_id, 'uacf7_full_screen', true );
-                        $conversational['uacf7_enable_progress_bar'] = get_post_meta( $post_id, 'uacf7_enable_progress_bar', true );
-                        $conversational['uacf7_conversational_intro'] = get_post_meta( $post_id, 'uacf7_conversational_intro', true );
-                        $conversational['uacf7_conversational_thankyou'] = get_post_meta( $post_id, 'uacf7_conversational_thankyou', true );
+                        $conversational['uacf7_full_screen'] =  get_post_meta( $post_id, 'uacf7_full_screen', true )  == 'on' ? 1 : 0;
+                        $conversational['uacf7_enable_progress_bar'] =  get_post_meta( $post_id, 'uacf7_enable_progress_bar', true )  == 'on' ? 1 : 0;
+                        $conversational['uacf7_conversational_intro'] =  get_post_meta( $post_id, 'uacf7_conversational_intro', true )  == 'on' ? 1 : 0;
+                        $conversational['uacf7_conversational_thankyou'] =  get_post_meta( $post_id, 'uacf7_conversational_thankyou', true )  == 'on' ? 1 : 0;
                         $conversational['uacf7_conversational_style'] = get_post_meta( $post_id, 'uacf7_conversational_style', true );
                         $conversational['uacf7_conversational_bg_color'] = get_post_meta( $post_id, 'uacf7_conversational_bg_color', true );
                         $conversational['uacf7_conversational_button_color'] = get_post_meta( $post_id, 'uacf7_conversational_button_color', true );
@@ -998,7 +999,7 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                         $conversational['uacf7_conversational_thankyou_text_color'] = get_post_meta( $post_id, 'uacf7_conversational_thankyou_text_color', true );
                         $conversational['uacf7_conversational_thankyou_image'] = get_post_meta( $post_id, 'uacf7_conversational_thankyou_image', true );
                         $conversational['uacf7_conversational_thank_you_message'] = get_post_meta( $post_id, 'uacf7_conversational_thank_you_message', true );
-                        $conversational['custom_conv_css'] = get_post_meta( $post_id, 'custom_conv_css', true );
+                        $conversational['custom_conv_css'] = wp_kses_post(get_post_meta( $post_id, 'custom_conv_css', true ));
 
                         $uacf7_conversational_field = get_post_meta( $post_id, 'uacf7_conversational_field', true );
                        

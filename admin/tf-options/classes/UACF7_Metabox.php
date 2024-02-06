@@ -149,6 +149,7 @@ if ( ! class_exists( 'UACF7_Metabox' ) ) {
 
 													$default = isset( $field['default'] ) ? $field['default'] : '';
 													$value = isset( $tf_meta_box_value[ $key ][ $field['id'] ] ) ? $tf_meta_box_value[ $key ][ $field['id'] ] : $default; 
+												 
 													$tf_option = new UACF7_Options();
 													// $tf_option->field( $field, $value, $this->option_id );
 													$tf_option->field( $field, $value, $this->metabox_id, '', $key );
@@ -209,8 +210,10 @@ if ( ! class_exists( 'UACF7_Metabox' ) ) {
 				$tf_meta_box_value = array();
 			}
 			$metabox_request = ( ! empty( $_POST[ $this->metabox_id ] ) ) ? $_POST[ $this->metabox_id ] : array();
-
+			
 			if ( ! empty( $metabox_request ) && ! empty( $this->metabox_sections ) ) {
+				// uacf7_print_r($metabox_request);
+				// exit;
 				foreach ( $this->metabox_sections as $section_key => $section ) {
 					if ( ! empty( $section['fields'] ) ) {
 

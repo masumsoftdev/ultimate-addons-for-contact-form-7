@@ -8,8 +8,8 @@ if ( ! class_exists( 'UACF7_code_editor' ) ) {
     public $version = '5.65.15';
     public $cdn_url = 'https://cdn.jsdelivr.net/npm/codemirror@';
 
-		public function __construct( $field, $value = '', $settings_id = '', $parent_field = '') {
-			parent::__construct( $field, $value, $settings_id, $parent_field );
+		public function __construct( $field, $value = '', $settings_id = '', $parent_field = '',  $section_key = '' ) {
+			parent::__construct( $field, $value, $settings_id, $parent_field,  $section_key  );
       $this->enqueue();
       
 		}

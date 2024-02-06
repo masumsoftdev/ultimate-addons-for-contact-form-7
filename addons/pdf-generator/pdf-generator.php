@@ -57,7 +57,7 @@ class UACF7_PDF_GENERATOR {
                         '<a href="https://cf7addons.com/preview/contact-form-7-pdf-generator/" target="_blank" rel="noopener">Example</a>'
                                 )
                 ),
-                array(
+                'pdf-generator-docs' => array(
                     'id'      => 'pdf-generator-docs',
                     'type'    => 'notice',
                     'style'   => 'success',

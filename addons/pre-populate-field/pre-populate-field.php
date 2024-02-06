@@ -11,8 +11,7 @@ class UACF7_PRE_POPULATE {
     /*
     * Construct function
     */
-    public function __construct() {
-        
+    public function __construct() { 
         add_action( 'wp_enqueue_scripts', array($this, 'wp_enqueue_script' ) );    
         add_action( 'wp_ajax_uacf7_ajax_pre_populate_redirect', array( $this, 'uacf7_ajax_pre_populate_redirect' ) ); 
         add_action( 'wp_ajax_nopriv_uacf7_ajax_pre_populate_redirect', array( $this, 'uacf7_ajax_pre_populate_redirect' ) ); 
