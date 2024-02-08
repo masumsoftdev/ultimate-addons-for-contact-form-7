@@ -55,6 +55,11 @@ class UACF7_Placeholder {
 					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
 					'default' => false
 				),
+				'placeholder_styles_form_options_heading' => array(
+                    'id'        => 'placeholder_styles_form_options_heading',
+                    'type'      => 'heading',
+                    'label'     => __( 'Placeholder Styles Option ', 'ultimate-addons-cf7' ),
+                ),
 				'uacf7_placeholder_color_option' => array(
 					'id' => 'uacf7_placeholder_color_option',
 					'type' => 'color',

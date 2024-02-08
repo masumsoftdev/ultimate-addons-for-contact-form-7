@@ -61,6 +61,11 @@ class UACF7_Redirection {
 					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
 					'default'   => false
 				),
+				'uacf7_redirect_form_options_heading' => array(
+                    'id'        => 'uacf7_redirect_form_options_heading',
+                    'type'      => 'heading',
+                    'label'     => __( 'Redirection Option ', 'ultimate-addons-cf7' ),
+                ),
 				'uacf7_redirect_to_type' => array(
 					'id'        => 'uacf7_redirect_to_type',
 					'type'      => 'radio',
@@ -114,7 +119,7 @@ class UACF7_Redirection {
 							'label' => 'Select Form Field',
 							'subtitle' => 'This determines the basis for setting the condition.',
 							'type' => 'select', 
-							'field_width' => 30,
+							'field_width' => 50,
 						 ),
 						array(
 							'id' => 'uacf7_cr_field_val',
@@ -122,7 +127,7 @@ class UACF7_Redirection {
 							'type' => 'text',
 							'subtitle' => 'Input the specific value that will trigger the condition.',
 							'placeholder' => 'value', 
-							'field_width' => 30,
+							'field_width' => 50,
 						 ),
 						array(
 							'id' => 'uacf7_cr_redirect_to_url',
@@ -130,7 +135,7 @@ class UACF7_Redirection {
 							'type' => 'text',
 							'subtitle' => 'The URL to which the user will be redirected upon meeting the condition.',
 							'placeholder' => 'Redirection URL', 
-							'field_width' => 30,
+							'field_width' => 100,
 						 ),
 					 ),
 				),

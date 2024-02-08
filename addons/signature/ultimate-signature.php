@@ -77,7 +77,11 @@ class UACF7_SIGNATURE{
                     'label_off' => __( 'No', 'ultimate-addons-cf7' ),
                     'default'   => false
                 ),
-             
+                'uacf7_signature_form_options_heading' => array(
+                    'id'        => 'uacf7_signature_form_options_heading',
+                    'type'      => 'heading',
+                    'label'     => __( 'Signature Option ', 'ultimate-addons-cf7' ),
+                ),
                 'uacf7_signature_bg_color' => array(
                     'id'        => 'uacf7_signature_bg_color',
                     'type'      => 'color',

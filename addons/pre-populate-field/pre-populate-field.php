@@ -59,6 +59,11 @@ class UACF7_PRE_POPULATE {
                     'label_off' => __( 'No', 'ultimate-addons-cf7' ),
                     'default'   => false, 
                 ),
+                'pre_populate_form_options_heading' => array(
+                    'id'        => 'pre_populate_form_options_heading',
+                    'type'      => 'heading',
+                    'label'     => __( 'Pre Populate Option ', 'ultimate-addons-cf7' ),
+                ),
                 'pre_populate_form' => array(
                     'id'        => 'pre_populate_form',
                     'type'      => 'select',

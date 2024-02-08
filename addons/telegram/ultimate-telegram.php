@@ -61,12 +61,16 @@ class UACF7_TELEGRAM {
               'default'   => false,
               'field_width' => 50,
           ),
+          'uacf7_telegram_form_options_heading' => array(
+              'id'        => 'uacf7_telegram_form_options_heading',
+              'type'      => 'heading',
+              'label'     => __( 'Telegram Option ', 'ultimate-addons-cf7' ),
+          ),
             'uacf7_telegram_enable_icon' => array(
               'id'        => 'uacf7_telegram_enable_icon',
               'type'     => 'callback',
               'function' => 'uacf7_telegram_active_status_callback',
-              'argument' => $post_id,
-              'field_width' => 50,
+              'argument' => $post_id, 
           
             ), 
             'uacf7_telegram_bot_token' => array(

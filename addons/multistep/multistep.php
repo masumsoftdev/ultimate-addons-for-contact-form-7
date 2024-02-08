@@ -89,7 +89,12 @@ class UACF7_MULTISTEP {
 					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
 					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
 					'default'   => false,
-                    'field_width' => 50,
+                    'field_width' => 100,
+                ),
+                'uacf7_multistep_form_options_heading' => array(
+                    'id'        => 'uacf7_multistep_form_options_heading',
+                    'type'      => 'heading',
+                    'label'     => __( 'Multistep Option ', 'ultimate-addons-cf7' ),
                 ),
                 'uacf7_enable_multistep_progressbar' => array(
 					'id'        => 'uacf7_enable_multistep_progressbar',

@@ -48,6 +48,11 @@ class UACF7_range_Slider {
                             '<a href="https://themefic.com/docs/uacf7/pro-addons/contact-form-7-range-slider-pro/" target="_blank" rel="noopener">Range Slider (Pro)</a>'
                         )
                       ),
+                'uacf7_range_slider_form_options_heading' => array(
+                    'id'        => 'uacf7_range_slider_form_options_heading',
+                    'type'      => 'heading',
+                    'label'     => __( 'Range Slider Option ', 'ultimate-addons-cf7' ),
+                ),
                 'uacf7_range_selection_color' => array(
                     'id'        => 'uacf7_range_selection_color',
                     'type'      => 'color',

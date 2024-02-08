@@ -70,7 +70,7 @@ class UACF7_CF {
                          '<a href="https://cf7addons.com/preview/contact-form-7-conditional-fields/" target="_blank">Example</a>'
                     )
 				),
-				array(
+				'conditional-field-docs' => array(
 					'id'      => 'conditional-field-docs',
 					'type'    => 'notice',
 					'style'   => 'success',
@@ -80,6 +80,11 @@ class UACF7_CF {
                         '<a href="https://themefic.com/docs/uacf7/pro-addons/contact-form-7-conditional-fields-pro/" target="_blank">Conditional Fields (Pro)</a>'
                     )
 				),
+				'conditional_form_options_heading' => array(
+                    'id'        => 'conditional_form_options_heading',
+                    'type'      => 'heading',
+                    'label'     => __( 'Conditional Option ', 'ultimate-addons-cf7' ),
+                ),
 				'conditional_repeater' => array(
 					'id' => 'conditional_repeater',
 					'type' => 'repeater',

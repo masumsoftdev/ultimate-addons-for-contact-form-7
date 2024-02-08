@@ -73,9 +73,13 @@ class UACF7_PDF_GENERATOR {
                     'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
                     'label_off' => __( 'No', 'ultimate-addons-cf7' ),
                     'default'   => false,
-                    'field_width' => 50,
+                    'field_width' => 100,
+                ), 
+                'pdf_generator_form_options_heading' => array(
+                    'id'        => 'pdf_generator_form_options_heading',
+                    'type'      => 'heading',
+                    'label'     => __( 'PDF Option ', 'ultimate-addons-cf7' ),
                 ),
-
                 'uacf7_pdf_disable_header_footer' => array(
                     'id'        => 'uacf7_pdf_disable_header_footer',
                     'type'      => 'checkbox',
@@ -84,7 +88,7 @@ class UACF7_PDF_GENERATOR {
                         'header' => 'Disable Header',
                         'footer' => 'Disable Footer'
                     ),
-                    'field_width' => '50',
+                    'field_width' => 100,
                     'inline'      => true
                 ),
               

@@ -4,8 +4,9 @@ if (!defined('ABSPATH')) {
 }
  if(!function_exists('uacf7_mailchimp_api_status_callback')){
     function uacf7_mailchimp_api_status_callback($status){
+        echo '<div class="tf-field-notice-inner tf-notice-info">';
         echo $status;
-        echo '<p><a href="'.esc_url(admin_url('/admin.php?page=ultimate-addons')).'">'.esc_html__( ' ', 'ultimate-addons-cf7' ).'</a></p> ';
+        echo '</div>';
     }
  }
 

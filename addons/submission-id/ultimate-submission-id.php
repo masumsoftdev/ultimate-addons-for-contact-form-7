@@ -63,7 +63,11 @@ class UACF7_SUBMISSION_ID{
                     'label_off' => __( 'No', 'ultimate-addons-cf7' ),
                     'default'   => false,
                 ),
-           
+                'uacf7_submission_form_options_heading' => array(
+                    'id'        => 'uacf7_submission_form_options_heading',
+                    'type'      => 'heading',
+                    'label'     => __( 'Submission Option ', 'ultimate-addons-cf7' ),
+                ),
                 'uacf7_submission_id' => array(
                     'id'        => 'uacf7_submission_id',
                     'type'      => 'number',

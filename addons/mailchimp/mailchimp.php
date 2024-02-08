@@ -93,7 +93,11 @@ class UACF7_MAILCHIMP
                 ),
                 'default'   => false
             ),
-            
+            'uacf7_mailchimp_form_options_heading' => array(
+                'id'        => 'uacf7_mailchimp_form_options_heading',
+                'type'      => 'heading',
+                'label'     => __( 'Mailchimp Option ', 'ultimate-addons-cf7' ),
+            ),
            
             'uacf7_mailchimp_form_type' => array(
               'id'        => 'uacf7_mailchimp_form_type',
