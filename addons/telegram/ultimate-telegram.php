@@ -32,6 +32,7 @@ class UACF7_TELEGRAM {
     $telegram = apply_filters('uacf7_post_meta_options_telegram_pro', $data = array(
         'title'  => __( 'Telegram', 'ultimate-addons-cf7' ),
         'icon'   => 'fa-brands fa-telegram',
+        'checked_field'   => 'uacf7_telegram_enable',
         'fields' => array(
             
             'uacf7_telegram_heading' => array(
@@ -43,8 +44,9 @@ class UACF7_TELEGRAM {
                  '<a href="https://cf7addons.com/preview/contact-form-7-telegram/" target="_blank" rel="noopener">Example</a>'
                           )
               ),
-              array(
-                'id'      => 'telegram-docs',
+              
+            'telegram_docs' => array(
+                'id'      => 'telegram_docs',
                 'type'    => 'notice',
                 'style'   => 'success',
                 'content' => sprintf( 

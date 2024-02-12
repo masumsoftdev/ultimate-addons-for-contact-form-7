@@ -47,6 +47,7 @@ class UACF7_PDF_GENERATOR {
         $pdf_generator = apply_filters('uacf7_post_meta_options_pdf_generator_pro', $data = array(
             'title'  => __( 'PDF Generator', 'ultimate-addons-cf7' ),
             'icon'   => 'fa-solid fa-file-pdf',
+            'checked_field'   => 'uacf7_enable_pdf_generator',
             'fields' => array(
                 'uacf7_pdf_label' => array(
                 'id'    => 'uacf7_pdf_label',
@@ -57,8 +58,8 @@ class UACF7_PDF_GENERATOR {
                         '<a href="https://cf7addons.com/preview/contact-form-7-pdf-generator/" target="_blank" rel="noopener">Example</a>'
                                 )
                 ),
-                'pdf-generator-docs' => array(
-                    'id'      => 'pdf-generator-docs',
+                'pdf_generator_docs' => array(
+                    'id'      => 'pdf_generator_docs',
                     'type'    => 'notice',
                     'style'   => 'success',
                     'content' => sprintf( 

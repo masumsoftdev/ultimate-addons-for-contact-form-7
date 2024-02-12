@@ -140,8 +140,16 @@ if ( ! class_exists( 'UACF7_Metabox' ) ) {
 										<?php //if( $section != null): ?>
 										<a class="tf-tablinks <?php echo $section_count == 0 ? 'active' : ''; ?>"
 											data-tab="<?php echo esc_attr( $key ) ?>">
+											
 											<?php echo ! empty( $section['icon'] ) ? '<span class="tf-sec-icon"><i class="' . esc_attr( $section['icon'] ) . '"></i></span>' : ''; ?>
 											<?php echo esc_html( $section['title'] ); ?>
+											<?php if(isset($section['checked_field']) && $section['checked_field']){
+													$checked = isset($tf_meta_box_value[$key][$section['checked_field']]) ? $tf_meta_box_value[$key][$section['checked_field']] : '';
+													if($checked != '' || $checked == true){
+														echo  ' <span class="tf-metabox-option-checked"></span>';
+													}
+												} 
+											?>
 										</a>
 										<?php // endif; ?>
 										<?php $section_count++; endforeach; ?>

@@ -32,6 +32,7 @@ class UACF7_PRE_POPULATE {
         $pre_populated = apply_filters('uacf7_post_meta_options_pre_populated_pro', $data = array(
             'title'  => __( 'Pre-Populate Field', 'ultimate-addons-cf7' ),
             'icon'   => 'fa-solid fa-arrow-up-right-dots',
+            'checked_field'   => 'pre_populate_enable',
             'fields' => array(
                 'uacf7_pre_populated_heading' => array(
                     'id'    => 'uacf7_pre_populated_heading',
@@ -42,8 +43,8 @@ class UACF7_PRE_POPULATE {
                          '<a href="https://cf7addons.com/preview/contact-form-7-pre-populate-fields/" target="_blank" rel="noopener">Example</a>'
                                   )
                       ),
-                      array(
-                        'id'      => 'pre-populate-docs',
+                      'pre_populate_docs' => array(
+                        'id'      => 'pre_populate_docs',
                         'type'    => 'notice',
                         'style'   => 'success',
                         'content' => sprintf( 

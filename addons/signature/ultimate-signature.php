@@ -48,6 +48,7 @@ class UACF7_SIGNATURE{
         $signature = apply_filters('uacf7_post_meta_options_signature_pro', $data = array(
             'title'  => __( 'Digital Signature', 'ultimate-addons-cf7' ),
             'icon'   => 'fa-solid fa-signature',
+            'checked_field'   => 'uacf7_signature_enable',
             'fields' => array(
                 
                 'uacf7_sign_heading' => array(
@@ -59,8 +60,8 @@ class UACF7_SIGNATURE{
                      '<a href="https://cf7addons.com/preview/contact-form-7-signature-addon/" target="_blank" rel="noopener">Example</a>'
                               )
                   ),
-                  array(
-                    'id'      => 'signature-docs',
+                  'signature_docs' => array(
+                    'id'      => 'signature_docs',
                     'type'    => 'notice',
                     'style'   => 'success',
                     'content' => sprintf( 

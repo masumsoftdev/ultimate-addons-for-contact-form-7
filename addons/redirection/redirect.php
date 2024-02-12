@@ -32,6 +32,7 @@ class UACF7_Redirection {
 		$redirection = apply_filters('uacf7_post_meta_options_redirection_pro', $data = array(
 			'title'  => __( 'Redirection', 'ultimate-addons-cf7' ),
 			'icon'   => 'fa-solid fa-diamond-turn-right',
+            'checked_field'   => 'uacf7_redirect_enable',
 			'fields' => array( 
 				'redirection_heading' => array(
 					'id'    => 'redirection_heading',
@@ -42,8 +43,8 @@ class UACF7_Redirection {
                          '<a href="https://cf7addons.com/preview/redirection-for-contact-form-7/" target="_blank">Example</a>'
                     )
 				),
-				array(
-					'id'      => 'redirection-docs',
+				'redirection_docs' => array(
+					'id'      => 'redirection_docs',
 					'type'    => 'notice',
 					'style'   => 'success',
 					'content' => sprintf( 

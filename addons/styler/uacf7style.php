@@ -20,6 +20,7 @@ class UACF7_uacf7style {
         $redirection = apply_filters('uacf7_post_meta_options_styler_pro', $data = array(
             'title'  => __( 'Form Styler', 'ultimate-addons-cf7' ),
             'icon'   => 'fa-solid fa-mortar-pestle',
+            'checked_field'   => 'uacf7_enable_form_styles',
             'fields' => array(
                 'styler_heading' => array(
 					'id'    => 'styler_heading',
@@ -30,8 +31,8 @@ class UACF7_uacf7style {
                          '<a href="https://cf7addons.com/preview/contact-form-7-style-addon/" target="_blank">Example</a>'
                     )
 				),
-                array(
-					'id'      => 'styler-docs',
+                'styler_docs' => array(
+					'id'      => 'styler_docs',
 					'type'    => 'notice',
 					'style'   => 'success',
 					'content' => sprintf( 

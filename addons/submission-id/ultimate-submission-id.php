@@ -35,6 +35,7 @@ class UACF7_SUBMISSION_ID{
         $submission_id = apply_filters('uacf7_post_meta_options_submission_id_pro', $data = array(
             'title'  => __( 'Submission ID', 'ultimate-addons-cf7' ),
             'icon'   => 'fa-solid fa-fingerprint',
+            'checked_field'   => 'uacf7_submission_id_enable',
             'fields' => array(
                 'uacf7_submission_id_heading' => array(
                     'id'    => 'uacf7_submission_id_heading',
@@ -45,8 +46,9 @@ class UACF7_SUBMISSION_ID{
                          '<a href="https://cf7addons.com/preview/unique-id-for-contact-form-7/" target="_blank" rel="noopener">Example</a>'
                                   )
                       ),
-                      array(
-                        'id'      => 'submission-id-docs',
+                     
+                'submission_id_docs' => array(
+                        'id'      => 'submission_id_docs',
                         'type'    => 'notice',
                         'style'   => 'success',
                         'content' => sprintf( 

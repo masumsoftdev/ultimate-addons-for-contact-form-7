@@ -62,6 +62,7 @@ class UACF7_MULTISTEP {
         $multistep = apply_filters('uacf7_post_meta_options_multistep_pro', $data = array(
 			'title'  => __( 'Multi-step Form', 'ultimate-addons-cf7' ),
 			'icon'   => 'fa-solid fa-stairs',
+            'checked_field'   => 'uacf7_multistep_is_multistep',
 			'fields' => array(
                 'placeholder_heading' => array(
 					'id'    => 'placeholder_heading',
@@ -72,8 +73,8 @@ class UACF7_MULTISTEP {
                          '<a href="https://cf7addons.com/preview/contact-form-7-multi-step-forms/" target="_blank">Example</a>'
                     )
 				),
-                array(
-					'id'      => 'multistep-form-docs',
+                'multistep_form_docs' => array(
+					'id'      => 'multistep_form_docs',
 					'type'    => 'notice',
 					'style'   => 'success',
 					'content' => sprintf( 

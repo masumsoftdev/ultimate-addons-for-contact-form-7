@@ -28,6 +28,7 @@ class UACF7_range_Slider {
         $range_silder = apply_filters('uacf7_post_meta_options_range_slider_pro', $data = array(
             'title'  => __( 'Range Slider', 'ultimate-addons-cf7' ),
             'icon'   => 'fa-solid fa-sliders',
+            'checked_field'   => 'uacf7_range_selection_color',
             'fields' => array(
                 'uacf7_range_slider_heading' => array(
                     'id'    => 'uacf7_range_slider_heading',
@@ -38,8 +39,8 @@ class UACF7_range_Slider {
                          '<a href="https://cf7addons.com/preview/contact-form-7-range-slider/" target="_blank" rel="noopener">Example</a>'
                                   )
                       ),
-                      array(
-                        'id'      => 'range-slider-docs',
+                      'range_slider_docs' => array(
+                        'id'      => 'range_slider_docs',
                         'type'    => 'notice',
                         'style'   => 'success',
                         'content' => sprintf( 

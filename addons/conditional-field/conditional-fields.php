@@ -60,6 +60,7 @@ class UACF7_CF {
 		$conditional = apply_filters( 'uacf7_post_meta_options_conditional_field_pro', $data = array(
 			'title' => __( 'Conditional Fields', 'ultimate-addons-cf7' ),
 			'icon' => 'fa-solid fa-fan',
+			'checked_field'   => 'conditional_repeater',
 			'fields' => array(
 				'conditional_heading' => array(
 					'id' => 'conditional_heading',
@@ -70,8 +71,8 @@ class UACF7_CF {
                          '<a href="https://cf7addons.com/preview/contact-form-7-conditional-fields/" target="_blank">Example</a>'
                     )
 				),
-				'conditional-field-docs' => array(
-					'id'      => 'conditional-field-docs',
+				'conditional_field_docs' => array(
+					'id'      => 'conditional_field_docs',
 					'type'    => 'notice',
 					'style'   => 'success',
 					'content' => sprintf( 
