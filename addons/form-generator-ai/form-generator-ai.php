@@ -13,9 +13,7 @@ class UACF7_FORM_GENERATOR{
         define( 'UACF7_FORM_AI_PATH', UACF7_PATH.'/addons/form-generator-ai' );
         // admin scripts
         add_action('admin_enqueue_scripts', array($this, 'admin_scripts'));
-
-        // form tab panel
-        // add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_panel' ) );
+ 
 
         // add Popup Contact form 7 admin footer
         add_action( 'wpcf7_admin_footer', array( $this, 'uacf7_form_admin_footer_popup' ) );
@@ -44,19 +42,7 @@ class UACF7_FORM_GENERATOR{
         );
     }
 
-
-    // Add Form Tab Panel
-    public function uacf7_add_panel( $panels ) {
-        $panels['uacf7-form-generator-ai-panel'] = array(
-            'title' => __( 'Form Generator AI', 'contact-form-7' ),
-            'callback' => array( $this, 'uacf7_form_generatorform_generator_ai_panel' ),
-        );
-        return $panels;
-    }
-
-    public function uacf7_form_generatorform_generator_ai_panel(){ 
-           
-    }
+ 
 
 
     // Add Popup Contact form 7 admin footer

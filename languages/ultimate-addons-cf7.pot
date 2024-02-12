@@ -763,7 +763,7 @@ msgstr ""
 
 #: addons/column/column.php:84 addons/country-dropdown/country-dropdown.php:177
 #, php-format
-msgid "Not sure how to set this? Check our step by step  %1s ."
+msgid "Confused? Check our Documentation on  %1s ."
 msgstr ""
 
 #: addons/column/column.php:162 addons/dynamic-text/dynamic-text.php:160
@@ -772,23 +772,23 @@ msgstr ""
 #: addons/range-slider/range-slider.php:271
 #: addons/range-slider/range-slider.php:316 addons/styler/uacf7style.php:119
 #, php-format
-msgid "Not sure how to set this? Check our step by step  %1s."
+msgid "Confused? Check our Documentation on  %1s."
 msgstr ""
 
 #: addons/placeholder/placeholder.php:54
 #, php-format
-msgid "Not sure how to set this? Check our step by step %1s ."
+msgid "Confused? Check our Documentation on %1s ."
 msgstr ""
 
 #: addons/star-rating/star-rating.php:189
 #, php-format
-msgid "Not sure how to set this? Check our step by step %1s."
+msgid "Confused? Check our Documentation on %1s."
 msgstr ""
 
 #: addons/redirection/redirect.php:303
 #, php-format
 msgid ""
-"Not sure how to set this? Check our step by step documentation on  %1s, %2s "
+"Confused? Check our Documentation on documentation on  %1s, %2s "
 "and %3s ."
 msgstr ""
 

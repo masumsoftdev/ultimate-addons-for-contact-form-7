@@ -118,15 +118,15 @@
 }
 
 .col-25 .multistep_field_column {
-  width: 25%;
-  float: left;
-  display: inline-block;
+	width: 25%;
+	float: left;
+	display: inline-block
 }
 
 .col-50 .multistep_field_column {
-  width: 50%;
-  float: left;
-  display: inline-block;
+	width: 50%;
+	float: left;
+	display: inline-block
 }
 
 .show-if-left-progressbar button,

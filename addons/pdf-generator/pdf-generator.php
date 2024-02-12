@@ -13,84 +13,316 @@ class UACF7_PDF_GENERATOR {
     */
     public function __construct() {
         
-        add_action( 'admin_enqueue_scripts', array($this, 'wp_enqueue_admin_script' ) );    
-        add_action( 'wpcf7_editor_panels', array( $this, 'uacf7_add_panel' ) );     
-        add_action( 'wpcf7_after_save', array( $this, 'uacf7_save_contact_form' ) );     
-        
+        add_action( 'admin_enqueue_scripts', array($this, 'wp_enqueue_admin_script' ) );
         add_filter( 'wpcf7_mail_components', array( $this, 'uacf7_wpcf7_mail_components' ), 10, 3 );    
         // add_filter( 'wpcf7_load_js', '__return_false' );
         add_action( 'wp_ajax_uacf7_get_generated_pdf', array( $this, 'uacf7_get_generated_pdf' ) );  
+        add_filter( 'uacf7_post_meta_options', array($this, 'uacf7_post_meta_options_pdf_generator'), 18, 2 );  
+        add_filter( 'uacf7_post_meta_import_export', array($this, 'uacf7_post_meta_import_export_pdf_generator'), 18, 2 );  
+
+        require_once( 'inc/functions.php' );
  
         
     } 
 
- 
-    /*
+     /*
     * Enqueue script Backend
     */
     
-    public function wp_enqueue_admin_script() {
-        // jQuery
-        wp_enqueue_script('jquery');
-        // This will enqueue the Media Uploader script
-        wp_enqueue_media();
-
-        wp_enqueue_script('media-upload');
-        
-        wp_enqueue_style( 'pdf-generator-admin-style', UACF7_ADDONS . '/pdf-generator/assets/css/pdf-generator-admin.css' );
-		wp_enqueue_script( 'pdf-generator-admin', UACF7_ADDONS . '/pdf-generator/assets/js/pdf-generator-admin.js', array('jquery'), 'media-upload', true ); 
+    public function wp_enqueue_admin_script() { 
+         
+		wp_enqueue_script( 'pdf-generator-admin', UACF7_ADDONS . '/pdf-generator/assets/js/pdf-generator-admin.js', array('jquery'),  true ); 
         $pdf_settings['codeEditor'] = wp_enqueue_code_editor(array('type' => 'text/css'));
         $pdf_settings['ajaxurl'] = admin_url( 'admin-ajax.php' );
-        $pdf_settings['nonce'] = wp_create_nonce('uacf7-pre-populate');
+        $pdf_settings['nonce'] = wp_create_nonce('uacf7-pdf-generator');
         wp_localize_script('jquery', 'pdf_settings', $pdf_settings);
         
         // require UACF7_PATH . 'third-party/vendor/autoload.php';
 
     } 
   
+    public function uacf7_post_meta_options_pdf_generator( $value, $post_id){
+ 
+        
+        $pdf_generator = apply_filters('uacf7_post_meta_options_pdf_generator_pro', $data = array(
+            'title'  => __( 'PDF Generator', 'ultimate-addons-cf7' ),
+            'icon'   => 'fa-solid fa-file-pdf',
+            'fields' => array(
+                'uacf7_pdf_label' => array(
+                'id'    => 'uacf7_pdf_label',
+                'type'  => 'heading', 
+                'label' => __( 'PDF Generator Settings', 'ultimate-addons-cf7' ),
+                'subtitle' => sprintf(
+                    __( 'Generate a PDF from submissions and send it to admin and the submitter\'s email. See Demo %1s.', 'ultimate-addons-cf7' ),
+                        '<a href="https://cf7addons.com/preview/contact-form-7-pdf-generator/" target="_blank" rel="noopener">Example</a>'
+                                )
+                ),
+                'pdf-generator-docs' => array(
+                    'id'      => 'pdf-generator-docs',
+                    'type'    => 'notice',
+                    'style'   => 'success',
+                    'content' => sprintf( 
+                        __( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
+                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-pdf-generator/" target="_blank" rel="noopener">PDF Generator</a>'
+                    )
+                ),
+                'uacf7_enable_pdf_generator' => array(
+                    'id'        => 'uacf7_enable_pdf_generator',
+                    'type'      => 'switch',
+                    'label'     => __( ' Enable PDF Generator ', 'ultimate-addons-cf7' ),
+                    'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
+                    'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+                    'default'   => false,
+                    'field_width' => 100,
+                ), 
+                'pdf_generator_form_options_heading' => array(
+                    'id'        => 'pdf_generator_form_options_heading',
+                    'type'      => 'heading',
+                    'label'     => __( 'PDF Option ', 'ultimate-addons-cf7' ),
+                ),
+                'uacf7_pdf_disable_header_footer' => array(
+                    'id'        => 'uacf7_pdf_disable_header_footer',
+                    'type'      => 'checkbox',
+                    'label'     => __( 'Disable Header and Footer of PDF', 'ultimate-addons-cf7' ),
+                    'options'   => array(
+                        'header' => 'Disable Header',
+                        'footer' => 'Disable Footer'
+                    ),
+                    'field_width' => 100,
+                    'inline'      => true
+                ),
+              
+                'uacf7_pdf_name' => array(
+                    'id'        => 'uacf7_pdf_name',
+                    'type'      => 'text',
+                    'label'     => __( 'PDF Name ', 'ultimate-addons-cf7' ),
+                    'subtitle'     => __( "For instance, if you enter 'website-submission' as the file name, the resulting PDF will be named 'website-submission.pdf'.", 'ultimate-addons-cf7' ),
+                    'placeholder'     => __( 'E.g. website-submission', 'ultimate-addons-cf7' ),
+                    'field_width' => 50,
+            
+                ),
+                'pdf_send_to' => array(
+                    'id'        => 'pdf_send_to',
+                    'type'      => 'select',
+                    'label'     => __( 'PDF Send To ', 'ultimate-addons-cf7' ),
+                    'subtitle'     => __( 'Choose whether you want both Mail 1 and Mail 2 users to receive the PDF as an attachment, or just one of them.', 'ultimate-addons-cf7' ),
+                    'options'   => array(
+                        'option 1' => 'Both',
+                        'option 2' => 'Mail 1',
+                        'option 3' => 'Mail 2',
+                    ),
+                    'field_width' => '50'
+                ),
+                'uacf7_customize_pdf_header' => array(
+                    'id'        => 'uacf7_customize_pdf_header',
+                    'type'      => 'heading',
+                    'label'     => __( 'PDF Header Settings', 'ultimate-addons-cf7' ),
+                    
+                ),
+                // 'uacf7_pdf_generator_mpdf_tags' => array(
+                //     'id'        => 'uacf7_pdf_generator_mpdf_tags',
+                //     'type'      => 'notice',
+                //     'label'     => __( 'm-PDF Tags ', 'ultimate-addons-cf7' ),
+                //     'class' => 'tf-field-class',
+                //     'content' => '
+                //     {PAGENO}, {DATE j-m-Y}, {nb}, {nbpg}
+                //     ',
+                // ),
+                'pdf_header_upload_image' => array(
+                    'id'        => 'pdf_header_upload_image',
+                    'type'      => 'image',
+                    'label'     => __( 'Header Image ', 'ultimate-addons-cf7' ),
+
+                ),
+ 
+                'pdf_header_color' => array(
+                    'id'        => 'pdf_header_color',
+                    'type'      => 'color',
+                    'label'     => __( 'Header Content Color ', 'ultimate-addons-cf7' ),
+                    'field_width' => 50,
+                    'class' => 'tf-field-class',
+                    // 'default' => '#ffffff',
+                    'multiple' => false,
+                    'inline' => true,   
+                ),
+                'pdf_header_bg_color' => array(
+                    'id'        => 'pdf_header_bg_color',
+                    'type'      => 'color',
+                    'label'     => __( 'Header Background Color ', 'ultimate-addons-cf7' ),
+                    'field_width' => 50,
+                    'class' => 'tf-field-class',
+                    // 'default' => '#ffffff',
+                    'multiple' => false,
+                    'inline' => true,   
+                ),
+                'customize_pdf_header' => array(
+                    'id'        => 'customize_pdf_header',
+                    'label'     => __( 'Header Content', 'ultimate-addons-cf7' ),
+                    'subtitle' => __( 'Some tags you can use - Page numbers & date Tags : {PAGENO}, {DATE j-m-Y}, {nb}, {nbpg}.', 'ultimate-addons-cf7' ),
+                    'type'      => 'editor',
+
+                ),
+                'uacf7_customize_pdf_body' => array(
+                    'id'        => 'uacf7_customize_pdf_body',
+                    'type'      => 'heading',
+                    'label'     => __( 'PDF Body Settings', 'ultimate-addons-cf7' ),
+                ),
+
+                'pdf_bg_upload_image' => array(
+                    'id'        => 'pdf_bg_upload_image',
+                    'type'      => 'image',
+                    'label'     => __( 'Body Background Image ', 'ultimate-addons-cf7' ),
+
+                ), 
+                'pdf_content_color' => array(
+                    'id'        => 'pdf_content_color',
+                    'type'      => 'color',
+                    'label'     => __( 'Body Content Color ', 'ultimate-addons-cf7' ),
+                    'field_width' => 50,
+                    'class' => 'tf-field-class',
+                    // 'default' => '#ffffff',
+                    'multiple' => false,
+                    'inline' => true,   
+                ),
+                'pdf_content_bg_color' => array(
+                    'id'        => 'pdf_content_bg_color',
+                    'type'      => 'color',
+                    'label'     => __( 'Body Background Color ', 'ultimate-addons-cf7' ),
+                    'field_width' => 50,
+                    'class' => 'tf-field-class',
+                    // 'default' => '#ffffff',
+                    'multiple' => false,
+                    'inline' => true,   
+                ),
+               
+                
+                 
+                'customize_pdf' => array(
+                    'id'        => 'customize_pdf',
+                    'label'        => __( 'Body Content ', 'ultimate-addons-cf7' ),
+                    'subtitle' => __( 'If you wish to include extra content in the body of the PDF.', 'ultimate-addons-cf7' ),
+                    'type'      => 'editor',
+
+                ),
+                'uacf7_pdf_form_tags' => array(
+                    'id'        => 'uacf7_pdf_form_tags',
+                    'type'     => 'callback', 
+                    'function' => 'uacf7_pdf_form_tags_callback',
+                    'argument' => $post_id,
+                
+                ), 
+               
+                'uacf7_customize_pdf_footer' => array(
+                    'id'        => 'uacf7_customize_pdf_footer',
+                    'type'      => 'heading',
+                    'label'     => __( 'PDF Footer Settings', 'ultimate-addons-cf7' ),
+                ),
+
+                // 'uacf7_pdf_footer_background_image' => array(
+                //     'id'        => 'uacf7_pdf_footer_background_image',
+                //     'type'      => 'image',
+                //     'label'     => __( 'PDF Footer Background Image ', 'ultimate-addons-cf7' ),
+
+                // ),
+
+                 
+                'pdf_footer_color' => array(
+                    'id'        => 'pdf_footer_color',
+                    'type'      => 'color',
+                    'label'     => __( 'Footer Content Color ', 'ultimate-addons-cf7' ), 
+                    'class' => 'tf-field-class',
+                    // 'default' => '#ffffff',
+                    'multiple' => false,
+                    'inline' => true,  
+                    'field_width' => 50, 
+                ),
+ 
+                'pdf_footer_bg_color' => array(
+                    'id'        => 'pdf_footer_bg_color',
+                    'type'      => 'color',
+                    'label'     => __( 'Footer Background Color ', 'ultimate-addons-cf7' ),
+                    'field_width' => 50,
+                    'class' => 'tf-field-class',
+                    // 'default' => '#ffffff',
+                    'multiple' => false,
+                    'inline' => true,   
+                ),
+
+                'customize_pdf_footer' => array(
+                    'id'        => 'customize_pdf_footer',
+                    'label'     => __( 'Footer Content', 'ultimate-addons-cf7' ),
+                    'subtitle' => __( 'Some tags you can use - Page numbers & date Tags : {PAGENO}, {DATE j-m-Y}, {nb}, {nbpg}.', 'ultimate-addons-cf7' ),
+                    'type'      => 'editor',
+
+                ),
+                'uacf7_pdf_custom_css' => array(
+                    'id'        => 'uacf7_pdf_custom_css',
+                    'type'      => 'heading',
+                    'label'     => __( 'Custom CSS for PDF', 'ultimate-addons-cf7' ),
+                ),
+                'custom_pdf_css' => array(
+                    'id'        => 'custom_pdf_css',
+                    'type'      => 'code_editor',
+
+                ), 
+            ),
+                
+    
+        ), $post_id);
+    
+        $value['pdf_generator'] = $pdf_generator; 
+        return $value;
+    }
+
+ 
+ 
     // Generate PDF and export form ultimate db
     public function uacf7_get_generated_pdf(){ 
         if ( ! isset( $_POST ) || empty( $_POST ) ) {
 			return;
 		}
         
-        if ( !wp_verify_nonce($_POST['ajax_nonce'], 'uacf7-pre-populate')) {
+        if ( !wp_verify_nonce($_POST['ajax_nonce'], 'uacf7-pdf-generator')) {
             exit(esc_html__("Security error", 'ultimate-addons-cf7'));
         }
 
         $form_id = !empty($_POST['form_id']) ? $_POST['form_id'] : '';
         $data_id = !empty($_POST['id']) ? $_POST['id'] : '';
         require UACF7_PATH . 'third-party/vendor/autoload.php';
-        $enable_pdf = !empty(get_post_meta( $form_id, 'uacf7_enable_pdf_generator', true )) ? get_post_meta( $form_id, 'uacf7_enable_pdf_generator', true ) : '';
-        if( $enable_pdf != 'on'){ die; }
-        
+       
+        // Pdf get Meta Option
+        $pdf = uacf7_get_form_option( $form_id, 'pdf_generator' );
+      
+        $enable_pdf = isset($pdf['uacf7_enable_pdf_generator']) ? $pdf['uacf7_enable_pdf_generator'] : 0;
+        if( $enable_pdf != true){ die; }
+   
         $upload_dir    = wp_upload_dir(); 
         $dir = $upload_dir['basedir'];
         $url = $upload_dir['baseurl'];
         global $wpdb; 
         $data = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM ".$wpdb->prefix."uacf7_form WHERE id = %s AND form_id = %s", $data_id, $form_id ) ); 
-
-        $uacf7_pdf_name = !empty(get_post_meta( $form_id, 'uacf7_pdf_name', true )) ? get_post_meta( $form_id, 'uacf7_pdf_name', true ) : get_the_title( $form_id );
-        $disable_header = !empty(get_post_meta( $form_id, 'uacf7_pdf_disable_header', true )) ? get_post_meta( $form_id, 'uacf7_pdf_disable_header', true ) : '';
-        $disable_footer = !empty(get_post_meta( $form_id, 'uacf7_pdf_disable_footer', true )) ? get_post_meta( $form_id, 'uacf7_pdf_disable_footer', true ) : '';
-        $customize_pdf = !empty(get_post_meta( $form_id, 'customize_pdf', true )) ? get_post_meta( $form_id, 'customize_pdf', true ) : '';
-        $pdf_bg_upload_image = !empty(get_post_meta( $form_id, 'pdf_bg_upload_image', true )) ? get_post_meta( $form_id, 'pdf_bg_upload_image', true ) : '';
-        $customize_pdf_header = !empty(get_post_meta( $form_id, 'customize_pdf_header', true )) ? get_post_meta( $form_id, 'customize_pdf_header', true ) : '';
-        $pdf_header_upload_image = !empty(get_post_meta( $form_id, 'pdf_header_upload_image', true )) ? get_post_meta( $form_id, 'pdf_header_upload_image', true ) : '';
-        $pdf_header_img_height = !empty(get_post_meta( $form_id, 'pdf_header_img_height', true )) ? get_post_meta( $form_id, 'pdf_header_img_height', true ) : '';
-        $pdf_header_img_width = !empty(get_post_meta( $form_id, 'pdf_header_img_width', true )) ? get_post_meta( $form_id, 'pdf_header_img_width', true ) : '';
-        $pdf_header_img_aline = !empty(get_post_meta( $form_id, 'pdf_header_img_aline', true )) ? get_post_meta( $form_id, 'pdf_header_img_aline', true ) : '';
-        $customize_pdf_footer = !empty(get_post_meta( $form_id, 'customize_pdf_footer', true )) ? get_post_meta( $form_id, 'customize_pdf_footer', true ) : '';
-        $custom_pdf_css = !empty(get_post_meta( $form_id, 'custom_pdf_css', true )) ? get_post_meta( $form_id, 'custom_pdf_css', true ) : ''; 
-        $pdf_content_color = !empty(get_post_meta( $form_id, 'pdf_content_color', true )) ? get_post_meta( $form_id, 'pdf_content_color', true ) : ''; 
-        $pdf_content_bg_color = !empty(get_post_meta( $form_id, 'pdf_content_bg_color', true )) ? get_post_meta( $form_id, 'pdf_content_bg_color', true ) : '';  
-        $pdf_header_color = !empty(get_post_meta( $form_id, 'pdf_header_color', true )) ? get_post_meta( $form_id, 'pdf_header_color', true ) : ''; 
-        $pdf_header_bg_color = !empty(get_post_meta( $form_id, 'pdf_header_bg_color', true )) ? get_post_meta( $form_id, 'pdf_header_bg_color', true ) : '';  
-        $pdf_footer_color = !empty(get_post_meta( $form_id, 'pdf_footer_color', true )) ? get_post_meta( $form_id, 'pdf_footer_color', true ) : ''; 
-        $pdf_footer_bg_color = !empty(get_post_meta( $form_id, 'pdf_footer_bg_color', true )) ? get_post_meta( $form_id, 'pdf_footer_bg_color', true ) : '';  
+  
+        $uacf7_pdf_name = !empty($pdf['uacf7_pdf_name']) ? $pdf['uacf7_pdf_name'] : get_the_title( $form_id );
+        $disable_header = !empty($pdf['uacf7_pdf_disable_header_footer']) && in_array('header', $pdf['uacf7_pdf_disable_header_footer']) ? true : false;
+        $disable_footer = !empty($pdf['uacf7_pdf_disable_header_footer']) && in_array('footer', $pdf['uacf7_pdf_disable_header_footer']) ? true : false; 
+        $customize_pdf = !empty($pdf['customize_pdf']) ? $pdf['customize_pdf'] : '';
+        $pdf_bg_upload_image = !empty($pdf['pdf_bg_upload_image']) ? $pdf['pdf_bg_upload_image'] : '';
+        $customize_pdf_header = !empty($pdf['customize_pdf_header']) ? $pdf['customize_pdf_header'] : '';
+        $pdf_header_upload_image = !empty($pdf['pdf_header_upload_image']) ? $pdf['pdf_header_upload_image'] : '';
+        $pdf_header_img_height = !empty($pdf['pdf_header_img_height']) ? $pdf['pdf_header_img_height'] : '';
+        $pdf_header_img_width = !empty($pdf['pdf_header_img_width']) ? $pdf['pdf_header_img_width'] : '';
+        $pdf_header_img_aline = !empty($pdf['pdf_header_img_aline']) ? $pdf['pdf_header_img_aline'] : '';
+        $customize_pdf_footer = !empty($pdf['customize_pdf_footer']) ? $pdf['customize_pdf_footer'] : '';
+        $custom_pdf_css = !empty($pdf['custom_pdf_css']) ? $pdf['custom_pdf_css'] : ''; 
+        $pdf_content_color = !empty($pdf['pdf_content_color']) ? $pdf['pdf_content_color'] : ''; 
+        $pdf_content_bg_color = !empty($pdf['pdf_content_bg_color']) ? $pdf['pdf_content_bg_color'] : '';  
+        $pdf_header_color = !empty($pdf['pdf_header_color']) ? $pdf['pdf_header_color'] : ''; 
+        $pdf_header_bg_color = !empty($pdf['pdf_header_bg_color']) ? $pdf['pdf_header_bg_color'] : '';  
+        $pdf_footer_color = !empty($pdf['pdf_footer_color']) ? $pdf['pdf_footer_color'] : ''; 
+        $pdf_footer_bg_color = !empty($pdf['pdf_footer_bg_color']) ? $pdf['pdf_footer_bg_color'] : '';  
         $pdf_bg_upload_image =  !empty($pdf_bg_upload_image) ? 'background-image: url("'.esc_attr($pdf_bg_upload_image).'");' : '';
         $pdf_header_upload_image =  !empty($pdf_header_upload_image) ? '<img src="'.esc_attr( $pdf_header_upload_image ).'" style="height: 60; max-width: 100%; ">' : '';
-
+        
         $mpdf = new \Mpdf\Mpdf([ 
             'fontdata' => [ // lowercase letters only in font key
                 'dejavuserifcond' => [
@@ -129,6 +361,18 @@ class UACF7_PDF_GENERATOR {
                 padding: 20px;
                 height: 100%;
             }
+            .pdf-content table{  
+                width: 100%; 
+                border-collapse: collapse; 
+                border-left: 1px solid ;
+                border-bottom: 1px solid;
+            }
+            .pdf-content tr td{   
+                border-top: 1px solid;
+                border-right: 1px solid;
+                padding: 5px;
+                text-align: center;
+            } 
             .header-logo{
                 text-align: '.esc_attr( $pdf_header_img_aline ).'; 
                 float: left; 
@@ -144,7 +388,7 @@ class UACF7_PDF_GENERATOR {
      
 
         // PDF Header checked( 'on', $disable_header );
-        if( $disable_header != 'on' ){
+        if( $disable_header != true ){
             $mpdf->SetHTMLHeader('
             <div class="pdf-header"  >
                     <div class="header-logo"  >
@@ -159,7 +403,7 @@ class UACF7_PDF_GENERATOR {
         
 
         // PDF Footer
-        if( $disable_footer != 'on' ){
+        if( $disable_footer != true ){
             $mpdf->SetHTMLFooter('<div class="pdf-footer">'.$customize_pdf_footer.'</div>');
         }
         
@@ -212,9 +456,14 @@ class UACF7_PDF_GENERATOR {
 
         // PDF Footer Content
         $mpdf->WriteHTML($pdf_style.'<div class="pdf-content">'.nl2br($pdf_content).'   </div>');
-
+        // 
+        // make directory 
+        if ( ! file_exists( $dir.'/uacf7-uploads' ) ) {
+            wp_mkdir_p( $dir.'/uacf7-uploads' ); 
+        }
         $pdf_dir = $dir.'/uacf7-uploads/'.$uacf7_pdf_name.'_db_.pdf';
         $pdf_url = $url.'/uacf7-uploads/'.$uacf7_pdf_name.'_db_.pdf';
+        
         $mpdf->Output($pdf_dir, 'F'); // Dwonload
         
         wp_send_json( 
@@ -226,16 +475,21 @@ class UACF7_PDF_GENERATOR {
        
         die();
     }
+
     function uacf7_wpcf7_mail_components( $components, $form = null, $mail = null  ) { 
        
 
         $wpcf7 = WPCF7_ContactForm::get_current(); 
-        $enable_pdf = !empty(get_post_meta( $wpcf7->id(), 'uacf7_enable_pdf_generator', true )) ? get_post_meta( $wpcf7->id(), 'uacf7_enable_pdf_generator', true ) : '';
-        $pdf_send_to = !empty(get_post_meta( $wpcf7->id(), 'pdf_send_to', true )) ? get_post_meta( $wpcf7->id(), 'pdf_send_to', true ) : '';
+
+        // Pdf get Meta Option
+        $pdf = uacf7_get_form_option( $wpcf7->id(), 'pdf_generator' );
+
+        $enable_pdf = isset($pdf['uacf7_enable_pdf_generator']) ? $pdf['uacf7_enable_pdf_generator'] : 0;
+        $pdf_send_to = isset($pdf['pdf_send_to']) ? $pdf['pdf_send_to'] : '';
         if(($pdf_send_to == 'mail-1' && $mail->name() == 'mail_2') || ($pdf_send_to == 'mail-2' && $mail->name() == 'mail') ){
             return $components;
         }
-        if($enable_pdf == 'on'){ 
+        if($enable_pdf == true){ 
             $submission = WPCF7_Submission::get_instance();
             $contact_form_data = $submission->get_posted_data();
             $files            = $submission->uploaded_files();
@@ -254,26 +508,26 @@ class UACF7_PDF_GENERATOR {
             }
 
             //  
-            $uacf7_pdf_name = !empty(get_post_meta( $wpcf7->id(), 'uacf7_pdf_name', true )) ? get_post_meta( $wpcf7->id(), 'uacf7_pdf_name', true ) : get_the_title( $wpcf7->id() );
-            $disable_header = !empty(get_post_meta( $wpcf7->id(), 'uacf7_pdf_disable_header', true )) ? get_post_meta( $wpcf7->id(), 'uacf7_pdf_disable_header', true ) : '';
-            $disable_footer = !empty(get_post_meta( $wpcf7->id(), 'uacf7_pdf_disable_footer', true )) ? get_post_meta( $wpcf7->id(), 'uacf7_pdf_disable_footer', true ) : '';
-            $customize_pdf = !empty(get_post_meta( $wpcf7->id(), 'customize_pdf', true )) ? get_post_meta( $wpcf7->id(), 'customize_pdf', true ) : '';
-            $pdf_bg_upload_image = !empty(get_post_meta( $wpcf7->id(), 'pdf_bg_upload_image', true )) ? get_post_meta( $wpcf7->id(), 'pdf_bg_upload_image', true ) : '';
-            $customize_pdf_header = !empty(get_post_meta( $wpcf7->id(), 'customize_pdf_header', true )) ? get_post_meta( $wpcf7->id(), 'customize_pdf_header', true ) : '';
-            $pdf_header_upload_image = !empty(get_post_meta( $wpcf7->id(), 'pdf_header_upload_image', true )) ? get_post_meta( $wpcf7->id(), 'pdf_header_upload_image', true ) : '';
-            $pdf_header_img_height = !empty(get_post_meta( $wpcf7->id(), 'pdf_header_img_height', true )) ? get_post_meta( $wpcf7->id(), 'pdf_header_img_height', true ) : '';
-            $pdf_header_img_width = !empty(get_post_meta( $wpcf7->id(), 'pdf_header_img_width', true )) ? get_post_meta( $wpcf7->id(), 'pdf_header_img_width', true ) : '';
-            $pdf_header_img_aline = !empty(get_post_meta( $wpcf7->id(), 'pdf_header_img_aline', true )) ? get_post_meta( $wpcf7->id(), 'pdf_header_img_aline', true ) : '';
-            $customize_pdf_footer = !empty(get_post_meta( $wpcf7->id(), 'customize_pdf_footer', true )) ? get_post_meta( $wpcf7->id(), 'customize_pdf_footer', true ) : '';
-            $custom_pdf_css = !empty(get_post_meta( $wpcf7->id(), 'custom_pdf_css', true )) ? get_post_meta( $wpcf7->id(), 'custom_pdf_css', true ) : ''; 
-            $pdf_content_color = !empty(get_post_meta( $wpcf7->id(), 'pdf_content_color', true )) ? get_post_meta( $wpcf7->id(), 'pdf_content_color', true ) : ''; 
-            $pdf_content_bg_color = !empty(get_post_meta( $wpcf7->id(), 'pdf_content_bg_color', true )) ? get_post_meta( $wpcf7->id(), 'pdf_content_bg_color', true ) : '';  
-            $pdf_header_color = !empty(get_post_meta( $wpcf7->id(), 'pdf_header_color', true )) ? get_post_meta( $wpcf7->id(), 'pdf_header_color', true ) : ''; 
-            $pdf_header_bg_color = !empty(get_post_meta( $wpcf7->id(), 'pdf_header_bg_color', true )) ? get_post_meta( $wpcf7->id(), 'pdf_header_bg_color', true ) : '';  
-            $pdf_footer_color = !empty(get_post_meta( $wpcf7->id(), 'pdf_footer_color', true )) ? get_post_meta( $wpcf7->id(), 'pdf_footer_color', true ) : ''; 
-            $pdf_footer_bg_color = !empty(get_post_meta( $wpcf7->id(), 'pdf_footer_bg_color', true )) ? get_post_meta( $wpcf7->id(), 'pdf_footer_bg_color', true ) : '';  
+            $uacf7_pdf_name = !empty($pdf['uacf7_pdf_name']) ? $pdf['uacf7_pdf_name'] : get_the_title( $wpcf7->id() );
+            $disable_header = !empty($pdf['uacf7_pdf_disable_header_footer']) && in_array('header', $pdf['uacf7_pdf_disable_header_footer']) ? true : false;
+            $disable_footer = !empty($pdf['uacf7_pdf_disable_header_footer']) &&  in_array('footer', $pdf['uacf7_pdf_disable_header_footer']) ? true : false; 
+            $customize_pdf = !empty($pdf['customize_pdf']) ? $pdf['customize_pdf'] : '';
+            $pdf_bg_upload_image = !empty($pdf['pdf_bg_upload_image']) ? $pdf['pdf_bg_upload_image'] : '';
+            $customize_pdf_header = !empty($pdf['customize_pdf_header']) ? $pdf['customize_pdf_header'] : '';
+            $pdf_header_upload_image = !empty($pdf['pdf_header_upload_image']) ? $pdf['pdf_header_upload_image'] : '';
+            $pdf_header_img_height = !empty($pdf['pdf_header_img_height']) ? $pdf['pdf_header_img_height'] : '';
+            $pdf_header_img_width = !empty($pdf['pdf_header_img_width']) ? $pdf['pdf_header_img_width'] : '';
+            $pdf_header_img_aline = !empty($pdf['pdf_header_img_aline']) ? $pdf['pdf_header_img_aline'] : '';
+            $customize_pdf_footer = !empty($pdf['customize_pdf_footer']) ? $pdf['customize_pdf_footer'] : '';
+            $custom_pdf_css = !empty($pdf['custom_pdf_css']) ? $pdf['custom_pdf_css'] : ''; 
+            $pdf_content_color = !empty($pdf['pdf_content_color']) ? $pdf['pdf_content_color'] : ''; 
+            $pdf_content_bg_color = !empty($pdf['pdf_content_bg_color']) ? $pdf['pdf_content_bg_color'] : '';  
+            $pdf_header_color = !empty($pdf['pdf_header_color']) ? $pdf['pdf_header_color'] : ''; 
+            $pdf_header_bg_color = !empty($pdf['pdf_header_bg_color']) ? $pdf['pdf_header_bg_color'] : '';  
+            $pdf_footer_color = !empty($pdf['pdf_footer_color']) ? $pdf['pdf_footer_color'] : ''; 
+            $pdf_footer_bg_color = !empty($pdf['pdf_footer_bg_color']) ? $pdf['pdf_footer_bg_color'] : '';  
             $pdf_bg_upload_image =  !empty($pdf_bg_upload_image) ? 'background-image: url("'.esc_attr( $pdf_bg_upload_image ).'");' : '';
-            $pdf_header_upload_image =  !empty($pdf_header_upload_image) ? '<img src="'.esc_attr( $pdf_header_upload_image ).'" style="height: 60; max-width: 100%; ">' : '';
+            $pdf_header_upload_image =  !empty($pdf_header_upload_image) ? '<img src="'.esc_attr( $pdf_header_upload_image ).'" style="height: 60; max-width: 100%; ">' : ''; 
             $mpdf = new \Mpdf\Mpdf([ 
                 'fontdata' => [ // lowercase letters only in font key
                     'dejavuserifcond' => [
@@ -312,6 +566,18 @@ class UACF7_PDF_GENERATOR {
                     padding: 20px;
                     height: 100%;
                 }
+                .pdf-content table{  
+                    width: 100%; 
+                    border-collapse: collapse; 
+                    border-left: 1px solid ;
+                    border-bottom: 1px solid;
+                }
+                .pdf-content tr td{   
+                    border-top: 1px solid;
+                    border-right: 1px solid;
+                    padding: 5px;
+                    text-align: center;
+                } 
                 .header-logo{
                     text-align: '.esc_attr( $pdf_header_img_aline ).'; 
                     float: left; 
@@ -327,7 +593,7 @@ class UACF7_PDF_GENERATOR {
             $replace_value = []; 
 
             // PDF Header
-            if($disable_header != 'on'){
+            if($disable_header != true){
                 $mpdf->SetHTMLHeader('
                 <div class="pdf-header"  >
                         <div class="header-logo"  >
@@ -341,7 +607,7 @@ class UACF7_PDF_GENERATOR {
             }
              
             // PDF Footer
-            if($disable_footer != 'on'){ 
+            if($disable_footer != true){ 
                 $mpdf->SetHTMLFooter('<div class="pdf-footer">'.$customize_pdf_footer.'</div>');
             }
 
@@ -401,16 +667,17 @@ class UACF7_PDF_GENERATOR {
             } 
 
             $pdf_content = str_replace($replace_key, $replace_value, $customize_pdf);
-
+           
             // Replace PDF Name
             $uacf7_pdf_name = str_replace($replace_key, $replace_value, $uacf7_pdf_name);
-
+         
             $mpdf->SetTitle($uacf7_pdf_name);
 
              // PDF Footer Content
             $mpdf->WriteHTML($pdf_style.'<div class="pdf-content">'.nl2br($pdf_content).'   </div>');
 
             $pdf_url = $dir.'/uacf7-uploads/'.$uacf7_pdf_name.'.pdf';
+            
             $mpdf->Output($pdf_url, 'F'); // save to databaes 
            
             $components['attachments'][] = $pdf_url; 
@@ -419,270 +686,15 @@ class UACF7_PDF_GENERATOR {
       
     }
 
-    /*
-    * Function create tab panel
-    */
-    public function uacf7_add_panel( $panels ) {
-		$panels['uacf7-pdf-generator-panel'] = array(
-            'title'    => __( 'UACF7 PDF Generator', 'ultimate-addons-cf7' ),
-			'callback' => array( $this, 'uacf7_create_pdf_generator_panel_fields' ),
-		);
-		return $panels;
-
-	}
-    
-   
-    /*
-    * Function PDF Generator fields
-    */
-    public function uacf7_create_pdf_generator_panel_fields($post) {
-
-         // get existing value 
-         $all_fields = $post->scan_form_tags();
-         
-         $uacf7_enable_pdf_generator = get_post_meta( $post->id(), 'uacf7_enable_pdf_generator', true ); 
-         $pdf_send_to = get_post_meta( $post->id(), 'pdf_send_to', true ); 
-         $uacf7_pdf_name = get_post_meta( $post->id(), 'uacf7_pdf_name', true ); 
-         $disable_header = get_post_meta( $post->id(), 'uacf7_pdf_disable_header', true ); 
-         $disable_footer = get_post_meta( $post->id(), 'uacf7_pdf_disable_footer', true ); 
-         $customize_pdf = get_post_meta( $post->id(), 'customize_pdf', true ); 
-         $pdf_bg_upload_image = get_post_meta( $post->id(), 'pdf_bg_upload_image', true );  
-         $customize_pdf_header = get_post_meta( $post->id(), 'customize_pdf_header', true ); 
-         $pdf_header_upload_image = get_post_meta( $post->id(), 'pdf_header_upload_image', true );  
-         $customize_pdf_footer = get_post_meta( $post->id(), 'customize_pdf_footer', true ); 
-         $custom_pdf_css = get_post_meta( $post->id(), 'custom_pdf_css', true ); 
-         $pdf_content_color = get_post_meta( $post->id(), 'pdf_content_color', true ); 
-         $pdf_content_bg_color = get_post_meta( $post->id(), 'pdf_content_bg_color', true ); 
-         $pdf_header_color = get_post_meta( $post->id(), 'pdf_header_color', true ); 
-         $pdf_header_bg_color = get_post_meta( $post->id(), 'pdf_content_bg_color', true ); 
-         $pdf_footer_color = get_post_meta( $post->id(), 'pdf_footer_color', true ); 
-         $pdf_footer_bg_color = get_post_meta( $post->id(), 'pdf_footer_bg_color', true ); 
-        ?>
-        <h2><?php echo esc_html__( 'PDF Generator', 'ultimate-addons-cf7' ); ?></h2>
-        <p><?php echo esc_html__('This feature will help you to create pdf after form submission, send to mail, stored pdf into the server and export pdf form the admin.','ultimate-addons-cf7'); ?></p>
-        <div class="uacf7-doc-notice">
-            <?php echo sprintf( 
-                __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
-                '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-pdf-generator/" target="_blank">documentation</a>'
-            ); ?>  
-        </div> 
-         <fieldset>
-           <div class="ultimate-placeholder-admin pdf-generator-admin">
-               <div class="ultimate-placeholder-wrapper pdf-generator-wrap"> 
-                  <h3> Option</h3>
-                    <div class="uacf7pdf-fourcolumns">
-                       <h4><?php _e('Enable PDF Generator', 'ultimate-addons-cf7'); ?></h4>
-                       <label for="uacf7_enable_pdf_generator">  
-                            <input id="uacf7_enable_pdf_generator" type="checkbox" name="uacf7_enable_pdf_generator" <?php checked( 'on', $uacf7_enable_pdf_generator ); ?> > <?php echo esc_html__( 'Enable', 'ultimate-addons-cf7' ); ?>
-                        </label><br><br>
-                    </div>
-                    <div class="uacf7pdf-fourcolumns">
-                       <h4><?php _e('PDF Title', 'ultimate-addons-cf7'); ?></h4>
-                       <label for="uacf7_pdf_name">  
-                            <input id="uacf7_pdf_name" type="text" ize="100%" name="uacf7_pdf_name"  value="<?php  echo esc_attr_e($uacf7_pdf_name); ?>" >.pdf
-                        </label><br><br>
-                    </div>
-                 
-                    <div class="uacf7pdf-fourcolumns">
-                       <h4 ><?php _e('PDF Send To', 'ultimate-addons-cf7'); ?></h4>
-                       <select name="pdf_send_to" id="event_summary">
-                            <option <?php if($pdf_send_to == 'default') echo "selected"; ?> value="default" selected="selected"><?php echo esc_html__( 'Default', 'ultimate-addons-cf7' ); ?></option>
-                            <option <?php if($pdf_send_to == 'mail-1') echo "selected"; ?> value="mail-1"><?php echo esc_html__( 'Mail 1', 'ultimate-addons-cf7' ); ?></option> 
-                            <option <?php if($pdf_send_to == 'mail-2') echo "selected"; ?> value="mail-2"><?php echo esc_html__( 'Mail 2', 'ultimate-addons-cf7' ); ?></option>   
-                        </select><br><br>
-                    </div>
-                 
-                    <div class="uacf7pdf-fourcolumns">
-                       <h4 ><?php _e('Disable Header and Footer', 'ultimate-addons-cf7'); ?></h4> 
-                       <label for="uacf7_pdf_disable_header">  
-                            <input id="uacf7_pdf_disable_header" type="checkbox" name="uacf7_pdf_disable_header" <?php checked( 'on', $disable_header ); ?> > <?php echo esc_html__( ' Disable Header ', 'ultimate-addons-cf7' ); ?>
-                        </label> 
-                        <br>
-                       <label for="uacf7_pdf_disable_footer">  
-                            <input id="uacf7_pdf_disable_footer" type="checkbox" name="uacf7_pdf_disable_footer" <?php checked( 'on', $disable_footer ); ?> ><?php echo esc_html__( 'Disable Footer', 'ultimate-addons-cf7' ); ?> 
-                        </label>
-                    </div>
-                 
-                    <hr>
-                    <div class="uacf7pdf-onecolumns">
-                        <h3><?php _e('Customize PDF', 'ultimate-addons-cf7'); ?></h3> 
-                        
-                         <hr>
-                    </div> 
-                   <div class="uacf7pdf-twocolumns">
-                       <h4><?php _e('Background Image', 'ultimate-addons-cf7'); ?></h4>
-                       <input id="pdf_bg_upload_image" size="60%" class="wpcf7-form-field" name="pdf_bg_upload_image" value="<?php echo esc_attr_e($pdf_bg_upload_image); ?>" type="text" /> 
-                       <a href="#" id="upload_pdf_image_button" class="button" ><span> <?php _e('Select or Upload picture', 'ultimate-addons-cf7'); ?> </span></a> <br /> 
-              
-                   </div>
-                   <div class="uacf7pdf-fourcolumns">
-                        <h4><?php _e('Color', 'ultimate-addons-cf7'); ?> </h4> 
-                        <input type="text" id="uacf7-uacf7style-input-color" name="pdf_content_color" class="uacf7-color-picker" value="<?php echo esc_attr_e($pdf_content_color); ?>" placeholder="<?php echo esc_html__( 'Color', 'ultimate-addons-cf7' ); ?>">  
-                    </div>
-                    <div class="uacf7pdf-fourcolumns">
-                        <h4><?php _e('Background Color', 'ultimate-addons-cf7'); ?>  </h4> 
-                        <input type="text" id="uacf7-uacf7style-input-color" name="pdf_content_bg_color" class="uacf7-color-picker" value="<?php echo esc_attr_e($pdf_content_bg_color); ?>" placeholder="<?php echo esc_html__( 'Background color', 'ultimate-addons-cf7' ); ?>">  
-                    </div>  
-                   <div class="uacf7pdf-onecolumns">
-                        <p> <strong><?php echo esc_html__( 'Form Tags :', 'ultimate-addons-cf7' ); ?>  </strong>
-                            <strong>
-                                <?php
-                                    foreach ($all_fields as $tag) {
-                                        if ($tag['type'] != 'submit') {
-                                            echo '<span>['.esc_attr($tag['name']).']</span> ';
-                                        }
-                                    }
-                                ?>
-                            </strong>
-                        </p>
-
-                        <label for="customize_pdf">  
-                        <?php  
-                        wp_editor( $customize_pdf, 'post_meta_box', array('textarea_name'=>'customize_pdf', 'media_buttons' => false )); ?>
-
-                            <!-- <input type="text" id="customize_pdf" name="customize_pdf" class="large-text" value="<?php echo esc_attr_e($customize_pdf); ?>" placeholder="<?php echo esc_html__( 'Enter Your Custom CSS', 'ultimate-addons-cf7' ); ?>">  -->
-                        </label><br><br>
-                   </div>
-                  
-                    <hr>
-                    <div class="uacf7pdf-onecolumns">
-                        <h3><?php echo esc_html__( 'Customize PDF header', 'ultimate-addons-cf7' ); ?> </h3> 
-                        <hr> 
-                        <p> <strong><?php echo esc_html__( 'header and footer page numbers & date Tags :', 'ultimate-addons-cf7' ); ?>  
-                                <span>{PAGENO}</span>, 
-                                <span>{DATE j-m-Y}</span>, 
-                                <span>{nb}</span>, 
-                                <span>{nbpg}</span>
-                            </strong>
-                            
-                        </p>
-                    </div>  
-                   <div class="uacf7pdf-twocolumns">
-                       <h4><?php _e('Header Image', 'ultimate-addons-cf7'); ?></h4>
-                       <input id="upload_image" size="60%" class="wpcf7-form-field" name="pdf_header_upload_image" value="<?php echo esc_attr_e($pdf_header_upload_image); ?>" type="text" /> 
-                       <a href="#" id="upload_image_button" class="button" ><span> <?php _e('Select or Upload picture', 'ultimate-addons-cf7'); ?> </span></a> <br /> 
-                    </div> 
-                    <div class="uacf7pdf-fourcolumns">
-                        <h4><?php _e('Color', 'ultimate-addons-cf7'); ?> </h4> 
-                        <input type="text" id="uacf7-uacf7style-input-color" name="pdf_header_color" class="uacf7-color-picker" value="<?php echo esc_attr_e($pdf_header_color); ?>" placeholder="<?php echo esc_html__( 'Color', 'ultimate-addons-cf7' ); ?>">  
-                    </div>
-                    <div class="uacf7pdf-fourcolumns">
-                        <h4><?php _e('Background Color', 'ultimate-addons-cf7'); ?>  </h4> 
-                        <input type="text" id="uacf7-uacf7style-input-color" name="pdf_header_bg_color" class="uacf7-color-picker" value="<?php echo esc_attr_e($pdf_header_bg_color); ?>" placeholder="<?php echo esc_html__( 'Background color', 'ultimate-addons-cf7' ); ?>">  
-                    </div>  
-                     
-                   <div class="uacf7pdf-onecolumns">
-                    <br>
-                    <br>
-                        <label for="customize_pdf">  
-                             <?php wp_editor( $customize_pdf_header, 'post_meta_box2', array('textarea_name'=>'customize_pdf_header', 'media_buttons' => false )); ?> 
-                        </label><br><br>
-                   </div>
-                   <div class="uacf7pdf-onecolumns">
-                        <h3><?php echo esc_html__( 'Customize PDF footer', 'ultimate-addons-cf7' ); ?> </h3>
-                        <hr> 
-                        <div class="uacf7pdf-fourcolumns">
-                            <h4><?php _e('Color', 'ultimate-addons-cf7'); ?> </h4> 
-                            <input type="text" id="uacf7-uacf7style-input-color" name="pdf_footer_color" class="uacf7-color-picker" value="<?php echo esc_attr_e($pdf_footer_color); ?>" placeholder="<?php echo esc_html__( 'Color', 'ultimate-addons-cf7' ); ?>">  
-                        </div>
-                        <div class="uacf7pdf-fourcolumns">
-                            <h4><?php _e('Background Color', 'ultimate-addons-cf7'); ?>  </h4> 
-                            <input type="text" id="uacf7-uacf7style-input-color" name="pdf_footer_bg_color" class="uacf7-color-picker" value="<?php echo esc_attr_e($pdf_footer_bg_color); ?>" placeholder="<?php echo esc_html__( 'Background color', 'ultimate-addons-cf7' ); ?>"> 
-        
-                        </div>  
-                        <div class="uacf7pdf-onecolumns">
-                            <label for="customize_pdf">  
-                                <?php wp_editor( $customize_pdf_footer, 'post_meta_box4', array('textarea_name'=>'customize_pdf_footer', 'media_buttons' => false )); ?> 
-                            </label><br><br>
-                         </div>  
-                   </div>
-                   <div class="uacf7pdf-onecolumns">
-                        <h3><?php echo esc_html__( 'Custom CSS', 'ultimate-addons-cf7' ); ?></h3>
-                        <hr> 
-                        <label for="customize_pdf">  
-                            <input type="text" id="custom_pdf_css" name="custom_pdf_css" class="large-text" value="<?php echo esc_attr_e($custom_pdf_css); ?>" placeholder="<?php echo esc_html__( 'Customize PDF CSS', 'ultimate-addons-cf7' ); ?>"> 
-                        </label><br><br>
-                   </div>
-                   
-                  
-               </div>
-           </div>
-        </fieldset>
-        <?php
-        wp_nonce_field( 'uacf7_pdf_generator_nonce_action', 'uacf7_pdf_generator_nonce' );
-	}
-    public function uacf7_save_contact_form( $form ) {
-        
-        if ( ! isset( $_POST ) || empty( $_POST ) ) {
-			return;
-		}
-        if ( ! wp_verify_nonce( $_POST['uacf7_pdf_generator_nonce'], 'uacf7_pdf_generator_nonce_action' ) ) {
-            return;
+    // Import Export 
+    public function uacf7_post_meta_import_export_pdf_generator( $imported_data, $form_id ) {
+        if ( isset( $imported_data['pdf_generator'] ) && function_exists('uacf7_import_export_file_upload') ) {
+            $imported_data['pdf_generator']['pdf_bg_upload_image'] = uacf7_import_export_file_upload( $imported_data['pdf_generator']['pdf_bg_upload_image'] );
         } 
-        if(isset($_POST['uacf7_enable_pdf_generator'])){
-            update_post_meta( $form->id(), 'uacf7_enable_pdf_generator', sanitize_text_field($_POST['uacf7_enable_pdf_generator']) );
-        }else{
-            update_post_meta( $form->id(), 'uacf7_enable_pdf_generator', 'off' );
-        }
-
-        if(isset($_POST['uacf7_pdf_disable_header'])){
-            update_post_meta( $form->id(), 'uacf7_pdf_disable_header', sanitize_text_field($_POST['uacf7_pdf_disable_header']) );
-        }else{
-            update_post_meta( $form->id(), 'uacf7_pdf_disable_header', 'off' );
-        }
-    
-        if(isset($_POST['uacf7_pdf_disable_footer'])){
-            update_post_meta( $form->id(), 'uacf7_pdf_disable_footer', sanitize_text_field($_POST['uacf7_pdf_disable_footer']) );
-        }else{
-            update_post_meta( $form->id(), 'uacf7_pdf_disable_footer', 'off' );
-        }
-        
-        if(isset($_POST['uacf7_pdf_name'])){ 
-            update_post_meta( $form->id(), 'uacf7_pdf_name', sanitize_text_field($_POST['uacf7_pdf_name']) );
-        }
-        if(isset($_POST['customize_pdf'])){ 
-            update_post_meta( $form->id(), 'customize_pdf', $_POST['customize_pdf']) ;
+        if ( isset( $imported_data['pdf_generator'] ) && function_exists('uacf7_import_export_file_upload') ) {
+            $imported_data['pdf_generator']['pdf_header_upload_image'] = uacf7_import_export_file_upload( $imported_data['pdf_generator']['pdf_header_upload_image'] );
         } 
-        if(isset($_POST['pdf_send_to'])){ 
-            update_post_meta( $form->id(), 'pdf_send_to', sanitize_text_field($_POST['pdf_send_to']) );
-        }  
-        if(isset($_POST['pdf_bg_upload_image'])){ 
-            update_post_meta( $form->id(), 'pdf_bg_upload_image', sanitize_text_field($_POST['pdf_bg_upload_image']) );
-        }   
-        if(isset($_POST['pdf_bg_upload_image'])){ 
-            update_post_meta( $form->id(), 'pdf_bg_upload_image', sanitize_text_field($_POST['pdf_bg_upload_image']) );
-        }    
-        if(isset($_POST['customize_pdf_header'])){ 
-            update_post_meta( $form->id(), 'customize_pdf_header', $_POST['customize_pdf_header']);
-        }     
-        if(isset($_POST['pdf_header_upload_image'])){ 
-            update_post_meta( $form->id(), 'pdf_header_upload_image', sanitize_text_field($_POST['pdf_header_upload_image']) );
-        }     
-        if(isset($_POST['pdf_header_upload_image'])){ 
-            update_post_meta( $form->id(), 'pdf_header_upload_image', sanitize_text_field($_POST['pdf_header_upload_image']) );
-        }      
-        if(isset($_POST['customize_pdf_footer'])){ 
-            update_post_meta( $form->id(), 'customize_pdf_footer', $_POST['customize_pdf_footer']);
-        }      
-        if(isset($_POST['custom_pdf_css'])){ 
-            update_post_meta( $form->id(), 'custom_pdf_css', sanitize_text_field($_POST['custom_pdf_css']) );
-        }       
-        if(isset($_POST['pdf_content_bg_color'])){ 
-            update_post_meta( $form->id(), 'pdf_content_bg_color', sanitize_text_field($_POST['pdf_content_bg_color']) );
-        }      
-        if(isset($_POST['pdf_header_color'])){ 
-            update_post_meta( $form->id(), 'pdf_header_color', sanitize_text_field($_POST['pdf_header_color']) );
-        }          
-        if(isset($_POST['pdf_header_bg_color'])){ 
-            update_post_meta( $form->id(), 'pdf_header_bg_color', sanitize_text_field($_POST['pdf_header_bg_color']) );
-        }           
-        if(isset($_POST['pdf_footer_color'])){ 
-            update_post_meta( $form->id(), 'pdf_footer_color', sanitize_text_field($_POST['pdf_footer_color']) );
-        }            
-        if(isset($_POST['pdf_footer_bg_color'])){ 
-            update_post_meta( $form->id(), 'pdf_footer_bg_color', sanitize_text_field($_POST['pdf_footer_bg_color']) );
-        }
-         
+        return $imported_data;
     }
    
      
