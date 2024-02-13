@@ -644,9 +644,9 @@ class UACF7_MULTISTEP {
                         $step_name = apply_filters('uacf7_multistep_steps_names', '', $all_steps);
                     
                         foreach ($all_steps as $step) {
-                            $content = $step->values[0];
-                            // uacf7_print_r( $content);
-                            ?>
+                            // $content = $step->values[0];
+                            $content = isset($step->values[0]) ? $step->values[0] : ''; ?>
+                            
                             <div class="steps-step">
                                 <a title-id=".step-<?php echo esc_attr($step_id); ?>" data-form-id="<?php echo esc_attr($cfform->id()); ?>"   href="#<?php echo esc_attr($cfform->id()); ?>step-<?php echo esc_attr($step_id); ?>" type="button" class="btn <?php if( $step_id == 1 ) { echo esc_attr('uacf7-btn-active'); }else{ echo esc_attr('uacf7-btn-default'); } ?> btn-circle"><?php 
                                     if(is_array($step_name)) {
