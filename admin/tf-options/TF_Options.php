@@ -65,7 +65,8 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 			$form_id = stripslashes( $_POST['form_id'] );
 			if ( $form_id != 0 ) {
 				$imported_data = unserialize( $imported_data );
-				$imported_data = apply_filters( 'uacf7_post_meta_import_export', $imported_data, $form_id );
+				// uacf7_print_r($imported_data );
+				// $imported_data = apply_filters( 'uacf7_post_meta_import_export', $imported_data, $form_id );
 				update_post_meta( $form_id, 'uacf7_form_opt', $imported_data );
 			} else {
 				$imported_data = unserialize( $imported_data );
