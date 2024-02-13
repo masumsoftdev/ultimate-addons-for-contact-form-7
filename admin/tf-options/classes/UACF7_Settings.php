@@ -659,14 +659,14 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
                                     }
                                 } else {
 	                                $data = isset( $option_request[ $field['id'] ] ) ? $option_request[ $field['id'] ] : '';
-									if($data == ''){
+									if($data == ''  && $uacf7_current_page == 'uacf7_addons_page'){
 										$data = isset( $tf_option_value[ $field['id'] ] ) ? $tf_option_value[ $field['id'] ] : '';
 									}
                                 }
 
 								if($fieldClass != 'UACF7_file'){
 									$data       = $fieldClass == 'UACF7_repeater' || $fieldClass == 'UACF7_map' ? serialize( $data ) : $data;
-									if($data == ''){
+									if($data == ''  && $uacf7_current_page == 'uacf7_addons_page'){
 										$data = isset( $tf_option_value[ $field['id'] ] ) ? $tf_option_value[ $field['id'] ] : '';
 									}
 								}

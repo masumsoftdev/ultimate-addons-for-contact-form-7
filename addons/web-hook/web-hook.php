@@ -29,7 +29,7 @@ class UACF7_WEB_HOOK {
 		$WebHook = apply_filters( 'uacf7_post_meta_options_webhook', $data = array(
 			'title' => __( 'Webhook', 'ultimate-addons-cf7' ),
 			'icon' => 'fa-solid fa-code-compare',
-			'checked_field'   => 'uacf7_telegram_enable',
+			'checked_field'   => 'uacf7_enable_web_hook',
 			'fields' => [ 
 				'uacf7_Web_hook_heading' => [ 
 					'id' => 'uacf7_web_hook_heading',

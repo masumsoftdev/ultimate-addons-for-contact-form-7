@@ -1039,11 +1039,7 @@
             $this.parent().parent().find('.tf-tab-item-content[data-tab-id = ' + tab_id + ']').addClass('show');
 
         });
-
-    });
-
-    $(document).ready(function () {
-        $('.tf-import-btn').on('click', function (event) {
+        $(document).on('click', '.tf-import-btn', function (event) {
             event.preventDefault();
 
             // Get the import URL from the button's href attribute 
@@ -1088,8 +1084,15 @@
                     }
                 });
             }
-        })
+        });
+
     });
+
+    // $(document).ready(function () {
+    //     $('.tf-import-btn').on('click', function (event) {
+          
+    //     })
+    // });
 
     //export the data in txt file
     jQuery(document).ready(function ($) {
