@@ -165,10 +165,15 @@ jQuery(document).ready(function () {
                         uacf7_current_step.hide();
                         uacf7_current_step.addClass('completed');
                         jQuery('#'+form_id+'step-' + uacf7_next_step).show();
-                        var ua
+                   
                         jQuery('.steps-step').find('a[href="#'+curStepBtn+'"]').addClass('completed');
                         jQuery('.steps-step').find('a[href="#'+form_id+'step-' + uacf7_next_step+'"]').addClass('uacf7-btn-active');
                         jQuery('.steps-step').find('a[href="#'+form_id+'step-' + uacf7_next_step+'"]').parent().addClass('step-complete');
+
+                        // Hide All steps Title:
+                        jQuery('.uacf7-form-'+form_id).find('.step-title').hide();
+                        // Show Next Step Title:
+                        jQuery('.uacf7-form-'+form_id).find('.step-title.step-'+uacf7_next_step).show();
      
                     } else {
 						

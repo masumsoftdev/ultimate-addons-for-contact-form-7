@@ -186,7 +186,15 @@ class UACF7_MULTISTEP {
                     'options' => array(
                         'default' => 'Default',
                         'equal-height' => 'Equal height'
-                    )
+                    ),
+                    'dependency' => array(
+                        array('uacf7_progressbar_style', '!=', 'default'),
+                        array('uacf7_progressbar_style', '!=', 'style-1'),
+                        array('uacf7_progressbar_style', '!=', 'style-2'),
+                        array('uacf7_progressbar_style', '!=', 'style-4'),
+                        array('uacf7_progressbar_style', '!=', 'style-5'),
+
+                    ),
                 ),
 
                 'uacf7_multistep_progressbar_color_option' => array(
@@ -537,6 +545,10 @@ class UACF7_MULTISTEP {
                         'placeholder'     => __( 'Description title', 'ultimate-addons-cf7' ), 
                         'is_pro' => true,
                         'field_width' => 50,
+                        'dependency' => array( 
+                            array('uacf7_progressbar_style', '==', 'style-6'), 
+    
+                        ),
                     );
                     $fields['step_desc_'.$step->name.''] = array(
                         'id'        => 'step_desc_'.$step->name.'',
@@ -544,6 +556,10 @@ class UACF7_MULTISTEP {
                         'label'     => __( 'Step description', 'ultimate-addons-cf7' ),
                         'placeholder'     => __( 'Step description', 'ultimate-addons-cf7' ), 
                         'is_pro' => true,
+                        'dependency' => array( 
+                            array('uacf7_progressbar_style', '==', 'style-6'), 
+    
+                        ),
                     );
 
                     $step_count++;
@@ -645,7 +661,8 @@ class UACF7_MULTISTEP {
                     
                         foreach ($all_steps as $step) {
                             // $content = $step->values[0];
-                            $content = isset($step->values[0]) ? $step->values[0] : ''; ?>
+                            $content = isset($step->values[0]) ? $step->values[0] : '';   
+                        ?>
                             
                             <div class="steps-step">
                                 <a title-id=".step-<?php echo esc_attr($step_id); ?>" data-form-id="<?php echo esc_attr($cfform->id()); ?>"   href="#<?php echo esc_attr($cfform->id()); ?>step-<?php echo esc_attr($step_id); ?>" type="button" class="btn <?php if( $step_id == 1 ) { echo esc_attr('uacf7-btn-active'); }else{ echo esc_attr('uacf7-btn-default'); } ?> btn-circle"><?php 
@@ -653,7 +670,7 @@ class UACF7_MULTISTEP {
                                         do_action( 'uacf7_progressbar_image', $step_name[$step_count], $cfform->id() );
                                     }
                                     if( $uacf7_progressbar_style == 'style-1' ){
-                                        if( $uacf7_multistep_use_step_labels == true ) {
+                                        if( $uacf7_multistep_use_step_labels != true ) {
                                             echo $content;
                                         }else { 
                                             echo esc_attr($step_id);
