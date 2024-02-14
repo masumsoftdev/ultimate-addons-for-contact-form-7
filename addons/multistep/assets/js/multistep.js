@@ -168,6 +168,7 @@ jQuery(document).ready(function () {
                         var ua
                         jQuery('.steps-step').find('a[href="#'+curStepBtn+'"]').addClass('completed');
                         jQuery('.steps-step').find('a[href="#'+form_id+'step-' + uacf7_next_step+'"]').addClass('uacf7-btn-active');
+                        jQuery('.steps-step').find('a[href="#'+form_id+'step-' + uacf7_next_step+'"]').parent().addClass('step-complete');
      
                     } else {
 						
