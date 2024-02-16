@@ -54,7 +54,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 
 			if ( current_user_can( 'manage_options' ) ) {
 				add_submenu_page(
-					'',
+					'uacf7-setup-wizard',
 					esc_html__( 'UACF7 Setup Wizard', 'ultimate-addons-cf7' ),
 					esc_html__( 'UACF7 Setup Wizard', 'ultimate-addons-cf7' ),
 					'manage_options',
