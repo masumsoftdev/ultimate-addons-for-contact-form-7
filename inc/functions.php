@@ -423,6 +423,93 @@ if ( ! function_exists( 'uacf7_review_notice_callback' ) ) {
 
 }
 
+// if ( ! function_exists( 'uacf7_new_updated_announcement' ) ) {
+// 	function uacf7_new_updated_announcement() {
+// 		$current_user = wp_get_current_user();
+// 		$imgurl = UACF7_URL . 'assets/img/';
+// if ( ! function_exists( 'uacf7_new_updated_announcement' ) ) {
+// 	function uacf7_new_updated_announcement() {
+// 		$current_user = wp_get_current_user();
+// 		$imgurl = UACF7_URL . 'assets/img/';
+ // 		<div class="notice themefic_review_notice uacf7_new_updated_anno"> -->
+ 			// echo sprintf(
+// 				__( '
+//                     <a style="background-image: url(%2$s/uacf7_new_updated_anno.png)" class="uacf7_new_updated_anno_banner_url" target="_blank" href="https://themefic.com/uacf7-revamped-plugin-installation-and-options/">
+// 						<div class="uacf7_new_updated_anno_info_wrap">
+// 							<h3>
+// 								Introducing Ultimate Addons For Contact Form 7 v3.3.0!
+// 							</h3>
+// 							<p>Get ready for an exciting announcement! We will soon unveil the highly anticipated release of <b>Ultimate Addon Contact Form 7 v3.3.0</b>. Your user experience will be enhanced, and we recommend backing up your site before updating for a smooth transition</p>
+// 						</div>
+// 						<button class="uacf7_new_updated_anno_button">
+// 							Explore What’s New
+// 							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+// 								<path d="M16.0032 9.41421L7.39663 18.0208L5.98242 16.6066L14.589 8H7.00324V6H18.0032V17H16.0032V9.41421Z" fill="#382673"/>
+// 							</svg>
+// 						</button>
+// 					</a>
+//                     ', 'ultimate-addons-cf7' ),
+// 				$current_user->user_login, $imgurl,
+// 				'ultimate-addons-cf7'
+// 			); 
+ 
+ 			// <a class="uacf7_new_updated_anno_close uacf7_never" href="#" data-status="uacf7_never">
+ 			// 	<span class="dashicons dashicons-dismiss"></span>
+ 			// </a> 
+
+ 			// <script>
+// 				jQuery(document).ready(function ($) {
+// 					$(document).on('click', '.uacf7_never', function (event) {
+// 						event.preventDefault();
+// 						var $this = $(this);
+// 						var status = $this.attr('data-status');
+// 						$this.closest('.themefic_review_notice').css('display', 'none')
+// 						data = {
+// 							action: 'uacf7_review_announcement_callback',
+// 							status: status,
+// 						};
+
+// 						$.ajax({
+// 							url: ajaxurl,
+// 							type: 'post',
+// 							data: data,
+// 							success: function (data) {
+// 							},
+// 							error: function (data) {
+// 							}
+// 						});
+// 					});
+// 				});
+ 			//</script>
+
+// </div> 
+
+//}
+
+// 	if ( ! isset( $_COOKIE['uacf7_review_announcement_status'] ) ) {
+// 		//add_action( 'admin_notices', 'uacf7_new_updated_announcement' );
+// 	}
+
+// }
+
+// Themefic Plugin Review Admin Notice Ajax Callback 
+// if ( ! function_exists( 'uacf7_review_announcement_callback' ) ) {
+
+// 	function uacf7_review_announcement_callback() {
+// 		$status = $_POST['status'];
+// 		if ( $status == 'uacf7_never' ) {
+// 			$cookie_name = "uacf7_review_announcement_status";
+// 			$cookie_value = "1";
+// 			setcookie( $cookie_name, $cookie_value, time() + ( 86400 * 7 ), "/" );
+// 			update_option( 'uacf7_review_announcement_status', '0' );
+// 		}
+// 		wp_die();
+// 	}
+// 	add_action( 'wp_ajax_uacf7_review_announcement_callback', 'uacf7_review_announcement_callback' );
+
+// }
+
+
 // Themefic Plugin Migration Callback 
 if(!function_exists('uacf7_form_option_Migration_callback')){
    
@@ -627,7 +714,7 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                             $uacf7_uacf7style_ua_custom_css = get_post_meta( get_the_ID(), 'uacf7_uacf7style_ua_custom_css', true );
 
 
-                        //     //  Migration 
+                        	//  Migration 
                             $meta['styler']['uacf7_enable_form_styles'] = $uacf7_enable_form_styles;
                             $meta['styler']['uacf7_uacf7style_label_color_option']['uacf7_uacf7style_label_color'] = $uacf7_uacf7style_label_color;
                             $meta['styler']['uacf7_uacf7style_label_color_option']['uacf7_uacf7style_label_background_color'] = $uacf7_uacf7style_label_background_color;
@@ -1059,92 +1146,6 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
   
     }
     add_action( 'admin_init', 'uacf7_form_option_Migration_callback' );
-
-}
-
- 
-
-if ( ! function_exists( 'uacf7_new_updated_announcement' ) ) {
-	function uacf7_new_updated_announcement() {
-		$current_user = wp_get_current_user();
-		$imgurl = UACF7_URL . 'assets/img/';
-		?>
-
-		<div class="notice themefic_review_notice uacf7_new_updated_anno">
-			<?php echo sprintf(
-				__( '
-                    <a style="background-image: url(%2$s/uacf7_new_updated_anno.png)" class="uacf7_new_updated_anno_banner_url" target="_blank" href="https://themefic.com/uacf7-revamped-plugin-installation-and-options/">
-						<div class="uacf7_new_updated_anno_info_wrap">
-							<h3>
-								Introducing Ultimate Addons For Contact Form 7 v3.3.0!
-							</h3>
-							<p>Get ready for an exciting announcement! We will soon unveil the highly anticipated release of <b>Ultimate Addon Contact Form 7 v3.3.0</b>. Your user experience will be enhanced, and we recommend backing up your site before updating for a smooth transition</p>
-						</div>
-						<button class="uacf7_new_updated_anno_button">
-							Explore What’s New
-							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M16.0032 9.41421L7.39663 18.0208L5.98242 16.6066L14.589 8H7.00324V6H18.0032V17H16.0032V9.41421Z" fill="#382673"/>
-							</svg>
-						</button>
-					</a>
-                    ', 'ultimate-addons-cf7' ),
-				$current_user->user_login, $imgurl,
-				'ultimate-addons-cf7'
-			); ?>
-
-			<a class="uacf7_new_updated_anno_close uacf7_never" href="#" data-status="uacf7_never">
-				<span class="dashicons dashicons-dismiss"></span>
-			</a>
-
-			<script>
-				jQuery(document).ready(function ($) {
-					$(document).on('click', '.uacf7_never', function (event) {
-						event.preventDefault();
-						var $this = $(this);
-						var status = $this.attr('data-status');
-						$this.closest('.themefic_review_notice').css('display', 'none')
-						data = {
-							action: 'uacf7_review_announcement_callback',
-							status: status,
-						};
-
-						$.ajax({
-							url: ajaxurl,
-							type: 'post',
-							data: data,
-							success: function (data) {
-							},
-							error: function (data) {
-							}
-						});
-					});
-				});
-			</script>
-
-		</div>
-
-	<?php }
-
-	if ( ! isset( $_COOKIE['uacf7_review_announcement_status'] ) ) {
-		add_action( 'admin_notices', 'uacf7_new_updated_announcement' );
-	}
-
-}
-
-// Themefic Plugin Review Admin Notice Ajax Callback 
-if ( ! function_exists( 'uacf7_review_announcement_callback' ) ) {
-
-	function uacf7_review_announcement_callback() {
-		$status = $_POST['status'];
-		if ( $status == 'uacf7_never' ) {
-			$cookie_name = "uacf7_review_announcement_status";
-			$cookie_value = "1";
-			setcookie( $cookie_name, $cookie_value, time() + ( 86400 * 7 ), "/" );
-			update_option( 'uacf7_review_announcement_status', '0' );
-		}
-		wp_die();
-	}
-	add_action( 'wp_ajax_uacf7_review_announcement_callback', 'uacf7_review_announcement_callback' );
 
 }
 
