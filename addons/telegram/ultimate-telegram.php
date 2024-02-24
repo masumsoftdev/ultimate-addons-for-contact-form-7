@@ -114,12 +114,9 @@ class UACF7_TELEGRAM {
           $form_tags = $submission->get_contact_form()->scan_form_tags();
    
           $properties = $submission->get_contact_form()->get_properties();
-      
 
           $mail    = $contact_form->prop( 'mail' );
           $message = wpcf7_mail_replace_tags( @ $mail[ 'body' ] );
-
-        
 
           $this->uacf7_send_message_to_telegram($message, $form_id);
 
@@ -127,9 +124,6 @@ class UACF7_TELEGRAM {
 
     
   }
-
-
-
 
 
   public function uacf7_send_message_to_telegram($message, $form_id) {
@@ -156,7 +150,7 @@ class UACF7_TELEGRAM {
     $bot_token             = isset($uacf7_telegram_bot_token) ? $uacf7_telegram_bot_token : '';
     $chat_id               = isset($uacf7_telegram_chat_id) ? $uacf7_telegram_chat_id : '';
     
-    if ($uacf7_telegram_enable === 'on' && $bot_token && $chat_id) {
+    if ($uacf7_telegram_enable === '1' && $bot_token && $chat_id) {
         $api_url = "https://api.telegram.org/bot$bot_token/sendMessage";
 
 
@@ -176,11 +170,7 @@ class UACF7_TELEGRAM {
             error_log('Telegram API request failed: ' . $response->get_error_message());
         }
     }
-
-
-
-   
-        
+    
   }
 
 }
