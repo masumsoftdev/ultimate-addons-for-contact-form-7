@@ -457,7 +457,7 @@ if ( ! function_exists( 'uacf7_new_updated_announcement' ) ) {
 	<?php }
 
 	if ( ! isset( $_COOKIE['uacf7_review_announcement_status'] ) ) {
-		add_action( 'admin_notices', 'uacf7_new_updated_announcement' );
+		//add_action( 'admin_notices', 'uacf7_new_updated_announcement' );
 	}
 
 }
