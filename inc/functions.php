@@ -301,56 +301,7 @@ function uacf7_multistep_progressbar_style( $form_id ) {
     <?php
 }
 
-
-//Dispal repeater pro feature
-
-if( !function_exists('uacf7_tg_pane_repeater') ) {
-    add_action( 'admin_init', 'uacf7_repeater_pro_tag_generator' );
-}
-
-function uacf7_repeater_pro_tag_generator() {
-    if (! function_exists( 'wpcf7_add_tag_generator'))
-        return;
-
-    wpcf7_add_tag_generator('repeater',
-        __('Ultimate Repeater (pro)', 'ultimate-addons-cf7'),
-        'uacf7-tg-pane-repeater',
-        'uacf7_tg_pane_repeater_pro'
-    );
-
-}
-
-function uacf7_tg_pane_repeater_pro( $contact_form, $args = '' ) {
-    $args = wp_parse_args( $args, array() );
-    $uacf7_field_type = 'repeater';
-    ?>
-    <div class="control-box">
-        <fieldset>
-            <legend>
-                <?php echo esc_html__( "This is a Pro feature of Ultimate Addons for contact form 7. You can add repeatable field and repeatable fields group with this addon.", "ultimate-addons-cf7" ); ?> <a href="https://cf7addons.com/preview/repeater-field/" target="_blank">Check Preview</a>
-            </legend>
-            <table class="form-table">
-                <tbody>
-                    <tr>
-                        <th scope="row"><label for="<?php echo esc_attr( $args['content'] . '-name' ); ?>"><?php echo esc_html( __( 'Name', 'ultimate-addons-cf7' ) ); ?></label></th>
-                        <td><input type="text" name="name" class="tg-name oneline" id="<?php echo esc_attr( $args['content'] . '-name' ); ?>" /></td>
-                    </tr>
-                    <tr>
-                    	<th scope="row"><label for="tag-generator-panel-text-values"><?php echo __('Add Button Text', 'ultimate-addons-cf7' ) ?></label></th>
-                    	<td><input type="text" name="" class="tg-name oneline uarepeater-add" value="Add more" id="tag-generator-panel-uarepeater-nae"></td>
-                	</tr>
-                	<tr>
-                    	<th scope="row"><label for="tag-generator-panel-text-values-remove"><?php echo __('Remove Button Text', 'ultimate-addons-cf7' ) ?></label></th>
-                    	<td><input type="text" name="" class="tg-name oneline uarepeater-remove" value="Remove" id="tag-generator-panel-uarepeater-n"></td>
-                	</tr>
-                    
-                </tbody>
-            </table>
-        </fieldset>
-    </div>
-    <?php
-}
-
+ 
 //Add wrapper to contact form 7
 add_filter( 'wpcf7_contact_form_properties', 'uacf7_add_wrapper_to_cf7_form', 10, 2 );
 function uacf7_add_wrapper_to_cf7_form( $properties, $cfform ) {
@@ -478,6 +429,37 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
     function uacf7_form_option_Migration_callback(){
         $migration_status = get_option('uacf7_settings_migration_status'); 
         if($migration_status != true){ 
+
+            $args_uacf7_review  = array(
+                'post_type'        => 'uacf7_review',
+                'posts_per_page'   => -1,
+            );
+            $query_uacf7_review = new WP_Query( $args_uacf7_review );
+             
+            if ( $query_uacf7_review->have_posts() ) {
+        
+                while ( $query_uacf7_review->have_posts() ) {
+                    $query_uacf7_review->the_post();
+                    $post_id = get_the_ID();
+                    $meta =  get_post_meta( $post_id, 'uacf7_review_opt', true ) !='' ? get_post_meta( $post_id, 'uacf7_review_opt', true ) : array();
+                    $meta['review_metabox']['uacf7_review_form_id'] = get_post_meta( $post_id, 'uacf7_review_form_id', true );
+                    $meta['review_metabox']['uacf7_reviewer_name'] = get_post_meta( $post_id, 'uacf7_reviewer_name', true );
+                    $meta['review_metabox']['uacf7_reviewer_image'] = get_post_meta( $post_id, 'uacf7_reviewer_image', true );
+                    $meta['review_metabox']['uacf7_review_title'] = get_post_meta( $post_id, 'uacf7_review_title', true );
+                    $meta['review_metabox']['uacf7_review_rating'] = get_post_meta( $post_id, 'uacf7_review_rating', true );
+                    $meta['review_metabox']['uacf7_review_desc'] = get_post_meta( $post_id, 'uacf7_review_desc', true );
+                    $meta['review_metabox']['uacf7_review_extra_class'] = get_post_meta( $post_id, 'uacf7_review_extra_class', true );
+                    $meta['review_metabox']['uacf7_review_column'] = get_post_meta( $post_id, 'uacf7_review_column', true );
+                    $meta['review_metabox']['uacf7_review_text_align'] = get_post_meta( $post_id, 'uacf7_review_text_align', true );
+                    $meta['review_metabox']['uacf7_hide_disable_review'] = get_post_meta( $post_id, 'uacf7_hide_disable_review', true );
+                    $meta['review_metabox']['uacf7_show_review_form'] = get_post_meta( $post_id, 'uacf7_show_review_form', true );
+                    $meta['review_metabox']['uacf7_review_carousel'] = get_post_meta( $post_id, 'uacf7_review_carousel', true );
+
+                    update_post_meta( $post_id, 'uacf7_review_opt', $meta );
+                }
+                wp_reset_postdata();
+            }
+
             // Meta settings_migration migration 
             $args  = array(
                 'post_type'        => 'wpcf7_contact_form',
@@ -562,10 +544,7 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                             }
                             
                         } 
-
-
-
-                    
+ 
                         // Placehoder addon Migration
                         $uacf7_enable_placeholder_styles = get_post_meta( get_the_ID(), 'uacf7_enable_placeholder_styles', true ) == 'on' ? 1 : 0;
                         if($uacf7_enable_placeholder_styles == true){
@@ -584,10 +563,7 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                             $meta['placeholder']['uacf7_placeholder_color_option']['uacf7_placeholder_color'] = $uacf7_placeholder_color;
                             $meta['placeholder']['uacf7_placeholder_color_option']['uacf7_placeholder_background_color'] = $uacf7_placeholder_background_color;
                         }
-
-
-                    
-                
+ 
                         // // styler addon Migration
                         $uacf7_enable_form_styles = get_post_meta( get_the_ID(), 'uacf7_enable_form_styles', true ) == 'on' ? 1 : 0;
                         if($uacf7_enable_form_styles == true){
@@ -713,10 +689,7 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                             $meta['styler']['uacf7_uacf7style_btn_margin_left'] = $uacf7_uacf7style_btn_margin_left;
                             $meta['styler']['uacf7_uacf7style_ua_custom_css'] = $uacf7_uacf7style_ua_custom_css; 
                         }
-
-                        
-
-
+ 
                         // Multistep addon Migration
                         $uacf7_multistep_is_multistep = get_post_meta( $post_id, 'uacf7_multistep_is_multistep', true ) == 'on' ? 1 : 0;
                         if($uacf7_multistep_is_multistep == true){ 
@@ -880,8 +853,7 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                         $pdf['customize_pdf_footer'] = get_post_meta( $post_id, 'customize_pdf_footer', true );
                         $pdf['custom_pdf_css'] = get_post_meta( $post_id, 'custom_pdf_css', true );
                         $meta['pdf_generator'] = $pdf; 
-                    }
-
+                    } 
 
                     // Conversation form addon Migration
                     $conversational = isset($meta['conversational_form']) ? $meta['conversational_form'] : array();
@@ -947,7 +919,7 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                     //Telegram Addon Migration 
                     $telegram = isset($meta['telegram']) ? $meta['telegram'] : array();
                     $uacf7_telegram_settings = get_post_meta($post_id, 'uacf7_telegram_settings', true);
-                    $uacf7_telegram_enable = is_array($uacf7_telegram_settings) && isset($uacf7_telegram_settings['uacf7_telegram_enable']) ? $uacf7_telegram_settings['uacf7_telegram_enable'] : 0;
+                    $uacf7_telegram_enable = is_array($uacf7_telegram_settings) && isset($uacf7_telegram_settings['uacf7_telegram_enable']) && $uacf7_telegram_settings['uacf7_telegram_enable'] == 'on' ? 1 : 0;
 
                     if($uacf7_telegram_enable == true){ 
                         $uacf7_telegram_bot_token = isset($uacf7_telegram_settings['uacf7_telegram_bot_token']) ? $uacf7_telegram_settings['uacf7_telegram_bot_token'] : '';
@@ -981,7 +953,7 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                     // Pre Populate addon Migration
                     $pre_populated = isset($meta['pre_populated']) ? $meta['pre_populated'] : array(); 
                         
-                    $pre_populate_enable = get_post_meta( $post_id, 'pre_populate_enable', true ) == 'on' ? 1 : get_post_meta( $post_id, 'pre_populate_enable', true );
+                    $pre_populate_enable = get_post_meta( $post_id, 'pre_populate_enable', true ) == 'on' ? 1 : 0;
 
                     if($pre_populate_enable == true){ 
                         $pre_populated['pre_populate_enable'] = $pre_populate_enable;
@@ -1022,9 +994,7 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                             $auto_cart['uacf7_enable_track_order'] =get_post_meta( $post_id, 'uacf7_enable_track_order', true ) == 'on' ? 1 : get_post_meta( $post_id, 'uacf7_enable_track_order', true );
                             $meta['auto_cart'] = $auto_cart;
                         }
-                
-                
-                        
+                 
                     update_post_meta( $post_id, 'uacf7_form_opt', $meta ); 
                     
             
