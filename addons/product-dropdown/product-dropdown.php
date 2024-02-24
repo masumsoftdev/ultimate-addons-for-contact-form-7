@@ -45,7 +45,7 @@ class UACF7_PRODUCT_DROPDOWN {
         if ( $validation_error ) {
             $class .= ' wpcf7-not-valid';
         }
-
+       
         $atts = array();
 
         $atts['class'] = $tag->get_class_option( $class );
@@ -160,6 +160,7 @@ class UACF7_PRODUCT_DROPDOWN {
         $products = new WP_Query($args);
         if ( $multiple ) {
             $atts['multiple'] = apply_filters('uacf7_multiple_attribute','');
+            $atts['uacf7-select2-type'] = 'multiple';
         }
         $dropdown = '<option value="">-Select-</option>';
             while ( $products->have_posts() ) {
@@ -186,6 +187,16 @@ class UACF7_PRODUCT_DROPDOWN {
                     $item_atts, esc_html( $label ) );
             }
             wp_reset_postdata(); 
+
+
+            if($tag->has_option( 'layout:select2' )){ 
+                $atts['uacf7-select2-type'] = 'single';
+    
+            }
+            if ($tag->has_option( 'layout:select2' ) && $multiple ) { 
+                $atts['uacf7-select2-type'] = 'multiple';
+            }
+            
             $atts['aria-invalid'] = $validation_error ? 'true' : 'false';
             $atts['name'] = $tag->name . ( $multiple ? '[]' : '' );
 
@@ -195,10 +206,12 @@ class UACF7_PRODUCT_DROPDOWN {
                 '<span class="wpcf7-form-control-wrap %1$s"  data-name="%1$s"><select %2$s>%3$s</select></span><span>%4$s</span>',
                 sanitize_html_class( $tag->name ), $atts, $dropdown, $validation_error
             );
+            
         if($tag->has_option( 'layout:grid' )){ // Grid Layout
             $tag_name = $tag->name;
             $html = apply_filters('uacf7_dorpdown_grid', $dropdown, $multiple, $products, $hangover, $default_choice, $tag_name, $validation_error, $display_price);   
-        }else{
+        }
+        else{
             $html = $dropdown;
         }
         
@@ -269,7 +282,7 @@ class UACF7_PRODUCT_DROPDOWN {
                         <?php ob_start(); ?>
                         <tr>
                             <th scope="row"></th>
-                            <td><label for="tag-generator-panel-select-multiple"><input id="tag-generator-panel-select-multiple" type="checkbox" disabled> <?php echo esc_attr( __( 'Allow multiple selections ', 'ultimate-addons-cf7' ) ); ?><a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a></label></td>
+                            <td><label for="tag-generator-panel-select-multiple"><input id="tag-generator-panel-select-multiple" type="checkbox" disabled> <?php echo esc_attr( __( 'Allow multiple selections ', 'ultimate-addons-cf7' ) ); ?><a style="color:red" target="_blank" href="https://cf7addons.com/pricing/">(Pro)</a></label></td>
                         </tr>
                         <?php $multiple_attr = ob_get_clean(); ?>
                         
@@ -283,8 +296,9 @@ class UACF7_PRODUCT_DROPDOWN {
                         <?php ob_start(); ?>
                         <tr>
                             <th scope="row"></th>
-                            <td><label for="tag-generator-panel-select-multiple"><input id="tag-generator-panel-select-display-price" type="checkbox" disabled> <?php echo esc_attr( __( 'Allow to display total selected product price', 'ultimate-addons-cf7' ) ); ?> <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a></label></td>
+                            <td><label for="tag-generator-panel-select-multiple"><input id="tag-generator-panel-select-display-price" type="checkbox" disabled> <?php echo esc_attr( __( 'Display Total of Selected Product Price', 'ultimate-addons-cf7' ) ); ?> <a style="color:red" target="_blank" href="https://cf7addons.com/pricing/">(Pro)</a></label></td>
                         </tr>
+                        <tr class="uacf7-spacer"></tr>
                         <?php $display_price = ob_get_clean(); ?>
                         
                         <?php 
@@ -301,6 +315,7 @@ class UACF7_PRODUCT_DROPDOWN {
                         </tr>
                         
                         <?php ob_start(); ?>
+                        <tr class="uacf7-spacer"></tr>
                         <tr>
                             <th scope="row"><label for="product_by"><?php echo esc_html( __( 'Show Product By', 'ultimate-addons-cf7' ) ); ?></label></th>
                             <td>
@@ -308,10 +323,10 @@ class UACF7_PRODUCT_DROPDOWN {
                                 
                                 <label for="byCategory"><input id="byCategory" name="product_by" class="" disabled type="radio" value="category"><?php echo esc_html( __( 'Category', 'ultimate-addons-cf7' ) ); ?> </label>
                                 
-                                <label for="byTag"><input id="byTag" name="product_by" class="" disabled type="radio" value="tag"> <?php echo esc_html( __( 'Tag', 'ultimate-addons-cf7' ) ); ?></label> <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a>
+                                <label for="byTag"><input id="byTag" name="product_by" class="" disabled type="radio" value="tag"> <?php echo esc_html( __( 'Tag', 'ultimate-addons-cf7' ) ); ?></label> <a style="color:red" target="_blank" href="https://cf7addons.com/pricing/">(Pro)</a>
                             </td>
                         </tr>
-                        
+                        <tr class="uacf7-spacer"></tr>
                         <?php 
                         $product_by = ob_get_clean();
                         echo apply_filters('uacf7_tag_generator_product_by_field',$product_by);
@@ -325,9 +340,10 @@ class UACF7_PRODUCT_DROPDOWN {
                                 
                                 <label for="byASC"><input id="byASC" name="order_by" class="" disabled type="radio" value="asc"><?php echo esc_html( __( 'ASC', 'ultimate-addons-cf7' ) ); ?>  </label>
                                 
-                                <label for="byDSC"><input id="byDSC" name="order_by" class="" disabled type="radio" value="dsc"><?php echo esc_html( __( 'DSC', 'ultimate-addons-cf7' ) ); ?>  </label> <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a>
+                                <label for="byDSC"><input id="byDSC" name="order_by" class="" disabled type="radio" value="dsc"><?php echo esc_html( __( 'DSC', 'ultimate-addons-cf7' ) ); ?>  </label> <a style="color:red" target="_blank" href="https://cf7addons.com/pricing/">(Pro)</a>
                             </td>
                         </tr>
+                        <tr class="uacf7-spacer"></tr>
                         <?php
                         $order_by = ob_get_clean();
                        echo apply_filters('uacf7_tag_generator_order_by_field', $order_by);
@@ -337,7 +353,7 @@ class UACF7_PRODUCT_DROPDOWN {
                         <tr class="tag-generator-panel-product-id">
                             <th scope="row"><label for="tag-generator-panel-product-id"><?php echo esc_attr( __( 'Product ID', 'ultimate-addons-cf7' ) ); ?></label></th>
                             <td>
-                                <textarea class="values" name="" id="tag-generator-panel-product-id" cols="30" rows="10" disabled></textarea> One ID per line. <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a>
+                                <textarea class="values" name="" id="tag-generator-panel-product-id" cols="30" rows="10" disabled></textarea> <br>One ID per line. <a style="color:red" target="_blank" href="https://cf7addons.com/pricing/">(Pro)</a>
                             </td>
                         </tr>
                         <?php 
@@ -350,7 +366,7 @@ class UACF7_PRODUCT_DROPDOWN {
                         
                         <?php ob_start(); ?>
                         <tr class="tag-generator-panel-product-category">   
-                           <th><label for="tag-generator-panel-product-category"><?php echo esc_attr( __( 'Product category', 'ultimate-addons-cf7' ) ); ?></label></th>                     
+                           <th><label for="tag-generator-panel-product-category"><?php echo esc_attr( __( 'Product Category', 'ultimate-addons-cf7' ) ); ?></label></th>                     
                             <td>
                             <?php
                             $taxonomies = get_terms( array(
@@ -364,14 +380,14 @@ class UACF7_PRODUCT_DROPDOWN {
                                         foreach( $taxonomies as $category ) {
                                             $output.= '<option value="">'. esc_html( $category->name ) .'</option>';
                                         }
-                                        $output.='</select> <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a>';
+                                        $output.='</select> <a style="color:red" target="_blank" href="https://cf7addons.com/pricing/">(Pro)</a>';
 
                                         echo $output;
                                     endif;
                                 else:
                                     $output = '<select id="tag-generator-panel-product-category">';
                                     $output .= '<option value="">All</option>';
-                                    $output.='</select> <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a>';
+                                    $output.='</select> <a style="color:red" target="_blank" href="https://cf7addons.com/pricing/">(Pro)</a>';
                                     echo $output;
                                     echo '<p style="color:red">Please install and activate WooCommerce plugin.</p>';
                                 endif;
@@ -403,14 +419,14 @@ class UACF7_PRODUCT_DROPDOWN {
                                     foreach( $taxonomies as $tag ) {
                                         $output.= '<option value="">'. esc_html( $tag->name ) .'</option>';
                                     }
-                                    $output.='</select> <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a>';
+                                    $output.='</select> <a style="color:red" target="_blank" href="https://cf7addons.com/pricing/">(Pro)</a>';
 
                                     echo $output; 
                                 endif;
                             else:
                                 $output = '<select id="tag-generator-panel-product-tag">';
                                 $output .= '<option value="">All</option>';
-                                $output.='</select> <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a>';
+                                $output.='</select> <a style="color:red" target="_blank" href="https://cf7addons.com/pricing/">(Pro)</a>';
                                 echo $output;
                                 echo '<p style="color:red">Please install and activate WooCommerce plugin.</p>';
                             endif;
@@ -427,17 +443,19 @@ class UACF7_PRODUCT_DROPDOWN {
                        ?>
 
                         <?php ob_start(); ?>
+                        <tr class="uacf7-spacer"></tr>
                         <tr>
-                            <th scope="row"><label for="<?php echo esc_attr( $args['content'] . '-layout' ); ?>"><?php echo esc_html( __( 'Select Layout Style', 'ultimate-addons-cf7' ) ); ?></label></th> 
+                            <th scope="row"><label for="<?php echo esc_attr( $args['content'] . '-layout' ); ?>"><?php echo esc_html( __( 'Layout Style', 'ultimate-addons-cf7' ) ); ?></label></th> 
                             <td>
                                 <label for="layoutDropdown"><input id="layoutDropdown" name="layout" class="option" disabled type="radio" value="dropdown"> Dropdown</label>
 
+                                <label for="layoutGrid"><input id="uacf7-select2" name="layout" class="option" type="radio" disabled value="select2"> Select 2</label>
                                 <label for="layoutGrid"><input id="layoutGrid" name="layout" class="option" type="radio" disabled value="grid"> Grid</label>
-                                <br>
-                                <?php echo esc_attr( __( '( Product grid view with thumbnail )', 'ultimate-addons-cf7' ) ); ?> <a style="color:red" target="_blank" href="https://cf7addons.com/preview/pro">(Pro)</a>
+                                <a style="color:red" target="_blank" href="https://cf7addons.com/pricing/">(Pro)</a>
                             </td> 
                             
                         </tr>
+                        <tr class="uacf7-spacer"></tr>
                         <?php 
                         
                         $select_layout_style = ob_get_clean();

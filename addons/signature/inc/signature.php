@@ -17,6 +17,7 @@ class UACF7_SIGNATURE_PANEL{
   public function __construct(){
     add_action( 'wpcf7_editor_panels', [$this, 'uacf7_signature_panel_add'] );
     add_action( 'wpcf7_after_save', [$this, 'uacf7_signature_save_form'] );
+    
   }
 
 
@@ -52,8 +53,8 @@ class UACF7_SIGNATURE_PANEL{
       <p><?php echo esc_html__('This feature will help you to add the signature in form .','ultimate-addons-cf7'); ?>  </p>
       <div class="uacf7-doc-notice"> 
             <?php echo sprintf( 
-                __( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
-                '<a href="https://themefic.com/docs/uacf7/free-addons/signature-field/" target="_blank">documentation</a>'
+                __( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
+                '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-signature-addon/" target="_blank">Digital Signature</a>'
             ); ?> 
         </div>
 
@@ -76,12 +77,12 @@ class UACF7_SIGNATURE_PANEL{
             <h3><?php _e('Signature Pad Width', 'ultimate-addons-cf7' ) ?></h3>
             <input type="text" id="uacf7_signature_pad_width" name="uacf7_signature_pad_width" value="<?php echo esc_attr_e($this->uacf7_signature_pad_width? $this->uacf7_signature_pad_width : '300'); ?>" placeholder="<?php echo esc_html__( 'Pad Width', 'ultimate-addons-cf7' ); ?>"><br>
     
-            <small><?php _e(' E.g. Do not use px or rem', 'ultimate-addons-cf7' ) ?></small> 
+            <small><?php _e(' E.g. There is no need to include units such as "px" or "rem".', 'ultimate-addons-cf7' ) ?></small> 
 
             <h3><?php _e('Signature Pad Height', 'ultimate-addons-cf7' ) ?></h3>
             <input type="text" id="uacf7_signature_pad_height" name="uacf7_signature_pad_height" value="<?php echo esc_attr_e($this->uacf7_signature_pad_height? $this->uacf7_signature_pad_height : '100'); ?>" placeholder="<?php echo esc_html__( 'Pad Height', 'ultimate-addons-cf7' ); ?>"><br>
     
-            <small><?php _e(' E.g. Do not use px or rem', 'ultimate-addons-cf7' ) ?></small> 
+            <small><?php _e(' E.g. There is no need to include units such as "px" or "rem".', 'ultimate-addons-cf7' ) ?></small> 
         </fieldset> 
       </div>
      

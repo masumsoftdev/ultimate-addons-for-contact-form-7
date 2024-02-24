@@ -7,9 +7,9 @@
         function uacf7_redirect_mailsent_handler() {
             document.addEventListener('wpcf7mailsent', function (event) {
                 
-                var form = uacf7_redirect_object[event.detail.contactFormId];
+                var form = uacf7_redirect_object[event.detail.contactFormId]; 
                 
-                var cr_enable = uacf7_redirect_enable[event.detail.contactFormId];
+                var cr_enable = uacf7_redirect_enable[event.detail.contactFormId]; 
                 
                 if( typeof  uacf7_redirect_tag_support !== 'undefined' ){
                     var uacf7TagSupport = uacf7_redirect_tag_support[event.detail.contactFormId];
@@ -26,7 +26,7 @@
                     var uacf7RedirectType = '';
                 }
                 
-                if( cr_enable == 'yes' && uacf7RedirectType != 'yes' ) {
+                if( cr_enable == true && uacf7RedirectType != true ) {
                     // Set redirect URL
                     if (form.uacf7_redirect_to_type == 'to_url' && form.external_url) {
     					

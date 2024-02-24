@@ -249,7 +249,7 @@ With Pro, you can also show product based on WooCommerce Category. <a href="http
 
 = 🎉  Contact form 7 Product Grid View with Thumbnails =
 
-Show your Products with a Stunning Grid View. Products can be added based on ID/Category/Tags. <a href="https://cf7addons.com/preview/product-grid-view-with-thumbnails/">Click Here</a> to check live preview.
+Show your Products with a Stunning Grid View. Products can be added based on ID/Category/Tags. <a href="https://cf7addons.com/pricing/duct-grid-view-with-thumbnails/">Click Here</a> to check live preview.
 
 = 🎉  Contact form 7 Range Slider Pro =
 
@@ -368,7 +368,7 @@ You can do it easily with the PDF Addon of Ultimate Addons for Contact Form 7. P
 
 = How to add repeatable groups of fields to Contact Form 7 =
 
-You can do it easily with the Repeater Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/pro-addons/repeater-field-for-contact-form-7/">article</a> to learn more.
+You can do it easily with the Repeater Addon of Ultimate Addons for Contact Form 7. Please follow this <a href="https://themefic.com/docs/uacf7/pro-addons/contact-form-7-repeatable-fields/">article</a> to learn more.
 
 = How To Use Contact Form 7 To Get WordPress Post Submissions (Posts, Pages, & CPTs) =
 

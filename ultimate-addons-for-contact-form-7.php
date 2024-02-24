@@ -2,8 +2,8 @@
 /**
  * Plugin Name: Ultimate Addons for Contact Form 7
  * Plugin URI: https://cf7addons.com/
- * Description: 28+ Essential Addons for Contact Form 7 including Conditional Fields, Multi Step Form, Thank you page Redirection, Columns Layout, WooCommerce Integration, Star Rating Fields, Range Slider and many more stunning Addons, all in one.
- * Version: 3.2.19
+ * Description: 25+ Essential Addons for Contact Form 7 including Conditional Fields, Multi Step Form, Thank you page Redirection, Columns Layout, WooCommerce Integration, Star Rating Fields, Range Slider and many more stunning Addons, all in one.
+ * Version: 3.3.0
  * Author: Themefic
  * Author URI: https://themefic.com/
  * License: GPL-2.0+
@@ -28,6 +28,7 @@ class Ultimate_Addons_CF7 {
 		define( 'UACF7_URL', plugin_dir_url( __FILE__ ) );
 		define( 'UACF7_ADDONS', UACF7_URL . 'addons' );
 		define( 'UACF7_PATH', plugin_dir_path( __FILE__ ) );
+		define( 'UACF7_VERSION', '3.3.0' );
 
 
 		if ( ! class_exists( 'Appsero\Client' ) ) {
@@ -35,7 +36,7 @@ class Ultimate_Addons_CF7 {
 		}
 
 		//Plugin loaded
-		add_action( 'plugins_loaded', array( $this, 'uacf7_plugin_loaded' ) );
+		add_action( 'plugins_loaded', array( $this, 'uacf7_plugin_loaded' ), 10 );
 
 		if ( defined( 'WPCF7_VERSION' ) && WPCF7_VERSION >= 5.7 ) {
 			add_filter( 'wpcf7_autop_or_not', '__return_false' );
@@ -43,6 +44,8 @@ class Ultimate_Addons_CF7 {
 
 		// Initialize the appsero
 		$this->appsero_init_tracker_ultimate_addons_for_contact_form_7();
+ 
+		 
 	}
 
 	/*
@@ -52,6 +55,16 @@ class Ultimate_Addons_CF7 {
 		//Register text domain
 		load_plugin_textdomain( 'ultimate-addons-cf7', false, basename( dirname( __FILE__ ) ) . '/languages' );
 
+
+
+		//Enqueue admin scripts
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'uacf7_frontend_scripts' ) );
+
+		//Require ultimate functions
+		require_once( 'inc/functions.php' );
+
+
 		if ( class_exists( 'WPCF7' ) ) {
 			//Init ultimate addons
 			$this->uacf7_init();
@@ -59,6 +72,12 @@ class Ultimate_Addons_CF7 {
 		} else {
 			//Admin notice
 			add_action( 'admin_notices', array( $this, 'uacf7_admin_notice' ) );
+		}
+
+
+		// Require the main Option file
+		if ( file_exists( UACF7_PATH . 'admin/tf-options/TF_Options.php' ) ) {
+			require_once UACF7_PATH . 'admin/tf-options/TF_Options.php';
 		}
 	}
 
@@ -82,35 +101,54 @@ class Ultimate_Addons_CF7 {
 	 */
 	public function uacf7_init() {
 
-		//Require ultimate functions
-		require_once( 'inc/functions.php' );
-
-		//Enqueue admin scripts
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'uacf7_frontend_scripts' ) );
 
 		//Require admin menu
-		require_once( 'admin/admin-menu.php' );
+		// require_once( 'admin/admin-menu.php' );
 
 		//Require ultimate addons
 		require_once( 'addons/addons.php' );
+
+		//  Update UACF7 Plugin Version
+		if ( UACF7_VERSION != get_option( 'uacf7_version' ) ) {
+			update_option( 'uacf7_version', UACF7_VERSION );
+		}
+
+
+
+
 	}
+
 
 	//Enquene admin scripts
 	public function enqueue_admin_scripts() {
 
 		wp_enqueue_style( 'uacf7-admin-style', UACF7_URL . 'assets/css/admin-style.css', 'sadf' );
 
-		wp_enqueue_media();
+		// // wp_enqueue_media();
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_script( 'wp-color-picker' );
 		wp_enqueue_script( 'uacf7-admin-script', UACF7_URL . 'assets/js/admin-script.js', array( 'jquery' ), null, true );
+
+
+
+		wp_localize_script( 'uacf7-admin', 'uacf7_options', array(
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+			'nonce' => wp_create_nonce( 'uacf7_options_nonce' ),
+		) );
+		wp_localize_script( 'uacf7-admin', 'uacf7_admin_params',
+			array(
+				'uacf7_nonce' => wp_create_nonce( 'updates' ),
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
+			)
+		);
+		wp_enqueue_style( 'notyf', UACF7_URL . 'assets/app/libs/notyf/notyf.min.css', '', UACF7_VERSION );
+		wp_enqueue_script( 'notyf', UACF7_URL . 'assets/app/libs/notyf/notyf.min.js', array( 'jquery' ), UACF7_VERSION, true );
 	}
 
-	//Enquene admin scripts
-	public function uacf7_frontend_scripts() {
-		wp_enqueue_style( 'uacf7-frontend-style', UACF7_URL . 'assets/css/uacf7-frontend.css', '' );
-	}
+    //Enquene admin scripts
+    public function uacf7_frontend_scripts(){ 
+        wp_enqueue_style( 'uacf7-frontend-style', UACF7_URL . 'assets/css/uacf7-frontend.css', '' ); 
+    }
 
 	/**
 	 * Initialize the plugin tracker
