@@ -992,12 +992,13 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
 
                     // Submission ID addon Migration
                     $submission = isset($meta['submission_id']) ? $meta['submission_id'] : array();
-                    $uacf7_submission_id_enable = get_post_meta( $post_id, 'uacf7_submission_id_enable', true ) == 'on' ? 1 : 0;
-                    if($uacf7_submission_id_enable == true){
 
+                      $uacf7_submission_id_enable = is_array($submission) && isset($submission['uacf7_telegram_enable']) ? $submission['uacf7_telegram_enable'] : '';
+                   
+                      if($uacf7_submission_id_enable == 'on'){
                         $uacf7_submission_id = get_post_meta( $post_id, 'uacf7_submission_id', true );
                         $uacf7_submission_id_step = get_post_meta( $post_id, 'uacf7_submission_id_step', true );
-                        $submission['uacf7_submission_id_enable'] = $uacf7_submission_id_enable;
+                        $submission['uacf7_submission_id_enable'] = "1";
                         $submission['uacf7_submission_id'] = $uacf7_submission_id;
                         $submission['uacf7_submission_id_step'] = $uacf7_submission_id_step;
                         $meta['submission_id'] = $submission;
@@ -1006,12 +1007,12 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                     //Telegram Addon Migration 
                     $telegram = isset($meta['telegram']) ? $meta['telegram'] : array();
                     $uacf7_telegram_settings = get_post_meta($post_id, 'uacf7_telegram_settings', true);
-                    $uacf7_telegram_enable = is_array($uacf7_telegram_settings) && isset($uacf7_telegram_settings['uacf7_telegram_enable']) && $uacf7_telegram_settings['uacf7_telegram_enable'] == 'on' ? 1 : 0;
-
-                    if($uacf7_telegram_enable == true){ 
+                    $uacf7_telegram_enable = is_array($uacf7_telegram_settings) && isset($uacf7_telegram_settings['uacf7_telegram_enable']) ? $uacf7_telegram_settings['uacf7_telegram_enable'] : '';
+                   
+                    if($uacf7_telegram_enable == 'on'){  
                         $uacf7_telegram_bot_token = isset($uacf7_telegram_settings['uacf7_telegram_bot_token']) ? $uacf7_telegram_settings['uacf7_telegram_bot_token'] : '';
                         $uacf7_telegram_chat_id = isset($uacf7_telegram_settings['uacf7_telegram_chat_id']) ? $uacf7_telegram_settings['uacf7_telegram_chat_id'] : '';  
-                        $telegram['uacf7_telegram_enable'] = $uacf7_telegram_enable;
+                        $telegram['uacf7_telegram_enable'] = "1";
                         $telegram['uacf7_telegram_bot_token'] = $uacf7_telegram_bot_token;
                         $telegram['uacf7_telegram_chat_id'] = $uacf7_telegram_chat_id;
                         $meta['telegram'] = $telegram; 
