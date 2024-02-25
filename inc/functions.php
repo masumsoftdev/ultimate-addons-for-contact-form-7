@@ -1022,13 +1022,13 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                       //Signature Addon 
                     $signature = isset($meta['signature']) ? $meta['signature'] : array();
                     $uacf7_signature_settings = get_post_meta($post_id, 'uacf7_signature_settings', true);
-                    $uacf7_signature_enable = is_array($uacf7_signature_settings) && isset($uacf7_signature_settings['uacf7_signature_enable']) ? $uacf7_signature_settings['uacf7_signature_enable'] : 0;
+                    $uacf7_signature_enable = is_array($uacf7_signature_settings) && isset($uacf7_signature_settings['uacf7_signature_enable']) ? $uacf7_signature_settings['uacf7_signature_enable'] : '';
 
                     
-                    if($uacf7_signature_enable == true){  
+                    if($uacf7_signature_enable == 'on'){  
                         $uacf7_signature_bg_color = isset($uacf7_signature_settings['uacf7_signature_bg_color']) ? $uacf7_signature_settings['uacf7_signature_bg_color'] : '';
                         $uacf7_signature_pen_color = isset($uacf7_signature_settings['uacf7_signature_pen_color']) ? $uacf7_signature_settings['uacf7_signature_pen_color'] : '';
-                        $signature['uacf7_signature_enable'] = $uacf7_signature_enable == 'on' ? 1 : 0;
+                        $signature['uacf7_signature_enable'] = $uacf7_signature_enable == "1";
                         $signature['uacf7_signature_bg_color'] = $uacf7_signature_bg_color;
                         $signature['uacf7_signature_pen_color'] = $uacf7_signature_pen_color;
                         $signature['uacf7_signature_pad_width'] = isset($uacf7_signature_settings['uacf7_signature_pad_width']) ? $uacf7_signature_settings['uacf7_signature_pad_width'] : '300';
