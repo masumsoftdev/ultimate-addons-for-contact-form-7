@@ -4,7 +4,7 @@ Tags: contact form 7, contact form 7 addons, contact form 7 addon, contact form 
 Requires at least: 4.2
 Tested up to: 6.4
 Requires PHP: 7.4
-Stable tag: 3.2.19
+Stable tag: 3.3.0
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -52,6 +52,7 @@ Packed with 28+ essential features, <strong>Ultimate Addons For Contact Form 7</
 * Telegram Integration
 * Generator Forms with AI
 * Digital Signature
+* Pabbly/Zapier (Webhook)
 * More Coming soon
 
 ### How It works:
@@ -163,11 +164,14 @@ This feature Facilitates the creation of electronic signatures for individuals s
  
 = 🎉  Contact form 7 CSS = 
 
-This features will help you to add your own custom css for Contact Form 7.
+This feature will help you to add your own custom css for Contact Form 7.
+
+= 🎉  Pabbly/Zapier (Webhook) = 
+
+This feature will help you to transfer form data to third-party services like Pabbly/Zapier. <a href="https://cf7addons.com/preview/pabbly-zapier-webhook/">Click Here</a> to check the live preview.
 
 = More Addons Coming Soon =
 
-Each month we have targets to introduce atleast 1 new Addons.
 
 <hr>
 
@@ -185,7 +189,7 @@ Ultimate Addons for Contact form 7 Pro version gives you the power to add WooCom
 
 = 🎉  Contact form 7 Repeatable Fields = 
 
-This features will help you to add Repeater for Contact Form 7. You can add all kinds of fields from text, files, checkboxes, radio buttons, textarea etc. <a href="https://cf7addons.com/preview/repeater-field-for-contact-form-7/">Click Here</a> to check live preview.
+This feature will help you to add Repeater for Contact Form 7. You can add all kinds of fields from text, files, checkboxes, radio buttons, textarea etc. <a href="https://cf7addons.com/preview/repeater-field-for-contact-form-7/">Click Here</a> to check live preview.
 
 = 🎉  Contact Form 7 Star Rating Field (Pro) =
 
@@ -197,7 +201,7 @@ Awesome looking Premium & Pre-built skin for multi-step forms. Users will be abl
 
 = 🎉  Multi-step Button Editing =
 
-This features will help you edit the button text and add image on background on the Multi-step form.
+This feature will help you edit the button text and add image on background on the Multi-step form.
 
 = 🎉  Contact Form 7 to Blog Submission =
 
@@ -209,15 +213,15 @@ Easily process a contact form from contact form 7 into a custom post type. <a hr
 
 = 🎉  Contact Form 7 Booking Calendar / Contact Form 7 Appointment Booking Form = 
 
-This features will help you to create a booking form / Appointment Form using Contact Form 7. You can insert Calendar, Time on the form and manage your booking. <a href="https://cf7addons.com/preview/booking-or-appointment-form-for-contact-form-7/">Click Here</a> to check live preview.
+This feature will help you to create a booking form / Appointment Form using Contact Form 7. You can insert Calendar, Time on the form and manage your booking. <a href="https://cf7addons.com/preview/booking-or-appointment-form-for-contact-form-7/">Click Here</a> to check live preview.
 
 = 🎉  Contact Form 7 Conditional Redirect = 
 
-This features will help you to redirect user to a specific page after submission based on condition. For example, if an user selects "Yes" from dropdown, they will be redirected to a Specific page, if they select "No", they will be redirected to another page. In short this is the Ultimate Conditional Redirect for Contact Form 7. <a href="https://cf7addons.com/preview/conditional-redirect-for-contact-form-7/">Click Here</a> to check live preview.
+This feature will help you to redirect user to a specific page after submission based on condition. For example, if an user selects "Yes" from dropdown, they will be redirected to a Specific page, if they select "No", they will be redirected to another page. In short this is the Ultimate Conditional Redirect for Contact Form 7. <a href="https://cf7addons.com/preview/conditional-redirect-for-contact-form-7/">Click Here</a> to check live preview.
 
 = 🎉  Custom Column Width for Contact Form 7 = 
 
-This features will help you to set the column of your form at your desired width. You can set any size of column. For example, you can create two columns form with one column width of 12% and other 88% and so on. <a href="https://cf7addons.com/preview/custom-columns-grid-layout/">Click Here</a> to check live preview.
+This feature will help you to set the column of your form at your desired width. You can set any size of column. For example, you can create two columns form with one column width of 12% and other 88% and so on. <a href="https://cf7addons.com/preview/custom-columns-grid-layout/">Click Here</a> to check live preview.
 
 = 🎉  Contact form 7 Whatsapp Integration + CF7 Tag Support  =
 
@@ -233,7 +237,7 @@ Advanced Conditional Logic for Range Slider, Star Rating Field, Country Dropdown
 
 = 🎉  Contact Form 7 Autocomplete Country, City, State, Zip Fields = 
 
-This features will help you to set IP Geolocation based Country, City, State, Zip Fields on Contact Form 7. The fields will be autocompleted based on User's IP. <a href="https://cf7addons.com/preview/contact-form-7-autocomplete/">Click Here</a> to check live preview.
+This feature will help you to set IP Geolocation based Country, City, State, Zip Fields on Contact Form 7. The fields will be autocompleted based on User's IP. <a href="https://cf7addons.com/preview/contact-form-7-autocomplete/">Click Here</a> to check live preview.
 
 = 🎉  Choose Specific WooCommerce Product =
 
@@ -245,7 +249,7 @@ Want the ability to let your customer choose Multiple WooCommerce Product on you
 
 = 🎉  Contact form 7 Categorize WooCommerce Product =
 
-With Pro, you can also show product based on WooCommerce Category. <a href="https://cf7addons.com/preview/categorized-product/">Click Here</a> to check live preview.
+With Pro, you can also show products based on WooCommerce Category. <a href="https://cf7addons.com/preview/categorized-product/">Click Here</a> to check live preview.
 
 = 🎉  Contact form 7 Product Grid View with Thumbnails =
 
@@ -257,11 +261,10 @@ Add beautiful Range slider fields to Contact Form 7. Select from 3 Premium pre-b
 
 = 🎉  Contact form 7 conversational form =
 
-Create an interactive conversational form using Ultimate conversational form, it allows conditional steps in contact form <a href="https://cf7addons.com/preview/contact-form-7-conversational-form">Click Here</a> to check live preview.
+Create an interactive conversational form using Ultimate conversational form, it allows conditional steps in contact form <a href="https://cf7addons.com/preview/contact-form-7-conversational-form">Click Here</a> to check the live preview.
 
 = More Pro Addons Coming Soon =
 
-Each month we have targets to introduce atleast 1 new Pro Addons.
 
 > <strong><a href="https://cf7addons.com/pricing" target="_blank">Buy Pro Version</a></strong>
 
@@ -269,11 +272,11 @@ Each month we have targets to introduce atleast 1 new Pro Addons.
 
 <strong>Premium Support</strong>
 
-We provide full support on the WordPress.org forums. You can also post questions or bug reports through our <a href="https://facebook.com/groups/ultimate.cf7" target="_blank">Facebook group</a> or <a href="https://portal.themefic.com/support/">our website</a>. However, please note that, for free version's support/replies, there can be delays upto 24-48 hours. So, if you need urgent support, we recommend purchasing <strong><a href="https://cf7addons.com/pricing" target="_blank">Pro Version</a></strong>.
+We provide full support on the WordPress.org forums. You can also post questions or bug reports through our <a href="https://facebook.com/groups/ultimate.cf7" target="_blank">Facebook group</a> or <a href="https://portal.themefic.com/support/">our website</a>. However, please note that, for the free version support/replies, there can be delays of up to 24-48 hours. So, if you need urgent support, we recommend purchasing <strong><a href="https://cf7addons.com/pricing" target="_blank">Pro Version</a></strong>.
 
 <strong>Privacy Policy : </strong>
 
-Ultimate Addons for Contact Form 7 uses [Appsero](https://appsero.com) SDK to collect some telemetry data upon user's confirmation. This helps us to troubleshoot problems faster & make product improvements.
+Ultimate Addons for Contact Form 7 uses [Appsero](https://appsero.com) SDK to collect some telemetry data upon the user's confirmation. This helps us to troubleshoot problems faster & make product improvements.
 
 Appsero SDK **does not gather any data by default.** The SDK only starts gathering basic telemetry data **when a user allows it via the admin notice**. We collect the data to ensure a great user experience for all our users.
 
@@ -451,6 +454,14 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 53. Range Slider Pro (Form Example)
 
 == Changelog ==
+
+= 3.3.0 – 28/02/2024 =
+
+- Added: New Feature Pabbly/Zapier (Webhook) introduced
+- Improvement: A new option panel introduced
+- Improvement: Quick setup introduced
+- Improvement: System stability Improved
+- Improvement: All the individual pro addons merged with UACF7 Pro
 
 = 3.2.19 – 24/01/2024 =
 
