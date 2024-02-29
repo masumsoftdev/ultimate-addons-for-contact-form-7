@@ -11,7 +11,7 @@ if ( file_exists( UACF7_PATH . 'admin/tf-options/options/tf-menu-icon.php' ) ) {
 UACF7_Settings::option( 'uacf7_settings', array(
 	'title' => __( 'Ultimate Addons', 'ultimate-addons-cf7' ),
 	'icon' => $menu_icon,
-	'position' => 50,
+	'position' => 30.01,
 	'sections' =>
 		apply_filters( 'uacf7_settings_options', array(
 			'addons_settings' => array(
@@ -274,7 +274,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Zapier(Webhook).png',
 						'default' => false,
 						'subtitle' => __( 'Transfer form data to third-party services like Pabbly or Zapier via webhooks. ', 'ultimate-addons-cf7' ),
-						'demo_link' => '#',
+						'demo_link' => 'https://cf7addons.com/preview/pabbly-zapier-webhook/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-webhook/',
 					),
 				),

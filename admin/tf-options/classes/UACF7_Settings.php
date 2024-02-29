@@ -18,7 +18,7 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 			$this->option_id       = $key;
 			$this->option_title    = ! empty( $params['title'] ) ? apply_filters( $key . '_title', $params['title'] ) : '';
 			$this->option_icon     = ! empty( $params['icon'] ) ? apply_filters( $key . '_icon', $params['icon'] ) : '';
-			$this->option_position = ! empty( $params['position'] ) ? apply_filters( $key . '_position', $params['position'] ) : 5;
+			$this->option_position = ! empty( $params['position'] ) ? apply_filters( $key . '_position', $params['position'] ) : 30.01;
 			$this->option_sections = ! empty( $params['sections'] ) ? apply_filters( $key . '_sections', $params['sections'] ) : array(); 
 			// echo $this->option_icon;
 			// run only is admin panel options, avoid performance loss
