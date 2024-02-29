@@ -274,7 +274,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Zapier(Webhook).png',
 						'default' => false,
 						'subtitle' => __( 'Transfer form data to third-party services like Pabbly or Zapier via webhooks. ', 'ultimate-addons-cf7' ),
-						'demo_link' => '#',
+						'demo_link' => 'https://cf7addons.com/preview/pabbly-zapier-webhook/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-webhook/',
 					),
 				),
