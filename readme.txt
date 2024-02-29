@@ -4,7 +4,7 @@ Tags: contact form 7, contact form 7 addons, contact form 7 addon, contact form 
 Requires at least: 4.2
 Tested up to: 6.4
 Requires PHP: 7.4
-Stable tag: 3.3.0
+Stable tag: 3.3.1
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -455,9 +455,15 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 
 == Changelog ==
 
+= 3.3.1 – 29/02/2024 =
+
+- Improvement: Sidebar Menu Position
+- Improvement: Added Preview URL for WebHook
+
 = 3.3.0 – 28/02/2024 =
 
 - Added: New Feature Pabbly/Zapier (Webhook) introduced
+- Added: Import Export Feature
 - Improvement: A new option panel introduced
 - Improvement: Quick setup introduced
 - Improvement: System stability Improved
