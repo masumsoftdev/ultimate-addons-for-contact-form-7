@@ -992,13 +992,12 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
 
                     // Submission ID addon Migration
                     $submission = isset($meta['submission_id']) ? $meta['submission_id'] : array();
-
-                      $uacf7_submission_id_enable = is_array($submission) && isset($submission['uacf7_telegram_enable']) ? $submission['uacf7_telegram_enable'] : '';
-                   
-                      if($uacf7_submission_id_enable == 'on'){
+ 
+                      $uacf7_submission_id_enable = get_post_meta( $post_id, 'uacf7_submission_id_enable', true ) == 'on' ? 1 : 0;
+                      if($uacf7_submission_id_enable == 1){
                         $uacf7_submission_id = get_post_meta( $post_id, 'uacf7_submission_id', true );
                         $uacf7_submission_id_step = get_post_meta( $post_id, 'uacf7_submission_id_step', true );
-                        $submission['uacf7_submission_id_enable'] = "1";
+                        $submission['uacf7_submission_id_enable'] = 1;
                         $submission['uacf7_submission_id'] = $uacf7_submission_id;
                         $submission['uacf7_submission_id_step'] = $uacf7_submission_id_step;
                         $meta['submission_id'] = $submission;
@@ -1012,7 +1011,7 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                     if($uacf7_telegram_enable == 'on'){  
                         $uacf7_telegram_bot_token = isset($uacf7_telegram_settings['uacf7_telegram_bot_token']) ? $uacf7_telegram_settings['uacf7_telegram_bot_token'] : '';
                         $uacf7_telegram_chat_id = isset($uacf7_telegram_settings['uacf7_telegram_chat_id']) ? $uacf7_telegram_settings['uacf7_telegram_chat_id'] : '';  
-                        $telegram['uacf7_telegram_enable'] = "1";
+                        $telegram['uacf7_telegram_enable'] = 1;
                         $telegram['uacf7_telegram_bot_token'] = $uacf7_telegram_bot_token;
                         $telegram['uacf7_telegram_chat_id'] = $uacf7_telegram_chat_id;
                         $meta['telegram'] = $telegram; 
@@ -1028,7 +1027,7 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                     if($uacf7_signature_enable == 'on'){  
                         $uacf7_signature_bg_color = isset($uacf7_signature_settings['uacf7_signature_bg_color']) ? $uacf7_signature_settings['uacf7_signature_bg_color'] : '';
                         $uacf7_signature_pen_color = isset($uacf7_signature_settings['uacf7_signature_pen_color']) ? $uacf7_signature_settings['uacf7_signature_pen_color'] : '';
-                        $signature['uacf7_signature_enable'] = $uacf7_signature_enable == "1";
+                        $signature['uacf7_signature_enable'] = 1;
                         $signature['uacf7_signature_bg_color'] = $uacf7_signature_bg_color;
                         $signature['uacf7_signature_pen_color'] = $uacf7_signature_pen_color;
                         $signature['uacf7_signature_pad_width'] = isset($uacf7_signature_settings['uacf7_signature_pad_width']) ? $uacf7_signature_settings['uacf7_signature_pad_width'] : '300';
@@ -1041,9 +1040,9 @@ if(!function_exists('uacf7_form_option_Migration_callback')){
                     // Pre Populate addon Migration
                     $pre_populated = isset($meta['pre_populated']) ? $meta['pre_populated'] : array(); 
                         
-                    $pre_populate_enable = get_post_meta( $post_id, 'pre_populate_enable', true ) == 'on' ? 1 : 0;
+                    $pre_populate_enable = get_post_meta( $post_id, 'pre_populate_enable', true ) == 1 ? 1 : 0;
 
-                    if($pre_populate_enable == true){ 
+                    if($pre_populate_enable == 1){ 
                         $pre_populated['pre_populate_enable'] = $pre_populate_enable;
                         $pre_populated['data_redirect_url'] = get_post_meta( $post_id, 'data_redirect_url', true );
                         $pre_populated['pre_populate_form'] = get_post_meta( $post_id, 'pre_populate_form', true );
