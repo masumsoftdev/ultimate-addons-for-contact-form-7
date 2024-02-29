@@ -47,7 +47,7 @@ Packed with 28+ essential features, <strong>Ultimate Addons For Contact Form 7</
 * Global Form Styler (Pro)
 * Conditional Field (Pro)
 * Form Tag Support & Whatsapp Integration (Pro)
-* Autocomplete Country, City, State, Zip Fields [IP Geolocation based)] (Pro)
+* Autocomplete Country, City, State, Zip Fields [IP Geolocation based] (Pro)
 * Ultimate conversational form (Pro)
 * Telegram Integration
 * Generator Forms with AI
