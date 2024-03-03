@@ -436,6 +436,9 @@ UACF7_Settings::option( 'uacf7_settings', array(
 					),
 				),
 			),
+
+
+
 			'api_integration' => array(
 				'title' => __( 'API Integration', 'ultimate-addons-cf7' ),
 				'icon' => 'fa fa-circle-nodes',
@@ -488,6 +491,21 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'subtitle' => sprintf(
 							__( 'Import and export all options associated with this settings panel. Please save it first in order to generate the export file. ', 'ultimate-addons-cf7' )
 						)
+					),
+				),
+			),
+			'uacf7_load_cdn' => array(
+				'title' => __( 'CDN Loading', 'ultimate-addons-cf7' ),
+				'parent' => 'uacf7_import_export_data',
+				'icon' => 'fa fa-link',
+				'fields' => array(
+					'uacf7_enable_cdn_load' => array(
+						'id' => 'uacf7_enable_cdn_load',
+						'type' => 'switch',
+						'default' => false,
+						'label' => __( 'Enable Assets Loading', 'ultimate-addons-cf7' ),
+						'subtitle' => __( 'It\'ll help to Load all assets from CDN', 'ultimate-addons-cf7' )
+						
 					),
 				),
 			),

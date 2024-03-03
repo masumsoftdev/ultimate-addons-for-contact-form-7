@@ -160,6 +160,10 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 			$tf_options_post_type = array( 'uacf7_review' );
 
 
+			$uacf7_enable_cdn_load = uacf7_settings('uacf7_enable_cdn_load');
+
+			// var_dump($uacf7_enable_cdn_load);
+			// exit();
 
 
 			//Css
