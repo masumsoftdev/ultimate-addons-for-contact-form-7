@@ -407,12 +407,28 @@ class UACF7_PDF_GENERATOR {
         if( $disable_footer != true ){
             $mpdf->SetHTMLFooter('<div class="pdf-footer">'.$customize_pdf_footer.'</div>');
         }
-       
+     
         $replace_key = [];
         $repeaters = [];
         $repeater_value = [];
         $replace_value = []; 
         $uploaded_files = [];
+        $uacf7_database = null;
+
+        // Call UACF7_DATABASE Class
+        $ContactForm = WPCF7_ContactForm::get_instance( $form_id );
+		$form_fields = $ContactForm->scan_form_tags();
+
+        $encryptionKey = 'AES-256-CBC';
+        $uacf7_signature_tag = [];
+        if(class_exists('UACF7_DATABASE')){
+            $uacf7_DB = new UACF7_DATABASE();
+        }
+        foreach ( $form_fields as $field ) { 
+			if ( $field->type == 'uacf7_signature*' || $field->type == 'uacf7_signature' ) {
+				$uacf7_signature_tag[] = $field->name;
+			}
+		}
         
        $form_value =  json_decode($data->form_value);  
         foreach($form_value as $key => $value){
@@ -426,6 +442,20 @@ class UACF7_PDF_GENERATOR {
 
             if(strpos($key,"_count") !== false){ 
                 $repeaters[] = str_replace('_count', '', $key) ;
+            }
+
+            // Signature Image Decrypt form Database Addon
+            if ( in_array( $key, $uacf7_signature_tag )  && $uacf7_database != null ) {
+                $pathInfo = pathinfo( $value );
+                $extension = strtolower( $pathInfo['extension'] );
+
+                ob_start(); 
+                echo $uacf7_DB->decrypt_and_display( $dir . $value, $encryptionKey );
+                $decryptedData = ob_get_clean();  
+
+                if ( $decryptedData !== null ) {
+                    $value = 'data:image/png;base64,' . base64_encode( $decryptedData ); 
+                } 
             }
 
             $replace_key[] = '['.$key.']';
@@ -443,11 +473,9 @@ class UACF7_PDF_GENERATOR {
                 $value = $data;
             }
             $replace_value[] = $value;
-        }   
-               
-      
+        }       
         // Repeater value
-        if(isset($repeaters) || is_array($repeaters)){
+        if(!empty($repeaters) && is_array($repeaters)){
             $repeater_data = apply_filters('uacf7_pdf_generator_replace_data', $repeater_value, $repeaters, $customize_pdf); 
             $customize_pdf = str_replace($repeater_data['replace_re_key'], $repeater_data['replace_re_value'], $customize_pdf); 
         }  
