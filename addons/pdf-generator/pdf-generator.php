@@ -108,9 +108,9 @@ class UACF7_PDF_GENERATOR {
                     'label'     => __( 'PDF Send To ', 'ultimate-addons-cf7' ),
                     'subtitle'     => __( 'Choose whether you want both Mail 1 and Mail 2 users to receive the PDF as an attachment, or just one of them.', 'ultimate-addons-cf7' ),
                     'options'   => array(
-                        'option 1' => 'Both',
-                        'option 2' => 'Mail 1',
-                        'option 3' => 'Mail 2',
+                        'both' => 'Both',
+                        'mail-1' => 'Mail 1',
+                        'mail-2' => 'Mail 2',
                     ),
                     'field_width' => '50'
                 ),
