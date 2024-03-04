@@ -30,7 +30,6 @@ class Ultimate_Addons_CF7 {
 		define( 'UACF7_PATH', plugin_dir_path( __FILE__ ) );
 		define( 'UACF7_VERSION', '3.3.2' ); 
 
-
 		if ( ! class_exists( 'Appsero\Client' ) ) {
 			require_once( __DIR__ . '/inc/app/src/Client.php' );
 		}
