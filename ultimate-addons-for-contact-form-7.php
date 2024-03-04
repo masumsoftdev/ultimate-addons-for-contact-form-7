@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Ultimate Addons for Contact Form 7
  * Plugin URI: https://cf7addons.com/
- * Description: 28+ Essential Addons for Contact Form 7 including Conditional Fields, Multi Step Form, Thank you page Redirection, Columns Layout, WooCommerce Integration, Star Rating Fields, Range Slider and many more stunning Addons, all in one.
+ * Description: 30+ Essential Addons for Contact Form 7 - Conditional Fields, Multi Step Forms, Redirection, Form Templates, Columns, WooCommerce, Mailchimp and more, all in one.
  * Version: 3.3.2
  * Author: Themefic
  * Author URI: https://themefic.com/
