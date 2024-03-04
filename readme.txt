@@ -455,7 +455,7 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 
 == Changelog ==
 
-= 3.3.2 – 04/03/2024 =
+= 3.3.2 – 05/03/2024 =
 
 - Fixed: Auto Scrolling to the top for Multi-step form
 - Fixed: PDF both emails send issue
