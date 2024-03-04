@@ -172,7 +172,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 
 				wp_enqueue_style( 'uacf7-admin', UACF7_URL . 'assets/admin/css/uacf7-admin.min.css', '', UACF7_VERSION );
 
-				if($uacf7_enable_cdn_load_js == '1'){
+				if($uacf7_enable_cdn_load_css == '1'){
 
 					wp_enqueue_style( 'uacf7-admin-sweet-alert', '//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css', '', UACF7_VERSION );
 					wp_enqueue_style( 'uacf7-fontawesome-4', '//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css', array(), $this->tf_options_version() );
