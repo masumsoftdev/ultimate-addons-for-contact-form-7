@@ -495,16 +495,24 @@ UACF7_Settings::option( 'uacf7_settings', array(
 				),
 			),
 			'uacf7_load_cdn' => array(
-				'title' => __( 'CDN Loading', 'ultimate-addons-cf7' ),
+				'title' => __( 'Optimize Assets', 'ultimate-addons-cf7' ),
 				'parent' => 'uacf7_import_export_data',
-				'icon' => 'fa fa-link',
+				'icon' => 'fa fa-arrow-trend-up',
 				'fields' => array(
-					'uacf7_enable_cdn_load' => array(
-						'id' => 'uacf7_enable_cdn_load',
+					'uacf7_enable_cdn_load_css' => array(
+						'id' => 'uacf7_enable_cdn_load_css',
 						'type' => 'switch',
-						'default' => false,
-						'label' => __( 'Enable Assets Loading', 'ultimate-addons-cf7' ),
-						'subtitle' => __( 'It\'ll help to Load all assets from CDN', 'ultimate-addons-cf7' )
+						'save_empty' => true,
+						'label' => __( 'Enable CSS Libraries Loading from CDN', 'ultimate-addons-cf7' ),
+						'subtitle' => __( 'To optimize CSS performance, consider loading all assets from the CDN to reduce latency and enhance user experience.', 'ultimate-addons-cf7' )
+						
+					),
+					'uacf7_enable_cdn_load_js' => array(
+						'id' => 'uacf7_enable_cdn_load_js',
+						'type' => 'switch',
+						'save_empty' => true,
+						'label' => __( 'Enable JavaScript Libraries Loading from CDN', 'ultimate-addons-cf7' ),
+						'subtitle' => __( 'To maximize JavaScript performance, consider loading all assets from the CDN to reduce quiescence and faster user experience.', 'ultimate-addons-cf7' )
 						
 					),
 				),
