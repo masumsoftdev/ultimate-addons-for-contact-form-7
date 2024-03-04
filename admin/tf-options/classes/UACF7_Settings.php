@@ -491,6 +491,7 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
                 <div class="tf-option-wrapper tf-setting-wrapper">
                     <form method="post" action="" class="tf-option-form <?php echo esc_attr($ajax_save_class) ?>" enctype="multipart/form-data">
                         <!-- Body -->
+						<input type="hidden" name="uacf7_current_page" value="uacf7_settings_page">
                         <div class="tf-option">
                             <div class="tf-admin-tab tf-option-nav">
 								<?php
@@ -674,6 +675,9 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 									$data = isset( $option_request[ $field['id'] ] ) ? $option_request[ $field['id'] ] : '';
 									if($data == '' && $uacf7_current_page != 'uacf7_addons_page'){ 
 										$data = isset( $tf_option_value[ $field['id'] ] ) ? $tf_option_value[ $field['id'] ] : 0;
+									}
+									if( $uacf7_current_page == 'uacf7_settings_page' && $field['save_empty'] == true){
+										$data = isset( $option_request[ $field['id'] ] ) ? $option_request[ $field['id'] ] : '';
 									}
 								}
 								if(isset($_FILES) && !empty($_FILES['file'])){
