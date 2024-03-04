@@ -413,9 +413,9 @@ class UACF7_PDF_GENERATOR {
         $repeater_value = [];
         $replace_value = []; 
         $uploaded_files = [];
-        $uacf7_database = null;
 
         // Call UACF7_DATABASE Class
+        $uacf7_DB = null;
         $ContactForm = WPCF7_ContactForm::get_instance( $form_id );
 		$form_fields = $ContactForm->scan_form_tags();
 
@@ -445,7 +445,7 @@ class UACF7_PDF_GENERATOR {
             }
 
             // Signature Image Decrypt form Database Addon
-            if ( in_array( $key, $uacf7_signature_tag )  && $uacf7_database != null ) {
+            if ( in_array( $key, $uacf7_signature_tag )  && $uacf7_DB != null ) {
                 $pathInfo = pathinfo( $value );
                 $extension = strtolower( $pathInfo['extension'] );
 
