@@ -4,7 +4,7 @@ Tags: contact form 7, contact form 7 addons, contact form 7 addon, contact form 
 Requires at least: 4.2
 Tested up to: 6.4
 Requires PHP: 7.4
-Stable tag: 3.3.1
+Stable tag: 3.3.2
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -454,6 +454,18 @@ You can do it easily with the IP Geolocation Addon of Ultimate Addons for Contac
 53. Range Slider Pro (Form Example)
 
 == Changelog ==
+
+= 3.3.2 – 04/03/2024 =
+
+- Fixed: Auto Scrolling to the top for Multi-step form
+- Fixed: PDF both emails send issue
+- Fixed: PDF body content image tag visual issue
+- Fixed: Warning issue  headers already sent
+- Fixed: Conditional Checkbox issue
+- Fixed: Switcher empty saved issue fixed
+- Fixed: Digital signature conflict with DB and PDF generator 
+- Fixed: Placeholder Issue
+- Fixed: Styler addon border issue Issue
 
 = 3.3.1 – 29/02/2024 =
 
