@@ -593,83 +593,85 @@ class UACF7_CF {
 		$conditional_repeater = isset( $uacf7_conditions['conditional_repeater'] ) ? $uacf7_conditions['conditional_repeater'] : array();
 		$posted_data = (array) $contact_form_data;
 	
-		
-		foreach ( $conditional_repeater as $key => $condition ) {
+		if(is_array($conditional_repeater) && !empty($conditional_repeater)){
+			foreach ( $conditional_repeater as $key => $condition ) {
 			
-			$uacf7_cf_hs = $condition['uacf7_cf_hs'];
-			$uacf7_cf_group = $condition['uacf7_cf_group'];
-			$uacf7_cf_conditions_for = $condition['uacf7_cf_condition_for'];
-			$uacf7_cf_conditions = $condition['uacf7_cf_conditions'];
-			$condition_status = [];
-			
-			// Check if the conditional field is hidden or shown
-			foreach ( $uacf7_cf_conditions as $key => $value ) {
-				$uacf7_cf_val = $value['uacf7_cf_val'];
-				$uacf7_cf_operator = $value['uacf7_cf_operator'];
-				$uacf7_cf_tn = $value['uacf7_cf_tn'];
-					
-		
-				$posted_value = is_array( $posted_data[ $uacf7_cf_tn ] ) && in_array( $uacf7_cf_val , $posted_data[ $uacf7_cf_tn ] ) ? $uacf7_cf_val  : $posted_data[ $uacf7_cf_tn ];
+				$uacf7_cf_hs = $condition['uacf7_cf_hs'];
+				$uacf7_cf_group = $condition['uacf7_cf_group'];
+				$uacf7_cf_conditions_for = $condition['uacf7_cf_condition_for'];
+				$uacf7_cf_conditions = $condition['uacf7_cf_conditions'];
+				$condition_status = [];
 				
-				// Condition for Equal  
-				if ( $uacf7_cf_operator == 'equal' && $posted_value == $uacf7_cf_val  ) {
-					$condition_status[] = 'true';
-				}
-				// Condition for Not Equal
-				else if ( $uacf7_cf_operator == 'not_equal' && $posted_value != $uacf7_cf_val  ) {
-
-					$condition_status[] = 'true';
-				}
-				// Condition for Greater than
-				else if ( $uacf7_cf_operator == 'greater_than' && $posted_value > $uacf7_cf_val  ) {
-					$condition_status[] = 'true';
-				}
-				// Condition for Less than
-				else if ( $uacf7_cf_operator == 'less_than' && $posted_value < $uacf7_cf_val  ) {
-					$condition_status[] = 'true';
-				}
-				// Condition for Greater than or equal to
-				else if ( $uacf7_cf_operator == 'greater_than_or_equal_to' && $posted_value >= $uacf7_cf_val  ) {
-					$condition_status[] = 'true';
-				}
-				// Condition for Less than or equal to
-				else if ( $uacf7_cf_operator == 'less_than_or_equal_to' && $posted_value <= $uacf7_cf_val  ) {
-					$condition_status[] = 'true';
-				} else {
-					$condition_status[] = 'false';
-				}
-			}
+				// Check if the conditional field is hidden or shown
+				foreach ( $uacf7_cf_conditions as $key => $value ) {
+					$uacf7_cf_val = $value['uacf7_cf_val'];
+					$uacf7_cf_operator = $value['uacf7_cf_operator'];
+					$uacf7_cf_tn = $value['uacf7_cf_tn'];
+						
 			
-			
-			// Check if the conditions for all  
-			if ( $uacf7_cf_conditions_for == 'all' ) {
-				if ( ! in_array( 'false', $condition_status ) ) {
-					if ( $uacf7_cf_hs == 'show' ) { 
-					 
-						$pdf_content = preg_replace( '/\[' . $uacf7_cf_group . '\]/s', '', $pdf_content );
-						$pdf_content = preg_replace( '/\[\/' . $uacf7_cf_group . '\]/s', '', $pdf_content );
- 
-					}
-				} else {
-					$pdf_content = preg_replace( '/\[' . $uacf7_cf_group . '\].*?\[\/' . $uacf7_cf_group . '\]/s', '', $pdf_content );
- 
-				}
-			}
-			// Check if the conditions for all 
-			if ( $uacf7_cf_conditions_for == 'any' ) {
-				if ( ! in_array( 'false', $condition_status ) ) {
+					$posted_value = is_array( $posted_data[ $uacf7_cf_tn ] ) && in_array( $uacf7_cf_val , $posted_data[ $uacf7_cf_tn ] ) ? $uacf7_cf_val  : $posted_data[ $uacf7_cf_tn ];
 					
-					if ( $uacf7_cf_hs == 'show' ) {
-						$pdf_content = preg_replace( '/\[' . $uacf7_cf_group . '\]/s', '', $pdf_content );
-						$pdf_content = preg_replace( '/\[\/' . $uacf7_cf_group . '\]/s', '', $pdf_content );
- 
+					// Condition for Equal  
+					if ( $uacf7_cf_operator == 'equal' && $posted_value == $uacf7_cf_val  ) {
+						$condition_status[] = 'true';
 					}
-				} else {
-					$pdf_content = preg_replace( '/\[' . $uacf7_cf_group . '\].*?\[\/' . $uacf7_cf_group . '\]/s', '', $pdf_content );
- 
+					// Condition for Not Equal
+					else if ( $uacf7_cf_operator == 'not_equal' && $posted_value != $uacf7_cf_val  ) {
+	
+						$condition_status[] = 'true';
+					}
+					// Condition for Greater than
+					else if ( $uacf7_cf_operator == 'greater_than' && $posted_value > $uacf7_cf_val  ) {
+						$condition_status[] = 'true';
+					}
+					// Condition for Less than
+					else if ( $uacf7_cf_operator == 'less_than' && $posted_value < $uacf7_cf_val  ) {
+						$condition_status[] = 'true';
+					}
+					// Condition for Greater than or equal to
+					else if ( $uacf7_cf_operator == 'greater_than_or_equal_to' && $posted_value >= $uacf7_cf_val  ) {
+						$condition_status[] = 'true';
+					}
+					// Condition for Less than or equal to
+					else if ( $uacf7_cf_operator == 'less_than_or_equal_to' && $posted_value <= $uacf7_cf_val  ) {
+						$condition_status[] = 'true';
+					} else {
+						$condition_status[] = 'false';
+					}
+				}
+				
+				
+				// Check if the conditions for all  
+				if ( $uacf7_cf_conditions_for == 'all' ) {
+					if ( ! in_array( 'false', $condition_status ) ) {
+						if ( $uacf7_cf_hs == 'show' ) { 
+						 
+							$pdf_content = preg_replace( '/\[' . $uacf7_cf_group . '\]/s', '', $pdf_content );
+							$pdf_content = preg_replace( '/\[\/' . $uacf7_cf_group . '\]/s', '', $pdf_content );
+	 
+						}
+					} else {
+						$pdf_content = preg_replace( '/\[' . $uacf7_cf_group . '\].*?\[\/' . $uacf7_cf_group . '\]/s', '', $pdf_content );
+	 
+					}
+				}
+				// Check if the conditions for all 
+				if ( $uacf7_cf_conditions_for == 'any' ) {
+					if ( ! in_array( 'false', $condition_status ) ) {
+						
+						if ( $uacf7_cf_hs == 'show' ) {
+							$pdf_content = preg_replace( '/\[' . $uacf7_cf_group . '\]/s', '', $pdf_content );
+							$pdf_content = preg_replace( '/\[\/' . $uacf7_cf_group . '\]/s', '', $pdf_content );
+	 
+						}
+					} else {
+						$pdf_content = preg_replace( '/\[' . $uacf7_cf_group . '\].*?\[\/' . $uacf7_cf_group . '\]/s', '', $pdf_content );
+	 
+					}
 				}
 			}
 		}
+		
 
 		return $pdf_content;
 	}

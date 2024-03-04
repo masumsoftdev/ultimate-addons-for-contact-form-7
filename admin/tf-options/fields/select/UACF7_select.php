@@ -51,7 +51,7 @@ if ( ! class_exists( 'UACF7_select' ) ) {
 						if ($tag['type'] == '' || in_array($tag['basetype'], $exclude) ) continue; 
 
 						if( $tag['type'] == 'checkbox' ) {   
-							$tag_name =  !in_array('exclusive', $tag['options']) ? $tag['name'].'[]'  : $tag['name']; 
+							$tag_name =  is_array($tag['options']) && !in_array('exclusive', $tag['options']) ? $tag['name'].'[]'  : $tag['name'];
 						}else { 
 							$tag_name = $tag['name'];
 						}
