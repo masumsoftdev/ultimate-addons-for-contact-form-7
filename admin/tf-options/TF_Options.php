@@ -172,7 +172,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 
 				wp_enqueue_style( 'uacf7-admin', UACF7_URL . 'assets/admin/css/uacf7-admin.min.css', '', UACF7_VERSION );
 
-				if($uacf7_enable_cdn_load_css == '1'){
+				if($uacf7_enable_cdn_load_css == true){
 
 					wp_enqueue_style( 'uacf7-admin-sweet-alert', '//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css', '', UACF7_VERSION );
 					wp_enqueue_style( 'uacf7-fontawesome-4', '//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css', array(), $this->tf_options_version() );
@@ -202,7 +202,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 
 				wp_enqueue_script( 'uacf7-admin', UACF7_URL . 'assets/admin/js/uacf7-admin-scripts.min.js', array( 'jquery', 'wp-data', 'wp-editor', 'wp-edit-post' ), UACF7_VERSION, true );
 				
-				if($uacf7_enable_cdn_load_js == '1'){
+				if($uacf7_enable_cdn_load_js == true){
 					wp_enqueue_script( 'uacf7-admin-sweet-alert', '//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js', array( 'jquery' ), UACF7_VERSION, true );
 					wp_enqueue_script( 'Chart-js', '//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js', array( 'jquery' ), '2.6.0', true );
 					wp_enqueue_script( 'uacf7-flatpickr', '//cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js', array( 'jquery' ), $this->tf_options_version(), true );
@@ -219,7 +219,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 
 				$tf_google_map = function_exists( 'is_tf_pro' ) && is_tf_pro() && ! empty( tfopt( 'google-page-option' ) ) ? tfopt( 'google-page-option' ) : "false";
 				if ( $tf_google_map != "googlemap" ) {
-					if($uacf7_enable_cdn_load_js == '1'){
+					if($uacf7_enable_cdn_load_js == true){
 
 						wp_enqueue_script( 'uacf7-leaflet', esc_url( '//cdn.jsdelivr.net/npm/leaflet@' . '1.9' . '/dist/leaflet.js' ), array( 'jquery' ), '1.9', true );
 					
@@ -228,7 +228,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 						wp_enqueue_script( 'uacf7-leaflet', UACF7_URL . 'assets/admin/js/lib/leaflet.js', array( 'jquery' ), '1.9', true );
 					
 					}
-					if($uacf7_enable_cdn_load_css == '1'){
+					if($uacf7_enable_cdn_load_css == true){
 
 						wp_enqueue_style( 'uacf7-leaflet', esc_url( '//cdn.jsdelivr.net/npm/leaflet@' . '1.9' . '/dist/leaflet.css' ), array(), '1.9' );
 					
