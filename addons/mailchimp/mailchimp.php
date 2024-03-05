@@ -14,7 +14,6 @@ class UACF7_MAILCHIMP
     require_once('inc/functions.php'); 
   
     add_action("wpcf7_before_send_mail", array($this, 'send_data'));
-    add_action('wpcf7_after_save', array($this, 'uacf7_save_contact_form'));
     add_filter( 'uacf7_post_meta_options', array($this, 'uacf7_post_meta_options_mailchimp'), 17, 2 );  
     add_filter( 'uacf7_settings_options', array($this, 'uacf7_settings_options_mailchimp'), 17, 2 );  
     // add_filter( 'wpcf7_load_js', '__return_false' );
@@ -318,57 +317,6 @@ class UACF7_MAILCHIMP
 
  
  
-
-  /* Save form data */
-  public function uacf7_save_contact_form($post)
-  {
-    if (!isset($_POST) || empty($_POST)) {
-      return;
-    }
-
-    if (!wp_verify_nonce($_POST['uacf7_mailchimp_nonce'], 'uacf7_mailchimp_nonce_action')) {
-      return;
-    }
-
-    if(isset($_POST['uacf7_mailchimp_form_enable'])){
-      update_post_meta( $post->id(), 'uacf7_mailchimp_form_enable', sanitize_text_field($_POST['uacf7_mailchimp_form_enable']) );
-    }else{
-      update_post_meta( $post->id(), 'uacf7_mailchimp_form_enable', 'off' );
-    }
-    update_post_meta( $post->id(), 'uacf7_mailchimp_form_type', sanitize_text_field($_POST['uacf7_mailchimp_form_type']) );
-
-    if(isset($_POST['uacf7_mailchimp_audience'])){
-      update_post_meta( $post->id(), 'uacf7_mailchimp_audience', sanitize_text_field($_POST['uacf7_mailchimp_audience']) );
-    }
-
-    update_post_meta( $post->id(), 'uacf7_mailchimp_subscriber_email', sanitize_text_field($_POST['uacf7_mailchimp_subscriber_email']) );
-
-    if(isset($_POST['uacf7_mailchimp_subscriber_fname'])){
-      update_post_meta( $post->id(), 'uacf7_mailchimp_subscriber_fname', sanitize_text_field($_POST['uacf7_mailchimp_subscriber_fname']) );
-    }
-    update_post_meta( $post->id(), 'uacf7_mailchimp_subscriber_lname', sanitize_text_field($_POST['uacf7_mailchimp_subscriber_lname']) );
-
-    $all_fields = $post->scan_form_tags();
-    $x = 1;
-    $data = [];
-    foreach( $all_fields as $field ) {
-      if( $field['type'] != 'submit' ){
-        if( !empty( $_POST['uacf7_mailchimp_extra_field_mailtag_'.$x] ) && !empty( $_POST['uacf7_mailchimp_extra_field_mergefield_'.$x] ) ){
-
-          $data[$x] = array(
-            'mailtag' => sanitize_text_field($_POST['uacf7_mailchimp_extra_field_mailtag_'.$x]),
-            'mergefield' => sanitize_text_field($_POST['uacf7_mailchimp_extra_field_mergefield_'.$x])
-          );
-
-        }
-
-        $x++;
-      }
-    }
-
-    update_post_meta( $post->id(), 'uacf7_mailchimp_merge_fields', $data );
-
-  }
 
   /* Add members to mailchimp */
   public function add_members( $id, $audience, $posted_data ) {

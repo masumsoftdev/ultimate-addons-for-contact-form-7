@@ -676,9 +676,9 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 									if($data == '' && $uacf7_current_page != 'uacf7_addons_page'){ 
 										$data = isset( $tf_option_value[ $field['id'] ] ) ? $tf_option_value[ $field['id'] ] : 0;
 									}
-									if( $uacf7_current_page == 'uacf7_settings_page' && $field['save_empty'] == true){
-                                        $data = isset( $option_request[ $field['id'] ] ) ? $option_request[ $field['id'] ] : '';
-                                    }
+									if( isset($field['save_empty']) && $uacf7_current_page == 'uacf7_settings_page' && $field['save_empty'] == true){
+										$data = isset( $option_request[ $field['id'] ] ) ? $option_request[ $field['id'] ] : '';
+									}
 								}
 								if(isset($_FILES) && !empty($_FILES['file'])){
 									$tf_upload_dir = wp_upload_dir();

@@ -8,7 +8,4 @@ if (!defined('ABSPATH')) {
         echo $status;
         echo '</div>';
     }
- }
-
-?>
- 
+ } 

@@ -342,13 +342,12 @@ class UACF7_uacf7style {
                     'id'        => 'uacf7_uacf7style_input_border_style',
                     'type'      => 'select',
                     'label'     => __( 'Border Style ', 'ultimate-addons-cf7' ),   
-                    'options'     => array(
-                        ''      => 'Select Border Style',
-                        'none'      => 'None',
+                    'options'     => array(  
+                        'solid' => "Solid",
                         'dotted' => "Dotted",
                         'dashed' => "Dashed",
-                        'solid' => "Solid",
                         'double' => "Double",
+                        'none'      => 'None',
                     ),
                     'field_width' => 25,
                 ), 
