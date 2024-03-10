@@ -420,7 +420,7 @@ class UACF7_DATABASE {
 						<td>
 							<button id="signature_view_btn">' . esc_html( 'View' ) . '</button>
 							<a class="" href="' . $srcAttribute . '" download="decrypted_image.jpg">
-								<button class="signature_bownload_btn">Download</button>
+								<button class="signature_download_btn">Download</button>
 							</a>
 						</td>
 					</tr>
