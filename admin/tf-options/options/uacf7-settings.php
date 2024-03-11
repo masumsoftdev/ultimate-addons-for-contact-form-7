@@ -422,8 +422,6 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'subtitle' => __( 'Easily show WooCommerce products on forms with a dropdown, allowing customers to select and inquire about products. ', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-woocommerce/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-woocommerce/',
-
-
 					),
 					'uacf7_enable_product_dropdown_pro' => array(
 						'id' => 'uacf7_enable_product_dropdown_pro',
@@ -479,9 +477,10 @@ UACF7_Settings::option( 'uacf7_settings', array(
 				),
 			),
 
-			/**
-			 * Import/Export
-			 *
+
+			/** 
+			 * Miscellaneous 
+			 * 
 			 * Main menu
 			 */
 			'uacf7_import_export_data' => array(
@@ -490,6 +489,12 @@ UACF7_Settings::option( 'uacf7_settings', array(
 				'fields' => array(
 				),
 			),
+
+			/**
+			 * Import/Export
+			 *
+			 * Parent menu Miscellaneous
+			 */
 			'uacf7_import_export' => array(
 				'title' => __( 'Import/Export', 'ultimate-addons-cf7' ),
 				'parent' => 'uacf7_import_export_data',
