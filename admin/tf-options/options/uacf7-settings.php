@@ -480,21 +480,21 @@ UACF7_Settings::option( 'uacf7_settings', array(
 				'fields' => array(
 				),
 			),
-			'uacf7_import_export' => array(
-				'title' => __( 'Import/Export', 'ultimate-addons-cf7' ),
-				'parent' => 'uacf7_import_export_data',
-				'icon' => 'fa fa-download',
-				'fields' => array(
-					'uacf7_import_export_backup' => array(
-						'id' => 'uacf7_import_export_backup',
-						'type' => 'backup',
-						'label' => __( 'Import/Export', 'ultimate-addons-cf7' ),
-						'subtitle' => sprintf(
-							__( 'Import and export all options associated with this settings panel. Please save it first in order to generate the export file. ', 'ultimate-addons-cf7' )
-						)
-					),
-				),
-			),
+			// 'uacf7_import_export' => array(
+			// 	'title' => __( 'Import/Export', 'ultimate-addons-cf7' ),
+			// 	'parent' => 'uacf7_import_export_data',
+			// 	'icon' => 'fa fa-download',
+			// 	'fields' => array(
+			// 		'uacf7_import_export_backup' => array(
+			// 			'id' => 'uacf7_import_export_backup',
+			// 			'type' => 'backup',
+			// 			'label' => __( 'Import/Export', 'ultimate-addons-cf7' ),
+			// 			'subtitle' => sprintf(
+			// 				__( 'Import and export all options associated with this settings panel. Please save it first in order to generate the export file. ', 'ultimate-addons-cf7' )
+			// 			)
+			// 		),
+			// 	),
+			// ),
 			'uacf7_load_cdn' => array(
 				'title' => __( 'Optimize Assets', 'ultimate-addons-cf7' ),
 				'parent' => 'uacf7_import_export_data',

@@ -57,22 +57,22 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 		 * Import Export Callback
 		 * @author Sydur Rahman
 		 */
-		public function uacf7_option_import_callback() {
-			if ( ! wp_verify_nonce( $_POST['ajax_nonce'], 'tf_options_nonce' ) ) {
-				exit( esc_html__( "Security error", 'ultimate-addons-cf7' ) );
-			}
-			$imported_data = stripslashes( $_POST['tf_import_option'] );
-			$form_id = stripslashes( $_POST['form_id'] );
-			if ( $form_id != 0 ) {
-				$imported_data = unserialize( $imported_data ); 
-				update_post_meta( $form_id, 'uacf7_form_opt', $imported_data );
-			} else {
-				$imported_data = unserialize( $imported_data );
-				update_option( 'uacf7_settings', $imported_data );
-			}
+		// public function uacf7_option_import_callback() {
+		// 	if ( ! wp_verify_nonce( $_POST['ajax_nonce'], 'tf_options_nonce' ) ) {
+		// 		exit( esc_html__( "Security error", 'ultimate-addons-cf7' ) );
+		// 	}
+		// 	$imported_data = stripslashes( $_POST['tf_import_option'] );
+		// 	$form_id = stripslashes( $_POST['form_id'] );
+		// 	if ( $form_id != 0 ) {
+		// 		$imported_data = unserialize( $imported_data ); 
+		// 		update_post_meta( $form_id, 'uacf7_form_opt', $imported_data );
+		// 	} else {
+		// 		$imported_data = unserialize( $imported_data );
+		// 		update_option( 'uacf7_settings', $imported_data );
+		// 	}
 
-			wp_send_json_success( $imported_data );
-		}
+		// 	wp_send_json_success( $imported_data );
+		// }
 
 		/**
 		 * Load files

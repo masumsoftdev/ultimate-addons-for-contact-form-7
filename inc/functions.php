@@ -14,31 +14,31 @@ if ( file_exists( UACF7_PATH . 'inc/class-setup-wizard.php' ) ) {
 
 
 // Import export
-add_filter( 'uacf7_post_meta_options', 'uacf7_post_meta_options_import_export', 100, 2 );
-function uacf7_post_meta_options_import_export($value, $post_id){
-    if(!empty($value)){ 
+// add_filter( 'uacf7_post_meta_options', 'uacf7_post_meta_options_import_export', 100, 2 );
+// function uacf7_post_meta_options_import_export($value, $post_id){
+//     if(!empty($value)){ 
 
-        $import_export = apply_filters('uacf7_post_meta_options_import_export_pro', $data = array(
-			'title'  => __( 'Import/Export', 'ultimate-addons-cf7' ),
-			'icon'   => 'fa-solid fa-file-export',
-			'fields' => array(
-                'placeholder_heading' => array(
-					'id'    => 'placeholder_heading',
-					'type'  => 'heading', 
-					'label' => __( 'Import/Export', 'ultimate-addons-cf7' ),
-					'subtitle' => __( 'Import and export all addon settings associated with this form. Please save the form in order to generate the export file.', 'ultimate-addons-cf7' )
-				), 
-				'uacf7_import_export_backup' => array(
-                    'id' => 'uacf7_import_export_backup',
-                    'type' => 'backup',
-                    'form_id' => $post_id,
-                ),     
-			),
-		), $post_id);
-		$value['import_export'] = $import_export; 
-		return $value; 
-    }
-}
+//         $import_export = apply_filters('uacf7_post_meta_options_import_export_pro', $data = array(
+// 			'title'  => __( 'Import/Export', 'ultimate-addons-cf7' ),
+// 			'icon'   => 'fa-solid fa-file-export',
+// 			'fields' => array(
+//                 'placeholder_heading' => array(
+// 					'id'    => 'placeholder_heading',
+// 					'type'  => 'heading', 
+// 					'label' => __( 'Import/Export', 'ultimate-addons-cf7' ),
+// 					'subtitle' => __( 'Import and export all addon settings associated with this form. Please save the form in order to generate the export file.', 'ultimate-addons-cf7' )
+// 				), 
+// 				'uacf7_import_export_backup' => array(
+//                     'id' => 'uacf7_import_export_backup',
+//                     'type' => 'backup',
+//                     'form_id' => $post_id,
+//                 ),     
+// 			),
+// 		), $post_id);
+// 		$value['import_export'] = $import_export; 
+// 		return $value; 
+//     }
+// }
 
 // Uacf7 Import Export File Upload
 if(!function_exists('uacf7_import_export_file_upload')){
