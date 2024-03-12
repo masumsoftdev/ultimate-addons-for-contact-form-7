@@ -606,10 +606,15 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 				return;
 			}
 			$option = get_option( $this->option_id );
-			 
-		
 			$option_request  = ( ! empty( $_POST[ $this->option_id ] ) ) ? $_POST[ $this->option_id ] : array(); 
 			$uacf7_current_page  = ( ! empty( $_POST[ 'uacf7_current_page' ] ) ) ? $_POST[ 'uacf7_current_page' ] : ''; 
+
+			if(isset($_POST['tf_import_option']) && !empty($_POST['tf_import_option'])){
+
+				$tf_import_option = json_decode( wp_unslash( trim( $_POST['tf_import_option']) ), true );
+				// uacf7_print_r($tf_import_option); 
+				$option_request = !empty($tf_import_option) && is_array($tf_import_option) ? $tf_import_option : $option_request;
+			}
 		 
 			if($option && $option_request){
 				$tf_option_value = $option;
