@@ -57,22 +57,49 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 		 * Import Export Callback
 		 * @author Sydur Rahman
 		 */
-		// public function uacf7_option_import_callback() {
-		// 	if ( ! wp_verify_nonce( $_POST['ajax_nonce'], 'tf_options_nonce' ) ) {
-		// 		exit( esc_html__( "Security error", 'ultimate-addons-cf7' ) );
-		// 	}
-		// 	$imported_data = stripslashes( $_POST['tf_import_option'] );
-		// 	$form_id = stripslashes( $_POST['form_id'] );
-		// 	if ( $form_id != 0 ) {
-		// 		$imported_data = unserialize( $imported_data ); 
-		// 		update_post_meta( $form_id, 'uacf7_form_opt', $imported_data );
-		// 	} else {
-		// 		$imported_data = unserialize( $imported_data );
-		// 		update_option( 'uacf7_settings', $imported_data );
-		// 	}
+		public function uacf7_option_import_callback() {
+		 
+			if (  !isset( $_POST['ajax_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ajax_nonce'] ) ), 'tf_options_nonce' ) ) {
+				return;
+			}
+			
+			//  Checked Currenct can save option
+			$current_user = wp_get_current_user();
+			$current_user_role = $current_user->roles[0];
 
-		// 	wp_send_json_success( $imported_data );
-		// }
+			if ( $current_user_role !== 'administrator' && !is_admin()) {
+				wp_die( 'You do not have sufficient permissions to access this page.' );
+			}
+
+			$imported_data = json_decode( wp_unslash( trim( $_POST['tf_import_option']) ), true );  
+			$form_id = stripslashes( $_POST['form_id'] );
+
+			$response    = [
+				'status'  => 'error',
+				'message' => __( 'Something went wrong!', 'ultimate-addons-cf7' ),
+			];
+
+			if( !empty( $imported_data ) && is_array( $imported_data )){
+				if ( $form_id != 0 ) { 
+
+					update_post_meta( $form_id, 'uacf7_form_opt', $imported_data );
+
+				}  
+
+				$response = [
+					'status'  => 'success',
+					'message' => __( 'Options imported successfully!', 'tourfic' ),
+				];
+			}else{
+				$response    = [
+					'status'  => 'error',
+					'message' => __( 'Your imported data is not valid', 'tourfic' ),
+				];
+			}
+			
+
+			wp_send_json_success( $response );
+		}
 
 		/**
 		 * Load files

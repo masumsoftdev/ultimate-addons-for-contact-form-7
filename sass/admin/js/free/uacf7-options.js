@@ -562,7 +562,7 @@
             }
              // get tf_import_option from data  
             let tf_import_option =  false
-            if (typeof data.get('tf_import_option') !== "undefined" && data.get('tf_import_option').trim() != '') {
+            if (typeof data.get('tf_import_option') !== "undefined" && data.get('tf_import_option') != null && data.get('tf_import_option').trim() != '') {
                
                 //  confirm data before send
                 if (!confirm(tf_options.tf_export_import_msg.import_confirm)) {
@@ -1081,9 +1081,39 @@
             if(form_id == 0){
                 // Triger the form submit
                 $(".tf-option-form.tf-ajax-save").submit();
+            }else{
+                 //confirm data before send
+                if (!confirm(tf_options.tf_export_import_msg.import_confirm)) {
+                    return;
+                }
+                $.ajax({
+                    url: tf_options.ajax_url,
+                    method: 'POST',
+                    data: {
+                        action: 'uacf7_option_import',
+                        tf_import_option: importData,
+                        form_id: form_id,
+                        ajax_nonce: tf_options.nonce,
+                    },
+                    beforeSend: function () {
+                        $('.tf-import-btn').html('Importing...');
+                        $('.tf-import-btn').attr('disabled', 'disabled');
+                    },
+                    success: function (response) {  
+                        if (response.data.status == 'success') {
+                            // alert(tf_options.tf_export_import_msg.imported);
+                            $('.tf-import-btn').html('Imported');
+                            notyf.success(response.data.message);
+                            window.location.reload();
+                        } else {
+                            notyf.error(response.data.message);
+                            // alert('Something went wrong!');
+                        }
+                    }
+                });
             }
         });
-
+ 
         // $(document).on('click', '.tf-import-btn', function (event) {
         //     event.preventDefault();
 
