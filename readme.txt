@@ -391,7 +391,7 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 - Fixed: Sweetalert2 patch resolved
 - Updated: Imported Data Converted into JSON
 
-= 3.3.2 – 06/03/2024 =
+= 3.3.3 – 06/03/2024 =
 
 - Fixed: Digital Signature Conflict with DB
 - Added: CDN and Local script Settings
