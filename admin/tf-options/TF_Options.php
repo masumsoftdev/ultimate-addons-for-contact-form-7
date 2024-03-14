@@ -58,20 +58,47 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 		 * @author Sydur Rahman
 		 */
 		public function uacf7_option_import_callback() {
-			if ( ! wp_verify_nonce( $_POST['ajax_nonce'], 'tf_options_nonce' ) ) {
-				exit( esc_html__( "Security error", 'ultimate-addons-cf7' ) );
+		 
+			if (  !isset( $_POST['ajax_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ajax_nonce'] ) ), 'tf_options_nonce' ) ) {
+				return;
 			}
-			$imported_data = stripslashes( $_POST['tf_import_option'] );
-			$form_id = stripslashes( $_POST['form_id'] );
-			if ( $form_id != 0 ) {
-				$imported_data = unserialize( $imported_data ); 
-				update_post_meta( $form_id, 'uacf7_form_opt', $imported_data );
-			} else {
-				$imported_data = unserialize( $imported_data );
-				update_option( 'uacf7_settings', $imported_data );
+			
+			//  Checked Currenct can save option
+			$current_user = wp_get_current_user();
+			$current_user_role = $current_user->roles[0];
+
+			if ( $current_user_role !== 'administrator' && !is_admin()) {
+				wp_die( 'You do not have sufficient permissions to access this page.' );
 			}
 
-			wp_send_json_success( $imported_data );
+			$imported_data = json_decode( wp_unslash( trim( $_POST['tf_import_option']) ), true );  
+			$form_id = stripslashes( $_POST['form_id'] );
+
+			$response    = [
+				'status'  => 'error',
+				'message' => __( 'Something went wrong!', 'ultimate-addons-cf7' ),
+			];
+
+			if( !empty( $imported_data ) && is_array( $imported_data )){
+				if ( $form_id != 0 ) { 
+
+					update_post_meta( $form_id, 'uacf7_form_opt', $imported_data );
+
+				}  
+
+				$response = [
+					'status'  => 'success',
+					'message' => __( 'Options imported successfully!', 'tourfic' ),
+				];
+			}else{
+				$response    = [
+					'status'  => 'error',
+					'message' => __( 'Your imported data is not valid', 'tourfic' ),
+				];
+			}
+			
+
+			wp_send_json_success( $response );
 		}
 
 		/**
@@ -173,8 +200,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 				wp_enqueue_style( 'uacf7-admin', UACF7_URL . 'assets/admin/css/uacf7-admin.min.css', '', UACF7_VERSION );
 
 				if($uacf7_enable_cdn_load_css == true){
-
-					wp_enqueue_style( 'uacf7-admin-sweet-alert', '//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css', '', UACF7_VERSION );
+ 
 					wp_enqueue_style( 'uacf7-fontawesome-4', '//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css', array(), $this->tf_options_version() );
 					wp_enqueue_style( 'uacf7-fontawesome-5', '//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css', array(), $this->tf_options_version() );
 					wp_enqueue_style( 'uacf7-fontawesome-6', '//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css', array(), $this->tf_options_version() );
@@ -183,8 +209,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 					wp_enqueue_style( 'uacf7-flatpickr', '//cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css', array(), $this->tf_options_version() );
 				
 				}else{
-					
-					wp_enqueue_style( 'uacf7-admin-sweet-alert', UACF7_URL . 'assets/admin/libs/sweetalert2/sweetalert2.min.css', '', UACF7_VERSION );
+					 
 					wp_enqueue_style( 'uacf7-fontawesome-4', UACF7_URL . 'assets/admin/libs/font-awesome/fontawesome4/css/font-awesome.min.css', array(), $this->tf_options_version() );
 					wp_enqueue_style( 'uacf7-fontawesome-5', UACF7_URL . 'assets/admin/libs/font-awesome/fontawesome5/css/all.min.css', array(), $this->tf_options_version() );
 					wp_enqueue_style( 'uacf7-fontawesome-6', UACF7_URL . 'assets/admin/libs/font-awesome/fontawesome6/css/all.min.css', array(), $this->tf_options_version() );
@@ -203,14 +228,12 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 
 				wp_enqueue_script( 'uacf7-admin', UACF7_URL . 'assets/admin/js/uacf7-admin-scripts.min.js', array( 'jquery', 'wp-data', 'wp-editor', 'wp-edit-post' ), UACF7_VERSION, true );
 				
-				if($uacf7_enable_cdn_load_js == true){
-					wp_enqueue_script( 'uacf7-admin-sweet-alert', '//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js', array( 'jquery' ), UACF7_VERSION, true );
+				if($uacf7_enable_cdn_load_js == true){ 
 					wp_enqueue_script( 'Chart-js', '//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js', array( 'jquery' ), '2.6.0', true );
 					wp_enqueue_script( 'uacf7-flatpickr', '//cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js', array( 'jquery' ), $this->tf_options_version(), true );
 					wp_enqueue_script( 'uacf7-select2', '//cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', array( 'jquery' ), $this->tf_options_version(), true );
 					
-				}else{
-					wp_enqueue_script( 'uacf7-admin-sweet-alert', UACF7_URL . 'assets/admin/libs/sweetalert2/sweetalert2.min.js', array( 'jquery' ), UACF7_VERSION, true );
+				}else{ 
 					wp_enqueue_script( 'Chart-js', UACF7_URL . 'assets/admin/libs/chartjs/Chart.js', array( 'jquery' ), '2.6.0', true );
 					wp_enqueue_script( 'uacf7-flatpickr', UACF7_URL . 'assets/admin/libs/flatpickr/flatpickr.min.js', array( 'jquery' ), $this->tf_options_version(), true );
 					wp_enqueue_script( 'uacf7-select2', UACF7_URL . 'assets/admin/libs/select2/select2.min.js', array( 'jquery' ), $this->tf_options_version(), true );
