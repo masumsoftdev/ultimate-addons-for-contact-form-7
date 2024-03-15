@@ -2,9 +2,9 @@
 Contributors: themefic, hasanet, mdrejon, raihan143, masumwp
 Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
-Tested up to: 6.4
+Tested up to: 6.4.3
 Requires PHP: 7.4
-Stable tag: 3.3.4
+Stable tag: 3.3.5
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -270,6 +270,10 @@ We provide full support on the WordPress.org forums & [Our Website](https://port
 
 Ultimate Addons for Contact Form 7 uses [Appsero](https://appsero.com/) SDK to collect some telemetry data. Appsero SDK does not gather any data by default. The SDK only starts gathering basic telemetry data when a user allows it via the admin notice. Appsero SDK DOES NOT IMMEDIATELY start gathering data, without confirmation from users in any case. We use this data to troubleshoot problems faster, make product improvements & ensure a great user experience for all our users.
 
+How can I report security bugs?
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability](https://patchstack.com/database/vdp/ultimate-addons-for-contact-form-7/).
+
+
 ###  Our Plugins
 
 * [Ultimate Before After Image Slider & Gallery - BEAF](https://wordpress.org/plugins/beaf-before-and-after-gallery)
@@ -290,6 +294,9 @@ The icons used in this plugin are sourced from [Iconfinder](https://www.iconfind
 6. Go to Plugin Settings (Dashboard -> Ultimate Addons) and enable the addon you need.
 
 == Frequently Asked Questions ==
+
+= How can I report security bugs? =
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability](https://patchstack.com/database/vdp/ultimate-addons-for-contact-form-7/).
 
 = What is Contact Form 7 =
 Contact Form 7 is a popular, and one of the oldest, WordPress plugin that enables users to create and manage multiple contact forms on their website.
@@ -384,6 +391,11 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 53. Range Slider Pro (Form Example)
 
 == Changelog ==
+
+= 3.3.5 – 15/03/2024 =
+
+- Added: Disclaimer for Patchstack VDP
+- Updated: readme.txt
 
 = 3.3.4 – 14/03/2024 =
 
@@ -517,11 +529,6 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 - Added: Dynamic Location Selection to IP Geolocation addon(Pro).
 - Improvement: Autocomplete Location User Permission updated(Pro).
 - Fixed: Conditional Fields issue in the mail
-
-=  3.2.2 – 24/09/2023  = 
-
-- Fixed: PDF Generator tag value populate issue 
-- Fixed: Checkbox or Radio buttons conditional field issue
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.
 
