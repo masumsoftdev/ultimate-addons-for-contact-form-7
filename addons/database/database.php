@@ -20,7 +20,6 @@ class UACF7_DATABASE {
 		add_action( 'wp_ajax_uacf7_ajax_database_export_csv', array( $this, 'uacf7_ajax_database_export_csv' ) );
 		add_action( 'admin_init', array( $this, 'uacf7_create_database_table' ) );
 		// add_filter( 'wpcf7_load_js', '__return_false' );
-
 	}
 
 	//Create Ulimate Database   
@@ -51,7 +50,7 @@ class UACF7_DATABASE {
 		wp_enqueue_script( 'database-admin', UACF7_ADDONS . '/database/assets/js/database-admin.js', array( 'jquery' ), null, true );
 		wp_localize_script( 'database-admin', 'database_admin_url',
 			array(
-				'admin_url' => get_admin_url() . '/admin.php',
+				'admin_url' => get_admin_url() . 'admin.php',
 				'ajaxurl' => admin_url( 'admin-ajax.php' ),
 				'plugin_dir_url' => plugin_dir_url( __FILE__ ),
 				'nonce' => wp_create_nonce( 'uacf7-form-database-admin-nonce' ),
@@ -64,13 +63,14 @@ class UACF7_DATABASE {
 	 */
 
 	public function uacf7_add_db_menu() {
+
 		add_submenu_page(
 			'uacf7_settings',
 			__( 'Database', 'ultimate-addons-cf7' ),
 			__( 'Database', 'ultimate-addons-cf7' ),
 			'manage_options',
 			'ultimate-addons-db',
-			array( $this, 'uacf7_create_database_page' ),
+			apply_filters( 'uacf7_database_admin_page', array( $this, 'uacf7_create_database_page' ) ),
 		);
 	}
 
@@ -228,6 +228,11 @@ class UACF7_DATABASE {
 	 */
 	public function uacf7_save_to_database( $form ) {
 		require_once( ABSPATH . 'wp-admin/includes/file.php' );
+
+		if ( ! is_plugin_active( 'ultimate-addons-for-contact-form-7-pro/ultimate-addons-for-contact-form-7-pro.php' ) ) {
+			require_once( UACF7_PRO_PATH_ADDONS . '/database-pro/functions.php' );
+		}
+
 		global $wpdb;
 		$encryptionKey = 'AES-256-CBC';
 		$table_name = $wpdb->prefix . 'uacf7_form';
@@ -309,6 +314,13 @@ class UACF7_DATABASE {
 				}
 			}
 		}
+
+		if ( function_exists( 'uacf7dp_add_more_fields' ) ) {
+			$extra_fields_data = uacf7dp_add_more_fields( $submission, );
+		}
+
+
+		apply_filters( 'uacf7dp_send_form_data_before_insert', $insert_data, $extra_fields_data );
 
 		$insert_data = json_encode( $insert_data );
 
