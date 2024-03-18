@@ -61,7 +61,7 @@ class UACF7_COLUMN {
             return;
 
         wpcf7_add_tag_generator('uacf7-col',
-            __('Add column', 'ultimate-addons-cf7'),
+            __('Add Column', 'ultimate-addons-cf7'),
             'uacf7-tg-pane-column',
             array($this, 'tg_pane_column')
         );
@@ -81,8 +81,8 @@ class UACF7_COLUMN {
                    <p><?php echo esc_html__('You can easily create two columns, three Columns even Four columns form with Contact form 7 using this feature. Just insert tag you need from below list.','ultimate-addons-cf7'); ?></p>
                    <div class="uacf7-doc-notice"> 
                         <?php echo sprintf( 
-                            __( 'Confused? Check our Documentation on  %1s .', 'ultimate-addons-cf7' ),
-                            '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-columns/" target="_blank">documentation</a>'
+                            __( 'Confused? Check our Documentation on  %1s and %2s.', 'ultimate-addons-cf7' ),
+                            '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-columns/" target="_blank">Columns / Grid</a>', '<a href="https://themefic.com/docs/uacf7/pro-addons/custom-columns-for-contact-form-7/" target="_blank">Custom Columns</a>'
                         ); ?> 
                     </div>
                    <p></p>
@@ -157,12 +157,6 @@ class UACF7_COLUMN {
 						</tr>
                     </tbody>
                 </table>
-                <div class="uacf7-doc-notice">
-                <?php echo sprintf( 
-                        __( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
-                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-columns/" target="_blank">documentation</a>'
-                    ); ?>  
-                </div>
             </fieldset>
         </div>
 

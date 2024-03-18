@@ -44,19 +44,24 @@ if ( ! class_exists( 'UACF7_select' ) ) {
 					} 
 					// uacf7_print_r($tags);
 					
-					$exclude = isset($this->field['query_args']['exclude']) ? $this->field['query_args']['exclude'] : array(); 
+					$exclude = isset($this->field['query_args']['exclude']) ? $this->field['query_args']['exclude'] : array();
+					
 					foreach ( $tags as $tag ) { 
 
 						if ($tag['type'] == '' || in_array($tag['basetype'], $exclude) ) continue; 
 
-						if( $tag['type'] == 'checkbox' ) {  
-							$tag_name = $tag['name'].'[]'; 
+						if( $tag['type'] == 'checkbox'  ) {   
+							$tag_name =  is_array($tag['options']) && !in_array('exclusive', $tag['options']) ? $tag['name'].'[]'  : $tag['name'];
+						}elseif( $tag['type'] == 'select'  ) {    
+							$tag_name =  is_array($tag['options']) && in_array('multiple', $tag['options']) ? $tag['name'].'[]'  : $tag['name'];
 						}else { 
 							$tag_name = $tag['name'];
 						}
 						if($tag['name'] == '' && $tag['type'] == 'uarepeater'){
-							$attrs = explode(' ', $tag['attr']); 
-							
+							$attrs = explode(' ', $tag['attr']);  
+							if( isset($attrs) && $attrs != '' && $tag['type'] == 'uarepeater' ){
+								$attrs = $tag['options'];
+							}
 							$this->field['options'][ $attrs[0] ] =  esc_html($attrs[0]);  
 						}else{
 

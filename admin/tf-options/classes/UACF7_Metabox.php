@@ -74,9 +74,8 @@ if ( ! class_exists( 'UACF7_Metabox' ) ) {
 
 		/*
 		 * Metabox Content
-		 * @author Foysal
-		 */
-
+		 * @author Sydur
+		 */ 
 		public function tf_meta_box_content( $post ) {
 
 			if ( empty( $this->metabox_sections ) ) {
@@ -86,7 +85,7 @@ if ( ! class_exists( 'UACF7_Metabox' ) ) {
 			$display = $this->metabox_post_type == 'uacf7' ? 'display:none;' : 'display:block;'
 				?>
 
-			<div class="uacf7-metabox <?php echo esc_attr( $this->metabox_post_type ); ?>"
+			<div id="uacf7-metabox" class="uacf7-metabox <?php echo esc_attr( $this->metabox_post_type ); ?>"
 				style="<?php echo esc_attr( $display ); ?>">
 				<div class="tf-setting-dashboard">
 
@@ -107,27 +106,50 @@ if ( ! class_exists( 'UACF7_Metabox' ) ) {
 							$tf_meta_box_value = array();
 						}
 						?>
-						<div class="tf-metabox-title">
-							<h3>
-								<?php echo esc_html( 'Ultimate Addons for CF7 Options', 'ultimate-addons-cf7' ) ?>
-							</h3>
+						<?php if($this->metabox_post_type == 'uacf7' ):?>
+							<div class="tf-metabox-title">
+								<h3>
+									<?php echo esc_html( 'Ultimate Addons for CF7 Options', 'ultimate-addons-cf7' ) ?>
+								</h3>
 
-							<span>
-								<?php echo esc_html( 'VERSION : ', 'ultimate-addons-cf7' ); ?>
-								<?php echo UACF7_VERSION ?>
-							</span>
-						</div>
+								<span>
+									<?php echo esc_html( 'VERSION : ', 'ultimate-addons-cf7' ); ?>
+									<?php echo UACF7_VERSION ?>
+								</span>
+							</div>
+						<?php endif; ?>
 						<div class="tf-admin-meta-box tf-option-form">
 							<div class="tf-option">
 								<div class="tf-admin-tab ">
 									<?php
 									$section_count = 0;
-									foreach ( $this->metabox_sections as $key => $section ) : ?>
+								 	$sections = $this->metabox_sections; 
+
+									asort($sections);
+
+									
+									if(isset($sections['import_export'])){
+										$import_export = $sections['import_export'];
+										unset($sections['import_export']);
+										$sections['import_export'] = $import_export;
+
+									}
+									
+									  
+									foreach ( $sections as $key => $section ) : ?>
 										<?php //if( $section != null): ?>
 										<a class="tf-tablinks <?php echo $section_count == 0 ? 'active' : ''; ?>"
 											data-tab="<?php echo esc_attr( $key ) ?>">
+											
 											<?php echo ! empty( $section['icon'] ) ? '<span class="tf-sec-icon"><i class="' . esc_attr( $section['icon'] ) . '"></i></span>' : ''; ?>
 											<?php echo esc_html( $section['title'] ); ?>
+											<?php if(isset($section['checked_field']) && $section['checked_field']){
+													$checked = isset($tf_meta_box_value[$key][$section['checked_field']]) ? $tf_meta_box_value[$key][$section['checked_field']] : '';
+													if($checked != '' || $checked == true){
+														echo  ' <span class="tf-metabox-option-checked"></span>';
+													}
+												} 
+											?>
 										</a>
 										<?php // endif; ?>
 										<?php $section_count++; endforeach; ?>
@@ -135,7 +157,7 @@ if ( ! class_exists( 'UACF7_Metabox' ) ) {
 
 								<div class="tf-tab-wrapper">
 									<?php $content_count = 0;
-									foreach ( $this->metabox_sections as $key => $section ) : ?>
+									foreach ( $sections as $key => $section ) : ?>
 										<div id="<?php echo esc_attr( $key ) ?>"
 											class="tf-tab-content tf-container <?php echo $content_count == 0 ? 'active' : ''; ?>">
 
@@ -144,8 +166,8 @@ if ( ! class_exists( 'UACF7_Metabox' ) ) {
 												foreach ( $section['fields'] as $field ) :
 
 													$default = isset( $field['default'] ) ? $field['default'] : '';
-													$value = isset( $tf_meta_box_value[ $key ][ $field['id'] ] ) ? $tf_meta_box_value[ $key ][ $field['id'] ] : $default;
-
+													$value = isset( $tf_meta_box_value[ $key ][ $field['id'] ] ) ? $tf_meta_box_value[ $key ][ $field['id'] ] : $default; 
+												 
 													$tf_option = new UACF7_Options();
 													// $tf_option->field( $field, $value, $this->option_id );
 													$tf_option->field( $field, $value, $this->metabox_id, '', $key );
@@ -206,8 +228,10 @@ if ( ! class_exists( 'UACF7_Metabox' ) ) {
 				$tf_meta_box_value = array();
 			}
 			$metabox_request = ( ! empty( $_POST[ $this->metabox_id ] ) ) ? $_POST[ $this->metabox_id ] : array();
-
+			
 			if ( ! empty( $metabox_request ) && ! empty( $this->metabox_sections ) ) {
+				// uacf7_print_r($metabox_request);
+				// exit;
 				foreach ( $this->metabox_sections as $section_key => $section ) {
 					if ( ! empty( $section['fields'] ) ) {
 

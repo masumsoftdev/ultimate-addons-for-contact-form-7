@@ -54,7 +54,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 
 			if ( current_user_can( 'manage_options' ) ) {
 				add_submenu_page(
-					'',
+					'uacf7-setup-wizard',
 					esc_html__( 'UACF7 Setup Wizard', 'ultimate-addons-cf7' ),
 					esc_html__( 'UACF7 Setup Wizard', 'ultimate-addons-cf7' ),
 					'manage_options',
@@ -347,6 +347,8 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 								<h2><?php echo _e('Activate your addons', 'ultimate-addons-cf7') ?></h2>
 								 <p><?php echo _e('Please activate only the addons you need. This helps avoid loading unnecessary assets (JS, CSS). Both Free and Pro addons are available here, organized ',  'ultimate-addons-cf7') ?><strong><?php echo _e('Alphabetically', 'ultimate-addons-cf7') ?></strong>.</p>
 								<form method="post" action="" class="tf-option-form tf-ajax-save" enctype="multipart/form-data">
+
+									<input type="hidden" name="uacf7_current_page" value="uacf7_addons_page">
 									<div class="uacf7-addon-setting-content">  
 											<?php 
 												$data = get_option( 'uacf7_settings', true );

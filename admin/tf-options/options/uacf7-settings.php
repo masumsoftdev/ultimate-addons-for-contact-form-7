@@ -8,10 +8,11 @@ if ( file_exists( UACF7_PATH . 'admin/tf-options/options/tf-menu-icon.php' ) ) {
 } else {
 	$menu_icon = 'dashicons-palmtree';
 }
+
 UACF7_Settings::option( 'uacf7_settings', array(
 	'title' => __( 'Ultimate Addons', 'ultimate-addons-cf7' ),
 	'icon' => $menu_icon,
-	'position' => 50,
+	'position' => 30.01,
 	'sections' =>
 		apply_filters( 'uacf7_settings_options', array(
 			'addons_settings' => array(
@@ -31,7 +32,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'type' => 'switch',
 						'label' => __( 'Redirection ', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Redirection@2x.png',
-						'subtitle' => __( 'Redirect users to a Thank You or external page based on form submission, with an option to open in a new tab.', 'ultimate-addons-cf7' ),
+						'subtitle' => __( 'Redirect users to a Thank You or External page upon form submission.', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/redirection-for-contact-form-7/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/redirection-for-contact-form-7/',
 						'default' => false,
@@ -42,9 +43,9 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'id' => 'uacf7_enable_redirection_pro',
 						'child_field' => 'uacf7_enable_redirection',
 						'type' => 'switch',
-						'label' => __( 'Redirection ( Conditional Redirect + Whatsapp Integration)', 'ultimate-addons-cf7' ),
+						'label' => __( 'Redirection Pro (Conditional Redirect + Whatsapp Integration)', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Conditional-Redirect@2x.png',
-						'subtitle' => __( 'Redirect users after submission based on conditions, with CF7 fields tag support for redirect URLs and Whatsapp data transfer.', 'ultimate-addons-cf7' ),
+						'subtitle' => __( 'Redirect users to different webpages based on specific conditions. Supports CF7 fields tag and Whatsapp data transfer.', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/conditional-redirect-for-contact-form-7/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/pro-addons/conditional-redirect-for-contact-form-7/',
 						'default' => false,
@@ -57,7 +58,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'type' => 'switch',
 						'label' => __( 'Conditional Field', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Conditional-Field@2x.png',
-						'subtitle' => __( 'Show or hide Contact Form 7 fields based on Conditional Logic, compatible with Checkbox and Range Slider.', 'ultimate-addons-cf7' ),
+						'subtitle' => __( 'Show or hide Contact Form 7 fields based on Conditional Logic.', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-conditional-fields/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-conditional-fields/',
 						'default' => false,
@@ -82,7 +83,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'type' => 'switch',
 						'label' => __( 'Column or Grid', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Column-or-Grid-Layout@2x.png',
-						'subtitle' => __( 'Easily create two columns, three Columns; even Four columns form using this feature.', 'ultimate-addons-cf7' ),
+						'subtitle' => __( 'Easily create two columns, three Columns; even Four columns form.', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-columns-or-grid/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-columns/',
 						'label_on' => __( 'Yes', 'ultimate-addons-cf7' ),
@@ -96,7 +97,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'type' => 'switch',
 						'label' => __( 'Column - Custom Width', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Custom-Column-Width@2x.png',
-						'subtitle' => __( 'Set form columns at desired widths, like creating a form with columns of 12%, 27%, and 61% widths.', 'ultimate-addons-cf7' ),
+						'subtitle' => __( 'Set form columns at custom / desired widths, like creating a form with columns of 12%, 27%, and 61% widths.', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/custom-columns-grid-layout/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/pro-addons/custom-columns-for-contact-form-7/',
 						'default' => false,
@@ -152,7 +153,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'label' => __( 'Multi-step Form (Pro)', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Multi-Step-Form-Pro-Skins@2x.png',
 						'default' => false,
-						'subtitle' => __( 'Choose from premium skins for multi-step forms, automatically generating pre-designed forms. ', 'ultimate-addons-cf7' ),
+						'subtitle' => __( 'Choose from premium templates for multi-step forms, automatically generating pre-designed forms. ', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-multi-step-forms/pro/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/pro-addons/contact-form-7-multi-step-form-pro/',
 						'is_pro' => true,
@@ -163,7 +164,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'label' => __( 'Booking/Appointment Form', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Booking-or-Appointment-Form@2x.png',
 						'default' => false,
-						'subtitle' => __( 'Create a booking or appointment form using Contact Form 7, including calendar and time options, with WooCommerce payment support.', 'ultimate-addons-cf7' ),
+						'subtitle' => __( 'Create a booking or appointment form using Contact Form 7, including calendar and time options, with payment support.', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-booking-form/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/pro-addons/contact-form-7-booking-form/',
 						'is_pro' => true,
@@ -197,7 +198,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'label' => __( 'Database ', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Save-to-Database.png',
 						'default' => false,
-						'subtitle' => __( 'The Database addon helps store form data, view data in the admin backend, and export data in CSV format. ', 'ultimate-addons-cf7' ),
+						'subtitle' => __( 'Store form data, view data in the admin backend, and export data in CSV format. ', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-database/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-database/',
 					),
@@ -221,7 +222,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'label' => __( 'PDF Generate', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Send-PDF-Using-Contact-form-8.png',
 						'default' => false,
-						'subtitle' => __( "Generate PDFs through Contact Form 7; PDFs are sent to the admin and submitter email upon form submission. ", 'ultimate-addons-cf7' ),
+						'subtitle' => __( "Generate PDFs upon form submission; PDFs are sent to the admin and submitter email. ", 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-pdf-generator/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-pdf-generator/',
 
@@ -232,7 +233,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'label' => __( 'AI Form Generator', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Generate-Al-Forms.png',
 						'default' => false,
-						'subtitle' => __( 'The Form Generator Addon helps generating contact forms with the power of AI.', 'ultimate-addons-cf7' ),
+						'subtitle' => __( 'The Form Generator Addon helps generating categorized contact forms with the power of AI.', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/ai-form-generator/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/ai-form-generator/',
 
@@ -243,7 +244,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'label' => __( 'Conversational Form', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Conversational-Form.png',
 						'default' => false,
-						'subtitle' => __( 'Ultimate Conversational Forms create interactive, engaging forms that mimic a conversational experience. ', 'ultimate-addons-cf7' ),
+						'subtitle' => __( 'Create interactive, engaging forms that mimic a conversational experience. ', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/conversational-form-for-contact-form-7/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/pro-addons/conversational-form-for-contact-form-7/',
 						'is_pro' => true,
@@ -265,7 +266,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'label' => __( 'Telegram Integration', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Telegram-Integration-1.png',
 						'default' => false,
-						'subtitle' => __( 'Forward form submission data to Telegram with the Telegram integration feature.', 'ultimate-addons-cf7' ),
+						'subtitle' => __( 'Forward form submission data to Telegram.', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-telegram/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-telegram/',
 
@@ -287,8 +288,8 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'label' => __( 'Pabbly/Zapier (Webhook)', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Zapier(Webhook).png',
 						'default' => false,
-						'subtitle' => __( 'This addon helps transferring form data to third-party services like Pabbly or Zapier via webhooks. ', 'ultimate-addons-cf7' ),
-						'demo_link' => '#',
+						'subtitle' => __( 'Transfer form data to third-party services like Pabbly or Zapier via webhooks. ', 'ultimate-addons-cf7' ),
+						'demo_link' => 'https://cf7addons.com/preview/pabbly-zapier-webhook/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-webhook/',
 					),
 				),
@@ -304,7 +305,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'label' => __( 'Dynamic Text ', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Dynamic-Text-Editor@1x-1.png',
 						'default' => false,
-						'subtitle' => __( 'Dynamic text retrieves dynamic data from a website for use in hidden fields, including URL, blog, post, user info, and custom fields. ', 'ultimate-addons-cf7' ),
+						'subtitle' => __( 'Retrieve dynamic data from a website to be used in hidden fields, including URL, blog, post, user info, and custom fields. ', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-dynamic-text-extension/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-dynamic-text-extension/',
 
@@ -315,7 +316,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'label' => __( 'Pre-populate Field', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Woocomerce-Product-Dropdown@2x.png',
 						'default' => false,
-						'subtitle' => __( 'The pre-populate field sends data from one form to another, redirecting after the first form submission.', 'ultimate-addons-cf7' ),
+						'subtitle' => __( 'Send data from one form to another, after the first form submission.', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-pre-populate-fields/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-pre-populate-fields/',
 
@@ -352,7 +353,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'label' => __( 'Range Slider', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Range-Slider@2x.png',
 						'default' => false,
-						'subtitle' => __( 'Add beautiful Range slider fields to Contact Form 7, with multiple preview layouts available.', 'ultimate-addons-cf7' ),
+						'subtitle' => __( 'Add beautiful Range slider fields to Contact Form 7.', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-range-slider/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-range-slider/',
 
@@ -400,7 +401,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'label' => __( 'IP Geo Fields (Autocomplete Country, City, State, Zip Fields)', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/IP-Geolocation@2x.png',
 						'default' => false,
-						'subtitle' => __( 'Set up IP Geolocation-based Auto Complete for Country, City, State, Zip Fields on Contact Form 7. ', 'ultimate-addons-cf7' ),
+						'subtitle' => __( 'Set up IP Geolocation-based Auto Completion for Country, City, State, Zip Fields. ', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-autocomplete/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/pro-addons/contact-form-7-autocomplete/',
 						'is_pro' => true,
@@ -432,7 +433,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'default' => false,
 						'is_pro' => true,
 						'subtitle' => __( 'Add specific WooCommerce products as dropdowns based on Product ID, with options to connect to Cart/Checkout and show products based on categories or IDs. ', 'ultimate-addons-cf7' ),
-						'demo_link' => 'https://cf7addons.com/preview/product-grid-view-with-thumbnails/',
+						'demo_link' => 'https://cf7addons.com/pricing/duct-grid-view-with-thumbnails/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/pro-addons/contact-form-7-woocommerce-pro/',
 					),
 					'uacf7_enable_product_auto_cart' => array(
@@ -441,13 +442,16 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'label' => __( 'WooCommerce Checkout', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/WooCommerce-Checkout@2x.png',
 						'default' => false,
-						'subtitle' => __( 'Choose a product from the dropdown field, submit the form, and get redirected to the WooCommerce Cart page with the product added automatically.', 'ultimate-addons-cf7' ),
+						'subtitle' => __( 'Connect your form with WooCommerce. The process: The user selects a product from the dropdown field, submits the form, and is then automatically redirected to the WooCommerce Cart page with the product added to their cart.', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-woocommerce-checkout/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/pro-addons/contact-form-7-woocommerce-checkout/',
 						'is_pro' => true,
 					),
 				),
 			),
+
+
+
 			'api_integration' => array(
 				'title' => __( 'API Integration', 'ultimate-addons-cf7' ),
 				'icon' => 'fa fa-circle-nodes',
@@ -505,8 +509,31 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'type' => 'backup',
 						'label' => __( 'Import/Export', 'ultimate-addons-cf7' ),
 						'subtitle' => sprintf(
-							__( 'Import and Export option of this setting panel.', 'ultimate-addons-cf7' )
+							__( 'Import and export all options associated with this settings panel. Please save it first in order to generate the export file. ', 'ultimate-addons-cf7' )
 						)
+					),
+				),
+			),
+			'uacf7_load_cdn' => array(
+				'title' => __( 'Optimize Assets', 'ultimate-addons-cf7' ),
+				'parent' => 'uacf7_import_export_data',
+				'icon' => 'fa fa-arrow-trend-up',
+				'fields' => array(
+					'uacf7_enable_cdn_load_css' => array(
+						'id' => 'uacf7_enable_cdn_load_css',
+						'type' => 'switch',
+						'save_empty' => true,
+						'label' => __( 'Enable CSS Libraries Loading from CDN', 'ultimate-addons-cf7' ),
+						'subtitle' => __( 'To optimize CSS performance, consider loading all assets from the CDN to reduce latency and enhance user experience.', 'ultimate-addons-cf7' )
+						
+					),
+					'uacf7_enable_cdn_load_js' => array(
+						'id' => 'uacf7_enable_cdn_load_js',
+						'type' => 'switch',
+						'save_empty' => true,
+						'label' => __( 'Enable JavaScript Libraries Loading from CDN', 'ultimate-addons-cf7' ),
+						'subtitle' => __( 'To maximize JavaScript performance, consider loading all assets from the CDN to reduce quiescence and faster user experience.', 'ultimate-addons-cf7' )
+						
 					),
 				),
 			),

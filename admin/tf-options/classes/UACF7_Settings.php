@@ -18,7 +18,7 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 			$this->option_id       = $key;
 			$this->option_title    = ! empty( $params['title'] ) ? apply_filters( $key . '_title', $params['title'] ) : '';
 			$this->option_icon     = ! empty( $params['icon'] ) ? apply_filters( $key . '_icon', $params['icon'] ) : '';
-			$this->option_position = ! empty( $params['position'] ) ? apply_filters( $key . '_position', $params['position'] ) : 5;
+			$this->option_position = ! empty( $params['position'] ) ? apply_filters( $key . '_position', $params['position'] ) : 30.01;
 			$this->option_sections = ! empty( $params['sections'] ) ? apply_filters( $key . '_sections', $params['sections'] ) : array(); 
 			// echo $this->option_icon;
 			// run only is admin panel options, avoid performance loss
@@ -101,6 +101,7 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 		 * @author Foysal
 		 */
 		public function tf_options() {
+			
 			add_menu_page(
 				$this->option_title,
 				$this->option_title,
@@ -110,7 +111,6 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 				$this->option_icon,
 				$this->option_position
 			);
-			
 			//Addons submenu
 			add_submenu_page(
 				$this->option_id,
@@ -120,6 +120,26 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 				'uacf7_addons',
 				array( $this, 'uacf7_addons_page' ),
 			);
+			
+			// All Forms
+			add_submenu_page(
+				$this->option_id,
+				__( 'All Forms', 'ultimate-addons-cf7' ),
+				__( 'All Forms', 'ultimate-addons-cf7' ),
+				'manage_options',
+				'admin.php?page=wpcf7',
+				// array( $this, 'uacf7_create_database_page' ),
+			);  
+			// All Forms
+			add_submenu_page(
+				$this->option_id,
+				__( 'Add New Form', 'ultimate-addons-cf7' ),
+				__( 'Add New Form', 'ultimate-addons-cf7' ),
+				'manage_options',
+				'admin.php?page=wpcf7-new',
+				// array( $this, 'uacf7_create_database_page' ),
+			);  
+			
 			
 			// 
 			add_submenu_page(
@@ -471,6 +491,7 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
                 <div class="tf-option-wrapper tf-setting-wrapper">
                     <form method="post" action="" class="tf-option-form <?php echo esc_attr($ajax_save_class) ?>" enctype="multipart/form-data">
                         <!-- Body -->
+						<input type="hidden" name="uacf7_current_page" value="uacf7_settings_page">
                         <div class="tf-option">
                             <div class="tf-admin-tab tf-option-nav">
 								<?php
@@ -571,24 +592,31 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 		 */
 		public function save_options() {
 
-			// Add nonce for security and authentication.
-			$nonce_name   = isset( $_POST['tf_option_nonce'] ) ? $_POST['tf_option_nonce'] : '';
-			$nonce_action = 'tf_option_nonce_action';
-		
-			// Check if a nonce is set.
-			if ( ! isset( $nonce_name ) ) {
+			// Check if a nonce is valid.
+			if (  !isset( $_POST['tf_option_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['tf_option_nonce'] ) ), 'tf_option_nonce_action' ) ) {
 				return;
 			}
 
-			// Check if a nonce is valid.
-			if ( ! wp_verify_nonce( $nonce_name, $nonce_action ) ) {
-				return;
+			//  Checked Currenct can save option
+			$current_user = wp_get_current_user();
+			$current_user_role = $current_user->roles[0];
+
+			if ( $current_user_role !== 'administrator' && !is_admin()) {
+				wp_die( 'You do not have sufficient permissions to access this page.' );
 			}
+
 			$option = get_option( $this->option_id );
-			 
-		
 			$option_request  = ( ! empty( $_POST[ $this->option_id ] ) ) ? $_POST[ $this->option_id ] : array(); 
 			$uacf7_current_page  = ( ! empty( $_POST[ 'uacf7_current_page' ] ) ) ? $_POST[ 'uacf7_current_page' ] : ''; 
+
+			if(isset($_POST['tf_import_option']) && !empty(wp_unslash( trim( $_POST['tf_import_option']) ))){
+				
+				$tf_import_option = json_decode( wp_unslash( trim( $_POST['tf_import_option']) ), true );  
+
+				// $option_request = !empty($tf_import_option) && is_array($tf_import_option) ? $tf_import_option : $option_request;
+				update_option( $this->option_id, $tf_import_option );
+				return;
+			}
 		 
 			if($option && $option_request){
 				$tf_option_value = $option;
@@ -639,14 +667,14 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
                                     }
                                 } else {
 	                                $data = isset( $option_request[ $field['id'] ] ) ? $option_request[ $field['id'] ] : '';
-									if($data == ''){
+									if($data == ''  && $uacf7_current_page == 'uacf7_addons_page'){
 										$data = isset( $tf_option_value[ $field['id'] ] ) ? $tf_option_value[ $field['id'] ] : '';
 									}
                                 }
 
 								if($fieldClass != 'UACF7_file'){
 									$data       = $fieldClass == 'UACF7_repeater' || $fieldClass == 'UACF7_map' ? serialize( $data ) : $data;
-									if($data == ''){
+									if($data == ''  && $uacf7_current_page == 'uacf7_addons_page'){
 										$data = isset( $tf_option_value[ $field['id'] ] ) ? $tf_option_value[ $field['id'] ] : '';
 									}
 								}
@@ -654,6 +682,9 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 									$data = isset( $option_request[ $field['id'] ] ) ? $option_request[ $field['id'] ] : '';
 									if($data == '' && $uacf7_current_page != 'uacf7_addons_page'){ 
 										$data = isset( $tf_option_value[ $field['id'] ] ) ? $tf_option_value[ $field['id'] ] : 0;
+									}
+									if( isset($field['save_empty']) && $uacf7_current_page == 'uacf7_settings_page' && $field['save_empty'] == true){
+										$data = isset( $option_request[ $field['id'] ] ) ? $option_request[ $field['id'] ] : '';
 									}
 								}
 								if(isset($_FILES) && !empty($_FILES['file'])){
@@ -701,11 +732,29 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 			];
 
             if( ! empty( $_POST['tf_option_nonce'] ) && wp_verify_nonce( $_POST['tf_option_nonce'], 'tf_option_nonce_action' ) ) {
-                $this->save_options();
-                $response = [
-                    'status'  => 'success',
-                    'message' => __( 'Options saved successfully!', 'ultimate-addons-cf7' ),
-                ];
+                if(isset($_POST['tf_import_option']) && !empty(wp_unslash( trim( $_POST['tf_import_option']) )) ){
+
+					$tf_import_option = json_decode( wp_unslash( trim( $_POST['tf_import_option']) ), true );
+					 if(empty($tf_import_option) || !is_array($tf_import_option)){
+						$response    = [
+							'status'  => 'error',
+							'message' => __( 'Your imported data is not valid', 'tourfic' ),
+						];
+					 }else{
+						$this->save_options();
+						$response = [
+							'status'  => 'success',
+							'message' => __( 'Options imported successfully!', 'tourfic' ),
+						];
+					 }
+				}else{
+					$this->save_options();
+					$response = [
+						'status'  => 'success',
+						'message' => __( 'Options saved successfully!', 'tourfic' ),
+					];
+
+				}
             }
 
             echo json_encode( $response );

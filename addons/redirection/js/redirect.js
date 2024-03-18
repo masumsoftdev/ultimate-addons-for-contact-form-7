@@ -30,7 +30,7 @@
                     // Set redirect URL
                     if (form.uacf7_redirect_to_type == 'to_url' && form.external_url) {
     					
-                        if (typeof uacf7_global_tag_support === 'function' && uacf7TagSupport == 'on') {
+                        if (typeof uacf7_global_tag_support === 'function' && uacf7TagSupport == 1) {
 
                             uacf7_global_tag_support(event, form.external_url, form.target);
                         }else {
@@ -42,7 +42,7 @@
                     }
     
                     // Redirect
-                    if( uacf7TagSupport == '' || uacf7TagSupport != 'on' ){ //if tag support disabled
+                    if( uacf7TagSupport == '' || uacf7TagSupport != 1 ){ //if tag support disabled
                         if (redirect_url) {
                             if (!form.target) {
                                 location.href = redirect_url;

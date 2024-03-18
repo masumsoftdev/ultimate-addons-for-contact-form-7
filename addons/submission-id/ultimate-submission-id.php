@@ -35,6 +35,7 @@ class UACF7_SUBMISSION_ID{
         $submission_id = apply_filters('uacf7_post_meta_options_submission_id_pro', $data = array(
             'title'  => __( 'Submission ID', 'ultimate-addons-cf7' ),
             'icon'   => 'fa-solid fa-fingerprint',
+            'checked_field'   => 'uacf7_submission_id_enable',
             'fields' => array(
                 'uacf7_submission_id_heading' => array(
                     'id'    => 'uacf7_submission_id_heading',
@@ -45,8 +46,9 @@ class UACF7_SUBMISSION_ID{
                          '<a href="https://cf7addons.com/preview/unique-id-for-contact-form-7/" target="_blank" rel="noopener">Example</a>'
                                   )
                       ),
-                      array(
-                        'id'      => 'submission-id-docs',
+                     
+                'submission_id_docs' => array(
+                        'id'      => 'submission_id_docs',
                         'type'    => 'notice',
                         'style'   => 'success',
                         'content' => sprintf( 
@@ -63,7 +65,11 @@ class UACF7_SUBMISSION_ID{
                     'label_off' => __( 'No', 'ultimate-addons-cf7' ),
                     'default'   => false,
                 ),
-           
+                'uacf7_submission_form_options_heading' => array(
+                    'id'        => 'uacf7_submission_form_options_heading',
+                    'type'      => 'heading',
+                    'label'     => __( 'Submission Option ', 'ultimate-addons-cf7' ),
+                ),
                 'uacf7_submission_id' => array(
                     'id'        => 'uacf7_submission_id',
                     'type'      => 'number',
@@ -83,7 +89,7 @@ class UACF7_SUBMISSION_ID{
                 'uacf7_submission_id_send_to_sub_line' => array(
                     'id'        => 'uacf7_submission_id_send_to_sub_line',
                     'type'      => 'switch',
-                    'label'     => __( 'Send Submission ID to the Mail Subject Line', 'ultimate-addons-cf7' ),
+                    'label'     => __( 'Show Submission ID on the Mail Subject Line', 'ultimate-addons-cf7' ),
                     'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
                     'label_off' => __( 'No', 'ultimate-addons-cf7' ),
                     'default'   => false, 
@@ -92,7 +98,7 @@ class UACF7_SUBMISSION_ID{
                 'uacf7_submission_id_place' => array(
                     'id'        => 'uacf7_submission_id_place',
                     'type'      => 'select',
-                    'label'     => __( 'Show to Subject\'s Text', 'ultimate-addons-cf7' ),
+                    'label'     => __( 'ID Placement on the Subject Line', 'ultimate-addons-cf7' ),
                     'options'  => array( 
                         'left' => 'Left',
                         'right' => 'Right',
@@ -309,7 +315,7 @@ public static function tg_pane_submission_id($contact_form, $args = ''){
                     <div class="uacf7-doc-notice"> 
                         <?php echo sprintf( 
                             __( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
-                            '<a href="https://themefic.com/docs/uacf7/free-addons/unique-submission-id/" target="_blank">documentation</a>'
+                            '<a href="https://themefic.com/docs/uacf7/free-addons/unique-id-for-contact-form-7/" target="_blank">Unique Submission ID</a>'
                         ); ?> 
                     </div>
                     <tr>

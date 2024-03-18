@@ -11,8 +11,7 @@ class UACF7_PRE_POPULATE {
     /*
     * Construct function
     */
-    public function __construct() {
-        
+    public function __construct() { 
         add_action( 'wp_enqueue_scripts', array($this, 'wp_enqueue_script' ) );    
         add_action( 'wp_ajax_uacf7_ajax_pre_populate_redirect', array( $this, 'uacf7_ajax_pre_populate_redirect' ) ); 
         add_action( 'wp_ajax_nopriv_uacf7_ajax_pre_populate_redirect', array( $this, 'uacf7_ajax_pre_populate_redirect' ) ); 
@@ -33,6 +32,7 @@ class UACF7_PRE_POPULATE {
         $pre_populated = apply_filters('uacf7_post_meta_options_pre_populated_pro', $data = array(
             'title'  => __( 'Pre-Populate Field', 'ultimate-addons-cf7' ),
             'icon'   => 'fa-solid fa-arrow-up-right-dots',
+            'checked_field'   => 'pre_populate_enable',
             'fields' => array(
                 'uacf7_pre_populated_heading' => array(
                     'id'    => 'uacf7_pre_populated_heading',
@@ -43,8 +43,8 @@ class UACF7_PRE_POPULATE {
                          '<a href="https://cf7addons.com/preview/contact-form-7-pre-populate-fields/" target="_blank" rel="noopener">Example</a>'
                                   )
                       ),
-                      array(
-                        'id'      => 'pre-populate-docs',
+                      'pre_populate_docs' => array(
+                        'id'      => 'pre_populate_docs',
                         'type'    => 'notice',
                         'style'   => 'success',
                         'content' => sprintf( 
@@ -58,24 +58,26 @@ class UACF7_PRE_POPULATE {
                     'label'     => __( ' Enable Pre-Populate Field', 'ultimate-addons-cf7' ),
                     'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
                     'label_off' => __( 'No', 'ultimate-addons-cf7' ),
-                    'default'   => false,
-                    'field_width' => 33,
+                    'default'   => false, 
+                ),
+                'pre_populate_form_options_heading' => array(
+                    'id'        => 'pre_populate_form_options_heading',
+                    'type'      => 'heading',
+                    'label'     => __( 'Pre Populate Option ', 'ultimate-addons-cf7' ),
                 ),
                 'pre_populate_form' => array(
                     'id'        => 'pre_populate_form',
                     'type'      => 'select',
                     'label'     => __( ' Select Other Form', 'ultimate-addons-cf7' ),
                     'subtitle'     => __( 'The data will be sent to this form.', 'ultimate-addons-cf7' ),
-                    'options'     => $all_forms,
-                    'field_width' => 33,
+                    'options'     => $all_forms, 
                 ),
                 'data_redirect_url' => array(
                     'id'        => 'data_redirect_url',
                     'type'      => 'text',
                     'label'     => __( ' Redirect URL ', 'ultimate-addons-cf7' ),
                     'subtitle'     => __( 'Insert the Page URL of the Other Form.', 'ultimate-addons-cf7' ),
-                    'placeholder'     => __( ' Redirect URL ', 'ultimate-addons-cf7' ),
-                    'field_width' => 33,
+                    'placeholder'     => __( ' Redirect URL ', 'ultimate-addons-cf7' ), 
                 ),
 
               'pre_populate_passing_field' => array(

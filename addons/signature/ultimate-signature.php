@@ -48,6 +48,7 @@ class UACF7_SIGNATURE{
         $signature = apply_filters('uacf7_post_meta_options_signature_pro', $data = array(
             'title'  => __( 'Digital Signature', 'ultimate-addons-cf7' ),
             'icon'   => 'fa-solid fa-signature',
+            'checked_field'   => 'uacf7_signature_enable',
             'fields' => array(
                 
                 'uacf7_sign_heading' => array(
@@ -59,8 +60,8 @@ class UACF7_SIGNATURE{
                      '<a href="https://cf7addons.com/preview/contact-form-7-signature-addon/" target="_blank" rel="noopener">Example</a>'
                               )
                   ),
-                  array(
-                    'id'      => 'signature-docs',
+                  'signature_docs' => array(
+                    'id'      => 'signature_docs',
                     'type'    => 'notice',
                     'style'   => 'success',
                     'content' => sprintf( 
@@ -77,7 +78,11 @@ class UACF7_SIGNATURE{
                     'label_off' => __( 'No', 'ultimate-addons-cf7' ),
                     'default'   => false
                 ),
-             
+                'uacf7_signature_form_options_heading' => array(
+                    'id'        => 'uacf7_signature_form_options_heading',
+                    'type'      => 'heading',
+                    'label'     => __( 'Signature Option ', 'ultimate-addons-cf7' ),
+                ),
                 'uacf7_signature_bg_color' => array(
                     'id'        => 'uacf7_signature_bg_color',
                     'type'      => 'color',
@@ -185,16 +190,14 @@ class UACF7_SIGNATURE{
  
          ?>
          <span  class="wpcf7-form-control-wrap <?php echo sanitize_html_class($tag->name); ?>" data-name="<?php echo sanitize_html_class($tag->name); ?>">
-             <input hidden type="file" id="img_id_special" <?php echo $atts; ?>  >
+             <input hidden type="file" class="img_id_special" <?php echo $atts; ?>  >
              <div>
-               <div id="signature-pad">
-               <canvas id="signature-canvas" width="<?php echo $canvas_width; ?>" height="<?php echo $canvas_height; ?>"></canvas>
+               <div  class="signature-pad" data-field-name="<?php echo sanitize_html_class($tag->name); ?>">
+                 <canvas id="<?php echo sanitize_html_class($tag->name); ?>" data-field-name="<?php echo sanitize_html_class($tag->name); ?>" width="<?php echo $canvas_width; ?>" height="<?php echo $canvas_height; ?>"></canvas>
                </div>
-               <span id="confirm_message"></span>
-               <div class="control_div">
-                   <button id="clear-button">Clear</button>
-                   <button id="convertButton">Confirm Signature</button>
-               </div>
+                <div class="control_div">
+                   <button data-field-name="<?php echo sanitize_html_class($tag->name); ?>" class="clear-button">Clear</button>
+                </div>
              </div>
          </span>
  
@@ -232,7 +235,7 @@ class UACF7_SIGNATURE{
                         <div class="uacf7-doc-notice">
                             <?php echo sprintf(
                                   __('Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7'),
-                                  '<a href="https://themefic.com/docs/uacf7/free-addons/signature-field/" target="_blank">documentation</a>'
+                                  '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-signature-addon/" target="_blank">Digital Signature</a>'
                               ); ?>
                         </div>
                         <tr>

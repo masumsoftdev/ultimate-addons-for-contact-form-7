@@ -28,6 +28,7 @@ class UACF7_Placeholder {
 		$redirection = apply_filters( 'uacf7_post_meta_options_placeholder_pro', $data = array(
 			'title' => __( 'Placeholder Styler', 'ultimate-addons-cf7' ),
 			'icon' => 'fa-solid fa-italic',
+            'checked_field'   => 'uacf7_enable_placeholder_styles',
 			'fields' => array(
 				'placeholder_heading' => array(
 					'id' => 'placeholder_heading',
@@ -38,8 +39,8 @@ class UACF7_Placeholder {
                          '<a href="https://cf7addons.com/preview/contact-form-7-placeholder-styling/" target="_blank">Example</a>'
                     )
 				),
-				array(
-					'id'      => 'placeholder-docs',
+				'placeholder_docs' => array(
+					'id'      => 'placeholder_docs',
 					'type'    => 'notice',
 					'style'   => 'success',
 					'content' => sprintf( 
@@ -55,6 +56,11 @@ class UACF7_Placeholder {
 					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
 					'default' => false
 				),
+				'placeholder_styles_form_options_heading' => array(
+                    'id'        => 'placeholder_styles_form_options_heading',
+                    'type'      => 'heading',
+                    'label'     => __( 'Placeholder Styles Option ', 'ultimate-addons-cf7' ),
+                ),
 				'uacf7_placeholder_color_option' => array(
 					'id' => 'uacf7_placeholder_color_option',
 					'type' => 'color',

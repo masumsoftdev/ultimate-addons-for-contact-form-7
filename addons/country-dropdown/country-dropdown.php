@@ -194,10 +194,12 @@ class UACF7_COUNTRY_DROPDOWN {
                         </tr>
                         
                         <?php ob_start(); ?>
+                        <tr class="uacf7-spacer"></tr>
                         <tr>
                             <th scope="row"><label><?php echo esc_html( __( 'Auto complete', 'ultimate-addons-cf7' ) ); ?> <a style="color:red" target="_blank" href="https://cf7addons.com/">(Pro)</a></label></th>
-                            <td><input disabled type="checkbox" class="option"><?php echo esc_html( __( "Auto complete country using user's network IP.", "ultimate-addons-cf7" ) ); ?> </td>
+                            <td><input disabled type="checkbox" class="option"><?php echo esc_html( __( "Autocomplete country using user's network IP.", "ultimate-addons-cf7" ) ); ?> </td>
                         </tr>
+                        <tr class="uacf7-spacer"></tr>
                         <?php 
                         $autocomplete_html = ob_get_clean(); 
                         
@@ -211,8 +213,9 @@ class UACF7_COUNTRY_DROPDOWN {
                         <?php ob_start(); ?>
                         <tr>
                         <th scope="row"><label><?php echo esc_html( __( 'Dynamic Selection', 'ultimate-addons-cf7' ) ); ?> <a style="color:red" target="_blank" href="https://cf7addons.com/">(Pro)</a></label></th>
-                            <td><input disabled type="checkbox" class="option"><?php echo esc_html( __( "Dynamic Country , States and Cities Populate.", "ultimate-addons-cf7" ) ); ?> </td>
+                            <td><input disabled type="checkbox" class="option"><?php echo esc_html( __( "Dynamically Populate Countries, States, and Cities", "ultimate-addons-cf7" ) ); ?> </td>
                         </tr>
+                        <tr class="uacf7-spacer"></tr>
                         <?php 
                         $dynamic_selection = ob_get_clean(); 
                         /*
@@ -224,10 +227,11 @@ class UACF7_COUNTRY_DROPDOWN {
                         <!-- Dynamic Selection Starts-->
                         <?php ob_start(); ?>
                         <tr>
-                            <th scope="row"><label><?php echo esc_html( __( 'Only Countries', 'ultimate-addons-cf7' ) ); ?> <a style="color:red" target="_blank" href="https://cf7addons.com/">(Pro)</a></label></th>
-                            <td><textarea class="values" name="" id="tag-generator-panel-product-id" cols="30" rows="10" disabled></textarea><?php echo _e( ' One ID per line. ', 'ultimate-addons-cf7' ) ?></a>
+                            <th scope="row"><label><?php echo esc_html( __( 'Show Specific Countries', 'ultimate-addons-cf7' ) ); ?> <a style="color:red" target="_blank" href="https://cf7addons.com/">(Pro)</a></label></th>
+                            <td><textarea class="values" name="" id="tag-generator-panel-product-id" cols="30" rows="10" disabled></textarea><br><?php echo _e( ' One ID per line. ', 'ultimate-addons-cf7' ) ?></a>
                             </td>
                         </tr>
+                        <tr class="uacf7-spacer"></tr>
                         <?php 
                         $default_country = ob_get_clean(); 
                         /*
@@ -246,14 +250,14 @@ class UACF7_COUNTRY_DROPDOWN {
             </fieldset>
             <div class="uacf7-doc-notice"> 
                 <?php echo sprintf( 
-                    __( 'Confused? Check our Documentation on  %1s .', 'ultimate-addons-cf7' ),
-                    '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-country-dropdown-with-flag/" target="_blank">documentation</a>'
+                    __( 'Confused? Check our Documentation on  %1s and %2s.', 'ultimate-addons-cf7' ),
+                    '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-country-dropdown-with-flag/" target="_blank">Country Dropdown</a>', '<a href="https://themefic.com/docs/uacf7/pro-addons/contact-form-7-autocomplete/" target="_blank">IP Geo Fields (Autocomplete)</a>'
                 ); ?> 
             </div>
          
             <p class="uacf7-doc-notice uacf7-guide">
                 <?php echo sprintf( 
-                        __( 'Use Our Pro plugin %1s to enable autocomplete country, city, state and zip code field based on user IP address.', 'ultimate-addons-cf7' ),
+                        __( 'Need  autocomplete feature for country, city, state, and zip code fields based on the user IP address? Try Our Pro addon %1s.', 'ultimate-addons-cf7' ),
                         '<strong><a target="_blank" href="https://cf7addons.com/preview/contact-form-7-autocomplete/">IP Geolocation</a></strong>'
                     ); ?> 
             

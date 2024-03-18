@@ -37,6 +37,7 @@ class UACF7_CF {
 		add_action( 'wpcf7_before_send_mail', array( $this, 'uacf7_conditional_mail_properties' ) );
 
 		add_filter( 'uacf7_post_meta_options', array( $this, 'uacf7_post_meta_options_conditional_field' ), 11, 2 );
+		add_filter( 'uacf7_pdf_generator_replace_condition_data', array( $this, 'uacf7_condition_replace_pdf' ), 11, 3 );
 
 		//    add_filter( 'wpcf7_load_js', '__return_false' );
 
@@ -60,6 +61,7 @@ class UACF7_CF {
 		$conditional = apply_filters( 'uacf7_post_meta_options_conditional_field_pro', $data = array(
 			'title' => __( 'Conditional Fields', 'ultimate-addons-cf7' ),
 			'icon' => 'fa-solid fa-fan',
+			'checked_field'   => 'conditional_repeater',
 			'fields' => array(
 				'conditional_heading' => array(
 					'id' => 'conditional_heading',
@@ -70,8 +72,8 @@ class UACF7_CF {
                          '<a href="https://cf7addons.com/preview/contact-form-7-conditional-fields/" target="_blank">Example</a>'
                     )
 				),
-				array(
-					'id'      => 'conditional-field-docs',
+				'conditional_field_docs' => array(
+					'id'      => 'conditional_field_docs',
 					'type'    => 'notice',
 					'style'   => 'success',
 					'content' => sprintf( 
@@ -80,6 +82,11 @@ class UACF7_CF {
                         '<a href="https://themefic.com/docs/uacf7/pro-addons/contact-form-7-conditional-fields-pro/" target="_blank">Conditional Fields (Pro)</a>'
                     )
 				),
+				'conditional_form_options_heading' => array(
+                    'id'        => 'conditional_form_options_heading',
+                    'type'      => 'heading',
+                    'label'     => __( 'Conditional Option ', 'ultimate-addons-cf7' ),
+                ),
 				'conditional_repeater' => array(
 					'id' => 'conditional_repeater',
 					'type' => 'repeater',
@@ -176,11 +183,7 @@ class UACF7_CF {
 		), $post_id );
 		$value['conditional'] = $conditional;
 		return $value;
-	}
-
-
-
-
+	} 
 
 	/*
 	 * Form tag
@@ -223,12 +226,7 @@ class UACF7_CF {
 		?>
 		<div class="control-box">
 			<fieldset>
-				<div class="uacf7-doc-notice">
-					<?php echo sprintf(
-						__( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
-						'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-conditional-fields/" target="_blank">documentation</a>'
-					); ?>
-				</div>
+
 				<legend>
 					<?php echo esc_html__( "Generate a conditional tag to wrap the elements that can be shown conditionally.", "ultimate-addons-cf7" ); ?>
 				</legend>
@@ -244,8 +242,10 @@ class UACF7_CF {
 					</tbody>
 				</table>
 				<div class="uacf7-doc-notice uacf7-guide">
-					<?php echo esc_html__( "There are additional settings on the 'UACF7 Conditional Fields' tab. Make sure you set those, otherwise the conditions may not work correctly.", "ultimate-addons-cf7" ); ?>
+					<?php echo esc_html__( 'Check "Conditional Fields" tab located under the Ultimate Addons for CF7 Options for additional settings. Make sure to set those, otherwise the conditions may not work correctly.', "ultimate-addons-cf7" ); ?>
+					
 				</div>
+				<div class="uacf7-doc-notice">Confused? Check our Documentation on <a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-conditional-fields/" target="_blank">Conditional Fields</a>.</div>
 			</fieldset>
 		</div>
 
@@ -260,9 +260,7 @@ class UACF7_CF {
 		</div>
 		<?php
 	}
-
-
-
+ 
 	public function get_forms() {
 		$args = array(
 			'post_type' => 'wpcf7_contact_form',
@@ -478,12 +476,13 @@ class UACF7_CF {
 		$submission = WPCF7_Submission::get_instance();
 
 		// Get the conditional fields
-		$uacf7_conditions = get_post_meta( $wpcf7->id(), 'uacf7_conditions', true );
+		// $uacf7_conditions = get_post_meta( $wpcf7->id(), 'conditional', true );
+		$uacf7_conditions = uacf7_get_form_option($wpcf7->id(), 'conditional'); 
+		$conditional_repeater = isset( $uacf7_conditions['conditional_repeater'] ) ? $uacf7_conditions['conditional_repeater'] : array();
 
-		if ( $submission && is_array( $uacf7_conditions ) && ! empty( $uacf7_conditions ) ) {
 			$posted_data = $submission->get_posted_data();
 			$form_tags = $submission->get_contact_form()->scan_form_tags();
-
+			
 			// Set the email body in the mail properties
 			$properties = $submission->get_contact_form()->get_properties();
 
@@ -491,48 +490,54 @@ class UACF7_CF {
 			$mail_body = $properties['mail']['body'];
 			$mail_body_2 = $properties['mail_2']['body'];
 
+
+		if ( $submission && is_array( $conditional_repeater ) && ! empty( $conditional_repeater ) ) {
+			
 			// Loop through the conditional fields
-			foreach ( $uacf7_conditions as $key => $condition ) {
+			foreach ( $conditional_repeater as $key => $condition ) {
+				
 				$uacf7_cf_hs = $condition['uacf7_cf_hs'];
 				$uacf7_cf_group = $condition['uacf7_cf_group'];
-				$uacf7_cf_conditions_for = $condition['uacf_cf_condition_for'];
+				$uacf7_cf_conditions_for = $condition['uacf7_cf_condition_for'];
 				$uacf7_cf_conditions = $condition['uacf7_cf_conditions'];
 				$condition_status = [];
-
+				
 				// Check if the conditional field is hidden or shown
-				foreach ( $uacf7_cf_conditions['uacf7_cf_tn'] as $key => $value ) {
-
-					$posted_value = is_array( $posted_data[ $value ] ) && in_array( $uacf7_cf_conditions['uacf7_cf_val'][ $key ], $posted_data[ $value ] ) ? $uacf7_cf_conditions['uacf7_cf_val'][ $key ] : $posted_data[ $value ];
-
+				foreach ( $uacf7_cf_conditions as $key => $value ) {
+					$uacf7_cf_val = $value['uacf7_cf_val'];
+					$uacf7_cf_operator = $value['uacf7_cf_operator'];
+					$uacf7_cf_tn = $value['uacf7_cf_tn'];
+					
+					$posted_value = is_array( $posted_data[ $uacf7_cf_tn ] ) && in_array( $uacf7_cf_val , $posted_data[ $uacf7_cf_tn ] ) ? $uacf7_cf_val  : $posted_data[ $uacf7_cf_tn ];
+					
 					// Condition for Equal  
-					if ( $uacf7_cf_conditions['uacf7_cf_operator'][ $key ] == 'equal' && $posted_value == $uacf7_cf_conditions['uacf7_cf_val'][ $key ] ) {
+					if ( $uacf7_cf_operator == 'equal' && $posted_value == $uacf7_cf_val  ) {
 						$condition_status[] = 'true';
 					}
 					// Condition for Not Equal
-					else if ( $uacf7_cf_conditions['uacf7_cf_operator'][ $key ] == 'not_equal' && $posted_value != $uacf7_cf_conditions['uacf7_cf_val'][ $key ] ) {
+					else if ( $uacf7_cf_operator == 'not_equal' && $posted_value != $uacf7_cf_val  ) {
 
 						$condition_status[] = 'true';
 					}
 					// Condition for Greater than
-					else if ( $uacf7_cf_conditions['uacf7_cf_operator'][ $key ] == 'greater_than' && $posted_value > $uacf7_cf_conditions['uacf7_cf_val'][ $key ] ) {
+					else if ( $uacf7_cf_operator == 'greater_than' && $posted_value > $uacf7_cf_val  ) {
 						$condition_status[] = 'true';
 					}
 					// Condition for Less than
-					else if ( $uacf7_cf_conditions['uacf7_cf_operator'][ $key ] == 'less_than' && $posted_value < $uacf7_cf_conditions['uacf7_cf_val'][ $key ] ) {
+					else if ( $uacf7_cf_operator == 'less_than' && $posted_value < $uacf7_cf_val  ) {
 						$condition_status[] = 'true';
 					}
 					// Condition for Greater than or equal to
-					else if ( $uacf7_cf_conditions['uacf7_cf_operator'][ $key ] == 'greater_than_or_equal_to' && $posted_value >= $uacf7_cf_conditions['uacf7_cf_val'][ $key ] ) {
+					else if ( $uacf7_cf_operator == 'greater_than_or_equal_to' && $posted_value >= $uacf7_cf_val  ) {
 						$condition_status[] = 'true';
 					}
 					// Condition for Less than or equal to
-					else if ( $uacf7_cf_conditions['uacf7_cf_operator'][ $key ] == 'less_than_or_equal_to' && $posted_value <= $uacf7_cf_conditions['uacf7_cf_val'][ $key ] ) {
+					else if ( $uacf7_cf_operator == 'less_than_or_equal_to' && $posted_value <= $uacf7_cf_val  ) {
 						$condition_status[] = 'true';
 					} else {
 						$condition_status[] = 'false';
 					}
 				}
-				;
 
 				// Check if the conditions for all  
 				if ( $uacf7_cf_conditions_for == 'all' ) {
@@ -581,6 +586,94 @@ class UACF7_CF {
 			$submission->get_contact_form()->set_properties( $properties );
 
 		}
+	}
+
+	public function uacf7_condition_replace_pdf($pdf_content, $id, $contact_form_data  ){
+		$uacf7_conditions = uacf7_get_form_option($id, 'conditional'); 
+		$conditional_repeater = isset( $uacf7_conditions['conditional_repeater'] ) ? $uacf7_conditions['conditional_repeater'] : array();
+		$posted_data = (array) $contact_form_data;
+	
+		if(is_array($conditional_repeater) && !empty($conditional_repeater)){
+			foreach ( $conditional_repeater as $key => $condition ) {
+			
+				$uacf7_cf_hs = $condition['uacf7_cf_hs'];
+				$uacf7_cf_group = $condition['uacf7_cf_group'];
+				$uacf7_cf_conditions_for = $condition['uacf7_cf_condition_for'];
+				$uacf7_cf_conditions = $condition['uacf7_cf_conditions'];
+				$condition_status = [];
+				
+				// Check if the conditional field is hidden or shown
+				foreach ( $uacf7_cf_conditions as $key => $value ) {
+					$uacf7_cf_val = $value['uacf7_cf_val'];
+					$uacf7_cf_operator = $value['uacf7_cf_operator'];
+					$uacf7_cf_tn = $value['uacf7_cf_tn'];
+						
+			
+					$posted_value = is_array( $posted_data[ $uacf7_cf_tn ] ) && in_array( $uacf7_cf_val , $posted_data[ $uacf7_cf_tn ] ) ? $uacf7_cf_val  : $posted_data[ $uacf7_cf_tn ];
+					
+					// Condition for Equal  
+					if ( $uacf7_cf_operator == 'equal' && $posted_value == $uacf7_cf_val  ) {
+						$condition_status[] = 'true';
+					}
+					// Condition for Not Equal
+					else if ( $uacf7_cf_operator == 'not_equal' && $posted_value != $uacf7_cf_val  ) {
+	
+						$condition_status[] = 'true';
+					}
+					// Condition for Greater than
+					else if ( $uacf7_cf_operator == 'greater_than' && $posted_value > $uacf7_cf_val  ) {
+						$condition_status[] = 'true';
+					}
+					// Condition for Less than
+					else if ( $uacf7_cf_operator == 'less_than' && $posted_value < $uacf7_cf_val  ) {
+						$condition_status[] = 'true';
+					}
+					// Condition for Greater than or equal to
+					else if ( $uacf7_cf_operator == 'greater_than_or_equal_to' && $posted_value >= $uacf7_cf_val  ) {
+						$condition_status[] = 'true';
+					}
+					// Condition for Less than or equal to
+					else if ( $uacf7_cf_operator == 'less_than_or_equal_to' && $posted_value <= $uacf7_cf_val  ) {
+						$condition_status[] = 'true';
+					} else {
+						$condition_status[] = 'false';
+					}
+				}
+				
+				
+				// Check if the conditions for all  
+				if ( $uacf7_cf_conditions_for == 'all' ) {
+					if ( ! in_array( 'false', $condition_status ) ) {
+						if ( $uacf7_cf_hs == 'show' ) { 
+						 
+							$pdf_content = preg_replace( '/\[' . $uacf7_cf_group . '\]/s', '', $pdf_content );
+							$pdf_content = preg_replace( '/\[\/' . $uacf7_cf_group . '\]/s', '', $pdf_content );
+	 
+						}
+					} else {
+						$pdf_content = preg_replace( '/\[' . $uacf7_cf_group . '\].*?\[\/' . $uacf7_cf_group . '\]/s', '', $pdf_content );
+	 
+					}
+				}
+				// Check if the conditions for all 
+				if ( $uacf7_cf_conditions_for == 'any' ) {
+					if ( ! in_array( 'false', $condition_status ) ) {
+						
+						if ( $uacf7_cf_hs == 'show' ) {
+							$pdf_content = preg_replace( '/\[' . $uacf7_cf_group . '\]/s', '', $pdf_content );
+							$pdf_content = preg_replace( '/\[\/' . $uacf7_cf_group . '\]/s', '', $pdf_content );
+	 
+						}
+					} else {
+						$pdf_content = preg_replace( '/\[' . $uacf7_cf_group . '\].*?\[\/' . $uacf7_cf_group . '\]/s', '', $pdf_content );
+	 
+					}
+				}
+			}
+		}
+		
+
+		return $pdf_content;
 	}
 
 

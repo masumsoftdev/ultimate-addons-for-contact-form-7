@@ -32,6 +32,7 @@ class UACF7_TELEGRAM {
     $telegram = apply_filters('uacf7_post_meta_options_telegram_pro', $data = array(
         'title'  => __( 'Telegram', 'ultimate-addons-cf7' ),
         'icon'   => 'fa-brands fa-telegram',
+        'checked_field'   => 'uacf7_telegram_enable',
         'fields' => array(
             
             'uacf7_telegram_heading' => array(
@@ -43,8 +44,9 @@ class UACF7_TELEGRAM {
                  '<a href="https://cf7addons.com/preview/contact-form-7-telegram/" target="_blank" rel="noopener">Example</a>'
                           )
               ),
-              array(
-                'id'      => 'telegram-docs',
+              
+            'telegram_docs' => array(
+                'id'      => 'telegram_docs',
                 'type'    => 'notice',
                 'style'   => 'success',
                 'content' => sprintf( 
@@ -61,12 +63,16 @@ class UACF7_TELEGRAM {
               'default'   => false,
               'field_width' => 50,
           ),
+          'uacf7_telegram_form_options_heading' => array(
+              'id'        => 'uacf7_telegram_form_options_heading',
+              'type'      => 'heading',
+              'label'     => __( 'Telegram Option ', 'ultimate-addons-cf7' ),
+          ),
             'uacf7_telegram_enable_icon' => array(
               'id'        => 'uacf7_telegram_enable_icon',
               'type'     => 'callback',
               'function' => 'uacf7_telegram_active_status_callback',
-              'argument' => $post_id,
-              'field_width' => 50,
+              'argument' => $post_id, 
           
             ), 
             'uacf7_telegram_bot_token' => array(
@@ -108,12 +114,9 @@ class UACF7_TELEGRAM {
           $form_tags = $submission->get_contact_form()->scan_form_tags();
    
           $properties = $submission->get_contact_form()->get_properties();
-      
 
           $mail    = $contact_form->prop( 'mail' );
           $message = wpcf7_mail_replace_tags( @ $mail[ 'body' ] );
-
-        
 
           $this->uacf7_send_message_to_telegram($message, $form_id);
 
@@ -121,9 +124,6 @@ class UACF7_TELEGRAM {
 
     
   }
-
-
-
 
 
   public function uacf7_send_message_to_telegram($message, $form_id) {
@@ -150,7 +150,7 @@ class UACF7_TELEGRAM {
     $bot_token             = isset($uacf7_telegram_bot_token) ? $uacf7_telegram_bot_token : '';
     $chat_id               = isset($uacf7_telegram_chat_id) ? $uacf7_telegram_chat_id : '';
     
-    if ($uacf7_telegram_enable === 'on' && $bot_token && $chat_id) {
+    if ($uacf7_telegram_enable === '1' && $bot_token && $chat_id) {
         $api_url = "https://api.telegram.org/bot$bot_token/sendMessage";
 
 
@@ -170,11 +170,7 @@ class UACF7_TELEGRAM {
             error_log('Telegram API request failed: ' . $response->get_error_message());
         }
     }
-
-
-
-   
-        
+    
   }
 
 }

@@ -29,6 +29,7 @@ class UACF7_WEB_HOOK {
 		$WebHook = apply_filters( 'uacf7_post_meta_options_webhook', $data = array(
 			'title' => __( 'Webhook', 'ultimate-addons-cf7' ),
 			'icon' => 'fa-solid fa-code-compare',
+			'checked_field'   => 'uacf7_enable_web_hook',
 			'fields' => [ 
 				'uacf7_Web_hook_heading' => [ 
 					'id' => 'uacf7_web_hook_heading',
@@ -39,15 +40,15 @@ class UACF7_WEB_HOOK {
                          '<a href="#" target="_blank">Example</a>'
                     )
 				],
-				array(
-					'id'      => 'webhook-docs',
+				'webhook_docs' => [ 
+					'id'      => 'webhook_docs',
 					'type'    => 'notice',
 					'style'   => 'success',
 					'content' => sprintf( 
                         __( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
                         '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-webhook/" target="_blank">Webhook Setup</a>'
                     )
-				),
+				],
 				'uacf7_enable_web_hook' => [ 
 					'id' => 'uacf7_enable_web_hook',
 					'type' => 'switch',
@@ -56,6 +57,11 @@ class UACF7_WEB_HOOK {
 					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
 					'default' => false
 				],
+				'web_hook_form_options_heading' => array(
+					'id'        => 'web_hook_form_options_heading',
+					'type'      => 'heading',
+					'label'     => __( 'Webhook Option ', 'ultimate-addons-cf7' ),
+				),
 
 				'uacf7_web_hook_api' => [ 
 					'id' => 'uacf7_web_hook_api',

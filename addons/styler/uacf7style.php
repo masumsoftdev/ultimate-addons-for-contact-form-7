@@ -20,6 +20,7 @@ class UACF7_uacf7style {
         $redirection = apply_filters('uacf7_post_meta_options_styler_pro', $data = array(
             'title'  => __( 'Form Styler', 'ultimate-addons-cf7' ),
             'icon'   => 'fa-solid fa-mortar-pestle',
+            'checked_field'   => 'uacf7_enable_form_styles',
             'fields' => array(
                 'styler_heading' => array(
 					'id'    => 'styler_heading',
@@ -30,8 +31,8 @@ class UACF7_uacf7style {
                          '<a href="https://cf7addons.com/preview/contact-form-7-style-addon/" target="_blank">Example</a>'
                     )
 				),
-                array(
-					'id'      => 'styler-docs',
+                'styler_docs' => array(
+					'id'      => 'styler_docs',
 					'type'    => 'notice',
 					'style'   => 'success',
 					'content' => sprintf( 
@@ -341,13 +342,12 @@ class UACF7_uacf7style {
                     'id'        => 'uacf7_uacf7style_input_border_style',
                     'type'      => 'select',
                     'label'     => __( 'Border Style ', 'ultimate-addons-cf7' ),   
-                    'options'     => array(
-                        ''      => 'Select Border Style',
-                        'none'      => 'None',
+                    'options'     => array(  
+                        'solid' => "Solid",
                         'dotted' => "Dotted",
                         'dashed' => "Dashed",
-                        'solid' => "Solid",
                         'double' => "Double",
+                        'none'      => 'None',
                     ),
                     'field_width' => 25,
                 ), 
@@ -564,7 +564,17 @@ class UACF7_uacf7style {
                     'label'     => __( 'Left', 'ultimate-addons-cf7' ),   
                     'placeholder'     => __( 'Left', 'ultimate-addons-cf7' ), 
                     'field_width' => 25,
-                ), 
+                ),
+                'uacf7_uacf7style_ua_custom_header' => array(
+                    'id'        => 'uacf7_uacf7style_ua_custom_header',
+                    'type'      => 'heading',
+                    'label'     => __( 'Custom CSS', 'ultimate-addons-cf7' ),
+                ),
+                'uacf7_uacf7style_ua_custom_css' => array(
+                    'id'        => 'uacf7_uacf7style_ua_custom_css',
+                    'type'      => 'code_editor',
+
+                ),
                 // array(
                 //     'id' => 'tf-editor',
                 //     'type' => 'editor',
@@ -653,7 +663,7 @@ class UACF7_uacf7style {
                 $btn_margin_bottom = $form_meta['uacf7_uacf7style_btn_margin_bottom'];
                 $btn_margin_left = $form_meta['uacf7_uacf7style_btn_margin_left'];
                 
-                // $ua_custom_css = $form_meta['uacf7_uacf7style_ua_custom_css'];
+                $ua_custom_css = $form_meta['uacf7_uacf7style_ua_custom_css'];
                 ?>
                 <style>
                     .uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> label {

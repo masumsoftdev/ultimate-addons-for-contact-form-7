@@ -219,7 +219,7 @@ class UACF7_DATABASE {
 		$decryptedData = openssl_decrypt( $encryptedData, 'aes-256-cbc', $key, 0, $iv );
 
 		// Output the decrypted data directly
-		header( 'Content-Type: image/jpg' ); // Adjust content type based on your file type
+		//header( 'Content-Type: image/jpg' ); // Adjust content type based on your file type
 		return $decryptedData;
 	}
 
@@ -273,9 +273,9 @@ class UACF7_DATABASE {
 			if ( ! empty( $file ) ) {
 				if ( in_array( $file_key, $uploaded_files ) ) {
 					$file = is_array( $file ) ? reset( $file ) : $file;
-					$dir_link = '/uacf7-uploads/' . $time_now . '-' . $file_key . '-' . basename( $file );
+					$dir_link = '/uacf7-uploads/' . $time_now . '-' . $file_key;
 					if ( in_array( $file_key, $uacf7_signature_tag ) ) {
-						$dir_link = '/uacf7-uploads/' . $time_now . '-' . $file_key . '-' . basename( $file ) . '.enc';
+						$dir_link = '/uacf7-uploads/' . $time_now . '-' . $file_key . '.enc';
 						$this->encrypt_file( $file, $dir . $dir_link, $encryptionKey );
 					} else {
 						copy( $file, $dir . $dir_link );
@@ -397,6 +397,7 @@ class UACF7_DATABASE {
 				if ( in_array( $key, $uacf7_signature_tag ) ) {
 					$pathInfo = pathinfo( $value );
 					$extension = strtolower( $pathInfo['extension'] );
+					$fileNameWithoutExtension = pathinfo( $value, PATHINFO_FILENAME );
 
 					// Image Loaded
 					$token = md5( uniqid() );
@@ -406,10 +407,11 @@ class UACF7_DATABASE {
 					}
 
 					// Check old data
+					// Check old data
 					if ( $extension == 'enc' ) {
-						$srcAttribute = 'src="' . $imageData . '"';  // Set to empty or another value if needed
+						$srcAttribute = $imageData;  // Set to empty or another value if needed
 					} else {
-						$srcAttribute = 'src="' . $value . '"';
+						$srcAttribute = $value;
 					}
 
 					$html .= '
@@ -419,13 +421,13 @@ class UACF7_DATABASE {
 						</td> 
 						<td>
 							<button id="signature_view_btn">' . esc_html( 'View' ) . '</button>
-							<a class="" href="' . $srcAttribute . '" download="decrypted_image.jpg">
-								<button class="signature_download_btn">Download</button>
+							<a class="" href="' . $srcAttribute . '" download="' . $fileNameWithoutExtension . '">
+								<button class="signature_bownload_btn">Download</button>
 							</a>
 						</td>
 					</tr>
 					<div class="signature_view_pops">
-						<img class="signature_view_pops_img" ' . $srcAttribute . '/>
+						<img class="signature_view_pops_img" src="' . $srcAttribute . '"/>
 					</div>
 					';
 
