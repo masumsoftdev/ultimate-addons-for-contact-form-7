@@ -34,6 +34,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 
 			//enqueue scripts
 			add_action( 'admin_enqueue_scripts', array( $this, 'tf_options_admin_enqueue_scripts' ), 9 );
+			add_action( 'admin_enqueue_scripts', array($this, 'uacf7_admin_dequeue_scripts'), 999 );
 			add_action( 'wp_enqueue_scripts', array( $this, 'tf_options_wp_enqueue_scripts' ) );
 
 			// Import Export
@@ -337,10 +338,35 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 				wp_enqueue_style( 'uacf7-fontawesome-5', UACF7_URL . 'assets/admin/libs/font-awesome/fontawesome5/css/all.min.css', array(), $this->tf_options_version() );
 				wp_enqueue_style( 'uacf7-fontawesome-6', UACF7_URL . 'assets/admin/libs/font-awesome/fontawesome6/css/all.min.css', array(), $this->tf_options_version() );
 				wp_enqueue_style( 'uacf7-remixicon', UACF7_URL . 'assets/admin/libs/remixicon/remixicon.css', array(), $this->tf_options_version() );
+			} 
+		}
+
+
+		public function uacf7_admin_dequeue_scripts($screen){ 
+ 
+			global $wp_scripts; 
+
+			$tf_options_screens = array(
+				'toplevel_page_uacf7_settings',
+				'ultimate-addons_page_uacf7_addons',
+				'toplevel_page_wpcf7',
+				'contact_page_wpcf7-new',
+				'admin_page_uacf7-setup-wizard',
+				'ultimate-addons_page_uacf7_license_info',
+			);  
+			if ( in_array( $screen, $tf_options_screens ) ) {
+				if ( wp_script_is('acf-color-picker-alpha', 'enqueued') ) {
+
+					$acf_script_handle = 'acf-color-picker-alpha';
+					$acf_script_data = $wp_scripts->registered[$acf_script_handle];
+
+					wp_dequeue_script($acf_script_handle);
+
+					if( isset( $acf_script_data ) ) {
+						wp_enqueue_script( $acf_script_handle, $acf_script_data->src, $acf_script_data->deps, $acf_script_data->ver, true );
+					}
+				}
 			}
-		
-		
-		
 		}
 
 		/*
