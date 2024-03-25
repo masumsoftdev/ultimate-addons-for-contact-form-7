@@ -70,7 +70,7 @@ class UACF7_DATABASE {
 			__( 'Database', 'ultimate-addons-cf7' ),
 			'manage_options',
 			'ultimate-addons-db',
-			apply_filters( 'uacf7_database_admin_page', array( $this, 'uacf7_create_database_page' ) ),
+			array( $this, 'uacf7_create_database_page' ),
 		);
 	}
 
@@ -228,11 +228,6 @@ class UACF7_DATABASE {
 	 */
 	public function uacf7_save_to_database( $form ) {
 		require_once( ABSPATH . 'wp-admin/includes/file.php' );
-
-		if ( ! is_plugin_active( 'ultimate-addons-for-contact-form-7-pro/ultimate-addons-for-contact-form-7-pro.php' ) ) {
-			require_once( UACF7_PRO_PATH_ADDONS . '/database-pro/functions.php' );
-		}
-
 		global $wpdb;
 		$encryptionKey = 'AES-256-CBC';
 		$table_name = $wpdb->prefix . 'uacf7_form';
@@ -314,13 +309,6 @@ class UACF7_DATABASE {
 				}
 			}
 		}
-
-		if ( function_exists( 'uacf7dp_add_more_fields' ) ) {
-			$extra_fields_data = uacf7dp_add_more_fields( $submission, );
-		}
-
-
-		apply_filters( 'uacf7dp_send_form_data_before_insert', $insert_data, $extra_fields_data );
 
 		$insert_data = json_encode( $insert_data );
 
