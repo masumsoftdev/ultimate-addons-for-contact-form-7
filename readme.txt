@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.4.3
 Requires PHP: 7.4
-Stable tag: 3.3.5
+Stable tag: 3.3.6
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -392,6 +392,12 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 
 == Changelog ==
 
+= 3.3.6 – 25/03/2024 =
+
+- Fixed: Mailchimp warning issue
+- Fixed: Repeater limit issue( Pro )
+- Fixed: Booking issue( Pro )
+
 = 3.3.5 – 15/03/2024 =
 
 - Added: Disclaimer for Patchstack VDP
@@ -522,13 +528,6 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 - Fixed: After booking time hide date issue
 - Fixed: Submission ID Support Issue
 - Fixed: Conditional Issue Fixed with Exclusive Checkbox 
-
-=  3.2.3 – 04/10/2023  = 
-
-- Added: Telegram Integration with contact form 7.
-- Added: Dynamic Location Selection to IP Geolocation addon(Pro).
-- Improvement: Autocomplete Location User Permission updated(Pro).
-- Fixed: Conditional Fields issue in the mail
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.
 
