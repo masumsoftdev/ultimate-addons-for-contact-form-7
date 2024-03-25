@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) || exit;
 
 if ( file_exists( UACF7_PATH . 'admin/tf-options/options/tf-menu-icon.php' ) ) {
 
-	$menu_icon = UACF7_URL . 'assets/admin/images/icon.png'; 
+	$menu_icon = UACF7_URL . 'assets/admin/images/icon.png';
 } else {
 	$menu_icon = 'dashicons-palmtree';
 }
@@ -193,6 +193,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 					),
 					'uacf7_enable_database_field' => array(
 						'id' => 'uacf7_enable_database_field',
+						// 'child_field' => 'uacf7_enable_database_pro',
 						'type' => 'switch',
 						'label' => __( 'Database ', 'ultimate-addons-cf7' ),
 						'image_url' => UACF7_URL . 'assets/admin/images/addons/Save-to-Database.png',
@@ -200,7 +201,6 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'subtitle' => __( 'Store form data, view data in the admin backend, and export data in CSV format. ', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-database/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-database/',
-
 					),
 					'uacf7_enable_pdf_generator_field' => array(
 						'id' => 'uacf7_enable_pdf_generator_field',
@@ -345,7 +345,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 
 					),
 					'uacf7_enable_range_slider_pro' => array(
-						'id' => 'uacf7_enable_range_slider_pro', 
+						'id' => 'uacf7_enable_range_slider_pro',
 						'child_field' => 'uacf7_enable_range_slider',
 						'type' => 'switch',
 						'label' => __( 'Range Slider (Pro)', 'ultimate-addons-cf7' ),
@@ -409,8 +409,6 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'subtitle' => __( 'Easily show WooCommerce products on forms with a dropdown, allowing customers to select and inquire about products. ', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-woocommerce/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-woocommerce/',
-
-
 					),
 					'uacf7_enable_product_dropdown_pro' => array(
 						'id' => 'uacf7_enable_product_dropdown_pro',
@@ -457,7 +455,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'label' => __( 'Mailchimp API', 'ultimate-addons-cf7' ),
 						'subtitle' => sprintf(
 							__( 'Please enter your Mailchimp API key. If you are not sure how to get the API Key, follow this %1s.', 'ultimate-addons-cf7' ),
-							 '<a href="https://mailchimp.com/help/about-api-keys/" target="_blank" rel="noopener">article</a>'
+							'<a href="https://mailchimp.com/help/about-api-keys/" target="_blank" rel="noopener">article</a>'
 						)
 					),
 					'uacf7_mailchimp_api_status' => array(
@@ -469,9 +467,10 @@ UACF7_Settings::option( 'uacf7_settings', array(
 				),
 			),
 
-			/**
-			 * Import/Export
-			 *
+
+			/** 
+			 * Miscellaneous 
+			 * 
 			 * Main menu
 			 */
 			'uacf7_import_export_data' => array(
@@ -480,6 +479,12 @@ UACF7_Settings::option( 'uacf7_settings', array(
 				'fields' => array(
 				),
 			),
+
+			/**
+			 * Import/Export
+			 *
+			 * Parent menu Miscellaneous
+			 */
 			'uacf7_import_export' => array(
 				'title' => __( 'Import/Export', 'ultimate-addons-cf7' ),
 				'parent' => 'uacf7_import_export_data',

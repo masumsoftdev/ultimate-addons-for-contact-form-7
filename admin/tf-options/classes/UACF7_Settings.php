@@ -687,6 +687,14 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 										$data = isset( $option_request[ $field['id'] ] ) ? $option_request[ $field['id'] ] : '';
 									}
 								}
+								if($fieldClass == 'UACF7_textarea'){ 
+									if($field['id']  == 'uacf7_booking_calendar_key'){ 
+										if(isset($option_request[ $field['id'] ]) && !empty($option_request[ $field['id'] ])){ 
+											$option_request[ $field['id'] ] = stripslashes( $option_request[ $field['id'] ]); 
+											do_action('uacf7_booking_calendar_key_save', $option_request[ $field['id'] ]); 
+										}
+									} 
+								}
 								if(isset($_FILES) && !empty($_FILES['file'])){
 									$tf_upload_dir = wp_upload_dir();
 									if ( ! empty( $tf_upload_dir['basedir'] ) ) {

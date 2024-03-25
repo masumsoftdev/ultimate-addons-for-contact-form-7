@@ -47,7 +47,7 @@ class UACF7_MAILCHIMP
 
           $response = json_decode($response, true);
           $x = 0;
-          if($response != null){
+          if(isset($response['lists']) && $response != null){
             foreach ($response['lists'] as $list) {
               $audience[$list['id']] = $list['name'];
                 // echo '<option value="' . $list['id'] . '" ' . selected($audience, $list['id']) . '>' . $list['name'] . '</option>'; 
@@ -255,7 +255,13 @@ class UACF7_MAILCHIMP
   /* Mailchimp config set */
   private function set_config($api_key = '', $path = '')
   {
-    $server_prefix = explode("-",$api_key);
+
+
+    $server_prefix = explode("-",$api_key); 
+    
+    if(!isset($server_prefix[1])){
+      return;
+    }
     $server_prefix = $server_prefix[1];
 
     $url = "https://$server_prefix.api.mailchimp.com/3.0/$path";

@@ -59,9 +59,9 @@ if ( ! class_exists( 'UACF7_select' ) ) {
 						}
 						if($tag['name'] == '' && $tag['type'] == 'uarepeater'){
 							$attrs = explode(' ', $tag['attr']);  
-							if( isset($attrs) && $attrs != '' && $tag['type'] == 'uarepeater' ){
+							if(  $attrs == '' ){
 								$attrs = $tag['options'];
-							}
+							} 
 							$this->field['options'][ $attrs[0] ] =  esc_html($attrs[0]);  
 						}else{
 
