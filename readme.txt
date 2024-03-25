@@ -396,6 +396,7 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 
 - Fixed: Mailchimp warning issue
 - Fixed: Repeater limit issue( Pro )
+- Fixed: ACF conflict issue
 - Fixed: Booking issue( Pro )
 
 = 3.3.5 – 15/03/2024 =
