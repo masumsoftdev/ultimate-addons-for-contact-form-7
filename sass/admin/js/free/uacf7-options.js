@@ -560,6 +560,18 @@
                     data.append('file[]', fontsfile[i]);
                 }
             }
+             // get tf_import_option from data  
+            let tf_import_option =  false
+            if (typeof data.get('tf_import_option') !== "undefined" && data.get('tf_import_option') != null && data.get('tf_import_option').trim() != '') {
+               
+                //  confirm data before send
+                if (!confirm(tf_options.tf_export_import_msg.import_confirm)) {
+                    return;
+                }
+                
+                tf_import_option = true; 
+            }
+            
             data.append('action', 'tf_options_save');
 
             $.ajax({
@@ -569,16 +581,28 @@
                 processData: false,
                 contentType: false,
                 beforeSend: function () {
+                    if(tf_import_option == true ){
+                        $this.find('.tf-import-btn').addClass('tf-btn-loading');
+                    }
                     submitBtn.addClass('tf-btn-loading');
                 },
                 success: function (response) {
                     let obj = JSON.parse(response);
                     if (obj.status === 'success') {
                         notyf.success(obj.message);
+
+                        if(tf_import_option == true ){
+                            window.location.reload();;
+                        }
+                        
                     } else {
                         notyf.error(obj.message);
                     }
                     submitBtn.removeClass('tf-btn-loading');
+
+                    if(tf_import_option == true ){
+                        $this.find('.tf-import-btn').removeClass('tf-btn-loading');
+                    }
 
                 },
                 error: function (error) {
@@ -1039,12 +1063,10 @@
             $this.parent().parent().find('.tf-tab-item-content[data-tab-id = ' + tab_id + ']').addClass('show');
 
         });
+
+        
         $(document).on('click', '.tf-import-btn', function (event) {
             event.preventDefault();
-
-            // Get the import URL from the button's href attribute 
-            // Get the import data from the textarea
-
             var textarea = $('textarea[name="tf_import_option"]');
             var form_id = textarea.attr('data-form-id');
             var importData = textarea.val().trim();
@@ -1054,12 +1076,16 @@
                 importField.focus();
                 importField.css('border', '1px solid red');
                 return;
-            } else {
-                //confirm data before send
+            }
+ 
+            if(form_id == 0){
+                // Triger the form submit
+                $(".tf-option-form.tf-ajax-save").submit();
+            }else{
+                 //confirm data before send
                 if (!confirm(tf_options.tf_export_import_msg.import_confirm)) {
                     return;
                 }
-
                 $.ajax({
                     url: tf_options.ajax_url,
                     method: 'POST',
@@ -1073,18 +1099,67 @@
                         $('.tf-import-btn').html('Importing...');
                         $('.tf-import-btn').attr('disabled', 'disabled');
                     },
-                    success: function (response) {
-                        if (response.success) {
-                            alert(tf_options.tf_export_import_msg.imported);
+                    success: function (response) {  
+                        if (response.data.status == 'success') {
+                            // alert(tf_options.tf_export_import_msg.imported);
                             $('.tf-import-btn').html('Imported');
+                            notyf.success(response.data.message);
                             window.location.reload();
                         } else {
-                            alert('Something went wrong!');
+                            notyf.error(response.data.message);
+                            // alert('Something went wrong!');
                         }
                     }
                 });
             }
         });
+ 
+        // $(document).on('click', '.tf-import-btn', function (event) {
+        //     event.preventDefault();
+
+        //     // Get the import URL from the button's href attribute 
+        //     // Get the import data from the textarea
+
+        //     var textarea = $('textarea[name="tf_import_option"]');
+        //     var form_id = textarea.attr('data-form-id');
+        //     var importData = textarea.val().trim();
+        //     if (importData == '') {
+        //         alert(tf_options.tf_export_import_msg.import_empty);
+        //         let importField = $('textarea[name="tf_import_option"]');
+        //         importField.focus();
+        //         importField.css('border', '1px solid red');
+        //         return;
+        //     } else {
+        //         //confirm data before send
+        //         if (!confirm(tf_options.tf_export_import_msg.import_confirm)) {
+        //             return;
+        //         }
+
+        //         $.ajax({
+        //             url: tf_options.ajax_url,
+        //             method: 'POST',
+        //             data: {
+        //                 action: 'uacf7_option_import',
+        //                 tf_import_option: importData,
+        //                 form_id: form_id,
+        //                 ajax_nonce: tf_options.nonce,
+        //             },
+        //             beforeSend: function () {
+        //                 $('.tf-import-btn').html('Importing...');
+        //                 $('.tf-import-btn').attr('disabled', 'disabled');
+        //             },
+        //             success: function (response) {
+        //                 if (response.success) {
+        //                     alert(tf_options.tf_export_import_msg.imported);
+        //                     $('.tf-import-btn').html('Imported');
+        //                     window.location.reload();
+        //                 } else {
+        //                     alert('Something went wrong!');
+        //                 }
+        //             }
+        //         });
+        //     }
+        // });
 
     });
 
@@ -1098,7 +1173,7 @@
     jQuery(document).ready(function ($) {
         $('.tf-export-btn').on('click', function (event) {
             event.preventDefault();
-
+ 
             // Get the textarea value
             var textarea = $('textarea[name="tf_export_option"]');
             var option_name = textarea.attr('data-option');
@@ -1111,9 +1186,9 @@
             var url = window.URL.createObjectURL(blob);
 
             // Create a temporary link element
-            var link = document.createElement('a');
+            var link = document.createElement('a'); 
             link.href = url;
-            link.download = option_name + '.txt';
+            link.download = option_name + '.json'; 
 
             // Programmatically click the link to initiate the file download
             link.click();

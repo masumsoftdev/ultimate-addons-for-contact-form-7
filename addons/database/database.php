@@ -20,7 +20,6 @@ class UACF7_DATABASE {
 		add_action( 'wp_ajax_uacf7_ajax_database_export_csv', array( $this, 'uacf7_ajax_database_export_csv' ) );
 		add_action( 'admin_init', array( $this, 'uacf7_create_database_table' ) );
 		// add_filter( 'wpcf7_load_js', '__return_false' );
-
 	}
 
 	//Create Ulimate Database   
@@ -51,7 +50,7 @@ class UACF7_DATABASE {
 		wp_enqueue_script( 'database-admin', UACF7_ADDONS . '/database/assets/js/database-admin.js', array( 'jquery' ), null, true );
 		wp_localize_script( 'database-admin', 'database_admin_url',
 			array(
-				'admin_url' => get_admin_url() . '/admin.php',
+				'admin_url' => get_admin_url() . 'admin.php',
 				'ajaxurl' => admin_url( 'admin-ajax.php' ),
 				'plugin_dir_url' => plugin_dir_url( __FILE__ ),
 				'nonce' => wp_create_nonce( 'uacf7-form-database-admin-nonce' ),
@@ -64,6 +63,7 @@ class UACF7_DATABASE {
 	 */
 
 	public function uacf7_add_db_menu() {
+
 		add_submenu_page(
 			'uacf7_settings',
 			__( 'Database', 'ultimate-addons-cf7' ),
@@ -128,7 +128,9 @@ class UACF7_DATABASE {
 				<h1>
 					<?php echo esc_html__( 'Ultimate Database Addon', 'ultimate-addons-cf7' ); ?>
 				</h1>
-				<p><?php echo esc_html__( 'The Database addon helps store form data, view data in the admin backend, and export data in CSV format.', 'ultimate-addons-cf7' ); ?></p>
+				<p>
+					<?php echo esc_html__( 'The Database addon helps store form data, view data in the admin backend, and export data in CSV format.', 'ultimate-addons-cf7' ); ?>
+				</p>
 				<br>
 				<?php settings_errors(); ?>
 
@@ -217,7 +219,7 @@ class UACF7_DATABASE {
 		$decryptedData = openssl_decrypt( $encryptedData, 'aes-256-cbc', $key, 0, $iv );
 
 		// Output the decrypted data directly
-		header( 'Content-Type: image/jpg' ); // Adjust content type based on your file type
+		//header( 'Content-Type: image/jpg' ); // Adjust content type based on your file type
 		return $decryptedData;
 	}
 
@@ -266,9 +268,9 @@ class UACF7_DATABASE {
 			if ( ! empty( $file ) ) {
 				if ( in_array( $file_key, $uploaded_files ) ) {
 					$file = is_array( $file ) ? reset( $file ) : $file;
-					$dir_link = '/uacf7-uploads/' . $time_now . '-' . $file_key . '-' . basename( $file );
+					$dir_link = '/uacf7-uploads/' . $time_now . '-' . $file_key;
 					if ( in_array( $file_key, $uacf7_signature_tag ) ) {
-						$dir_link = '/uacf7-uploads/' . $time_now . '-' . $file_key . '-' . basename( $file ) . '.enc';
+						$dir_link = '/uacf7-uploads/' . $time_now . '-' . $file_key . '.enc';
 						$this->encrypt_file( $file, $dir . $dir_link, $encryptionKey );
 					} else {
 						copy( $file, $dir . $dir_link );
@@ -383,6 +385,7 @@ class UACF7_DATABASE {
 				if ( in_array( $key, $uacf7_signature_tag ) ) {
 					$pathInfo = pathinfo( $value );
 					$extension = strtolower( $pathInfo['extension'] );
+					$fileNameWithoutExtension = pathinfo( $value, PATHINFO_FILENAME );
 
 					// Image Loaded
 					$token = md5( uniqid() );
@@ -392,10 +395,11 @@ class UACF7_DATABASE {
 					}
 
 					// Check old data
+					// Check old data
 					if ( $extension == 'enc' ) {
-						$srcAttribute = 'src="' . $imageData . '"';  // Set to empty or another value if needed
+						$srcAttribute = $imageData;  // Set to empty or another value if needed
 					} else {
-						$srcAttribute = 'src="' . $value . '"';
+						$srcAttribute = $value;
 					}
 
 					$html .= '
@@ -405,13 +409,13 @@ class UACF7_DATABASE {
 						</td> 
 						<td>
 							<button id="signature_view_btn">' . esc_html( 'View' ) . '</button>
-							<a class="" href="' . $srcAttribute . '" download="decrypted_image.jpg">
+							<a class="" href="' . $srcAttribute . '" download="' . $fileNameWithoutExtension . '">
 								<button class="signature_bownload_btn">Download</button>
 							</a>
 						</td>
 					</tr>
 					<div class="signature_view_pops">
-						<img class="signature_view_pops_img" ' . $srcAttribute . '/>
+						<img class="signature_view_pops_img" src="' . $srcAttribute . '"/>
 					</div>
 					';
 
