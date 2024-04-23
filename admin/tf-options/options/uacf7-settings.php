@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) || exit;
 
 if ( file_exists( UACF7_PATH . 'admin/tf-options/options/tf-menu-icon.php' ) ) {
 
-	$menu_icon = UACF7_URL . 'assets/admin/images/icon.png'; 
+	$menu_icon = UACF7_URL . 'assets/admin/images/icon.png';
 } else {
 	$menu_icon = 'dashicons-palmtree';
 }
@@ -35,8 +35,6 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'demo_link' => 'https://cf7addons.com/preview/redirection-for-contact-form-7/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/redirection-for-contact-form-7/',
 						'default' => false,
-
-
 					),
 					'uacf7_enable_redirection_pro' => array(
 						'id' => 'uacf7_enable_redirection_pro',
@@ -188,7 +186,6 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'subtitle' => __( 'Integrate Contact Form 7 with Mailchimp. Add submissions to Mailchimp lists automatically.', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/mailchimp-for-contact-form-7/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-mailchimp/',
-
 					),
 					'uacf7_enable_database_field' => array(
 						'id' => 'uacf7_enable_database_field',
@@ -199,7 +196,6 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'subtitle' => __( 'Store form data, view data in the admin backend, and export data in CSV format. ', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-database/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-database/',
-
 					),
 					'uacf7_enable_pdf_generator_field' => array(
 						'id' => 'uacf7_enable_pdf_generator_field',
@@ -210,7 +206,6 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'subtitle' => __( "Generate PDFs upon form submission; PDFs are sent to the admin and submitter email. ", 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-pdf-generator/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-pdf-generator/',
-
 					),
 					'uacf7_enable_form_generator_ai_field' => array(
 						'id' => 'uacf7_enable_form_generator_ai_field',
@@ -221,7 +216,6 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'subtitle' => __( 'The Form Generator Addon helps generating categorized contact forms with the power of AI.', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/ai-form-generator/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/ai-form-generator/',
-
 					),
 					'uacf7_enable_conversational_form' => array(
 						'id' => 'uacf7_enable_conversational_form',
@@ -243,7 +237,6 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'subtitle' => __( 'Add an unique id to every form submission. The ID can be added on the "Subject Line" of your form.', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/unique-id-for-contact-form-7/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/unique-id-for-contact-form-7/',
-
 					),
 					'uacf7_enable_telegram_field' => array(
 						'id' => 'uacf7_enable_telegram_field',
@@ -254,7 +247,6 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'subtitle' => __( 'Forward form submission data to Telegram.', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-telegram/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-telegram/',
-
 					),
 					'uacf7_enable_signature_field' => array(
 						'id' => 'uacf7_enable_signature_field',
@@ -265,7 +257,6 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'subtitle' => __( 'Add a digital signature feature to your forms.', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-signature-addon/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-signature-addon/',
-
 					),
 					'uacf7_enable_opt_web_hook' => array(
 						'id' => 'uacf7_enable_opt_web_hook',
@@ -293,7 +284,6 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'subtitle' => __( 'Retrieve dynamic data from a website to be used in hidden fields, including URL, blog, post, user info, and custom fields. ', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-dynamic-text-extension/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-dynamic-text-extension/',
-
 					),
 					'uacf7_enable_pre_populate_field' => array(
 						'id' => 'uacf7_enable_pre_populate_field',
@@ -304,7 +294,6 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'subtitle' => __( 'Send data from one form to another, after the first form submission.', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-pre-populate-fields/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-pre-populate-fields/',
-
 					),
 					'uacf7_enable_star_rating' => array(
 						'id' => 'uacf7_enable_star_rating',
@@ -316,7 +305,6 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'subtitle' => __( 'Get customer feedback by adding a star rating field to your Contact Form 7. ', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-star-rating/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-star-rating-field/',
-
 					),
 					'uacf7_enable_star_rating_pro' => array(
 						'id' => 'uacf7_enable_star_rating_pro',
@@ -329,7 +317,6 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'demo_link' => 'https://cf7addons.com/preview/star-rating-pro/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/pro-addons/contact-form-7-star-rating-field-pro/',
 						'is_pro' => true,
-
 					),
 					'uacf7_enable_range_slider' => array(
 						'id' => 'uacf7_enable_range_slider',
@@ -341,10 +328,9 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'subtitle' => __( 'Add beautiful Range slider fields to Contact Form 7.', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-range-slider/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-range-slider/',
-
 					),
 					'uacf7_enable_range_slider_pro' => array(
-						'id' => 'uacf7_enable_range_slider_pro', 
+						'id' => 'uacf7_enable_range_slider_pro',
 						'child_field' => 'uacf7_enable_range_slider',
 						'type' => 'switch',
 						'label' => __( 'Range Slider (Pro)', 'ultimate-addons-cf7' ),
@@ -354,7 +340,6 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'demo_link' => 'https://cf7addons.com/preview/range-slider-pro',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/pro-addons/contact-form-7-range-slider-pro/',
 						'is_pro' => true,
-
 					),
 					'uacf7_enable_repeater_field' => array(
 						'id' => 'uacf7_enable_repeater_field',
@@ -377,7 +362,6 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'subtitle' => __( 'Add a country dropdown list with flags to your form, automatically populating with country names. ', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-country-dropdown/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-country-dropdown-with-flag/',
-
 					),
 					'uacf7_enable_ip_geo_fields' => array(
 						'id' => 'uacf7_enable_ip_geo_fields',
@@ -389,6 +373,37 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'subtitle' => __( 'Set up IP Geolocation-based Auto Completion for Country, City, State, Zip Fields. ', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-autocomplete/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/pro-addons/contact-form-7-autocomplete/',
+						'is_pro' => true,
+					),
+
+					'uacf7_enable_spam_protection_field' => array(
+						'id' => 'uacf7_enable_spam_protection_field',
+						'child_field' => 'uacf7_enable_spam_protection_pro',
+						'type' => 'switch',
+						'label' => __( 'Spam Protection', 'ultimate-addons-cf7' ),
+						'label_on' => __( 'Yes', 'ultimate-addons-cf7' ),
+						'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+						'image_url' => UACF7_URL . 'assets/admin/images/addons/IP-Geolocation@2x.png',
+						'default' => false,
+						'subtitle' => __( 'This features will help you to prevent Spam using Arithmathic and Image Recognition.', 'ultimate-addons-cf7' ),
+						'demo_link' => 'https://themefic.com/docs/ultimate-addons-for-contact-form-7/contact-form-7-autocomplete/',
+						'documentation_link' => 'https://cf7addons.com/preview/contact-form-7-autocomplete/',
+						'field_width' => 33,
+					),
+
+					'uacf7_enable_spam_protection_pro' => array(
+						'id' => 'uacf7_enable_spam_protection_pro',
+						'child_field' => 'uacf7_enable_spam_protection_field',
+						'type' => 'switch',
+						'label' => __( 'Spam Protection ( Pro )', 'ultimate-addons-cf7' ),
+						'label_on' => __( 'Yes', 'ultimate-addons-cf7' ),
+						'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+						'image_url' => UACF7_URL . 'assets/admin/images/addons/IP-Geolocation@2x.png',
+						'default' => false,
+						'subtitle' => __( 'This features will help you to protect your website from Spamming by Filtering Words, Submission Time, IP Block, Country Block.', 'ultimate-addons-cf7' ),
+						'demo_link' => 'https://themefic.com/docs/ultimate-addons-for-contact-form-7/contact-form-7-autocomplete/',
+						'documentation_link' => 'https://cf7addons.com/preview/contact-form-7-autocomplete/',
+						'field_width' => 33,
 						'is_pro' => true,
 					),
 				),
@@ -408,8 +423,6 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'subtitle' => __( 'Easily show WooCommerce products on forms with a dropdown, allowing customers to select and inquire about products. ', 'ultimate-addons-cf7' ),
 						'demo_link' => 'https://cf7addons.com/preview/contact-form-7-woocommerce/',
 						'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-woocommerce/',
-
-
 					),
 					'uacf7_enable_product_dropdown_pro' => array(
 						'id' => 'uacf7_enable_product_dropdown_pro',
@@ -453,7 +466,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						'label' => __( 'Mailchimp API', 'ultimate-addons-cf7' ),
 						'subtitle' => sprintf(
 							__( 'Please enter your Mailchimp API key. If you are not sure how to get the API Key, follow this %1s.', 'ultimate-addons-cf7' ),
-							 '<a href="https://mailchimp.com/help/about-api-keys/" target="_blank" rel="noopener">article</a>'
+							'<a href="https://mailchimp.com/help/about-api-keys/" target="_blank" rel="noopener">article</a>'
 						)
 					),
 					'uacf7_mailchimp_api_status' => array(
