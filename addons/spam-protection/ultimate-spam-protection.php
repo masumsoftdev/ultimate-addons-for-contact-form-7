@@ -9,18 +9,18 @@ class UACF7_SPAM_PROTECTION
 	public function __construct()
 	{
 
-		add_action('wpcf7_init', array($this, 'uacf7_spam_protection_add_shortcodes'));
+		add_action('wpcf7_init', array($this, 'uacf7_spam_protection_add_shortcodes'), 5, 10);
 		add_action('admin_init', array($this, 'uacf7_spam_protection_tag_generator'));
 		add_filter('uacf7_post_meta_options', array($this, 'uacf7_post_meta_options_spam_protection'), 34, 2);
-		add_action('wp_enqueue_scripts', array($this, 'uacf7_spam_protection_scripts'));
+		add_action('wp_enqueue_scripts', array($this, 'uacf7_spam_protection_scripts'), 5, 10);
 		// add_filter( 'wpcf7_load_js', '__return_false' );
 	}
 
 	public function uacf7_spam_protection_scripts()
 	{
-		wp_register_script('uacf7-spam-protection-arithmetic', UACF7_URL . '/addons/spam-protection/assets/js/spam-protection-arithmetic.js', ['jquery'], 'WPCF7_VERSION', true);
-		wp_register_script('uacf7-spam-protection-image', UACF7_URL . '/addons/spam-protection/assets/js/spam-protection-image.js', ['jquery'], 'WPCF7_VERSION', true);
-		wp_enqueue_style('uacf7-spam-protection-css', UACF7_URL . '/addons/spam-protection/assets/css/spam-protection-style.css', [], 'WPCF7_VERSION', 'all');
+		wp_register_script('uacf7-spam-protection-arithmetic', UACF7_URL . 'addons/spam-protection/assets/js/spam-protection-arithmetic.js', ['jquery'], 'WPCF7_VERSION', true);
+		wp_register_script('uacf7-spam-protection-image', UACF7_URL . 'addons/spam-protection/assets/js/spam-protection-image.js', ['jquery'], 'WPCF7_VERSION', true);
+		wp_enqueue_style('uacf7-spam-protection-css', UACF7_URL . 'addons/spam-protection/assets/css/spam-protection-style.css', [], 'WPCF7_VERSION', 'all');
 
 	}
 

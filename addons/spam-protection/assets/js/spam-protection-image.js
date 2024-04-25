@@ -10,9 +10,6 @@
         const validate = form_div.find("#validate");
         let protection_method = $(uacf7_spam_protection).attr('protection-method');
 
-
-
-
         //Generate Image captcha
         const captchaCodes = [];
 
