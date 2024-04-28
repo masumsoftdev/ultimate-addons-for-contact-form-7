@@ -2,3 +2,11 @@
 	/* padding: 5px 0 !important; */
 	display: block;
 }
+
+/* Impreza_8.22
+* Theme issues theme have this problem
+*/
+
+#page-header .l-subheader-cell .w-socials-item.twitter .fa-x-twitter svg {
+	display: none !important;
+}
