@@ -392,10 +392,11 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 
 == Changelog ==
 
-= 3.3.8 – 25/04/2024 =
+= 3.3.8 – 28/04/2024 =
 
 - Compatible with Impreza Theme
 - Fixed: Minor Bugs
+- Added: Plugin dependency notice
 
 = 3.3.7 – 03/04/2024 =
 

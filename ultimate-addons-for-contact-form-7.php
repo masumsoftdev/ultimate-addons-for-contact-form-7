@@ -10,6 +10,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain: ultimate-addons-cf7
  * Domain Path: /languages
+ * Requires Plugins: contact-form-7
  */
 
 if (!defined('ABSPATH')) {
@@ -25,15 +26,14 @@ class Ultimate_Addons_CF7
 	/*
 	 * Construct function
 	 */
-	public function __construct()
-	{
-		define('UACF7_URL', plugin_dir_url(__FILE__));
-		define('UACF7_ADDONS', UACF7_URL . 'addons');
-		define('UACF7_PATH', plugin_dir_path(__FILE__));
-		define('UACF7_VERSION', '3.3.8');
+	public function __construct() {
+		define( 'UACF7_URL', plugin_dir_url( __FILE__ ) );
+		define( 'UACF7_ADDONS', UACF7_URL . 'addons' );
+		define( 'UACF7_PATH', plugin_dir_path( __FILE__ ) );
+		define( 'UACF7_VERSION', '3.3.8' );
 
-		if (!class_exists('Appsero\Client')) {
-			require_once (__DIR__ . '/inc/app/src/Client.php');
+		if ( ! class_exists( 'Appsero\Client' ) ) {
+			require_once( __DIR__ . '/inc/app/src/Client.php' );
 		}
 
 		//Plugin loaded
@@ -154,11 +154,10 @@ class Ultimate_Addons_CF7
 		wp_enqueue_script('notyf', UACF7_URL . 'assets/app/libs/notyf/notyf.min.js', array('jquery'), UACF7_VERSION, true);
 	}
 
-	//Enquene admin scripts
-	public function uacf7_frontend_scripts()
-	{
-		wp_enqueue_style('uacf7-frontend-style', UACF7_URL . 'assets/css/uacf7-frontend.css', '');
-	}
+    //Enquene admin scripts
+    public function uacf7_frontend_scripts(){
+        wp_enqueue_style( 'uacf7-frontend-style', UACF7_URL . 'assets/css/uacf7-frontend.css', '' );
+    }
 
 	/**
 	 * Initialize the plugin tracker
