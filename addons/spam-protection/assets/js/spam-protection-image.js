@@ -62,7 +62,7 @@
                 const resultDiv = form_div.find("#result");
 
                 // Check if userInput is empty
-                if (userInput.trim() === '') {
+                if (typeof userInput !== 'undefined' && userInput.trim() === '') {
                     // Field is empty, set warning message and prevent form submission
                     resultDiv.text("CAPTCHA field is required. Please enter the answer.").css("color", "#DC2626");
                     e.preventDefault(); // Prevent form submission
@@ -70,7 +70,7 @@
                     return false;
                 } else {
                     // If it's not empty, compare it with the expected value
-                    const captcha = form_div.find("#captcha").text();; // Fetch the correct answer for CAPTCHA
+                    const captcha = form_div.find("#captcha").text(); // Fetch the correct answer for CAPTCHA
 
                     if (userInput == captcha) {
                         // If it matches, perform the success actions

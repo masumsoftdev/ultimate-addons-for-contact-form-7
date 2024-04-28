@@ -42,7 +42,6 @@
 
         //Refresh button action
         refreshButton.click(function (e) {
-
             $(this).find('i').addClass('spin-rotate');
             setTimeout(() => {
                 $(this).find('i').removeClass('spin-rotate');
@@ -69,16 +68,15 @@
                 var resultDiv = uacf7_spam_protection.find("#arithmathic_result");
 
                 // Check if userInput is empty
-                if (userInput.trim() === '') {
+                if (typeof userInput !== 'undefined' && userInput.trim() === '') {
                     // Field is empty, set warning message and prevent form submission
                     resultDiv.text("CAPTCHA field is required. Please enter the answer.").css("color", "#DC2626");
                     e.preventDefault(); // Prevent form submission
                     refreshButton.trigger('click'); // Refresh CAPTCHA
-                    return false;
+                    return;
                 } else {
                     // If it's not empty, compare it with the expected value
                     var expectedTotal = return_total_num(); // Fetch the correct answer for CAPTCHA
-
                     if (userInput == expectedTotal) {
                         // If it matches, perform the success actions
                         refreshButton.trigger('click');
