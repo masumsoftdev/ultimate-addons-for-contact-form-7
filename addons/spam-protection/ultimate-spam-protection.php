@@ -16,9 +16,28 @@ class UACF7_SPAM_PROTECTION {
 	}
 
 	public function uacf7_spam_protection_scripts() {
+		$option = uacf7_settings();
+		$spam_protection_pro = ( isset( $option['uacf7_enable_spam_protection_pro'] ) && $option['uacf7_enable_spam_protection_pro'] == '1' ) ? true : false;
 		wp_register_script( 'uacf7-spam-protection-arithmetic', UACF7_URL . 'addons/spam-protection/assets/js/spam-protection-arithmetic.js', [ 'jquery' ], 'WPCF7_VERSION', true );
 		wp_register_script( 'uacf7-spam-protection-image', UACF7_URL . 'addons/spam-protection/assets/js/spam-protection-image.js', [ 'jquery' ], 'WPCF7_VERSION', true );
 		wp_enqueue_style( 'uacf7-spam-protection-css', UACF7_URL . 'addons/spam-protection/assets/css/spam-protection-style.css', [], 'WPCF7_VERSION', 'all' );
+
+		// Localize the script to pass PHP data to JavaScript
+		wp_localize_script(
+			'uacf7-spam-protection-arithmetic', // The handle of the script to localize
+			'uacf7_spam_protection_settings',  // Name of the JavaScript object
+			[ 
+				'enable_spam_protection_pro' => $spam_protection_pro, // Data to pass
+			]
+		);
+		// Localize the script to pass PHP data to JavaScript
+		wp_localize_script(
+			'uacf7-spam-protection-image', // The handle of the script to localize
+			'uacf7_spam_protection_settings',  // Name of the JavaScript object
+			[ 
+				'enable_spam_protection_pro' => $spam_protection_pro, // Data to pass
+			]
+		);
 
 	}
 
@@ -260,7 +279,7 @@ class UACF7_SPAM_PROTECTION {
 								=
 							</div>
 							<button id="arithmathic_refresh"><i class="fa-solid fa-rotate"></i></button>
-							<input type="number" min="0" id="rtn" placeholder="Enter CAPTCHA answer" required>
+							<input type="number" min="0" id="rtn" placeholder="Enter CAPTCHA answer" value="">
 						</div>
 						<div>
 
@@ -270,7 +289,7 @@ class UACF7_SPAM_PROTECTION {
 				<?php } else if ( $uacf7_spam_protection['uacf7_spam_protection_type'] === 'image_recognation' ) { ?>
 						<div id="image_recognation">
 							<div id="captcha_input_holder">
-								<div id="captcha"></div> <button id="refresh"><i class="fa-solid fa-rotate"></i></button>
+								<div id="captcha"></div> <button id="arithmathic_refresh"><i class="fa-solid fa-rotate"></i></button>
 								<input type="text" id="userInput" placeholder="Enter CAPTCHA answer">
 
 							</div>

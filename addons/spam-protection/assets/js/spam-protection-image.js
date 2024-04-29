@@ -5,10 +5,11 @@
         var formId = $(this).find('input[name="_wpcf7"]').val();
         var uacf7_spam_protection = $('.uacf7-form-' + formId).find('.uacf7_spam_recognation');
         var form_div = $(this).find('.uacf7-form-' + formId);
-        const refreshButton = form_div.find("#refresh");
+        const refreshButton = form_div.find("#arithmathic_refresh");
         const captcha = form_div.find("#captcha");
         const validate = form_div.find("#validate");
         let protection_method = $(uacf7_spam_protection).attr('protection-method');
+        const isSpamProtectionProEnabled = uacf7_spam_protection_settings.enable_spam_protection_pro;
 
         //Generate Image captcha
         const captchaCodes = [];
@@ -73,8 +74,10 @@
                     const captcha = form_div.find("#captcha").text(); // Fetch the correct answer for CAPTCHA
 
                     if (userInput == captcha) {
-                        // If it matches, perform the success actions
-                        refreshButton.trigger('click');
+                        if (!isSpamProtectionProEnabled) {
+                            // If it matches, perform the success actions
+                            refreshButton.trigger('click');
+                        }
                         resultDiv.text("CAPTCHA validated successfully!").css("color", "#46b450");
                     } else {
                         // If it does not match, set a failure message and prevent form submission

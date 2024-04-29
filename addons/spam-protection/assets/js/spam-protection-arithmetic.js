@@ -32,9 +32,7 @@
             var first_number_int = parseInt(first_number);
             var second_number = uacf7_spam_protection.find('#arithmathic_recognation').find('#srn').text();
             var second_number_int = parseInt(second_number);
-
             var total_number = first_number_int + second_number_int;
-
             return total_number;
         }
 
@@ -53,20 +51,16 @@
         });
 
 
-
-
         //Conditionally make submission event false
-
         $(window).on('load', function () {
 
             var form_submit = uacf7_spam_protection.closest(`.uacf7-form-${formId}`).find('.wpcf7-submit');
 
             form_submit.on('click', function (e) {
 
-
                 var userInput = uacf7_spam_protection.find("#rtn").val();
                 var resultDiv = uacf7_spam_protection.find("#arithmathic_result");
-
+                const isSpamProtectionProEnabled = uacf7_spam_protection_settings.enable_spam_protection_pro;
                 // Check if userInput is empty
                 if (typeof userInput !== 'undefined' && userInput.trim() === '') {
                     // Field is empty, set warning message and prevent form submission
@@ -78,8 +72,10 @@
                     // If it's not empty, compare it with the expected value
                     var expectedTotal = return_total_num(); // Fetch the correct answer for CAPTCHA
                     if (userInput == expectedTotal) {
-                        // If it matches, perform the success actions
-                        refreshButton.trigger('click');
+                        if (!isSpamProtectionProEnabled) {
+                            // If it matches, perform the success actions
+                            refreshButton.trigger('click');
+                        }
                         resultDiv.text("CAPTCHA validated successfully!").css("color", "#46b450");
                     } else {
                         // If it does not match, set a failure message and prevent form submission
