@@ -53,11 +53,11 @@ class UACF7_SPAM_PROTECTION {
 					'id' => 'uacf7_spam_protection_heading',
 					'type' => 'heading',
 					'label' => __( 'Spam Protection Settings', 'ultimate-addons-cf7' ),
-					'subtitle' => __( 'This feature will help you to protect your form submission from Spam attack.', 'ultimate-addons-cf7' ),
+					'subtitle' => __( 'This feature will help you to protect your form submission from Spam attacks.', 'ultimate-addons-cf7' ),
 					'content' => sprintf(
 						// Translators: %1$s is replaced with the link to documentation.
-						esc_html__( 'Not sure how to set this? Check our step by step documentation on  %s .', 'ultimate-addons-cf7' ),
-						'<a href="https://themefic.com/docs/uacf7/free-addons/spam-protection-for-contact-form-7/" target="_blank">Spam Protection for Contact Form 7</a>',
+						esc_html__( 'Not sure how to set this? Check our step-by-step documentation on  %s .', 'ultimate-addons-cf7' ),
+						'<a href="https://themefic.com/docs/uacf7/free-addons/spam-protection-for-contact-form-7/" target="_blank">Spam Protection for Contact Form 7.</a>',
 
 					),
 				),
@@ -68,16 +68,15 @@ class UACF7_SPAM_PROTECTION {
 					'style' => 'success',
 					'content' => sprintf(
 						// Translators: %1$s is replaced with the link to documentation. 
-						esc_html__( 'Not sure how to set this? Check our step by step documentation on  %s .', 'ultimate-addons-cf7' ),
+						esc_html__( 'Not sure how to set this? Check our step-by-step documentation on  %s .', 'ultimate-addons-cf7' ),
 						'<a href="https://themefic.com/docs/uacf7/free-addons/spam-protection-for-contact-form-7/" target="_blank">Spam Protection</a>',
-
 					),
 				),
 
 				'uacf7_spam_protection_enable' => array(
 					'id' => 'uacf7_spam_protection_enable',
 					'type' => 'switch',
-					'label' => __( ' Enable Spam Protection', 'ultimate-addons-cf7' ),
+					'label' => __( 'Enable Spam Protection', 'ultimate-addons-cf7' ),
 					'label_on' => __( 'Yes', 'ultimate-addons-cf7' ),
 					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
 					'default' => false
@@ -87,8 +86,8 @@ class UACF7_SPAM_PROTECTION {
 					'type' => 'select',
 					'label' => __( 'Protection Type', 'ultimate-addons-cf7' ),
 					'options' => array(
-						'arithmathic_recognation' => 'Arithmathic Recognation',
-						'image_recognation' => 'Image Recognation',
+						'arithmathic_recognation' => 'Arithmetic Recognition',
+						'image_recognation' => 'Image Recognition',
 					),
 					'default' => 'arithmathic_recognation'
 				),
@@ -96,7 +95,7 @@ class UACF7_SPAM_PROTECTION {
 					'id' => 'uacf7_minimum_time_limit',
 					'type' => 'number',
 					'label' => __( 'Each Submission Difference', 'ultimate-addons-cf7' ),
-					'subtitle' => __( 'You can avoid some spamming bot by setting a time limit to prevent too much frequient submission. Put in seconds', 'ultimate-addons-cf7' ),
+					'subtitle' => __( 'You can avoid spamming bots by setting a time limit to prevent too frequent submissions. Put in seconds', 'ultimate-addons-cf7' ),
 					'placeholder' => __( 'Default: 5 seconds', 'ultimate-addons-cf7' ),
 					'default' => 5,
 					'is_pro' => true
@@ -104,16 +103,16 @@ class UACF7_SPAM_PROTECTION {
 				'uacf7_word_filter' => array(
 					'id' => 'uacf7_word_filter',
 					'type' => 'textarea',
-					'label' => __( 'Word Filter', 'ultimate-addons-cf7' ),
-					'subtitle' => __( 'Enlist the words you want to avoid from Spammer, Separeate the words using a Comma. If that word/s found in the message it will skip to the email (email will not send to mail)', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'E.g. evil, earn money, scam', 'ultimate-addons-cf7' ),
+					'label' => __( 'Word Filtering', 'ultimate-addons-cf7' ),
+					'subtitle' => __( 'Enlist the words you want to avoid from Spammer, Separate the words using a Comma. If that word/s found in the message it will skip to the email (email will not send to mail)', 'ultimate-addons-cf7' ),
+					'placeholder' => __( 'E.g. evil, earning money, scam', 'ultimate-addons-cf7' ),
 					'is_pro' => true
 				),
 				'uacf7_ip_block' => array(
 					'id' => 'uacf7_ip_block',
 					'type' => 'textarea',
 					'label' => __( 'IP Block', 'ultimate-addons-cf7' ),
-					'subtitle' => __( 'Enlist the IP you want to Ban / Block, Separeate the IPs using a Comma', 'ultimate-addons-cf7' ),
+					'subtitle' => __( 'Enlist the IP you want to Ban / Block, Separate the IPs using a Comma', 'ultimate-addons-cf7' ),
 					'placeholder' => __( 'E.g. 192.158.1.38,192.158.1.39,192.158.1.40', 'ultimate-addons-cf7' ),
 					'is_pro' => true
 				),
@@ -123,7 +122,7 @@ class UACF7_SPAM_PROTECTION {
 					'label' => __( 'Country Block', 'ultimate-addons-cf7' ),
 					'subtitle' => sprintf(
 						// Translators: %1$s is replaced with the link to documentation.
-						esc_html__( 'Enlist the the Country or Countries that you want to Ban / Block. Separate the Countries %s using a Comma', 'ultimate-addons-cf7' ),
+						esc_html__( 'Enlist the Country or Countries that you want to Ban / Block. Separate the Countries %s using a Comma', 'ultimate-addons-cf7' ),
 						'<a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements" target="_blank">' . __( 'iso2 name', 'ultimate-addons-cf7' ) . '</a>'
 					),
 					'placeholder' => __( 'E.g. us,ca,uk', 'ultimate-addons-cf7' ),
