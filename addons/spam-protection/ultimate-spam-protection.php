@@ -18,9 +18,9 @@ class UACF7_SPAM_PROTECTION {
 	public function uacf7_spam_protection_scripts() {
 		$option = uacf7_settings();
 		$spam_protection_pro = ( isset( $option['uacf7_enable_spam_protection_pro'] ) && $option['uacf7_enable_spam_protection_pro'] == '1' ) ? true : false;
-		wp_register_script( 'uacf7-spam-protection-arithmetic', UACF7_URL . 'addons/spam-protection/assets/js/spam-protection-arithmetic.js', [ 'jquery' ], 'WPCF7_VERSION', true );
-		wp_register_script( 'uacf7-spam-protection-image', UACF7_URL . 'addons/spam-protection/assets/js/spam-protection-image.js', [ 'jquery' ], 'WPCF7_VERSION', true );
-		wp_enqueue_style( 'uacf7-spam-protection-css', UACF7_URL . 'addons/spam-protection/assets/css/spam-protection-style.css', [], 'WPCF7_VERSION', 'all' );
+		wp_register_script( 'uacf7-spam-protection-arithmetic', UACF7_URL . 'addons/spam-protection/assets/js/spam-protection-arithmetic.js', [ 'jquery' ], WPCF7_VERSION, true );
+		wp_register_script( 'uacf7-spam-protection-image', UACF7_URL . 'addons/spam-protection/assets/js/spam-protection-image.js', [ 'jquery' ], WPCF7_VERSION, true );
+		wp_enqueue_style( 'uacf7-spam-protection-css', UACF7_URL . 'addons/spam-protection/assets/css/spam-protection-style.css', [], WPCF7_VERSION, 'all' );
 
 		// Localize the script to pass PHP data to JavaScript
 		wp_localize_script(
