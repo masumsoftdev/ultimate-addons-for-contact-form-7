@@ -1,6 +1,10 @@
+.wpcf7-form-control-wrap {
+  display: block;
+}
+
 #captcha {
   user-select: none;
-  background-color: #C0C0C0;
+  background-color: #c0c0c0;
   width: 150px;
   height: 60px;
   font-size: 30px;
@@ -13,28 +17,29 @@
   color: white;
   text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000,
     -1px 1px 0 #000, 1px 1px 0 #000;
-
 }
 
-#userInput, #rtn{
+#userInput,
+#rtn {
   margin: 5px 0px;
 }
 
-#arithmetic_cal{
+#arithmetic_cal {
   width: 100px;
   height: 30px;
   font-size: 20px;
   display: inline-block;
 }
 
-
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
-
 
 .spin-rotate {
   animation: spin 1s linear infinite;
 }
-
