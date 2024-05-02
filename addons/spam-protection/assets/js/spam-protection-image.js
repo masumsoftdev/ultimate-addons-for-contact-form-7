@@ -65,9 +65,9 @@
                 // Check if userInput is empty
                 if (typeof userInput !== 'undefined' && userInput.trim() === '') {
                     // Field is empty, set warning message and prevent form submission
-                    resultDiv.text("CAPTCHA field is required. Please enter the answer.").css("color", "#DC2626");
                     e.preventDefault(); // Prevent form submission
                     refreshButton.trigger('click'); // Refresh CAPTCHA
+                    resultDiv.text("CAPTCHA field is required. Please enter the answer.").css("color", "#DC2626");
                     return false;
                 } else {
                     // If it's not empty, compare it with the expected value
