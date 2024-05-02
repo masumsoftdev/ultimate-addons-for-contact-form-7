@@ -99,7 +99,7 @@ class UACF7_SPAM_PROTECTION
 					'id' => 'uacf7_minimum_time_limit',
 					'type' => 'number',
 					'label' => __('Each Submission Difference', 'ultimate-addons-cf7'),
-					'subtitle' => __('You can avoid spamming bots by setting a time limit to prevent too frequent submissions. Put in seconds', 'ultimate-addons-cf7'),
+					'subtitle' => __('To prevent spamming bots, you can set a time limit to restrict too frequent submissions. Please specify the time limit in seconds.', 'ultimate-addons-cf7'),
 					'placeholder' => __('Default: 5 seconds', 'ultimate-addons-cf7'),
 					'default' => 5,
 					'is_pro' => true
