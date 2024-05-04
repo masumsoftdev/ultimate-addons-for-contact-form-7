@@ -4,11 +4,11 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 3.3.8
+Stable tag: 3.3.9
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
-30+ Essential Addons for Contact Form 7 - Conditional Fields, Multi Step Forms, Redirection, Form Templates, Columns, WooCommerce, Mailchimp and more.
+30+ Essential Addons for Contact Form 7 - Conditional Fields, Multi Step Forms, Redirection, Form Templates, Columns, WooCommerce, Mailchimp, and more.
 
 == Description ==
 
@@ -169,7 +169,11 @@ Star ratings provide a straightforward and effective method for gathering custom
 
 = Contact Form 7 Submission ID  =
 
-Our [UniqueID for Contact Form 7](https://cf7addons.com/preview/unique-id-for-contact-form-7/) addon helps adding an unique ID to each form submission, offering an ideal solution for maintaining a tracking ID for every submission, ensuring efficient management and reference of your form entries.
+Our [UniqueID for Contact Form 7](https://cf7addons.com/preview/unique-id-for-contact-form-7/) addon helps to add a unique ID to each form submission, offering an ideal solution for maintaining a tracking ID for every submission, ensuring efficient management and reference of your form entries.
+
+= Contact Form 7 Spam Protection  =
+
+Our [Spam Protection for contact form 7](https://cf7addons.com/preview/unique-id-for-contact-form-7/) addon helps to prevent Spam using Arithmetic and Image Recognition
 
 = Contact Form 7 to Telegram =
 
