@@ -175,7 +175,7 @@ Our [UniqueID for Contact Form 7](https://cf7addons.com/preview/unique-id-for-co
 
 = Contact Form 7 Spam Protection  =
 
-Our [Spam Protection for contact form 7](https://cf7addons.com/preview/unique-id-for-contact-form-7/) addon will help you to prevent Spam using Arithmetic and Image Recognition
+Our [Spam Protection for Contact Form 7](https://cf7addons.com/preview/spam-protection/) addon will help you to prevent Spam using Arithmetic and Image Recognition.
 
 = Contact Form 7 to Telegram =
 
@@ -261,6 +261,10 @@ The Pro version enhances your capability by allowing the addition of [Specific W
 = Contact form 7 Product Grid View with Thumbnails =
 
 Display your products in an impressive [WooCommerce Grid View](https://cf7addons.com/preview/product-grid-view-with-thumbnails/), allowing for addition based on ID, Category, or Tags. This feature enhances the visual appeal and organization of your product listings. 
+
+= Contact Form 7 Spam Protection Pro =
+
+Our [Spam Protection Pro for Contact Form 7](https://cf7addons.com/preview/spam-protection-pro/) addon will help you to protect your website from spam by frequent form submission by adding a time limit, and more features coming soon.
 
 **More Pro addons are in development and will be available soon.**
 
