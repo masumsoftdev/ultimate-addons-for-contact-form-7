@@ -61,7 +61,7 @@ class UACF7_SPAM_PROTECTION
 					'content' => sprintf(
 						// Translators: %1$s is replaced with the link to documentation.
 						esc_html__('Add spam protection for your contact form 7 forms. %s .', 'ultimate-addons-cf7'),
-						'<a href="https://themefic.com/docs/uacf7/free-addons/spam-protection-for-contact-form-7/" target="_blank">See Demo</a>',
+						'<a href="https://cf7addons.com/preview/spam-protection-for-contact-form-7/" target="_blank">See Demo</a>',
 
 					),
 				),
