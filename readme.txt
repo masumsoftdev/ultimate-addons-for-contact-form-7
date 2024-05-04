@@ -171,6 +171,10 @@ Star ratings provide a straightforward and effective method for gathering custom
 
 Our [UniqueID for Contact Form 7](https://cf7addons.com/preview/unique-id-for-contact-form-7/) addon helps adding an unique ID to each form submission, offering an ideal solution for maintaining a tracking ID for every submission, ensuring efficient management and reference of your form entries.
 
+= Contact Form 7 Spam Protection  =
+
+Our [Spam Protection for contact form 7](https://cf7addons.com/preview/unique-id-for-contact-form-7/) addon helps to prevent Spam using Arithmetic and Image Recognition
+
 = Contact Form 7 to Telegram =
 
 With Our [Contact Form 7 Telegram](https://cf7addons.com/preview/contact-form-7-telegram/) addon, you can seamlessly transfer your form submission data directly to your Telegram channel.
