@@ -131,8 +131,6 @@ class Ultimate_Addons_CF7 {
 		wp_enqueue_script( 'wp-color-picker' );
 		wp_enqueue_script( 'uacf7-admin-script', UACF7_URL . 'assets/js/admin-script.js', array( 'jquery' ), null, true );
 
-
-
 		wp_localize_script( 'uacf7-admin', 'uacf7_options', array(
 			'ajax_url' => admin_url( 'admin-ajax.php' ),
 			'nonce' => wp_create_nonce( 'uacf7_options_nonce' ),

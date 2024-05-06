@@ -511,8 +511,8 @@ button.tf-order-remove {
   margin: 0px !important;
 }
 .el-license-active-btn p.submit input {
-  background-color: #003C79 !important;
-  border-color: #003C79 !important;
+  background-color: #382673 !important;
+  border-color: #382673 !important;
   color: #fff;
   padding: 4px 25px;
   font-size: 1rem;
@@ -3621,11 +3621,19 @@ body.admin_page_uacf7-setup-wizard .select2-dropdown .select2-results ul li {
   margin-top: 10px;
   padding: 10px;
 }
-.tf-field-backup a.tf-import-btn,
-.tf-field-backup a.tf-export-btn {
+.tf-field-backup button.tf-import-btn,
+.tf-field-backup a.tf-export-button {
   margin: 14px 0px !important;
 }
 
+.uacf7-metabox .tf-field-callback .tf-field-notice-inner.tf-notice-info {
+  background-color: #ebf2ff;
+  border: 1px solid #ebf2ff;
+  padding: 17px;
+}
+.uacf7-metabox .tf-tab-wrapper {
+  max-width: calc(100% - 280px) !important;
+}
 .uacf7-metabox .tf-field-heading.heading-inner {
   background: #fff !important;
   margin: 0 !important;
@@ -3668,10 +3676,24 @@ body.admin_page_uacf7-setup-wizard .select2-dropdown .select2-results ul li {
 .uacf7-metabox .tf-setting-wrapper .tf-option-form .tf-option .tf-admin-tab a.tf-tablinks.active .tf-sec-icon {
   color: #fff;
 }
+.uacf7-metabox .tf-setting-wrapper .tf-option-form .tf-option .tf-admin-tab a.tf-tablinks {
+  position: relative;
+}
+.uacf7-metabox .tf-setting-wrapper .tf-option-form .tf-option .tf-admin-tab a.tf-tablinks .tf-metabox-option-checked {
+  position: absolute;
+  left: 6px;
+  height: 10px;
+  width: 10px;
+  background-color: #00a58c;
+  border-radius: 50%;
+}
 .uacf7-metabox .tf-setting-wrapper .tf-option-form .tf-option .tf-admin-tab a.tf-tablinks.active {
   background-color: #382673;
   color: #fff;
   border-radius: 0;
+}
+.uacf7-metabox .tf-setting-wrapper .tf-option-form .tf-option .tf-admin-tab a.tf-tablinks.active .tf-metabox-option-checked {
+  display: none;
 }
 .uacf7-metabox .tf-setting-wrapper .tf-option-form .tf-option .tf-admin-tab a.tf-tablinks.active::before {
   height: 10px;
@@ -3704,11 +3726,11 @@ body.admin_page_uacf7-setup-wizard .select2-dropdown .select2-results ul li {
   padding-right: 0 !important;
   padding-bottom: 5px !important;
 }
-.uacf7-metabox #redirection .tf-field:nth-child(4) .tf-field-wrap {
+.uacf7-metabox #redirection .tf-field:nth-child(5) .tf-field-wrap {
   padding-bottom: 0;
 }
-.uacf7-metabox #redirection .tf-field:nth-child(5) .tf-field-wrap,
-.uacf7-metabox #redirection .tf-field:nth-child(6) .tf-field-wrap {
+.uacf7-metabox #redirection .tf-field:nth-child(6) .tf-field-wrap,
+.uacf7-metabox #redirection .tf-field:nth-child(7) .tf-field-wrap {
   padding-top: 0;
 }
 .uacf7-metabox .tf-setting-dashboard .tf-setting-top-bar .other-document .dropdown,
@@ -3724,4 +3746,20 @@ body.admin_page_uacf7-setup-wizard .select2-dropdown .select2-results ul li {
 
 .license-email {
   margin-top: 20px;
+}
+
+.uacf7-settings-addon-btn {
+  position: absolute;
+  top: 30px;
+  right: 20px;
+}
+
+#form-panel {
+  position: relative;
+}
+
+.uacf7-metabox.uacf7_review {
+  margin: 0;
+  border: none;
+  padding: 0;
 }
