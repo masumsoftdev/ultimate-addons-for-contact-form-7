@@ -50,16 +50,11 @@
 
             });
 
-
             const form_submit = form_div.find('.wpcf7-submit');
-            console.log('Sub btn', form_submit);
 
             form_submit.on('click', function (e) {
-                console.log('click image cp');
                 const userInput = form_div.find("#userInput").val();
                 const resultDiv = form_div.find("#result");
-
-                console.log('result div', resultDiv);
 
                 // Check if userInput is empty
                 if (typeof userInput !== 'undefined' && userInput.trim() === '') {
@@ -67,7 +62,6 @@
                     refreshButton.trigger('click'); // Refresh CAPTCHA
                     // Field is empty, set warning message and prevent form submission
                     resultDiv.text("CAPTCHA field is required. Please enter the answer.").css("color", "#DC2626");
-                    console.log('Captcha Empty');
                     return false;
                 } else {
                     // If it's not empty, compare it with the expected value
@@ -83,7 +77,6 @@
                         // If it does not match, set a failure message and prevent form submission
                         e.preventDefault();
                         refreshButton.trigger('click'); // Refresh CAPTCHA
-                        console.log('Captcha not match');
                         resultDiv.text("CAPTCHA validation failed. Please try again.").css("color", "#DC2626");
                         return false;
                     }

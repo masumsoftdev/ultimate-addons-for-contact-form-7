@@ -73,6 +73,20 @@
             textarea.prop('disabled', true);
         });
 
+        // Clean up existing click event handlers to avoid duplication for Global Export button
+        const globalbackup = $('#uacf7_import_export').find('.tf-field-backup .tf-fieldset');
+        const GlobalButton = globalbackup.find('.tf-export-button');
+        globalbackup.off('click');
+        globalbackup.on('click', function (event) {
+            event.preventDefault();
+            var textarea = $('.tf-export-field');
+
+            // Call the copyer function
+            uacf7_backup_filed_copy(textarea);
+
+            // Re-disable the textarea if necessary
+            textarea.prop('disabled', true);
+        });
 
 
     });
