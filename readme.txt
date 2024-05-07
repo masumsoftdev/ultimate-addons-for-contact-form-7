@@ -4,11 +4,11 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 3.3.10
+Stable tag: 3.3.11
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
-30+ Essential Addons for Contact Form 7 - Conditional Fields, Multi Step Forms, Redirection, Form Templates, Columns, WooCommerce, Mailchimp, and more.
+30+ Essential Addons for Contact Form 7 - Conditional Fields, Multi Step Forms, Redirection, Form Templates, Columns, WooCommerce, Mailchimp, and more
 
 == Description ==
 
@@ -402,6 +402,10 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 
 == Changelog ==
 
+= 3.3.11 – 07/05/2024 =
+
+- Fixed: PDF file path issue
+
 = 3.3.10 – 04/05/2024 =
 
 - Updated readme.txt
@@ -537,17 +541,6 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 - Fixed: PDF generator file send issue
 - Fixed: Dynamic Text issue fixed with Current URL with parameters
 - Fixed: Multi-step settings save issue 
-
-=  3.2.6 – 11/11/2023  = 
-
-- Fixed: Updated vulnerability issue
-- Improvement: Code Structure updated
-
-=  3.2.5 – 08/11/2023  = 
-
-- Fixed: Repeater field export PDF into DB addon issue
-- Updated: Doc details updated in admin menu 
-- Compatibility: Compatible with WordPress 6.4 
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.
 
