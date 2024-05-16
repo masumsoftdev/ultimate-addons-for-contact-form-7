@@ -537,8 +537,8 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 
 						<div class="uacf7-wizard-footer-right">
 
-							<a href="<?php echo esc_url( admin_url() ) ?>admin.php?page=uacf7_addons" class="wizard_uacf7_btn_back_addon" style="display: none">
-								<?php echo esc_html( 'All Addons', 'ultimate-addons-cf7' ) ?>
+							<a href="<?php echo esc_url( admin_url() ) ?>admin.php?page=uacf7_settings#tab=mailchimp" class="wizard_uacf7_btn_back_addon" style="display: none">
+								<?php echo esc_html( 'Go to settings', 'ultimate-addons-cf7' ) ?>
 							</a>
 
 							<button
