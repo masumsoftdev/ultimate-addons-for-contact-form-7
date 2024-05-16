@@ -550,7 +550,9 @@ body.admin_page_uacf7-setup-wizard p {
   color: #636266 !important;
   font-family: "Inter", sans-serif !important;
 }
-body.admin_page_uacf7-setup-wizard h1, body.admin_page_uacf7-setup-wizard h2, body.admin_page_uacf7-setup-wizard h3 {
+body.admin_page_uacf7-setup-wizard h1,
+body.admin_page_uacf7-setup-wizard h2,
+body.admin_page_uacf7-setup-wizard h3 {
   font-family: "Inter", sans-serif !important;
   line-height: 1.25 !important;
   font-weight: 700 !important;
@@ -562,7 +564,7 @@ body.admin_page_uacf7-setup-wizard .select2.select2-container.select2-container-
   border-radius: 3px;
 }
 body.admin_page_uacf7-setup-wizard .select2-dropdown .select2-search__field {
-  border: 1px solid #EAECF0 !important;
+  border: 1px solid #eaecf0 !important;
 }
 body.admin_page_uacf7-setup-wizard .select2-dropdown .select2-results ul li {
   font-size: 16px !important;
@@ -641,30 +643,25 @@ body.admin_page_uacf7-setup-wizard .select2-dropdown .select2-results ul li {
   position: relative;
   z-index: 1;
 }
-.uacf7-setup-wizard .uacf7-step-items-container .uacf7-single-step-item:before {
+.uacf7-setup-wizard .uacf7-step-items-container .uacf7-single-step-item::before {
   position: absolute;
   background: var(--gray-200, #eaecf0);
   height: 2px;
   width: 100%;
   content: "";
-  left: 0;
+  left: 50%;
   top: 11px;
   z-index: -1;
 }
-.uacf7-setup-wizard .uacf7-step-items-container .uacf7-single-step-item.step-first:before {
-  width: 50%;
-  left: auto;
-  right: 0;
-}
-.uacf7-setup-wizard .uacf7-step-items-container .uacf7-single-step-item.active .step-item-dots {
-  background: var(--primary-50, #f9f5ff);
-  box-shadow: 0px 0px 0px 4px #f4ebff;
+.uacf7-setup-wizard .uacf7-step-items-container .uacf7-single-step-item.step-last::before {
+  display: none;
 }
 .uacf7-setup-wizard .uacf7-step-items-container .uacf7-single-step-item.active::before {
   background: #7f56d9;
 }
-.uacf7-setup-wizard .uacf7-step-items-container .uacf7-single-step-item.step-last::before {
-  width: 50%;
+.uacf7-setup-wizard .uacf7-step-items-container .uacf7-single-step-item.active .step-item-dots {
+  background: var(--primary-50, #f9f5ff);
+  box-shadow: 0px 0px 0px 4px #f4ebff;
 }
 .uacf7-setup-wizard .uacf7-step-items-container .uacf7-single-step-item .step-item-dots {
   display: inline-block;

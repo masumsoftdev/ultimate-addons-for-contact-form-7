@@ -236,7 +236,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 								} else {
 									?>
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<rect width="24" height="24" rx="12" fill="#F9F5FF" />
+										<rect width="24" height="24" rx="12" fill="#F9F5FF"/>
 										<circle cx="12" cy="12" r="4" fill="#7F56D9" />
 									</svg>
 									<?php
@@ -536,6 +536,11 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 						</div>
 
 						<div class="uacf7-wizard-footer-right">
+
+							<a href="<?php echo esc_url( admin_url() ) ?>admin.php?page=uacf7_addons" class="wizard_uacf7_btn_back_addon" style="display: none">
+								<?php echo esc_html( 'All Addons', 'ultimate-addons-cf7' ) ?>
+							</a>
+
 							<button
 								class="uacf7-wizard-footer-right-button uacf7-next uacf7-setup-widzard-btn <?php if ( $uacf7_plugin_status != 'activate' ) {
 									echo 'disabled';

@@ -10,7 +10,6 @@
   },
   "scripts": {
     "watch": "webpack --mode=development --watch --config webpack-config.js",
-
     "watch:a-sass": "sass --watch sass/admin/css/free/uacf7-admin.scss:assets/admin/css/uacf7-admin.min.css --style compressed",
     "build": "webpack --mode=production --config webpack-config.js"
   },
@@ -87,7 +86,6 @@
     "flat": "^5.0.2",
     "fs-readdir-recursive": "^1.1.0",
     "fs.realpath": "^1.0.0",
-    "fsevents": "^2.3.3",
     "function-bind": "^1.1.2",
     "gensync": "^1.0.0-beta.2",
     "glob": "^7.2.3",
