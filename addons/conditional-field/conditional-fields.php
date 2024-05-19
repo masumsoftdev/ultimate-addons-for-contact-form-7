@@ -45,18 +45,16 @@ class UACF7_CF {
 	}
 
 	public function enqueue_cf_admin_script() {
-		wp_enqueue_script( 'uacf7-cf-script', UACF7_ADDONS . '/conditional-field/js/cf-script.js', array( 'jquery' ), null, true );
+		wp_enqueue_script( 'uacf7-cf-script', UACF7_ADDONS . '/conditional-field/js/cf-script.js', array( 'jquery' ), UACF7_VERSION, true );
 	}
 
 	public function enqueue_cf_frontend_script() {
-		wp_enqueue_script( 'uacf7-cf-script', UACF7_ADDONS . '/conditional-field/js/uacf7-cf-script.js', array( 'jquery' ) );
+		wp_enqueue_script( 'uacf7-cf-script', UACF7_ADDONS . '/conditional-field/js/uacf7-cf-script.js', array( 'jquery' ), UACF7_VERSION, true );
 		wp_localize_script( 'uacf7-cf-script', 'uacf7_cf_object', $this->get_forms() );
 	}
 
 
 	public function uacf7_post_meta_options_conditional_field( $value, $post_id ) {
-
-
 
 		$conditional = apply_filters( 'uacf7_post_meta_options_conditional_field_pro', $data = array(
 			'title' => __( 'Conditional Fields', 'ultimate-addons-cf7' ),
