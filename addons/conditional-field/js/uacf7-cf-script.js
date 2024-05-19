@@ -118,8 +118,6 @@
 						}
 					}
 
-					console.log(form[$i]);
-
 					var $conditionRule = '';
 					var x;
 					var $conditions = [];
