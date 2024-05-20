@@ -41,17 +41,15 @@ class UACF7_MULTISTEP {
         $step_names = array();
         foreach ($all_steps as $step) { 
             $step_names[] = !empty($step->name) ? $step->name : '';
-    
         }
-         
         return $step_names;
     }
+
     // Steps Name: uacf7_multistep_steps_names
     function uacf7_multistep_step_title($step_titles, $all_steps){
         $step_titles = array();
         foreach ($all_steps as $step) { 
             $step_titles[] = (is_array($step->values) && !empty($step->values)) ? $step->values[0] : '';
-    
         }
         return $step_titles;
     }
@@ -557,8 +555,7 @@ class UACF7_MULTISTEP {
                         'placeholder'     => __( 'Step description', 'ultimate-addons-cf7' ), 
                         'is_pro' => true,
                         'dependency' => array( 
-                            array('uacf7_progressbar_style', '==', 'style-6'), 
-    
+                            array('uacf7_progressbar_style', '==', 'style-6'),
                         ),
                     );
 
@@ -618,8 +615,8 @@ class UACF7_MULTISTEP {
                         <?php
                             $step_id = 1;
                             $step_count = 0;
-                    
                             $step_name = apply_filters('uacf7_multistep_steps_names', array(), $all_steps);
+
                             foreach ($all_steps as $step) {
                                 $content = $step;
                                 ?>
@@ -799,10 +796,7 @@ class UACF7_MULTISTEP {
                             'idref' => null,
                         ); 
                     }
-                }
-                
-                 
-               
+                } 
 			}
             
         }
@@ -819,12 +813,14 @@ class UACF7_MULTISTEP {
         }else{
             $invalid_fields = false;
         }
+
         echo(json_encode( array(
                     'is_valid' => $is_valid,
                     'invalid_fields' => $invalid_fields,
                 )
             )
         );
+
         wp_die();
     }
     
