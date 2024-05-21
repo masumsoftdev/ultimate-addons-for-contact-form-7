@@ -19,7 +19,7 @@ class UACF7_DATABASE {
 		add_action( 'wp_ajax_uacf7_ajax_database_popup', array( $this, 'uacf7_ajax_database_popup' ) );
 		add_action( 'wp_ajax_uacf7_ajax_database_export_csv', array( $this, 'uacf7_ajax_database_export_csv' ) );
 		add_action( 'admin_init', array( $this, 'uacf7_create_database_table' ) );
-		add_filter( 'wpcf7_load_js', '__return_false' );
+		//add_filter( 'wpcf7_load_js', '__return_false' );
 	}
 
 	//Create Ulimate Database   
