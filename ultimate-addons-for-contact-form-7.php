@@ -116,7 +116,7 @@ class Ultimate_Addons_CF7 {
 	}
 
 
-	//Enquene admin scripts
+	// Enqueue admin scripts
 	public function enqueue_admin_scripts() {
 
 		wp_enqueue_style( 'uacf7-admin-style', UACF7_URL . 'assets/css/admin-style.css', 'sadf' );
@@ -142,7 +142,7 @@ class Ultimate_Addons_CF7 {
 		wp_enqueue_script( 'notyf', UACF7_URL . 'assets/app/libs/notyf/notyf.min.js', array( 'jquery' ), UACF7_VERSION, true );
 	}
 
-	//Enquene admin scripts
+	// Enqueue admin scripts
 	public function uacf7_frontend_scripts() {
 		wp_enqueue_style( 'uacf7-frontend-style', UACF7_URL . 'assets/css/uacf7-frontend.css', '' );
 		wp_enqueue_style( 'uacf7-form-style', UACF7_URL . 'assets/css/form-style.css', '' );
