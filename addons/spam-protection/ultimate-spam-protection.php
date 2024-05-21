@@ -56,8 +56,8 @@ class UACF7_SPAM_PROTECTION {
 					'subtitle' => __( 'This feature will help you to protect your form submission from Spam attacks.', 'ultimate-addons-cf7' ),
 					'content' => sprintf(
 						// Translators: %1$s is replaced with the link to documentation.
-						esc_html__( 'Not sure how to set this? Check our step-by-step documentation on  %s .', 'ultimate-addons-cf7' ),
-						'<a href="https://themefic.com/docs/uacf7/free-addons/spam-protection-for-contact-form-7/" target="_blank">Spam Protection for Contact Form 7.</a>',
+						esc_html__( 'Add spam protection for your contact form 7 forms. %s .', 'ultimate-addons-cf7' ),
+						'<a href="https://cf7addons.com/preview/spam-protection/" target="_blank">See Demo</a>',
 
 					),
 				),
@@ -69,7 +69,7 @@ class UACF7_SPAM_PROTECTION {
 					'content' => sprintf(
 						// Translators: %1$s is replaced with the link to documentation. 
 						esc_html__( 'Not sure how to set this? Check our step-by-step documentation on  %s .', 'ultimate-addons-cf7' ),
-						'<a href="https://themefic.com/docs/uacf7/free-addons/spam-protection-for-contact-form-7/" target="_blank">Spam Protection</a>',
+						'<a href="https://themefic.com/docs/uacf7/free-addons/spam-protection/" target="_blank">Spam Protection</a>',
 					),
 				),
 
@@ -95,39 +95,39 @@ class UACF7_SPAM_PROTECTION {
 					'id' => 'uacf7_minimum_time_limit',
 					'type' => 'number',
 					'label' => __( 'Each Submission Difference', 'ultimate-addons-cf7' ),
-					'subtitle' => __( 'You can avoid spamming bots by setting a time limit to prevent too frequent submissions. Put in seconds', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Default: 5 seconds', 'ultimate-addons-cf7' ),
+					'subtitle' => __( 'To prevent spamming bots, you can set a time limit to restrict too frequent submissions. Please specify the time limit in seconds. Default: 5 seconds', 'ultimate-addons-cf7' ),
+					'placeholder' => __( '5', 'ultimate-addons-cf7' ),
 					'default' => 5,
 					'is_pro' => true
 				),
-				'uacf7_word_filter' => array(
-					'id' => 'uacf7_word_filter',
-					'type' => 'textarea',
-					'label' => __( 'Word Filtering', 'ultimate-addons-cf7' ),
-					'subtitle' => __( 'Enlist the words you want to avoid from Spammer, Separate the words using a Comma. If that word/s found in the message it will skip to the email (email will not send to mail)', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'E.g. evil, earning money, scam', 'ultimate-addons-cf7' ),
-					'is_pro' => true
-				),
-				'uacf7_ip_block' => array(
-					'id' => 'uacf7_ip_block',
-					'type' => 'textarea',
-					'label' => __( 'IP Block', 'ultimate-addons-cf7' ),
-					'subtitle' => __( 'Enlist the IP you want to Ban / Block, Separate the IPs using a Comma', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'E.g. 192.158.1.38,192.158.1.39,192.158.1.40', 'ultimate-addons-cf7' ),
-					'is_pro' => true
-				),
-				'uacf7_blocked_countries' => array(
-					'id' => 'uacf7_blocked_countries',
-					'type' => 'textarea',
-					'label' => __( 'Country Block', 'ultimate-addons-cf7' ),
-					'subtitle' => sprintf(
-						// Translators: %1$s is replaced with the link to documentation.
-						esc_html__( 'Enlist the Country or Countries that you want to Ban / Block. Separate the Countries %s using a Comma', 'ultimate-addons-cf7' ),
-						'<a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements" target="_blank">' . __( 'iso2 name', 'ultimate-addons-cf7' ) . '</a>'
-					),
-					'placeholder' => __( 'E.g. us,ca,uk', 'ultimate-addons-cf7' ),
-					'is_pro' => true
-				),
+				// 'uacf7_word_filter' => array(
+				// 	'id' => 'uacf7_word_filter',
+				// 	'type' => 'textarea',
+				// 	'label' => __('Word Filtering', 'ultimate-addons-cf7'),
+				// 	'subtitle' => __('Enlist the words you want to avoid from Spammer, Separate the words using a Comma. If that word/s found in the message it will skip to the email (email will not send to mail)', 'ultimate-addons-cf7'),
+				// 	'placeholder' => __('E.g. evil, earning money, scam', 'ultimate-addons-cf7'),
+				// 	'is_pro' => true
+				// ),
+				// 'uacf7_ip_block' => array(
+				// 	'id' => 'uacf7_ip_block',
+				// 	'type' => 'textarea',
+				// 	'label' => __( 'IP Block', 'ultimate-addons-cf7' ),
+				// 	'subtitle' => __( 'Enlist the IP you want to Ban / Block, Separate the IPs using a Comma', 'ultimate-addons-cf7' ),
+				// 	'placeholder' => __( 'E.g. 192.158.1.38,192.158.1.39,192.158.1.40', 'ultimate-addons-cf7' ),
+				// 	'is_pro' => true
+				// ),
+				// 'uacf7_blocked_countries' => array(
+				// 	'id' => 'uacf7_blocked_countries',
+				// 	'type' => 'textarea',
+				// 	'label' => __( 'Country Block', 'ultimate-addons-cf7' ),
+				// 	'subtitle' => sprintf(
+				// 		// Translators: %1$s is replaced with the link to documentation.
+				// 		esc_html__( 'Enlist the Country or Countries that you want to Ban / Block. Separate the Countries %s using a Comma', 'ultimate-addons-cf7' ),
+				// 		'<a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements" target="_blank">' . __( 'iso2 name', 'ultimate-addons-cf7' ) . '</a>'
+				// 	),
+				// 	'placeholder' => __( 'E.g. us,ca,uk', 'ultimate-addons-cf7' ),
+				// 	'is_pro' => true
+				// ),
 
 			)
 
