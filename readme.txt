@@ -4,11 +4,11 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 3.3.8
+Stable tag: 3.3.11
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
-30+ Essential Addons for Contact Form 7 - Conditional Fields, Multi Step Forms, Redirection, Form Templates, Columns, WooCommerce, Mailchimp and more.
+30+ Essential Addons for Contact Form 7 - Conditional Fields, Multi Step Forms, Redirection, Form Templates, Columns, WooCommerce, Mailchimp, and more
 
 == Description ==
 
@@ -44,6 +44,7 @@ Equipped with over 30 essential features, **Ultimate Addons For Contact Form 7**
 * Range Slider
 * Star Rating Field
 * Submission ID
+* Spam Protection
 * Telegram Integration
 * WooCommerce Product Dropdown
 
@@ -64,6 +65,7 @@ Equipped with over 30 essential features, **Ultimate Addons For Contact Form 7**
 * WhatsApp integration and Form Tag Support
 * WooCommerce Checkout
 * WooCommerce Product Dropdown Pro
+* Spam Protection (Pro)
 
 ### How It works:
 
@@ -124,7 +126,7 @@ The above Dynamic Text Addon can also be used to generate hidden field values.
 
 = Form Styler | Contact form 7 Style =
 
-Our [Contact Form 7 style plugin](https://cf7addons.com/preview/contact-form-7-style-addon/) offers extensive customization options for Contact form 7 label color, label Background, font style, font size, font weight, font family, padding,margin; Contact Form 7 Input Color, Input Background Color, Font Style, Font Weight, Font Size, Font Family, Height, Padding, Margin; Contact form 7 button style, Contact form 7 button color, button background color, font size, font weight, width, border styles, padding, margin, Contact form 7 font size etc.
+Our [Contact Form 7 style plugin](https://cf7addons.com/preview/contact-form-7-style-addon/) offers extensive customization options for Contact form 7 label color, label Background, font style, font size, font weight, font family, padding, margin; Contact Form 7 Input Color, Input Background Color, Font Style, Font Weight, Font Size, Font Family, Height, Padding, Margin; Contact form 7 button style, Contact form 7 button color, button background color, font size, font weight, width, border styles, padding, margin, Contact form 7 font size etc.
 
 = Contact form 7 CSS =
 
@@ -161,7 +163,7 @@ Enhance your Contact Form 7 by incorporating [Range slider](https://cf7addons.co
 
 = Contact Form 7 Redirect after Submit =
 
-Our [Redirection for Contact Form 7](https://cf7addons.com/preview/redirection-for-contact-form-7/) addon will help you in redirecting your contact form 7 form to another URL after submissions. After form submission, your form user will be redirected to a Thank you page or external page. You can also set the option to open the page on the same tab or new tab.
+Our [Redirection for Contact Form 7](https://cf7addons.com/preview/redirection-for-contact-form-7/) addon will help you redirect your contact form 7 form to another URL after submissions. After form submission, your form user will be redirected to a Thank you page or external page. You can also set the option to open the page on the same tab or a new tab.
 
 = Contact Form 7 Star Rating Field =
 
@@ -169,7 +171,11 @@ Star ratings provide a straightforward and effective method for gathering custom
 
 = Contact Form 7 Submission ID  =
 
-Our [UniqueID for Contact Form 7](https://cf7addons.com/preview/unique-id-for-contact-form-7/) addon helps adding an unique ID to each form submission, offering an ideal solution for maintaining a tracking ID for every submission, ensuring efficient management and reference of your form entries.
+Our [UniqueID for Contact Form 7](https://cf7addons.com/preview/unique-id-for-contact-form-7/) addon helps to add a unique ID to each form submission, offering an ideal solution for maintaining a tracking ID for every submission, ensuring efficient management and reference of your form entries.
+
+= Contact Form 7 Spam Protection  =
+
+Our [Spam Protection for Contact Form 7](https://cf7addons.com/preview/spam-protection/) addon will help you to prevent Spam using Arithmetic and Image Recognition.
 
 = Contact Form 7 to Telegram =
 
@@ -255,6 +261,10 @@ The Pro version enhances your capability by allowing the addition of [Specific W
 = Contact form 7 Product Grid View with Thumbnails =
 
 Display your products in an impressive [WooCommerce Grid View](https://cf7addons.com/preview/product-grid-view-with-thumbnails/), allowing for addition based on ID, Category, or Tags. This feature enhances the visual appeal and organization of your product listings. 
+
+= Contact Form 7 Spam Protection Pro =
+
+Our [Spam Protection Pro for Contact Form 7](https://cf7addons.com/preview/spam-protection-pro/) addon will help you to protect your website from spam by frequent form submission by adding a time limit, and more features coming soon.
 
 **More Pro addons are in development and will be available soon.**
 
@@ -392,6 +402,20 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 
 == Changelog ==
 
+= 3.3.11 – 07/05/2024 =
+
+- Fixed: PDF file path issue
+
+= 3.3.10 – 04/05/2024 =
+
+- Updated readme.txt
+
+= 3.3.9 – 04/05/2024 =
+
+- Added: Spam protection feature introduced
+- Fixed: Minor Bugs
+- System stability improved
+
 = 3.3.8 – 28/04/2024 =
 
 - Compatible with Impreza Theme
@@ -517,29 +541,6 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 - Fixed: PDF generator file send issue
 - Fixed: Dynamic Text issue fixed with Current URL with parameters
 - Fixed: Multi-step settings save issue 
-
-=  3.2.6 – 11/11/2023  = 
-
-- Fixed: Updated vulnerability issue
-- Improvement: Code Structure updated
-
-=  3.2.5 – 08/11/2023  = 
-
-- Fixed: Repeater field export PDF into DB addon issue
-- Updated: Doc details updated in admin menu 
-- Compatibility: Compatible with WordPress 6.4 
-
-=  3.2.4 – 03/11/2023  = 
-
-- New Feature: Digital Signature feature introduced
-- New Feature: Create contact forms with AI prompts feature introduced
-- Compatible: AI prompts with Ultimate conversational form(Pro)
-- Compatible: AI prompts with Ultimate repeater(Pro)
-- Compatible: AI prompts with Ultimate Post Submission(Pro)
-- Compatible: AI prompts with Ultimate Booking Form(Pro)
-- Fixed: After booking time hide date issue
-- Fixed: Submission ID Support Issue
-- Fixed: Conditional Issue Fixed with Exclusive Checkbox 
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.
 
