@@ -21,7 +21,9 @@ body.admin_page_uacf7-setup-wizard {
     color: #636266 !important;
     font-family: "Inter", sans-serif !important;
   }
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     font-family: "Inter", sans-serif !important;
     line-height: 1.25 !important;
     font-weight: 700 !important;
@@ -38,12 +40,11 @@ body.admin_page_uacf7-setup-wizard {
     // border-top: 1px solid #EAECF0 !important;
 
     .select2-search__field {
-      border: 1px solid #EAECF0 !important;
+      border: 1px solid #eaecf0 !important;
     }
     .select2-results ul li {
       font-size: 16px !important;
     }
-    
   }
 }
 .admin_page_uacf7-setup-wizard #wpcontent {
@@ -66,7 +67,6 @@ body.admin_page_uacf7-setup-wizard {
 .admin_page_uacf7-setup-wizard div#wpfooter {
   display: none;
 }
-
 
 .uacf7-setup-widzard-btn {
   color: #fff;
@@ -120,21 +120,27 @@ body.admin_page_uacf7-setup-wizard {
       position: relative;
       z-index: 1;
 
-      &:before {
+      &::before {
         position: absolute;
         background: var(--gray-200, #eaecf0);
         height: 2px;
         width: 100%;
         content: "";
-        left: 0;
+        left: 50%;
         top: 11px;
         z-index: -1;
       }
 
-      &.step-first:before {
-        width: 50%;
-        left: auto;
-        right: 0;
+      &.step-first::before {
+        // display: none;
+      }
+
+      &.step-last::before {
+        display: none;
+      }
+
+      &.active::before {
+        background: #7f56d9;
       }
 
       &.active {
@@ -143,20 +149,12 @@ body.admin_page_uacf7-setup-wizard {
           box-shadow: 0px 0px 0px 4px #f4ebff;
         }
       }
-      &.active::before {
-        background: #7f56d9;
-      }
-
-      &.step-last::before {
-        width: 50%;
-      }
 
       .step-item-dots {
         display: inline-block;
         height: 24px;
         width: 25px;
         border-radius: 12px;
-
         background: var(--gray-50, #f9fafb);
       }
 
@@ -207,8 +205,6 @@ body.admin_page_uacf7-setup-wizard {
           box-shadow: 0px 4px 40px 0px rgba(37, 22, 84, 0.05);
           text-align: center;
           position: relative;
-          
-
           @media only screen and (max-width: $x-small-screen) {
             margin-top: 0;
           }
@@ -225,9 +221,9 @@ body.admin_page_uacf7-setup-wizard {
           .uacf7-single-step-content-inner {
             h1 {
               color: #06040c !important;
-              text-align: center; 
+              text-align: center;
               font-size: 40px;
-              font-style: normal; 
+              font-style: normal;
               @media only screen and (max-width: $x-small-screen) {
                 font-size: 32px;
               }
@@ -245,13 +241,11 @@ body.admin_page_uacf7-setup-wizard {
 
             .uacf7-step-plugin-required {
               padding-top: 32px;
-
               p {
                 color: #06040c !important;
-                text-align: center; 
-                font-size: 20px!important; 
+                text-align: center;
+                font-size: 20px !important;
               }
-
               .required-plugin-button {
                 border-radius: 4px;
                 background: #382673;
@@ -300,7 +294,7 @@ body.admin_page_uacf7-setup-wizard {
           }
 
           .uacf7-setup-widzard-btn {
-            margin-top: 32px; 
+            margin-top: 32px;
           }
 
           .uacf7-ai-codeblock {
@@ -353,7 +347,7 @@ body.admin_page_uacf7-setup-wizard {
           .uacf7-form-generate {
             @media only screen and (max-width: $x-small-screen) {
               text-align: center;
-            } 
+            }
             .select2-selection.select2-selection--single {
               display: inline-block;
               height: auto;
@@ -376,12 +370,12 @@ body.admin_page_uacf7-setup-wizard {
               position: absolute !important;
               right: 5px !important;
               top: 27% !important;
-            } 
+            }
             h3,
             label {
               color: #382673;
               font-size: 30px;
-              font-weight: 700; 
+              font-weight: 700;
               font-style: normal;
               font-weight: 70;
               line-height: 32px;
@@ -398,8 +392,8 @@ body.admin_page_uacf7-setup-wizard {
               padding-top: 10px;
               line-height: 1.7;
             }
-            label select { 
-              color: #a6a6a6; 
+            label select {
+              color: #a6a6a6;
               border: 1px solid #ccc !important;
               font-size: 20px;
               padding: 12px 14px 5px !important;
@@ -457,7 +451,7 @@ body.admin_page_uacf7-setup-wizard {
           grid-template-columns: 1fr;
         }
         .uacf7-single-addon-setting {
-          background-color: #fcfbfe; 
+          background-color: #fcfbfe;
           border-radius: 5px;
           min-height: 75px;
           padding: 10px 30px;
@@ -465,7 +459,7 @@ body.admin_page_uacf7-setup-wizard {
           position: relative;
           overflow: hidden;
           display: flex;
-          flex-direction: column;  
+          flex-direction: column;
           justify-content: center;
           box-shadow: 0px 4px 30px 0px rgba(6, 4, 12, 0.08);
 
@@ -477,9 +471,9 @@ body.admin_page_uacf7-setup-wizard {
             .uacf7-single-addon-title {
               margin: 0;
               color: #06040c !important;
-              font-weight: 400 !important; 
+              font-weight: 400 !important;
               font-size: 16px;
-              font-style: normal; 
+              font-style: normal;
               line-height: 20px !important;
               max-width: 80%;
             }
@@ -491,16 +485,16 @@ body.admin_page_uacf7-setup-wizard {
               font-size: 10px;
               text-transform: uppercase;
               padding: 2px 10px;
-              border-radius: 0 0 5px 0; 
+              border-radius: 0 0 5px 0;
               width: auto;
               height: auto;
               font-weight: 400;
-              line-height: 1.8;   
+              line-height: 1.8;
               text-align: center;
-              background-color: #00a58c1a; 
+              background-color: #00a58c1a;
               line-height: 24px;
               font-weight: 600;
-              color: #00a58c; 
+              color: #00a58c;
 
               &.pro {
                 background-color: #f15a9e1a;
@@ -566,6 +560,24 @@ body.admin_page_uacf7-setup-wizard {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      .uacf7-wizard-footer-right {
+        .wizard_uacf7_btn_back_addon {
+          padding: 12px 16px;
+          justify-content: center;
+          align-items: center;
+          gap: 8px;
+          align-self: stretch;
+          border-radius: 4px;
+          border: 1px solid #382673;
+          background: #382673;
+          color: #fff !important;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 20px;
+          text-decoration: none;
+        }
+      }
 
       .uacf7-wizard-footer-left-link.uacf7-back-dashboard {
         padding: 12px 16px;
@@ -576,7 +588,7 @@ body.admin_page_uacf7-setup-wizard {
         border-radius: 4px;
         border: 1px solid #382673;
         background: #06040c !important;
-        color: #fff !important; 
+        color: #fff !important;
         font-size: 16px;
         font-style: normal;
         font-weight: 600;

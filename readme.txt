@@ -1,5 +1,5 @@
 === Ultimate Addons for Contact Form 7 ===
-Contributors: themefic, hasanet, mdrejon, raihan143, masumwp
+Contributors: themefic, hasanet, hemelhasan, mdrejon, masumwp
 Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.5

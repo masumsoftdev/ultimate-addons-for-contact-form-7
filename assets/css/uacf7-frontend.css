@@ -1,12 +1,15 @@
+.wpcf7 form {
+  display: block;
+}
+
 .wpcf7-form label {
-	/* padding: 5px 0 !important; */
-	display: block;
+  display: block;
 }
 
 /* Impreza_8.22 
-* Theme issues theme have this problem
+*  Theme issues theme have this problem
 */
 
 #page-header .l-subheader-cell .w-socials-item.twitter .fa-x-twitter svg {
-	display: none !important;
+  display: none !important;
 }

@@ -19,7 +19,7 @@ class UACF7_DATABASE {
 		add_action( 'wp_ajax_uacf7_ajax_database_popup', array( $this, 'uacf7_ajax_database_popup' ) );
 		add_action( 'wp_ajax_uacf7_ajax_database_export_csv', array( $this, 'uacf7_ajax_database_export_csv' ) );
 		add_action( 'admin_init', array( $this, 'uacf7_create_database_table' ) );
-		// add_filter( 'wpcf7_load_js', '__return_false' );
+		//add_filter( 'wpcf7_load_js', '__return_false' );
 	}
 
 	//Create Ulimate Database   
@@ -37,7 +37,7 @@ class UACF7_DATABASE {
             PRIMARY KEY  (id)
         ) $charset_collate";
 
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		require_once ( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		dbDelta( $sql );
 	}
 
@@ -103,12 +103,10 @@ class UACF7_DATABASE {
 			</div>
 			<section class="uacf7_popup_preview">
 				<div class="uacf7_popup_preview_content">
-
 					<div id="uacf7_popup_wrap">
 						<div class="db_popup_view">
 							<div class="close" title="Exit Full Screen">╳</div>
 							<div id="db_view_wrap">
-
 							</div>
 						</div>
 					</div>
@@ -227,7 +225,7 @@ class UACF7_DATABASE {
 	 * Ultimate form save into the database
 	 */
 	public function uacf7_save_to_database( $form ) {
-		require_once( ABSPATH . 'wp-admin/includes/file.php' );
+		require_once ( ABSPATH . 'wp-admin/includes/file.php' );
 		global $wpdb;
 		$encryptionKey = 'AES-256-CBC';
 		$table_name = $wpdb->prefix . 'uacf7_form';
@@ -246,6 +244,7 @@ class UACF7_DATABASE {
 					$skip_tag_insert[] = $tag->name;
 				}
 			}
+
 		}
 
 		$contact_form_data = $submission->get_posted_data();
@@ -264,11 +263,19 @@ class UACF7_DATABASE {
 			array_push( $uploaded_files, $file_key );
 		}
 
+		// var_dump( $files );
 		foreach ( $files as $file_key => $file ) {
+
+			// var_dump( $file_key );
+
 			if ( ! empty( $file ) ) {
 				if ( in_array( $file_key, $uploaded_files ) ) {
 					$file = is_array( $file ) ? reset( $file ) : $file;
+
+					// var_dump( $file );
+
 					$dir_link = '/uacf7-uploads/' . $time_now . '-' . $file_key;
+
 					if ( in_array( $file_key, $uacf7_signature_tag ) ) {
 						$dir_link = '/uacf7-uploads/' . $time_now . '-' . $file_key . '.enc';
 						$this->encrypt_file( $file, $dir . $dir_link, $encryptionKey );
@@ -287,7 +294,6 @@ class UACF7_DATABASE {
 				if ( ! empty( $data_file ) && is_array( $data_file ) ) {
 					$contact_form_data[ $key ] = $data_file[ $key_count ][ $key ];
 				}
-
 				$key_count++;
 			}
 		}
@@ -303,7 +309,6 @@ class UACF7_DATABASE {
 
 				if ( is_array( $value ) ) {
 					$insert_data[ $key ] = array_map( 'esc_html', $value );
-
 				} else {
 					$insert_data[ $key ] = esc_html( $value );
 				}
@@ -317,6 +322,7 @@ class UACF7_DATABASE {
 			'form_value' => $insert_data,
 			'form_date' => current_time( 'Y-m-d H:i:s' ),
 		) );
+
 		$uacf7_db_insert_id = $wpdb->insert_id;
 
 		//  print_r($uacf7_enable_track_order);
@@ -554,7 +560,7 @@ class UACF7_DATABASE {
  */
 
 if ( ! class_exists( 'WP_List_Table' ) ) {
-	require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
+	require_once ( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 }
 
 /*
