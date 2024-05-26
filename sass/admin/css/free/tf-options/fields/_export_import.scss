@@ -15,7 +15,7 @@
                     border-radius: 3px;
                     white-space: nowrap;
                     transition: opacity 0.3s ease;
-                    pointer-events: none; // Prevent interaction
+                    // pointer-events: none; // Prevent interaction
                     z-index: 10; // Ensure it appears above other elements
                     margin-top: -28px;
                     display: none;
