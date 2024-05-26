@@ -58,6 +58,20 @@
         });
 
         // Clean up existing click event handlers to avoid duplication
+        copyIndicator.hover(function () {
+            copyIndicator.text('Click to copy');
+            copyIndicator.css({ 'display': 'block' });
+        }, function () {
+            copyIndicator.text('');
+            copyIndicator.css({ 'display': 'none' });
+        });
+
+        copyIndicator.off('click');
+        copyIndicator.on('click', function (e) {
+            uacf7_backup_filed_copy(exportArea);
+        });
+
+        // Clean up existing click event handlers to avoid duplication
         exportArea.off('click');
         exportArea.on('click', function (event) {
             event.preventDefault();
