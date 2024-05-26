@@ -234,16 +234,22 @@ class UACF7_SPAM_PROTECTION {
 		$addr = unserialize( $addr_body );
 
 		$atts['iso2'] = isset( $addr['countryCode'] );
-		$atts['protection-method'] = $uacf7_spam_protection['uacf7_spam_protection_type'];
 		$atts['id'] = $tag->get_id_option();
 
 		//Conditionally Loading Scripts
-		if ( $uacf7_spam_protection['uacf7_spam_protection_type'] === 'arithmathic_recognation' ) {
-			wp_enqueue_script( 'uacf7-spam-protection-arithmetic' );
-		}
+		if ( is_array( $uacf7_spam_protection ) && isset( $uacf7_spam_protection['uacf7_spam_protection_type'] ) ) {
+			$atts['protection-method'] = $uacf7_spam_protection['uacf7_spam_protection_type'];
 
-		if ( $uacf7_spam_protection['uacf7_spam_protection_type'] === 'image_recognation' ) {
-			wp_enqueue_script( 'uacf7-spam-protection-image' );
+			// Conditionally Loading Scripts
+			if ( $uacf7_spam_protection['uacf7_spam_protection_type'] === 'arithmathic_recognation' ) {
+				wp_enqueue_script( 'uacf7-spam-protection-arithmetic' );
+			}
+
+			if ( $uacf7_spam_protection['uacf7_spam_protection_type'] === 'image_recognation' ) {
+				wp_enqueue_script( 'uacf7-spam-protection-image' );
+			}
+		} else {
+			$atts['protection-method'] = 'none';
 		}
 
 		$atts['tabindex'] = $tag->get_option( 'tabindex', 'signed_int', true );
@@ -267,9 +273,8 @@ class UACF7_SPAM_PROTECTION {
 		<span class="wpcf7-form-control-wrap <?php echo sanitize_html_class( $tag->name ); ?>"
 			data-name="<?php echo sanitize_html_class( $tag->name ); ?>">
 			<div class="uacf7_spam_recognation" <?php echo esc_attr( $atts ); ?>>
-				<?php if ( $uacf7_spam_protection['uacf7_spam_protection_type'] === 'arithmathic_recognation' ) { ?>
+				<?php if ( isset( $uacf7_spam_protection['uacf7_spam_protection_type'] ) && $uacf7_spam_protection['uacf7_spam_protection_type'] === 'arithmathic_recognation' ) { ?>
 					<div id="arithmathic_recognation">
-
 						<div id="arithmetic_input_holder">
 							<div id="arithmetic_cal">
 								<span id="frn">5</span>
@@ -285,7 +290,7 @@ class UACF7_SPAM_PROTECTION {
 						</div>
 						<div id="arithmathic_result"></div>
 					</div>
-				<?php } else if ( $uacf7_spam_protection['uacf7_spam_protection_type'] === 'image_recognation' ) { ?>
+				<?php } else if ( isset( $uacf7_spam_protection['uacf7_spam_protection_type'] ) && $uacf7_spam_protection['uacf7_spam_protection_type'] === 'image_recognation' ) { ?>
 						<div id="image_recognation">
 							<div id="captcha_input_holder">
 								<div id="captcha"></div> <button id="arithmathic_refresh"><i class="fa-solid fa-rotate"></i></button>
