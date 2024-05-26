@@ -474,7 +474,15 @@ class UACF7_MULTISTEP {
             // Current Contact Form tags
             $form_current = WPCF7_ContactForm::get_instance($post_id);
                     
-            $all_steps = $form_current->scan_form_tags( array('type'=>'uacf7_step_start') );
+            // $all_steps = $form_current->scan_form_tags( array('type'=>'uacf7_step_start') );
+            if (method_exists($form_current, 'scan_form_tags')) {
+                // Call the scan_form_tags() method
+                $all_steps = $form_current->scan_form_tags(array('type'=>'uacf7_step_start'));
+            } else {
+                // Handle case where scan_form_tags() method is not available
+                echo "Error: scan_form_tags() method not found.";
+            }
+
             $step_titles = array();
 
         

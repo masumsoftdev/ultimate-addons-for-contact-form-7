@@ -41,11 +41,21 @@
         const backupfields = $('#import_export').find('.tf-field-backup .tf-fieldset');
         const exportArea = backupfields.find('.tf-export-field');
         const exportButton = backupfields.find('.tf-export-button');
+        const copyIndicator = backupfields.find('#copyIndicator');
 
         // Ensure the textarea is enabled
         if (exportArea.is(':disabled')) {
             exportArea.prop('disabled', false);
         }
+
+        // Ensure when textarea get hover showing copy text
+        exportArea.hover(function () {
+            copyIndicator.text('Click to copy');
+            copyIndicator.css({ 'display': 'block' });
+        }, function () {
+            copyIndicator.text('');
+            copyIndicator.css({ 'display': 'none' });
+        });
 
         // Clean up existing click event handlers to avoid duplication
         exportArea.off('click');
