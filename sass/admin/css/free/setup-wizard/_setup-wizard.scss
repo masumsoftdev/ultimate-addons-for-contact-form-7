@@ -631,3 +631,22 @@ body.admin_page_uacf7-setup-wizard {
         }
     }
 }
+
+@media only screen and (max-width: $medium-screen) {
+    .uacf7-setup-wizard {
+        .uacf7-step-content-container {
+            .uacf7-single-step-content {
+                &.installation {
+                    .uacf7-single-step-content-wrap {
+                        .uacf7-single-step-content-inner {
+                            .uacf7-step-plugin-required {
+                                display: inline-block;
+                                padding-top: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
