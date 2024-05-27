@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 3.3.11
+Stable tag: 3.3.12
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -402,6 +402,19 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 
 == Changelog ==
 
+= 3.3.12 – 27/05/2024 =
+
+- Fixed: Conditional Logic issue
+- Fixed: Dynamic field issue
+- Improved: Digital signature
+- Improved: Import/Export process
+- Improved: Repeater addon
+- Improved: Quick Setup wizard
+- Improved: Submission ID addon
+- Improved: Spam Protection
+- Improved: Column/Grid addon
+- Improved: PDF addon file system
+
 = 3.3.11 – 07/05/2024 =
 
 - Fixed: PDF file path issue
@@ -520,27 +533,6 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 - Fixed: Missing Authorization issue on DB Addon.
 - Fixed: Undefined variable issue fixed Telegram Addon.
 - Fixed: Undefined Variable issue fixed for Telegram.
-
-= 3.2.10 – 16/11/2023 =
-
-- Improvement: System stability Improved
-- Updated: readme.txt
-- Updated: Black Friday Banner
-
-=  3.2.9 – 15/11/2023  = 
-
-- Notice: Black Friday Announcements
-
-=  3.2.8 – 14/11/2023  = 
-
-- Updated: readme.txt
-
-=  3.2.7 – 14/11/2023  = 
-
-- Fixed: Database addon export CSV access control vulnerability issue
-- Fixed: PDF generator file send issue
-- Fixed: Dynamic Text issue fixed with Current URL with parameters
-- Fixed: Multi-step settings save issue 
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.
 
