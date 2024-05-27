@@ -10,7 +10,7 @@
 
         var refreshButton = uacf7_spam_protection.find("#arithmathic_refresh");
         var validate = uacf7_spam_protection.find("#arithmathic_validate");
-
+        var resultDiv = uacf7_spam_protection.find("#arithmathic_result");
         var protection_method = $(uacf7_spam_protection).attr('protection-method');
 
 
@@ -47,6 +47,7 @@
             e.preventDefault();
             uacf7_spam_protection.find("#rtn").val('');
             uacf7_generate_ramdom_numbers();
+            resultDiv.text('');
 
         });
 
@@ -63,10 +64,10 @@
                 const isSpamProtectionProEnabled = uacf7_spam_protection_settings.enable_spam_protection_pro;
                 // Check if userInput is empty
                 if (typeof userInput !== 'undefined' && userInput.trim() === '') {
+                    refreshButton.trigger('click'); // Refresh CAPTCHA
                     // Field is empty, set warning message and prevent form submission
                     resultDiv.text("CAPTCHA field is required. Please enter the answer.").css("color", "#DC2626");
                     e.preventDefault(); // Prevent form submission
-                    refreshButton.trigger('click'); // Refresh CAPTCHA
                     return;
                 } else {
                     // If it's not empty, compare it with the expected value
