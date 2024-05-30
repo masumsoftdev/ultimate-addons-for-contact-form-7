@@ -99,9 +99,9 @@
 
         // Clean up existing click event handlers to avoid duplication for Global Export button
         const globalbackup = $('#uacf7_import_export').find('.tf-field-backup .tf-fieldset');
-        const GlobalButton = globalbackup.find('.tf-export-button');
-        globalbackup.off('click');
-        globalbackup.on('click', function (event) {
+        const globalButton = globalbackup.find('.tf-export-button');
+        globalButton.off('click');
+        globalButton.on('click', function (event) {
             event.preventDefault();
             var textarea = $('.tf-export-field');
 
