@@ -10,15 +10,105 @@ class UACF7_MAILCHIMP {
 
 	public function __construct() {
 		require_once ( 'inc/functions.php' );
-
 		add_action( "wpcf7_before_send_mail", array( $this, 'send_data' ) );
 		add_filter( 'uacf7_post_meta_options', array( $this, 'uacf7_post_meta_options_mailchimp' ), 17, 2 );
 		add_filter( 'uacf7_settings_options', array( $this, 'uacf7_settings_options_mailchimp' ), 17, 2 );
+		// add_action( 'admin_enqueue_scripts', array( $this, 'wp_enqueue_admin_script' ) );
+		// add_action( 'wp_ajax_uacf7_ajax_mailchimp', array( $this, 'uacf7_ajax_mailchimp' ) );
 		// add_filter( 'wpcf7_load_js', '__return_false' );
+
 
 		$this->get_api_key();
 
 		require_once ( 'inc/functions.php' );
+	}
+
+	/*
+	 * Enqueue script Backend
+	 */
+
+	public function wp_enqueue_admin_script() {
+		wp_enqueue_script( 'mailchimp_admin', UACF7_ADDONS . '/mailchimp/assets/js/mailchimp_admin.js', array( 'jquery' ), null, true );
+		wp_localize_script( 'mailchimp_admin', 'mailchimp_peram',
+			array(
+				'admin_url' => get_admin_url() . 'admin.php',
+				'ajaxurl' => admin_url( 'admin-ajax.php' ),
+				'plugin_dir_url' => plugin_dir_url( __FILE__ ),
+				'nonce' => wp_create_nonce( 'uacf7_mailchimp_admin_nonce' ),
+			)
+		);
+	}
+
+	public function uacf7_ajax_mailchimp() {
+		// Capability check
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( 'You do not have permission to perform this action.' );
+			wp_die(); // Terminate execution
+		}
+
+		// Verify nonce
+		if ( ! isset( $_POST['ajax_nonce'] ) || ! wp_verify_nonce( $_POST['ajax_nonce'], 'uacf7_mailchimp_admin_nonce' ) ) {
+			wp_send_json_error( esc_html__( "Security error", 'ultimate-addons-cf7' ) );
+			wp_die(); // Terminate execution
+		}
+
+		// Check if POST data is set and not empty
+		if ( empty( $_POST['inputKey'] ) ) {
+			wp_send_json_error( 'No API key provided.' );
+			wp_die(); // Terminate execution
+		}
+
+		$uacf7_mailchimp_api_key = sanitize_text_field( $_POST['inputKey'] );
+
+		if ( $uacf7_mailchimp_api_key ) {
+			$this->mailchimp_api = $uacf7_mailchimp_api_key;
+		}
+
+		// Assume mailchimp_connection() sets $this->connection_status
+		$this->mailchimp_connection();
+
+		$api_key = $this->mailchimp_api;
+		$status = '';
+		if ( $api_key != '' ) {
+
+			$response = $this->set_config( $api_key, 'ping' );
+			$response = json_decode( $response );
+
+			if ( $response !== null ) {
+				$status .= '<span class="status-title"><strong>' . esc_html__( 'Status: ', 'ultimate-addons-cf7' ) . '</strong>';
+
+				if ( $this->is_internet_connected() == false ) { //Checking internet connection
+					$status .= '<span class="status-error">' . esc_html__( 'Can\'t connect to the server. Please check internet connection.', 'ultimate-addons-cf7' ) . '</span>';
+				}
+
+				if ( isset( $response->health_status ) ) { //Display success message
+					$status .= '<span class="status-success">' . esc_html( $response->health_status ) . '</span>';
+				}
+
+				if ( isset( $response->title ) ) { //Display error title
+					$status .= '<span class="status-error">' . esc_html( $response->title ) . '</span>';
+				}
+
+				$status .= '</span>';
+
+				if ( isset( $response->detail ) ) { //Display error mdetails
+					$status .= '<span class="status-details status-error">' . esc_html( $response->detail ) . '</span>';
+				}
+			} else {
+				$status .= '<span class="status-error">' . esc_html( 'Not Connected! invalid API Key', 'ultimate-addons-cf7' ) . '</span>';
+			}
+
+		} else {
+			$status .= '<span class="status-error">' . esc_html( 'Empty! Please fill the API key', 'ultimate-addons-cf7' ) . '</span>';
+		}
+
+		// Send response back to the AJAX request
+		wp_send_json_success( array(
+			'status' => $status,
+			'res' => $response
+		) );
+
+		wp_die(); // Terminate execution
 	}
 
 	function uacf7_settings_options_mailchimp( $value ) {
@@ -48,7 +138,6 @@ class UACF7_MAILCHIMP {
 			if ( isset( $response['lists'] ) && $response != null ) {
 				foreach ( $response['lists'] as $list ) {
 					$audience[ $list['id'] ] = $list['name'];
-					// echo '<option value="' . $list['id'] . '" ' . selected($audience, $list['id']) . '>' . $list['name'] . '</option>'; 
 					$x++;
 				}
 			}
@@ -105,11 +194,18 @@ class UACF7_MAILCHIMP {
 						__( 'If the information was not displayed in the tags, please ensure that you save the form first.', 'ultimate-addons-cf7' ) )
 				),
 
+				'uacf7_mailchimp_api_status' => array(
+					'id' => 'uacf7_mailchimp_api_status',
+					'type' => 'callback',
+					'function' => 'uacf7_mailchimp_api_status_callback',
+					'argument' => $status,
+				),
+
 				'uacf7_mailchimp_form_type' => array(
 					'id' => 'uacf7_mailchimp_form_type',
 					'type' => 'radio',
 					'label' => __( 'Type of Form', 'ultimate-addons-cf7' ),
-					'field_width' => '50',
+					// 'field_width' => '50',
 					'options' => array(
 						'subscribe' => 'Subscription Form',
 						// 'unsubscribe' => 'Unsubscribe Form',
@@ -157,13 +253,6 @@ class UACF7_MAILCHIMP {
 					'options' => 'uacf7',
 					'field_width' => '25'
 				),
-				// 'uacf7_mailchimp_custom_field_heading' => array(
-				//   'id'        => 'uacf7_mailchimp_custom_field_heading',
-				//   'type'      => 'heading',
-				//   'label'     => __( ' Custom Fields ', 'ultimate-addons-cf7' ),
-
-				// ),
-
 				'uacf7_mailchimp_merge_fields' => array(
 					'id' => 'uacf7_mailchimp_merge_fields',
 					'type' => 'repeater',
@@ -191,16 +280,6 @@ class UACF7_MAILCHIMP {
 						),
 					),
 				),
-
-
-				'uacf7_mailchimp_api_status' => array(
-					'id' => 'uacf7_mailchimp_api_status',
-					'type' => 'callback',
-					'function' => 'uacf7_mailchimp_api_status_callback',
-					'argument' => $status,
-				),
-
-
 			),
 
 
@@ -209,10 +288,6 @@ class UACF7_MAILCHIMP {
 		$value['mailchimp'] = $mailchimp;
 		return $value;
 	}
-
-
-
-
 
 	/* Check Internet connection */
 	public static function is_internet_connected() {

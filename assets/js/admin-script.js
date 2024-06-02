@@ -112,7 +112,6 @@
             textarea.prop('disabled', true);
         });
 
-
     });
 
 })(jQuery);
@@ -181,17 +180,3 @@ function uacf7_progressbar_style() {
         jQuery('.step-title-description').hide();
     }
 }
-
-// ;(function ($) {
-//     'use strict';
-//     $ ( window ).ready(function() {
-//        $('.wpcf7-form').find('p').each( function(){
-//             var $this = $(this);
-//             console.log($this.html());
-//             var $html = $this.html();
-//             if($.trim($html) == '<br>'){
-//                 $this.remove();
-//             }
-//        })
-//     });
-// })(jQuery);
