@@ -13,8 +13,8 @@ class UACF7_MAILCHIMP {
 		add_action( "wpcf7_before_send_mail", array( $this, 'send_data' ) );
 		add_filter( 'uacf7_post_meta_options', array( $this, 'uacf7_post_meta_options_mailchimp' ), 17, 2 );
 		add_filter( 'uacf7_settings_options', array( $this, 'uacf7_settings_options_mailchimp' ), 17, 2 );
-		// add_action( 'admin_enqueue_scripts', array( $this, 'wp_enqueue_admin_script' ) );
-		// add_action( 'wp_ajax_uacf7_ajax_mailchimp', array( $this, 'uacf7_ajax_mailchimp' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'wp_enqueue_admin_script' ) );
+		add_action( 'wp_ajax_uacf7_ajax_mailchimp', array( $this, 'uacf7_ajax_mailchimp' ) );
 		// add_filter( 'wpcf7_load_js', '__return_false' );
 
 
@@ -61,13 +61,9 @@ class UACF7_MAILCHIMP {
 		$uacf7_mailchimp_api_key = sanitize_text_field( $_POST['inputKey'] );
 
 		if ( $uacf7_mailchimp_api_key ) {
-			$this->mailchimp_api = $uacf7_mailchimp_api_key;
+			$api_key = $uacf7_mailchimp_api_key;
 		}
 
-		// Assume mailchimp_connection() sets $this->connection_status
-		$this->mailchimp_connection();
-
-		$api_key = $this->mailchimp_api;
 		$status = '';
 		if ( $api_key != '' ) {
 
@@ -263,6 +259,7 @@ class UACF7_MAILCHIMP {
 						'mailtag' => array(
 							'id' => 'mailtag',
 							'label' => 'Contact Form Tag',
+							'subtitle' => 'Contact Form Tag to Mailchimp fields and *|MERGE|* tags',
 							'type' => 'select',
 							'field_width' => '50',
 							'query_args' => array(
@@ -274,9 +271,9 @@ class UACF7_MAILCHIMP {
 						'mergefield' => array(
 							'id' => 'mergefield',
 							'label' => 'Mailchimp Field',
+							'subtitle' => 'Audience fields and *|MERGE|* tags, Put those tag here',
 							'type' => 'text',
 							'field_width' => '50',
-
 						),
 					),
 				),

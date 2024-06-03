@@ -24,33 +24,6 @@
 
         }
 
-        //get UACF7_Mailchimp
-        function mailchimp_Api() {
-            if ($('#mailchimp').length > 0) {
-                var mailchimp_input = $('#mailchimp').find('.tf-field-text input');
-                var originalValue = mailchimp_input.val();
-
-                function maskValue(value) {
-                    if (value.length <= 10) {
-                        // If the string is 10 characters or less, show the entire string
-                        return value;
-                    }
-
-                    var firstFive = value.substring(0, 5);
-                    var lastFive = value.substring(value.length - 5);
-                    var middlePart = value.substring(5, value.length - 5).replace(/./g, '*');
-
-                    return firstFive + middlePart + lastFive;
-                }
-
-                var maskedValue = maskValue(originalValue);
-                // console.log(maskedValue);
-                // Optionally set the masked value back to the input
-                mailchimp_input.val(maskedValue);
-            }
-        }
-        mailchimp_Api();
-
         // Field: code_editor
         var TF = TF || {};
         TF.funcs = {};

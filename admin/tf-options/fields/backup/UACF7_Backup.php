@@ -22,7 +22,7 @@ if ( ! class_exists( 'UACF7_Backup' ) ) {
 			$placeholder = ( ! empty( $this->field['placeholder'] ) ) ? 'placeholder="' . $this->field['placeholder'] . '"' : '';
 			echo '<div class="tf-export-wrapper">';
 			echo '<div id="copyIndicator"></div>';
-			echo '<textarea cols="50" rows="15" class="tf-exp-imp-field tf-export-field"  data-option="' . esc_attr( $this->settings_id ) . '" name="tf_export_option" id="' . esc_attr( $this->field_name() ) . '"' . $placeholder . ' ' . $this->field_attributes() . 'disabled >' . $current_settings . '</textarea>';
+			echo '<textarea cols="50" rows="15" class="tf-exp-imp-field tf-export-field"  data-option="' . esc_attr( $this->settings_id ) . '" name="tf_export_option" id="export' . esc_attr( $this->field_name() ) . '"' . $placeholder . ' ' . $this->field_attributes() . 'disabled >' . $current_settings . '</textarea>';
 			echo '<a href="#" class="tf-export-button tf-admin-btn tf-btn-secondary">' . __( 'Copy', 'ultimate-addons-cf7' ) . '</a>';
 			echo '</div>';
 			echo '<hr>';
