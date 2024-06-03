@@ -649,10 +649,14 @@ class UACF7_MULTISTEP {
             ?>
             <style>
                 .steps-form .steps-row .steps-step p {
-                    color: <?php echo esc_attr($uacf7_multistep_progressbar_title_color); ?>;
+                    <?php if ( ! empty( $uacf7_multistep_progressbar_title_color ) ) { 
+                        echo 'color: ' . esc_attr( $uacf7_multistep_progressbar_title_color ) . ';';
+                    } ?>
                 }
                 .uacf7-steps  .uacf7-next, .uacf7-steps .uacf7-next{
-                    padding: <?php echo esc_attr($uacf7_multistep_button_padding_tb); ?> <?php echo esc_attr($uacf7_multistep_button_padding_lr); ?> ;
+                    <?php if ( ! empty( $uacf7_multistep_button_padding_tb ) ) { 
+                        echo 'padding: ' . esc_attr( $uacf7_multistep_button_padding_tb ) . esc_attr($uacf7_multistep_button_padding_lr) . ';';
+                    } ?>
                 } 
             </style>
             <?php endif; ?>
