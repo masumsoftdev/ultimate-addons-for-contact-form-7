@@ -187,7 +187,7 @@ class UACF7_MAILCHIMP {
 					'type' => 'notice',
 					'style' => 'success',
 					'content' => sprintf(
-						__( 'If the information was not displayed in the tags, please ensure that you save the form first.', 'ultimate-addons-cf7' ) )
+						__( 'Note: If you dont see the field names in the field selection, please save the form and try again.', 'ultimate-addons-cf7' ) )
 				),
 
 				'uacf7_mailchimp_api_status' => array(
