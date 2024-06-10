@@ -3,7 +3,7 @@
  * Plugin Name: Ultimate Addons for Contact Form 7
  * Plugin URI: https://cf7addons.com/
  * Description: 30+ Essential Addons for Contact Form 7 - Conditional Fields, Multi Step Forms, Redirection, Form Templates, Columns, WooCommerce, Mailchimp and more, all in one.
- * Version: 3.3.5
+ * Version: 3.3.11
  * Author: Themefic
  * Author URI: https://themefic.com/
  * License: GPL-2.0+
@@ -28,14 +28,14 @@ class Ultimate_Addons_CF7 {
 		define( 'UACF7_URL', plugin_dir_url( __FILE__ ) );
 		define( 'UACF7_ADDONS', UACF7_URL . 'addons' );
 		define( 'UACF7_PATH', plugin_dir_path( __FILE__ ) );
-		define( 'UACF7_VERSION', '3.3.5' ); 
+		define( 'UACF7_VERSION', '3.3.11' );
 
 		if ( ! class_exists( 'Appsero\Client' ) ) {
-			require_once( __DIR__ . '/inc/app/src/Client.php' );
+			require_once ( __DIR__ . '/inc/app/src/Client.php' );
 		}
 
 		//Plugin loaded
-		add_action( 'plugins_loaded', array( $this, 'uacf7_plugin_loaded' ), 10 );
+		add_action( 'plugins_loaded', array( $this, 'uacf7_plugin_loaded' ), 5 );
 
 		if ( defined( 'WPCF7_VERSION' ) && WPCF7_VERSION >= 5.7 ) {
 			add_filter( 'wpcf7_autop_or_not', '__return_false' );
@@ -43,7 +43,7 @@ class Ultimate_Addons_CF7 {
 
 		// Initialize the appsero
 		$this->appsero_init_tracker_ultimate_addons_for_contact_form_7();
-		 
+
 	}
 
 	/*
@@ -60,7 +60,7 @@ class Ultimate_Addons_CF7 {
 		add_action( 'wp_enqueue_scripts', array( $this, 'uacf7_frontend_scripts' ) );
 
 		//Require ultimate functions
-		require_once( 'inc/functions.php' );
+		require_once ( 'inc/functions.php' );
 
 
 		if ( class_exists( 'WPCF7' ) ) {
@@ -87,7 +87,10 @@ class Ultimate_Addons_CF7 {
 		<div class="notice notice-error">
 			<p>
 				<?php printf(
-					__( '%s requires %s to be installed and active. You can install and activate it from %s', 'ultimate-addons-cf7' ), '<strong>Ultimate Addons for Contact Form 7</strong>', '<strong>Contact form 7</strong>', '<a href="' . admin_url( 'plugin-install.php?tab=search&s=contact+form+7' ) . '">here</a>.'
+					__( '%s requires %s to be installed and active. You can install and activate it from %s', 'ultimate-addons-cf7' ),
+					'<strong>Ultimate Addons for Contact Form 7</strong>',
+					'<strong>Contact form 7</strong>',
+					'<a href="' . admin_url( 'plugin-install.php?tab=search&s=contact+form+7' ) . '">here</a>.'
 				); ?>
 			</p>
 		</div>
@@ -98,27 +101,30 @@ class Ultimate_Addons_CF7 {
 	 * Init ultimate addons
 	 */
 	public function uacf7_init() {
-
-
 		//Require admin menu
-		// require_once( 'admin/admin-menu.php' );
+		require_once ( 'admin/admin-menu.php' );
 
 		//Require ultimate addons
-		require_once( 'addons/addons.php' );
+		require_once ( 'addons/addons.php' );
 
 		//  Update UACF7 Plugin Version
 		if ( UACF7_VERSION != get_option( 'uacf7_version' ) ) {
 			update_option( 'uacf7_version', UACF7_VERSION );
 		}
 
-
-
-
 	}
 
 
-	//Enquene admin scripts
+	// Enqueue admin scripts
 	public function enqueue_admin_scripts() {
+
+		// Ensure is_plugin_active function is available
+		if ( ! function_exists( 'is_plugin_active' ) ) {
+			include_once ( ABSPATH . 'wp-admin/includes/plugin.php' );
+		}
+
+		// Check if the UACF7 pro plugin is active
+		$pro_active = is_plugin_active( 'ultimate-addons-for-contact-form-7-pro/ultimate-addons-for-contact-form-7-pro.php' );
 
 		wp_enqueue_style( 'uacf7-admin-style', UACF7_URL . 'assets/css/admin-style.css', 'sadf' );
 
@@ -127,26 +133,28 @@ class Ultimate_Addons_CF7 {
 		wp_enqueue_script( 'wp-color-picker' );
 		wp_enqueue_script( 'uacf7-admin-script', UACF7_URL . 'assets/js/admin-script.js', array( 'jquery' ), null, true );
 
-
-
 		wp_localize_script( 'uacf7-admin', 'uacf7_options', array(
 			'ajax_url' => admin_url( 'admin-ajax.php' ),
 			'nonce' => wp_create_nonce( 'uacf7_options_nonce' ),
 		) );
-		wp_localize_script( 'uacf7-admin', 'uacf7_admin_params',
+		wp_localize_script(
+			'uacf7-admin',
+			'uacf7_admin_params',
 			array(
 				'uacf7_nonce' => wp_create_nonce( 'updates' ),
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
+				'pro_active' => $pro_active
 			)
 		);
 		wp_enqueue_style( 'notyf', UACF7_URL . 'assets/app/libs/notyf/notyf.min.css', '', UACF7_VERSION );
 		wp_enqueue_script( 'notyf', UACF7_URL . 'assets/app/libs/notyf/notyf.min.js', array( 'jquery' ), UACF7_VERSION, true );
 	}
 
-    //Enquene admin scripts
-    public function uacf7_frontend_scripts(){ 
-        wp_enqueue_style( 'uacf7-frontend-style', UACF7_URL . 'assets/css/uacf7-frontend.css', '' ); 
-    }
+	// Enqueue admin scripts
+	public function uacf7_frontend_scripts() {
+		wp_enqueue_style( 'uacf7-frontend-style', UACF7_URL . 'assets/css/uacf7-frontend.css', '' );
+		wp_enqueue_style( 'uacf7-form-style', UACF7_URL . 'assets/css/form-style.css', '' );
+	}
 
 	/**
 	 * Initialize the plugin tracker
