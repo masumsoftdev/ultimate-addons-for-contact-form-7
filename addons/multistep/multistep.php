@@ -479,8 +479,10 @@ class UACF7_MULTISTEP {
                 // Call the scan_form_tags() method
                 $all_steps = $form_current->scan_form_tags(array('type'=>'uacf7_step_start'));
             } else {
-                // Handle case where scan_form_tags() method is not available
-                echo "Error: scan_form_tags() method not found.";
+                // Log an error if scan_form_tags() method is not available
+                if (defined('WP_DEBUG') && WP_DEBUG) {
+                    error_log('Error: scan_form_tags() method not found in the form class.');
+                }
             }
 
             $step_titles = array();
