@@ -113,7 +113,7 @@ class UACF7_SUBMISSION_ID {
 					'type' => 'notice',
 					'style' => 'success',
 					'content' => sprintf(
-						__( 'Note: You can use the Submission Shortcode to the mail subject line to see the ID number : <i>[uacf7_submission_id uacf7_submission_id-yourid] </i> <br><b>And if you want to use the manual option then be sure to turn off dynamic otherwise it will be duplicated</b>', 'ultimate-addons-cf7' )
+						__( 'Note: You can use the Submission Shortcode to the mail subject line to see the ID number : <i>[uacf7_submission_id-yourid]</i> <br><b>And if you want to use the manual option then be sure to turn off dynamic otherwise it will be duplicated</b>', 'ultimate-addons-cf7' )
 					)
 				),
 			),
