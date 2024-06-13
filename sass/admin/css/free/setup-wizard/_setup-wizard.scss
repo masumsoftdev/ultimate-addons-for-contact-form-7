@@ -6,6 +6,8 @@ $medium-screen: 1024px;
 $large-screen: 1200px;
 $x-large-screen: 1400px;
 
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
 //hide wp menu and admin bar
 body.admin_page_uacf7-setup-wizard {
     background-color: #fff;
@@ -70,7 +72,7 @@ body.admin_page_uacf7-setup-wizard {
 
 .uacf7-setup-widzard-btn {
     color: #fff;
-    font-family: Segoe UI;
+    font-family: "Inter", sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
@@ -163,7 +165,7 @@ body.admin_page_uacf7-setup-wizard {
                 padding: 12px;
                 color: var(--gray-700, #344054);
                 text-align: center;
-                font-family: Segoe UI;
+                font-family: "Inter", sans-serif;
                 font-size: 16px;
                 font-style: normal;
                 font-weight: 600;
@@ -232,7 +234,7 @@ body.admin_page_uacf7-setup-wizard {
                         p {
                             color: #636266;
                             text-align: center;
-                            font-family: Segoe UI;
+                            font-family: "Inter", sans-serif;
                             font-size: 16px;
                             font-style: normal;
                             font-weight: 400;
@@ -254,7 +256,7 @@ body.admin_page_uacf7-setup-wizard {
                                 padding: 12px 16px;
                                 border: none;
                                 color: #fff;
-                                font-family: Segoe UI;
+                                font-family: "Inter", sans-serif;
                                 font-size: 16px;
                                 font-style: normal;
                                 font-weight: 600;
@@ -423,7 +425,7 @@ body.admin_page_uacf7-setup-wizard {
                                 align-self: stretch;
                                 color: #06040c;
                                 text-align: center;
-                                font-family: Segoe UI;
+                                font-family: "Inter", sans-serif;
                                 font-size: 16px;
                                 font-style: normal;
                                 font-weight: 400;

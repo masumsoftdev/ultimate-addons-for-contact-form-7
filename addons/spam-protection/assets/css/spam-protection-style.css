@@ -19,6 +19,16 @@
     -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
+#arithmathic_refresh {
+  background-color: transparent;
+  padding: 0;
+}
+
+#arithmathic_refresh svg {
+  width: 18px;
+  height: 18px;
+}
+
 #userInput,
 #rtn {
   margin: 5px 0px;
@@ -35,6 +45,7 @@
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }

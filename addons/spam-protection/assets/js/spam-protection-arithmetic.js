@@ -40,9 +40,9 @@
 
         //Refresh button action
         refreshButton.click(function (e) {
-            $(this).find('i').addClass('spin-rotate');
+            $(this).find('svg').addClass('spin-rotate');
             setTimeout(() => {
-                $(this).find('i').removeClass('spin-rotate');
+                $(this).find('svg').removeClass('spin-rotate');
             }, 1000);
             e.preventDefault();
             uacf7_spam_protection.find("#rtn").val('');

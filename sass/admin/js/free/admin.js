@@ -169,7 +169,13 @@
 
         $(document).on('click', '.tf-field-pro', function (e) {
             e.preventDefault();
-            window.open('https://cf7addons.com/');
+            if (uacf7_admin_params.pro_active != 1) {
+                window.open('https://cf7addons.com/');
+            } else {
+                window.open('admin.php?page=uacf7_license_info');
+            }
+
+            console.log(uacf7_admin_params);
         });
 
         /**

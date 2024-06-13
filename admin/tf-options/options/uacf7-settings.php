@@ -469,7 +469,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 					'fields' => array(
 						'uacf7_mailchimp_api_key' => array(
 							'id' => 'uacf7_mailchimp_api_key',
-							'type' => 'text',
+							'type' => 'password',
 							'label' => __( 'Mailchimp API', 'ultimate-addons-cf7' ),
 							'subtitle' => sprintf(
 								__( 'Please enter your Mailchimp API key. If you are not sure how to get the API Key, follow this %1s.', 'ultimate-addons-cf7' ),
