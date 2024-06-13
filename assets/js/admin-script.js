@@ -99,9 +99,9 @@
 
         // Clean up existing click event handlers to avoid duplication for Global Export button
         const globalbackup = $('#uacf7_import_export').find('.tf-field-backup .tf-fieldset');
-        const GlobalButton = globalbackup.find('.tf-export-button');
-        globalbackup.off('click');
-        globalbackup.on('click', function (event) {
+        const globalButton = globalbackup.find('.tf-export-button');
+        globalButton.off('click');
+        globalButton.on('click', function (event) {
             event.preventDefault();
             var textarea = $('.tf-export-field');
 
@@ -111,7 +111,6 @@
             // Re-disable the textarea if necessary
             textarea.prop('disabled', true);
         });
-
 
     });
 
@@ -181,17 +180,3 @@ function uacf7_progressbar_style() {
         jQuery('.step-title-description').hide();
     }
 }
-
-// ;(function ($) {
-//     'use strict';
-//     $ ( window ).ready(function() {
-//        $('.wpcf7-form').find('p').each( function(){
-//             var $this = $(this);
-//             console.log($this.html());
-//             var $html = $this.html();
-//             if($.trim($html) == '<br>'){
-//                 $this.remove();
-//             }
-//        })
-//     });
-// })(jQuery);

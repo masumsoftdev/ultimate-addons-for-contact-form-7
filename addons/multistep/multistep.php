@@ -475,12 +475,19 @@ class UACF7_MULTISTEP {
             $form_current = WPCF7_ContactForm::get_instance($post_id);
                     
             // $all_steps = $form_current->scan_form_tags( array('type'=>'uacf7_step_start') );
-            if (method_exists($form_current, 'scan_form_tags')) {
-                // Call the scan_form_tags() method
-                $all_steps = $form_current->scan_form_tags(array('type'=>'uacf7_step_start'));
+            if (isset($form_current) && is_object($form_current)) {
+                if (method_exists($form_current, 'scan_form_tags')) {
+                    // Call the scan_form_tags() method
+                    $all_steps = $form_current->scan_form_tags(array('type' => 'uacf7_step_start'));
+                } else {
+                    // Handle case where scan_form_tags() method is not available
+                    error_log('Error: scan_form_tags() method not found in ' . get_class($form_current));
+                    echo "Error: scan_form_tags() method not found.";
+                }
             } else {
-                // Handle case where scan_form_tags() method is not available
-                echo "Error: scan_form_tags() method not found.";
+                // Handle case where $form_current is not defined or not an object
+                error_log('Error: $form_current is not defined or is not an object.');
+                echo "Error: Form object not found.";
             }
 
             $step_titles = array();
@@ -649,10 +656,14 @@ class UACF7_MULTISTEP {
             ?>
             <style>
                 .steps-form .steps-row .steps-step p {
-                    color: <?php echo esc_attr($uacf7_multistep_progressbar_title_color); ?>;
+                    <?php if ( ! empty( $uacf7_multistep_progressbar_title_color ) ) { 
+                        echo 'color: ' . esc_attr( $uacf7_multistep_progressbar_title_color ) . ';';
+                    } ?>
                 }
                 .uacf7-steps  .uacf7-next, .uacf7-steps .uacf7-next{
-                    padding: <?php echo esc_attr($uacf7_multistep_button_padding_tb); ?> <?php echo esc_attr($uacf7_multistep_button_padding_lr); ?> ;
+                    <?php if ( ! empty( $uacf7_multistep_button_padding_tb ) ) { 
+                        echo 'padding: ' . esc_attr( $uacf7_multistep_button_padding_tb ) . esc_attr($uacf7_multistep_button_padding_lr) . ';';
+                    } ?>
                 } 
             </style>
             <?php endif; ?>

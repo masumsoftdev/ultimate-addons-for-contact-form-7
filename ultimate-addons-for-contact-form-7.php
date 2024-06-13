@@ -118,6 +118,14 @@ class Ultimate_Addons_CF7 {
 	// Enqueue admin scripts
 	public function enqueue_admin_scripts() {
 
+		// Ensure is_plugin_active function is available
+		if ( ! function_exists( 'is_plugin_active' ) ) {
+			include_once ( ABSPATH . 'wp-admin/includes/plugin.php' );
+		}
+
+		// Check if the UACF7 pro plugin is active
+		$pro_active = is_plugin_active( 'ultimate-addons-for-contact-form-7-pro/ultimate-addons-for-contact-form-7-pro.php' );
+
 		wp_enqueue_style( 'uacf7-admin-style', UACF7_URL . 'assets/css/admin-style.css', 'sadf' );
 
 		// // wp_enqueue_media();
@@ -135,6 +143,7 @@ class Ultimate_Addons_CF7 {
 			array(
 				'uacf7_nonce' => wp_create_nonce( 'updates' ),
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
+				'pro_active' => $pro_active
 			)
 		);
 		wp_enqueue_style( 'notyf', UACF7_URL . 'assets/app/libs/notyf/notyf.min.css', '', UACF7_VERSION );
