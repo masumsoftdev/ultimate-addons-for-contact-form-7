@@ -394,14 +394,14 @@ if ( ! function_exists( 'uacf7_review_notice' ) ) {
 								class="dashicons dashicons-dismiss"></span><?php _e( 'Never show again', 'ultimate-addons-cf7' ) ?>
 						</a></li>
 				</ul>
-				<button type="button" class="notice-dismiss review_notice_dismiss"><span
+				<button type="button" class="notice-dismiss review_notice_dismiss" data-status="never"><span
 						class="screen-reader-text"><?php _e( 'Dismiss this notice.', 'ultimate-addons-cf7' ) ?></span></button>
 			</div>
 
 			<!--   Themefic Plugin Review Admin Notice Script -->
 			<script>
 				jQuery(document).ready(function ($) {
-					$(document).on('click', '.already_done, .later, .never', function (event) {
+					$(document).on('click', '.already_done, .later, .never, .notice-dismiss', function (event) {
 						event.preventDefault();
 						var $this = $(this);
 						var status = $this.attr('data-status');
