@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * Template for the Form Generator AI Form.
@@ -10,11 +10,11 @@ defined( 'ABSPATH' ) || exit;
  * @Author:  Sydur Rahman, M Hemel Hasan
  */
 
-switch ( $uacf7_default[1] ) {
-	// Start Form from MHemelHasan
-	case 'basis-contact-form':
-		$form =
-			'[uacf7-default-wrapper]
+switch ($uacf7_default[1]) {
+    // Start Form from MHemelHasan
+    case 'basis-contact-form':
+        $form =
+            '[uacf7-default-wrapper]
     [uacf7-row]
         [uacf7-col col:6]
             <label> First Name *
@@ -31,10 +31,10 @@ switch ( $uacf7_default[1] ) {
         [textarea* your-message placeholder "Your Message"] </label>
     [submit "Submit Form"]
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case 'newslettertow':
-		$form = '[uacf7-default-wrapper]
+    case 'newslettertow':
+        $form = '[uacf7-default-wrapper]
     <h3 style="text-align: center;">Subscribe to our newsletter</h3>
     <p style="text-align: center;">Welcome to our Newsletter Subscription Center. Sign up in the newsletter form below to receive the latest news and updates from our company.</p>
     <hr>
@@ -52,10 +52,10 @@ switch ( $uacf7_default[1] ) {
         [submit "Subscribe"]
     </div>
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case 'blog-newsletter':
-		$form = '[uacf7-default-wrapper]
+    case 'blog-newsletter':
+        $form = '[uacf7-default-wrapper]
     [uacf7-row]
         [uacf7-col col:6]
             <span>
@@ -68,10 +68,10 @@ switch ( $uacf7_default[1] ) {
         [/uacf7-col]
     [/uacf7-row]
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case 'support-form':
-		$form = '[uacf7-default-wrapper]
+    case 'support-form':
+        $form = '[uacf7-default-wrapper]
     [uacf7-row]
         [uacf7-col col:6]
             <label> First Name *
@@ -92,10 +92,10 @@ switch ( $uacf7_default[1] ) {
         [submit "Subscribe"]
     </div>
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case 'polling':
-		$form = '[uacf7-default-wrapper]
+    case 'polling':
+        $form = '[uacf7-default-wrapper]
     <label> Full Name *
         [text* full-name autocomplete:name placeholder "Full Name"] </label>
     <label> Email *
@@ -110,10 +110,10 @@ switch ( $uacf7_default[1] ) {
         [submit "Submit Your opinion"]
     </div>
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case 'survey-form':
-		$form = '[uacf7-default-wrapper]
+    case 'survey-form':
+        $form = '[uacf7-default-wrapper]
     <h3>Client Satisfaction Survey</h3>
     <hr>
     <br>
@@ -131,10 +131,10 @@ switch ( $uacf7_default[1] ) {
         [submit "Submit Form"]
     </div>
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case 'complaint-form':
-		$form = '[uacf7-default-wrapper]
+    case 'complaint-form':
+        $form = '[uacf7-default-wrapper]
     <h3>Customer Information</h3>
     <hr>
     <br>
@@ -208,10 +208,10 @@ switch ( $uacf7_default[1] ) {
         [submit "Submit Form"]
     </div>
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case 'service-order':
-		$form = '[uacf7-default-wrapper]
+    case 'service-order':
+        $form = '[uacf7-default-wrapper]
     [uacf7-row]
         [uacf7-col col:6]
             <label> First Name *
@@ -239,10 +239,10 @@ switch ( $uacf7_default[1] ) {
         [submit "Submit Order Form"]
     </div>
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case 'proposal':
-		$form = '[uacf7-default-wrapper]
+    case 'proposal':
+        $form = '[uacf7-default-wrapper]
     [uacf7-row]
         [uacf7-col col:6]
             <label> First Name *
@@ -281,10 +281,10 @@ switch ( $uacf7_default[1] ) {
         [submit "Submit Order Form"]
     </div>
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case 'volunteer-sign-up-form':
-		$form = '[uacf7-default-wrapper]
+    case 'volunteer-sign-up-form':
+        $form = '[uacf7-default-wrapper]
     <h3 style="text-align: center;">Volunteer Sign Up</h3>
     <p style="text-align: center;">Come with us and help out your local community!</p>
     <br>
@@ -325,10 +325,10 @@ switch ( $uacf7_default[1] ) {
         [submit "Submit Form"]
     </div>
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case 'donation-form':
-		$form = '[uacf7-default-wrapper]
+    case 'donation-form':
+        $form = '[uacf7-default-wrapper]
     <p style="text-align: center;"><strong>Fill up this form to add to our doner list. </strong></p>
     <hr>
     <br>
@@ -395,12 +395,12 @@ switch ( $uacf7_default[1] ) {
         [submit "Submit Form"]
     </div>
 [/uacf7-default-wrapper]';
-		break;
-	// End Form from -MHemelHasan
+        break;
+    // End Form from -MHemelHasan
 
-	// Start Form from -Masum Billah
-	case "blood-donation":
-		$form = '[uacf7-default-wrapper]
+    // Start Form from -Masum Billah
+    case "blood-donation":
+        $form = '[uacf7-default-wrapper]
     <h3 style="text-align: center;">Blood Donation Form</h3>
     <p style="text-align: center;">Donate blood save life!</p>
     <br>
@@ -460,10 +460,10 @@ switch ( $uacf7_default[1] ) {
         [submit "Submit Form"]
     </div>
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case "charity-dinner":
-		$form = '[uacf7-default-wrapper]
+    case "charity-dinner":
+        $form = '[uacf7-default-wrapper]
     <h2 style="text-align: center; color:#115e99;">Charity Dinner</h2>
     <p style="text-align: center; color: #115e99;">Charity dinner for refugee children!</p>
     <br>
@@ -511,10 +511,10 @@ switch ( $uacf7_default[1] ) {
         </div>
     </div>
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case 'volunteer-application':
-		$form = '[uacf7-default-wrapper]
+    case 'volunteer-application':
+        $form = '[uacf7-default-wrapper]
     [uacf7-row]
         [uacf7-col col:6]
             <label> First Name *
@@ -579,10 +579,10 @@ switch ( $uacf7_default[1] ) {
         [submit "Submit Form"]
     </div>
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case "graphic-designer-contact-form":
-		$form = '[uacf7-default-wrapper]
+    case "graphic-designer-contact-form":
+        $form = '[uacf7-default-wrapper]
     [uacf7-row]
         [uacf7-col col:6]
             <label> First Name *
@@ -620,10 +620,10 @@ switch ( $uacf7_default[1] ) {
         [submit "Submit Form"]
     </div>
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case "hardware-request-form":
-		$form = '[uacf7-default-wrapper]
+    case "hardware-request-form":
+        $form = '[uacf7-default-wrapper]
     <h3 style="text-align: center"> Hardware Request Form </h3>
     <p style="text-align: center"> This form will be used to request if any new hardware is needed in any department.</p>
     [uacf7-row]
@@ -669,10 +669,10 @@ switch ( $uacf7_default[1] ) {
         [submit "Submit Form"]
     </div>
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case "it-service-req":
-		$form = '[uacf7-default-wrapper]
+    case "it-service-req":
+        $form = '[uacf7-default-wrapper]
     <p style="text-align: center; font-weight: bold;">Please fill out this form, and an IT service team member will be in touch with you shortly.</p>
     [uacf7-row]
         [uacf7-col col:6]
@@ -707,10 +707,10 @@ switch ( $uacf7_default[1] ) {
         [submit "Submit Request"]
     </div>
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case "request-for-quote":
-		$form = '[uacf7-default-wrapper]
+    case "request-for-quote":
+        $form = '[uacf7-default-wrapper]
     [uacf7-row]
         [uacf7-col col:6]
             <label> First Name *
@@ -744,10 +744,10 @@ switch ( $uacf7_default[1] ) {
         [submit "Submit Request"]
     </div>
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case "report-a-bug":
-		$form = '[uacf7-default-wrapper]
+    case "report-a-bug":
+        $form = '[uacf7-default-wrapper]
     <h3 style="text-align:center;">Report a Bug</h3>
     [uacf7-row]
         [uacf7-col col:6]
@@ -806,10 +806,10 @@ switch ( $uacf7_default[1] ) {
         [submit "Submit Bug Report"]
     </div>
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case "check-request":
-		$form = '[uacf7-default-wrapper]
+    case "check-request":
+        $form = '[uacf7-default-wrapper]
     <h2 style="text-align:center;">Check Request</h2>
     <p style="text-align:center;">If you are in need of funds, please fill out the following check request. We will reach out to you once the request has been approved. If this is an emergency, please contact the financial department directly.</p>
     <h3>Requested By :</h3>
@@ -895,12 +895,12 @@ switch ( $uacf7_default[1] ) {
         [submit "Submit Bug Report"]
     </div>
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
 
 
-	case "multistep":
-		$form = '[uacf7-default-wrapper]
+    case "multistep":
+        $form = '[uacf7-default-wrapper]
     [uacf7_step_start uacf7_step_start-901 "Step One"]
         <label> Your name
             [text* your-name] </label> 
@@ -919,10 +919,10 @@ switch ( $uacf7_default[1] ) {
         [submit "Submit"]
     [uacf7_step_end]
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case "conditional":
-		$form = '[uacf7-default-wrapper]
+    case "conditional":
+        $form = '[uacf7-default-wrapper]
         <h4>Condition for Field Type: <strong>Text</strong></h4>
 Write name <strong>"John Doe"</strong> or <strong>"Abul Mia"</strong> to test it out 
     <label> Your Name </label> 
@@ -978,10 +978,10 @@ Write name <strong>"John Doe"</strong> or <strong>"Abul Mia"</strong> to test it
     [email* your-email-two] </label> 
     [submit "Submit"]
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case "subscription":
-		$form = '[uacf7-default-wrapper]
+    case "subscription":
+        $form = '[uacf7-default-wrapper]
     <label> First Name:
         [text* first-name placeholder "John"] </label> 
     <label> Last Name:
@@ -998,15 +998,15 @@ Write name <strong>"John Doe"</strong> or <strong>"Abul Mia"</strong> to test it
         [acceptance acceptance-terms] I accept the terms and conditions. [/acceptance] </label> 
     [submit "Subscribe Now"]
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case "blog":
-		$form = apply_filters( 'uacf7_post_submission_form_ai_generator', esc_html( 'To generate this form, please download “Ultimate Post Submission Addon” from our client portal and activate' ), $uacf7_default );
+    case "blog":
+        $form = apply_filters('uacf7_post_submission_form_ai_generator', esc_html('To generate this form, please download “Ultimate Post Submission Addon” from our client portal and activate', 'ultimate-addons-cf7'), $uacf7_default);
 
-		break;
+        break;
 
-	case "feedback":
-		$form = '[uacf7-default-wrapper]
+    case "feedback":
+        $form = '[uacf7-default-wrapper]
     <label> Your Name
         [text* your-name]  </label> 
     <label> Your Email
@@ -1017,10 +1017,10 @@ Write name <strong>"John Doe"</strong> or <strong>"Abul Mia"</strong> to test it
         [textarea* your-feedback]  </label> 
     [submit "Submit Feedback"]
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case "application":
-		$form = '[uacf7-default-wrapper]
+    case "application":
+        $form = '[uacf7-default-wrapper]
     <label> Full Name
         [text* full-name]  </label> 
     <label> Email Address
@@ -1035,10 +1035,10 @@ Write name <strong>"John Doe"</strong> or <strong>"Abul Mia"</strong> to test it
         [file resume-file filetypes:pdf|doc|docx limit:2mb] </label> 
     [submit "Submit Application"]
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case "inquiry":
-		$form = '[uacf7-default-wrapper]
+    case "inquiry":
+        $form = '[uacf7-default-wrapper]
     <label> Your Name (required)
         [text* your-name]  </label> 
     <label> Your Email (required)
@@ -1049,10 +1049,10 @@ Write name <strong>"John Doe"</strong> or <strong>"Abul Mia"</strong> to test it
         [textarea your-inquiry]  </label> 
     [submit "Send Inquiry"]
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case "survey":
-		$form = '[uacf7-default-wrapper]
+    case "survey":
+        $form = '[uacf7-default-wrapper]
     <label> Your Name (required)
         [text* your-name]  </label> 
     <label> Your Email (required)
@@ -1067,10 +1067,10 @@ Write name <strong>"John Doe"</strong> or <strong>"Abul Mia"</strong> to test it
         [textarea suggestions]  </label> 
     [submit "Submit Survey"]
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case "address":
-		$form = '[uacf7-default-wrapper]
+    case "address":
+        $form = '[uacf7-default-wrapper]
     <label> First Name
         [text* first-name placeholder "John"] </label> 
     <label> Last Name
@@ -1091,10 +1091,10 @@ Write name <strong>"John Doe"</strong> or <strong>"Abul Mia"</strong> to test it
         [email* email-address placeholder "john.doe@example.com"] </label> 
     [submit "Submit"]
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case "event":
-		$form = '[uacf7-default-wrapper]
+    case "event":
+        $form = '[uacf7-default-wrapper]
     <label> Full Name
         [text* full-name placeholder "John Doe"] </label> 
     <label> Email Address
@@ -1113,20 +1113,20 @@ Write name <strong>"John Doe"</strong> or <strong>"Abul Mia"</strong> to test it
         [select event-selection "Workshop A" "Workshop B" "Seminar X" "Seminar Y"] </label> 
     [submit "Register"]
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case "newsletter":
-		$form = '[uacf7-default-wrapper]
+    case "newsletter":
+        $form = '[uacf7-default-wrapper]
     <label> Full Name
         [text* full-name placeholder "John Doe"] </label> 
     <label> Email Address
         [email* email-address placeholder "john.doe@example.com"]</label> 
     [submit "Subscribe"]
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case "donation":
-		$form = '[uacf7-default-wrapper]
+    case "donation":
+        $form = '[uacf7-default-wrapper]
 <label> Full Name
     [text* full-name placeholder "Jane Smith"] </label> 
 <label> Email Address
@@ -1141,10 +1141,10 @@ Write name <strong>"John Doe"</strong> or <strong>"Abul Mia"</strong> to test it
     [textarea message placeholder "Your message or dedication..."] </label> 
 [submit "Donate Now"]
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
-	case "product-review":
-		$form = '[uacf7-default-wrapper]
+    case "product-review":
+        $form = '[uacf7-default-wrapper]
     <label> Your Name
         [text* your-name placeholder "Jane Smith"] </label> 
     <label> Your Email
@@ -1165,16 +1165,16 @@ Write name <strong>"John Doe"</strong> or <strong>"Abul Mia"</strong> to test it
         [checkbox purchase-again "Yes"] </label> 
     [submit "Submit Your Review"]
 [/uacf7-default-wrapper]';
-		break;
-	case "service-booking":
-	case "appointment-form":
-	case "booking":
-		$form = apply_filters( 'uacf7_booking_form_ai_generator', esc_html( 'To generate this form, please download “Ultimate booking Addon” from our client portal and activate' ), $uacf7_default );
+        break;
+    case "service-booking":
+    case "appointment-form":
+    case "booking":
+        $form = apply_filters('uacf7_booking_form_ai_generator', esc_html('To generate this form, please download “Ultimate booking Addon” from our client portal and activate', 'ultimate-addons-cf7'), $uacf7_default);
 
-		break;
+        break;
 
-	case "rating":
-		$form = '[uacf7-default-wrapper]
+    case "rating":
+        $form = '[uacf7-default-wrapper]
     <label> Name
         [text* name placeholder "John Doe"] </label> 
     <label> Email Address
@@ -1185,24 +1185,24 @@ Write name <strong>"John Doe"</strong> or <strong>"Abul Mia"</strong> to test it
         [textarea feedback placeholder "Please share your feedback"] </label> 
     [submit "Submit Rating"]
 [/uacf7-default-wrapper]';
-		break;
+        break;
 
 
-	case "repeater":
-		$form = apply_filters( 'uacf7_repeater_form_ai_generator', esc_html( 'To generate this form, please download “Ultimate Repeater Addon” from our client portal and activate  ultimate repeater Addon first' ), $uacf7_default );
+    case "repeater":
+        $form = apply_filters('uacf7_repeater_form_ai_generator', esc_html('To generate this form, please download “Ultimate Repeater Addon” from our client portal and activate  ultimate repeater Addon first', 'ultimate-addons-cf7'), $uacf7_default);
 
-		break;
+        break;
 
-	case "conversational-appointment-form":
-	case "conversational-interview-form":
-		$form = apply_filters( 'uacf7_conversational_form_ai_generator', esc_html( 'To generate this form, please download “ultimate Conversational Form Addon” from our client portal and activate ultimate repeater Addon first' ), $uacf7_default );
+    case "conversational-appointment-form":
+    case "conversational-interview-form":
+        $form = apply_filters('uacf7_conversational_form_ai_generator', esc_html('To generate this form, please download “ultimate Conversational Form Addon” from our client portal and activate ultimate repeater Addon first', 'ultimate-addons-cf7'), $uacf7_default);
 
-		break;
+        break;
 
 
-	default:
-		$form = "Sorry, we couldn't find a matching form for the keyword " . $uacf7_default[1] . ". Please try another keyword or consult the Form Generator AI for assistance.";
-		break;
+    default:
+        $form = "Sorry, we couldn't find a matching form for the keyword " . $uacf7_default[1] . ". Please try another keyword or consult the Form Generator AI for assistance.";
+        break;
 }
 
 ob_clean();
