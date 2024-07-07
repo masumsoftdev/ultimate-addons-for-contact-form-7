@@ -405,8 +405,9 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 = 3.3.15 07/07/2024 =
 
 - Improvement: System stability
-- Minor bug fixes and improvements
-- Fixed: escaping and text-domain issue
+- Minor Bug fixes and improvements
+- Fixed: Escaping and text-domain issue
+- Fixed: Notice close issue
 
 = 3.3.14 – 24/06/2024 =
 
