@@ -416,7 +416,6 @@ if ( ! function_exists( 'uacf7_review_notice' ) ) {
 							type: 'post',
 							data: data,
 							success: function (data) {
-								;
 							},
 							error: function (data) {
 							}
