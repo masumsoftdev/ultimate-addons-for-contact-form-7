@@ -192,7 +192,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						),
 						'uacf7_enable_database_field' => array(
 							'id' => 'uacf7_enable_database_field',
-							// 'child_field' => 'uacf7_enable_database_pro',
+							'child_field' => 'uacf7_enable_database_pro',
 							'type' => 'switch',
 							'label' => __( 'Database ', 'ultimate-addons-cf7' ),
 							'image_url' => UACF7_URL . 'assets/admin/images/addons/Save-to-Database.png',
