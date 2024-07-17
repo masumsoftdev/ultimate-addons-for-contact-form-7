@@ -2,9 +2,9 @@
 Contributors: themefic, hasanet, hemelhasan, mdrejon, raihan143
 Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 3.3.15
+Stable tag: 3.3.16
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -402,7 +402,12 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 
 == Changelog ==
 
-= 3.3.15 07/07/2024 =
+= 3.3.16 - 17/07/2024 =
+
+- Compatible with WordPress 6.6
+- System stability improved
+
+= 3.3.15 - 07/07/2024 =
 
 - Improvement: System stability
 - Minor Bug fixes and improvements
