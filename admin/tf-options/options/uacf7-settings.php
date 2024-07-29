@@ -192,7 +192,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 						),
 						'uacf7_enable_database_field' => array(
 							'id' => 'uacf7_enable_database_field',
-							// 'child_field' => 'uacf7_enable_database_pro',
+							'child_field' => 'uacf7_enable_database_pro',
 							'type' => 'switch',
 							'label' => __( 'Database ', 'ultimate-addons-cf7' ),
 							'image_url' => UACF7_URL . 'assets/admin/images/addons/Save-to-Database.png',
@@ -201,6 +201,20 @@ UACF7_Settings::option( 'uacf7_settings', array(
 							'demo_link' => 'https://cf7addons.com/preview/contact-form-7-database/',
 							'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-database/',
 						),
+						// Added by M Hemel Hasan
+						'uacf7_enable_database_pro' => array(
+							'id' => 'uacf7_enable_database_pro',
+							'child_field' => 'uacf7_enable_database_field',
+							'type' => 'switch',
+							'label' => __( 'Database Pro', 'ultimate-addons-cf7' ),
+							'image_url' => UACF7_URL . 'assets/admin/images/addons/Save-to-Database.png',
+							'default' => false,
+							'subtitle' => __( 'The Database Pro addon helps store form data, view data in the admin backend, and export data in CSV format. ', 'ultimate-addons-cf7' ),
+							'demo_link' => 'https://cf7addons.com/preview/best-contact-form-7-database-addon/',
+							'documentation_link' => 'https://themefic.com/docs/uacf7/pro-addons/database-pro/',
+							'is_pro' => true,
+						),
+
 						'uacf7_enable_pdf_generator_field' => array(
 							'id' => 'uacf7_enable_pdf_generator_field',
 							'type' => 'switch',

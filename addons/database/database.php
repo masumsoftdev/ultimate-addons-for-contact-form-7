@@ -48,10 +48,10 @@ class UACF7_DATABASE
 	 * Enqueue script Backend
 	 */
 
-	public function wp_enqueue_admin_script()
-	{
-		wp_enqueue_style('database-admin-style', UACF7_ADDONS . '/database/assets/css/database-admin.css');
-		wp_enqueue_script('database-admin', UACF7_ADDONS . '/database/assets/js/database-admin.js', array('jquery'), null, true);
+
+	public function wp_enqueue_admin_script() {
+		wp_enqueue_style( 'database-admin-style', UACF7_ADDONS . '/database/assets/css/database-admin.css' );
+		wp_enqueue_script( 'database-admin', UACF7_ADDONS . '/database/assets/js/database-admin.js', array( 'jquery' ), null, true );
 		wp_localize_script(
 			'database-admin',
 			'database_admin_url',
@@ -77,7 +77,7 @@ class UACF7_DATABASE
 			__('Database', 'ultimate-addons-cf7'),
 			'manage_options',
 			'ultimate-addons-db',
-			array($this, 'uacf7_create_database_page'),
+			apply_filters( 'uacf7_database_admin_page', array( $this, 'uacf7_create_database_page' ) ),
 		);
 	}
 
@@ -236,9 +236,18 @@ class UACF7_DATABASE
 	/*
 	 * Ultimate form save into the database
 	 */
-	public function uacf7_save_to_database($form)
-	{
-		require_once (ABSPATH . 'wp-admin/includes/file.php');
+	public function uacf7_save_to_database( $form ) {
+		require_once ( ABSPATH . 'wp-admin/includes/file.php' );
+
+		if ( ! is_plugin_active( 'ultimate-addons-for-contact-form-7-pro/ultimate-addons-for-contact-form-7-pro.php' ) ) {
+			if ( defined( 'UACF7_PRO_PATH_ADDONS' ) ) {
+				require_once ( UACF7_PRO_PATH_ADDONS . '/database-pro/functions.php' );
+			} else {
+				// Handle the case when the pro plugin is not active and the constant is not defined
+				// You can add an error log, a fallback, or any other necessary action here
+				error_log( 'UACF7_PRO_PATH_ADDONS is not defined. Pro plugin might not be installed or active.' );
+			}
+		}
 		global $wpdb;
 		$encryptionKey = 'AES-256-CBC';
 		$table_name = $wpdb->prefix . 'uacf7_form';
@@ -328,13 +337,25 @@ class UACF7_DATABASE
 			}
 		}
 
-		$insert_data = json_encode($insert_data);
+		// Initialize the variable to avoid warnings
+		$extra_fields_data = [];
 
-		$wpdb->insert($table_name, array(
-			'form_id' => $form->id(),
-			'form_value' => $insert_data,
-			'form_date' => current_time('Y-m-d H:i:s'),
-		)
+		// Now, attempt to call the function if it exists
+		if ( function_exists( 'uacf7dp_add_more_fields' ) ) {
+			$extra_fields_data = uacf7dp_add_more_fields( $submission );
+		}
+
+		apply_filters( 'uacf7dp_send_form_data_before_insert', $insert_data, $extra_fields_data );
+
+		$insert_data = json_encode( $insert_data );
+
+		$wpdb->insert(
+			$table_name,
+			array(
+				'form_id' => $form->id(),
+				'form_value' => $insert_data,
+				'form_date' => current_time( 'Y-m-d H:i:s' ),
+			)
 		);
 
 		$uacf7_db_insert_id = $wpdb->insert_id;
