@@ -1,7 +1,10 @@
 (function ($) {
     $(function () {
         // Add Color Picker to all inputs that have 'color-field' class
-        $('.uacf7-color-picker').wpColorPicker();
+        // $('.uacf7-color-picker').wpColorPicker();
+        if (typeof $.fn.wpColorPicker !== 'undefined') {
+            $('.uacf7-color-picker').wpColorPicker();
+        }
     });
 
     $(document).ready(function () {
