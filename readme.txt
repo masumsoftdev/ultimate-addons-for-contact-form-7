@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 3.3.16
+Stable tag: 3.4.0
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -66,6 +66,7 @@ Equipped with over 30 essential features, **Ultimate Addons For Contact Form 7**
 * WooCommerce Checkout
 * WooCommerce Product Dropdown Pro
 * Spam Protection (Pro)
+* Database Pro (Pro)
 
 ### How It works:
 
@@ -266,6 +267,10 @@ Display your products in an impressive [WooCommerce Grid View](https://cf7addons
 
 Our [Spam Protection Pro for Contact Form 7](https://cf7addons.com/preview/spam-protection-pro/) addon will help you to protect your website from spam by frequent form submission by adding a time limit, and more features coming soon.
 
+= Contact Form 7 Database Pro =
+
+Our [Contact Form 7 Database Pro](https://cf7addons.com/preview/best-contact-form-7-database-addon/) addon offers an advanced solution for managing and organizing form inquiries more efficiently.
+
 **More Pro addons are in development and will be available soon.**
 
 ### Join our Community to stay updated
@@ -402,6 +407,13 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 
 == Changelog ==
 
+= 3.4.0 - 29/07/2024 =
+
+- Introduced: Database Pro Addon( Pro )
+- Fixed: Issues with double slashes "//".
+- Fixed: Addon page reload issue.
+- Fixed: Color picker issue.
+
 = 3.3.16 - 17/07/2024 =
 
 - Compatible with WordPress 6.6
@@ -517,40 +529,6 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 - Improvement: Quick setup introduced
 - Improvement: System stability Improved
 - Improvement: All the individual pro addons merged with UACF7 Pro
-
-= 3.2.19 – 24/01/2024 =
-
-- Updated: readme.txt
-- Updated: backup notice for v3.3.0
-
-= 3.2.18 – 22/01/2024 =
-
-- Update Notice: Discover the latest features and improvements that are going to be released in version 3.3.0
-
-= 3.2.17 – 13/01/2024 =
-
-- Update Notice: We are preparing to release version 3.3.0 soon, featuring a new options panel and several enhancements. As a precautionary measure, we recommend taking a backup before proceeding with the update. 
-
-= 3.2.16 – 02/01/2024 =
-
-- Fixed: Multiple Signature on the same page
-- Improvement: Take out the signature confirm button
-
-= 3.2.15 – 15/12/2023 =
-
-- Fixed: PHP Error Fixing
-- Fixed: Minor Bugs
-
-= 3.2.14 – 10/12/2023 =
-
-- Updated: readme.txt
-- Fixed: Minor Bugs
-
-= 3.2.13 – 09/12/2023 =
-
-- Fixed: PHP 8.0 Compatibility issue
-- Fixed: Multistep progress bar validation issue
-- Updated: Extended Notice( Black Friday )
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.
 
