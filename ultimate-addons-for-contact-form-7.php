@@ -3,7 +3,7 @@
  * Plugin Name: Ultimate Addons for Contact Form 7
  * Plugin URI: https://cf7addons.com/
  * Description: 30+ Essential Addons for Contact Form 7 - Conditional Fields, Multi Step Forms, Redirection, Form Templates, Columns, WooCommerce, Mailchimp and more, all in one.
- * Version: 3.3.16
+ * Version: 3.4.0
  * Author: Themefic
  * Author URI: https://themefic.com/
  * License: GPL-2.0+
@@ -25,7 +25,6 @@ class Ultimate_Addons_CF7
 	/*
 	 * Construct function
 	 */
-
 	public function __construct()
 	{
 		define('UACF7_URL', plugin_dir_url(__FILE__));
