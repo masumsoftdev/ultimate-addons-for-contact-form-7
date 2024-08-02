@@ -407,7 +407,7 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 
 == Changelog ==
 
-= 3.4.1 - 01/08/2024 =
+= 3.4.1 - 02/08/2024 =
 
 - Compatible with Tourfic
 - System stability improved
