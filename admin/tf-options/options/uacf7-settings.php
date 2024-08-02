@@ -209,7 +209,7 @@ UACF7_Settings::option( 'uacf7_settings', array(
 							'label' => __( 'Database Pro', 'ultimate-addons-cf7' ),
 							'image_url' => UACF7_URL . 'assets/admin/images/addons/Save-to-Database.png',
 							'default' => false,
-							'subtitle' => __( 'The Database Pro addon helps store form data, view data in the admin backend, and export data in CSV format. ', 'ultimate-addons-cf7' ),
+							'subtitle' => __( 'Respond to inquiries from the dashboard and export submission data. It's advanced solution for form inquiries. ', 'ultimate-addons-cf7' ),
 							'demo_link' => 'https://cf7addons.com/preview/best-contact-form-7-database-addon/',
 							'documentation_link' => 'https://themefic.com/docs/uacf7/pro-addons/database-pro/',
 							'is_pro' => true,
