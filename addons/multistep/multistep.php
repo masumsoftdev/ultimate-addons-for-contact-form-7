@@ -727,18 +727,22 @@ class UACF7_MULTISTEP {
 			</div>
 			<?php
 			$form_html = ob_get_clean();
+
 			echo apply_filters( 'uacf7_form_html', $form_html );
 			$multistep_form = ob_get_clean();
             $form_data = $multistep_form;
+
             }else {
                 $form_data = $form;
             }
+
+            $cfform->set_properties( array(
+                'form' => $form_data,
+                'mail' => $mail,
+                'mail_2' => $mail_2,
+            ) ); 
         }
-        $cfform->set_properties( array(
-			'form' => $form_data,
-			'mail' => $mail,
-			'mail_2' => $mail_2,
-		) ); 
+      
         // return $properties;
     }
     
