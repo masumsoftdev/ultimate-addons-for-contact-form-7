@@ -18,7 +18,7 @@ class UACF7_MULTISTEP {
         wpcf7_add_form_tag( 'uacf7_step_start', array( $this, 'step_start_tag_handler' ), true );
         wpcf7_add_form_tag( 'uacf7_step_end', array( $this, 'step_end_tag_handler' ), false );
         wpcf7_add_form_tag( 'uacf7_multistep_progressbar', array( $this, 'uacf7_multistep_progressbar' ), true );  
-        add_filter( 'wpcf7_contact_form_properties', array( $this, 'uacf7_properties' ), 10, 2 );
+        add_filter( 'wpcf7_contact_form', array( $this, 'uacf7_properties' ), 12, 1 );
         add_filter( 'uacf7_post_meta_options', array( $this, 'uacf7_post_meta_options_multistep' ), 14, 2 );  
         add_filter( 'uacf7_post_meta_options_multistep_pro', array( $this, 'uacf7_post_meta_options_multistep_pro' ), 10, 2 );  
         add_filter( 'uacf7_multistep_steps_names', array( $this, 'uacf7_multistep_steps_names' ), 10, 2 );  
@@ -589,14 +589,17 @@ class UACF7_MULTISTEP {
     /*
     * Change form properties for multistep
     */
-    public function uacf7_properties($properties, $cfform) {
+    public function uacf7_properties($cfform) {
         if (!is_admin() || (defined('DOING_AJAX') && DOING_AJAX)) { 
-            $form = $properties['form'];
+            $form = $cfform->prop( 'form' );
+           
+            $mail = $cfform->prop( 'mail' );
+            $mail_2 = $cfform->prop( 'mail_2' ); 
             $multistep_meta = uacf7_get_form_option( $cfform->id(), 'multistep' );
             
             $uacf7_multistep_is_multistep = isset($multistep_meta['uacf7_multistep_is_multistep']) ? $multistep_meta['uacf7_multistep_is_multistep'] : ''; 
             $uacf7_enable_multistep_progressbar =  isset($multistep_meta['uacf7_enable_multistep_progressbar']) ? $multistep_meta['uacf7_enable_multistep_progressbar'] : '';
-           
+            
             $all_steps = $cfform->scan_form_tags( array('type'=>'uacf7_step_start') );
          
             if( $uacf7_multistep_is_multistep == true ) {
@@ -726,13 +729,17 @@ class UACF7_MULTISTEP {
 			$form_html = ob_get_clean();
 			echo apply_filters( 'uacf7_form_html', $form_html );
 			$multistep_form = ob_get_clean();
-            $properties['form'] = $multistep_form;
+            $form_data = $multistep_form;
             }else {
-                $properties['form'] = $form;
+                $form_data = $form;
             }
         }
-
-        return $properties;
+        $cfform->set_properties( array(
+			'form' => $form_data,
+			'mail' => $mail,
+			'mail_2' => $mail_2,
+		) ); 
+        // return $properties;
     }
     
     public function check_fields_validation() {
