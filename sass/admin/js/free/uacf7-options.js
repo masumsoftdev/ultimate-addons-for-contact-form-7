@@ -493,7 +493,8 @@
 
 
         // Uacf7 Addon save data
-        $(document).on('change', '.uacf7-addon-input-field', function () {
+        $(document).on('change', '.uacf7-addon-input-field', function (e) {
+            e.preventDefault();
             uacf7_addon_count();
             if ($(this).is(':checked')) {
                 $(this).val(1);
