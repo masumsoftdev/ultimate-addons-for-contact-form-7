@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 3.4.1
+Stable tag: 3.4.2
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -119,7 +119,7 @@ This feature introduces a [Contact Form 7 digital signature](https://cf7addons.c
 
 = Contact Form 7 Dynamic Text Extension  =
 
-Our [Dynamic text Contact Form 7](https://cf7addons.com/preview/contact-form-7-dynamic-text-extension/) Addon helps you to Get dynamic value from current URL, blog info, current post info, current user info, and custom fields and add it automatically on Contact Form 7 Text Field. This can also be used in hidden field values. Some examples might include: Dynamically populate Contact form 7 input fields with current user info when logged in Wordpress website, Auto-filling a URL, Auto-filling a Post ID, title, or slug, Pre-populating a Product Number, post info, user info, custom fields and Any value you can write a shortcode for. 
+Our [Dynamic text Contact Form 7](https://cf7addons.com/preview/contact-form-7-dynamic-text-extension/) Addon helps you to Get dynamic value from current URL, blog info, current post info, current user info, and custom fields and add it automatically on Contact Form 7 Text Field. This can also be used in hidden field values. Some examples might include: Dynamically populate Contact Form 7 input fields with current user info when logged in to the WordPress website, Auto-filling a URL, Auto-filling a Post ID, title, or slug, Pre-populating a Product Number, post info, user info, custom fields and Any value you can write a shortcode for. 
 
 = Contact Form 7 Hidden Field  =
 
@@ -127,11 +127,11 @@ The above Dynamic Text Addon can also be used to generate hidden field values.
 
 = Form Styler | Contact form 7 Style =
 
-Our [Contact Form 7 style plugin](https://cf7addons.com/preview/contact-form-7-style-addon/) offers extensive customization options for Contact form 7 label color, label Background, font style, font size, font weight, font family, padding, margin; Contact Form 7 Input Color, Input Background Color, Font Style, Font Weight, Font Size, Font Family, Height, Padding, Margin; Contact form 7 button style, Contact form 7 button color, button background color, font size, font weight, width, border styles, padding, margin, Contact form 7 font size etc.
+Our [Contact Form 7 style plugin](https://cf7addons.com/preview/contact-form-7-style-addon/) offers extensive customization options for Contact Form 7 label color, label Background, font style, font size, font weight, font family, padding, margin; Contact Form 7 Input Color, Input Background Color, Font Style, Font Weight, Font Size, Font Family, Height, Padding, Margin; Contact form 7 button style, Contact form 7 button color, button background color, font size, font weight, width, border styles, padding, margin, Contact form 7 font size etc.
 
 = Contact form 7 CSS =
 
-This feature allows you to add custom CSS for Contact Form 7, giving you effortless control over Contact Form 7 css style.
+This feature allows you to add custom CSS for Contact Form 7, giving you effortless control over the Contact Form 7 css style.
 
 = Contact Form 7 Mailchimp Integration  =
 
@@ -164,7 +164,7 @@ Enhance your Contact Form 7 by incorporating [Range slider](https://cf7addons.co
 
 = Contact Form 7 Redirect after Submit =
 
-Our [Redirection for Contact Form 7](https://cf7addons.com/preview/redirection-for-contact-form-7/) addon will help you redirect your contact form 7 form to another URL after submissions. After form submission, your form user will be redirected to a Thank you page or external page. You can also set the option to open the page on the same tab or a new tab.
+Our [Redirection for Contact Form 7](https://cf7addons.com/preview/redirection-for-contact-form-7/) addon will help you redirect your contact Form 7 form to another URL after submissions. After form submission, your form user will be redirected to a Thank you page or external page. You can also set the option to open the page on the same tab or a new tab.
 
 = Contact Form 7 Star Rating Field =
 
@@ -233,7 +233,7 @@ This feature enables the integration of [IP Geolocation](https://cf7addons.com/p
 
 = Contact Form 7 Multi-step Form Pro =
 
-The [Pro version of Multi-Step Forms](https://cf7addons.com/preview/multi-step-form/pro/) comes with a list of premium and pre-built templates featuring attractive designs. Users can choose any design skin, which will then automatically generate a pre-designed form. The Pro version also allows for button text editing and adding background image in the form.
+The [Pro version of Multi-Step Forms](https://cf7addons.com/preview/multi-step-form/pro/) comes with a list of premium and pre-built templates featuring attractive designs. Users can choose any design skin, which will then automatically generate a pre-designed form. The Pro version also allows for button text editing and adding background images in the form.
 
 = Contact form 7 Range Slider Pro =
 
@@ -286,7 +286,7 @@ We provide full support on the WordPress.org forums & [Our Website](https://port
 Ultimate Addons for Contact Form 7 uses [Appsero](https://appsero.com/) SDK to collect some telemetry data. Appsero SDK does not gather any data by default. The SDK only starts gathering basic telemetry data when a user allows it via the admin notice. Appsero SDK DOES NOT IMMEDIATELY start gathering data, without confirmation from users in any case. We use this data to troubleshoot problems faster, make product improvements & ensure a great user experience for all our users.
 
 How can I report security bugs?
-You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability](https://patchstack.com/database/vdp/ultimate-addons-for-contact-form-7/).
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team helps validate, triage, and handle any security vulnerabilities. [Report a security vulnerability](https://patchstack.com/database/vdp/ultimate-addons-for-contact-form-7/).
 
 
 ###  Our Plugins
@@ -407,6 +407,11 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 
 == Changelog ==
 
+= 3.4.2 - 11/08/2024 =
+
+- Improvement: Radio field validation for multistep.
+- Improvement: Radio field validation for repeater.
+
 = 3.4.1 - 02/08/2024 =
 
 - Compatible with Tourfic plugin
@@ -520,20 +525,6 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 - Fixed: Digital signature conflict with DB and PDF generator 
 - Fixed: Placeholder Issue
 - Fixed: Styler addon border issue Issue
-
-= 3.3.1 – 29/02/2024 =
-
-- Improvement: Sidebar Menu Position
-- Improvement: Added Preview URL for WebHook
-
-= 3.3.0 – 28/02/2024 =
-
-- Added: New Feature Pabbly/Zapier (Webhook) introduced
-- Added: Import Export Feature
-- Improvement: A new option panel introduced
-- Improvement: Quick setup introduced
-- Improvement: System stability Improved
-- Improvement: All the individual pro addons merged with UACF7 Pro
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.
 
