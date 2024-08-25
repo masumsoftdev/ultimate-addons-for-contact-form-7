@@ -40,65 +40,71 @@
             }
         }
 
-        // Import and Export option 
-        const backupfields = $('#import_export').find('.tf-field-backup .tf-fieldset');
-        const exportArea = backupfields.find('.tf-export-field');
-        const exportButton = backupfields.find('.tf-export-button');
-        const copyIndicator = backupfields.find('#copyIndicator');
+        // Import and Export Option
+        function initializeImportExportFunctions() {
+            const backupfields = $('#import_export').find('.tf-field-backup .tf-fieldset');
+            const exportArea = backupfields.find('.tf-export-field');
+            const uACF7SettingExportButton = backupfields.find('.tf-export-button');
+            const copyIndicator = backupfields.find('#copyIndicator');
 
-        // Ensure the textarea is enabled
-        if (exportArea.is(':disabled')) {
-            exportArea.prop('disabled', false);
+            // Ensure the textarea is enabled
+            if (exportArea.is(':disabled')) {
+                exportArea.prop('disabled', false);
+            }
+
+            // Ensure when textarea gets hover showing copy text
+            exportArea.hover(function () {
+                copyIndicator.text('Click to copy');
+                copyIndicator.css({ 'display': 'block' });
+            }, function () {
+                copyIndicator.text('');
+                copyIndicator.css({ 'display': 'none' });
+            });
+
+            // Clean up existing click event handlers to avoid duplication
+            copyIndicator.hover(function () {
+                copyIndicator.text('Click to copy');
+                copyIndicator.css({ 'display': 'block' });
+            }, function () {
+                copyIndicator.text('');
+                copyIndicator.css({ 'display': 'none' });
+            });
+
+            copyIndicator.off('click');
+            copyIndicator.on('click', function (e) {
+                uacf7_backup_filed_copy(exportArea);
+            });
+
+            // Clean up existing click event handlers to avoid duplication
+            exportArea.off('click');
+            exportArea.on('click', function (event) {
+                event.preventDefault();
+                var textarea = $(this);
+
+                // Call the copyer function
+                uacf7_backup_filed_copy(textarea);
+
+                // Re-disable the textarea if necessary
+                textarea.prop('disabled', true);
+            });
+
+            // Clean up existing click event handlers to avoid duplication for Export button
+            uACF7SettingExportButton.off('click');
+            uACF7SettingExportButton.on('click', function (event) {
+                event.preventDefault();
+
+                var textarea = $('.tf-export-field');
+
+                // Call the copyer function
+                uacf7_backup_filed_copy(textarea);
+
+                // Re-disable the textarea if necessary
+                textarea.prop('disabled', true);
+            });
         }
 
-        // Ensure when textarea get hover showing copy text
-        exportArea.hover(function () {
-            copyIndicator.text('Click to copy');
-            copyIndicator.css({ 'display': 'block' });
-        }, function () {
-            copyIndicator.text('');
-            copyIndicator.css({ 'display': 'none' });
-        });
-
-        // Clean up existing click event handlers to avoid duplication
-        copyIndicator.hover(function () {
-            copyIndicator.text('Click to copy');
-            copyIndicator.css({ 'display': 'block' });
-        }, function () {
-            copyIndicator.text('');
-            copyIndicator.css({ 'display': 'none' });
-        });
-
-        copyIndicator.off('click');
-        copyIndicator.on('click', function (e) {
-            uacf7_backup_filed_copy(exportArea);
-        });
-
-        // Clean up existing click event handlers to avoid duplication
-        exportArea.off('click');
-        exportArea.on('click', function (event) {
-            event.preventDefault();
-            var textarea = $(this);
-
-            // Call the copyer function
-            uacf7_backup_filed_copy(textarea);
-
-            // Re-disable the textarea if necessary
-            textarea.prop('disabled', true);
-        });
-
-        // Clean up existing click event handlers to avoid duplication for Export button
-        exportButton.off('click');
-        exportButton.on('click', function (event) {
-            event.preventDefault();
-            var textarea = $('.tf-export-field');
-
-            // Call the copyer function
-            uacf7_backup_filed_copy(textarea);
-
-            // Re-disable the textarea if necessary
-            textarea.prop('disabled', true);
-        });
+        // Import and Export option 
+        initializeImportExportFunctions();
 
         // Clean up existing click event handlers to avoid duplication for Global Export button
         const globalbackup = $('#uacf7_import_export').find('.tf-field-backup .tf-fieldset');
