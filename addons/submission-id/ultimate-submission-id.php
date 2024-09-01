@@ -26,7 +26,7 @@ class UACF7_SUBMISSION_ID {
 		// UAC7 option Panel
 		add_filter( 'uacf7_post_meta_options', array( $this, 'uacf7_post_meta_options_submission_id' ), 20, 2 );
 
-		add_action( 'wpcf7_before_send_mail', array( $this, 'uacf7_submission_check' ) );
+		add_action( 'wpcf7_before_send_mail', [ $this, 'uacf7_submission_check' ], 10, 3 );
 		// add_filter( 'wpcf7_load_js', '__return_false' );
 
 		require_once 'inc/submission-id.php';
@@ -140,47 +140,48 @@ class UACF7_SUBMISSION_ID {
 		] );
 	}
 	/** Ends Loading Essential JS & CSS */
+	public function uacf7_submission_check( $form, $abort, $submission ) {
+		$form_id = $form->id();
+		// Get the submitted data
+		$submittedData = $submission->get_posted_data();
 
-	public function uacf7_submission_check( $form ) {
+		$settingData = uacf7_get_form_option( $form_id, 'submission_id' );
+		$uacf7_submission_id_enable = isset( $settingData['uacf7_submission_id_enable'] ) ? $settingData['uacf7_submission_id_enable'] : false;
 
-		$formSubmission = WPCF7_Submission::get_instance();
-		$ContactForm = WPCF7_ContactForm::get_instance( $form->id() );
-		$tags = $ContactForm->scan_form_tags();
+		if ( $submission && $uacf7_submission_id_enable == true ) {
+			$getCurrentData = isset( $settingData['uacf7_submission_id'] ) ? $settingData['uacf7_submission_id'] : 0;
+			$step_counter = isset( $settingData['uacf7_submission_id_step'] ) ? $settingData['uacf7_submission_id_step'] : 0;
 
-		$submission = uacf7_get_form_option( $form->id(), 'submission_id' );
-		$uacf7_submission_id_enable = isset( $submission['uacf7_submission_id_enable'] ) ? $submission['uacf7_submission_id_enable'] : false;
+			// Scan form tags to find the specific field
+			$tags = $form->scan_form_tags();
+			foreach ( $tags as $tag ) {
+				if ( $tag->type == 'uacf7_submission_id' ) {
+					// Assuming 'name' is the name attribute of your form field
+					$field_name = $tag->name;
 
-		if ( $formSubmission ) {
-			// Get the submitted data
-			$submittedData = $formSubmission->get_posted_data();
+					// Get the current value of the specific tag
+					$current_value = isset( $submittedData[ $field_name ] ) ? $submittedData[ $field_name ] : '';
 
-			if ( $uacf7_submission_id_enable == true ) {
-				$getCurrentData = isset( $submission['uacf7_submission_id'] ) ? $submission['uacf7_submission_id'] : 0;
-				$step_counter = isset( $submission['uacf7_submission_id_step'] ) ? $submission['uacf7_submission_id_step'] : 0;
+					if ( $getCurrentData > $current_value ) {
+						// Update the value
+						$new_value = ( $step_counter > 0 ) ? ( $getCurrentData + $step_counter ) : ( $getCurrentData + 1 );
 
-				foreach ( $tags as $tag ) {
-					if ( $tag->type == 'uacf7_submission_id' ) {
-						// Assuming 'name' is the name attribute of your form field
-						$field_name = $tag->name;
+						// Override the submitted data
+						$submittedData[ $field_name ] = $new_value;
 
-						// Get the current value of the specific tag
-						$current_value = isset( $submittedData[ $field_name ] ) ? $submittedData[ $field_name ] : '';
+						// Use reflection to update the posted data
+						$reflection = new ReflectionClass( $submission );
+						$posted_data_property = $reflection->getProperty( 'posted_data' );
+						$posted_data_property->setAccessible( true );
+						$posted_data_property->setValue( $submission, $submittedData );
 
-						if ( $getCurrentData != $current_value ) {
-							if ( $step_counter > 0 ) {
-								$valueIncreasing .= $getCurrentData + $step_counter;
-							} else {
-								$valueIncreasing .= $getCurrentData + 1;
-							}
-							$meta = uacf7_get_form_option( $form->id(), '' );
-							$meta['submission_id']['uacf7_submission_id'] = $valueIncreasing;
-							update_post_meta( $form->id(), 'uacf7_form_opt', $meta );
-						}
+						$meta = uacf7_get_form_option( $form->id(), '' );
+						$meta['submission_id']['uacf7_submission_id'] = $new_value;
+						update_post_meta( $form->id(), 'uacf7_form_opt', $meta );
 					}
 				}
 			}
 		}
-
 	}
 
 
