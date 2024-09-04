@@ -18,7 +18,7 @@ class UACF7_SUBMISSION_ID {
 		add_action( 'wp_ajax_uacf7_update_submission_id', [ $this, 'uacf7_update_submission_id' ] );
 		add_action( 'wp_ajax_nopriv_uacf7_update_submission_id', [ $this, 'uacf7_update_submission_id' ] );
 
-		add_filter( 'wpcf7_mail_sent', [ $this, 'submission_id_update' ] );
+		// add_filter( 'wpcf7_mail_sent', [ $this, 'submission_id_update' ] );
 		add_filter( 'wpcf7_mail_components', [ $this, 'submission_id_custom_cf7_mail_subject' ], 10, 2 );
 
 		// Submission ID Update into Database free
@@ -140,6 +140,7 @@ class UACF7_SUBMISSION_ID {
 		] );
 	}
 	/** Ends Loading Essential JS & CSS */
+
 	public function uacf7_submission_check( $form, $abort, $submission ) {
 		$form_id = $form->id();
 		// Get the submitted data
@@ -164,7 +165,7 @@ class UACF7_SUBMISSION_ID {
 
 					if ( $getCurrentData > $current_value ) {
 						// Update the value
-						$new_value = ( $step_counter > 0 ) ? ( $getCurrentData + $step_counter ) : ( $getCurrentData + 1 );
+						$new_value = $getCurrentData;
 
 						// Override the submitted data
 						$submittedData[ $field_name ] = $new_value;
@@ -175,8 +176,22 @@ class UACF7_SUBMISSION_ID {
 						$posted_data_property->setAccessible( true );
 						$posted_data_property->setValue( $submission, $submittedData );
 
+						// Update the value for setting value updated
+						$new_valueSetting = ( $step_counter > 0 ) ? ( $new_value + $step_counter ) : ( $new_value + 1 );
+
 						$meta = uacf7_get_form_option( $form->id(), '' );
-						$meta['submission_id']['uacf7_submission_id'] = $new_value;
+						$meta['submission_id']['uacf7_submission_id'] = $new_valueSetting;
+						update_post_meta( $form->id(), 'uacf7_form_opt', $meta );
+					} else {
+						$valueIncreasing = '';
+
+						if ( $step_counter > 0 ) {
+							$valueIncreasing .= $getCurrentData + $step_counter;
+						} else {
+							$valueIncreasing .= $getCurrentData + 1;
+						}
+						$meta = uacf7_get_form_option( $form->id(), '' );
+						$meta['submission_id']['uacf7_submission_id'] = $valueIncreasing;
 						update_post_meta( $form->id(), 'uacf7_form_opt', $meta );
 					}
 				}
@@ -246,17 +261,7 @@ class UACF7_SUBMISSION_ID {
 
 
 
-			$valueIncreasing = '';
 
-
-			if ( $step_counter > 0 ) {
-				$valueIncreasing .= $getCurrentData + $step_counter;
-			} else {
-				$valueIncreasing .= $getCurrentData + 1;
-			}
-			$meta = uacf7_get_form_option( $form->id(), '' );
-			$meta['submission_id']['uacf7_submission_id'] = $valueIncreasing;
-			update_post_meta( $form->id(), 'uacf7_form_opt', $meta );
 		}
 
 	}
@@ -412,9 +417,13 @@ class UACF7_SUBMISSION_ID {
 
 		$form_id = $form->id();
 		$submission = uacf7_get_form_option( $form_id, 'submission_id' );
+
 		$meta_data = isset( $submission['uacf7_submission_id'] ) ? $submission['uacf7_submission_id'] : 0;
+
 		$uacf7_submission_id_enable = isset( $submission['uacf7_submission_id_enable'] ) ? $submission['uacf7_submission_id_enable'] : false;
+
 		$uacf7_submission_id_send_to_sub_line = isset( $submission['uacf7_submission_id_send_to_sub_line'] ) ? $submission['uacf7_submission_id_send_to_sub_line'] : false;
+
 		$uacf7_submission_id_place = isset( $submission['uacf7_submission_id_place'] ) ? $submission['uacf7_submission_id_place'] : false;
 
 		if ( $uacf7_submission_id_enable == true && $uacf7_submission_id_send_to_sub_line == true ) {
