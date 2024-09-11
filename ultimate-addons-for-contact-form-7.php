@@ -126,10 +126,10 @@ class Ultimate_Addons_CF7 {
 	 */
 	public function uacf7_init() {
 		//Require admin menu
-		require_once( 'admin/admin-menu.php' );
+		require_once UACF7_PATH . 'admin/admin-menu.php';
 
 		//Require ultimate addons
-		require_once( 'addons/addons.php' );
+		require_once UACF7_PATH . 'addons/addons.php';
 
 		//  Update UACF7 Plugin Version
 		if ( UACF7_VERSION != get_option( 'uacf7_version' ) ) {
