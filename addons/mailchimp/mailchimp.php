@@ -515,10 +515,6 @@ class UACF7_MAILCHIMP {
 		// checking 
 		$uacf7_mailchimp_checkbox = apply_filters( 'uacf7_mailchimp_subscribe_info_sent', $id, $wpcf );
 
-		var_dump( $posted_data );
-		var_dump( $uacf7_mailchimp_checkbox );
-
-
 		// Get Mailchimp settings from the form options
 		$mailchimp = uacf7_get_form_option( $id, 'mailchimp' );
 
@@ -527,17 +523,14 @@ class UACF7_MAILCHIMP {
 		$form_type = isset( $mailchimp['uacf7_mailchimp_form_type'] ) ? $mailchimp['uacf7_mailchimp_form_type'] : '';
 		$audience = isset( $mailchimp['uacf7_mailchimp_audience'] ) ? $mailchimp['uacf7_mailchimp_audience'] : '';
 
-		var_dump( $mailchimp_acceptance_enable );
-		die();
-
 		// Validate Mailchimp settings before proceeding
 		if ( $form_enable && $form_type === 'subscribe' && ! empty( $audience ) ) {
 			// Add members to Mailchimp audience
-			$this->add_members( $id, $audience, $posted_data );
-
+			if ( $uacf7_mailchimp_checkbox ) {
+				$this->add_members( $id, $audience, $posted_data );
+			}
 			// Optionally, you can skip sending the email by uncommenting the following line
 			// $wpcf->skip_mail = true;
-
 		}
 	}
 
