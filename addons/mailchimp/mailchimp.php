@@ -19,7 +19,7 @@ class UACF7_MAILCHIMP {
 		$this->get_api_key();
 		require_once( 'inc/functions.php' );
 
-		add_filter( 'wpcf7_load_js', '__return_false' );
+		// add_filter( 'wpcf7_load_js', '__return_false' );
 	}
 
 	/*
