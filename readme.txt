@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 3.4.4
+Stable tag: 3.4.5
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -67,6 +67,7 @@ Equipped with over 30 essential features, **Ultimate Addons For Contact Form 7**
 * WooCommerce Product Dropdown Pro
 * Spam Protection (Pro)
 * Database Pro (Pro)
+* MailChimp Pro
 
 ### How It works:
 
@@ -271,6 +272,11 @@ Our [Spam Protection Pro for Contact Form 7](https://cf7addons.com/preview/spam-
 
 Our [Contact Form 7 Database Pro](https://cf7addons.com/preview/best-contact-form-7-database-addon/) addon offers an advanced solution for managing and organizing form inquiries more efficiently.
 
+= Contact Form 7 Mailchimp Pro =
+
+Our [Contact Form 7 Mailchimp Pro](https://cf7addons.com/preview/mailchimp-pro-for-contact-form-7/) is a key feature of Mailchimp Pro that allows you to add an acceptance checkbox to your forms. 
+
+
 **More Pro addons are in development and will be available soon.**
 
 ### Join our Community to stay updated
@@ -406,6 +412,15 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 53. Range Slider Pro (Form Example)
 
 == Changelog ==
+
+= 3.4.5 - 12/09/2024 =
+
+- Introduced: Mailchimp Pro (Pro)
+- System stability improved
+- Minor bug fixes and improvements
+- Improvement: Submissions unique ID
+- Improvement: Database addon pro
+- Improvement: Conversational form
 
 = 3.4.4 - 02/09/2024 =
 
