@@ -482,8 +482,8 @@
 
 
             var all = $('.uacf7-addon-input-field[type="checkbox"]').length;
-            var activated = $('.uacf7-addon-input-field[type="checkbox"]:checked').length;
-            var deactivate = $('.uacf7-addon-input-field[type="checkbox"]:not(:checked)').length;
+            var activated = $('.addon-status.pro').length;
+            var deactivate = $('.addon-status.free').length;
 
             $('.uacf7-addon-filter-button.all .uacf7-addon-filter-cta-count').text(all);
             $('.uacf7-addon-filter-button.activete .uacf7-addon-filter-cta-count').text(activated);
@@ -513,10 +513,10 @@
                 $('.uacf7-single-addon-setting').css('display', 'block');
             } else if ($(this).hasClass('activete')) {
                 $('.uacf7-single-addon-setting').css('display', 'none');
-                $('.uacf7-single-addon-setting input[type="checkbox"]:checked').closest('.uacf7-single-addon-setting').css('display', 'block');
+                $('.uacf7-single-addon-setting .addon-status.pro').closest('.uacf7-single-addon-setting').css('display', 'block');
             } else if ($(this).hasClass('deactive')) {
                 $('.uacf7-single-addon-setting').css('display', 'none');
-                $('.uacf7-single-addon-setting input[type="checkbox"]:not(:checked)').closest('.uacf7-single-addon-setting').css('display', 'block');
+                $('.uacf7-single-addon-setting .addon-status.free').closest('.uacf7-single-addon-setting').css('display', 'block');
             }
         });
 
