@@ -97,10 +97,10 @@ class UACF7_COLUMN {
 							</th>
 							<td class="uacf7_code">
 								<pre>
-		[uacf7-row]
-			[uacf7-col col:12] --your code-- [/uacf7-col]
-		[/uacf7-row]
-		</pre>
+												[uacf7-row]
+													[uacf7-col col:12] --your code-- [/uacf7-col]
+												[/uacf7-row]
+												</pre>
 							</td>
 						</tr>
 						<tr class="column-2 uacf7-column-select"
@@ -112,11 +112,11 @@ class UACF7_COLUMN {
 							</th>
 							<td class="uacf7_code">
 								<pre>
-		[uacf7-row]
-			[uacf7-col col:6] --your code-- [/uacf7-col]
-			[uacf7-col col:6] --your code-- [/uacf7-col]
-		[/uacf7-row]
-		</pre>
+												[uacf7-row]
+													[uacf7-col col:6] --your code-- [/uacf7-col]
+													[uacf7-col col:6] --your code-- [/uacf7-col]
+												[/uacf7-row]
+												</pre>
 							</td>
 						</tr>
 						<tr class="column-3 uacf7-column-select"
@@ -128,12 +128,12 @@ class UACF7_COLUMN {
 							</th>
 							<td class="uacf7_code">
 								<pre>
-		[uacf7-row]
-			[uacf7-col col:4] --your code-- [/uacf7-col]
-			[uacf7-col col:4] --your code-- [/uacf7-col]
-			[uacf7-col col:4] --your code-- [/uacf7-col]
-		[/uacf7-row]
-		</pre>
+												[uacf7-row]
+													[uacf7-col col:4] --your code-- [/uacf7-col]
+													[uacf7-col col:4] --your code-- [/uacf7-col]
+													[uacf7-col col:4] --your code-- [/uacf7-col]
+												[/uacf7-row]
+												</pre>
 							</td>
 						</tr>
 						<tr class="column-4 uacf7-column-select"
@@ -145,19 +145,19 @@ class UACF7_COLUMN {
 							</th>
 							<td class="uacf7_code">
 								<pre>
-		[uacf7-row]
-			[uacf7-col col:3] --your code-- [/uacf7-col]
-			[uacf7-col col:3] --your code-- [/uacf7-col]
-			[uacf7-col col:3] --your code-- [/uacf7-col]
-			[uacf7-col col:3] --your code-- [/uacf7-col]
-		[/uacf7-row]
-		</pre>
+												[uacf7-row]
+													[uacf7-col col:3] --your code-- [/uacf7-col]
+													[uacf7-col col:3] --your code-- [/uacf7-col]
+													[uacf7-col col:3] --your code-- [/uacf7-col]
+													[uacf7-col col:3] --your code-- [/uacf7-col]
+												[/uacf7-row]
+												</pre>
 							</td>
 						</tr>
 						<tr style="display:inherit" class="column-pro-feature">
 							<th class="column-1">
-								<?php echo esc_html__( 'Custom Column Width', 'ultimate-addons-cf7' ); ?> <span class="pro-link"><a
-										style="color:red" href="#">(Pro)</a></span>
+								<?php echo esc_html__( 'Custom Column Width', 'ultimate-addons-cf7' ); ?> <span
+									class="pro-link"><a style="color:red" href="#">(Pro)</a></span>
 								<a
 									class="button uacf7-column-button uacf7-custom-column-insert"><?php echo esc_html__( 'Insert tag', 'ultimate-addons-cf7' ); ?></a>
 							</th>
