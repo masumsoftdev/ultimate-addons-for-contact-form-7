@@ -248,7 +248,7 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 				<?php echo $this->tf_top_header(); ?>
 				<div class="uacf7-addons-settings-page">
 					<h1 class="uacf7-setting-title">
-						<?php echo esc_html( 'Ultimate Addons for Contact Form 7 (UACF7) Settings', 'ultimate-addons-cf7' ) ?>
+						<?php echo _e( 'Ultimate Addons for Contact Form 7 (UACF7) Settings', 'ultimate-addons-cf7' ) ?>
 					</h1>
 					<form method="post" action="" class="tf-option-form tf-ajax-save" enctype="multipart/form-data">
 						<div class="uacf7-settings-heading">
@@ -272,10 +272,10 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 										class="uacf7-addon-filter-button all active"><?php echo _e( 'All', 'ultimate-addons-cf7' ) ?>
 										( <span class="uacf7-addon-filter-cta-count"></span> )</button>
 									<button
-										class="uacf7-addon-filter-button activete"><?php echo _e( 'Active', 'ultimate-addons-cf7' ) ?>
+										class="uacf7-addon-filter-button deactive"><?php echo _e( 'Free', 'ultimate-addons-cf7' ) ?>
 										( <span class="uacf7-addon-filter-cta-count"></span> )</button>
 									<button
-										class="uacf7-addon-filter-button deactive"><?php echo _e( 'Deactive', 'ultimate-addons-cf7' ) ?>
+										class="uacf7-addon-filter-button activete"><?php echo _e( 'Pro', 'ultimate-addons-cf7' ) ?>
 										( <span class="uacf7-addon-filter-cta-count"></span> )</button>
 								</div>
 							</div>
@@ -309,7 +309,7 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 										$label_class .= $field['is_pro'] == true ? 'tf-field-disable tf-field-pro' : '';
 										echo '<span class="addon-status pro">' . esc_html( 'Pro' ) . '</span>';
 									} else {
-										echo '<span class="addon-status">' . esc_html( 'Free' ) . '</span>';
+										echo '<span class="addon-status free">' . esc_html( 'Free' ) . '</span>';
 									}
 									$child = isset( $field['child_field'] ) ? $field['child_field'] : '';
 									$is_pro = isset( $field['is_pro'] ) ? 'pro' : '';
