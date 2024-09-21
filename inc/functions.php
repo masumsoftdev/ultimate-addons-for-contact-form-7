@@ -11,9 +11,16 @@ if ( file_exists( UACF7_PATH . 'inc/class-setup-wizard.php' ) ) {
 	require_once UACF7_PATH . 'inc/class-setup-wizard.php';
 }
 
+//Require ultimate Promo Notice
+if ( file_exists( UACF7_PATH . 'inc/class-promo-notice.php' ) ) {
+
+    require_once ( UACF7_PATH .'inc/class-promo-notice.php');
+}
+
 if ( file_exists( UACF7_PATH . 'admin/admin-menu.php' ) ) {
 	require_once UACF7_PATH . 'admin/admin-menu.php';
 }
+
 
 
 
