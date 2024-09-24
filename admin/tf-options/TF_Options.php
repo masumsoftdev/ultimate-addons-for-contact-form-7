@@ -273,7 +273,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 			$tf_google_map = function_exists( 'is_tf_pro' ) && is_tf_pro() && ! empty( tfopt( 'google-page-option' ) ) ? tfopt( 'google-page-option' ) : "false";
 			wp_localize_script(
 				'uacf7-admin',
-				'tf_options',
+				'uacf7_setting_options',
 				array(
 					'ajax_url' => admin_url( 'admin-ajax.php' ),
 					'nonce' => wp_create_nonce( 'tf_options_nonce' ),

@@ -1,3 +1,13 @@
+#TB_window{
+	height: auto !important;
+	width: 630px !important;
+}
+
+#TB_ajaxContent{
+	width: 600px !important;
+    height: auto !important;
+}
+
 .uacf7_code {
 	background: #ddd
 }
@@ -22,6 +32,8 @@
 	display: none
 }
 .control-box.uacf7-column-control-box {
+	display: block;
+	width: 100% !important;
 	height: 100%;
 	overflow: unset;
 }
