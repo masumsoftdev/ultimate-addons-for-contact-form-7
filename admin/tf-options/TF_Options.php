@@ -263,7 +263,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 					wp_enqueue_script( 'jquery-ui-sortable' );
 				}
 				wp_enqueue_media();
-				wp_enqueue_editor();
+				// wp_enqueue_editor();
 			}
 
 			// Wp color picker
