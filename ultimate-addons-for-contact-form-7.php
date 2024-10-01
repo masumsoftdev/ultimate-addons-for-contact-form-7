@@ -86,7 +86,7 @@ class Ultimate_Addons_CF7 {
 	 * Admin setting option dequeue 
 	 */
 	public function tf_tourfic_admin_denqueue_script( $screen ) {
-		$tf_options_screens = array(
+		$UACF7_options_screens = array(
 			'toplevel_page_uacf7_settings',
 			'ultimate-addons_page_uacf7_addons',
 			'toplevel_page_wpcf7',
@@ -96,9 +96,12 @@ class Ultimate_Addons_CF7 {
 		);
 
 		//The tourfic admin js Listings Directory Compatibility
-		if ( in_array( $screen, $tf_options_screens ) && wp_style_is( 'tf-admin', 'enqueued' ) ) {
+		if ( in_array( $screen, $UACF7_options_screens )) {
 			wp_dequeue_style( 'tf-admin' );
 			wp_deregister_style( 'tf-admin' );
+			wp_dequeue_style( 'tf-pro' );
+			wp_dequeue_script( 'tf-pro' );
+			wp_deregister_script('tf-pro');
 		}
 
 	}
