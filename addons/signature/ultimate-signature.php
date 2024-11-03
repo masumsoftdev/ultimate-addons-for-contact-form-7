@@ -40,8 +40,6 @@ class UACF7_SIGNATURE {
 
 	}
 
-
-
 	public function uacf7_post_meta_options_signature( $value, $post_id ) {
 
 		$signature = apply_filters( 'uacf7_post_meta_options_signature_pro', $data = array(
@@ -148,12 +146,11 @@ class UACF7_SIGNATURE {
 		$formid = $wpcf7->id();
 
 		$uacf7_signature_settings = uacf7_get_form_option( $formid, 'signature' );
-
-		$uacf7_signature_enable = isset( $uacf7_signature_settings['uacf7_signature_enable'] ) ? $uacf7_signature_settings['uacf7_signature_enable'] : '';
-		$bg_color = isset( $uacf7_signature_settings['uacf7_signature_bg_color'] ) ? $uacf7_signature_settings['uacf7_signature_bg_color'] : '';
-		$pen_color = isset( $uacf7_signature_settings['uacf7_signature_pen_color'] ) ? $uacf7_signature_settings['uacf7_signature_pen_color'] : '';
-		$canvas_width = isset( $uacf7_signature_settings['uacf7_signature_pad_width'] ) ? $uacf7_signature_settings['uacf7_signature_pad_width'] : '';
-		$canvas_height = isset( $uacf7_signature_settings['uacf7_signature_pad_height'] ) ? $uacf7_signature_settings['uacf7_signature_pad_height'] : '';
+		$uacf7_signature_enable   = isset( $uacf7_signature_settings['uacf7_signature_enable'] ) ? $uacf7_signature_settings['uacf7_signature_enable'] : '';
+		$bg_color                 = isset( $uacf7_signature_settings['uacf7_signature_bg_color'] ) ? $uacf7_signature_settings['uacf7_signature_bg_color'] : '';
+		$pen_color                = isset( $uacf7_signature_settings['uacf7_signature_pen_color'] ) ? $uacf7_signature_settings['uacf7_signature_pen_color'] : '';
+		$canvas_width             = isset( $uacf7_signature_settings['uacf7_signature_pad_width'] ) ? $uacf7_signature_settings['uacf7_signature_pad_width'] : '';
+		$canvas_height            = isset( $uacf7_signature_settings['uacf7_signature_pad_height'] ) ? $uacf7_signature_settings['uacf7_signature_pad_height'] : '';
 
 
 		if ( $uacf7_signature_enable != '1' || $uacf7_signature_enable === '' ) {
@@ -161,42 +158,43 @@ class UACF7_SIGNATURE {
 		}
 
 		$validation_error = wpcf7_get_validation_error( $tag->name );
-		$class = wpcf7_form_controls_class( $tag->type );
+		$class            = wpcf7_form_controls_class( $tag->type );
 
 		if ( $validation_error ) {
 			$class .= ' wpcf7-not-valid';
 		}
 
-		$atts = array();
-		$atts['class'] = $tag->get_class_option( $class );
-		$atts['id'] = $tag->get_id_option();
+		$atts              = array();
+		$atts['class']     = $tag->get_class_option( $class );
+		$atts['id']        = $tag->get_id_option();
 		$atts['pen-color'] = esc_attr( $pen_color );
-		$atts['bg-color'] = esc_attr( $bg_color );
-		$atts['tabindex'] = $tag->get_option( 'tabindex', 'signed_int', true );
+		$atts['bg-color']  = esc_attr( $bg_color );
+		$atts['tabindex']  = $tag->get_option( 'tabindex', 'signed_int', true );
 
 		if ( $tag->is_required() ) {
 			$atts['aria-required'] = 'true';
 		}
 
 		$atts['aria-invalid'] = $validation_error ? 'true' : 'false';
-		$atts['name'] = $tag->name;
-		$atts = wpcf7_format_atts( $atts );
+		$atts['name']         = $tag->name;
+		$atts                 = wpcf7_format_atts( $atts );
 
 		ob_start();
 
 		?>
 		<span class="wpcf7-form-control-wrap <?php echo sanitize_html_class( $tag->name ); ?>"
 			data-name="<?php echo sanitize_html_class( $tag->name ); ?>">
-			<input hidden type="file" class="img_id_special" <?php echo $atts; ?>>
+			<input hidden type="file" class="uacf7-signature-hidden-field" <?php echo $atts; ?>>
 
-			<div class="signature-pad" data-field-name="<?php echo sanitize_html_class( $tag->name ); ?>">
+			<div class="uacf7-signature-pad" data-field-name="<?php echo sanitize_html_class( $tag->name ); ?>">
 				<canvas id="<?php echo sanitize_html_class( $tag->name ); ?>"
 					data-field-name="<?php echo sanitize_html_class( $tag->name ); ?>" width="<?php echo $canvas_width; ?>"
-					height="<?php echo $canvas_height; ?>"></canvas>
+					height="<?php echo $canvas_height; ?>">
+				</canvas>
 			</div>
-			<div class="control_div">
+			<div class="uacf7-signature-control-wrapper">
 				<button data-field-name="<?php echo sanitize_html_class( $tag->name ); ?>"
-					class="clear-button"><?php _e( 'Clear', 'ultimate-addons-cf7' ); ?></button>
+					class="uacf7-signature-clear-button"><?php _e( 'Clear', 'ultimate-addons-cf7' ); ?></button>
 			</div>
 
 		</span>
@@ -241,26 +239,28 @@ class UACF7_SIGNATURE {
 							<th scope="row"><?php _e( 'Field Type', 'ultimate-addons-cf7' ); ?></th>
 							<td>
 								<fieldset>
-									<legend class="screen-reader-text"><?php _e( 'Field Type', 'ultimate-addons-cf7' ); ?>
-									</legend>
+									<legend class="screen-reader-text"><?php _e( 'Field Type', 'ultimate-addons-cf7' ); ?></legend>
 									<label><input type="checkbox" name="required"
-											value="on"><?php _e( 'Required Field', 'ultimate-addons-cf7' ); ?></label>
+										value="on"><?php _e( 'Required Field', 'ultimate-addons-cf7' ); ?>
+									</label>
 								</fieldset>
 							</td>
 						</tr>
 						<tr>
 							<th scope="row"><label
-									for="<?php echo esc_attr( $args['content'] . '-name' ); ?>"><?php echo esc_html( __( 'Name', 'ultimate-addons-cf7' ) ); ?></label>
+								for="<?php echo esc_attr( $args['content'] . '-name' ); ?>"><?php echo esc_html( __( 'Name', 'ultimate-addons-cf7' ) ); ?></label>
 							</th>
 							<td><input type="text" name="name" class="tg-name oneline"
-									id="<?php echo esc_attr( $args['content'] . '-name' ); ?>" /></td>
+								id="<?php echo esc_attr( $args['content'] . '-name' ); ?>" />
+							</td>
 						</tr>
 						<tr>
 							<th scope="row"><label
-									for="tag-generator-panel-text-class"><?php echo esc_html__( 'Class attribute', 'ultimate-addons-cf7' ); ?></label>
+								for="tag-generator-panel-text-class"><?php echo esc_html__( 'Class attribute', 'ultimate-addons-cf7' ); ?></label>
 							</th>
 							<td><input type="text" name="class" class="classvalue oneline option"
-									id="tag-generator-panel-text-class"></td>
+								id="tag-generator-panel-text-class">
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -272,8 +272,7 @@ class UACF7_SIGNATURE {
 				onfocus="this.select()" />
 
 			<div class="submitbox">
-				<input type="button" class="button button-primary insert-tag" id="prevent_multiple"
-					value="<?php echo esc_attr( __( 'Insert Tag', 'ultimate-addons-cf7' ) ); ?>" />
+				<input type="button" class="button button-primary insert-tag" id="prevent_multiple" value="<?php echo esc_attr( __( 'Insert Tag', 'ultimate-addons-cf7' ) ); ?>" />
 			</div>
 		</div>
 		<?php

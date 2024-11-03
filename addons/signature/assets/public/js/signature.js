@@ -6,21 +6,21 @@ jQuery(document).ready(function ($) {
         var signs = [];
 
         forms.each(function (k, form) {
-            var formId = $(this).find('input[name="_wpcf7"]').val();
-            var fileInput = $('.uacf7-form-' + formId).find('.img_id_special');
+            var formId    = $(this).find('input[name="_wpcf7"]').val();
+            var fileInput = $('.uacf7-form-' + formId).find('.uacf7-signature-hidden-field');
 
             fileInput.css('display', 'none');
 
-            var data = [];
+            var data         = [];
             var pad_bg_color = fileInput.attr('bg-color');
-            var pen_color = fileInput.attr('pen-color');
+            var pen_color    = fileInput.attr('pen-color');
 
-            $(form).find(".signature-pad").each(function (i, wrap) {
-                var canvas = $(wrap).find('canvas').get(0);
+            $(form).find(".uacf7-signature-pad").each(function (i, wrap) {
+                var canvas       = $(wrap).find('canvas').get(0);
                 var signaturePad = new SignaturePad(canvas, {
                     includeBackgroundColor: true,
-                    backgroundColor: pad_bg_color,
-                    penColor: pen_color,
+                    backgroundColor       : pad_bg_color,
+                    penColor              : pen_color,
                 });
 
 
@@ -74,9 +74,9 @@ jQuery(document).ready(function ($) {
             });
 
             // Uacf7 signature clear function handler
-            $('.clear-button').click(function (e) {
+            $('.uacf7-signature-clear-button').click(function (e) {
                 e.preventDefault();
-                var signature_canvas = $(this).closest('.wpcf7-form-control-wrap').find('.signature-pad').find('canvas').get(0);
+                var signature_canvas = $(this).closest('.wpcf7-form-control-wrap').find('.uacf7-signature-pad').find('canvas').get(0);
                 var canvas_file_input_field = $(this).closest('.wpcf7-form-control-wrap').find('input[type="file"]');
 
                 canvas_file_input_field.val('');
@@ -94,7 +94,7 @@ jQuery(document).ready(function ($) {
 
 
             /** Preventing file system opening */
-            $('.uacf7-form-' + formId).find('.img_id_special').click(function (e) {
+            $('.uacf7-form-' + formId).find('.uacf7-signature-hidden-field').click(function (e) {
                 e.preventDefault();
             });
 

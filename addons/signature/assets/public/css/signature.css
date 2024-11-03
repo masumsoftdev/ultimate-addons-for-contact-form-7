@@ -1,17 +1,9 @@
-
-#signature-pad #signature-canvas{
+.uacf7-signature-pad canvas{
   cursor: crosshair;
-
 }
-
-#clear-button {
+.uacf7-signature-clear-button {
   margin-top: 10px;
 }
-
-#uploadedImage{
-  display: none!important;
-}
-
-#img_id_special{
+.uacf7-signature-hidden-field{
   display: none!important;
 }
